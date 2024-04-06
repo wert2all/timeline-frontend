@@ -1,0 +1,11 @@
+<button class="btn btn-primary" (click)="onClick()">
+  @if (isLoading()) {
+    <span class="loading loading-spinner"></span>
+  }
+  @if (authorizedUser()) {
+    Profile
+  } @else {
+    <ng-icon name="saxLoginOutline" size="24"></ng-icon>
+    Login
+  }
+</button>
