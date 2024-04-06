@@ -1,0 +1,20 @@
+.notification-item {
+  .indicator {
+    width: 100%;
+    animation-duration: 5s;
+    animation-name: progress;
+  }
+
+  &:hover .indicator {
+    animation-play-state: paused;
+  }
+
+  @keyframes progress {
+    100% {
+      width: 0;
+    }
+    0% {
+      width: 100%;
+    }
+  }
+}

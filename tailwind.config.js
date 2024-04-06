@@ -11,14 +11,14 @@ module.exports = {
       {
         gruvbox: {
           primary: '#448588',
-          secondary: '#689d6a',
-          accent: '#0033ff', //fixme
+          secondary: '#689d6a', // fixme
+          accent: '#d65d0e', //fixme
           neutral: '#1d2021',
           'base-100': '#32302f',
           info: '#ebdbb2',
-          success: '#98971a',
-          warning: '#d65d0e',
-          error: '#ff2a4d',
+          success: '#8ec07c',
+          warning: '#fabd2f',
+          error: '#fb4934',
         },
       },
     ],
