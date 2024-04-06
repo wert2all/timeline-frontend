@@ -3,13 +3,13 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { jwtDecode } from 'jwt-decode';
-import { environment } from '../../../../../environments/environment';
-import { AuthStore } from '../../../../store/auth/auth.store';
+import { environment } from '../../../../../../environments/environment';
+import { AuthStore } from '../../../../../store/auth/auth.store';
 import {
   CredentialResponse,
   GoogleUserInfo,
   IdConfiguration,
-} from '../../../../store/auth/auth.types';
+} from '../../../../../store/auth/auth.types';
 
 @Component({
   selector: 'app-login-container',
