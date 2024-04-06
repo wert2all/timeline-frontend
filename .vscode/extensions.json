@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "angular.ng-template",
+    "esbenp.prettier-vscode",
+    "cyrilletuzi.angular-schematics",
+    "graphql.vscode-graphql",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
