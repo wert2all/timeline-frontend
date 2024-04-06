@@ -29,6 +29,12 @@ dependencies:
   '@angular/router':
     specifier: ^17.3.0
     version: 17.3.3(@angular/common@17.3.3)(@angular/core@17.3.3)(@angular/platform-browser@17.3.3)(rxjs@7.8.1)
+  '@ng-icons/core':
+    specifier: ^27.2.0
+    version: 27.2.0
+  '@ng-icons/iconsax':
+    specifier: ^27.2.0
+    version: 27.2.0
   '@ngrx/signals':
     specifier: ^17.1.1
     version: 17.1.1(@angular/core@17.3.3)(rxjs@7.8.1)
@@ -3317,6 +3323,24 @@ packages:
     dependencies:
       call-bind: 1.0.7
     dev: true
+
+  /@ng-icons/core@27.2.0:
+    resolution:
+      {
+        integrity: sha512-GDA769ItJPU4IGnwSa4wiSHKEM74UwzwpZmL897XpxLaFUHDaU6a0LL3h+kHTBdrDIiTgVFEsTaQ0alCO2L1IA==,
+      }
+    dependencies:
+      tslib: 2.6.2
+    dev: false
+
+  /@ng-icons/iconsax@27.2.0:
+    resolution:
+      {
+        integrity: sha512-hyxJsP+qt+LzayB27sEK0+7gkChf68js0p1suLpCwc58n+LMkrmjhry0034L4AS6PFbx5T0EA/0iLL/gHcLkFA==,
+      }
+    dependencies:
+      tslib: 2.6.2
+    dev: false
 
   /@ngrx/signals@17.1.1(@angular/core@17.3.3)(rxjs@7.8.1):
     resolution:
@@ -9329,6 +9353,8 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
+        optional: true
+      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.90.3(esbuild@0.20.1)
