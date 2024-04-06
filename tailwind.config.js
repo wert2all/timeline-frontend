@@ -11,7 +11,7 @@ module.exports = {
       {
         gruvbox: {
           primary: '#448588',
-          secondary: '#0077d8', // fixme
+          secondary: '#689d6a',
           accent: '#0033ff', //fixme
           neutral: '#1d2021',
           'base-100': '#32302f',
