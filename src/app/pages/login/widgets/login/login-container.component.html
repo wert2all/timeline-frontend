@@ -1,0 +1,11 @@
+<button
+  class="btn btn-primary"
+  (click)="login()"
+  [attr.disabled]="isLoading() ? true : null">
+  @if (isLoading()) {
+    <span class="loading loading-spinner"></span>
+  } @else {
+    <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+  }
+  Authorize
+</button>
