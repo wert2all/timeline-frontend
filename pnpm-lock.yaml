@@ -38,6 +38,9 @@ dependencies:
   '@ngrx/signals':
     specifier: ^17.1.1
     version: 17.1.1(@angular/core@17.3.3)(rxjs@7.8.1)
+  jwt-decode:
+    specifier: ^4.0.0
+    version: 4.0.0
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -82,6 +85,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^19.1.0
     version: 19.1.0
+  '@types/google.accounts':
+    specifier: ^0.0.14
+    version: 0.0.14
   '@types/jasmine':
     specifier: ~5.1.0
     version: 5.1.4
@@ -2396,6 +2402,7 @@ packages:
         integrity: sha512-2D3r4PKjoo59zBc2auodrSCaUnCSALCx54yveOFwwP/i2kfEAQrygwOleFWswLqK0UL/F9r07MFi5ev2ohyM4Q==,
       }
     engines: { node: '>=v18' }
+    requiresBuild: true
     dependencies:
       '@commitlint/types': 19.0.3
       ajv: 8.12.0
@@ -2422,6 +2429,7 @@ packages:
         integrity: sha512-mtsdpY1qyWgAO/iOK0L6gSGeR7GFcdW7tIjcNFxcWkfLDF5qVbPHKuGATFqRMsxcO8OUKNj0+3WOHB7EHm4Jdw==,
       }
     engines: { node: '>=v18' }
+    requiresBuild: true
     dev: true
 
   /@commitlint/format@19.0.3:
@@ -2521,6 +2529,7 @@ packages:
         integrity: sha512-z2riI+8G3CET5CPgXJPlzftH+RiWYLMYv4C9tSLdLXdr6pBNimSKukYP9MS27ejmscqCTVA4almdLh0ODD2KYg==,
       }
     engines: { node: '>=v18' }
+    requiresBuild: true
     dependencies:
       '@commitlint/config-validator': 19.0.3
       '@commitlint/types': 19.0.3
@@ -4104,6 +4113,13 @@ packages:
       '@types/express-serve-static-core': 4.19.0
       '@types/qs': 6.9.14
       '@types/serve-static': 1.15.7
+    dev: true
+
+  /@types/google.accounts@0.0.14:
+    resolution:
+      {
+        integrity: sha512-HqIVkVzpiLWhlajhQQd4rIV7czanFvXblJI2J1fSrL+VKQuQwwZ63m35D/mI0flsqKE6p/hNrAG0Yn4FD6JvNA==,
+      }
     dev: true
 
   /@types/http-errors@2.0.4:
@@ -5921,6 +5937,7 @@ packages:
         integrity: sha512-+8cK7jRAReYkMwMiG+bxhcNKiHJDM6bR9FD/nGBXOWdMLuYawjF5cGrtLilJ+LGd3ZjCXnJjR5DkfWPoIVlqJA==,
       }
     engines: { node: '>=v16' }
+    requiresBuild: true
     peerDependencies:
       '@types/node': '*'
       cosmiconfig: '>=8.2'
@@ -7897,6 +7914,7 @@ packages:
         integrity: sha512-wHTUcDUoZ1H5/0iVqEudYW4/kAlN5cZ3j/bXn0Dpbizl9iaUVeWSHqiOjsgk6OW2bkLclbBjzewBz6weQ1zA2Q==,
       }
     engines: { node: '>=18' }
+    requiresBuild: true
     dependencies:
       ini: 4.1.1
     dev: true
@@ -8357,6 +8375,7 @@ packages:
       {
         integrity: sha512-okYUR7ZQPH+efeuMJGlq4f8ubUgO50kByRPyt/Cy1Io4PSRsPjxME+YlVaCOx+NIToW7hCsZNFJyTPFFKepRSA==,
       }
+    requiresBuild: true
     dev: true
 
   /imurmurhash@0.1.4:
@@ -8412,6 +8431,7 @@ packages:
         integrity: sha512-QQnnxNyfvmHFIsj7gkPcYymR8Jdw/o7mp5ZFihxn6h8Ci6fh3Dx4E1gPjpQEpIuPo9XVNY/ZUwh4BPMjGyL01g==,
       }
     engines: { node: ^14.17.0 || ^16.13.0 || >=18.0.0 }
+    requiresBuild: true
     dev: true
 
   /ini@4.1.2:
@@ -9173,6 +9193,14 @@ packages:
     engines: { '0': node >= 0.2.0 }
     dev: true
 
+  /jwt-decode@4.0.0:
+    resolution:
+      {
+        integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==,
+      }
+    engines: { node: '>=18' }
+    dev: false
+
   /karma-chrome-launcher@3.2.0:
     resolution:
       {
@@ -9367,6 +9395,8 @@ packages:
     peerDependenciesMeta:
       webpack:
         optional: true
+      webpack-sources:
+        optional: true
     dependencies:
       webpack: 5.90.3(esbuild@0.20.1)
       webpack-sources: 3.2.3
@@ -9480,6 +9510,7 @@ packages:
       {
         integrity: sha512-oSXzaWypCMHkPC3NvBEaPHf0KsA5mvPrOPgQWDsbg8n7orZ290M0BmC/jgRZ4vcJ6DTAhjrsSYgdsW/F+MFOBA==,
       }
+    requiresBuild: true
     dev: true
 
   /lodash.kebabcase@4.1.1:
@@ -9508,6 +9539,7 @@ packages:
       {
         integrity: sha512-GK3g5RPZWTRSeLSpgP8Xhra+pnjBC56q9FZYe1d5RN3TJ35dbkGy3YqBSMbyCrlbi+CM9Z3Jk5yTL7RCsqboyQ==,
       }
+    requiresBuild: true
     dev: true
 
   /lodash.snakecase@4.1.1:
@@ -9529,6 +9561,7 @@ packages:
       {
         integrity: sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==,
       }
+    requiresBuild: true
     dev: true
 
   /lodash.upperfirst@4.3.1:
