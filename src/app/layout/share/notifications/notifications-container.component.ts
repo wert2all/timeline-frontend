@@ -1,10 +1,6 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  output,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NotificationStore } from '../../../store/notifications/notifications.store';
 import { NotificationMessage } from '../../../store/notifications/notifications.types';
 
 @Component({
@@ -16,27 +12,8 @@ import { NotificationMessage } from '../../../store/notifications/notifications.
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotificationsContainerComponent {
-  markRead = output<NotificationMessage>();
-  messages = signal<NotificationMessage[]>([
-    {
-      uuid: '1',
-      read: false,
-      type: 'success',
-      content: { message: 'Test message' },
-    },
-    {
-      uuid: '2',
-      read: false,
-      type: 'error',
-      content: { message: 'Test message #2' },
-    },
-    {
-      uuid: '3',
-      read: false,
-      type: 'warning',
-      content: { message: 'Test message #3' },
-    },
-  ]);
+  private readonly store = inject(NotificationStore);
+  messages = this.store.unRead;
 
   onItemClick(message: NotificationMessage) {
     this.read(message);
@@ -51,6 +28,6 @@ export class NotificationsContainerComponent {
   }
 
   private read(message: NotificationMessage) {
-    this.markRead.emit(message);
+    this.store.markRead(message.uuid);
   }
 }
