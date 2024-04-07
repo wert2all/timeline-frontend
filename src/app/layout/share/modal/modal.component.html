@@ -6,14 +6,7 @@
       </button>
     </form>
     <h3 class="text-lg font-bold">{{ title() }}</h3>
-    <div>
-      <ng-content></ng-content>
-    </div>
-    <div class="modal-action">
-      <form method="dialog" (submit)="onClosed.emit(true)">
-        <button class="btn">Close</button>
-      </form>
-    </div>
+    <ng-content></ng-content>
   </div>
   <form method="dialog" class="modal-backdrop" (submit)="onClosed.emit(true)">
     <button>close</button>

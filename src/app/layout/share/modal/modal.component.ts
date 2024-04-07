@@ -25,6 +25,8 @@ export class ModalComponent {
     effect(() => {
       if (this.show() > 0) {
         this.modal?.nativeElement.showModal();
+      } else {
+        this.modal?.nativeElement.close();
       }
     });
   }

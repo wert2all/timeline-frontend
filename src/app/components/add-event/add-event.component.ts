@@ -17,7 +17,9 @@ export class AddEventComponent implements AfterViewInit {
     this.resetForm();
     this.shouldShow.set(window.performance.now());
   }
-
+  closeForm() {
+    this.shouldShow.set(0);
+  }
   onClosed() {
     console.log('closed');
   }
