@@ -1,0 +1,19 @@
+<dialog #modal class="modal modal-bottom sm:modal-middle">
+  <div class="modal-box">
+    <form method="dialog" (submit)="onClosed.emit(true)">
+      <button class="btn btn-circle btn-ghost btn-sm absolute right-2 top-2">
+        ✕
+      </button>
+    </form>
+    <h3 class="text-lg font-bold">Hello!</h3>
+    <p class="py-4">Press ESC key or click on ✕ button to close</p>
+    <div class="modal-action">
+      <form method="dialog" (submit)="onClosed.emit(true)">
+        <button class="btn">Close</button>
+      </form>
+    </div>
+  </div>
+  <form method="dialog" class="modal-backdrop" (submit)="onClosed.emit(true)">
+    <button>close</button>
+  </form>
+</dialog>
