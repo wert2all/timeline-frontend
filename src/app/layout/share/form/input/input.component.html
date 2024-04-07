@@ -5,7 +5,12 @@
   <label
     class="input input-bordered input-error flex items-center gap-2"
     [class.input-error]="error()">
-    <input type="text" class="w-full" [class.grow]="icon() !== null" />
+    <input
+      type="text"
+      #inputValue
+      class="w-full"
+      [class.grow]="icon() !== null"
+      (keyup.enter)="onEnter.emit(inputValue.value)" />
     @if (icon(); as icon) {
       <ng-icon
         class="cursor-pointer"

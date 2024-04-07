@@ -88,6 +88,10 @@ export class AddEventComponent implements AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
+  tagKeyPressed($event: string) {
+    console.log($event);
+  }
+
   ngAfterViewInit(): void {
     this.showModal();
   }
