@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, AfterViewInit } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxAddOutline } from '@ng-icons/iconsax/outline';
 import { ModalComponent } from '../../layout/share/modal/modal.component';
@@ -10,14 +10,23 @@ import { ModalComponent } from '../../layout/share/modal/modal.component';
   providers: [provideIcons({ saxAddOutline })],
   imports: [NgIconComponent, ModalComponent],
 })
-export class AddEventComponent {
+export class AddEventComponent implements AfterViewInit {
   shouldShow = signal<number>(0);
-
+  title = signal<string>('Add event');
   showModal() {
+    this.resetForm();
     this.shouldShow.set(window.performance.now());
   }
 
   onClosed() {
     console.log('closed');
+  }
+
+  ngAfterViewInit(): void {
+    this.showModal();
+  }
+
+  private resetForm() {
+    this.title.set('Add new event: set date and time');
   }
 }
