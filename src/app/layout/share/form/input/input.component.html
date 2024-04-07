@@ -1,0 +1,22 @@
+<label class="form-control">
+  <div class="label">
+    <span class="label-text">{{ label() }}</span>
+  </div>
+  <label
+    class="input input-bordered input-error flex items-center gap-2"
+    [class.input-error]="error()">
+    <input type="text" class="w-full" [class.grow]="icon() !== null" />
+    @if (icon(); as icon) {
+      <ng-icon
+        class="cursor-pointer"
+        [svg]="icon"
+        size="24"
+        (click)="onIconClick.emit()"></ng-icon>
+    }
+  </label>
+  @if (error(); as error) {
+    <div class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </div>
+  }
+</label>
