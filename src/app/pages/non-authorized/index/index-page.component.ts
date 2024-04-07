@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -23,6 +23,7 @@ enum TimelimeEventType {
 type TimelineRequired = { date: Date; type: TimelimeEventType };
 
 type TimelineEvent = TimelineRequired & {
+  showTime?: boolean;
   title?: string;
   description?: string;
   url?: string;
@@ -51,7 +52,9 @@ class ViewTimelineTag {
 
 type ViewTimelineDate = {
   raw: Date;
-  withTime: string;
+  date: string;
+  time: string;
+  showTime: boolean;
   relative: string | null;
 };
 
@@ -80,6 +83,7 @@ export class IndexPageComponent {
     },
     {
       date: new Date('2024-04-06T03:29:00.000+03:00'),
+      showTime: true,
       type: TimelimeEventType.selebrate,
       title: 'first commit to timelime was pushed',
       tags: ['party', 'selebrate', 'start', 'timeline', 'important'],
@@ -96,9 +100,11 @@ export class IndexPageComponent {
         relative: DateTime.fromISO(
           event.date.toISOString()
         ).toRelativeCalendar(),
-        withTime: DateTime.fromISO(event.date.toISOString())
-          .setLocale('ua')
-          .toLocaleString(DateTime.DATETIME_FULL),
+        date: DateTime.fromISO(event.date.toISOString()).toLocaleString(),
+        showTime: event.showTime || false,
+        time: DateTime.fromISO(event.date.toISOString()).toLocaleString(
+          DateTime.TIME_24_SIMPLE
+        ),
       };
 
       return {
