@@ -1,36 +1,5 @@
 <app-no-authorized-layout>
-  <div class="mx-auto w-full max-w-5xl">
-    <ul class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
-      @for (event of timeline(); track $index) {
-      <li>
-        <div class="timeline-middle">
-          <ng-icon [svg]="event.icon.icon" size="24" />
-        </div>
-        <div class="mb-10" [class.timeline-start]="event.changeDirection" [class.md:text-end]="event.changeDirection"
-          [class.timeline-end]="!event.changeDirection">
-          <div class="tooltip" [attr.data-tip]="event.date.date">
-            <time class="font-mono italic">{{ event.date.relative }}</time>
-            @if(event.date.showTime) {
-              , {{ event.date.time }}
-            }
-          </div>
-          <div class="text-lg font-black">{{ event.title }}</div>
-          @if (event.tags.length > 0) {
-          @for (tag of event.tags; track $index) {
-          <a class="badge badge-neutral badge-sm mr-2">{{ tag.title }}</a>
-          }
-          }
-          <div class="mt-2">{{ event.description }}</div>
-
-          @if (event.url) {
-          <a class="btn btn-neutral btn-sm" [href]="event.url.link">
-            <ng-icon name="saxLinkOutline" />{{ event.url.title }}
-          </a>
-          }
-        </div>
-        <hr />
-      </li>
-      }
-    </ul>
+  <div class="mx-auto w-full max-w-5xl pt-4">
+    <app-timeline [timeline]="timeline()" />
   </div>
 </app-no-authorized-layout>
