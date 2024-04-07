@@ -41,7 +41,7 @@ import { AddEventComponent } from '../../../components/add-event/add-event.compo
     DateComponent,
     UrlComponent,
     TimelineComponent,
-    AddEventComponent
+    AddEventComponent,
   ],
 })
 export class IndexPageComponent {
