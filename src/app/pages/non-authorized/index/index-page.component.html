@@ -15,8 +15,16 @@
             <div class="tooltip" [attr.data-tip]="event.date.withTime">
               <time class="font-mono italic">{{ event.date.relative }}</time>
             </div>
-            <div class="text-lg font-black">{{ event.title }}</div>
+            <div class="mb-2 text-lg font-black">{{ event.title }}</div>
             {{ event.description }}
+            @if (event.url) {
+              <div class="items-center rounded-lg bg-neutral p-1">
+                <ng-icon name="saxLinkOutline" />
+                <a class="link ml-4" [href]="event.url.link"
+                  >{{ event.url.title }}
+                </a>
+              </div>
+            }
           </div>
           <hr />
         </li>
