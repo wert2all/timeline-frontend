@@ -1,0 +1,11 @@
+<label class="form-control">
+  <div class="label">
+    <span class="label-text">{{ label() }}</span>
+  </div>
+  <textarea class="textarea textarea-bordered h-24 w-full max-w-xs"></textarea>
+  @if (error(); as error) {
+    <div class="label">
+      <span class="label-text-alt text-error">{{ error }}</span>
+    </div>
+  }
+</label>

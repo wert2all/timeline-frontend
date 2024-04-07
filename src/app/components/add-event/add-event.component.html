@@ -8,7 +8,53 @@
   ></a>
 </div>
 <app-modal [show]="shouldShow()" (onClosed)="onClosed()" [title]="title()">
+  <ul class="steps mt-4 w-full">
+    @for (step of steps(); track $index) {
+      <li class="step" [class.step-primary]="step.isActive"></li>
+    }
+  </ul>
+  <div class="divider"></div>
+  <div class="px-8">
+    @if (this.activeStep() === 0) {
+      <app-form-input
+        label="Select date of your event"
+        [icon]="calendarIcon"
+        (onIconClick)="selectDate()"
+        error="Label error!" />
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Add time</span>
+          <input type="checkbox" class="toggle" checked />
+        </label>
+        <label class="label cursor-pointer">
+          <span class="label-text">Show time on timeline</span>
+          <input type="checkbox" class="toggle" checked />
+        </label>
+      </div>
+    }
+    @if (this.activeStep() === 1) {
+      <app-form-input label="Title" />
+      <app-form-textarea label="Content" />
+    }
+    @if (this.activeStep() === 2) {
+      <p>add tags</p>
+    }
+  </div>
   <div class="modal-action">
-    <button class="btn" (click)="closeForm()">Close</button>
+    <button
+      class="btn"
+      [attr.disabled]="disablePrevious() ? true : null"
+      (click)="goPrevious()">
+      <ng-icon name="saxArrowLeft3Outline" size="24"></ng-icon>Previous
+    </button>
+    <button
+      class="btn"
+      [attr.disabled]="disableNext() ? true : null"
+      (click)="goNext()">
+      Next <ng-icon name="saxArrowRight2Outline" size="24"></ng-icon>
+    </button>
+    <button class="btn btn-primary" [attr.disabled]="!couldAdd() ? true : null">
+      Add <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
+    </button>
   </div>
 </app-modal>
