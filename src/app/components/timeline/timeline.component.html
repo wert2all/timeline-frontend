@@ -1,0 +1,24 @@
+<ul
+  class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
+  @for (event of timeline(); track $index) {
+    <li>
+      <div class="timeline-middle">
+        <ng-icon [svg]="event.icon.icon" size="24" />
+      </div>
+      <div
+        class="mb-10"
+        [class.timeline-start]="event.changeDirection"
+        [class.md:text-end]="event.changeDirection"
+        [class.timeline-end]="!event.changeDirection">
+        <app-timeline-event-date [date]="event.date" />
+        <div class="text-lg font-black">{{ event.title }}</div>
+        <app-timeline-event-tags
+          [tags]="event.tags"
+          (clickToTag)="filterByTag.emit($event)" />
+        <div class="mt-2">{{ event.description }}</div>
+        <app-timeline-event-url [url]="event.url" />
+      </div>
+      <hr />
+    </li>
+  }
+</ul>

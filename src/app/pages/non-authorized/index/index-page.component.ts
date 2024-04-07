@@ -1,78 +1,46 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
   computed,
   signal,
 } from '@angular/core';
-import { IconType, NgIconComponent, provideIcons } from '@ng-icons/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckCircleSolid } from '@ng-icons/heroicons/solid';
 import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
 
 import { Signal } from '@ngrx/signals/src/deep-signal';
 import { DateTime } from 'luxon';
 
-import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
 import { saxLinkOutline } from '@ng-icons/iconsax/outline';
+import {
+  TimelimeEventType,
+  TimelineEvent,
+  ViewTimelineDate,
+  ViewTimelineEvent,
+  ViewTimelineEventIcon,
+  ViewTimelineTag,
+} from '../../../components/timeline/timeline.types';
+import { TagsComponent } from '../../../components/timeline/event/tags/tags.component';
+import { DateComponent } from '../../../components/timeline/event/date/date.component';
+import { UrlComponent } from '../../../components/timeline/event/url/url.component';
+import { TimelineComponent } from '../../../components/timeline/timeline.component';
 
-enum TimelimeEventType {
-  default = 'default',
-  selebrate = 'selebrate',
-}
-
-type TimelineRequired = { date: Date; type: TimelimeEventType };
-
-type TimelineEvent = TimelineRequired & {
-  showTime?: boolean;
-  title?: string;
-  description?: string;
-  url?: string;
-  tags?: string[];
-};
-
-class ViewTimelineEventIcon {
-  readonly icon: IconType;
-  constructor(type: TimelimeEventType) {
-    switch (type) {
-      case TimelimeEventType.selebrate:
-        this.icon = saxCakeBulk;
-        break;
-      default:
-        this.icon = saxTickCircleBulk;
-    }
-  }
-}
-
-class ViewTimelineTag {
-  public readonly title: string;
-  constructor(title: string) {
-    this.title = '#' + title;
-  }
-}
-
-type ViewTimelineDate = {
-  raw: Date;
-  date: string;
-  time: string;
-  showTime: boolean;
-  relative: string | null;
-};
-
-type ViewTimelineUrl = { title: string; link: string };
-type ViewTimelineEvent = Omit<TimelineEvent, 'date' | 'url' | 'tags'> & {
-  icon: ViewTimelineEventIcon;
-  date: ViewTimelineDate;
-  url: ViewTimelineUrl | null;
-  tags: ViewTimelineTag[];
-  changeDirection: boolean;
-};
 @Component({
   selector: 'app-index-page',
   standalone: true,
-  imports: [CommonModule, NoAuthorizedLayoutComponent, NgIconComponent],
   templateUrl: './index-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ heroCheckCircleSolid, saxLinkOutline })],
+  imports: [
+    CommonModule,
+    NoAuthorizedLayoutComponent,
+    NgIconComponent,
+    TagsComponent,
+    DateComponent,
+    UrlComponent,
+    TimelineComponent,
+  ],
 })
 export class IndexPageComponent {
   timelineEventsRaw = signal<TimelineEvent[]>([
@@ -118,9 +86,14 @@ export class IndexPageComponent {
     });
   });
 
+  filterByTag(tag: ViewTimelineTag) {
+    throw new Error('Method not implemented.' + tag);
+  }
+
   private prepareUrl(url: string | undefined) {
     return url ? { title: 'Read more', link: url } : null;
   }
+
   private createTags(tags: string[] | undefined) {
     return tags?.map(tag => new ViewTimelineTag(tag)) || [];
   }

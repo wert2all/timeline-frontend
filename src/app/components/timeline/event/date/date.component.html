@@ -1,0 +1,6 @@
+<div class="tooltip" [attr.data-tip]="date().date">
+  <time class="font-mono italic">{{ date().relative }}</time>
+  @if (date().showTime) {
+    , {{ date().time }}
+  }
+</div>

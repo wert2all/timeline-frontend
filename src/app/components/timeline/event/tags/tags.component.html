@@ -1,0 +1,5 @@
+@if (tags().length > 0) {
+  @for (tag of tags(); track $index) {
+    <a class="badge badge-neutral badge-sm mr-2">{{ tag.title }}</a>
+  }
+}

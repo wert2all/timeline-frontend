@@ -1,0 +1,5 @@
+@if (url(); as url) {
+  <a class="btn btn-neutral btn-sm" [href]="url.link">
+    <ng-icon name="saxLinkOutline" />{{ url.title }}
+  </a>
+}
