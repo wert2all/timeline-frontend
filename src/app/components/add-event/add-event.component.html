@@ -39,7 +39,8 @@
     @if (this.activeStep() === 2) {
       <app-form-input
         label="Tags"
-        description="Pressing Enter will add a tag, while Backspace removes it. You can add multiple tags, separated by commas." />
+        (onEnter)="tagKeyPressed($event)"
+        description="Pressing Enter will add a tag. You can add multiple tags, separated by commas." />
       <app-timeline-event-tags [tags]="addedTags()" />
     }
   </div>

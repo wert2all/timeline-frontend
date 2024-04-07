@@ -14,4 +14,5 @@ export class InputComponent {
   error = input<string | null>(null);
 
   onIconClick = output();
+  onEnter = output<string>();
 }
