@@ -15,8 +15,14 @@
             <div class="tooltip" [attr.data-tip]="event.date.withTime">
               <time class="font-mono italic">{{ event.date.relative }}</time>
             </div>
-            <div class="mb-2 text-lg font-black">{{ event.title }}</div>
-            {{ event.description }}
+            <div class="text-lg font-black">{{ event.title }}</div>
+            @if (event.tags.length > 0) {
+              @for (tag of event.tags; track $index) {
+                <a class="badge badge-neutral badge-sm mr-2">{{ tag.title }}</a>
+              }
+            }
+            <div class="mt-2">{{ event.description }}</div>
+
             @if (event.url) {
               <a class="btn btn-neutral btn-sm" [href]="event.url.link">
                 <ng-icon name="saxLinkOutline" />{{ event.url.title }}
