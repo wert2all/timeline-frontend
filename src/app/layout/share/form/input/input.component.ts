@@ -10,6 +10,7 @@ import { IconType, NgIconComponent } from '@ng-icons/core';
 export class InputComponent {
   icon = input<IconType | null>(null);
   label = input<string>();
+  description = input<string>();
   error = input<string | null>(null);
 
   onIconClick = output();

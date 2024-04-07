@@ -14,9 +14,15 @@
         (click)="onIconClick.emit()"></ng-icon>
     }
   </label>
+
   @if (error(); as error) {
     <div class="label">
       <span class="label-text-alt text-error">{{ error }}</span>
+    </div>
+  }
+  @if (description(); as description) {
+    <div class="label">
+      <span class="label-text-alt">{{ description }}</span>
     </div>
   }
 </label>

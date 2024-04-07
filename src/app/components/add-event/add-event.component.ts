@@ -10,6 +10,8 @@ import {
 import { ModalComponent } from '../../layout/share/modal/modal.component';
 import { InputComponent } from '../../layout/share/form/input/input.component';
 import { TextareaComponent } from '../../layout/share/form/textarea/textarea.component';
+import { TagsComponent } from '../timeline/event/tags/tags.component';
+import { ViewTimelineTag } from '../timeline/timeline.types';
 
 @Component({
   selector: 'app-add-event',
@@ -24,11 +26,17 @@ import { TextareaComponent } from '../../layout/share/form/textarea/textarea.com
       saxCalendar1Outline,
     }),
   ],
-  imports: [NgIconComponent, ModalComponent, InputComponent, TextareaComponent],
+  imports: [
+    NgIconComponent,
+    ModalComponent,
+    InputComponent,
+    TextareaComponent,
+    TagsComponent,
+  ],
 })
 export class AddEventComponent implements AfterViewInit {
   shouldShow = signal<number>(0);
-  activeStep = signal(1);
+  activeStep = signal(2);
 
   steps = computed(() =>
     ['Set date/time', 'Write a content', 'Add tags'].map((title, index) => ({
@@ -44,6 +52,16 @@ export class AddEventComponent implements AfterViewInit {
   disablePrevious = computed(() => this.activeStep() === 0);
   disableNext = computed(() => this.activeStep() === this.steps().length - 1);
   calendarIcon = saxCalendar1Outline;
+  addedTags = signal<ViewTimelineTag[]>([
+    new ViewTimelineTag('tag1'),
+    new ViewTimelineTag('tag2'),
+    new ViewTimelineTag('tag3'),
+    new ViewTimelineTag('tag4'),
+    new ViewTimelineTag('tag5'),
+    new ViewTimelineTag('tag6'),
+    new ViewTimelineTag('tag7'),
+    new ViewTimelineTag('tag8'),
+  ]);
 
   showModal() {
     this.resetForm();
