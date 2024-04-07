@@ -25,6 +25,7 @@ import { TagsComponent } from '../../../components/timeline/event/tags/tags.comp
 import { DateComponent } from '../../../components/timeline/event/date/date.component';
 import { UrlComponent } from '../../../components/timeline/event/url/url.component';
 import { TimelineComponent } from '../../../components/timeline/timeline.component';
+import { AddEventComponent } from '../../../components/add-event/add-event.component';
 
 @Component({
   selector: 'app-index-page',
@@ -40,6 +41,7 @@ import { TimelineComponent } from '../../../components/timeline/timeline.compone
     DateComponent,
     UrlComponent,
     TimelineComponent,
+    AddEventComponent
   ],
 })
 export class IndexPageComponent {
