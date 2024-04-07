@@ -18,6 +18,7 @@ export class ModalComponent {
     null;
 
   show = input.required<number>();
+  title = input<string>();
   onClosed = output<boolean>();
 
   constructor() {

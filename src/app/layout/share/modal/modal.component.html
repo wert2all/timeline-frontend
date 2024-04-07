@@ -5,8 +5,10 @@
         ✕
       </button>
     </form>
-    <h3 class="text-lg font-bold">Hello!</h3>
-    <p class="py-4">Press ESC key or click on ✕ button to close</p>
+    <h3 class="text-lg font-bold">{{ title() }}</h3>
+    <div>
+      <ng-content></ng-content>
+    </div>
     <div class="modal-action">
       <form method="dialog" (submit)="onClosed.emit(true)">
         <button class="btn">Close</button>

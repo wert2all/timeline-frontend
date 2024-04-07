@@ -4,7 +4,8 @@
     (click)="showModal()"
     (keyup)="showModal()"
     tabindex="0"
-    ><ng-icon name=" saxAddOutline" size="24"></ng-icon
+    ><ng-icon name="saxAddOutline" size="24"></ng-icon
   ></a>
 </div>
-<app-modal [show]="shouldShow()" (onClosed)="onClosed()"></app-modal>
+<app-modal [show]="shouldShow()" (onClosed)="onClosed()" [title]="title()">
+</app-modal>
