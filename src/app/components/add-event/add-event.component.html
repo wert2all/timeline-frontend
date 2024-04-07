@@ -8,4 +8,7 @@
   ></a>
 </div>
 <app-modal [show]="shouldShow()" (onClosed)="onClosed()" [title]="title()">
+  <div class="modal-action">
+    <button class="btn" (click)="closeForm()">Close</button>
+  </div>
 </app-modal>
