@@ -37,7 +37,10 @@
       <app-form-textarea label="Content" />
     }
     @if (this.activeStep() === 2) {
-      <p>add tags</p>
+      <app-form-input
+        label="Tags"
+        description="Pressing Enter will add a tag, while Backspace removes it. You can add multiple tags, separated by commas." />
+      <app-timeline-event-tags [tags]="addedTags()" />
     }
   </div>
   <div class="modal-action">
