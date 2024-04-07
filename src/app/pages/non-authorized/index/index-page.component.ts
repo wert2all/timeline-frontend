@@ -5,13 +5,14 @@ import {
   computed,
   signal,
 } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { IconType, NgIconComponent, provideIcons } from '@ng-icons/core';
 import { heroCheckCircleSolid } from '@ng-icons/heroicons/solid';
 import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
 
 import { Signal } from '@ngrx/signals/src/deep-signal';
 import { DateTime } from 'luxon';
 
+import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
 import { saxLinkOutline } from '@ng-icons/iconsax/outline';
 
 enum TimelimeEventType {
@@ -26,13 +27,28 @@ type TimelineEvent = TimelineRequired & {
   url?: string;
 };
 
+class ViewTimelineEventIcon {
+  readonly icon: IconType;
+  constructor(type: TimelimeEventType) {
+    switch (type) {
+      case TimelimeEventType.selebrate:
+        this.icon = saxCakeBulk;
+        break;
+      default:
+        this.icon = saxTickCircleBulk;
+    }
+  }
+}
+
 type ViewTimelineDate = {
   raw: Date;
   withTime: string;
   relative: string | null;
 };
+
 type ViewTimelineUrl = { title: string; link: string };
 type ViewTimelineEvent = Omit<TimelineEvent, 'date' | 'url'> & {
+  icon: ViewTimelineEventIcon;
   date: ViewTimelineDate;
   url?: ViewTimelineUrl | null;
   changeDirection: boolean;
@@ -76,6 +92,7 @@ export class IndexPageComponent {
 
       return {
         ...event,
+        icon: new ViewTimelineEventIcon(event.type),
         url: this.prepareUrl(event.url),
         date: date,
         changeDirection: index % 2 === 0,
