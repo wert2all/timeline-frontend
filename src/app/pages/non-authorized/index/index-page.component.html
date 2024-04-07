@@ -5,7 +5,7 @@
       @for (event of timeline(); track $index) {
         <li>
           <div class="timeline-middle">
-            <ng-icon name="heroCheckCircleSolid" size="24" />
+            <ng-icon [svg]="event.icon.icon" size="24" />
           </div>
           <div
             class="mb-10"
