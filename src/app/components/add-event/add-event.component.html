@@ -16,11 +16,22 @@
   <div class="divider"></div>
   <div class="px-8">
     @if (this.activeStep() === 0) {
-      <app-form-input
-        label="Select date of your event"
-        [icon]="calendarIcon"
-        (onIconClick)="selectDate()"
-        error="Label error!" />
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Select date of your event</span>
+        </div>
+        <label class="input input-bordered input-error flex items-center gap-2">
+          <input type="text" class="w-full grow" />
+          <ng-icon
+            class="cursor-pointer"
+            name="saxCalendar1Outline"
+            size="24"
+            (click)="selectDate()"></ng-icon>
+        </label>
+        <div class="label">
+          <span class="label-text-alt text-error">Label error!</span>
+        </div>
+      </label>
       <div class="form-control">
         <label class="label cursor-pointer">
           <span class="label-text">Add time</span>
@@ -33,14 +44,45 @@
       </div>
     }
     @if (this.activeStep() === 1) {
-      <app-form-input label="Title" />
-      <app-form-textarea label="Content" />
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Title</span>
+        </div>
+        <label class="input input-bordered flex items-center gap-2">
+          <input type="text" class="w-full grow" />
+        </label>
+      </label>
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Content</span>
+        </div>
+        <textarea
+          class="textarea textarea-bordered h-24 w-full max-w-xs"></textarea>
+        <div class="label">
+          <span class="label-text-alt text-error">Error</span>
+        </div>
+      </label>
     }
     @if (this.activeStep() === 2) {
-      <app-form-input
-        label="Tags"
-        (onEnter)="tagKeyPressed($event)"
-        description="Pressing Enter will add a tag. You can add multiple tags, separated by commas." />
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Tags</span>
+        </div>
+        <label class="input input-bordered flex items-center gap-2">
+          <input
+            type="text"
+            class="w-full"
+            (keyup.enter)="addTag()"
+            [formControl]="tag" />
+        </label>
+        <div class="label">
+          <span class="label-text-alt">
+            Pressing Enter will add a tag. You can add multiple tags, separated
+            by commas.
+          </span>
+        </div>
+      </label>
+      {{ tag.value }}
       <app-timeline-event-tags [tags]="addedTags()" />
     }
   </div>
