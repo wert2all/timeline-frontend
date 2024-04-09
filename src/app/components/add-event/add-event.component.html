@@ -82,8 +82,9 @@
           </span>
         </div>
       </label>
-      {{ tag.value }}
-      <app-timeline-event-tags [tags]="addedTags()" />
+      <app-add-event-tags
+        [tags]="addedTags()"
+        (clickToTag)="removeTag($event)"></app-add-event-tags>
     }
   </div>
   <div class="modal-action">
@@ -91,7 +92,8 @@
       class="btn"
       [attr.disabled]="disablePrevious() ? true : null"
       (click)="goPrevious()">
-      <ng-icon name="saxArrowLeft3Outline" size="24"></ng-icon>Previous
+      <ng-icon name="saxArrowLeft3Outline" size="24"></ng-icon>
+      Previous
     </button>
     <button
       class="btn"
@@ -100,7 +102,8 @@
       Next <ng-icon name="saxArrowRight2Outline" size="24"></ng-icon>
     </button>
     <button class="btn btn-primary" [attr.disabled]="!couldAdd() ? true : null">
-      Add <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
+      Add
+      <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
     </button>
   </div>
 </app-modal>
