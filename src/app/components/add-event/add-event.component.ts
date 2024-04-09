@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, computed, signal } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -34,9 +34,9 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
     AddEventTagsComponent,
   ],
 })
-export class AddEventComponent implements AfterViewInit {
+export class AddEventComponent {
   shouldShow = signal<number>(0);
-  activeStep = signal(2);
+  activeStep = signal(0);
 
   steps = computed(() =>
     ['Set date/time', 'Write a content', 'Add tags'].map((title, index) => ({
@@ -97,9 +97,6 @@ export class AddEventComponent implements AfterViewInit {
     this.addedTags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
-  }
-  ngAfterViewInit(): void {
-    this.showModal();
   }
 
   private resetForm() {}
