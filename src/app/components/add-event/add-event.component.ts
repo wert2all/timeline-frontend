@@ -11,6 +11,7 @@ import {
 import { ModalComponent } from '../../layout/share/modal/modal.component';
 import { TagsComponent } from '../timeline/event/tags/tags.component';
 import { ViewTimelineTag } from '../timeline/timeline.types';
+import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
 @Component({
   selector: 'app-add-event',
@@ -30,6 +31,7 @@ import { ViewTimelineTag } from '../timeline/timeline.types';
     ModalComponent,
     TagsComponent,
     ReactiveFormsModule,
+    AddEventTagsComponent,
   ],
 })
 export class AddEventComponent implements AfterViewInit {
@@ -50,16 +52,7 @@ export class AddEventComponent implements AfterViewInit {
   disablePrevious = computed(() => this.activeStep() === 0);
   disableNext = computed(() => this.activeStep() === this.steps().length - 1);
   calendarIcon = saxCalendar1Outline;
-  addedTags = signal<ViewTimelineTag[]>([
-    new ViewTimelineTag('tag1'),
-    new ViewTimelineTag('tag2'),
-    new ViewTimelineTag('tag3'),
-    new ViewTimelineTag('tag4'),
-    new ViewTimelineTag('tag5'),
-    new ViewTimelineTag('tag6'),
-    new ViewTimelineTag('tag7'),
-    new ViewTimelineTag('tag8'),
-  ]);
+  addedTags = signal<ViewTimelineTag[]>([]);
 
   tag = new FormControl<string>('');
 
@@ -89,9 +82,22 @@ export class AddEventComponent implements AfterViewInit {
   }
 
   addTag() {
-    console.log(this.tag.value);
+    const tags = this.tag.value
+      ?.split(',')
+      .map(tag => tag.trim())
+      .filter(tag => tag != '')
+      .map(tag => new ViewTimelineTag(tag));
+    if (tags) {
+      this.addedTags.update(existTags => [...existTags, ...tags]);
+    }
+    this.tag.reset();
   }
 
+  removeTag(tag: ViewTimelineTag) {
+    this.addedTags.update(existTags =>
+      existTags.filter(existTag => existTag.title !== tag.title)
+    );
+  }
   ngAfterViewInit(): void {
     this.showModal();
   }
