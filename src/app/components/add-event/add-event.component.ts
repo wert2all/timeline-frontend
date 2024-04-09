@@ -1,4 +1,5 @@
-import { Component, signal, AfterViewInit, computed } from '@angular/core';
+import { AfterViewInit, Component, computed, signal } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
@@ -8,8 +9,6 @@ import {
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
 import { ModalComponent } from '../../layout/share/modal/modal.component';
-import { InputComponent } from '../../layout/share/form/input/input.component';
-import { TextareaComponent } from '../../layout/share/form/textarea/textarea.component';
 import { TagsComponent } from '../timeline/event/tags/tags.component';
 import { ViewTimelineTag } from '../timeline/timeline.types';
 
@@ -29,9 +28,8 @@ import { ViewTimelineTag } from '../timeline/timeline.types';
   imports: [
     NgIconComponent,
     ModalComponent,
-    InputComponent,
-    TextareaComponent,
     TagsComponent,
+    ReactiveFormsModule,
   ],
 })
 export class AddEventComponent implements AfterViewInit {
@@ -63,6 +61,8 @@ export class AddEventComponent implements AfterViewInit {
     new ViewTimelineTag('tag8'),
   ]);
 
+  tag = new FormControl<string>('');
+
   showModal() {
     this.resetForm();
     this.shouldShow.set(window.performance.now());
@@ -88,8 +88,8 @@ export class AddEventComponent implements AfterViewInit {
     throw new Error('Method not implemented.');
   }
 
-  tagKeyPressed($event: string) {
-    console.log($event);
+  addTag() {
+    console.log(this.tag.value);
   }
 
   ngAfterViewInit(): void {
