@@ -1,5 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { Component, computed, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
@@ -12,6 +12,7 @@ import { ModalComponent } from '../../layout/share/modal/modal.component';
 import { TagsComponent } from '../timeline/event/tags/tags.component';
 import { ViewTimelineTag } from '../timeline/timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-event',
@@ -27,6 +28,7 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
     }),
   ],
   imports: [
+    CommonModule,
     NgIconComponent,
     ModalComponent,
     TagsComponent,
@@ -45,16 +47,23 @@ export class AddEventComponent {
     }))
   );
 
+  addEventForm = inject(FormBuilder).group({
+    date: ['', Validators.required],
+    addTime: [false],
+    showTime: [false],
+    title: [''],
+    content: [''],
+    tag: [''],
+  });
+
   title = computed(
     () => 'Add event: ' + this.steps()[this.activeStep()]?.title || ''
   );
-  couldAdd = computed(() => true);
+
   disablePrevious = computed(() => this.activeStep() === 0);
   disableNext = computed(() => this.activeStep() === this.steps().length - 1);
   calendarIcon = saxCalendar1Outline;
   addedTags = signal<ViewTimelineTag[]>([]);
-
-  tag = new FormControl<string>('');
 
   showModal() {
     this.resetForm();
@@ -82,15 +91,16 @@ export class AddEventComponent {
   }
 
   addTag() {
-    const tags = this.tag.value
-      ?.split(',')
+    const tags = this.addEventForm
+      .get('tag')
+      ?.value?.split(',')
       .map(tag => tag.trim())
       .filter(tag => tag != '')
       .map(tag => new ViewTimelineTag(tag));
     if (tags) {
       this.addedTags.update(existTags => [...existTags, ...tags]);
     }
-    this.tag.reset();
+    this.addEventForm.get('tag')?.reset();
   }
 
   removeTag(tag: ViewTimelineTag) {
