@@ -1,4 +1,10 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -36,7 +42,7 @@ import { CommonModule } from '@angular/common';
     AddEventTagsComponent,
   ],
 })
-export class AddEventComponent {
+export class AddEventComponent implements AfterViewInit {
   shouldShow = signal<number>(0);
   activeStep = signal(0);
 
@@ -50,6 +56,7 @@ export class AddEventComponent {
   addEventForm = inject(FormBuilder).group({
     date: ['', Validators.required],
     addTime: [false],
+    time: [''],
     showTime: [false],
     title: [''],
     content: [''],
@@ -107,6 +114,10 @@ export class AddEventComponent {
     this.addedTags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
+  }
+
+  ngAfterViewInit(): void {
+    this.showModal();
   }
 
   private resetForm() {}
