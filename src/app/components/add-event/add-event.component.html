@@ -20,7 +20,9 @@
         <div class="label">
           <span class="label-text">Select date of your event</span>
         </div>
-        <label class="input input-bordered input-error flex items-center gap-2">
+        <label
+          class="input input-bordered flex items-center gap-2"
+          [class.error]="!addEventForm.controls.date.valid">
           <input
             type="text"
             class="w-full grow"
@@ -32,8 +34,8 @@
             size="24"
             (click)="selectDate()"></ng-icon>
         </label>
-        <div class="label">
-          <span class="label-text-alt text-error">Label error!</span>
+        <div class="label" [class.hidden]="addEventForm.controls.date.valid">
+          <span class="label-text-alt text-error">Should be date</span>
         </div>
       </label>
       <div class="form-control">
@@ -45,6 +47,18 @@
             class="toggle"
             [formControl]="addEventForm.controls.addTime" />
         </label>
+      </div>
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Time</span>
+          <input
+            name="time"
+            type="text"
+            class="input input-bordered w-16"
+            [formControl]="addEventForm.controls.time" />
+        </label>
+      </div>
+      <div class="form-control">
         <label class="label cursor-pointer">
           <span class="label-text">Show time on timeline</span>
           <input
@@ -121,7 +135,7 @@
     </button>
     <button
       class="btn btn-primary"
-      [attr.disabled]="this.addEventForm.valid ? true : null">
+      [attr.disabled]="!this.addEventForm.valid ? true : null">
       Add
       <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
     </button>
