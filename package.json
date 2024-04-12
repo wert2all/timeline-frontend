@@ -10,7 +10,8 @@
     "lint": "ng lint",
     "lint:format": "prettier . --check",
     "lint:eslint": "ng lint",
-    "format": "prettier . --write"
+    "format": "prettier . --write",
+    "codegen": "graphql-codegen --config codegen.ts"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +27,7 @@
     "@ng-icons/heroicons": "^27.3.0",
     "@ng-icons/iconsax": "^27.3.0",
     "@ngrx/signals": "^17.2.0",
+    "graphql": "^16.8.1",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.4.4",
     "rxjs": "~7.8.1",
@@ -44,6 +46,7 @@
     "@angular/compiler-cli": "^17.3.4",
     "@commitlint/cli": "^19.2.1",
     "@commitlint/config-conventional": "^19.1.0",
+    "@graphql-codegen/cli": "5.0.2",
     "@types/google.accounts": "^0.0.14",
     "@types/jasmine": "~5.1.4",
     "@types/luxon": "^3.4.2",
