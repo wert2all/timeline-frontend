@@ -1,0 +1,6 @@
+type Query {
+  """
+  Adds two `a` and `b` numbers.
+  """
+  add(a: Int!, b: Int!): Int!
+}
