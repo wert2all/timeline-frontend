@@ -53,7 +53,11 @@ export class ViewTimelineEventIcon {
   }
 }
 
-export type ViewTimelineEvent = Omit<TimelineEvent, 'date' | 'url' | 'tags'> & {
+export type ViewTimelineEvent = Omit<
+  TimelineEvent,
+  'date' | 'url' | 'tags' | 'description'
+> & {
+  description: string;
   icon: ViewTimelineEventIcon;
   date: ViewTimelineDate;
   url: ViewTimelineUrl | null;
