@@ -4,6 +4,7 @@ import {
   Component,
   Output,
   inject,
+  output,
   signal,
 } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -51,7 +52,8 @@ export class AddEventFormComponent {
 
   addedTags = signal<ViewTimelineTag[]>([]);
 
-  @Output() public readonly changeValues$: Observable<AddValue>;
+  @Output() readonly changeValues$: Observable<AddValue>;
+  addEvent = output();
 
   constructor() {
     this.changeValues$ = this.addEventForm.valueChanges.pipe(

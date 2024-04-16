@@ -3,6 +3,7 @@ import {
   Component,
   Signal,
   computed,
+  inject,
   signal,
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
@@ -23,6 +24,7 @@ import {
   ViewTimelineTag,
 } from './timeline.types';
 import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
+import { NotificationStore } from '../../store/notifications/notifications.store';
 
 @Component({
   selector: 'app-timeline',
@@ -40,6 +42,8 @@ import { MarkdownContentComponent } from '../../layout/share/markdown-content/ma
   ],
 })
 export class TimelineComponent {
+  private readonly notificationStore = inject(NotificationStore);
+
   timelineEventsRaw = signal<TimelineEvent[]>([
     {
       date: new Date('2024-04-07T03:29:00.000+03:00'),
@@ -118,6 +122,24 @@ export class TimelineComponent {
   }
 
   dismiss() {
+    this.shouldAddEvent.set(null);
+  }
+
+  insertEvent() {
+    const viewEvent = this.shouldAddEvent();
+    if (viewEvent !== null) {
+      const event: TimelineEvent = {
+        type: viewEvent.type,
+        date: viewEvent.date,
+        title: viewEvent.title,
+        description: viewEvent.description,
+        showTime: viewEvent.showTime,
+        tags: viewEvent.tags,
+        url: viewEvent.url,
+      }
+      this.notificationStore.addMessage("event was added. ", "success")
+      console.log(event);
+    }
     this.shouldAddEvent.set(null);
   }
 
