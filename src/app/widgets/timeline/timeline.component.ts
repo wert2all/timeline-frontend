@@ -46,7 +46,9 @@ import { TimelineStore } from '../../store/timeline/timeline.store';
 export class TimelineComponent {
   private readonly timelineStore = inject(TimelineStore);
   private readonly timelineEventsRaw = this.timelineStore.events;
-  shouldAddEvent = signal<TimelineEventDraft | null>(null);
+  private readonly shouldAddEvent = signal<TimelineEventDraft | null>(null);
+
+  canAddNewEvent = computed(() => (this.shouldAddEvent() === null));
 
   timeline: Signal<ViewTimelineEventDraft[]> = computed(() => {
     return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]
