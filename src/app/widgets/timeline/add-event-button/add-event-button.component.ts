@@ -1,7 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Output,
+  input,
+} from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxAddOutline } from '@ng-icons/iconsax/outline';
+import {
+  saxAddOutline,
+  saxArrowRight1Outline,
+} from '@ng-icons/iconsax/outline';
 import { Subject } from 'rxjs';
 
 @Component({
@@ -10,8 +18,9 @@ import { Subject } from 'rxjs';
   imports: [CommonModule, NgIconComponent],
   templateUrl: './add-event-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ saxAddOutline })],
+  viewProviders: [provideIcons({ saxAddOutline, saxArrowRight1Outline })],
 })
 export class AddEventButtonComponent {
+  disabled = input<boolean>(false);
   @Output() addEvent = new Subject();
 }
