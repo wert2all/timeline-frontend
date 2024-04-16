@@ -1,9 +1,11 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
+
 export enum TimelimeEventType {
   default = 'default',
   selebrate = 'selebrate',
 }
+
 export type TimelineRequired = { date: Date; type: TimelimeEventType };
 
 export type TimelineEvent = TimelineRequired & {
@@ -12,6 +14,10 @@ export type TimelineEvent = TimelineRequired & {
   description?: string;
   url?: string;
   tags?: string[];
+};
+
+export type TimelineEventDraft = TimelineEvent & {
+  draft: true;
 };
 
 export class ViewTimelineTag {
@@ -48,4 +54,8 @@ export type ViewTimelineEvent = Omit<TimelineEvent, 'date' | 'url' | 'tags'> & {
   url: ViewTimelineUrl | null;
   tags: ViewTimelineTag[];
   changeDirection: boolean;
+};
+
+export type ViewTimelineEventDraft = ViewTimelineEvent & {
+  draft: boolean;
 };

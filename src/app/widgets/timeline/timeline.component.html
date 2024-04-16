@@ -1,4 +1,3 @@
-<app-add-event />
 <app-add-event-button (addEvent)="addEvent()" />
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
@@ -8,7 +7,9 @@
         <ng-icon [svg]="event.icon.icon" size="24" />
       </div>
       <div
-        class="mb-10"
+        class="h-full w-full rounded"
+        [class.pr-2]="event.draft"
+        [class.bg-stone-700]="event.draft"
         [class.timeline-start]="event.changeDirection"
         [class.md:text-end]="event.changeDirection"
         [class.timeline-end]="!event.changeDirection">
@@ -20,6 +21,15 @@
         <div class="mt-2">{{ event.description }}</div>
         <app-timeline-event-url [url]="event.url" />
       </div>
+      @if (event.draft) {
+        <div
+          class="h-full w-full rounded bg-stone-700 px-2"
+          [class.timeline-start]="!event.changeDirection"
+          [class.md:text-end]="!event.changeDirection"
+          [class.timeline-end]="event.changeDirection">
+          <app-add-event-form />
+        </div>
+      }
       <hr />
     </li>
   }

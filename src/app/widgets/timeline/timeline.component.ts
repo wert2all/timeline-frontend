@@ -7,16 +7,17 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
-import { AddEventComponent } from '../../components/add-event/add-event.component';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
+import { AddEventFormComponent } from './add-event-form/add-event-form.component';
 import { DateComponent } from './event/date/date.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 import {
   TimelimeEventType,
   TimelineEvent,
+  TimelineEventDraft,
   ViewTimelineDate,
-  ViewTimelineEvent,
+  ViewTimelineEventDraft,
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
@@ -31,8 +32,8 @@ import {
     NgIconComponent,
     TagsComponent,
     UrlComponent,
-    AddEventComponent,
     AddEventButtonComponent,
+    AddEventFormComponent,
   ],
 })
 export class TimelineComponent {
@@ -53,36 +54,44 @@ export class TimelineComponent {
       url: 'https://github.com/wert2all/timeline-frontend/commit/613b8c200ab167c594965751c6c1e6ee6c873dad',
     },
   ]);
+  shouldAddEvent = signal<TimelineEventDraft | null>(null);
 
-  timeline: Signal<ViewTimelineEvent[]> = computed(() => {
-    return this.timelineEventsRaw().map((event, index) => {
-      const date: ViewTimelineDate = {
-        raw: event.date,
-        relative: DateTime.fromISO(
-          event.date.toISOString()
-        ).toRelativeCalendar(),
-        date: DateTime.fromISO(event.date.toISOString()).toLocaleString(),
-        showTime: event.showTime || false,
-        time: DateTime.fromISO(event.date.toISOString()).toLocaleString(
-          DateTime.TIME_24_SIMPLE
-        ),
-      };
+  timeline: Signal<ViewTimelineEventDraft[]> = computed(() => {
+    return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]
+      .filter(event => !!event)
+      .map(event => event as TimelineEvent | TimelineEventDraft)
+      .map((event, index) => {
+        const date: ViewTimelineDate = {
+          raw: event.date,
+          relative: DateTime.fromISO(
+            event.date.toISOString()
+          ).toRelativeCalendar(),
+          date: DateTime.fromISO(event.date.toISOString()).toLocaleString(),
+          showTime: event.showTime || false,
+          time: DateTime.fromISO(event.date.toISOString()).toLocaleString(
+            DateTime.TIME_24_SIMPLE
+          ),
+        };
 
-      return {
-        ...event,
-        icon: new ViewTimelineEventIcon(event.type),
-        url: this.prepareUrl(event.url),
-        date: date,
-        changeDirection: index % 2 === 0,
-        tags: this.createTags(event.tags),
-      };
-    });
+        return {
+          ...event,
+          icon: new ViewTimelineEventIcon(event.type),
+          url: this.prepareUrl(event.url),
+          date: date,
+          changeDirection: index % 2 === 0,
+          tags: this.createTags(event.tags),
+          draft: this.isDraft(event),
+        };
+      });
   });
 
-  shouldAddEvent = signal<ViewTimelineEvent | null>(null);
-
   addEvent() {
-    throw new Error('Method not implemented.');
+    this.shouldAddEvent.set({
+      type: TimelimeEventType.default,
+      title: 'Draft event',
+      date: new Date(),
+      draft: true,
+    });
   }
 
   filterByTag(tag: ViewTimelineTag) {
@@ -95,5 +104,11 @@ export class TimelineComponent {
 
   private createTags(tags: string[] | undefined) {
     return tags?.map(tag => new ViewTimelineTag(tag)) || [];
+  }
+
+  private isDraft(event: TimelineEvent | TimelineEventDraft): boolean {
+    return (event as TimelineEventDraft).draft !== undefined
+      ? (event as TimelineEventDraft).draft
+      : false;
   }
 }
