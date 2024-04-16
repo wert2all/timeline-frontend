@@ -1,9 +1,12 @@
-<div class="tooltip" data-tip="add new event">
-  <a
-    class="btn btn-circle btn-accent"
-    (click)="addEvent.next(null)"
-    (keyup)="addEvent.next(null)"
-    tabindex="0">
-    <ng-icon name="saxAddOutline" size="24"></ng-icon>
-  </a>
-</div>
+<a
+  class="btn btn-accent"
+  (click)="addEvent.next(null)"
+  (keyup)="addEvent.next(null)"
+  tabindex="0"
+  [attr.disabled]="disabled() ? 'true' : null">
+  @if (disabled() === true) {
+    submit new event <ng-icon name="saxArrowRight1Outline" size="24"></ng-icon>
+  } @else {
+    <ng-icon name="saxAddOutline" size="24"></ng-icon> add event
+  }
+</a>

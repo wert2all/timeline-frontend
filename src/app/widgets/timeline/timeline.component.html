@@ -1,13 +1,18 @@
-<app-add-event-button (addEvent)="addEvent()" />
+<app-add-event-button
+  (addEvent)="addEvent()"
+  [disabled]="this.shouldAddEvent() !== null" />
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
   @for (event of timeline(); track $index) {
     <li>
       <div class="timeline-middle">
-        <ng-icon [svg]="event.icon.icon" size="24" />
+        <ng-icon
+          [svg]="event.icon.icon"
+          size="24"
+          [class.text-primary]="event.draft" />
       </div>
       <div
-        class="h-full w-full rounded"
+        class="w-full rounded"
         [class.pr-2]="event.draft"
         [class.bg-stone-700]="event.draft"
         [class.timeline-start]="event.changeDirection"
@@ -23,7 +28,7 @@
       </div>
       @if (event.draft) {
         <div
-          class="h-full w-full rounded"
+          class="h-full w-full rounded pb-10"
           [class.timeline-start]="!event.changeDirection"
           [class.md:text-end]="!event.changeDirection"
           [class.timeline-end]="event.changeDirection">
@@ -36,7 +41,7 @@
           </button>
         </div>
       }
-      <hr />
+      <hr [class.bg-accent]="event.draft" />
     </li>
   }
 </ul>
