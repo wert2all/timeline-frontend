@@ -10,8 +10,8 @@ import {
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
 import { ModalComponent } from '../../layout/share/modal/modal.component';
-import { TagsComponent } from '../timeline/event/tags/tags.component';
-import { ViewTimelineTag } from '../timeline/timeline.types';
+import { TagsComponent } from '../../widgets/timeline/event/tags/tags.component';
+import { ViewTimelineTag } from '../../widgets/timeline/timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
 @Component({

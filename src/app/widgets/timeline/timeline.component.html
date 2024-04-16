@@ -16,7 +16,7 @@
         <div class="text-lg font-black">{{ event.title }}</div>
         <app-timeline-event-tags
           [tags]="event.tags"
-          (clickToTag)="filterByTag.emit($event)" />
+          (clickToTag)="filterByTag($event)" />
         <div class="mt-2">{{ event.description }}</div>
         <app-timeline-event-url [url]="event.url" />
       </div>
