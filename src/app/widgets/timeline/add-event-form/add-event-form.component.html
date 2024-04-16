@@ -8,24 +8,24 @@
     (keyup)="this.activeStep.set(0)">
     text something
   </a>
-  <a
-    role="tab"
-    tabindex="1"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 1"
-    (click)="this.activeStep.set(1)"
-    (keyup)="this.activeStep.set(1)">
-    set date and time
-  </a>
-  <a
-    role="tab"
-    tabindex="2"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 2"
-    (click)="this.activeStep.set(2)"
-    (keyup)="this.activeStep.set(2)">
-    add tags</a
-  >
+  <!-- <a -->
+  <!--   role="tab" -->
+  <!--   tabindex="1" -->
+  <!--   class="tab" -->
+  <!--   [class.tab-active]="this.activeStep() === 1" -->
+  <!--   (click)="this.activeStep.set(1)" -->
+  <!--   (keyup)="this.activeStep.set(1)"> -->
+  <!--   set date and time -->
+  <!-- </a> -->
+  <!-- <a -->
+  <!--   role="tab" -->
+  <!--   tabindex="2" -->
+  <!--   class="tab" -->
+  <!--   [class.tab-active]="this.activeStep() === 2" -->
+  <!--   (click)="this.activeStep.set(2)" -->
+  <!--   (keyup)="this.activeStep.set(2)"> -->
+  <!--   add tags</a -->
+  <!-- > -->
 </div>
 <div class="rounded bg-stone-700 px-4 pb-4 pt-2">
   @if (this.activeStep() === 0) {
