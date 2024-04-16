@@ -93,10 +93,10 @@
       </div>
       <label class="input input-bordered flex items-center gap-2">
         <input
+          #tag
           type="text"
           class="w-full"
-          (keyup.enter)="addTag()"
-          [formControl]="addEventForm.controls.tag" />
+          (keyup.enter)="addTag(tag.value)" />
       </label>
       <div class="label">
         <span class="label-text-alt">
