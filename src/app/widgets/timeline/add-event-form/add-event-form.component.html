@@ -1,12 +1,57 @@
-<h1 class="text-lg font-bold">{{ title() }}</h1>
-<ul class="steps mt-4 w-full">
-  @for (step of steps(); track $index) {
-    <li class="step" [class.step-primary]="step.isActive"></li>
-  }
-</ul>
-<div class="divider"></div>
-<div class="px-8">
+<div role="tablist" class="tabs-boxed tabs">
+  <a
+    role="tab"
+    tabindex="0"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 0"
+    (click)="this.activeStep.set(0)"
+    (keyup)="this.activeStep.set(0)">
+    text something
+  </a>
+  <a
+    role="tab"
+    tabindex="1"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 1"
+    (click)="this.activeStep.set(1)"
+    (keyup)="this.activeStep.set(1)">
+    set date and time
+  </a>
+  <a
+    role="tab"
+    tabindex="2"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 2"
+    (click)="this.activeStep.set(2)"
+    (keyup)="this.activeStep.set(2)">
+    add tags</a
+  >
+</div>
+<div class="rounded bg-stone-700 px-4 pb-4 pt-2">
   @if (this.activeStep() === 0) {
+    <label class="form-control">
+      <div class="label">
+        <span class="label-text">Title</span>
+      </div>
+      <label class="input input-bordered flex items-center gap-2">
+        <input
+          type="text"
+          class="w-full grow"
+          name="title"
+          [formControl]="addEventForm.controls.title" />
+      </label>
+    </label>
+    <label class="form-control">
+      <div class="label">
+        <span class="label-text">Content</span>
+      </div>
+      <textarea
+        class="textarea textarea-bordered h-32 w-full"
+        name="content"
+        [formControl]="addEventForm.controls.content"></textarea>
+    </label>
+  }
+  @if (this.activeStep() === 1) {
     <label class="form-control">
       <div class="label">
         <span class="label-text">Select date of your event</span>
@@ -36,7 +81,7 @@
           name="add-time"
           type="checkbox"
           class="toggle"
-          [formControl]="addEventForm.controls.addTime" />
+          [formControl]="addEventForm.controls.withTime" />
       </label>
     </div>
     <div class="form-control">
@@ -59,32 +104,6 @@
           [formControl]="addEventForm.controls.showTime" />
       </label>
     </div>
-  }
-  @if (this.activeStep() === 1) {
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Title</span>
-      </div>
-      <label class="input input-bordered flex items-center gap-2">
-        <input
-          type="text"
-          class="w-full grow"
-          name="title"
-          [formControl]="addEventForm.controls.title" />
-      </label>
-    </label>
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Content</span>
-      </div>
-      <textarea
-        class="textarea textarea-bordered h-24 w-full max-w-xs"
-        name="content"
-        [formControl]="addEventForm.controls.content"></textarea>
-      <div class="label">
-        <span class="label-text-alt text-error">Error</span>
-      </div>
-    </label>
   }
   @if (this.activeStep() === 2) {
     <label class="form-control">
@@ -109,25 +128,10 @@
       [tags]="addedTags()"
       (clickToTag)="removeTag($event)"></app-add-event-tags>
   }
-</div>
-<div class="modal-action">
   <button
-    class="btn"
-    [attr.disabled]="disablePrevious() ? true : null"
-    (click)="goPrevious()">
-    <ng-icon name="saxArrowLeft3Outline" size="24"></ng-icon>
-    Previous
-  </button>
-  <button
-    class="btn"
-    [attr.disabled]="disableNext() ? true : null"
-    (click)="goNext()">
-    Next <ng-icon name="saxArrowRight2Outline" size="24"></ng-icon>
-  </button>
-  <button
-    class="btn btn-primary"
+    class="btn btn-primary mt-8"
     [attr.disabled]="!this.addEventForm.valid ? true : null">
-    Add
     <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
+    Add
   </button>
 </div>

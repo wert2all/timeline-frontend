@@ -112,6 +112,10 @@ export class TimelineComponent {
     this.shouldAddEvent.set(newValue);
   }
 
+  dismiss() {
+    this.shouldAddEvent.set(null);
+  }
+
   private prepareUrl(url: string | undefined) {
     return url ? { title: 'Read more', link: url } : null;
   }

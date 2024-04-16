@@ -23,11 +23,17 @@
       </div>
       @if (event.draft) {
         <div
-          class="h-full w-full rounded bg-stone-700 px-2"
+          class="h-full w-full rounded"
           [class.timeline-start]="!event.changeDirection"
           [class.md:text-end]="!event.changeDirection"
           [class.timeline-end]="event.changeDirection">
           <app-add-event-form (changeValues$)="valuesChanges($event)" />
+          <button
+            class="btn btn-circle btn-error btn-sm absolute"
+            style="top: -15px; right: -15px"
+            (click)="dismiss()">
+            ✕
+          </button>
         </div>
       }
       <hr />

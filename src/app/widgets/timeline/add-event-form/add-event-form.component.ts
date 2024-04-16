@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   Output,
-  computed,
   inject,
   signal,
 } from '@angular/core';
@@ -11,14 +10,13 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
-  saxArrowLeft3Outline,
-  saxArrowRight2Outline,
   saxCalendar1Outline,
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
 import { Observable, map } from 'rxjs';
 import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
+import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-add-event-form',
@@ -29,8 +27,6 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
     provideIcons({
       saxAddOutline,
       saxCalendarAddOutline,
-      saxArrowRight2Outline,
-      saxArrowLeft3Outline,
       saxCalendar1Outline,
     }),
   ],
@@ -44,31 +40,16 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
 export class AddEventFormComponent {
   activeStep = signal(0);
 
-  steps = computed(() =>
-    ['Set date/time', 'Write a content', 'Add tags'].map((title, index) => ({
-      isActive: this.activeStep() >= index,
-      title: title,
-    }))
-  );
-
   addEventForm = inject(FormBuilder).group({
-    date: ['', Validators.required],
-    addTime: [false],
-    time: [''],
+    date: [DateTime.now().toISODate(), Validators.required],
+    time: [DateTime.now().toISOTime()],
+    withTime: [false],
     showTime: [false],
     title: [''],
     content: [''],
   });
 
-  title = computed(
-    () => 'Add event: ' + this.steps()[this.activeStep()]?.title || ''
-  );
-
   addedTags = signal<ViewTimelineTag[]>([]);
-
-  disablePrevious = computed(() => this.activeStep() === 0);
-  disableNext = computed(() => this.activeStep() === this.steps().length - 1);
-  calendarIcon = saxCalendar1Outline;
 
   @Output() public readonly changeValues$: Observable<AddValue>;
 
@@ -77,7 +58,7 @@ export class AddEventFormComponent {
       map(values => ({
         ...values,
         time: values.time,
-        withTime: values.addTime,
+        withTime: values.withTime,
         tags: this.addedTags().map(tag => tag.value),
       }))
     );
@@ -103,17 +84,5 @@ export class AddEventFormComponent {
     this.addedTags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
-  }
-
-  goNext() {
-    if (!this.disableNext()) {
-      this.activeStep.update(step => ++step);
-    }
-  }
-
-  goPrevious() {
-    if (!this.disablePrevious()) {
-      this.activeStep.update(step => --step);
-    }
   }
 }
