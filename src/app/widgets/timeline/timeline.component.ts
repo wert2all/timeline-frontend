@@ -8,6 +8,12 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
+import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
+import { TimelineStore } from '../../store/timeline/timeline.store';
+import {
+  TimelimeEventType,
+  TimelineEvent,
+} from '../../store/timeline/timeline.types';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 import { AddEventFormComponent } from './add-event-form/add-event-form.component';
 import { DateComponent } from './event/date/date.component';
@@ -21,12 +27,6 @@ import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
-import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
-import {
-  TimelimeEventType,
-  TimelineEvent,
-} from '../../store/timeline/timeline.types';
-import { TimelineStore } from '../../store/timeline/timeline.store';
 
 @Component({
   selector: 'app-timeline',

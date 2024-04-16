@@ -8,10 +8,15 @@
     (keyup)="this.activeStep.set(0)">
     text something
   </a>
-  <!-- <a role="tab" tabindex="1" class="tab" [class.tab-active]="this.activeStep() === 1" (click)="this.activeStep.set(1)" -->
-  <!--   (keyup)="this.activeStep.set(1)"> -->
-  <!--   set date and time -->
-  <!-- </a> -->
+  <a
+    role="tab"
+    tabindex="1"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 1"
+    (click)="this.activeStep.set(1)"
+    (keyup)="this.activeStep.set(1)">
+    set date and time
+  </a>
   <!-- <a -->
   <!--   role="tab" -->
   <!--   tabindex="2" -->
@@ -47,63 +52,58 @@
     </label>
   }
   @if (this.activeStep() === 1) {
-    <div class="grid grid-cols-2">
-      <div class="col-span-2">
-        <label class="form-control">
-          <div class="label">
-            <span class="label-text">Select date of your event</span>
-          </div>
-          <label
-            class="input input-bordered flex items-center gap-2"
-            [class.error]="!addEventForm.controls.date.valid">
-            <input
-              type="text"
-              class="w-full grow"
-              name="date"
-              [formControl]="addEventForm.controls.date" />
-            <ng-icon
-              class="cursor-pointer"
-              name="saxCalendar1Outline"
-              size="24"
-              (click)="selectDate()"></ng-icon>
-          </label>
-          <div class="label" [class.hidden]="addEventForm.controls.date.valid">
-            <span class="label-text-alt text-error">Should be date</span>
-          </div>
+    <app-date-picker />
+    <div>
+      <label class="form-control">
+        <label
+          class="input input-bordered flex items-center gap-2"
+          [class.error]="!addEventForm.controls.date.valid">
+          <input
+            type="text"
+            class="w-full grow"
+            name="date"
+            [formControl]="addEventForm.controls.date" />
+          <ng-icon
+            class="cursor-pointer"
+            name="saxCalendar1Outline"
+            size="24"
+            (click)="selectDate()"></ng-icon>
         </label>
-        <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Add time</span>
-            <input
-              name="add-time"
-              type="checkbox"
-              (change)="handleWithTimeChange()"
-              class="toggle"
-              [formControl]="addEventForm.controls.withTime" />
-          </label>
+        <div class="label" [class.hidden]="addEventForm.controls.date.valid">
+          <span class="label-text-alt text-error">Should be date</span>
         </div>
-        <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Time </span>
-            <input
-              name="time"
-              type="text"
-              class="input input-bordered w-20"
-              [formControl]="addEventForm.controls.time" />
-          </label>
-        </div>
-        <div class="form-control">
-          <label class="label cursor-pointer">
-            <span class="label-text">Show time on timeline</span>
-            <input
-              name="show-time"
-              type="checkbox"
-              class="toggle"
-              [formControl]="addEventForm.controls.showTime" />
-          </label>
-        </div>
+      </label>
+      <div class="form-control mt-8">
+        <label class="label cursor-pointer">
+          <span class="label-text">Add time</span>
+          <input
+            name="add-time"
+            type="checkbox"
+            (change)="handleWithTimeChange()"
+            class="toggle"
+            [formControl]="addEventForm.controls.withTime" />
+        </label>
       </div>
-      <div>second</div>
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Time </span>
+          <input
+            name="time"
+            type="text"
+            class="input input-bordered w-20"
+            [formControl]="addEventForm.controls.time" />
+        </label>
+      </div>
+      <div class="form-control">
+        <label class="label cursor-pointer">
+          <span class="label-text">Show time on timeline</span>
+          <input
+            name="show-time"
+            type="checkbox"
+            class="toggle"
+            [formControl]="addEventForm.controls.showTime" />
+        </label>
+      </div>
     </div>
   }
   @if (this.activeStep() === 2) {

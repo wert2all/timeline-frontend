@@ -1,0 +1,50 @@
+<div class="rounded-lg bg-base-100 px-2 pb-4 shadow">
+  <div class="mb-2 flex items-center justify-between pt-2">
+    <div class="join">
+      <button class="btn btn-ghost join-item">{{ MONTH_NAMES[month] }}</button>
+      <button class="btn btn-ghost join-item">{{ year }}</button>
+    </div>
+    <div class="join">
+      <button
+        type="button"
+        class="btn join-item btn-sm"
+        [disabled]="month === 0"
+        (click)="month = month - 1"
+        (click)="getNoOfDays()">
+        <ng-icon name="saxArrowLeft2Outline"></ng-icon>
+      </button>
+      <button
+        type="button"
+        class="btn join-item btn-sm"
+        [disabled]="month === 11"
+        (click)="month = month + 1"
+        (click)="getNoOfDays()">
+        <ng-icon name="saxArrowRight3Outline"></ng-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-7 gap-0">
+    @for (day of DAYS; track $index) {
+      <div class="text-center text-xs font-medium">{{ day }}</div>
+    }
+  </div>
+  <div class="grid grid-cols-7 gap-1">
+    @for (blankday of blankdays; track $index) {
+      <div class="border-none border-transparent text-center text-sm"></div>
+    }
+    @for (date of no_of_days; track $index) {
+      <div
+        (click)="getDateValue(date)"
+        (keyup)="getDateValue(date)"
+        [tabindex]="$index"
+        class="cursor-pointer rounded-full text-center text-sm leading-loose transition duration-100 ease-in-out"
+        [class.bg-accent]="isToday(date)"
+        [class.text-accent-content]="isToday(date)"
+        [class.hover:bg-info]="!isToday(date)"
+        [class.hover:text-info-content]="!isToday(date)">
+        {{ date }}
+      </div>
+    }
+  </div>
+</div>
