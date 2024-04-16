@@ -81,12 +81,16 @@ export class TimelineComponent {
   }
 
   valuesChanges(value: AddValue) {
+    const date = DateTime.fromISO(
+      value.date + (value.time ? 'T' + value.time : '')
+    );
+
     const newValue: TimelineEventDraft = {
-      date: new Date(),
+      date: (date.isValid ? date : DateTime.now()).toJSDate(),
       type: TimelimeEventType.default,
       title: value.title || '...typing',
       description: value.content || undefined,
-      showTime: value.withTime || undefined,
+      showTime: (value.withTime && value.showTime) || false,
       tags: value.tags || undefined,
       draft: true,
     };
@@ -132,15 +136,14 @@ export class TimelineComponent {
     const dateTime = DateTime.fromISO(date.toISOString());
 
     return {
-      raw: date,
       relative: showTime
         ? dateTime.toRelative()
         : dateTime.toRelativeCalendar(),
       date:
         dateTime.toLocaleString(DateTime.DATE_SHORT) +
-        ' ' +
-        dateTime.toLocaleString(DateTime.TIME_24_SIMPLE),
-      showTime: showTime,
+        (showTime
+          ? ' ' + dateTime.toLocaleString(DateTime.TIME_24_SIMPLE)
+          : ''),
     };
   }
 }
