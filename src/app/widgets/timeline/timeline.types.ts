@@ -24,7 +24,6 @@ export type ViewTimelineUrl = { title: string; link: string };
 export type ViewTimelineDate = {
   raw: Date;
   date: string;
-  time: string;
   showTime: boolean;
   relative: string | null;
 };
