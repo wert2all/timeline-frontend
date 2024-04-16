@@ -1,3 +1,5 @@
+<app-add-event />
+<app-add-event-button (addEvent)="addEvent()" />
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
   @for (event of timeline(); track $index) {

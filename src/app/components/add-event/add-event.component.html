@@ -7,7 +7,8 @@
     ><ng-icon name="saxAddOutline" size="24"></ng-icon
   ></a>
 </div>
-<app-modal [show]="shouldShow()" (onClosed)="onClosed()" [title]="title()">
+<app-modal [show]="shouldShow()" (onClosed)="onClosed()">
+  <h1 class="text-lg font-bold">{{ title() }}</h1>
   <ul class="steps mt-4 w-full">
     @for (step of steps(); track $index) {
       <li class="step" [class.step-primary]="step.isActive"></li>
