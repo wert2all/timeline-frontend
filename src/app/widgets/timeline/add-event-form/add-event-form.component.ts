@@ -14,10 +14,11 @@ import {
   saxCalendar1Outline,
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
+import { DateTime } from 'luxon';
 import { Observable, map } from 'rxjs';
+import { DatePickerComponent } from '../../../layout/share/date-picker/date-picker.component';
 import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
-import { DateTime } from 'luxon';
 
 @Component({
   selector: 'app-add-event-form',
@@ -36,6 +37,7 @@ import { DateTime } from 'luxon';
     NgIconComponent,
     ReactiveFormsModule,
     AddEventTagsComponent,
+    DatePickerComponent,
   ],
 })
 export class AddEventFormComponent {
