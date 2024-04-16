@@ -22,9 +22,7 @@ export class ViewTimelineTag {
 }
 export type ViewTimelineUrl = { title: string; link: string };
 export type ViewTimelineDate = {
-  raw: Date;
   date: string;
-  showTime: boolean;
   relative: string | null;
 };
 

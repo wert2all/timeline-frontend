@@ -39,10 +39,10 @@ import { DateTime } from 'luxon';
   ],
 })
 export class AddEventFormComponent {
-  activeStep = signal(1);
+  activeStep = signal(0);
 
   addEventForm = inject(FormBuilder).group({
-    date: [DateTime.now().toLocaleString(), Validators.required],
+    date: [DateTime.now().toISODate(), Validators.required],
     time: [DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE)],
     withTime: [false],
     showTime: [true],
