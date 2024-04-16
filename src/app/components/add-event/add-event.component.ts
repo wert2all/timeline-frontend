@@ -1,10 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, Output, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -18,7 +13,6 @@ import { ModalComponent } from '../../layout/share/modal/modal.component';
 import { TagsComponent } from '../timeline/event/tags/tags.component';
 import { ViewTimelineTag } from '../timeline/timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-event',
@@ -42,7 +36,7 @@ import { CommonModule } from '@angular/common';
     AddEventTagsComponent,
   ],
 })
-export class AddEventComponent implements AfterViewInit {
+export class AddEventComponent {
   shouldShow = signal<number>(0);
   activeStep = signal(0);
 
@@ -71,6 +65,8 @@ export class AddEventComponent implements AfterViewInit {
   disableNext = computed(() => this.activeStep() === this.steps().length - 1);
   calendarIcon = saxCalendar1Outline;
   addedTags = signal<ViewTimelineTag[]>([]);
+
+  @Output() valueChanges = this.addEventForm.valueChanges;
 
   showModal() {
     this.resetForm();
@@ -115,10 +111,5 @@ export class AddEventComponent implements AfterViewInit {
       existTags.filter(existTag => existTag.title !== tag.title)
     );
   }
-
-  ngAfterViewInit(): void {
-    this.showModal();
-  }
-
   private resetForm() {}
 }
