@@ -54,30 +54,16 @@ export class TimelineComponent {
     return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]
       .filter(event => !!event)
       .map(event => event as TimelineEvent | TimelineEventDraft)
-      .map((event, index) => {
-        const date: ViewTimelineDate = {
-          raw: event.date,
-          relative: DateTime.fromISO(
-            event.date.toISOString()
-          ).toRelativeCalendar(),
-          date: DateTime.fromISO(event.date.toISOString()).toLocaleString(),
-          showTime: event.showTime || false,
-          time: DateTime.fromISO(event.date.toISOString()).toLocaleString(
-            DateTime.TIME_24_SIMPLE
-          ),
-        };
-
-        return {
-          ...event,
-          description: event.description || '',
-          icon: new ViewTimelineEventIcon(event.type),
-          url: this.prepareUrl(event.url),
-          date: date,
-          changeDirection: index % 2 === 0,
-          tags: this.createTags(event.tags),
-          draft: this.isDraft(event),
-        };
-      });
+      .map((event, index) => ({
+        ...event,
+        description: event.description || '',
+        icon: new ViewTimelineEventIcon(event.type),
+        url: this.prepareUrl(event.url),
+        date: this.createDate(event.date, event.showTime || false),
+        changeDirection: index % 2 === 0,
+        tags: this.createTags(event.tags),
+        draft: this.isDraft(event),
+      }));
   });
 
   addEvent() {
@@ -140,5 +126,21 @@ export class TimelineComponent {
     return (event as TimelineEventDraft).draft !== undefined
       ? (event as TimelineEventDraft).draft
       : false;
+  }
+
+  private createDate(date: Date, showTime: boolean): ViewTimelineDate {
+    const dateTime = DateTime.fromISO(date.toISOString());
+
+    return {
+      raw: date,
+      relative: showTime
+        ? dateTime.toRelative()
+        : dateTime.toRelativeCalendar(),
+      date:
+        dateTime.toLocaleString(DateTime.DATE_SHORT) +
+        ' ' +
+        dateTime.toLocaleString(DateTime.TIME_24_SIMPLE),
+      showTime: showTime,
+    };
   }
 }
