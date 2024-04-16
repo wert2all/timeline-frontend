@@ -1,20 +1,9 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
-
-export enum TimelimeEventType {
-  default = 'default',
-  selebrate = 'selebrate',
-}
-
-export type TimelineRequired = { date: Date; type: TimelimeEventType };
-
-export type TimelineEvent = TimelineRequired & {
-  showTime?: boolean;
-  title?: string;
-  description?: string;
-  url?: string;
-  tags?: string[];
-};
+import {
+  TimelimeEventType,
+  TimelineEvent,
+} from '../../store/timeline/timeline.types';
 
 export type TimelineEventDraft = TimelineEvent & {
   draft: true;
