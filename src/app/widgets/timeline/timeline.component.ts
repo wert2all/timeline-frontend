@@ -48,7 +48,7 @@ export class TimelineComponent {
   private readonly timelineEventsRaw = this.timelineStore.events;
   private readonly shouldAddEvent = signal<TimelineEventDraft | null>(null);
 
-  canAddNewEvent = computed(() => (this.shouldAddEvent() === null));
+  canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
   timeline: Signal<ViewTimelineEventDraft[]> = computed(() => {
     return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]

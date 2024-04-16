@@ -42,12 +42,12 @@ export class AddEventFormComponent {
   activeStep = signal(0);
 
   addEventForm = inject(FormBuilder).group({
-    date: [DateTime.now().toISODate(), Validators.required],
-    time: [DateTime.now().toISOTime()],
+    date: [DateTime.now().toLocaleString(), Validators.required],
+    time: [DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE)],
     withTime: [false],
-    showTime: [false],
+    showTime: [true],
     title: [''],
-    content: [''],
+    content: ['# hello!'],
   });
 
   addedTags = signal<ViewTimelineTag[]>([]);
@@ -56,6 +56,9 @@ export class AddEventFormComponent {
   addEvent = output();
 
   constructor() {
+    this.addEventForm.controls.time.disable();
+    this.addEventForm.controls.showTime.disable();
+
     this.changeValues$ = this.addEventForm.valueChanges.pipe(
       map(values => ({
         ...values,
@@ -86,5 +89,15 @@ export class AddEventFormComponent {
     this.addedTags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
+  }
+
+  handleWithTimeChange() {
+    if (this.addEventForm.controls.withTime.value) {
+      this.addEventForm.controls.time.enable();
+      this.addEventForm.controls.showTime.enable();
+    } else {
+      this.addEventForm.controls.time.disable();
+      this.addEventForm.controls.showTime.disable();
+    }
   }
 }
