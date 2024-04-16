@@ -13,6 +13,7 @@ import { DateComponent } from './event/date/date.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 import {
+  AddValue,
   TimelimeEventType,
   TimelineEvent,
   TimelineEventDraft,
@@ -88,7 +89,7 @@ export class TimelineComponent {
   addEvent() {
     this.shouldAddEvent.set({
       type: TimelimeEventType.default,
-      title: 'Draft event',
+      title: '...typing',
       date: new Date(),
       draft: true,
     });
@@ -96,6 +97,19 @@ export class TimelineComponent {
 
   filterByTag(tag: ViewTimelineTag) {
     throw new Error('Method not implemented.' + tag);
+  }
+
+  valuesChanges(value: AddValue) {
+    const newValue: TimelineEventDraft = {
+      date: new Date(),
+      type: TimelimeEventType.default,
+      title: value.title || '...typing',
+      description: value.content || undefined,
+      showTime: value.withTime || undefined,
+      tags: value.tags || undefined,
+      draft: true,
+    };
+    this.shouldAddEvent.set(newValue);
   }
 
   private prepareUrl(url: string | undefined) {

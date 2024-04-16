@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Output,
   computed,
   inject,
   signal,
@@ -15,7 +16,8 @@ import {
   saxCalendar1Outline,
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
-import { ViewTimelineTag } from '../timeline.types';
+import { Observable, map } from 'rxjs';
+import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
 @Component({
@@ -56,7 +58,6 @@ export class AddEventFormComponent {
     showTime: [false],
     title: [''],
     content: [''],
-    tag: [''],
   });
 
   title = computed(
@@ -69,21 +70,33 @@ export class AddEventFormComponent {
   disableNext = computed(() => this.activeStep() === this.steps().length - 1);
   calendarIcon = saxCalendar1Outline;
 
+  @Output() public readonly changeValues$: Observable<AddValue>;
+
+  constructor() {
+    this.changeValues$ = this.addEventForm.valueChanges.pipe(
+      map(values => ({
+        ...values,
+        time: values.time,
+        withTime: values.addTime,
+        tags: this.addedTags().map(tag => tag.value),
+      }))
+    );
+  }
+
   selectDate() {
     throw new Error('Method not implemented.');
   }
 
-  addTag() {
-    const tags = this.addEventForm
-      .get('tag')
-      ?.value?.split(',')
+  addTag(value: string | null) {
+    //TODO clean input field
+    const tags = value
+      ?.split(',')
       .map(tag => tag.trim())
       .filter(tag => tag != '')
       .map(tag => new ViewTimelineTag(tag));
     if (tags) {
       this.addedTags.update(existTags => [...existTags, ...tags]);
     }
-    this.addEventForm.get('tag')?.reset();
   }
 
   removeTag(tag: ViewTimelineTag) {
