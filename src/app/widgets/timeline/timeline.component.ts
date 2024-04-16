@@ -22,6 +22,7 @@ import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
+import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
 
 @Component({
   selector: 'app-timeline',
@@ -35,6 +36,7 @@ import {
     UrlComponent,
     AddEventButtonComponent,
     AddEventFormComponent,
+    MarkdownContentComponent,
   ],
 })
 export class TimelineComponent {
@@ -42,7 +44,8 @@ export class TimelineComponent {
     {
       date: new Date('2024-04-07T03:29:00.000+03:00'),
       type: TimelimeEventType.default,
-      title: 'we want to create something new',
+      title: 'we want to create **something** new',
+      description: 'may be add **strong** tag',
     },
     {
       date: new Date('2024-04-06T03:29:00.000+03:00'),
@@ -76,6 +79,7 @@ export class TimelineComponent {
 
         return {
           ...event,
+          description: event.description || '',
           icon: new ViewTimelineEventIcon(event.type),
           url: this.prepareUrl(event.url),
           date: date,
@@ -89,7 +93,8 @@ export class TimelineComponent {
   addEvent() {
     this.shouldAddEvent.set({
       type: TimelimeEventType.default,
-      title: '...typing',
+      title: '',
+      description: '# hello!',
       date: new Date(),
       draft: true,
     });

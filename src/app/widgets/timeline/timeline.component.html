@@ -23,7 +23,9 @@
         <app-timeline-event-tags
           [tags]="event.tags"
           (clickToTag)="filterByTag($event)" />
-        <div class="mt-2">{{ event.description }}</div>
+        <app-markdown-content
+          [content]="event.description"
+          class="mt-2"></app-markdown-content>
         <app-timeline-event-url [url]="event.url" />
       </div>
       @if (event.draft) {
