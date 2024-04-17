@@ -4,7 +4,7 @@ const config: CodegenConfig = {
   overwrite: true,
   schema: 'http://localhost:8000/graphql',
   generates: {
-    './src/schema.graphql': {
+    './src/app/api/schema.graphql': {
       plugins: ['schema-ast'],
     },
   },
