@@ -16,8 +16,6 @@ import { DateTime, Info } from 'luxon';
   ],
 })
 export class DatePickerComponent {
-  DAYS = Info.weekdays('short');
-
   fromDate = input<string | null>(null);
   selectDate = output<Date>();
 
@@ -38,9 +36,30 @@ export class DatePickerComponent {
   selectedLongMonth = computed(() => this.yearMonth().monthLong);
 
   blankDays = computed(() => new Array(this.yearMonth().weekday));
-  no_of_days = computed(() => new Array(this.yearMonth().daysInMonth));
+  days = computed(() =>
+    Array.from({ length: this.yearMonth().daysInMonth! }, (_, i) => i + 1)
+  );
 
-  isSelected(day: number) {
+  showMonth = signal(false);
+  showYears = signal(false);
+
+  showDays = computed(() => !this.showMonth() && !this.showYears());
+
+  listDays = signal(Info.weekdays('short'));
+  listMonth = signal(Info.months());
+  listYears = computed(() =>
+    Array.from({ length: 12 }, (_, i) => this.yearMonth().year - 6 + i)
+  );
+
+  isSelectedMonth(month: number) {
+    return this.yearMonth().month === month;
+  }
+
+  isSelectedYear(year: number) {
+    return this.yearMonth().year === year;
+  }
+
+  isSelectedDay(day: number) {
     return this.getDateByDay(day).toISODate() === this.inputDate().toISODate();
   }
 
@@ -48,8 +67,28 @@ export class DatePickerComponent {
     this.selectDate.emit(this.getDateByDay(day).toJSDate());
   }
 
+  selectMonth(month: number) {
+    this.yearMonth.update(yearmonth => yearmonth.set({ month: month }));
+    this.showMonth.set(false);
+  }
+
+  selectYear(year: number) {
+    this.yearMonth.update(yearmonth => yearmonth.set({ year: year }));
+    this.showYears.set(false);
+  }
+
   switchMonth(monthDelta: number) {
     this.yearMonth.update(yearmonth => yearmonth.plus({ month: monthDelta }));
+  }
+
+  toggleYearsSelector() {
+    this.showYears.update(show => !show);
+    this.showMonth.set(false);
+  }
+
+  toggleMonthSelector() {
+    this.showMonth.update(show => !show);
+    this.showYears.set(false);
   }
 
   private getDateByDay(day: number): DateTime {
