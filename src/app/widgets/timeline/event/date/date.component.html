@@ -1,3 +1,18 @@
-<div class="tooltip" [attr.data-tip]="date().date">
-  <time class="font-mono italic">{{ date().relative }}</time>
-</div>
+@if (showRelevant()) {
+  <div
+    tabindex="0"
+    class="tooltip"
+    [attr.data-tip]="date().date"
+    (click)="toggle()"
+    (keyup)="toggle()">
+    <time class="font-mono italic">{{ date().relative }}</time>
+  </div>
+} @else {
+  <time
+    class="inline-block font-mono italic"
+    tabindex="0"
+    (click)="toggle()"
+    (keyup)="toggle()">
+    {{ date().date }}
+  </time>
+}
