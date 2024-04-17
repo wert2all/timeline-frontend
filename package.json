@@ -27,7 +27,6 @@
     "@ng-icons/heroicons": "^27.3.1",
     "@ng-icons/iconsax": "^27.3.1",
     "@ngrx/signals": "^17.2.0",
-    "gql.tada": "^1.5.2",
     "graphql": "^16.8.1",
     "jwt-decode": "^4.0.0",
     "luxon": "^3.4.4",
@@ -38,7 +37,6 @@
     "zone.js": "~0.14.4"
   },
   "devDependencies": {
-    "@0no-co/graphqlsp": "^1.10.1",
     "@angular-devkit/build-angular": "^17.3.4",
     "@angular-eslint/builder": "17.3.0",
     "@angular-eslint/eslint-plugin": "17.3.0",
