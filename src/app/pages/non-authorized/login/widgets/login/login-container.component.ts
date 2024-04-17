@@ -40,7 +40,7 @@ export class LoginContainerComponent {
 
   login() {
     this.authStore.setLoading(true);
-    google.accounts.id.prompt((prompt) => {
+    google.accounts.id.prompt(prompt => {
       if (prompt.isNotDisplayed()) {
         this.authStore.setLoading(false);
         throw 'Google auth not displayed: ' + prompt.getNotDisplayedReason();
