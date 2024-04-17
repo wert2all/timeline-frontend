@@ -1,21 +1,21 @@
 <div class="rounded-lg bg-base-100 px-2 pb-4 shadow">
   <div class="mb-2 flex items-center justify-between pt-2">
     <div class="join">
-      <button class="btn btn-ghost join-item">{{ MONTH_NAMES[month] }}</button>
-      <button class="btn btn-ghost join-item">{{ year }}</button>
+      <button class="btn btn-ghost join-item">
+        {{ selectedLongMonth() }}
+      </button>
+      <button class="btn btn-ghost join-item">{{ selectedYear() }}</button>
     </div>
     <div class="join">
       <button
         type="button"
         class="btn join-item btn-sm"
-        [disabled]="month === 0"
         (click)="switchMonth(-1)">
         <ng-icon name="saxArrowLeft2Outline"></ng-icon>
       </button>
       <button
         type="button"
         class="btn join-item btn-sm"
-        [disabled]="month === 11"
         (click)="switchMonth(1)">
         <ng-icon name="saxArrowRight3Outline"></ng-icon>
       </button>
@@ -28,20 +28,20 @@
     }
   </div>
   <div class="grid grid-cols-7 gap-1">
-    @for (blankday of blankdays; track $index) {
+    @for (blankday of blankDays(); track $index) {
       <div class="border-none border-transparent text-center text-sm"></div>
     }
-    @for (date of no_of_days; track $index) {
+    @for (day of no_of_days(); track $index) {
       <div
-        (click)="getDateValue(date)"
-        (keyup)="getDateValue(date)"
+        (click)="selectDay($index + 1)"
+        (keyup)="selectDay($index + 1)"
         [tabindex]="$index"
         class="cursor-pointer rounded-full text-center text-sm leading-loose transition duration-100 ease-in-out"
-        [class.bg-accent]="isToday(date)"
-        [class.text-accent-content]="isToday(date)"
-        [class.hover:bg-info]="!isToday(date)"
-        [class.hover:text-info-content]="!isToday(date)">
-        {{ date }}
+        [class.bg-accent]="isSelected($index + 1)"
+        [class.text-accent-content]="isSelected($index + 1)"
+        [class.hover:bg-info]="!isSelected(day)"
+        [class.hover:text-info-content]="!isSelected(day)">
+        {{ $index + 1 }}
       </div>
     }
   </div>

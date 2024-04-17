@@ -8,7 +8,6 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
-import { DatePickerComponent } from '../../layout/share/date-picker/date-picker.component';
 import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
 import { TimelineStore } from '../../store/timeline/timeline.store';
 import {
@@ -42,7 +41,6 @@ import {
     AddEventButtonComponent,
     AddEventFormComponent,
     MarkdownContentComponent,
-    DatePickerComponent,
   ],
 })
 export class TimelineComponent {
@@ -118,10 +116,6 @@ export class TimelineComponent {
       this.timelineStore.addEvent(event);
     }
     this.shouldAddEvent.set(null);
-  }
-
-  selectDate(date: Date) {
-    console.log(date);
   }
 
   private prepareUrl(url: string | undefined) {
