@@ -17,7 +17,14 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"]
+    "lib": ["ES2022", "dom"],
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./src/app/api/schema.graphql",
+        "tadaOutputLocation": "./src/app/api/graphql-env.d.ts"
+      }
+    ]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
