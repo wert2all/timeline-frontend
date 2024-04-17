@@ -9,16 +9,14 @@
         type="button"
         class="btn join-item btn-sm"
         [disabled]="month === 0"
-        (click)="month = month - 1"
-        (click)="getNoOfDays()">
+        (click)="switchMonth(-1)">
         <ng-icon name="saxArrowLeft2Outline"></ng-icon>
       </button>
       <button
         type="button"
         class="btn join-item btn-sm"
         [disabled]="month === 11"
-        (click)="month = month + 1"
-        (click)="getNoOfDays()">
+        (click)="switchMonth(1)">
         <ng-icon name="saxArrowRight3Outline"></ng-icon>
       </button>
     </div>

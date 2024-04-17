@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -31,11 +31,12 @@ export class DatePickerComponent implements OnInit {
   ];
   DAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  datepickerValue!: string;
   month!: number; // !: mean promise it will not be null, and it will definitely be assigned
   year!: number;
   no_of_days = [] as number[];
   blankdays = [] as number[];
+
+  selectDate = output<Date>();
 
   constructor() {}
 
@@ -48,11 +49,7 @@ export class DatePickerComponent implements OnInit {
     const today = new Date();
     this.month = today.getMonth();
     this.year = today.getFullYear();
-    this.datepickerValue = new Date(
-      this.year,
-      this.month,
-      today.getDate()
-    ).toDateString();
+    this.selectDate.emit(new Date(this.year, this.month, today.getDate()));
   }
 
   isToday(date: number) {
@@ -63,7 +60,7 @@ export class DatePickerComponent implements OnInit {
 
   getDateValue(date: number) {
     const selectedDate = new Date(this.year, this.month, date);
-    this.datepickerValue = selectedDate.toDateString();
+    this.selectDate.emit(selectedDate);
   }
 
   getNoOfDays() {
@@ -83,5 +80,10 @@ export class DatePickerComponent implements OnInit {
 
     this.blankdays = blankdaysArray;
     this.no_of_days = daysArray;
+  }
+
+  switchMonth(monthDelta: number) {
+    this.month = this.month + monthDelta;
+    this.getNoOfDays();
   }
 }
