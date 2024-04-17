@@ -102,4 +102,10 @@ export class AddEventFormComponent {
       this.addEventForm.controls.showTime.disable();
     }
   }
+
+  updateDate(date: Date) {
+    this.addEventForm.controls.date.setValue(
+      DateTime.fromJSDate(date).toISODate()
+    );
+  }
 }

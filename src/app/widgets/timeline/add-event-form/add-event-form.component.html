@@ -52,7 +52,9 @@
     </label>
   }
   @if (this.activeStep() === 1) {
-    <app-date-picker />
+    <app-date-picker
+      (selectDate)="updateDate($event)"
+      [fromDate]="addEventForm.controls.date.value" />
     <div>
       <label class="form-control">
         <label
