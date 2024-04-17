@@ -1,10 +1,12 @@
 <div class="rounded-lg bg-base-100 px-2 pb-4 shadow">
   <div class="mb-2 flex items-center justify-between pt-2">
     <div class="join">
-      <button class="btn btn-ghost join-item">
+      <button class="btn btn-ghost join-item" (click)="toggleMonthSelector()">
         {{ selectedLongMonth() }}
       </button>
-      <button class="btn btn-ghost join-item">{{ selectedYear() }}</button>
+      <button class="btn btn-ghost join-item" (click)="toggleYearsSelector()">
+        {{ selectedYear() }}
+      </button>
     </div>
     <div class="join">
       <button
@@ -21,27 +23,58 @@
       </button>
     </div>
   </div>
-
-  <div class="grid grid-cols-7 gap-0">
-    @for (day of DAYS; track $index) {
-      <div class="text-center text-xs font-medium">{{ day }}</div>
+  <div class="days" [class.hidden]="!showDays()">
+    <div class="grid grid-cols-7 gap-0">
+      @for (day of listDays(); track $index) {
+        <div class="text-center text-xs font-medium">{{ day }}</div>
+      }
+    </div>
+    <div class="grid grid-cols-7 gap-1">
+      @for (blankday of blankDays(); track $index) {
+        <div class="border-none border-transparent text-center text-sm"></div>
+      }
+      @for (day of days(); track $index) {
+        <div
+          (click)="selectDay(day)"
+          (keyup)="selectDay(day)"
+          [tabindex]="$index"
+          class="cursor-pointer rounded-full text-center text-sm leading-loose transition duration-100 ease-in-out"
+          [class.bg-accent]="isSelectedDay(day)"
+          [class.text-accent-content]="isSelectedDay(day)"
+          [class.hover:bg-info]="!isSelectedDay(day)"
+          [class.hover:text-info-content]="!isSelectedDay(day)">
+          {{ day }}
+        </div>
+      }
+    </div>
+  </div>
+  <div class="month grid grid-cols-4 gap-1" [class.hidden]="!showMonth()">
+    @for (month of listMonth(); track $index) {
+      <div
+        (click)="selectMonth($index + 1)"
+        (keyup)="selectMonth($index + 1)"
+        [tabindex]="$index"
+        class="my-2 cursor-pointer rounded-full py-2 text-center text-sm leading-loose transition duration-100 ease-in-out"
+        [class.bg-accent]="isSelectedMonth($index + 1)"
+        [class.text-accent-content]="isSelectedMonth($index + 1)"
+        [class.hover:bg-info]="!isSelectedMonth($index + 1)"
+        [class.hover:text-info-content]="!isSelectedMonth($index + 1)">
+        {{ month }}
+      </div>
     }
   </div>
-  <div class="grid grid-cols-7 gap-1">
-    @for (blankday of blankDays(); track $index) {
-      <div class="border-none border-transparent text-center text-sm"></div>
-    }
-    @for (day of no_of_days(); track $index) {
+  <div class="years grid grid-cols-4 gap-1" [class.hidden]="!showYears()">
+    @for (year of listYears(); track $index) {
       <div
-        (click)="selectDay($index + 1)"
-        (keyup)="selectDay($index + 1)"
+        (click)="selectYear(year)"
+        (keyup)="selectYear(year)"
         [tabindex]="$index"
-        class="cursor-pointer rounded-full text-center text-sm leading-loose transition duration-100 ease-in-out"
-        [class.bg-accent]="isSelected($index + 1)"
-        [class.text-accent-content]="isSelected($index + 1)"
-        [class.hover:bg-info]="!isSelected(day)"
-        [class.hover:text-info-content]="!isSelected(day)">
-        {{ $index + 1 }}
+        class="my-2 cursor-pointer rounded-full py-2 text-center text-sm leading-loose transition duration-100 ease-in-out"
+        [class.bg-accent]="isSelectedYear(year)"
+        [class.text-accent-content]="isSelectedYear(year)"
+        [class.hover:bg-info]="!isSelectedYear(year)"
+        [class.hover:text-info-content]="!isSelectedYear(year)">
+        {{ year }}
       </div>
     }
   </div>
