@@ -15,7 +15,6 @@ import { AuthTokenStorageService } from './auth-token-storage.service';
 const initAuth = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    tap(() => console.log('ssss')),
     map(() => AuthActions.initState())
   );
 const promptNotDisplayed = (
