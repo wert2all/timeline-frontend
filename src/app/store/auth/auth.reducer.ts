@@ -14,10 +14,15 @@ export const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
     initialState,
-    on(AuthActions.promptLogin, AuthActions.setTokenAndProfile, state => ({
-      ...state,
-      loading: true,
-    })),
+    on(
+      AuthActions.promptLogin,
+      AuthActions.setTokenAndProfile,
+      AuthActions.initAuthorizedUser,
+      state => ({
+        ...state,
+        loading: true,
+      })
+    ),
     on(
       AuthActions.promptNotDisplayed,
       AuthActions.userEmailIsNotVerified,

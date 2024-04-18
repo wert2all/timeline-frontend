@@ -12,10 +12,18 @@ import { ApiClient } from '../../api/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthTokenStorageService } from './auth-token-storage.service';
 
-const initAuth = (actions$ = inject(Actions)) =>
+const initAuth = (
+  actions$ = inject(Actions),
+  tokenService = inject(AuthTokenStorageService)
+) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    map(() => AuthActions.initState())
+    map(() => tokenService.getToken()),
+    map(token =>
+      token
+        ? AuthActions.initAuthorizedUser({ token })
+        : AuthActions.emptyInitialToken()
+    )
   );
 const promptNotDisplayed = (
   actions$ = inject(Actions),
@@ -39,7 +47,7 @@ const userEmailIsNotVerified = (
 
 const setToken = (action$ = inject(Actions), api = inject(ApiClient)) =>
   action$.pipe(
-    ofType(AuthActions.setTokenAndProfile),
+    ofType(AuthActions.setTokenAndProfile, AuthActions.initAuthorizedUser),
     exhaustMap(({ token }) =>
       api.authorize().pipe(
         map(result => result.data?.profile),
