@@ -1,11 +1,10 @@
 import { inject, makeEnvironmentProviders } from '@angular/core';
 import { ApolloLink, InMemoryCache } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { Apollo, APOLLO_OPTIONS } from 'apollo-angular';
-// eslint-disable-next-line import/no-unresolved
+import { APOLLO_OPTIONS, Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
-import { AuthTokenStorageService } from '../store/auth/auth-token-storage.service';
 import { environment } from '../../environments/environment';
+import { AuthTokenStorageService } from '../store/auth/auth-token-storage.service';
 
 const httpLink = (httpLink = inject(HttpLink)) =>
   httpLink.create({ uri: environment.graphql });

@@ -5,12 +5,12 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
-import { AuthActions } from './auth.actions';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { NotificationStore } from '../notifications/notifications.store';
 import { ApiClient } from '../../api/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { NotificationStore } from '../notifications/notifications.store';
 import { AuthTokenStorageService } from './auth-token-storage.service';
+import { AuthActions } from './auth.actions';
 
 const initAuth = (
   actions$ = inject(Actions),
@@ -45,9 +45,14 @@ const userEmailIsNotVerified = (
     tap(() => notification.addMessage('User email is not verified', 'error'))
   );
 
-const setToken = (action$ = inject(Actions), api = inject(ApiClient)) =>
+const setToken = (
+  action$ = inject(Actions),
+  tokenService = inject(AuthTokenStorageService),
+  api = inject(ApiClient)
+) =>
   action$.pipe(
     ofType(AuthActions.setTokenAndProfile, AuthActions.initAuthorizedUser),
+    tap(({ token }) => tokenService.setToken(token)),
     exhaustMap(({ token }) =>
       api.authorize().pipe(
         map(result => result.data?.profile),
