@@ -22,6 +22,7 @@ type Todo {
 }
 
 type User {
+  avatar: String
   email: String!
   id: Int!
   name: String!

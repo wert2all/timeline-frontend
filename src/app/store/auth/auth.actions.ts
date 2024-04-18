@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { GoogleUserInfo } from './auth.types';
+import { AuthorizedUser, GoogleUserInfo } from './auth.types';
 
 export const AuthActions = createActionGroup({
   source: 'Auth',
@@ -12,7 +12,7 @@ export const AuthActions = createActionGroup({
       token: string;
       profile: GoogleUserInfo;
     }>(),
-    Authorized: props<{ token: string; userUuid: number }>(),
+    Authorized: props<{ token: string; user: AuthorizedUser }>(),
 
     'Empty profile': emptyProps(),
     'Api Exception': props<{ exception: string }>(),

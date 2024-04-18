@@ -29,17 +29,10 @@ export const authFeature = createFeature({
       ...state,
       potentialUser: { name: profile.name, avatar: profile.picture },
     })),
-    on(
-      AuthActions.authorized,
-      (state, { userUuid }): AuthState => ({
-        ...state,
-        authorizedUser: {
-          uuid: userUuid,
-          name: state.potentialUser?.name || '',
-          avatar: state.potentialUser?.avatar || null,
-        },
-      })
-    )
+    on(AuthActions.authorized, (state, { user }) => ({
+      ...state,
+      authorizedUser: user,
+    }))
   ),
   extraSelectors: ({
     selectLoading,
