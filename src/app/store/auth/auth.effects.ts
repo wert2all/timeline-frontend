@@ -46,7 +46,14 @@ const setToken = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(result => result.data?.profile),
         map(profile =>
           profile
-            ? AuthActions.authorized({ token: token, userUuid: profile.id })
+            ? AuthActions.authorized({
+                token: token,
+                user: {
+                  uuid: profile.id,
+                  name: profile.name,
+                  avatar: profile.avatar || null,
+                },
+              })
             : AuthActions.emptyProfile()
         ),
         catchError(exception =>

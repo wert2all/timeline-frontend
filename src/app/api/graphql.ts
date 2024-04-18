@@ -31,7 +31,12 @@ export interface Scalars {
   Float: { input: number; output: number };
 }
 
-export type User = { id: number; name: string; email: string };
+export type User = {
+  id: number;
+  name: string;
+  email: string;
+  avatar?: string | null;
+};
 
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
@@ -42,6 +47,7 @@ export const User = gql`
     id
     name
     email
+    avatar
   }
 `;
 export const AuthorizeDocument = gql`
