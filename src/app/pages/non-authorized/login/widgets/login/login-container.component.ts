@@ -4,12 +4,15 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../../../../../environments/environment';
-import { AuthStore } from '../../../../../store/auth/auth.store';
+
 import {
   CredentialResponse,
   GoogleUserInfo,
   IdConfiguration,
 } from '../../../../../store/auth/auth.types';
+import { Store } from '@ngrx/store';
+import { authFeature } from '../../../../../store/auth/auth.reducer';
+import { AuthActions } from '../../../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-login-container',
@@ -20,7 +23,7 @@ import {
   viewProviders: [provideIcons({ saxLogin1Outline })],
 })
 export class LoginContainerComponent {
-  private readonly authStore = inject(AuthStore);
+  private readonly store = inject(Store);
 
   private readonly clientId = environment.googleClientId;
   private readonly googleConfiguration: IdConfiguration = {
@@ -30,7 +33,7 @@ export class LoginContainerComponent {
     cancel_on_tap_outside: false,
   };
 
-  isLoading = this.authStore.isLoading;
+  isLoading = this.store.select(authFeature.isLoading);
 
   constructor() {
     window.onGoogleLibraryLoad = () => {
@@ -39,11 +42,14 @@ export class LoginContainerComponent {
   }
 
   login() {
-    this.authStore.setLoading(true);
+    this.store.dispatch(AuthActions.promptLogin());
     google.accounts.id.prompt(prompt => {
       if (prompt.isNotDisplayed()) {
-        this.authStore.setLoading(false);
-        throw 'Google auth not displayed: ' + prompt.getNotDisplayedReason();
+        this.store.dispatch(
+          AuthActions.promptNotDisplayed({
+            reason: prompt.getNotDisplayedReason(),
+          })
+        );
       }
     });
   }
@@ -51,9 +57,14 @@ export class LoginContainerComponent {
   private getResponseCallback(response: CredentialResponse) {
     const userInfo = jwtDecode(response.credential) as GoogleUserInfo;
     if (userInfo.email_verified) {
-      this.authStore.setToken(response.credential);
+      this.store.dispatch(
+        AuthActions.setTokenAndProfile({
+          token: response.credential,
+          profile: userInfo,
+        })
+      );
     } else {
-      throw 'User email is not verified';
+      this.store.dispatch(AuthActions.userEmailIsNotVerified());
     }
   }
 }

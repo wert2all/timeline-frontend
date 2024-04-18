@@ -1,4 +1,4 @@
-import { Loadable } from '../../app.types';
+import { Loadable, User } from '../../app.types';
 
 export type AuthorizedUser = {
   uuid: number;
@@ -9,6 +9,7 @@ export type AuthorizedUser = {
 export type AuthState = Loadable & {
   token: string | null;
   authorizedUser: AuthorizedUser | null;
+  potentialUser: User | null;
 };
 
 export type IdConfiguration = google.accounts.id.IdConfiguration;

@@ -1,8 +1,9 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
+import { environment } from './src/environments/environment';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'http://localhost:8000/graphql',
+  schema: environment.graphql,
   documents: ['./src/app/api/**/*.graphql'],
   emitLegacyCommonJSImports: false,
   generates: {

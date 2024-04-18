@@ -1,4 +1,7 @@
 import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+import * as ApolloCore from '@apollo/client/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -30,6 +33,10 @@ export interface Scalars {
 
 export type User = { id: number; name: string; email: string };
 
+export type AuthorizeVariables = Exact<{ [key: string]: never }>;
+
+export type Authorize = { profile?: User | null };
+
 export const User = gql`
   fragment User on User {
     id
@@ -37,8 +44,42 @@ export const User = gql`
     email
   }
 `;
+export const AuthorizeDocument = gql`
+  mutation Authorize {
+    profile: authorize {
+      ...User
+    }
+  }
+  ${User}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthorizeMutation extends Apollo.Mutation<
+  Authorize,
+  AuthorizeVariables
+> {
+  override document = AuthorizeDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface MutationOptionsAlone<T, V>
+  extends Omit<ApolloCore.MutationOptions<T, V>, 'mutation' | 'variables'> {}
 
 @Injectable({ providedIn: 'root' })
 export class ApiClient {
-  constructor() {}
+  constructor(private authorizeMutation: AuthorizeMutation) {}
+
+  authorize(
+    variables?: AuthorizeVariables,
+    options?: MutationOptionsAlone<Authorize, AuthorizeVariables>
+  ) {
+    return this.authorizeMutation.mutate(variables, options);
+  }
 }
