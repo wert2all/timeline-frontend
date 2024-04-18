@@ -3,7 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "pnpm",
-    "schematicCollections": ["@angular-eslint/schematics"],
+    "schematicCollections": ["@angular-eslint/schematics", "@ngrx/schematics"],
     "analytics": false
   },
   "newProjectRoot": "projects",
