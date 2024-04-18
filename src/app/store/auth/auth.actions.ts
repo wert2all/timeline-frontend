@@ -4,7 +4,8 @@ import { AuthorizedUser, GoogleUserInfo } from './auth.types';
 export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
-    'Init state': emptyProps(),
+    'Init authorized user': props<{ token: string }>(),
+    'Empty initial token': emptyProps(),
     'Prompt Login': emptyProps(),
     'Prompt not displayed': props<{ reason: string }>(),
 
