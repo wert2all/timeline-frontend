@@ -112,14 +112,16 @@ const cleanToken = (
       AuthActions.promptNotDisplayed,
       AuthActions.userEmailIsNotVerified,
       AuthActions.emptyProfile,
-      AuthActions.apiException
+      AuthActions.apiException,
+      AuthActions.logout
     ),
     tap(() => tokenService.setToken(null))
   );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
 
-  setToken: createEffect(setToken, { functional: true, dispatch: true }),
+  setToken: createEffect(setToken, StoreDispatchEffect),
   cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),
   authorized: createEffect(authorized, StoreUnDispatchEffect),
 

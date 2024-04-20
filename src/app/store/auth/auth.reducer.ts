@@ -29,7 +29,14 @@ export const authFeature = createFeature({
       AuthActions.emptyProfile,
       AuthActions.apiException,
       AuthActions.authorized,
-      state => ({ ...state, loading: false, potentialUser: null })
+      AuthActions.logout,
+      state => ({
+        ...state,
+        authorizedUser: null,
+        token: null,
+        loading: false,
+        potentialUser: null,
+      })
     ),
     on(AuthActions.initAuthorizedUser, (state, { token }) => ({
       ...state,

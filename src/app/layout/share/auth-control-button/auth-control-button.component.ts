@@ -13,6 +13,7 @@ import {
   saxLoginOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 
 @Component({
@@ -47,5 +48,8 @@ export class AuthControlButtonComponent {
     } else {
       this.router.navigate(['user', 'login']);
     }
+  }
+  logout() {
+    this.store.dispatch(AuthActions.logout());
   }
 }
