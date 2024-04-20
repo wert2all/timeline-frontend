@@ -14,6 +14,7 @@ export const AuthActions = createActionGroup({
       profile: GoogleUserInfo;
     }>(),
     Authorized: props<{ token: string; user: AuthorizedUser }>(),
+    Logout: emptyProps(),
 
     'Empty profile': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
