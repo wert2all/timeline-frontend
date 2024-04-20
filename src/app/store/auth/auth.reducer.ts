@@ -31,7 +31,10 @@ export const authFeature = createFeature({
       AuthActions.authorized,
       state => ({ ...state, loading: false, potentialUser: null })
     ),
-    on(AuthActions.initAuthorizedUser, (state, { token }) => ({ ...state, token: token })),
+    on(AuthActions.initAuthorizedUser, (state, { token }) => ({
+      ...state,
+      token: token,
+    })),
     on(AuthActions.setTokenAndProfile, (state, { token, profile }) => ({
       ...state,
       token: token,

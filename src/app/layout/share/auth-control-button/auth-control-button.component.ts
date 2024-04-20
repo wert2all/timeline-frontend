@@ -9,7 +9,6 @@ import {
 import { Store } from '@ngrx/store';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-auth-control-button',
@@ -26,19 +25,14 @@ export class AuthControlButtonComponent {
   isLoading = this.store.select(authFeature.isLoading);
   isAuthorized: boolean = false;
   user = this.store.select(authFeature.selectPotentialUser);
-  token: string | null = null;
 
-  constructor(private readonly clipboard: Clipboard) {
+  constructor() {
     this.store
       .select(authFeature.isAuthorized)
       .pipe(takeUntilDestroyed())
       .subscribe(isAuthorized => {
         this.isAuthorized = isAuthorized;
       });
-    this.store
-      .select(authFeature.selectToken)
-      .pipe(takeUntilDestroyed())
-      .subscribe(token => (this.token = token));
   }
 
   onClick() {
@@ -46,12 +40,6 @@ export class AuthControlButtonComponent {
       //nav to profile
     } else {
       this.router.navigate(['user', 'login']);
-    }
-  }
-
-  copyToClipboard() {
-    if (this.token) {
-      this.clipboard.copy(this.token);
     }
   }
 }
