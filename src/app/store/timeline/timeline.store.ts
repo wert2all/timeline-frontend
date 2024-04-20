@@ -1,15 +1,32 @@
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import {
-  TimelineState,
-  TimelineEvent,
-  TimelimeEventType,
-} from './timeline.types';
 import { inject } from '@angular/core';
+import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
 import { NotificationStore } from '../notifications/notifications.store';
+import {
+  TimelimeEventType,
+  TimelineEvent,
+  TimelineState,
+} from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
   events: [
+    {
+      date: new Date('2024-04-17T18:24:00.000+03:00'),
+      type: TimelimeEventType.default,
+      title: '33ae550a244a4267a3f07862420622fcd4f7498b',
+      description: 'The backend server now knows how to authenticate users! ',
+      tags: ['server', 'auth', 'timeline', 'commit', 'backend', 'graphQL'],
+      showTime: true,
+    },
+    {
+      date: new Date('2024-04-17T03:29:00.000+03:00'),
+      type: TimelimeEventType.default,
+      title: 'first stream ever!',
+      description:
+        'The first stream where the first lines of the future GraphQL API were written was a blast.\n The stream was a lot of fun, and it was a great way to get the project off the ground. We made a lot of progress in a short amount of time, and we are all very excited about the future of the GraphQL API.',
+      tags: ['stream', 'youtube', 'party', 'timeline'],
+      url: 'https://www.youtube.com/watch?v=e39HHZiMEH4',
+    },
     {
       date: new Date('2024-04-07T03:29:00.000+03:00'),
       type: TimelimeEventType.default,
