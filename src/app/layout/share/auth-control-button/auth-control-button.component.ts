@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -8,7 +14,6 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { authFeature } from '../../../store/auth/auth.reducer';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-auth-control-button',
@@ -25,6 +30,7 @@ export class AuthControlButtonComponent {
   isLoading = this.store.select(authFeature.isLoading);
   isAuthorized: boolean = false;
   user = this.store.select(authFeature.selectPotentialUser);
+  isOpenedMenu = signal(false);
 
   constructor() {
     this.store
@@ -37,7 +43,7 @@ export class AuthControlButtonComponent {
 
   onClick() {
     if (this.isAuthorized) {
-      //nav to profile
+      this.isOpenedMenu.update(isOpened => !isOpened);
     } else {
       this.router.navigate(['user', 'login']);
     }
