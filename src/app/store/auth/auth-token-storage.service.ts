@@ -9,6 +9,7 @@ export class AuthTokenStorageService {
   getToken() {
     return localStorage.getItem(this.tokenKey) || null;
   }
+
   setToken(token: string | null) {
     if (token == null) {
       localStorage.removeItem(this.tokenKey);

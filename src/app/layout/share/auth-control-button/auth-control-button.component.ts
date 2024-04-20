@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxLoginOutline } from '@ng-icons/iconsax/outline';
+import {
+  saxClipboardTextOutline,
+  saxLoginOutline,
+} from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Clipboard } from '@angular/cdk/clipboard';
 
 @Component({
   selector: 'app-auth-control-button',
@@ -13,7 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   imports: [CommonModule, NgIconComponent],
   templateUrl: './auth-control-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ saxLoginOutline })],
+  viewProviders: [provideIcons({ saxLoginOutline, saxClipboardTextOutline })],
 })
 export class AuthControlButtonComponent {
   private readonly store = inject(Store);
@@ -22,14 +26,19 @@ export class AuthControlButtonComponent {
   isLoading = this.store.select(authFeature.isLoading);
   isAuthorized: boolean = false;
   user = this.store.select(authFeature.selectPotentialUser);
+  token: string | null = null;
 
-  constructor() {
+  constructor(private readonly clipboard: Clipboard) {
     this.store
       .select(authFeature.isAuthorized)
       .pipe(takeUntilDestroyed())
       .subscribe(isAuthorized => {
         this.isAuthorized = isAuthorized;
       });
+    this.store
+      .select(authFeature.selectToken)
+      .pipe(takeUntilDestroyed())
+      .subscribe(token => (this.token = token));
   }
 
   onClick() {
@@ -37,6 +46,12 @@ export class AuthControlButtonComponent {
       //nav to profile
     } else {
       this.router.navigate(['user', 'login']);
+    }
+  }
+
+  copyToClipboard() {
+    if (this.token) {
+      this.clipboard.copy(this.token);
     }
   }
 }

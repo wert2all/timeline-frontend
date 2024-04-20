@@ -1,3 +1,9 @@
+<button
+  class="btn btn-ghost mr-4"
+  [disabled]="token === null"
+  (click)="copyToClipboard()">
+  <ng-icon name="saxClipboardTextOutline" size="24"></ng-icon>
+</button>
 <button class="btn btn-primary" (click)="onClick()">
   @if ((isLoading | async) === true) {
     <span class="loading loading-spinner"></span>
