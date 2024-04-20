@@ -28,10 +28,13 @@ export const authFeature = createFeature({
       AuthActions.userEmailIsNotVerified,
       AuthActions.emptyProfile,
       AuthActions.apiException,
+      AuthActions.authorized,
       state => ({ ...state, loading: false, potentialUser: null })
     ),
-    on(AuthActions.setTokenAndProfile, (state, { profile }) => ({
+    on(AuthActions.initAuthorizedUser, (state, { token }) => ({ ...state, token: token })),
+    on(AuthActions.setTokenAndProfile, (state, { token, profile }) => ({
       ...state,
+      token: token,
       potentialUser: { name: profile.name, avatar: profile.picture },
     })),
     on(AuthActions.authorized, (state, { user }) => ({
