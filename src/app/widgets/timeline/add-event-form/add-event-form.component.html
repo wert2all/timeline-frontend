@@ -52,30 +52,23 @@
     </label>
   }
   @if (this.activeStep() === 1) {
-    <app-date-picker
-      (selectDate)="updateDate($event)"
-      [fromDate]="addEventForm.controls.date.value" />
-    <div>
-      <label class="form-control">
-        <label
-          class="input input-bordered flex items-center gap-2"
-          [class.error]="!addEventForm.controls.date.valid">
-          <input
-            type="text"
-            class="w-full grow"
-            name="date"
-            [formControl]="addEventForm.controls.date" />
-          <ng-icon
-            class="cursor-pointer"
-            name="saxCalendar1Outline"
-            size="24"
-            (click)="selectDate()"></ng-icon>
-        </label>
-        <div class="label" [class.hidden]="addEventForm.controls.date.valid">
-          <span class="label-text-alt text-error">Should be date</span>
-        </div>
-      </label>
-      <div class="form-control mt-8">
+    <div class="mt-4">
+      <app-date-picker
+        (selectDate)="updateDate($event)"
+        [fromDate]="addEventForm.controls.date.value" />
+
+      <input
+        type="hidden"
+        name="id"
+        [formControl]="addEventForm.controls.id"
+        readonly />
+      <input
+        type="hidden"
+        name="date"
+        [formControl]="addEventForm.controls.date"
+        readonly />
+
+      <div class="form-control mt-4">
         <label class="label cursor-pointer">
           <span class="label-text">Add time</span>
           <input
@@ -88,7 +81,7 @@
       </div>
       <div class="form-control">
         <label class="label cursor-pointer">
-          <span class="label-text">Time </span>
+          <span class="label-text">Time</span>
           <input
             name="time"
             type="text"

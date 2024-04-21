@@ -44,6 +44,7 @@ export class AddEventFormComponent {
   activeStep = signal(0);
 
   addEventForm = inject(FormBuilder).group({
+    id: [null],
     date: [DateTime.now().toISODate(), Validators.required],
     time: [DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE)],
     withTime: [false],
@@ -69,10 +70,6 @@ export class AddEventFormComponent {
         tags: this.addedTags().map(tag => tag.value),
       }))
     );
-  }
-
-  selectDate() {
-    throw new Error('Method not implemented.');
   }
 
   addTag(value: string | null) {
