@@ -16,7 +16,7 @@ import {
   TimelineEvent,
 } from '../../store/timeline/timeline.types';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
-import { AddEventFormComponent } from './add-event-form/add-event-form.component';
+import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { DateComponent } from './event/date/date.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
@@ -43,7 +43,7 @@ import { TimelineEventMenuComponent } from './event/menu/menu.component';
     TagsComponent,
     UrlComponent,
     AddEventButtonComponent,
-    AddEventFormComponent,
+    EditEventFormComponent,
     AutoAnimateDirective,
     MarkdownContentComponent,
     TimelineEventMenuComponent,

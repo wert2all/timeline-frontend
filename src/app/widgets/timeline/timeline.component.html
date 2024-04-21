@@ -31,7 +31,7 @@
             [class.timeline-start]="!event.changeDirection"
             [class.md:text-end]="!event.changeDirection"
             [class.timeline-end]="event.changeDirection">
-            <app-add-event-form
+            <app-edit-event-form
               (changeValues$)="valuesChanges($event)"
               (addEvent)="insertEvent()" />
             <button
