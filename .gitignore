@@ -41,5 +41,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
+.nx
 src/environments/environment.prod.ts
 src/environments/environment.ts
