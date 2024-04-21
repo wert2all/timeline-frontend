@@ -47,15 +47,11 @@ import {
   ],
 })
 export class TimelineComponent {
+  EditableTimelineTypes = EditableTimelineTypes;
+
   private readonly timelineStore = inject(TimelineStore);
   private readonly timelineEventsRaw = this.timelineStore.events;
-  private readonly shouldAddEvent = signal<EditableTimelineEvent | null>({
-    type: EditableTimelineTypes.draft,
-    title: '',
-    description: '# hello!',
-    date: new Date(),
-    isEditableType: true,
-  });
+  private readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
   canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
@@ -125,14 +121,6 @@ export class TimelineComponent {
       this.timelineStore.addEvent(event);
     }
     this.shouldAddEvent.set(null);
-  }
-
-  isDraft(event: EditableViewTimelineEvent) {
-    return event.type === EditableTimelineTypes.draft;
-  }
-
-  isDelimiter(event: EditableViewTimelineEvent) {
-    return event.type === EditableTimelineTypes.delimiter;
   }
 
   private prepareUrl(url: string | undefined) {
