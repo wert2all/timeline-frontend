@@ -2,7 +2,8 @@
   (addEvent)="addEvent()"
   [disabled]="canAddNewEvent() !== true" />
 <ul
-  class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact">
+  class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
+  appAnimate>
   @for (event of timeline(); track $index) {
     <li>
       <div class="timeline-middle">
