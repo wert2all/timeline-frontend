@@ -49,12 +49,18 @@ import {
 export class TimelineComponent {
   private readonly timelineStore = inject(TimelineStore);
   private readonly timelineEventsRaw = this.timelineStore.events;
-  private readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
+  private readonly shouldAddEvent = signal<EditableTimelineEvent | null>({
+    type: EditableTimelineTypes.draft,
+    title: '',
+    description: '# hello!',
+    date: new Date(),
+    isEditableType: true,
+  });
 
   canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
-  timeline: Signal<EditableViewTimelineEvent[]> = computed(() => {
-    return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]
+  timeline: Signal<EditableViewTimelineEvent[]> = computed(() =>
+    [...this.createAddList(this.shouldAddEvent()), ...this.timelineEventsRaw()]
       .filter(event => !!event)
       .map(event => event as TimelineEvent | EditableTimelineEvent)
       .map((event, index) => ({
@@ -66,8 +72,8 @@ export class TimelineComponent {
         changeDirection: index % 2 === 0,
         tags: this.createTags(event.tags),
         draft: this.isDraftEvent(event),
-      }));
-  });
+      }))
+  );
 
   addEvent() {
     this.shouldAddEvent.set({
@@ -125,6 +131,10 @@ export class TimelineComponent {
     return event.type === EditableTimelineTypes.draft;
   }
 
+  isDelimiter(event: EditableViewTimelineEvent) {
+    return event.type === EditableTimelineTypes.delimiter;
+  }
+
   private prepareUrl(url: string | undefined) {
     return url ? { title: 'Read more', link: url } : null;
   }
@@ -152,5 +162,20 @@ export class TimelineComponent {
           ? ' ' + dateTime.toLocaleString(DateTime.TIME_24_SIMPLE)
           : ''),
     };
+  }
+
+  private createAddList(
+    shouldAddValue: EditableTimelineEvent | null
+  ): EditableTimelineEvent[] {
+    return shouldAddValue
+      ? [
+          shouldAddValue,
+          {
+            date: new Date(),
+            type: EditableTimelineTypes.delimiter,
+            isEditableType: true,
+          },
+        ]
+      : [];
   }
 }
