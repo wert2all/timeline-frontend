@@ -6,48 +6,65 @@
   appAnimate>
   @for (event of timeline(); track $index) {
     <li>
-      <div class="timeline-middle">
-        <ng-icon
-          [svg]="event.icon.icon"
-          size="24"
-          [class.text-primary]="isDraft(event)" />
-      </div>
-
-      @if (isDraft(event)) {
-        <div
-          class="h-full w-full rounded pb-10"
-          [class.timeline-start]="!event.changeDirection"
-          [class.md:text-end]="!event.changeDirection"
-          [class.timeline-end]="event.changeDirection">
-          <app-add-event-form
-            (changeValues$)="valuesChanges($event)"
-            (addEvent)="insertEvent()" />
-          <button
-            class="btn btn-circle btn-error btn-sm absolute"
-            style="top: -15px; right: -15px"
-            (click)="dismiss()">
-            ✕
-          </button>
-        </div>
+      @switch (event.type) {
+        @case (EditableTimelineTypes.delimiter) {
+          <div class="timeline-middle mt-8"></div>
+        }
+        @case (EditableTimelineTypes.draft) {
+          <div
+            class="timeline-box w-full rounded bg-stone-700 pr-2"
+            [class.timeline-start]="event.changeDirection"
+            [class.md:text-end]="event.changeDirection"
+            [class.timeline-end]="!event.changeDirection">
+            <app-timeline-event-date [date]="event.date" />
+            <div class="text-lg font-black">{{ event.title }}</div>
+            <app-timeline-event-tags
+              [tags]="event.tags"
+              (clickToTag)="filterByTag($event)" />
+            <app-markdown-content
+              [content]="event.description"
+              class="mt-2"></app-markdown-content>
+            <app-timeline-event-url [url]="event.url" />
+          </div>
+          <div
+            class="event-form timeline-box h-full w-full rounded bg-stone-700"
+            [class.timeline-start]="!event.changeDirection"
+            [class.md:text-end]="!event.changeDirection"
+            [class.timeline-end]="event.changeDirection">
+            <app-add-event-form
+              (changeValues$)="valuesChanges($event)"
+              (addEvent)="insertEvent()" />
+            <button
+              class="btn btn-circle btn-error btn-sm absolute"
+              style="top: -15px; right: -15px"
+              (click)="dismiss()">
+              ✕
+            </button>
+          </div>
+          <hr class="bg-accent" />
+        }
+        @default {
+          <div class="timeline-middle">
+            <ng-icon [svg]="event.icon.icon" size="24" />
+          </div>
+          <div
+            class="w-full rounded"
+            [class.timeline-start]="event.changeDirection"
+            [class.md:text-end]="event.changeDirection"
+            [class.timeline-end]="!event.changeDirection">
+            <app-timeline-event-date [date]="event.date" />
+            <div class="text-lg font-black">{{ event.title }}</div>
+            <app-timeline-event-tags
+              [tags]="event.tags"
+              (clickToTag)="filterByTag($event)" />
+            <app-markdown-content
+              [content]="event.description"
+              class="mt-2"></app-markdown-content>
+            <app-timeline-event-url [url]="event.url" />
+          </div>
+          <hr />
+        }
       }
-      <div
-        class="w-full rounded"
-        [class.pr-2]="isDraft(event)"
-        [class.bg-stone-700]="isDraft(event)"
-        [class.timeline-start]="event.changeDirection"
-        [class.md:text-end]="event.changeDirection"
-        [class.timeline-end]="!event.changeDirection">
-        <app-timeline-event-date [date]="event.date" />
-        <div class="text-lg font-black">{{ event.title }}</div>
-        <app-timeline-event-tags
-          [tags]="event.tags"
-          (clickToTag)="filterByTag($event)" />
-        <app-markdown-content
-          [content]="event.description"
-          class="mt-2"></app-markdown-content>
-        <app-timeline-event-url [url]="event.url" />
-      </div>
-      <hr [class.bg-accent]="isDraft(event)" />
     </li>
   }
 </ul>
