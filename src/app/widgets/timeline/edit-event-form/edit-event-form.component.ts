@@ -21,9 +21,9 @@ import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
 @Component({
-  selector: 'app-add-event-form',
+  selector: 'app-edit-event-form',
   standalone: true,
-  templateUrl: './add-event-form.component.html',
+  templateUrl: './edit-event-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [
     provideIcons({
@@ -40,10 +40,10 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
     DatePickerComponent,
   ],
 })
-export class AddEventFormComponent {
+export class EditEventFormComponent {
   activeStep = signal(0);
 
-  addEventForm = inject(FormBuilder).group({
+  form = inject(FormBuilder).group({
     id: [null],
     date: [DateTime.now().toISODate(), Validators.required],
     time: [DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE)],
@@ -53,21 +53,21 @@ export class AddEventFormComponent {
     content: ['# hello!'],
   });
 
-  addedTags = signal<ViewTimelineTag[]>([]);
+  tags = signal<ViewTimelineTag[]>([]);
 
   @Output() readonly changeValues$: Observable<AddValue>;
-  addEvent = output();
+  saveEvent = output();
 
   constructor() {
-    this.addEventForm.controls.time.disable();
-    this.addEventForm.controls.showTime.disable();
+    this.form.controls.time.disable();
+    this.form.controls.showTime.disable();
 
-    this.changeValues$ = this.addEventForm.valueChanges.pipe(
+    this.changeValues$ = this.form.valueChanges.pipe(
       map(values => ({
         ...values,
         time: values.time,
         withTime: values.withTime,
-        tags: this.addedTags().map(tag => tag.value),
+        tags: this.tags().map(tag => tag.value),
       }))
     );
   }
@@ -80,29 +80,27 @@ export class AddEventFormComponent {
       .filter(tag => tag != '')
       .map(tag => new ViewTimelineTag(tag));
     if (tags) {
-      this.addedTags.update(existTags => [...existTags, ...tags]);
+      this.tags.update(existTags => [...existTags, ...tags]);
     }
   }
 
   removeTag(tag: ViewTimelineTag) {
-    this.addedTags.update(existTags =>
+    this.tags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
   }
 
   handleWithTimeChange() {
-    if (this.addEventForm.controls.withTime.value) {
-      this.addEventForm.controls.time.enable();
-      this.addEventForm.controls.showTime.enable();
+    if (this.form.controls.withTime.value) {
+      this.form.controls.time.enable();
+      this.form.controls.showTime.enable();
     } else {
-      this.addEventForm.controls.time.disable();
-      this.addEventForm.controls.showTime.disable();
+      this.form.controls.time.disable();
+      this.form.controls.showTime.disable();
     }
   }
 
   updateDate(date: Date) {
-    this.addEventForm.controls.date.setValue(
-      DateTime.fromJSDate(date).toISODate()
-    );
+    this.form.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
   }
 }

@@ -38,7 +38,7 @@
           type="text"
           class="w-full grow"
           name="title"
-          [formControl]="addEventForm.controls.title" />
+          [formControl]="form.controls.title" />
       </label>
     </label>
     <label class="form-control">
@@ -48,24 +48,24 @@
       <textarea
         class="textarea textarea-bordered h-32 w-full"
         name="content"
-        [formControl]="addEventForm.controls.content"></textarea>
+        [formControl]="form.controls.content"></textarea>
     </label>
   }
   @if (this.activeStep() === 1) {
     <div class="mt-4">
       <app-date-picker
         (selectDate)="updateDate($event)"
-        [fromDate]="addEventForm.controls.date.value" />
+        [fromDate]="form.controls.date.value" />
 
       <input
         type="hidden"
         name="id"
-        [formControl]="addEventForm.controls.id"
+        [formControl]="form.controls.id"
         readonly />
       <input
         type="hidden"
         name="date"
-        [formControl]="addEventForm.controls.date"
+        [formControl]="form.controls.date"
         readonly />
 
       <div class="form-control mt-4">
@@ -76,7 +76,7 @@
             type="checkbox"
             (change)="handleWithTimeChange()"
             class="toggle"
-            [formControl]="addEventForm.controls.withTime" />
+            [formControl]="form.controls.withTime" />
         </label>
       </div>
       <div class="form-control">
@@ -86,7 +86,7 @@
             name="time"
             type="text"
             class="input input-bordered w-20"
-            [formControl]="addEventForm.controls.time" />
+            [formControl]="form.controls.time" />
         </label>
       </div>
       <div class="form-control">
@@ -96,7 +96,7 @@
             name="show-time"
             type="checkbox"
             class="toggle"
-            [formControl]="addEventForm.controls.showTime" />
+            [formControl]="form.controls.showTime" />
         </label>
       </div>
     </div>
@@ -121,13 +121,13 @@
       </div>
     </label>
     <app-add-event-tags
-      [tags]="addedTags()"
+      [tags]="tags()"
       (clickToTag)="removeTag($event)"></app-add-event-tags>
   }
   <button
-    (click)="addEvent.emit()"
+    (click)="saveEvent.emit()"
     class="btn btn-primary mt-8"
-    [attr.disabled]="!this.addEventForm.valid ? true : null">
+    [attr.disabled]="!form.valid ? true : null">
     <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
     Add
   </button>
