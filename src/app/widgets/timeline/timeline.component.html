@@ -12,23 +12,7 @@
           size="24"
           [class.text-primary]="isDraft(event)" />
       </div>
-      <div
-        class="w-full rounded"
-        [class.pr-2]="isDraft(event)"
-        [class.bg-stone-700]="isDraft(event)"
-        [class.timeline-start]="event.changeDirection"
-        [class.md:text-end]="event.changeDirection"
-        [class.timeline-end]="!event.changeDirection">
-        <app-timeline-event-date [date]="event.date" />
-        <div class="text-lg font-black">{{ event.title }}</div>
-        <app-timeline-event-tags
-          [tags]="event.tags"
-          (clickToTag)="filterByTag($event)" />
-        <app-markdown-content
-          [content]="event.description"
-          class="mt-2"></app-markdown-content>
-        <app-timeline-event-url [url]="event.url" />
-      </div>
+
       @if (isDraft(event)) {
         <div
           class="h-full w-full rounded pb-10"
@@ -46,6 +30,23 @@
           </button>
         </div>
       }
+      <div
+        class="w-full rounded"
+        [class.pr-2]="isDraft(event)"
+        [class.bg-stone-700]="isDraft(event)"
+        [class.timeline-start]="event.changeDirection"
+        [class.md:text-end]="event.changeDirection"
+        [class.timeline-end]="!event.changeDirection">
+        <app-timeline-event-date [date]="event.date" />
+        <div class="text-lg font-black">{{ event.title }}</div>
+        <app-timeline-event-tags
+          [tags]="event.tags"
+          (clickToTag)="filterByTag($event)" />
+        <app-markdown-content
+          [content]="event.description"
+          class="mt-2"></app-markdown-content>
+        <app-timeline-event-url [url]="event.url" />
+      </div>
       <hr [class.bg-accent]="isDraft(event)" />
     </li>
   }
