@@ -10,12 +10,12 @@
         <ng-icon
           [svg]="event.icon.icon"
           size="24"
-          [class.text-primary]="event.draft" />
+          [class.text-primary]="isDraft(event)" />
       </div>
       <div
         class="w-full rounded"
-        [class.pr-2]="event.draft"
-        [class.bg-stone-700]="event.draft"
+        [class.pr-2]="isDraft(event)"
+        [class.bg-stone-700]="isDraft(event)"
         [class.timeline-start]="event.changeDirection"
         [class.md:text-end]="event.changeDirection"
         [class.timeline-end]="!event.changeDirection">
@@ -29,7 +29,7 @@
           class="mt-2"></app-markdown-content>
         <app-timeline-event-url [url]="event.url" />
       </div>
-      @if (event.draft) {
+      @if (isDraft(event)) {
         <div
           class="h-full w-full rounded pb-10"
           [class.timeline-start]="!event.changeDirection"
@@ -46,7 +46,7 @@
           </button>
         </div>
       }
-      <hr [class.bg-accent]="event.draft" />
+      <hr [class.bg-accent]="isDraft(event)" />
     </li>
   }
 </ul>

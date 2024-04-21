@@ -5,10 +5,6 @@ import {
   TimelineEvent,
 } from '../../store/timeline/timeline.types';
 
-export type TimelineEventDraft = TimelineEvent & {
-  draft: true;
-};
-
 export class ViewTimelineTag {
   public readonly value: string;
 
@@ -28,7 +24,7 @@ export type ViewTimelineDate = {
 
 export class ViewTimelineEventIcon {
   readonly icon: IconType;
-  constructor(type: TimelimeEventType) {
+  constructor(type: TimelimeEventType | EditableTimelineTypes) {
     switch (type) {
       case TimelimeEventType.selebrate:
         this.icon = saxCakeBulk;
@@ -51,8 +47,18 @@ export type ViewTimelineEvent = Omit<
   changeDirection: boolean;
 };
 
-export type ViewTimelineEventDraft = ViewTimelineEvent & {
-  draft: boolean;
+export enum EditableTimelineTypes {
+  draft = 'draft',
+  delimiter = 'delimiter',
+}
+
+export type EditableTimelineEvent = Omit<TimelineEvent, 'type'> & {
+  type: TimelimeEventType | EditableTimelineTypes;
+  isEditableType: true;
+};
+
+export type EditableViewTimelineEvent = Omit<ViewTimelineEvent, 'type'> & {
+  type: TimelimeEventType | EditableTimelineTypes;
 };
 
 export type AddValue = Partial<{

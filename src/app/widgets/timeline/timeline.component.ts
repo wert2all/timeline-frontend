@@ -22,9 +22,10 @@ import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 import {
   AddValue,
-  TimelineEventDraft,
+  EditableTimelineEvent,
+  EditableTimelineTypes,
+  EditableViewTimelineEvent,
   ViewTimelineDate,
-  ViewTimelineEventDraft,
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
@@ -42,21 +43,20 @@ import {
     AddEventButtonComponent,
     AddEventFormComponent,
     AutoAnimateDirective,
-
     MarkdownContentComponent,
   ],
 })
 export class TimelineComponent {
   private readonly timelineStore = inject(TimelineStore);
   private readonly timelineEventsRaw = this.timelineStore.events;
-  private readonly shouldAddEvent = signal<TimelineEventDraft | null>(null);
+  private readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
   canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
-  timeline: Signal<ViewTimelineEventDraft[]> = computed(() => {
+  timeline: Signal<EditableViewTimelineEvent[]> = computed(() => {
     return [...[this.shouldAddEvent()], ...this.timelineEventsRaw()]
       .filter(event => !!event)
-      .map(event => event as TimelineEvent | TimelineEventDraft)
+      .map(event => event as TimelineEvent | EditableTimelineEvent)
       .map((event, index) => ({
         ...event,
         description: event.description || '',
@@ -65,17 +65,17 @@ export class TimelineComponent {
         date: this.createDate(event.date, event.showTime || false),
         changeDirection: index % 2 === 0,
         tags: this.createTags(event.tags),
-        draft: this.isDraft(event),
+        draft: this.isDraftEvent(event),
       }));
   });
 
   addEvent() {
     this.shouldAddEvent.set({
-      type: TimelimeEventType.default,
+      type: EditableTimelineTypes.draft,
       title: '',
       description: '# hello!',
       date: new Date(),
-      draft: true,
+      isEditableType: true,
     });
   }
 
@@ -88,14 +88,14 @@ export class TimelineComponent {
       value.date + (value.time ? 'T' + value.time : '')
     );
 
-    const newValue: TimelineEventDraft = {
+    const newValue: EditableTimelineEvent = {
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
-      type: TimelimeEventType.default,
+      type: EditableTimelineTypes.draft,
       title: value.title || '...typing',
       description: value.content || undefined,
       showTime: (value.withTime && value.showTime) || false,
       tags: value.tags || undefined,
-      draft: true,
+      isEditableType: true,
     };
     this.shouldAddEvent.set(newValue);
   }
@@ -108,7 +108,7 @@ export class TimelineComponent {
     const viewEvent = this.shouldAddEvent();
     if (viewEvent !== null) {
       const event: TimelineEvent = {
-        type: viewEvent.type,
+        type: TimelimeEventType.default,
         date: viewEvent.date,
         title: viewEvent.title,
         description: viewEvent.description,
@@ -121,6 +121,10 @@ export class TimelineComponent {
     this.shouldAddEvent.set(null);
   }
 
+  isDraft(event: EditableViewTimelineEvent) {
+    return event.type === EditableTimelineTypes.draft;
+  }
+
   private prepareUrl(url: string | undefined) {
     return url ? { title: 'Read more', link: url } : null;
   }
@@ -129,9 +133,9 @@ export class TimelineComponent {
     return tags?.map(tag => new ViewTimelineTag(tag)) || [];
   }
 
-  private isDraft(event: TimelineEvent | TimelineEventDraft): boolean {
-    return (event as TimelineEventDraft).draft !== undefined
-      ? (event as TimelineEventDraft).draft
+  private isDraftEvent(event: TimelineEvent | EditableTimelineEvent): boolean {
+    return (event as EditableTimelineEvent).isEditableType !== undefined
+      ? (event as EditableTimelineEvent).isEditableType
       : false;
   }
 
