@@ -9,6 +9,7 @@ import {
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
 import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
+import { AutoAnimateDirective } from '../../libs/auto-animate.directive';
 import { TimelineStore } from '../../store/timeline/timeline.store';
 import {
   TimelimeEventType,
@@ -40,6 +41,8 @@ import {
     UrlComponent,
     AddEventButtonComponent,
     AddEventFormComponent,
+    AutoAnimateDirective,
+
     MarkdownContentComponent,
   ],
 })
