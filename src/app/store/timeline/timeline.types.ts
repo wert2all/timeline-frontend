@@ -7,9 +7,10 @@ export enum TimelimeEventType {
 export type TimelineRequired = { date: Date; type: TimelimeEventType };
 
 export type TimelineEvent = TimelineRequired & {
-  showTime?: boolean;
+  id?: number;
   title?: string;
   description?: string;
+  showTime?: boolean;
   url?: string;
   tags?: string[];
 };
