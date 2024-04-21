@@ -29,9 +29,11 @@ import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
+import { TimelineEventMenuComponent } from './event/menu/menu.component';
 
 @Component({
   selector: 'app-timeline',
+  styleUrl: './timeline.component.scss',
   templateUrl: './timeline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
@@ -44,6 +46,7 @@ import {
     AddEventFormComponent,
     AutoAnimateDirective,
     MarkdownContentComponent,
+    TimelineEventMenuComponent,
   ],
 })
 export class TimelineComponent {

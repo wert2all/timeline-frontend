@@ -1,0 +1,17 @@
+.timeline-item {
+  .event-menu {
+    opacity: 0;
+    transition: 0.8s;
+  }
+}
+
+.timeline-item:hover {
+  .event-menu {
+    opacity: 1;
+  }
+}
+
+.event-form button.close {
+  top: -15px;
+  right: -15px;
+}

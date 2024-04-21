@@ -5,14 +5,14 @@
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
   @for (event of timeline(); track $index) {
-    <li>
+    <li class="timeline-item">
       @switch (event.type) {
         @case (EditableTimelineTypes.delimiter) {
           <div class="timeline-middle mt-8"></div>
         }
         @case (EditableTimelineTypes.draft) {
           <div
-            class="timeline-box w-full rounded bg-stone-700 pr-2"
+            class="bg-lighter timeline-box w-full rounded pr-2"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
             [class.timeline-end]="!event.changeDirection">
@@ -27,7 +27,7 @@
             <app-timeline-event-url [url]="event.url" />
           </div>
           <div
-            class="event-form timeline-box h-full w-full rounded bg-stone-700"
+            class="event-form bg-lighter timeline-box h-full w-full rounded"
             [class.timeline-start]="!event.changeDirection"
             [class.md:text-end]="!event.changeDirection"
             [class.timeline-end]="event.changeDirection">
@@ -35,8 +35,7 @@
               (changeValues$)="valuesChanges($event)"
               (addEvent)="insertEvent()" />
             <button
-              class="btn btn-circle btn-error btn-sm absolute"
-              style="top: -15px; right: -15px"
+              class="close btn btn-circle btn-error btn-sm absolute"
               (click)="dismiss()">
               ✕
             </button>
@@ -48,7 +47,15 @@
             <ng-icon [svg]="event.icon.icon" size="24" />
           </div>
           <div
-            class="w-full rounded"
+            class="event-menu mb-8 rounded"
+            [class.timeline-start]="!event.changeDirection"
+            [class.md:text-end]="!event.changeDirection"
+            [class.timeline-end]="event.changeDirection">
+            <app-timeline-event-menu [timelineEvent]="event" />
+          </div>
+
+          <div
+            class="mb-8 w-full rounded"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
             [class.timeline-end]="!event.changeDirection">
