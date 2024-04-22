@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
+
 import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
 import { AutoAnimateDirective } from '../../libs/auto-animate.directive';
 import { TimelineStore } from '../../store/timeline/timeline.store';
@@ -18,6 +19,7 @@ import {
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { DateComponent } from './event/date/date.component';
+import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 import {
@@ -29,8 +31,6 @@ import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from './timeline.types';
-import { TimelineEventMenuComponent } from './event/menu/menu.component';
-
 @Component({
   selector: 'app-timeline',
   styleUrl: './timeline.component.scss',
@@ -127,7 +127,7 @@ export class TimelineComponent {
   }
 
   private prepareUrl(url: string | undefined) {
-    return url ? { title: 'Read more', link: url } : null;
+    return url ? { title: new URL(url).host, link: url } : null;
   }
 
   private createTags(tags: string[] | undefined) {
