@@ -1,6 +1,22 @@
-<app-add-event-button
-  (addEvent)="addEvent()"
-  [disabled]="canAddNewEvent() !== true" />
+@if (timeline().length > 0) {
+  <app-add-event-button
+    (addEvent)="addEvent()"
+    [disabled]="canAddNewEvent() !== true" />
+} @else {
+  <div class="bg-lighter hero rounded-xl">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <img src="/assets/timeline.png" class="max-w-sm" alt="timeline" />
+      <div>
+        <h1 class="text-5xl font-bold">add events to your personal timeline</h1>
+        <p class="py-6"></p>
+        <app-add-event-button
+          (addEvent)="addEvent()"
+          [disabled]="canAddNewEvent() !== true" />
+      </div>
+    </div>
+  </div>
+}
+
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
