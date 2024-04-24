@@ -48,7 +48,7 @@ export const timelineFeature = createFeature({
     initialState,
     on(TimelineActions.afterAuthorize, (state, { timelines }) => ({
       ...state,
-      timeline: timelines.shift() || null,
+      timeline: (timelines.length > 0 ? timelines.shift() : null) || null,
     }))
   ),
 });
