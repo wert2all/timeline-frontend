@@ -53,13 +53,18 @@ export const timelineFeature = createFeature({
         ...state,
         timelines: timelines,
       })
+    ),
+    on(
+      TimelineActions.setActiveTimelineAfterAuthorize,
+      (state, { timeline }) => ({ ...state, activeTimeline: timeline })
     )
   ),
-  extraSelectors: ({ selectTimelines, selectEvents }) => ({
+  extraSelectors: ({ selectEvents, selectActiveTimeline }) => ({
     selectActiveTimelineEvents: createSelector(
-      selectTimelines,
+      selectActiveTimeline,
       selectEvents,
-      (selectTimeline, selectEvents) => (selectTimeline ? selectEvents : null)
+      (selectActiveTimeline, selectEvents) =>
+        selectActiveTimeline ? selectEvents : null
     ),
   }),
 });

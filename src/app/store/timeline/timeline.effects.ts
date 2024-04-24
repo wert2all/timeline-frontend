@@ -19,6 +19,17 @@ const updateTimelines = (action$ = inject(Actions)) =>
     )
   );
 
+const setActiveTimeline = (action$ = inject(Actions)) =>
+  action$.pipe(
+    ofType(TimelineActions.updateTimelinesAfterAuthorize),
+    map(({ timelines }) =>
+      timelines.length > 0 ? timelines.shift() || null : null
+    ),
+    map(timeline =>
+      TimelineActions.setActiveTimelineAfterAuthorize({ timeline: timeline })
+    )
+  );
 export const timelineEffects = {
   addTimelines: createEffect(updateTimelines, StoreDispatchEffect),
+  setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
 };
