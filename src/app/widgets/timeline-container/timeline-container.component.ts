@@ -9,6 +9,7 @@ import {
 import { DateTime } from 'luxon';
 
 import { AsyncPipe } from '@angular/common';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
@@ -33,13 +34,14 @@ import {
   templateUrl: './timeline-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
   imports: [
     AsyncPipe,
     AddEventButtonComponent,
     ActiveTimelineComponent,
+    ReactiveFormsModule,
     NgIconComponent,
   ],
-  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
 })
 export class TimelineComponent {
   private store = inject(Store);
@@ -47,6 +49,10 @@ export class TimelineComponent {
   private readonly timelineEventsRaw = this.store.selectSignal(
     timelineFeature.selectActiveTimelineEvents
   );
+  readonly form = inject(FormBuilder).group({
+    timelineName: [''],
+  });
+
   readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
   activeTimeline = this.store.select(timelineFeature.selectActiveTimeline);
@@ -73,6 +79,8 @@ export class TimelineComponent {
           }))
       : []
   );
+
+  showAddTimelineWindow = signal<boolean>(false);
 
   addEvent() {
     this.shouldAddEvent.set({
@@ -109,8 +117,16 @@ export class TimelineComponent {
     this.shouldAddEvent.set(null);
   }
 
-  addTimeLine() {
-    throw new Error('Method not implemented.');
+  toggleAddTimelineForm() {
+    this.showAddTimelineWindow.set(true);
+  }
+
+  addTimeline() {
+    this.store.dispatch(
+      TimelineActions.addTimeline({
+        name: this.form.controls.timelineName.value,
+      })
+    );
   }
 
   private prepareUrl(url: string | undefined) {

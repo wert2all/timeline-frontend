@@ -47,8 +47,18 @@ export const timelineFeature = createFeature({
   name: 'timeline',
   reducer: createReducer(
     initialState,
+    on(TimelineActions.addTimeline, state => ({ ...state, loading: true })),
+    on(TimelineActions.emptyTimeline, TimelineActions.apiException, state => ({
+      ...state,
+      loading: false,
+    })),
+    on(TimelineActions.successAddingTimeline, (state, { timelines }) => ({
+      ...state,
+      timelines: [...timelines, ...state.timelines],
+    })),
     on(
       TimelineActions.updateTimelinesAfterAuthorize,
+      TimelineActions.successAddingTimeline,
       (state, { timelines }) => ({
         ...state,
         timelines: timelines,
