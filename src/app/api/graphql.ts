@@ -31,6 +31,10 @@ export interface Scalars {
   Float: { input: number; output: number };
 }
 
+export interface AddTimeline {
+  name?: InputMaybe<Scalars['String']['input']>;
+}
+
 export type ShortTimeline = { id: number; name?: string | null };
 
 export type User = {
@@ -44,6 +48,12 @@ export type User = {
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
 export type Authorize = { profile?: User | null };
+
+export type AddTimelineMutationVariables = Exact<{
+  timeline?: InputMaybe<AddTimeline>;
+}>;
+
+export type AddTimelineMutation = { timeline: ShortTimeline };
 
 export const ShortTimeline = gql`
   fragment ShortTimeline on ShortUserTimeline {
@@ -85,6 +95,28 @@ export class AuthorizeMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const AddTimelineMutationDocument = gql`
+  mutation AddTimelineMutation($timeline: AddTimeline) {
+    timeline: addTimeline(timeline: $timeline) {
+      ...ShortTimeline
+    }
+  }
+  ${ShortTimeline}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AddTimelineMutationMutation extends Apollo.Mutation<
+  AddTimelineMutation,
+  AddTimelineMutationVariables
+> {
+  override document = AddTimelineMutationDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -93,12 +125,25 @@ interface MutationOptionsAlone<T, V>
 
 @Injectable({ providedIn: 'root' })
 export class ApiClient {
-  constructor(private authorizeMutation: AuthorizeMutation) {}
+  constructor(
+    private authorizeMutation: AuthorizeMutation,
+    private addTimelineMutationMutation: AddTimelineMutationMutation
+  ) {}
 
   authorize(
     variables?: AuthorizeVariables,
     options?: MutationOptionsAlone<Authorize, AuthorizeVariables>
   ) {
     return this.authorizeMutation.mutate(variables, options);
+  }
+
+  addTimelineMutation(
+    variables?: AddTimelineMutationVariables,
+    options?: MutationOptionsAlone<
+      AddTimelineMutation,
+      AddTimelineMutationVariables
+    >
+  ) {
+    return this.addTimelineMutationMutation.mutate(variables, options);
   }
 }

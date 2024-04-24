@@ -6,7 +6,12 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
+input AddTimeline {
+  name: String
+}
+
 type Mutation {
+  addTimeline(timeline: AddTimeline): ShortUserTimeline!
   authorize: User
 }
 
