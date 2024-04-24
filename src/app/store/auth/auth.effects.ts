@@ -9,7 +9,6 @@ import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient } from '../../api/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { NotificationStore } from '../notifications/notifications.store';
-import { TimelineActions } from '../timeline/timeline.actions';
 import { AuthTokenStorageService } from './auth-token-storage.service';
 import { AuthActions } from './auth.actions';
 
@@ -126,18 +125,6 @@ const cleanToken = (
     tap(() => tokenService.setToken(null))
   );
 
-const addTimelines = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(AuthActions.loadUserSucces),
-    map(({ user }) =>
-      user.timelines.map(timeline => ({
-        id: timeline.id,
-        name: timeline.name || null,
-      }))
-    ),
-    map(timelines => TimelineActions.afterAuthorize({ timelines: timelines }))
-  );
-
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
 
@@ -145,7 +132,6 @@ export const authEffects = {
   cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),
   setAuthorized: createEffect(setAuthorized, StoreDispatchEffect),
   authorized: createEffect(authorized, StoreUnDispatchEffect),
-  addTimelines: createEffect(addTimelines, StoreDispatchEffect),
 
   promptNotDisplayed: createEffect(promptNotDisplayed, StoreUnDispatchEffect),
   userEmailIsNotVerified: createEffect(

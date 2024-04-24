@@ -19,6 +19,7 @@ export type TimelineEvent = TimelineRequired & {
 export type Timeline = Iterable & { name: string | null };
 
 export type TimelineState = Loadable & {
-  timeline: Timeline | null;
+  timelines: Timeline[];
+  activeTimeline: Timeline | null;
   events: TimelineEvent[];
 };
