@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxCloseCircleOutline } from '@ng-icons/iconsax/outline';
-import { ViewTimelineTag } from '../../timeline.types';
+import { ViewTimelineTag } from '../../../timeline.types';
 
 @Component({
   selector: 'app-add-event-tags',

@@ -1,7 +1,8 @@
 import { Component, input } from '@angular/core';
-import { EditableViewTimelineEvent } from '../../timeline.types';
+
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxEditOutline, saxTrashOutline } from '@ng-icons/iconsax/outline';
+import { EditableViewTimelineEvent } from '../../../timeline.types';
 
 @Component({
   standalone: true,
