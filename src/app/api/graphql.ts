@@ -31,24 +31,37 @@ export interface Scalars {
   Float: { input: number; output: number };
 }
 
+export type ShortTimeline = { id: number; name?: string | null };
+
 export type User = {
   id: number;
   name: string;
   email: string;
   avatar?: string | null;
+  timelines: Array<ShortTimeline>;
 };
 
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
 export type Authorize = { profile?: User | null };
 
+export const ShortTimeline = gql`
+  fragment ShortTimeline on ShortUserTimeline {
+    id
+    name
+  }
+`;
 export const User = gql`
   fragment User on User {
     id
     name
     email
     avatar
+    timelines {
+      ...ShortTimeline
+    }
   }
+  ${ShortTimeline}
 `;
 export const AuthorizeDocument = gql`
   mutation Authorize {

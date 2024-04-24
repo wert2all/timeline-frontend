@@ -14,6 +14,11 @@ type Query {
   todos: [Todo!]!
 }
 
+type ShortUserTimeline {
+  id: Int!
+  name: String
+}
+
 type Todo {
   done: Boolean!
   id: Int!
@@ -25,5 +30,7 @@ type User {
   avatar: String
   email: String!
   id: Int!
+  isNew: Boolean!
   name: String!
+  timelines: [ShortUserTimeline!]!
 }
