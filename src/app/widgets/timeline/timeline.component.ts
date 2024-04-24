@@ -9,9 +9,11 @@ import {
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
 
+import { Store } from '@ngrx/store';
 import { MarkdownContentComponent } from '../../layout/share/markdown-content/markdown-content.component';
 import { AutoAnimateDirective } from '../../libs/auto-animate.directive';
-import { TimelineStore } from '../../store/timeline/timeline.store';
+import { TimelineActions } from '../../store/timeline/timeline.actions';
+import { timelineFeature } from '../../store/timeline/timeline.reducer';
 import {
   TimelimeEventType,
   TimelineEvent,
@@ -52,26 +54,34 @@ import {
 export class TimelineComponent {
   EditableTimelineTypes = EditableTimelineTypes;
 
-  private readonly timelineStore = inject(TimelineStore);
-  private readonly timelineEventsRaw = this.timelineStore.events;
+  private store = inject(Store);
+
+  private readonly timelineEventsRaw = this.store.selectSignal(
+    timelineFeature.selectActiveTimelineEvents
+  );
   private readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
   canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
-  timeline: Signal<EditableViewTimelineEvent[]> = computed(() =>
-    [...this.createAddList(this.shouldAddEvent()), ...this.timelineEventsRaw()]
-      .filter(event => !!event)
-      .map(event => event as TimelineEvent | EditableTimelineEvent)
-      .map((event, index) => ({
-        ...event,
-        description: event.description || '',
-        icon: new ViewTimelineEventIcon(event.type),
-        url: this.prepareUrl(event.url),
-        date: this.createDate(event.date, event.showTime || false),
-        changeDirection: index % 2 === 0,
-        tags: this.createTags(event.tags),
-        draft: this.isDraftEvent(event),
-      }))
+  timeline: Signal<EditableViewTimelineEvent[] | null> = computed(() =>
+    this.timelineEventsRaw()
+      ? [
+          ...this.createAddList(this.shouldAddEvent()),
+          ...this.timelineEventsRaw()!,
+        ]
+          .filter(event => !!event)
+          .map(event => event as TimelineEvent | EditableTimelineEvent)
+          .map((event, index) => ({
+            ...event,
+            description: event.description || '',
+            icon: new ViewTimelineEventIcon(event.type),
+            url: this.prepareUrl(event.url),
+            date: this.createDate(event.date, event.showTime || false),
+            changeDirection: index % 2 === 0,
+            tags: this.createTags(event.tags),
+            draft: this.isDraftEvent(event),
+          }))
+      : null
   );
 
   addEvent() {
@@ -121,7 +131,7 @@ export class TimelineComponent {
         tags: viewEvent.tags,
         url: viewEvent.url,
       };
-      this.timelineStore.addEvent(event);
+      this.store.dispatch(TimelineActions.addEvent({ event: event }));
     }
     this.shouldAddEvent.set(null);
   }
