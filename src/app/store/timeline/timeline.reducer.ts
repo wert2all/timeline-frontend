@@ -56,7 +56,12 @@ export const timelineFeature = createFeature({
     ),
     on(
       TimelineActions.setActiveTimelineAfterAuthorize,
-      (state, { timeline }) => ({ ...state, activeTimeline: timeline })
+      (state, { timeline }) => ({
+        ...state,
+        activeTimeline: timeline
+          ? { id: timeline.id, name: timeline.name || '' }
+          : null,
+      })
     )
   ),
   extraSelectors: ({ selectEvents, selectActiveTimeline }) => ({
