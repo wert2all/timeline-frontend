@@ -9,6 +9,8 @@ import {
 import { DateTime } from 'luxon';
 
 import { AsyncPipe } from '@angular/common';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { TimelineActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
@@ -31,7 +33,13 @@ import {
   templateUrl: './timeline-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [AsyncPipe, AddEventButtonComponent, ActiveTimelineComponent],
+  imports: [
+    AsyncPipe,
+    AddEventButtonComponent,
+    ActiveTimelineComponent,
+    NgIconComponent,
+  ],
+  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
 })
 export class TimelineComponent {
   private store = inject(Store);
@@ -99,6 +107,10 @@ export class TimelineComponent {
       this.store.dispatch(TimelineActions.addEvent({ event: event }));
     }
     this.shouldAddEvent.set(null);
+  }
+
+  addTimeLine() {
+    throw new Error('Method not implemented.');
   }
 
   private prepareUrl(url: string | undefined) {

@@ -13,11 +13,17 @@
     <div class="hero-content flex-col lg:flex-row-reverse">
       <img src="/assets/timeline.png" class="max-w-sm" alt="timeline" />
       <div>
-        <h1 class="text-5xl font-bold">add events to your personal timeline</h1>
-        <p class="py-6"></p>
-        <app-add-event-button
-          (addEvent)="addEvent()"
-          [disabled]="canAddNewEvent() !== true" />
+        <h1 class="text-5xl font-bold">add your first personal timeline</h1>
+        <p class="py-6">
+          сreate a dynamic story of your life by adding milestones, memories,
+          and achievements.
+        </p>
+        <button
+          class="btn btn-accent btn-lg text-base-content"
+          (click)="addTimeLine()">
+          <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon>create
+          timeline
+        </button>
       </div>
     </div>
   </div>
