@@ -1,18 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  inject,
+} from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { jwtDecode } from 'jwt-decode';
 import { environment } from '../../../../../../environments/environment';
 
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../../../../store/auth/auth.actions';
+import { authFeature } from '../../../../../store/auth/auth.reducer';
 import {
   CredentialResponse,
   GoogleUserInfo,
   IdConfiguration,
 } from '../../../../../store/auth/auth.types';
-import { Store } from '@ngrx/store';
-import { authFeature } from '../../../../../store/auth/auth.reducer';
-import { AuthActions } from '../../../../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-login-container',
@@ -22,7 +27,7 @@ import { AuthActions } from '../../../../../store/auth/auth.actions';
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ saxLogin1Outline })],
 })
-export class LoginContainerComponent {
+export class LoginContainerComponent implements OnInit {
   private readonly store = inject(Store);
 
   private readonly clientId = environment.googleClientId;
@@ -35,10 +40,11 @@ export class LoginContainerComponent {
 
   isLoading = this.store.select(authFeature.isLoading);
 
-  constructor() {
-    window.onGoogleLibraryLoad = () => {
-      google.accounts.id.initialize(this.googleConfiguration);
-    };
+  ngOnInit(): void {
+    // window.onGoogleLibraryLoad = () => {
+    console.log(this.googleConfiguration);
+    google.accounts.id.initialize(this.googleConfiguration);
+    // };
   }
 
   login() {
