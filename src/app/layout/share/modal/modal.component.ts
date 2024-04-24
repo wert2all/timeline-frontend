@@ -17,13 +17,13 @@ export class ModalComponent {
   @ViewChild('modal') private modal: ElementRef<HTMLDialogElement> | null =
     null;
 
-  show = input.required<number>();
+  show = input.required<boolean>();
   title = input<string>();
   onClosed = output<boolean>();
 
   constructor() {
     effect(() => {
-      if (this.show() > 0) {
+      if (this.show()) {
         this.modal?.nativeElement.showModal();
       } else {
         this.modal?.nativeElement.close();

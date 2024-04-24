@@ -58,7 +58,7 @@ const setToken = (
         map(result => result.data?.profile || null),
         map(profile =>
           profile
-            ? AuthActions.loadUserSucces({ token: token, user: profile })
+            ? AuthActions.loadUserSuccess({ token: token, user: profile })
             : AuthActions.emptyProfile()
         ),
         catchError(exception =>
@@ -70,7 +70,7 @@ const setToken = (
 
 const setAuthorized = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.loadUserSucces),
+    ofType(AuthActions.loadUserSuccess),
     map(({ token, user }) =>
       AuthActions.authorized({
         token: token,
