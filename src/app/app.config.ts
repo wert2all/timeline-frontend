@@ -9,6 +9,8 @@ import { provideApollo } from './api/apollo.provider';
 import { routes } from './app.routes';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
+import { timelineEffects } from './store/timeline/timeline.effects';
+import { timelineFeature } from './store/timeline/timeline.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,8 +19,9 @@ export const appConfig: ApplicationConfig = {
     provideApollo(),
     provideStore({
       [authFeature.name]: authFeature.reducer,
+      [timelineFeature.name]: timelineFeature.reducer,
     }),
-    provideEffects([authEffects]),
+    provideEffects([authEffects, timelineEffects]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode
