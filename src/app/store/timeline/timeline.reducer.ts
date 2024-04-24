@@ -1,4 +1,4 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { TimelineActions } from './timeline.actions';
 import { TimelimeEventType, TimelineState } from './timeline.types';
 
@@ -51,4 +51,13 @@ export const timelineFeature = createFeature({
       timeline: (timelines.length > 0 ? timelines.shift() : null) || null,
     }))
   ),
+  extraSelectors: ({ selectTimeline, selectEvents }) => ({
+    selectActiveTimelineEvents: createSelector(
+      selectTimeline,
+      selectEvents,
+      (selectTimeline, selectEvents) => {
+        return selectTimeline ? selectEvents : null;
+      }
+    ),
+  }),
 });

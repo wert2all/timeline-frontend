@@ -1,4 +1,4 @@
-@if (timeline().length > 0) {
+@if (timeline()) {
   <app-add-event-button
     (addEvent)="addEvent()"
     [disabled]="canAddNewEvent() !== true" />
