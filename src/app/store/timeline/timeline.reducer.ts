@@ -4,7 +4,8 @@ import { TimelimeEventType, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
-  timeline: null,
+  timelines: [],
+  activeTimeline: null,
   events: [
     {
       date: new Date('2024-04-17T18:24:00.000+03:00'),
@@ -46,18 +47,19 @@ export const timelineFeature = createFeature({
   name: 'timeline',
   reducer: createReducer(
     initialState,
-    on(TimelineActions.afterAuthorize, (state, { timelines }) => ({
-      ...state,
-      timeline: (timelines.length > 0 ? timelines.shift() : null) || null,
-    }))
+    on(
+      TimelineActions.updateTimelinesAfterAuthorize,
+      (state, { timelines }) => ({
+        ...state,
+        timelines: timelines,
+      })
+    )
   ),
-  extraSelectors: ({ selectTimeline, selectEvents }) => ({
+  extraSelectors: ({ selectTimelines, selectEvents }) => ({
     selectActiveTimelineEvents: createSelector(
-      selectTimeline,
+      selectTimelines,
       selectEvents,
-      (selectTimeline, selectEvents) => {
-        return selectTimeline ? selectEvents : null;
-      }
+      (selectTimeline, selectEvents) => (selectTimeline ? selectEvents : null)
     ),
   }),
 });
