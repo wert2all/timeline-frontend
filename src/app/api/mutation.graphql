@@ -3,3 +3,9 @@ mutation Authorize {
     ...User
   }
 }
+
+mutation AddTimelineMutation($timeline: AddTimeline) {
+  timeline: addTimeline(timeline: $timeline) {
+    ...ShortTimeline
+  }
+}
