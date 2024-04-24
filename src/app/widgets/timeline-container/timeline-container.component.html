@@ -1,7 +1,13 @@
-@if (timeline()) {
+@if (activeTimeline | async) {
   <app-add-event-button
     (addEvent)="addEvent()"
     [disabled]="canAddNewEvent() !== true" />
+  <app-active-timeline
+    [timeline]="timeline()"
+    (filterByTag)="filterByTag($event)"
+    (formPreview)="shouldAddEvent.set($event)"
+    (saveAction)="insertEvent()"
+    (dismissAction)="dismiss()" />
 } @else {
   <div class="bg-lighter hero rounded-xl">
     <div class="hero-content flex-col lg:flex-row-reverse">
@@ -16,78 +22,3 @@
     </div>
   </div>
 }
-
-<ul
-  class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
-  appAnimate>
-  @for (event of timeline(); track $index) {
-    <li class="timeline-item">
-      @switch (event.type) {
-        @case (EditableTimelineTypes.delimiter) {
-          <div class="timeline-middle mt-8"></div>
-        }
-        @case (EditableTimelineTypes.draft) {
-          <div
-            class="bg-lighter timeline-box w-full rounded pr-2"
-            [class.timeline-start]="event.changeDirection"
-            [class.md:text-end]="event.changeDirection"
-            [class.timeline-end]="!event.changeDirection">
-            <app-timeline-event-date [date]="event.date" />
-            <div class="text-lg font-black">{{ event.title }}</div>
-            <app-timeline-event-tags
-              [tags]="event.tags"
-              (clickToTag)="filterByTag($event)" />
-            <app-markdown-content
-              [content]="event.description"
-              class="mt-2"></app-markdown-content>
-            <app-timeline-event-url [url]="event.url" />
-          </div>
-          <div
-            class="event-form bg-lighter timeline-box h-full w-full rounded"
-            [class.timeline-start]="!event.changeDirection"
-            [class.md:text-end]="!event.changeDirection"
-            [class.timeline-end]="event.changeDirection">
-            <app-edit-event-form
-              (changeValues$)="valuesChanges($event)"
-              (addEvent)="insertEvent()" />
-            <button
-              class="close btn btn-circle btn-error btn-sm absolute"
-              (click)="dismiss()">
-              ✕
-            </button>
-          </div>
-          <hr class="bg-accent" />
-        }
-        @default {
-          <div class="timeline-middle">
-            <ng-icon [svg]="event.icon.icon" size="24" />
-          </div>
-          <div
-            class="event-menu mb-8 rounded"
-            [class.timeline-start]="!event.changeDirection"
-            [class.md:text-end]="!event.changeDirection"
-            [class.timeline-end]="event.changeDirection">
-            <app-timeline-event-menu [timelineEvent]="event" />
-          </div>
-
-          <div
-            class="mb-8 w-full rounded"
-            [class.timeline-start]="event.changeDirection"
-            [class.md:text-end]="event.changeDirection"
-            [class.timeline-end]="!event.changeDirection">
-            <app-timeline-event-date [date]="event.date" />
-            <div class="text-lg font-black">{{ event.title }}</div>
-            <app-timeline-event-tags
-              [tags]="event.tags"
-              (clickToTag)="filterByTag($event)" />
-            <app-markdown-content
-              [content]="event.description"
-              class="mt-2"></app-markdown-content>
-            <app-timeline-event-url [url]="event.url" />
-          </div>
-          <hr />
-        }
-      }
-    </li>
-  }
-</ul>

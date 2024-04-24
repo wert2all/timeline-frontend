@@ -1,7 +1,8 @@
 import { Component, input } from '@angular/core';
-import { ViewTimelineUrl } from '../../timeline.types';
+
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLinkOutline } from '@ng-icons/iconsax/outline';
+import { ViewTimelineUrl } from '../../../timeline.types';
 
 @Component({
   selector: 'app-timeline-event-url',
