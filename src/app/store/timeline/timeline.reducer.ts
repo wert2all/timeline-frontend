@@ -1,11 +1,6 @@
-import { inject } from '@angular/core';
-import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { NotificationStore } from '../notifications/notifications.store';
-import {
-  TimelimeEventType,
-  TimelineEvent,
-  TimelineState,
-} from './timeline.types';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { TimelineActions } from './timeline.actions';
+import { TimelimeEventType, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
@@ -46,16 +41,14 @@ const initialState: TimelineState = {
     },
   ],
 };
-export const TimelineStore = signalStore(
-  { providedIn: 'root' },
-  withState(initialState),
-  withMethods((store, notificationStore = inject(NotificationStore)) => ({
-    addEvent: (event: TimelineEvent) => {
-      notificationStore.addMessage('event added', 'success');
-      patchState(store, state => ({
-        ...state,
-        events: [event, ...state.events],
-      }));
-    },
-  }))
-);
+
+export const timelineFeature = createFeature({
+  name: 'timeline',
+  reducer: createReducer(
+    initialState,
+    on(TimelineActions.afterAuthorize, (state, { timelines }) => ({
+      ...state,
+      timeline: timelines.shift() || null,
+    }))
+  ),
+});

@@ -1,9 +1,10 @@
-import { Loadable } from '../../app.types';
+import { Iterable, Loadable } from '../../app.types';
 
 export enum TimelimeEventType {
   default = 'default',
   selebrate = 'selebrate',
 }
+
 export type TimelineRequired = { date: Date; type: TimelimeEventType };
 
 export type TimelineEvent = TimelineRequired & {
@@ -15,6 +16,9 @@ export type TimelineEvent = TimelineRequired & {
   tags?: string[];
 };
 
+export type Timeline = Iterable & { name: string | null };
+
 export type TimelineState = Loadable & {
+  timeline: Timeline | null;
   events: TimelineEvent[];
 };
