@@ -34,9 +34,9 @@ import {
   ViewTimelineTag,
 } from './timeline.types';
 @Component({
-  selector: 'app-timeline',
-  styleUrl: './timeline.component.scss',
-  templateUrl: './timeline.component.html',
+  selector: 'app-timeline-container',
+  styleUrl: './timeline-container.component.scss',
+  templateUrl: './timeline-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [

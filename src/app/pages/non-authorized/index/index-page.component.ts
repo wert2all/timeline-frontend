@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
-import { TimelineComponent } from '../../../widgets/timeline/timeline.component';
+import { TimelineComponent } from '../../../widgets/timeline-container/timeline-container.component';
 import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
 
 @Component({
