@@ -61,6 +61,8 @@ export class TimelineComponent {
   );
   private readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
+  activeTimeline = this.store.select(timelineFeature.selectActiveTimeline);
+
   canAddNewEvent = computed(() => this.shouldAddEvent() === null);
 
   timeline: Signal<EditableViewTimelineEvent[] | null> = computed(() =>
