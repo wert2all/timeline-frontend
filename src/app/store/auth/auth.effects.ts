@@ -6,7 +6,7 @@ import {
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
-import { ApiClient } from '../../api/graphql';
+import { ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AuthTokenStorageService } from './auth-token-storage.service';

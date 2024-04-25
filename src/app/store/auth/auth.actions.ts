@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { User } from '../../api/graphql';
+import { User } from '../../api/internal/graphql';
 import { AuthorizedUser, GoogleUserInfo } from './auth.types';
 
 export const AuthActions = createActionGroup({
