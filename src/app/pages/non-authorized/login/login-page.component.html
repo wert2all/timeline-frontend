@@ -19,7 +19,17 @@
               }
             </p>
             @if ((isAuthorised | async) === false) {
-              <app-login-container />
+              <button
+                class="btn btn-primary"
+                (click)="login()"
+                [attr.disabled]="(isLoading | async) ? true : null">
+                @if ((isLoading | async) === true) {
+                  <span class="loading loading-spinner"></span>
+                } @else {
+                  <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+                }
+                Authorize
+              </button>
             }
           </div>
         </div>

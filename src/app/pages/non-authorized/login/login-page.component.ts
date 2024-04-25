@@ -1,27 +1,28 @@
 import { Component, inject } from '@angular/core';
-import { NgIconComponent } from '@ng-icons/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
+import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
+import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
-import { LoginContainerComponent } from './widgets/login/login-container.component';
+
 @Component({
   selector: 'app-login-page',
   standalone: true,
   templateUrl: './login-page.component.html',
-  imports: [
-    NoAuthorizedLayoutComponent,
-    NgIconComponent,
-    LoginContainerComponent,
-    AsyncPipe,
-  ],
+  imports: [NoAuthorizedLayoutComponent, NgIconComponent, AsyncPipe],
+  viewProviders: [provideIcons({ saxLogin1Outline })],
 })
 export class LoginPageComponent {
-  isAuthorised = inject(Store).select(authFeature.isAuthorized);
+  private readonly store = inject(Store);
+
+  isAuthorised = this.store.select(authFeature.isAuthorized);
+  isLoading = this.store.select(authFeature.isLoading);
 
   constructor(router: Router) {
     this.isAuthorised
@@ -32,5 +33,9 @@ export class LoginPageComponent {
       .subscribe(() => {
         router.navigate(['/']);
       });
+  }
+
+  login() {
+    this.store.dispatch(AuthActions.promptLogin());
   }
 }

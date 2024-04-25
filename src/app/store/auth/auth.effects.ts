@@ -5,7 +5,9 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { GoogleOuthService } from '../../api/external/google-outh.service';
 import { ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { NotificationStore } from '../notifications/notifications.store';
@@ -25,6 +27,31 @@ const initAuth = (
         : AuthActions.emptyInitialToken()
     )
   );
+
+const promptLogin = (
+  actions$ = inject(Actions),
+  outhService = inject(GoogleOuthService),
+  store = inject(Store)
+) =>
+  actions$.pipe(
+    ofType(AuthActions.promptLogin),
+    tap(() => {
+      outhService.login({
+        onSignIn: (token, user) => {
+          store.dispatch(
+            AuthActions.setTokenAndProfile({ token: token, profile: user })
+          );
+        },
+        onNotDisplayed: reason => {
+          store.dispatch(AuthActions.promptNotDisplayed({ reason: reason }));
+        },
+        onNotVerifiedEmail: () => {
+          store.dispatch(AuthActions.userEmailIsNotVerified());
+        },
+      });
+    })
+  );
+
 const promptNotDisplayed = (
   actions$ = inject(Actions),
   notification = inject(NotificationStore)
@@ -128,6 +155,7 @@ const cleanToken = (
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
 
+  promptLogin: createEffect(promptLogin, StoreUnDispatchEffect),
   setToken: createEffect(setToken, StoreDispatchEffect),
   cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),
   setAuthorized: createEffect(setAuthorized, StoreDispatchEffect),
