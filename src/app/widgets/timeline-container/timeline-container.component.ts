@@ -11,8 +11,14 @@ import { DateTime } from 'luxon';
 import { AsyncPipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
+import {
+  saxAddSquareOutline,
+  saxHierarchySquare3Outline,
+  saxLogin1Outline,
+} from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
+import { ModalComponent } from '../../layout/share/modal/modal.component';
+import { authFeature } from '../../store/auth/auth.reducer';
 import { TimelineActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
 import {
@@ -34,13 +40,20 @@ import {
   templateUrl: './timeline-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
+  viewProviders: [
+    provideIcons({
+      saxHierarchySquare3Outline,
+      saxLogin1Outline,
+      saxAddSquareOutline,
+    }),
+  ],
   imports: [
     AsyncPipe,
     AddEventButtonComponent,
     ActiveTimelineComponent,
     ReactiveFormsModule,
     NgIconComponent,
+    ModalComponent,
   ],
 })
 export class TimelineComponent {
@@ -81,6 +94,7 @@ export class TimelineComponent {
   );
 
   showAddTimelineWindow = signal<boolean>(false);
+  isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
 
   addEvent() {
     this.shouldAddEvent.set({
