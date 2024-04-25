@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap, zip } from 'rxjs';
 import { ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
@@ -25,7 +25,8 @@ const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(
       TimelineActions.updateTimelinesAfterAuthorize,
-      TimelineActions.successAddingTimeline
+      TimelineActions.successAddTimeline,
+      TimelineActions.successAddTimelineAfterLogin
     ),
     map(({ timelines }) =>
       timelines.length > 0 ? timelines[0] || null : null
@@ -43,7 +44,7 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(result => result.data?.timeline || null),
         map(timeline =>
           timeline
-            ? TimelineActions.successAddingTimeline({
+            ? TimelineActions.successAddTimeline({
                 timelines: [{ id: timeline.id, name: timeline.name || '' }],
               })
             : TimelineActions.emptyTimeline()
@@ -54,6 +55,22 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
       )
     )
   );
+
+const addTimelineAfterLogin = (action$ = inject(Actions)) => {
+  return action$.pipe(
+    ofType(TimelineActions.addTimelineAfterLogin),
+    map(() => AuthActions.promptLogin())
+  );
+};
+
+const loginSuccessAddTimeline = (action$ = inject(Actions)) => {
+  return zip(
+    action$.pipe(ofType(TimelineActions.addTimelineAfterLogin)),
+    action$.pipe(ofType(AuthActions.authorized))
+  )
+    .pipe(map(result => result[0].name))
+    .pipe(map(name => TimelineActions.addTimeline({ name: name })));
+};
 
 const emptyProfile = (
   action$ = inject(Actions),
@@ -77,6 +94,14 @@ const apiException = (
 
 export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
+  addTimelineAfterLogin: createEffect(
+    addTimelineAfterLogin,
+    StoreDispatchEffect
+  ),
+  loginSuccessAddTimeline: createEffect(
+    loginSuccessAddTimeline,
+    StoreDispatchEffect
+  ),
   updateTimelines: createEffect(updateTimelines, StoreDispatchEffect),
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
 

@@ -11,9 +11,11 @@ export const TimelineActions = createActionGroup({
     }>(),
 
     'Add timeline': props<{ name: string | null | undefined }>(),
+    'Add timeline after login': props<{ name: string | null | undefined }>(),
     'Add event': props<{ event: TimelineEvent }>(),
 
-    'Success adding timeline': props<{ timelines: Timeline[] }>(),
+    'Success add timeline': props<{ timelines: Timeline[] }>(),
+    'Success add timeline after login': props<{ timelines: Timeline[] }>(),
 
     'Empty timeline': emptyProps(),
     'Api Exception': props<{ exception: string }>(),

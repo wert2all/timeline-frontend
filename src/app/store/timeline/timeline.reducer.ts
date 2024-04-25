@@ -47,18 +47,26 @@ export const timelineFeature = createFeature({
   name: 'timeline',
   reducer: createReducer(
     initialState,
-    on(TimelineActions.addTimeline, state => ({ ...state, loading: true })),
+    on(
+      TimelineActions.addTimeline,
+      TimelineActions.addTimelineAfterLogin,
+      state => ({ ...state, loading: true })
+    ),
+    on(
+      TimelineActions.successAddTimeline,
+      TimelineActions.updateTimelinesAfterAuthorize,
+      state => ({ ...state, loading: false })
+    ),
     on(TimelineActions.emptyTimeline, TimelineActions.apiException, state => ({
       ...state,
       loading: false,
     })),
-    on(TimelineActions.successAddingTimeline, (state, { timelines }) => ({
+    on(TimelineActions.successAddTimeline, (state, { timelines }) => ({
       ...state,
       timelines: [...timelines, ...state.timelines],
     })),
     on(
       TimelineActions.updateTimelinesAfterAuthorize,
-      TimelineActions.successAddingTimeline,
       (state, { timelines }) => ({
         ...state,
         timelines: timelines,
@@ -74,7 +82,8 @@ export const timelineFeature = createFeature({
       })
     )
   ),
-  extraSelectors: ({ selectEvents, selectActiveTimeline }) => ({
+  extraSelectors: ({ selectEvents, selectActiveTimeline, selectLoading }) => ({
+    isLoading: createSelector(selectLoading, loading => loading),
     selectActiveTimelineEvents: createSelector(
       selectActiveTimeline,
       selectEvents,
