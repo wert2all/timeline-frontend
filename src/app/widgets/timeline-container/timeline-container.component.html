@@ -18,25 +18,36 @@
           сreate a dynamic story of your life by adding milestones, memories,
           and achievements.
         </p>
-        <div class="flex items-center">
-          <button
-            class="btn btn-accent btn-lg text-base-content"
-            (click)="toggleAddTimelineForm()">
-            <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon
-            >create timeline
-          </button>
-          <div class="join ms-4" [class.hidden]="!showAddTimelineWindow()">
-            <input
-              class="input join-item input-bordered"
-              placeholder="add a name"
-              name="timelineName"
-              [formControl]="form.controls.timelineName" />
-            <button class="btn btn-primary join-item" (click)="addTimeline()">
-              add
-            </button>
-          </div>
-        </div>
+        <button
+          class="btn btn-accent btn-lg text-base-content"
+          (click)="toggleAddTimelineForm()">
+          <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon>create
+          timeline
+        </button>
       </div>
     </div>
+
+    <app-modal [show]="showAddTimelineWindow()">
+      @if (!isAuthorized()) {
+        <p>You must be signed in to your Google account to add your timeline</p>
+      }
+
+      <input
+        class="input input-lg input-bordered mb-8 mt-4 w-full"
+        placeholder="add a name of timeline"
+        name="timelineName"
+        [formControl]="form.controls.timelineName" />
+      <div class="modal-action">
+        <button class="btn btn-primary btn-lg" (click)="addTimeline()">
+          @if (isAuthorized()) {
+            <ng-icon name="saxAddSquareOutline" size="24"></ng-icon>
+            add
+          } @else {
+            <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+            sign-in and add
+          }
+        </button>
+      </div>
+    </app-modal>
   </div>
 }
