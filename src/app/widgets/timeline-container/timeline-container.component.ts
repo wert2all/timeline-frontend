@@ -9,13 +9,9 @@ import {
 import { DateTime } from 'luxon';
 
 import { AsyncPipe } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import {
-  saxAddSquareOutline,
-  saxHierarchySquare3Outline,
-  saxLogin1Outline,
-} from '@ng-icons/iconsax/outline';
+import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { ModalComponent } from '../../layout/share/modal/modal.component';
 import { authFeature } from '../../store/auth/auth.reducer';
@@ -27,6 +23,7 @@ import {
 } from '../../store/timeline/timeline.types';
 import { ActiveTimelineComponent } from './active-timeline/active-timeline.component';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
+import { AddTimelineComponent } from './add-timeline/add-timeline.component';
 import {
   EditableTimelineEvent,
   EditableTimelineTypes,
@@ -43,8 +40,6 @@ import {
   viewProviders: [
     provideIcons({
       saxHierarchySquare3Outline,
-      saxLogin1Outline,
-      saxAddSquareOutline,
     }),
   ],
   imports: [
@@ -54,6 +49,7 @@ import {
     ReactiveFormsModule,
     NgIconComponent,
     ModalComponent,
+    AddTimelineComponent,
   ],
 })
 export class TimelineComponent {
@@ -62,10 +58,6 @@ export class TimelineComponent {
   private readonly timelineEventsRaw = this.store.selectSignal(
     timelineFeature.selectActiveTimelineEvents
   );
-  readonly form = inject(FormBuilder).group({
-    timelineName: [''],
-  });
-
   readonly shouldAddEvent = signal<EditableTimelineEvent | null>(null);
 
   activeTimeline = this.store.select(timelineFeature.selectActiveTimeline);
@@ -95,6 +87,7 @@ export class TimelineComponent {
 
   showAddTimelineWindow = signal<boolean>(false);
   isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
+  isLoading = this.store.selectSignal(timelineFeature.isLoading);
 
   addEvent() {
     this.shouldAddEvent.set({
@@ -135,11 +128,11 @@ export class TimelineComponent {
     this.showAddTimelineWindow.set(true);
   }
 
-  addTimeline() {
+  addTimeline(name: string | null) {
     this.store.dispatch(
-      TimelineActions.addTimeline({
-        name: this.form.controls.timelineName.value,
-      })
+      this.isAuthorized()
+        ? TimelineActions.addTimeline({ name: name })
+        : TimelineActions.addTimelineAfterLogin({ name: name })
     );
   }
 
