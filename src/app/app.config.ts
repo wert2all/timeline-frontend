@@ -5,7 +5,7 @@ import { provideHttpClient } from '@angular/common/http';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import { provideApollo } from './api/apollo.provider';
+import { provideApollo } from './api/internal/apollo.provider';
 import { routes } from './app.routes';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
