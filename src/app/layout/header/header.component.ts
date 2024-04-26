@@ -6,6 +6,7 @@ import { saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { authFeature } from '../../store/auth/auth.reducer';
+import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';
 import { LoginButtonComponent } from './top-menu/login-button/login-button.component';
 import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.component';
 import { ProfileButtonComponent } from './top-menu/profile-button/profile-button.component';
@@ -22,6 +23,7 @@ import { ProfileButtonComponent } from './top-menu/profile-button/profile-button
     LoginButtonComponent,
     ProfileButtonComponent,
     LogoutButtonComponent,
+    CopyTokenComponent,
   ],
 })
 export class HeaderComponent {
@@ -33,7 +35,7 @@ export class HeaderComponent {
   isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
 
   authorizedUser = this.store.selectSignal(authFeature.selectAuthorizedUser);
-
+  token = this.store.selectSignal(authFeature.selectToken);
   login() {
     this.router.navigate(['user', 'login']);
   }

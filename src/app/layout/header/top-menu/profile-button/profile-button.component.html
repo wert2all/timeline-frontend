@@ -1,5 +1,5 @@
 @if (user(); as user) {
-  <button class="btn btn-ghost" title="bye-bye" (click)="toProfile.emit()">
+  <button class="btn btn-ghost" (click)="toProfile.emit()">
     <div class="avatar">
       @if (isLoading() === true) {
         <span class="loading loading-spinner"></span>

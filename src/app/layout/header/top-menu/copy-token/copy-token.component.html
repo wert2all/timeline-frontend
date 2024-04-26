@@ -1,0 +1,9 @@
+@if (token() !== null) {
+  <button
+    class="btn btn-ghost"
+    [class.text-success]="isCopied()"
+    title="copy token"
+    (click)="copy()">
+    <ng-icon [name]="icon()" size="24"></ng-icon>
+  </button>
+}
