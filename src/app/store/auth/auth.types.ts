@@ -3,7 +3,7 @@ import { Loadable, User } from '../../app.types';
 export type AuthorizedUser = {
   uuid: number;
   name: string;
-  avatar: string | null;
+  avatar: string;
 };
 
 export type AuthState = Loadable & {
