@@ -42,8 +42,8 @@ const promptLogin = (
             AuthActions.setTokenAndProfile({ token: token, profile: user })
           );
         },
-        onNotDisplayed: reason => {
-          store.dispatch(AuthActions.promptNotDisplayed({ reason: reason }));
+        onNotDisplayed: () => {
+          store.dispatch(AuthActions.promptNotDisplayed());
         },
         onNotVerifiedEmail: () => {
           store.dispatch(AuthActions.userEmailIsNotVerified());
@@ -58,8 +58,8 @@ const promptNotDisplayed = (
 ) =>
   actions$.pipe(
     ofType(AuthActions.promptNotDisplayed),
-    tap(({ reason }) => {
-      notification.addMessage('Google auth not displayed: ' + reason, 'error');
+    tap(() => {
+      notification.addMessage('Google auth not displayed', 'error');
     })
   );
 

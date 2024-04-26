@@ -9,7 +9,7 @@ import {
 
 export interface Listeners {
   onSignIn: (token: string, user: GoogleUserInfo) => void;
-  onNotDisplayed: (reason: string) => void;
+  onNotDisplayed: () => void;
   onNotVerifiedEmail: () => void;
 }
 const defaultListeners: Listeners = {
@@ -29,15 +29,16 @@ export class GoogleOuthService {
     callback: this.getResponseCallback.bind(this),
     auto_select: true,
     cancel_on_tap_outside: false,
+    use_fedcm_for_prompt: true,
   };
 
   private listeners: Listeners = defaultListeners;
 
   login(listeners: Listeners) {
     this.initialize(listeners);
-    google.accounts.id.prompt(prompt => {
-      if (prompt.isNotDisplayed()) {
-        this.listeners.onNotDisplayed(prompt.getNotDisplayedReason());
+    google.accounts.id.prompt(notification => {
+      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+        this.listeners.onNotDisplayed();
       }
     });
   }

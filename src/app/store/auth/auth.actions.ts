@@ -8,7 +8,7 @@ export const AuthActions = createActionGroup({
     'Init authorized user': props<{ token: string }>(),
     'Empty initial token': emptyProps(),
     'Prompt Login': emptyProps(),
-    'Prompt not displayed': props<{ reason: string }>(),
+    'Prompt not displayed': emptyProps(),
     'Load user success': props<{ token: string; user: User }>(),
     'Set token and profile': props<{
       token: string;
