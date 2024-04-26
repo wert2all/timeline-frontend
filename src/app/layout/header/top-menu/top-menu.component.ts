@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
-import { AuthControlButtonComponent } from './auth-control-button/auth-control-button.component';
+
+import { LoginButtonComponent } from './login-button/login-button.component';
 import { LogoutButtonComponent } from './logout-button/logout-button.component';
 import { ProfileButtonComponent } from './profile-button/profile-button.component';
 
@@ -14,13 +16,14 @@ import { ProfileButtonComponent } from './profile-button/profile-button.componen
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
-    AuthControlButtonComponent,
     LogoutButtonComponent,
     ProfileButtonComponent,
+    LoginButtonComponent,
   ],
 })
 export class TopMenuComponent {
   private readonly store = inject(Store);
+  private readonly router = inject(Router);
 
   isLoading = this.store.selectSignal(authFeature.isLoading);
   // isLoading = signal(true);
@@ -28,6 +31,9 @@ export class TopMenuComponent {
 
   authorizedUser = this.store.selectSignal(authFeature.selectAuthorizedUser);
 
+  login() {
+    this.router.navigate(['user', 'login']);
+  }
   logout() {
     this.store.dispatch(AuthActions.logout());
   }
