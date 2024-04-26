@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
-import { MarkdownContentComponent } from '../../../layout/share/markdown-content/markdown-content.component';
+import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
 import {
   AddValue,
   EditableTimelineEvent,
