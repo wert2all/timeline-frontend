@@ -28,7 +28,6 @@ export const authFeature = createFeature({
       AuthActions.userEmailIsNotVerified,
       AuthActions.emptyProfile,
       AuthActions.apiException,
-      AuthActions.authorized,
       AuthActions.logout,
       state => ({
         ...state,
@@ -49,6 +48,7 @@ export const authFeature = createFeature({
     })),
     on(AuthActions.authorized, (state, { user }) => ({
       ...state,
+      loading: false,
       authorizedUser: user,
     }))
   ),
