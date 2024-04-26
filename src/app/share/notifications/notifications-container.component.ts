@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NotificationStore } from '../../../store/notifications/notifications.store';
-import { NotificationMessage } from '../../../store/notifications/notifications.types';
+import { NotificationStore } from '../../store/notifications/notifications.store';
+import { NotificationMessage } from '../../store/notifications/notifications.types';
 
 @Component({
   selector: 'app-notifications',

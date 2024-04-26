@@ -13,8 +13,8 @@ import {
   saxLoginOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { AuthActions } from '../../../../../store/auth/auth.actions';
-import { authFeature } from '../../../../../store/auth/auth.reducer';
+import { AuthActions } from '../../../../store/auth/auth.actions';
+import { authFeature } from '../../../../store/auth/auth.reducer';
 
 @Component({
   selector: 'app-auth-control-button',

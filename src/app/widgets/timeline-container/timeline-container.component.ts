@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { ModalComponent } from '../../layout/share/modal/modal.component';
+import { ModalComponent } from '../../share/modal/modal.component';
 import { authFeature } from '../../store/auth/auth.reducer';
 import { TimelineActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
