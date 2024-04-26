@@ -1,2 +1,3 @@
 <app-auth-control-button />
+<app-profile-button [isLoading]="isLoading()" [user]="authorizedUser()" />
 <app-logout-button [isAuthorized]="isAuthorized()" (logout)="logout()" />
