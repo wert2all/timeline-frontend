@@ -9,7 +9,12 @@
       timeline
     </a>
   </div>
-  <div class="flex-none">
-    <app-top-menu />
+  <div class="flex-none gap-2">
+    <app-login-button
+      [isLoading]="isLoading()"
+      [isAuthorized]="isAuthorized()"
+      (login)="login()" />
+    <app-profile-button [isLoading]="isLoading()" [user]="authorizedUser()" />
+    <app-logout-button [isAuthorized]="isAuthorized()" (logout)="logout()" />
   </div>
 </div>
