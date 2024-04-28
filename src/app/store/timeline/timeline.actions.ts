@@ -1,5 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Timeline, TimelineEvent } from './timeline.types';
+import { EditableTimelineEvent } from '../../widgets/timeline-container/timeline.types';
+import { Timeline } from './timeline.types';
 
 export const TimelineActions = createActionGroup({
   source: 'Timeline',
@@ -12,12 +13,21 @@ export const TimelineActions = createActionGroup({
 
     'Add timeline': props<{ name: string | null | undefined }>(),
     'Add timeline after login': props<{ name: string | null | undefined }>(),
-    'Add event': props<{ event: TimelineEvent }>(),
 
     'Success add timeline': props<{ timelines: Timeline[] }>(),
     'Success add timeline after login': props<{ timelines: Timeline[] }>(),
 
     'Empty timeline': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
+  },
+});
+
+export const EventActions = createActionGroup({
+  source: 'Event',
+  events: {
+    'Add event': emptyProps(),
+    'Create preview': emptyProps(),
+    'Update preview': props<{ event: EditableTimelineEvent | null }>(),
+    'Clean preview': emptyProps(),
   },
 });

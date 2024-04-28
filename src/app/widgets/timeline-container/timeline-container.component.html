@@ -1,11 +1,11 @@
-@if (activeTimeline | async) {
+@if (activeTimeline() !== null) {
   <app-add-event-button
     (addEvent)="addEvent()"
     [disabled]="canAddNewEvent() !== true" />
   <app-active-timeline
     [timeline]="timeline()"
     (filterByTag)="filterByTag($event)"
-    (formPreview)="shouldAddEvent.set($event)"
+    (formPreview)="updatePreview($event)"
     (saveAction)="insertEvent()"
     (dismissAction)="dismiss()" />
 } @else {

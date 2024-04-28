@@ -1,4 +1,5 @@
 import { Iterable, Loadable } from '../../app.types';
+import { EditableTimelineEvent } from '../../widgets/timeline-container/timeline.types';
 
 export enum TimelimeEventType {
   default = 'default',
@@ -25,4 +26,5 @@ export type TimelineState = Loadable & {
   timelines: Timeline[];
   activeTimeline: ActiveTimeline | null;
   events: TimelineEvent[];
+  preview: EditableTimelineEvent | null;
 };

@@ -1,9 +1,12 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { TimelineActions } from './timeline.actions';
+import { EditableTimelineTypes } from '../../widgets/timeline-container/timeline.types';
+import { createEditableView } from './editable-event-view.factory';
+import { EventActions, TimelineActions } from './timeline.actions';
 import { TimelimeEventType, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
+  preview: null,
   timelines: [],
   activeTimeline: null,
   events: [
@@ -84,15 +87,41 @@ export const timelineFeature = createFeature({
           ? { id: timeline.id, name: timeline.name || '' }
           : null,
       })
-    )
+    ),
+
+    on(EventActions.createPreview, state => ({
+      ...state,
+      preview: {
+        type: EditableTimelineTypes.draft,
+        title: '',
+        description: '# hello!',
+        date: new Date(),
+        isEditableType: true,
+        loading: false,
+      },
+    })),
+    on(EventActions.updatePreview, (state, { event }) => ({
+      ...state,
+      preview: event,
+    })),
+    on(EventActions.cleanPreview, state => ({ ...state, preview: null }))
   ),
-  extraSelectors: ({ selectEvents, selectActiveTimeline, selectLoading }) => ({
+  extraSelectors: ({
+    selectEvents,
+    selectActiveTimeline,
+    selectLoading,
+    selectPreview,
+  }) => ({
     isLoading: createSelector(selectLoading, loading => loading),
-    selectActiveTimelineEvents: createSelector(
+    selectEditableEvents: createSelector(
       selectActiveTimeline,
       selectEvents,
-      (selectActiveTimeline, selectEvents) =>
-        selectActiveTimeline ? selectEvents : null
+      selectPreview,
+      (selectActiveTimeline, selectEvents, selectPreview) =>
+        createEditableView(
+          selectActiveTimeline ? selectEvents : [],
+          selectPreview
+        )
     ),
   }),
 });

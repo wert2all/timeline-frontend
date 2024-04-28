@@ -54,7 +54,7 @@ export enum EditableTimelineTypes {
 
 export type EditableTimelineEvent = Omit<TimelineEvent, 'type'> & {
   type: TimelimeEventType | EditableTimelineTypes;
-  isEditableType: true;
+  isEditableType: boolean;
 };
 
 export type EditableViewTimelineEvent = Omit<ViewTimelineEvent, 'type'> & {
