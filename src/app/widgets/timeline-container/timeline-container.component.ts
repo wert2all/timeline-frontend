@@ -96,6 +96,7 @@ export class TimelineComponent {
       description: '# hello!',
       date: new Date(),
       isEditableType: true,
+      loading: false,
     });
   }
 
@@ -118,6 +119,7 @@ export class TimelineComponent {
         showTime: viewEvent.showTime,
         tags: viewEvent.tags,
         url: viewEvent.url,
+        loading: true,
       };
       this.store.dispatch(TimelineActions.addEvent({ event: event }));
     }
@@ -175,6 +177,7 @@ export class TimelineComponent {
             date: new Date(),
             type: EditableTimelineTypes.delimiter,
             isEditableType: true,
+            loading: false,
           },
         ]
       : [];

@@ -2,7 +2,7 @@
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
   @for (event of timeline(); track $index) {
-    <li class="timeline-item">
+    <li class="timeline-item" [class.skeleton]="event.loading">
       @switch (event.type) {
         @case (EditableTimelineTypes.delimiter) {
           <div class="timeline-middle mt-8"></div>
@@ -40,7 +40,7 @@
           <hr class="bg-accent" />
         }
         @default {
-          <div class="timeline-middle">
+          <div class="timeline-middle" [class.opacity-20]="event.loading">
             <ng-icon [svg]="event.icon.icon" size="24" />
           </div>
           <div
@@ -55,7 +55,8 @@
             class="mb-8 w-full rounded"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
-            [class.timeline-end]="!event.changeDirection">
+            [class.timeline-end]="!event.changeDirection"
+            [class.opacity-20]="event.loading">
             <app-timeline-event-date [date]="event.date" />
             <div class="text-lg font-black">{{ event.title }}</div>
             <app-timeline-event-tags
@@ -66,7 +67,7 @@
               class="mt-2"></app-markdown-content>
             <app-timeline-event-url [url]="event.url" />
           </div>
-          <hr />
+          <hr [class.opacity-20]="event.loading" />
         }
       }
     </li>
