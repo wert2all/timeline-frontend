@@ -36,7 +36,7 @@ const config: CodegenConfig = {
         },
         strictScalars: true,
         scalars: {
-          DateTime: 'Date',
+          Time: 'Date',
         },
       },
     },
