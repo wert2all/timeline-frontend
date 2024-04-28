@@ -55,7 +55,7 @@ export class ActiveTimelineComponent {
     const newValue: EditableTimelineEvent = {
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
       type: EditableTimelineTypes.draft,
-      title: value.title || '...typing',
+      title: value.title || '',
       description: value.content || undefined,
       showTime: (value.withTime && value.showTime) || false,
       tags: value.tags || undefined,

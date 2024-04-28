@@ -11,6 +11,7 @@ input AddTimeline {
 }
 
 type Mutation {
+  addEvent(event: TimelineEventInput!): TimelineEvent!
   addTimeline(timeline: AddTimeline): ShortUserTimeline!
   authorize: User
 }
@@ -22,6 +23,26 @@ type Query {
 type ShortUserTimeline {
   id: Int!
   name: String
+}
+
+scalar Time
+
+type TimelineEvent {
+  date: Time!
+  id: Int!
+  type: TimelineType!
+}
+
+input TimelineEventInput {
+  date: Time!
+  id: Int
+  timelineId: Int!
+  type: TimelineType
+}
+
+enum TimelineType {
+  default
+  selebrate
 }
 
 type Todo {
