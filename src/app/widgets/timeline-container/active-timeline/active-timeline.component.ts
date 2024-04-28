@@ -60,6 +60,7 @@ export class ActiveTimelineComponent {
       showTime: (value.withTime && value.showTime) || false,
       tags: value.tags || undefined,
       isEditableType: true,
+      loading: false,
     };
     this.formPreview.emit(newValue);
   }

@@ -7,14 +7,15 @@ export enum TimelimeEventType {
 
 export type TimelineRequired = { date: Date; type: TimelimeEventType };
 
-export type TimelineEvent = TimelineRequired & {
-  id?: number;
-  title?: string;
-  description?: string;
-  showTime?: boolean;
-  url?: string;
-  tags?: string[];
-};
+export type TimelineEvent = TimelineRequired &
+  Loadable & {
+    id?: number;
+    title?: string;
+    description?: string;
+    showTime?: boolean;
+    url?: string;
+    tags?: string[];
+  };
 
 export type Timeline = Iterable & { name: string | null };
 
