@@ -40,6 +40,7 @@ export interface TimelineEventInput {
   date: Scalars['Time']['input'];
   id?: InputMaybe<Scalars['Int']['input']>;
   timelineId: Scalars['Int']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<TimelineType>;
 }
 
@@ -48,7 +49,12 @@ export enum TimelineType {
   selebrate = 'selebrate',
 }
 
-export type TimelineEvent = { id: number; date: string; type: TimelineType };
+export type TimelineEvent = {
+  id: number;
+  date: string;
+  type: TimelineType;
+  title?: string | null;
+};
 
 export type ShortTimeline = { id: number; name?: string | null };
 
@@ -81,6 +87,7 @@ export const TimelineEvent = gql`
     id
     date
     type
+    title
   }
 `;
 export const ShortTimeline = gql`
