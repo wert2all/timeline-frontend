@@ -1,0 +1,5 @@
+fragment TimelineEvent on TimelineEvent {
+  id
+  date
+  type
+}

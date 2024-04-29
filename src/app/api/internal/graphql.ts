@@ -29,7 +29,7 @@ export interface Scalars {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
-  Time: { input: Date; output: Date };
+  Time: { input: string; output: string };
 }
 
 export interface AddTimeline {
@@ -47,6 +47,8 @@ export enum TimelineType {
   default = 'default',
   selebrate = 'selebrate',
 }
+
+export type TimelineEvent = { id: number; date: string; type: TimelineType };
 
 export type ShortTimeline = { id: number; name?: string | null };
 
@@ -68,6 +70,19 @@ export type AddTimelineMutationVariables = Exact<{
 
 export type AddTimelineMutation = { timeline: ShortTimeline };
 
+export type AddTimelineEventVariables = Exact<{
+  event: TimelineEventInput;
+}>;
+
+export type AddTimelineEvent = { event: TimelineEvent };
+
+export const TimelineEvent = gql`
+  fragment TimelineEvent on TimelineEvent {
+    id
+    date
+    type
+  }
+`;
 export const ShortTimeline = gql`
   fragment ShortTimeline on ShortUserTimeline {
     id
@@ -130,6 +145,28 @@ export class AddTimelineMutationMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const AddTimelineEventDocument = gql`
+  mutation AddTimelineEvent($event: TimelineEventInput!) {
+    event: addEvent(event: $event) {
+      ...TimelineEvent
+    }
+  }
+  ${TimelineEvent}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AddTimelineEventMutation extends Apollo.Mutation<
+  AddTimelineEvent,
+  AddTimelineEventVariables
+> {
+  override document = AddTimelineEventDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -140,7 +177,8 @@ interface MutationOptionsAlone<T, V>
 export class ApiClient {
   constructor(
     private authorizeMutation: AuthorizeMutation,
-    private addTimelineMutationMutation: AddTimelineMutationMutation
+    private addTimelineMutationMutation: AddTimelineMutationMutation,
+    private addTimelineEventMutation: AddTimelineEventMutation
   ) {}
 
   authorize(
@@ -158,5 +196,12 @@ export class ApiClient {
     >
   ) {
     return this.addTimelineMutationMutation.mutate(variables, options);
+  }
+
+  addTimelineEvent(
+    variables: AddTimelineEventVariables,
+    options?: MutationOptionsAlone<AddTimelineEvent, AddTimelineEventVariables>
+  ) {
+    return this.addTimelineEventMutation.mutate(variables, options);
   }
 }

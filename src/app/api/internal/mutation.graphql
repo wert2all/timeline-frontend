@@ -9,3 +9,9 @@ mutation AddTimelineMutation($timeline: AddTimeline) {
     ...ShortTimeline
   }
 }
+
+mutation AddTimelineEvent($event: TimelineEventInput!) {
+  event: addEvent(event: $event) {
+    ...TimelineEvent
+  }
+}
