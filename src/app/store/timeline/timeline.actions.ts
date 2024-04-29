@@ -1,6 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { TimelineEventInput } from '../../api/internal/graphql';
 import { EditableTimelineEvent } from '../../widgets/timeline-container/timeline.types';
-import { Timeline } from './timeline.types';
+import { Timeline, TimelineEvent } from './timeline.types';
 
 export const TimelineActions = createActionGroup({
   source: 'Timeline',
@@ -26,8 +27,17 @@ export const EventActions = createActionGroup({
   source: 'Event',
   events: {
     'Add event': emptyProps(),
+
+    'Push event to API': props<{ event: TimelineEventInput }>(),
+    'Clean preview after push event': emptyProps(),
+
+    'Success push event': props<{ addedEvent: TimelineEvent }>(),
+
     'Create preview': emptyProps(),
     'Update preview': props<{ event: EditableTimelineEvent | null }>(),
     'Clean preview': emptyProps(),
+
+    'Empty event': emptyProps(),
+    'Api Exception': props<{ exception: string }>(),
   },
 });

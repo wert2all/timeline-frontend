@@ -1,7 +1,12 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { TimelineEventInput } from '../../api/internal/graphql';
 import { EditableTimelineTypes } from '../../widgets/timeline-container/timeline.types';
 import { createEditableView } from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
+import {
+  fromEditableEventStateToApiInput,
+  fromEditableEventToTimelineEvent,
+} from './timeline.convertors';
 import { TimelimeEventType, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
@@ -89,6 +94,29 @@ export const timelineFeature = createFeature({
       })
     ),
 
+    on(EventActions.addEvent, state => ({
+      ...state,
+      events: [
+        ...(state.preview ? [state.preview] : []).map(event =>
+          fromEditableEventToTimelineEvent(event)
+        ),
+        ...state.events,
+      ],
+    })),
+    on(EventActions.successPushEvent, (state, { addedEvent }) => ({
+      ...state,
+      events: [...[addedEvent], ...state.events],
+    })),
+    on(
+      EventActions.successPushEvent,
+      EventActions.emptyEvent,
+      EventActions.apiException,
+      state => ({
+        ...state,
+        events: state.events.filter(event => !event.loading),
+      })
+    ),
+
     on(EventActions.createPreview, state => ({
       ...state,
       preview: {
@@ -104,7 +132,11 @@ export const timelineFeature = createFeature({
       ...state,
       preview: event,
     })),
-    on(EventActions.cleanPreview, state => ({ ...state, preview: null }))
+    on(
+      EventActions.cleanPreview,
+      EventActions.cleanPreviewAfterPushEvent,
+      state => ({ ...state, preview: null })
+    )
   ),
   extraSelectors: ({
     selectEvents,
@@ -121,6 +153,15 @@ export const timelineFeature = createFeature({
         createEditableView(
           selectActiveTimeline ? selectEvents : [],
           selectPreview
+        )
+    ),
+    selectEventForPush: createSelector(
+      selectPreview,
+      selectActiveTimeline,
+      (selectPreview, selectActiveTimeline): TimelineEventInput | null =>
+        fromEditableEventStateToApiInput(
+          selectPreview,
+          selectActiveTimeline?.id || null
         )
     ),
   }),

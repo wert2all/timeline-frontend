@@ -30,7 +30,7 @@
             [class.timeline-end]="event.changeDirection">
             <app-edit-event-form
               (changeValues$)="valuesChanges($event)"
-              (addEvent)="saveAction.emit()" />
+              (saveEvent)="saveAction.emit()" />
             <button
               class="close btn btn-circle btn-error btn-sm absolute"
               (click)="dismissAction.emit()">

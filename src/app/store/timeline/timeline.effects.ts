@@ -1,11 +1,23 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap, zip } from 'rxjs';
-import { ApiClient } from '../../api/internal/graphql';
+import { Store } from '@ngrx/store';
+import {
+  catchError,
+  exhaustMap,
+  filter,
+  map,
+  mergeMap,
+  of,
+  tap,
+  zip,
+} from 'rxjs';
+import { ApiClient, TimelineEventInput } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
-import { TimelineActions } from './timeline.actions';
+import { EventActions, TimelineActions } from './timeline.actions';
+import { fromApiEventToState } from './timeline.convertors';
+import { timelineFeature } from './timeline.reducer';
 
 const updateTimelines = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -92,6 +104,42 @@ const apiException = (
     )
   );
 
+const addEvent = (actions$ = inject(Actions), store = inject(Store)) =>
+  actions$.pipe(
+    ofType(EventActions.addEvent),
+    mergeMap(() => store.select(timelineFeature.selectEventForPush)),
+    filter(preview => !!preview),
+    map(preview => preview as TimelineEventInput),
+    map(preview => EventActions.pushEventToAPI({ event: preview }))
+  );
+
+const dissmissAddForm = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(EventActions.pushEventToAPI),
+    map(EventActions.cleanPreviewAfterPushEvent)
+  );
+
+const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) => {
+  return action$.pipe(
+    ofType(EventActions.pushEventToAPI),
+    exhaustMap(({ event }) =>
+      api.addTimelineEvent({ event: event }).pipe(
+        map(result => result.data?.event || null),
+        map(event =>
+          event
+            ? EventActions.successPushEvent({
+                addedEvent: fromApiEventToState(event),
+              })
+            : EventActions.emptyEvent()
+        ),
+        catchError(exception =>
+          of(EventActions.apiException({ exception: exception }))
+        )
+      )
+    )
+  );
+};
+
 export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
   addTimelineAfterLogin: createEffect(
@@ -107,4 +155,10 @@ export const timelineEffects = {
 
   emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
   apiException: createEffect(apiException, StoreUnDispatchEffect),
+};
+
+export const eventsEffects = {
+  addEvent: createEffect(addEvent, StoreDispatchEffect),
+  pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
+  dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
 };
