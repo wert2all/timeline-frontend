@@ -29,6 +29,7 @@ scalar Time
 
 type TimelineEvent {
   date: Time!
+  description: String
   id: Int!
   title: String
   type: TimelineType!
@@ -36,6 +37,7 @@ type TimelineEvent {
 
 input TimelineEventInput {
   date: Time!
+  description: String
   id: Int
   timelineId: Int!
   title: String
