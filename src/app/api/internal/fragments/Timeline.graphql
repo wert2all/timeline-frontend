@@ -3,4 +3,5 @@ fragment TimelineEvent on TimelineEvent {
   date
   type
   title
+  description
 }

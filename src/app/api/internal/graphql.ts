@@ -38,6 +38,7 @@ export interface AddTimeline {
 
 export interface TimelineEventInput {
   date: Scalars['Time']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   timelineId: Scalars['Int']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
@@ -54,6 +55,7 @@ export type TimelineEvent = {
   date: string;
   type: TimelineType;
   title?: string | null;
+  description?: string | null;
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
@@ -88,6 +90,7 @@ export const TimelineEvent = gql`
     date
     type
     title
+    description
   }
 `;
 export const ShortTimeline = gql`
