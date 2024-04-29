@@ -28,6 +28,7 @@ export const fromApiEventToState = (
   id: event.id,
   date: new Date(event.date),
   type: fromApiTypeToState(event.type),
+  title: event.title || undefined,
   loading: false,
 });
 
@@ -52,6 +53,7 @@ export const fromEditableEventStateToApiInput = (
       date: event.date.toISOString(),
       timelineId: timelineId,
       type: fromEventTypeStateToApiType(event.type),
+      title: event.title,
     };
   } else {
     return null;
