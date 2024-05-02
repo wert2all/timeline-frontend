@@ -72,13 +72,27 @@ const userEmailIsNotVerified = (
     tap(() => notification.addMessage('User email is not verified', 'error'))
   );
 
+
+const loadUserAfterInit = (action$ = inject(Actions), api = inject(ApiClient)) => {
+  return action$.pipe(
+    ofType(AuthActions.initAuthorizedUser),
+    exhaustMap(({ token }) =>
+      api.authorize().pipe(
+        map(result => result.data?.profile || null),
+        map(profile =>
+          profile ? AuthActions.succesLoadUserAfterInit({ token: token, user: profile }) : AuthActions.coulndNotLoadUserAfterInit()),
+        catchError(() => of(AuthActions.coulndNotLoadUserAfterInit()))
+      )
+    )
+  )
+}
 const setToken = (
   action$ = inject(Actions),
   tokenService = inject(AuthTokenStorageService),
   api = inject(ApiClient)
 ) =>
   action$.pipe(
-    ofType(AuthActions.setTokenAndProfile, AuthActions.initAuthorizedUser),
+    ofType(AuthActions.setTokenAndProfile),
     tap(({ token }) => tokenService.setToken(token)),
     exhaustMap(({ token }) =>
       api.authorize().pipe(
@@ -97,7 +111,7 @@ const setToken = (
 
 const setAuthorized = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.loadUserSuccess),
+    ofType(AuthActions.loadUserSuccess, AuthActions.succesLoadUserAfterInit),
     map(({ token, user }) =>
       AuthActions.authorized({
         token: token,
@@ -147,13 +161,15 @@ const cleanToken = (
       AuthActions.userEmailIsNotVerified,
       AuthActions.emptyProfile,
       AuthActions.apiException,
-      AuthActions.logout
+      AuthActions.logout,
+      AuthActions.coulndNotLoadUserAfterInit
     ),
     tap(() => tokenService.setToken(null))
   );
 
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
+  loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
 
   promptLogin: createEffect(promptLogin, StoreUnDispatchEffect),
   setToken: createEffect(setToken, StoreDispatchEffect),

@@ -29,6 +29,8 @@ export const authFeature = createFeature({
       AuthActions.emptyProfile,
       AuthActions.apiException,
       AuthActions.logout,
+      AuthActions.coulndNotLoadUserAfterInit,
+
       state => ({
         ...state,
         authorizedUser: null,

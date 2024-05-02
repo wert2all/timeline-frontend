@@ -21,7 +21,7 @@ import { timelineFeature } from './timeline.reducer';
 
 const updateTimelines = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.loadUserSuccess),
+    ofType(AuthActions.loadUserSuccess, AuthActions.succesLoadUserAfterInit),
     map(({ user }) =>
       user.timelines.map(timeline => ({
         id: timeline.id,
@@ -57,8 +57,8 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(timeline =>
           timeline
             ? TimelineActions.successAddTimeline({
-                timelines: [{ id: timeline.id, name: timeline.name || '' }],
-              })
+              timelines: [{ id: timeline.id, name: timeline.name || '' }],
+            })
             : TimelineActions.emptyTimeline()
         ),
         catchError(exception =>
@@ -128,8 +128,8 @@ const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) => {
         map(event =>
           event
             ? EventActions.successPushEvent({
-                addedEvent: fromApiEventToState(event),
-              })
+              addedEvent: fromApiEventToState(event),
+            })
             : EventActions.emptyEvent()
         ),
         catchError(exception =>
