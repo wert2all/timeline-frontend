@@ -57,8 +57,8 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(timeline =>
           timeline
             ? TimelineActions.successAddTimeline({
-              timelines: [{ id: timeline.id, name: timeline.name || '' }],
-            })
+                timelines: [{ id: timeline.id, name: timeline.name || '' }],
+              })
             : TimelineActions.emptyTimeline()
         ),
         catchError(exception =>
@@ -68,21 +68,19 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
     )
   );
 
-const addTimelineAfterLogin = (action$ = inject(Actions)) => {
-  return action$.pipe(
+const addTimelineAfterLogin = (action$ = inject(Actions)) =>
+  action$.pipe(
     ofType(TimelineActions.addTimelineAfterLogin),
     map(() => AuthActions.promptLogin())
   );
-};
 
-const loginSuccessAddTimeline = (action$ = inject(Actions)) => {
-  return zip(
+const loginSuccessAddTimeline = (action$ = inject(Actions)) =>
+  zip(
     action$.pipe(ofType(TimelineActions.addTimelineAfterLogin)),
     action$.pipe(ofType(AuthActions.authorized))
   )
     .pipe(map(result => result[0].name))
     .pipe(map(name => TimelineActions.addTimeline({ name: name })));
-};
 
 const emptyProfile = (
   action$ = inject(Actions),
@@ -119,8 +117,8 @@ const dissmissAddForm = (actions$ = inject(Actions)) =>
     map(EventActions.cleanPreviewAfterPushEvent)
   );
 
-const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) => {
-  return action$.pipe(
+const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) =>
+  action$.pipe(
     ofType(EventActions.pushEventToAPI),
     exhaustMap(({ event }) =>
       api.addTimelineEvent({ event: event }).pipe(
@@ -128,8 +126,8 @@ const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) => {
         map(event =>
           event
             ? EventActions.successPushEvent({
-              addedEvent: fromApiEventToState(event),
-            })
+                addedEvent: fromApiEventToState(event),
+              })
             : EventActions.emptyEvent()
         ),
         catchError(exception =>
@@ -138,7 +136,36 @@ const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) => {
       )
     )
   );
-};
+
+const afterSetActiveTimeline = (action$ = inject(Actions)) =>
+  action$.pipe(
+    ofType(TimelineActions.setActiveTimelineAfterAuthorize),
+    map(({ timeline }) => timeline?.id || null),
+    filter(id => !!id),
+    map(id => id as number),
+    map(id => EventActions.loadActiveTimelineEvents({ timelineId: id }))
+  );
+
+const loadActiveTimelineEvents = (
+  action$ = inject(Actions),
+  api = inject(ApiClient)
+) =>
+  action$.pipe(
+    ofType(EventActions.loadActiveTimelineEvents),
+    exhaustMap(({ timelineId }) =>
+      api.getEvents({ timelineId: timelineId }).pipe(
+        map(result => result.data.events || []),
+        map(events =>
+          EventActions.successLoadActiveTimelineEvents({
+            events: events.map(event => fromApiEventToState(event)),
+          })
+        ),
+        catchError(exception =>
+          of(EventActions.apiException({ exception: exception }))
+        )
+      )
+    )
+  );
 
 export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
@@ -161,4 +188,13 @@ export const eventsEffects = {
   addEvent: createEffect(addEvent, StoreDispatchEffect),
   pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
   dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
+
+  afterSetActiveTimeline: createEffect(
+    afterSetActiveTimeline,
+    StoreDispatchEffect
+  ),
+  loadActiveTimelineEvents: createEffect(
+    loadActiveTimelineEvents,
+    StoreDispatchEffect
+  ),
 };

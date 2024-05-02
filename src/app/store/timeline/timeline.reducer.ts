@@ -62,17 +62,27 @@ export const timelineFeature = createFeature({
     on(
       TimelineActions.addTimeline,
       TimelineActions.addTimelineAfterLogin,
+      EventActions.loadActiveTimelineEvents,
       state => ({ ...state, loading: true })
     ),
     on(
       TimelineActions.successAddTimeline,
       TimelineActions.updateTimelinesAfterAuthorize,
+      EventActions.successLoadActiveTimelineEvents,
       state => ({ ...state, loading: false })
     ),
-    on(TimelineActions.emptyTimeline, TimelineActions.apiException, state => ({
-      ...state,
-      loading: false,
-    })),
+
+    on(
+      TimelineActions.emptyTimeline,
+      TimelineActions.apiException,
+      EventActions.apiException,
+      EventActions.emptyEvent,
+
+      state => ({
+        ...state,
+        loading: false,
+      })
+    ),
     on(TimelineActions.successAddTimeline, (state, { timelines }) => ({
       ...state,
       timelines: [...timelines, ...state.timelines],
