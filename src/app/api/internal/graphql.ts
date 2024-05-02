@@ -1,7 +1,7 @@
-import { gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import * as Apollo from 'apollo-angular';
 import * as ApolloCore from '@apollo/client/core';
+import * as Apollo from 'apollo-angular';
+import { gql } from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -88,6 +88,12 @@ export type AddTimelineEventVariables = Exact<{
 }>;
 
 export type AddTimelineEvent = { event: TimelineEvent };
+
+export type GetEventsVariables = Exact<{
+  timelineId: Scalars['Int']['input'];
+}>;
+
+export type GetEvents = { events: Array<TimelineEvent> };
 
 export const TimelineEvent = gql`
   fragment TimelineEvent on TimelineEvent {
@@ -182,8 +188,39 @@ export class AddTimelineEventMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const GetEventsDocument = gql`
+  query GetEvents($timelineId: Int!) {
+    events: timelineEvents(
+      timelineId: $timelineId
+      limit: { from: 0, to: 10 }
+    ) {
+      ...TimelineEvent
+    }
+  }
+  ${TimelineEvent}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetEventsQuery extends Apollo.Query<
+  GetEvents,
+  GetEventsVariables
+> {
+  override document = GetEventsDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface WatchQueryOptionsAlone<V extends ApolloCore.OperationVariables>
+  extends Omit<ApolloCore.WatchQueryOptions<V>, 'query' | 'variables'> {}
+
+interface QueryOptionsAlone<V>
+  extends Omit<ApolloCore.QueryOptions<V>, 'query' | 'variables'> {}
 
 interface MutationOptionsAlone<T, V>
   extends Omit<ApolloCore.MutationOptions<T, V>, 'mutation' | 'variables'> {}
@@ -193,7 +230,8 @@ export class ApiClient {
   constructor(
     private authorizeMutation: AuthorizeMutation,
     private addTimelineMutationMutation: AddTimelineMutationMutation,
-    private addTimelineEventMutation: AddTimelineEventMutation
+    private addTimelineEventMutation: AddTimelineEventMutation,
+    private getEventsQuery: GetEventsQuery
   ) {}
 
   authorize(
@@ -218,5 +256,19 @@ export class ApiClient {
     options?: MutationOptionsAlone<AddTimelineEvent, AddTimelineEventVariables>
   ) {
     return this.addTimelineEventMutation.mutate(variables, options);
+  }
+
+  getEvents(
+    variables: GetEventsVariables,
+    options?: QueryOptionsAlone<GetEventsVariables>
+  ) {
+    return this.getEventsQuery.fetch(variables, options);
+  }
+
+  getEventsWatch(
+    variables: GetEventsVariables,
+    options?: WatchQueryOptionsAlone<GetEventsVariables>
+  ) {
+    return this.getEventsQuery.watch(variables, options);
   }
 }

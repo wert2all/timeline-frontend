@@ -31,7 +31,10 @@ export const EventActions = createActionGroup({
     'Push event to API': props<{ event: TimelineEventInput }>(),
     'Clean preview after push event': emptyProps(),
 
+    'Load active timeline events': props<{ timelineId: number }>(),
+
     'Success push event': props<{ addedEvent: TimelineEvent }>(),
+    'Success load active timeline events': props<{ events: TimelineEvent[] }>(),
 
     'Create preview': emptyProps(),
     'Update preview': props<{ event: EditableTimelineEvent | null }>(),

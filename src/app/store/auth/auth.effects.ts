@@ -72,20 +72,28 @@ const userEmailIsNotVerified = (
     tap(() => notification.addMessage('User email is not verified', 'error'))
   );
 
-
-const loadUserAfterInit = (action$ = inject(Actions), api = inject(ApiClient)) => {
+const loadUserAfterInit = (
+  action$ = inject(Actions),
+  api = inject(ApiClient)
+) => {
   return action$.pipe(
     ofType(AuthActions.initAuthorizedUser),
     exhaustMap(({ token }) =>
       api.authorize().pipe(
         map(result => result.data?.profile || null),
         map(profile =>
-          profile ? AuthActions.succesLoadUserAfterInit({ token: token, user: profile }) : AuthActions.coulndNotLoadUserAfterInit()),
+          profile
+            ? AuthActions.succesLoadUserAfterInit({
+                token: token,
+                user: profile,
+              })
+            : AuthActions.coulndNotLoadUserAfterInit()
+        ),
         catchError(() => of(AuthActions.coulndNotLoadUserAfterInit()))
       )
     )
-  )
-}
+  );
+};
 const setToken = (
   action$ = inject(Actions),
   tokenService = inject(AuthTokenStorageService),
