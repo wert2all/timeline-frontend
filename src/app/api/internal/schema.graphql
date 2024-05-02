@@ -10,6 +10,11 @@ input AddTimeline {
   name: String
 }
 
+input Limit {
+  from: Int
+  to: Int
+}
+
 type Mutation {
   addEvent(event: TimelineEventInput!): TimelineEvent!
   addTimeline(timeline: AddTimeline): ShortUserTimeline!
@@ -17,7 +22,7 @@ type Mutation {
 }
 
 type Query {
-  todos: [Todo!]!
+  timelineEvents(limit: Limit, timelineId: Int!): [TimelineEvent!]!
 }
 
 type ShortUserTimeline {
@@ -47,13 +52,6 @@ input TimelineEventInput {
 enum TimelineType {
   default
   selebrate
-}
-
-type Todo {
-  done: Boolean!
-  id: Int!
-  text: String!
-  user: User!
 }
 
 type User {
