@@ -36,6 +36,11 @@ export interface AddTimeline {
   name?: InputMaybe<Scalars['String']['input']>;
 }
 
+export interface Limit {
+  from?: InputMaybe<Scalars['Int']['input']>;
+  to?: InputMaybe<Scalars['Int']['input']>;
+}
+
 export interface TimelineEventInput {
   date: Scalars['Time']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
