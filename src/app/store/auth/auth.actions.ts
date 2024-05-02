@@ -14,6 +14,9 @@ export const AuthActions = createActionGroup({
       token: string;
       profile: GoogleUserInfo;
     }>(),
+    "Succes load user after init": props<{ token: string, user: User }>(),
+    "Coulnd not load user after init": emptyProps(),
+
     Authorized: props<{ token: string; user: AuthorizedUser }>(),
     Logout: emptyProps(),
 
