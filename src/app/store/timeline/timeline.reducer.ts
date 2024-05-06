@@ -16,6 +16,16 @@ const initialState: TimelineState = {
   activeTimeline: null,
   events: [
     {
+      date: new Date('2024-05-06T10:24:00.000+03:00'),
+      type: TimelimeEventType.default,
+      title: 'it is not enough just to add, you need to get it',
+      description:
+        'finally! previously you could add your events only, but they began to show in the timeline today',
+      tags: ['server', 'timeline', 'ui', 'show me your kung-fu'],
+      showTime: true,
+      loading: false,
+    },
+    {
       date: new Date('2024-04-17T18:24:00.000+03:00'),
       type: TimelimeEventType.default,
       title: '33ae550a244a4267a3f07862420622fcd4f7498b',
@@ -126,6 +136,11 @@ export const timelineFeature = createFeature({
         events: state.events.filter(event => !event.loading),
       })
     ),
+
+    on(EventActions.successLoadActiveTimelineEvents, (state, { events }) => ({
+      ...state,
+      events: [...events, ...state.events],
+    })),
 
     on(EventActions.createPreview, state => ({
       ...state,
