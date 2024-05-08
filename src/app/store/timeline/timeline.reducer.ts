@@ -16,12 +16,22 @@ const initialState: TimelineState = {
   activeTimeline: null,
   events: [
     {
+      date: new Date('2024-05-08T16:26:00.000+03:00'),
+      type: TimelimeEventType.default,
+      title: 'remove it immediately!',
+      description:
+        'if you already used the previous feature that allowed you to add everything to your timeline, now you can delete everything!',
+      tags: ['server', 'timeline', 'ui', 'feature'],
+      showTime: true,
+      loading: false,
+    },
+    {
       date: new Date('2024-05-06T10:24:00.000+03:00'),
       type: TimelimeEventType.default,
       title: 'it is not enough just to add, you need to get it',
       description:
         'finally! previously you could add your events only, but they began to show in the timeline today',
-      tags: ['server', 'timeline', 'ui', 'show me your kung-fu'],
+      tags: ['server', 'timeline', 'ui', 'show me your kung-fu', 'feature'],
       showTime: true,
       loading: false,
     },
@@ -30,7 +40,15 @@ const initialState: TimelineState = {
       type: TimelimeEventType.default,
       title: '33ae550a244a4267a3f07862420622fcd4f7498b',
       description: 'The backend server now knows how to authenticate users! ',
-      tags: ['server', 'auth', 'timeline', 'commit', 'backend', 'graphQL'],
+      tags: [
+        'server',
+        'auth',
+        'timeline',
+        'commit',
+        'backend',
+        'graphQL',
+        'feature',
+      ],
       showTime: true,
       loading: false,
     },
@@ -161,7 +179,25 @@ export const timelineFeature = createFeature({
       EventActions.cleanPreview,
       EventActions.cleanPreviewAfterPushEvent,
       state => ({ ...state, preview: null })
-    )
+    ),
+    on(EventActions.deleteEvent, (state, { eventId }) => ({
+      ...state,
+      events: state.events.map(event => ({
+        ...event,
+        loading: event.id === eventId ? true : event.loading,
+      })),
+    })),
+    on(EventActions.successDeleteEvent, (state, { eventId }) => ({
+      ...state,
+      events: state.events.filter(event => event.id !== eventId),
+    })),
+    on(EventActions.failedDeleteEvent, (state, { eventId }) => ({
+      ...state,
+      events: state.events.map(event => ({
+        ...event,
+        loading: event.id === eventId ? false : event.loading,
+      })),
+    }))
   ),
   extraSelectors: ({
     selectEvents,

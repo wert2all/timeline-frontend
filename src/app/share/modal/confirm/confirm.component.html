@@ -1,0 +1,13 @@
+<app-modal
+  [show]="show()"
+  (onClosed)="dismissAction.emit()"
+  [title]="confirmMessage()">
+  <div class="modal-action">
+    <form method="dialog" (submit)="dismissAction.emit()">
+      <button class="btn btn-ghost">dismiss</button>
+    </form>
+    <button class="btn btn-primary" (click)="confirmAction.emit()">
+      confirm
+    </button>
+  </div>
+</app-modal>

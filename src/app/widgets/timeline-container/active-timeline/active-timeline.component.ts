@@ -46,6 +46,7 @@ export class ActiveTimelineComponent {
   formPreview = output<EditableTimelineEvent | null>();
   saveAction = output();
   dismissAction = output();
+  onDelete = output<EditableViewTimelineEvent>();
 
   valuesChanges(value: AddValue) {
     const date = DateTime.fromISO(

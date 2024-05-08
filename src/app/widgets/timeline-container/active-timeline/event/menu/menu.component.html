@@ -8,7 +8,10 @@
     <li>
       <a
         class="btn btn-ghost btn-sm hover:bg-warning hover:text-warning-content">
-        <ng-icon name="saxTrashOutline" size="20" />
+        <ng-icon
+          name="saxTrashOutline"
+          size="20"
+          (click)="onDelete.emit(timelineEvent())" />
       </a>
     </li>
   </ul>
