@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import * as ApolloCore from '@apollo/client/core';
-import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+import * as ApolloCore from '@apollo/client/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -39,6 +39,11 @@ export interface AddTimeline {
 export interface Limit {
   from?: InputMaybe<Scalars['Int']['input']>;
   to?: InputMaybe<Scalars['Int']['input']>;
+}
+
+export enum Status {
+  error = 'error',
+  success = 'success',
 }
 
 export interface TimelineEventInput {
@@ -88,6 +93,12 @@ export type AddTimelineEventVariables = Exact<{
 }>;
 
 export type AddTimelineEvent = { event: TimelineEvent };
+
+export type DeleteEventVariables = Exact<{
+  eventId: Scalars['Int']['input'];
+}>;
+
+export type DeleteEvent = { deleteEvent: Status };
 
 export type GetEventsVariables = Exact<{
   timelineId: Scalars['Int']['input'];
@@ -188,6 +199,25 @@ export class AddTimelineEventMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const DeleteEventDocument = gql`
+  mutation DeleteEvent($eventId: Int!) {
+    deleteEvent(eventId: $eventId)
+  }
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class DeleteEventMutation extends Apollo.Mutation<
+  DeleteEvent,
+  DeleteEventVariables
+> {
+  override document = DeleteEventDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 export const GetEventsDocument = gql`
   query GetEvents($timelineId: Int!) {
     events: timelineEvents(
@@ -231,6 +261,7 @@ export class ApiClient {
     private authorizeMutation: AuthorizeMutation,
     private addTimelineMutationMutation: AddTimelineMutationMutation,
     private addTimelineEventMutation: AddTimelineEventMutation,
+    private deleteEventMutation: DeleteEventMutation,
     private getEventsQuery: GetEventsQuery
   ) {}
 
@@ -256,6 +287,13 @@ export class ApiClient {
     options?: MutationOptionsAlone<AddTimelineEvent, AddTimelineEventVariables>
   ) {
     return this.addTimelineEventMutation.mutate(variables, options);
+  }
+
+  deleteEvent(
+    variables: DeleteEventVariables,
+    options?: MutationOptionsAlone<DeleteEvent, DeleteEventVariables>
+  ) {
+    return this.deleteEventMutation.mutate(variables, options);
   }
 
   getEvents(

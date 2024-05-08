@@ -15,3 +15,7 @@ mutation AddTimelineEvent($event: TimelineEventInput!) {
     ...TimelineEvent
   }
 }
+
+mutation DeleteEvent($eventId: Int!) {
+  deleteEvent(eventId: $eventId)
+}

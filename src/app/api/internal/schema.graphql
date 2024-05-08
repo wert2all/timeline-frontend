@@ -19,6 +19,7 @@ type Mutation {
   addEvent(event: TimelineEventInput!): TimelineEvent!
   addTimeline(timeline: AddTimeline): ShortUserTimeline!
   authorize: User
+  deleteEvent(eventId: Int!): Status!
 }
 
 type Query {
@@ -28,6 +29,11 @@ type Query {
 type ShortUserTimeline {
   id: Int!
   name: String
+}
+
+enum Status {
+  error
+  success
 }
 
 scalar Time
