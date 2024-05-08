@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/nx/schemas/project-schema.json",
-  "name": "angular-template",
+  "name": "timeline-frontend",
   "projectType": "application",
   "generators": {
     "@schematics/angular:component": {
@@ -13,7 +13,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "options": {
-        "outputPath": "dist/angular-template",
+        "outputPath": "dist/timeline-frontend",
         "index": "src/index.html",
         "browser": "src/main.ts",
         "polyfills": ["zone.js"],
@@ -57,10 +57,10 @@
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {
-          "buildTarget": "angular-template:build:production"
+          "buildTarget": "timeline-frontend:build:production"
         },
         "development": {
-          "buildTarget": "angular-template:build:development"
+          "buildTarget": "timeline-frontend:build:development"
         }
       },
       "defaultConfiguration": "development"
@@ -68,7 +68,7 @@
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
       "options": {
-        "buildTarget": "angular-template:build"
+        "buildTarget": "timeline-frontend:build"
       }
     },
     "test": {
