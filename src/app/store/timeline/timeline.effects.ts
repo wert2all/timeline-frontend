@@ -11,7 +11,11 @@ import {
   tap,
   zip,
 } from 'rxjs';
-import { ApiClient, TimelineEventInput } from '../../api/internal/graphql';
+import {
+  ApiClient,
+  Status,
+  TimelineEventInput,
+} from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
@@ -96,7 +100,7 @@ const apiException = (
   notification = inject(NotificationStore)
 ) =>
   action$.pipe(
-    ofType(TimelineActions.apiException),
+    ofType(TimelineActions.apiException, EventActions.apiException),
     tap(() =>
       notification.addMessage('Something went wrong. Try again later', 'error')
     )
@@ -167,6 +171,34 @@ const loadActiveTimelineEvents = (
     )
   );
 
+const deleteEvent = (actions$ = inject(Actions), api = inject(ApiClient)) => {
+  return actions$.pipe(
+    ofType(EventActions.deleteEvent),
+    exhaustMap(({ eventId }) =>
+      api.deleteEvent({ eventId: eventId }).pipe(
+        map(result => result.data?.deleteEvent || null),
+        map(result =>
+          result === Status.success
+            ? EventActions.successDeleteEvent({ eventId: eventId })
+            : EventActions.failedDeleteEvent({ eventId: eventId })
+        ),
+        catchError(() =>
+          of(EventActions.failedDeleteEvent({ eventId: eventId }))
+        )
+      )
+    )
+  );
+};
+
+const failedDeleteEvent = (
+  action$ = inject(Actions),
+  notification = inject(NotificationStore)
+) =>
+  action$.pipe(
+    ofType(EventActions.failedDeleteEvent),
+    tap(() => notification.addMessage('Could not delete event', 'error'))
+  );
+
 export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
   addTimelineAfterLogin: createEffect(
@@ -193,6 +225,10 @@ export const eventsEffects = {
     afterSetActiveTimeline,
     StoreDispatchEffect
   ),
+
+  deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
+  failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
+
   loadActiveTimelineEvents: createEffect(
     loadActiveTimelineEvents,
     StoreDispatchEffect

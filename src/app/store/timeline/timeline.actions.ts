@@ -40,6 +40,12 @@ export const EventActions = createActionGroup({
     'Update preview': props<{ event: EditableTimelineEvent | null }>(),
     'Clean preview': emptyProps(),
 
+    'Confirm to delete event': props<{ eventId: number }>(),
+    'Delete event': props<{ eventId: number }>(),
+    'Success delete event': props<{ eventId: number }>(),
+
+    'Failed delete event': props<{ eventId: number }>(),
+
     'Empty event': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
   },

@@ -48,7 +48,9 @@
             [class.timeline-start]="!event.changeDirection"
             [class.md:text-end]="!event.changeDirection"
             [class.timeline-end]="event.changeDirection">
-            <app-timeline-event-menu [timelineEvent]="event" />
+            <app-timeline-event-menu
+              [timelineEvent]="event"
+              (onDelete)="onDelete.emit($event)" />
           </div>
 
           <div
