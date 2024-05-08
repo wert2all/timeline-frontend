@@ -37,3 +37,7 @@ jobs:
 
       - name: Lint by ESLint
         run: pnpm lint:eslint
+
+      - uses: nrwl/nx-set-shas@v4
+      - run: pnpm exec nx-cloud record -- echo Hello World
+      - run: pnpm exec nx affected -t lint test build
