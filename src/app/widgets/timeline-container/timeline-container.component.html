@@ -1,9 +1,10 @@
 @if (activeTimeline() !== null) {
-  <app-confirm
+  <shared-ui-modal-confirm
     [show]="showConfirmWindow()"
     (confirmAction)="confirmDelete()"
     (dismissAction)="dismissDelete()"
-    confirmMessage="Are you shure you want to delete this event?"></app-confirm>
+    confirmMessage="Are you shure you want to delete this event?"></shared-ui-modal-confirm>
+
   <app-add-event-button
     (addEvent)="addEvent()"
     [disabled]="canAddNewEvent() !== true" />
@@ -32,12 +33,11 @@
         </button>
       </div>
     </div>
-
-    <app-modal [show]="showAddTimelineWindow()">
+    <shared-ui-modal [show]="showAddTimelineWindow()">
       <app-add-timeline
         [isAuthorized]="isAuthorized()"
         [isLoading]="isLoading()"
         (addTimeline)="addTimeline($event)" />
-    </app-modal>
+    </shared-ui-modal>
   </div>
 }

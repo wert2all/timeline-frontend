@@ -6,6 +6,7 @@
     "graphql.vscode-graphql",
     "bradlc.vscode-tailwindcss",
     "nrwl.angular-console",
-    "dbaeumer.vscode-eslint"
+    "dbaeumer.vscode-eslint",
+    "firsttris.vscode-jest-runner"
   ]
 }

@@ -1,5 +1,4 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
     "strict": true,
@@ -7,22 +6,12 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "skipLibCheck": true,
     "esModuleInterop": true,
-    "sourceMap": true,
-    "declaration": false,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "importHelpers": true,
     "noUnusedParameters": true,
     "strictNullChecks": true,
-    "target": "ES2022",
-    "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": ["ES2022", "dom"],
     "plugins": [
       {
-        "name": "@0no-co/graphqlsp",
         "schema": "./src/app/api/schema.graphql",
         "tadaOutputLocation": "./src/app/api/graphql-env.d.ts"
       }
@@ -33,5 +22,6 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  }
+  },
+  "extends": "./tsconfig.base.json"
 }
