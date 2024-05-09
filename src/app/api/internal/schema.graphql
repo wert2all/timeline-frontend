@@ -42,6 +42,7 @@ type TimelineEvent {
   date: Time!
   description: String
   id: Int!
+  showTime: Boolean
   title: String
   type: TimelineType!
 }
@@ -50,6 +51,7 @@ input TimelineEventInput {
   date: Time!
   description: String
   id: Int
+  showTime: Boolean
   timelineId: Int!
   title: String
   type: TimelineType
