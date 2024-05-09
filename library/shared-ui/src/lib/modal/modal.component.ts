@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
   ElementRef,
@@ -8,9 +9,9 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
-  imports: [],
+  selector: 'shared-ui-modal',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './modal.component.html',
 })
 export class ModalComponent {

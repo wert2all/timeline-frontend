@@ -1,20 +1,14 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ModalComponent } from '../modal.component';
 
 @Component({
-  selector: 'app-confirm',
+  selector: 'shared-ui-modal-confirm',
   standalone: true,
-  templateUrl: './confirm.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './modal-confirm.component.html',
   imports: [CommonModule, ModalComponent],
 })
-export class ConfirmComponent {
+export class ModalConfirmComponent {
   show = input.required<boolean>();
   confirmMessage = input.required<string>();
 

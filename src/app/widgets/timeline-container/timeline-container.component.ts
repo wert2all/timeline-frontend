@@ -11,8 +11,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { ConfirmComponent } from '../../share/modal/confirm/confirm.component';
-import { ModalComponent } from '../../share/modal/modal.component';
+import { ModalConfirmComponent } from '../../../../library/shared-ui/src/lib/modal/confirm/modal-confirm.component';
+import { ModalComponent } from '../../../../library/shared-ui/src/lib/modal/modal.component';
+
 import { authFeature } from '../../store/auth/auth.reducer';
 import {
   EventActions,
@@ -32,20 +33,16 @@ import {
   templateUrl: './timeline-container.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  viewProviders: [
-    provideIcons({
-      saxHierarchySquare3Outline,
-    }),
-  ],
+  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
   imports: [
     AsyncPipe,
     AddEventButtonComponent,
     ActiveTimelineComponent,
     ReactiveFormsModule,
     NgIconComponent,
-    ModalComponent,
     AddTimelineComponent,
-    ConfirmComponent,
+    ModalComponent,
+    ModalConfirmComponent,
   ],
 })
 export class TimelineComponent {
