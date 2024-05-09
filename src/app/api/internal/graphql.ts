@@ -1,7 +1,7 @@
-import { gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import * as Apollo from 'apollo-angular';
 import * as ApolloCore from '@apollo/client/core';
+import * as Apollo from 'apollo-angular';
+import { gql } from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -50,6 +50,7 @@ export interface TimelineEventInput {
   date: Scalars['Time']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
+  showTime?: InputMaybe<Scalars['Boolean']['input']>;
   timelineId: Scalars['Int']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<TimelineType>;
@@ -66,6 +67,7 @@ export type TimelineEvent = {
   type: TimelineType;
   title?: string | null;
   description?: string | null;
+  showTime?: boolean | null;
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
@@ -113,6 +115,7 @@ export const TimelineEvent = gql`
     type
     title
     description
+    showTime
   }
 `;
 export const ShortTimeline = gql`

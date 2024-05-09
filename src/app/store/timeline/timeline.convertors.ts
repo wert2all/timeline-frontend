@@ -30,6 +30,7 @@ export const fromApiEventToState = (
   type: fromApiTypeToState(event.type),
   title: event.title || undefined,
   description: event.description || undefined,
+  showTime: event.showTime === true,
   loading: false,
 });
 
@@ -56,6 +57,7 @@ export const fromEditableEventStateToApiInput = (
       type: fromEventTypeStateToApiType(event.type),
       title: event.title,
       description: event.description,
+      showTime: event.showTime,
     };
   } else {
     return null;

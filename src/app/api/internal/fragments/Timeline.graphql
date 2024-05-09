@@ -4,4 +4,5 @@ fragment TimelineEvent on TimelineEvent {
   type
   title
   description
+  showTime
 }
