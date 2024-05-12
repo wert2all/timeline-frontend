@@ -3,7 +3,7 @@ import { Component, input, output } from '@angular/core';
 import { ModalComponent } from '../modal.component';
 
 @Component({
-  selector: 'shared-ui-modal-confirm',
+  selector: 'app-modal-confirm',
   standalone: true,
   templateUrl: './modal-confirm.component.html',
   imports: [CommonModule, ModalComponent],
