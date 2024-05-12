@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   Component,
   ElementRef,
   ViewChild,
@@ -14,7 +15,7 @@ import {
   imports: [CommonModule],
   templateUrl: './modal.component.html',
 })
-export class ModalComponent {
+export class ModalComponent implements AfterViewInit {
   @ViewChild('modal') private modal: ElementRef<HTMLDialogElement> | null =
     null;
 
@@ -29,6 +30,11 @@ export class ModalComponent {
       } else {
         this.modal?.nativeElement.close();
       }
+    });
+  }
+  ngAfterViewInit(): void {
+    this.modal?.nativeElement.addEventListener('close', () => {
+      this.onClosed.emit(true);
     });
   }
 }
