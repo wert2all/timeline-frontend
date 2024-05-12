@@ -1,2 +1,2 @@
-export * from './lib/modal/confirm/modal-confirm.component';
-export * from './lib/modal/modal.component';
+export * from '../../../src/app/share/modal/confirm/modal-confirm.component';
+export * from '../../../src/app/share/modal/modal.component';
