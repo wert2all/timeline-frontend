@@ -21,8 +21,13 @@ const createPreviewEvent = (preview: EditableTimelineEvent | null) =>
       ]
     : [];
 
-const prepareUrl = (url: string | undefined) =>
-  url ? { title: new URL(url).host, link: url } : null;
+const prepareUrl = (url: string | undefined) => {
+  try {
+    return url ? { title: new URL(url).host, link: url } : null;
+  } catch (e) {
+    return null;
+  }
+};
 
 const createDate = (date: Date, showTime: boolean): ViewTimelineDate => {
   const dateTime = DateTime.fromISO(date.toISOString());

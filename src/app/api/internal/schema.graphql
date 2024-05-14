@@ -45,6 +45,7 @@ type TimelineEvent {
   showTime: Boolean
   title: String
   type: TimelineType!
+  url: String
 }
 
 input TimelineEventInput {
@@ -55,6 +56,7 @@ input TimelineEventInput {
   timelineId: Int!
   title: String
   type: TimelineType
+  url: String
 }
 
 enum TimelineType {

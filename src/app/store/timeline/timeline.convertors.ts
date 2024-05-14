@@ -31,6 +31,7 @@ export const fromApiEventToState = (
   title: event.title || undefined,
   description: event.description || undefined,
   showTime: event.showTime === true,
+  url: event.url || undefined,
   loading: false,
 });
 
@@ -58,6 +59,7 @@ export const fromEditableEventStateToApiInput = (
       title: event.title,
       description: event.description,
       showTime: event.showTime,
+      url: event.url,
     };
   } else {
     return null;
@@ -73,5 +75,6 @@ export const fromEditableEventToTimelineEvent = (
   title: event.title,
   description: event.description,
   showTime: event.showTime,
+  url: event.url,
   loading: true,
 });

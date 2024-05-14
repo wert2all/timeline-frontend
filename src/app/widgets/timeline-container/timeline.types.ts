@@ -1,5 +1,6 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
+
 import {
   TimelimeEventType,
   TimelineEvent,
@@ -68,5 +69,6 @@ export type AddValue = Partial<{
   showTime: boolean | null;
   title: string | null;
   content: string | null;
+  url: string | null;
   tags: string[];
 }>;

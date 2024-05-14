@@ -26,6 +26,15 @@
   <!--   (keyup)="this.activeStep.set(2)"> -->
   <!--   add tags</a -->
   <!-- > -->
+  <a
+    role="tab"
+    tabindex="2"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 3"
+    (click)="this.activeStep.set(3)"
+    (keyup)="this.activeStep.set(3)"
+    >add link</a
+  >
 </div>
 <div>
   @if (this.activeStep() === 0) {
@@ -124,6 +133,29 @@
       [tags]="tags()"
       (clickToTag)="removeTag($event)"></app-add-event-tags>
   }
+  @if (this.activeStep() === 3) {
+    <label class="form-control">
+      <div class="label">
+        <span class="label-text">link</span>
+      </div>
+      <label class="input input-bordered flex items-center gap-2">
+        <input
+          name="url"
+          type="text"
+          class="grow"
+          placeholder="Url"
+          [formControl]="form.controls.link" />
+      </label>
+      <div class="label" [class.hidden]="!form.controls.link.errors">
+        <span class="label-text-alt text-error">Wrong URL</span>
+      </div>
+      <div class="hidden">
+        <p class="mb-2">preview:</p>
+        <div class="skeleton h-32 w-32"></div>
+      </div>
+    </label>
+  }
+
   <button
     (click)="saveEvent.emit()"
     class="btn btn-primary mt-8"
