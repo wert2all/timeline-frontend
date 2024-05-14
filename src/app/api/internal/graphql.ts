@@ -54,6 +54,7 @@ export interface TimelineEventInput {
   timelineId: Scalars['Int']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<TimelineType>;
+  url?: InputMaybe<Scalars['String']['input']>;
 }
 
 export enum TimelineType {
@@ -68,6 +69,7 @@ export type TimelineEvent = {
   title?: string | null;
   description?: string | null;
   showTime?: boolean | null;
+  url?: string | null;
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
@@ -116,6 +118,7 @@ export const TimelineEvent = gql`
     title
     description
     showTime
+    url
   }
 `;
 export const ShortTimeline = gql`

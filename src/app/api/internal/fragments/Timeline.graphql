@@ -5,4 +5,5 @@ fragment TimelineEvent on TimelineEvent {
   title
   description
   showTime
+  url
 }

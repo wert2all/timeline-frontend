@@ -20,6 +20,9 @@ import { DatePickerComponent } from '../../../../share/date-picker/date-picker.c
 import { AddValue, ViewTimelineTag } from '../../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
+const URL_REGEXP =
+  /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
+
 @Component({
   selector: 'app-edit-event-form',
   standalone: true,
@@ -51,6 +54,7 @@ export class EditEventFormComponent {
     showTime: [true],
     title: [''],
     content: ['# hello!'],
+    link: [null, [Validators.pattern(URL_REGEXP)]],
   });
 
   tags = signal<ViewTimelineTag[]>([]);
@@ -68,6 +72,7 @@ export class EditEventFormComponent {
         time: values.time,
         withTime: values.withTime,
         tags: this.tags().map(tag => tag.value),
+        url: values.link,
       }))
     );
   }
