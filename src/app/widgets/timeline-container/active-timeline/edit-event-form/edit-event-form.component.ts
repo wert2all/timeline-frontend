@@ -2,11 +2,12 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Output,
+  effect,
   inject,
   output,
   signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -15,7 +16,6 @@ import {
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
-import { Observable, map } from 'rxjs';
 import { DatePickerComponent } from '../../../../share/date-picker/date-picker.component';
 import { AddValue, ViewTimelineTag } from '../../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
@@ -58,23 +58,29 @@ export class EditEventFormComponent {
   });
 
   tags = signal<ViewTimelineTag[]>([]);
-
-  @Output() readonly changeValues$: Observable<AddValue>;
   saveEvent = output();
+  changeValues = output<AddValue>();
+
+  private formValues = signal<AddValue | null>(null);
 
   constructor() {
     this.form.controls.time.disable();
     this.form.controls.showTime.disable();
 
-    this.changeValues$ = this.form.valueChanges.pipe(
-      map(values => ({
+    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(values => {
+      this.formValues.set({
         ...values,
         time: values.time,
         withTime: values.withTime,
-        tags: this.tags().map(tag => tag.value),
         url: values.link,
-      }))
-    );
+      });
+    });
+    effect(() => {
+      this.changeValues.emit({
+        ...(this.formValues() || this.form.value),
+        tags: this.tags().map(tag => tag.value),
+      });
+    });
   }
 
   addTag(input: HTMLInputElement) {

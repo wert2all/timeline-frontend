@@ -64,6 +64,7 @@ export class ActiveTimelineComponent {
       url: value.url || undefined,
       loading: false,
     };
+
     this.formPreview.emit(newValue);
   }
 }
