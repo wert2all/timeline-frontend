@@ -51,6 +51,7 @@ export interface TimelineEventInput {
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
   showTime?: InputMaybe<Scalars['Boolean']['input']>;
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
   timelineId: Scalars['Int']['input'];
   title?: InputMaybe<Scalars['String']['input']>;
   type?: InputMaybe<TimelineType>;
