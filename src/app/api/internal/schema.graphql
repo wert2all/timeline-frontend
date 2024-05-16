@@ -53,6 +53,7 @@ input TimelineEventInput {
   description: String
   id: Int
   showTime: Boolean
+  tags: [String!]
   timelineId: Int!
   title: String
   type: TimelineType
