@@ -71,6 +71,7 @@ export type TimelineEvent = {
   description?: string | null;
   showTime?: boolean | null;
   url?: string | null;
+  tags: Array<string>;
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
@@ -120,6 +121,7 @@ export const TimelineEvent = gql`
     description
     showTime
     url
+    tags
   }
 `;
 export const ShortTimeline = gql`
