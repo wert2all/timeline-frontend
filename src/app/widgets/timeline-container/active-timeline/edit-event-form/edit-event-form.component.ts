@@ -77,14 +77,14 @@ export class EditEventFormComponent {
     );
   }
 
-  addTag(value: string | null) {
-    //TODO clean input field
-    const tags = value
+  addTag(input: HTMLInputElement) {
+    const tags = input.value
       ?.split(',')
       .map(tag => tag.trim())
       .filter(tag => tag != '')
       .map(tag => new ViewTimelineTag(tag));
     if (tags) {
+      input.value = '';
       this.tags.update(existTags => [...existTags, ...tags]);
     }
   }

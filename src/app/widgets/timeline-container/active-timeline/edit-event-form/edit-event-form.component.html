@@ -17,18 +17,18 @@
     (keyup)="this.activeStep.set(1)">
     set date and time
   </a>
-  <!-- <a -->
-  <!--   role="tab" -->
-  <!--   tabindex="2" -->
-  <!--   class="tab" -->
-  <!--   [class.tab-active]="this.activeStep() === 2" -->
-  <!--   (click)="this.activeStep.set(2)" -->
-  <!--   (keyup)="this.activeStep.set(2)"> -->
-  <!--   add tags</a -->
-  <!-- > -->
   <a
     role="tab"
     tabindex="2"
+    class="tab"
+    [class.tab-active]="this.activeStep() === 2"
+    (click)="this.activeStep.set(2)"
+    (keyup)="this.activeStep.set(2)">
+    add tags</a
+  >
+  <a
+    role="tab"
+    tabindex="3"
     class="tab"
     [class.tab-active]="this.activeStep() === 3"
     (click)="this.activeStep.set(3)"
@@ -116,11 +116,7 @@
         <span class="label-text">Tags</span>
       </div>
       <label class="input input-bordered flex items-center gap-2">
-        <input
-          #tag
-          type="text"
-          class="w-full"
-          (keyup.enter)="addTag(tag.value)" />
+        <input #tag type="text" class="w-full" (keyup.enter)="addTag(tag)" />
       </label>
       <div class="label">
         <span class="label-text-alt">
@@ -128,10 +124,10 @@
           commas.
         </span>
       </div>
+      <app-add-event-tags
+        [tags]="tags()"
+        (clickToTag)="removeTag($event)"></app-add-event-tags>
     </label>
-    <app-add-event-tags
-      [tags]="tags()"
-      (clickToTag)="removeTag($event)"></app-add-event-tags>
   }
   @if (this.activeStep() === 3) {
     <label class="form-control">
