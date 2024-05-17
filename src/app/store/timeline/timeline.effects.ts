@@ -23,24 +23,9 @@ import { EventActions, TimelineActions } from './timeline.actions';
 import { fromApiEventToState } from './timeline.convertors';
 import { timelineFeature } from './timeline.reducer';
 
-const updateTimelines = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(AuthActions.loadUserSuccess, AuthActions.succesLoadUserAfterInit),
-    map(({ user }) =>
-      user.timelines.map(timeline => ({
-        id: timeline.id,
-        name: timeline.name || null,
-      }))
-    ),
-    map(timelines =>
-      TimelineActions.updateTimelinesAfterAuthorize({ timelines: timelines })
-    )
-  );
-
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(
-      TimelineActions.updateTimelinesAfterAuthorize,
       TimelineActions.successAddTimeline,
       TimelineActions.successAddTimelineAfterLogin
     ),
@@ -79,10 +64,7 @@ const addTimelineAfterLogin = (action$ = inject(Actions)) =>
   );
 
 const loginSuccessAddTimeline = (action$ = inject(Actions)) =>
-  zip(
-    action$.pipe(ofType(TimelineActions.addTimelineAfterLogin)),
-    action$.pipe(ofType(AuthActions.authorized))
-  )
+  zip(action$.pipe(ofType(TimelineActions.addTimelineAfterLogin)))
     .pipe(map(result => result[0].name))
     .pipe(map(name => TimelineActions.addTimeline({ name: name })));
 
@@ -209,7 +191,6 @@ export const timelineEffects = {
     loginSuccessAddTimeline,
     StoreDispatchEffect
   ),
-  updateTimelines: createEffect(updateTimelines, StoreDispatchEffect),
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
 
   emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
