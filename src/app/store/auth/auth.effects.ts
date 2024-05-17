@@ -84,7 +84,7 @@ const loadUserAfterInit = (
         map(result => result.data?.profile || null),
         map(profile =>
           profile
-            ? AuthActions.succesLoadUserAfterInit({
+            ? AuthActions.successLoadUserAfterInit({
                 token: token,
                 user: profile,
               })
@@ -120,7 +120,7 @@ const setToken = (
 
 const setAuthorized = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.loadUserSuccess, AuthActions.succesLoadUserAfterInit),
+    ofType(AuthActions.loadUserSuccess, AuthActions.successLoadUserAfterInit),
     map(({ token, user }) =>
       AuthActions.authorized({
         token: token,
