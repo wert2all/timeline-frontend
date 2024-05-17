@@ -95,7 +95,6 @@ export const timelineFeature = createFeature({
     ),
     on(
       TimelineActions.successAddTimeline,
-      TimelineActions.updateTimelinesAfterAuthorize,
       EventActions.successLoadActiveTimelineEvents,
       state => ({ ...state, loading: false })
     ),
@@ -115,13 +114,6 @@ export const timelineFeature = createFeature({
       ...state,
       timelines: [...timelines, ...state.timelines],
     })),
-    on(
-      TimelineActions.updateTimelinesAfterAuthorize,
-      (state, { timelines }) => ({
-        ...state,
-        timelines: timelines,
-      })
-    ),
     on(
       TimelineActions.setActiveTimelineAfterAuthorize,
       (state, { timeline }) => ({

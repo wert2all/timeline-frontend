@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   Actions,
   createEffect,
@@ -131,6 +132,16 @@ const setAuthorized = (action$ = inject(Actions)) =>
       })
     )
   );
+
+const redirectAfterLogin = (
+  actions$ = inject(Actions),
+  router = inject(Router)
+) =>
+  actions$.pipe(
+    ofType(AuthActions.loadUserSuccess),
+    tap(() => router.navigate(['/', 'my']))
+  );
+
 const authorized = (
   action$ = inject(Actions),
   tokenService = inject(AuthTokenStorageService)
@@ -179,6 +190,7 @@ export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
   loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
 
+  redirectAfterLogin: createEffect(redirectAfterLogin, StoreUnDispatchEffect),
   promptLogin: createEffect(promptLogin, StoreUnDispatchEffect),
   setToken: createEffect(setToken, StoreDispatchEffect),
   cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),

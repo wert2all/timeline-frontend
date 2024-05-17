@@ -42,4 +42,7 @@ export class HeaderComponent {
   logout() {
     this.store.dispatch(AuthActions.logout());
   }
+  goToMy() {
+    this.router.navigate(['my']);
+  }
 }
