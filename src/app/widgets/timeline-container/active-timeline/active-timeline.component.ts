@@ -49,9 +49,8 @@ export class ActiveTimelineComponent {
   onDelete = output<EditableViewTimelineEvent>();
 
   valuesChanges(value: AddValue) {
-    const date = DateTime.fromISO(
-      value.date + (value.time ? 'T' + value.time : '')
-    );
+    const time = value.time?.match('^\\d:') ? '0' + value.time : value.time;
+    const date = DateTime.fromISO(value.date + (time ? 'T' + time : ''));
 
     const newValue: EditableTimelineEvent = {
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
