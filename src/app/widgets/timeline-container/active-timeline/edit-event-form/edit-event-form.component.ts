@@ -23,6 +23,8 @@ import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
 
+const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
+
 @Component({
   selector: 'app-edit-event-form',
   standalone: true,
@@ -49,7 +51,10 @@ export class EditEventFormComponent {
   form = inject(FormBuilder).group({
     id: [null],
     date: [DateTime.now().toISODate(), Validators.required],
-    time: [DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE)],
+    time: [
+      DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE),
+      Validators.pattern(TIME_REGEXP),
+    ],
     withTime: [false],
     showTime: [true],
     title: [''],

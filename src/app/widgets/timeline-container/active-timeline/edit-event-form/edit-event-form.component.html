@@ -95,6 +95,7 @@
             name="time"
             type="text"
             class="input input-bordered w-20"
+            [class.input-error]="!form.controls.time.valid"
             [formControl]="form.controls.time" />
         </label>
       </div>
