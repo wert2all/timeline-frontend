@@ -186,6 +186,12 @@ const cleanToken = (
     tap(() => tokenService.setToken(null))
   );
 
+const logout = (action$ = inject(Actions), router = inject(Router)) =>
+  action$.pipe(
+    ofType(AuthActions.logout),
+    tap(() => router.navigate(['/']))
+  );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
   loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
@@ -202,6 +208,8 @@ export const authEffects = {
     userEmailIsNotVerified,
     StoreUnDispatchEffect
   ),
+
+  logout: createEffect(logout, StoreUnDispatchEffect),
 
   emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
   apiException: createEffect(apiException, StoreUnDispatchEffect),
