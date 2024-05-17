@@ -9,7 +9,7 @@ export const maybeAuthGuard: CanActivateFn = () => {
 
   const isAuthorized = store.selectSignal(authFeature.isAuthorized)();
   const isEmptyToken = store.selectSignal(authFeature.selectToken)() != null;
-  console.log(isAuthorized, isEmptyToken);
+  // console.log(isAuthorized, isEmptyToken);
   const canActivate = isAuthorized || isEmptyToken;
   if (canActivate == false) {
     router.navigateByUrl('/');
