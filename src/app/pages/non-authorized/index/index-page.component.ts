@@ -8,10 +8,7 @@ import {
 } from '@angular/core';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import {
-  saxHierarchySquare3Outline,
-  saxLogin1Outline,
-} from '@ng-icons/iconsax/outline';
+import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 
 import { LayoutComponent } from '../../../share/layout/layout.component';
@@ -27,9 +24,7 @@ import { AddTimelineComponent } from '../../../widgets/timeline-container/add-ti
   standalone: true,
   templateUrl: './index-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [
-    provideIcons({ saxHierarchySquare3Outline, saxLogin1Outline }),
-  ],
+  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
   imports: [
     CommonModule,
     LayoutComponent,
