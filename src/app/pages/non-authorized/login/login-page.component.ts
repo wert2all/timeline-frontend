@@ -7,7 +7,8 @@ import { Router } from '@angular/router';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
-import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
+
+import { LayoutComponent } from '../../../share/layout/layout.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 
@@ -15,7 +16,7 @@ import { authFeature } from '../../../store/auth/auth.reducer';
   selector: 'app-login-page',
   standalone: true,
   templateUrl: './login-page.component.html',
-  imports: [NoAuthorizedLayoutComponent, NgIconComponent, AsyncPipe],
+  imports: [LayoutComponent, NgIconComponent, AsyncPipe],
   viewProviders: [provideIcons({ saxLogin1Outline })],
 })
 export class LoginPageComponent {
