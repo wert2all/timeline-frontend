@@ -13,7 +13,8 @@ import {
   saxLogin1Outline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { NoAuthorizedLayoutComponent } from '../../../layout/no-authorized/no-authorized-layout.component';
+
+import { LayoutComponent } from '../../../share/layout/layout.component';
 import { ModalComponent } from '../../../share/modal/modal.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
@@ -31,7 +32,7 @@ import { AddTimelineComponent } from '../../../widgets/timeline-container/add-ti
   ],
   imports: [
     CommonModule,
-    NoAuthorizedLayoutComponent,
+    LayoutComponent,
     NgIconComponent,
     ModalComponent,
     AddTimelineComponent,
