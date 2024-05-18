@@ -17,15 +17,13 @@
           </button>
           <div class="divider lg:divider-horizontal">or</div>
           <button
-            class="btn btn-ghost"
+            class="btn"
             (click)="login()"
             [attr.disabled]="isLoading() ? true : null">
             @if (isLoading() === true) {
               <span class="loading loading-spinner"></span>
-            } @else {
-              <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
             }
-            Authorize
+            authorize
           </button>
         </div>
       </div>
