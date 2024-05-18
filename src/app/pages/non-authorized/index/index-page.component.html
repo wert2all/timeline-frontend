@@ -1,42 +1,40 @@
 <app-layout>
-  <div class="mx-auto w-full max-w-5xl pt-4">
-    <div class="bg-lighter hero rounded-xl">
-      <div class="hero-content flex-col lg:flex-row-reverse">
-        <img src="/assets/timeline.png" class="max-w-sm" alt="timeline" />
-        <div>
-          <h1 class="text-5xl font-bold">add your first personal timeline</h1>
-          <p class="py-6">
-            create a dynamic story of your life by adding milestones, memories,
-            and achievements.
-          </p>
-          <div class="flex w-full flex-col items-center lg:flex-row">
-            <button
-              class="btn btn-accent btn-lg me-4 text-base-content"
-              (click)="toggleAddTimelineForm()">
-              <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon
-              >create timeline
-            </button>
-            <div class="divider lg:divider-horizontal">or</div>
-            <button
-              class="btn btn-ghost"
-              (click)="login()"
-              [attr.disabled]="isLoading() ? true : null">
-              @if (isLoading() === true) {
-                <span class="loading loading-spinner"></span>
-              } @else {
-                <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
-              }
-              Authorize
-            </button>
-          </div>
+  <div class="bg-lighter hero rounded-xl">
+    <div class="hero-content flex-col lg:flex-row-reverse">
+      <img src="/assets/timeline.png" class="max-w-sm" alt="timeline" />
+      <div>
+        <h1 class="text-5xl font-bold">add your first personal timeline</h1>
+        <p class="py-6">
+          create a dynamic story of your life by adding milestones, memories,
+          and achievements.
+        </p>
+        <div class="flex w-full flex-col items-center lg:flex-row">
+          <button
+            class="btn btn-accent btn-lg me-4 text-base-content"
+            (click)="toggleAddTimelineForm()">
+            <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon
+            >create timeline
+          </button>
+          <div class="divider lg:divider-horizontal">or</div>
+          <button
+            class="btn btn-ghost"
+            (click)="login()"
+            [attr.disabled]="isLoading() ? true : null">
+            @if (isLoading() === true) {
+              <span class="loading loading-spinner"></span>
+            } @else {
+              <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+            }
+            Authorize
+          </button>
         </div>
       </div>
-      <app-modal [show]="showAddTimelineWindow()">
-        <app-add-timeline
-          [isAuthorized]="isAuthorized()"
-          [isLoading]="isLoading()"
-          (addTimeline)="addTimeline($event)" />
-      </app-modal>
     </div>
+    <app-modal [show]="showAddTimelineWindow()">
+      <app-add-timeline
+        [isAuthorized]="isAuthorized()"
+        [isLoading]="isLoading()"
+        (addTimeline)="addTimeline($event)" />
+    </app-modal>
   </div>
 </app-layout>
