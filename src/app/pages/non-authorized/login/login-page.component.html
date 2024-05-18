@@ -6,39 +6,38 @@
     data-callback="g"
     data-auto_select="true"
     data-itp_support="true"></div>
-  <div class="flex w-full items-center">
-    <div class="card mx-auto w-full max-w-5xl shadow-xl">
-      <div class="hero rounded-xl bg-base-200 p-16">
-        <div class="hero-content flex-col lg:flex-row-reverse">
-          <div class="max-w-lg">
-            <h1 class="text-5xl font-bold">
-              @if ((isAuthorised | async) === false) {
-                Login with Google
-              } @else {
-                Thank you for authorizing on our service
-              }
-            </h1>
-            <p class="pb-14 pt-6">
-              @if ((isAuthorised | async) === false) {
-                You must be signed in to your Google account to use Timeline
-              } @else {
-                You will now be redirected to the service
-              }
-            </p>
+
+  <div class="card mx-auto w-full max-w-5xl shadow-xl">
+    <div class="hero rounded-xl bg-base-200 p-16">
+      <div class="hero-content flex-col lg:flex-row-reverse">
+        <div class="max-w-lg">
+          <h1 class="text-5xl font-bold">
             @if ((isAuthorised | async) === false) {
-              <button
-                class="btn btn-primary"
-                (click)="login()"
-                [attr.disabled]="(isLoading | async) ? true : null">
-                @if ((isLoading | async) === true) {
-                  <span class="loading loading-spinner"></span>
-                } @else {
-                  <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
-                }
-                Authorize
-              </button>
+              Login with Google
+            } @else {
+              Thank you for authorizing on our service
             }
-          </div>
+          </h1>
+          <p class="pb-14 pt-6">
+            @if ((isAuthorised | async) === false) {
+              You must be signed in to your Google account to use Timeline
+            } @else {
+              You will now be redirected to the service
+            }
+          </p>
+          @if ((isAuthorised | async) === false) {
+            <button
+              class="btn btn-primary"
+              (click)="login()"
+              [attr.disabled]="(isLoading | async) ? true : null">
+              @if ((isLoading | async) === true) {
+                <span class="loading loading-spinner"></span>
+              } @else {
+                <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+              }
+              Authorize
+            </button>
+          }
         </div>
       </div>
     </div>
