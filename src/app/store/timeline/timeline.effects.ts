@@ -197,10 +197,27 @@ export const timelineEffects = {
   apiException: createEffect(apiException, StoreUnDispatchEffect),
 };
 
+const setTimelinesAfterAuthorize = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AuthActions.successLoadUserAfterInit),
+    map(({ user }) => user.timelines.find(Boolean) || null),
+    map(timeline =>
+      timeline ? { ...timeline, name: timeline.name || null } : null
+    ),
+    map(timeline =>
+      TimelineActions.setActiveTimelineAfterAuthorize({ timeline })
+    )
+  );
+
 export const eventsEffects = {
   addEvent: createEffect(addEvent, StoreDispatchEffect),
   pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
   dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
+
+  setTimelinesAfterAuthorize: createEffect(
+    setTimelinesAfterAuthorize,
+    StoreDispatchEffect
+  ),
 
   afterSetActiveTimeline: createEffect(
     afterSetActiveTimeline,

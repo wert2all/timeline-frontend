@@ -1,3 +1,9 @@
 <app-layout>
-  <app-timeline-container />
+  @if (isLoading()) {
+    <div class="flex justify-center">
+      <progress class="progress w-3/4"></progress>
+    </div>
+  } @else {
+    <app-timeline-container />
+  }
 </app-layout>
