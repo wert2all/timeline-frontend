@@ -9,7 +9,7 @@ export const AuthActions = createActionGroup({
     'Empty initial token': emptyProps(),
     'Prompt Login': emptyProps(),
     'Prompt not displayed': emptyProps(),
-    'Load user success': props<{ token: string; user: User }>(),
+    'Success load user': props<{ token: string; user: User }>(),
     'Set token and profile': props<{
       token: string;
       profile: GoogleUserInfo;
