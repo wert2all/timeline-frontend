@@ -13,6 +13,7 @@ import { Store } from '@ngrx/store';
 
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { ModalComponent } from '../../../share/modal/modal.component';
+import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
@@ -31,6 +32,7 @@ import { AddTimelineComponent } from '../../../widgets/timeline-container/add-ti
     NgIconComponent,
     ModalComponent,
     AddTimelineComponent,
+    CreateTimelineButtonComponent,
   ],
 })
 export class IndexPageComponent {

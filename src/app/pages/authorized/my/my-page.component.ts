@@ -8,7 +8,9 @@ import {
 
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../share/layout/layout.component';
+import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
 import { authFeature } from '../../../store/auth/auth.reducer';
+import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { TimelineComponent } from '../../../widgets/timeline-container/timeline-container.component';
 
@@ -16,15 +18,30 @@ import { TimelineComponent } from '../../../widgets/timeline-container/timeline-
   selector: 'app-my-page',
   standalone: true,
   templateUrl: './my-page.component.html',
+  imports: [
+    CommonModule,
+    LayoutComponent,
+    TimelineComponent,
+    CreateTimelineButtonComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, LayoutComponent, TimelineComponent],
 })
 export class MyPageComponent {
   private readonly store = inject(Store);
-  isAuthLoading = this.store.selectSignal(authFeature.isLoading);
-  isTimelineLoading = this.store.selectSignal(timelineFeature.isLoading);
+
+  readonly isAuthLoading = this.store.selectSignal(authFeature.isLoading);
+  readonly isTimelineLoading = this.store.selectSignal(
+    timelineFeature.isLoading
+  );
+
+  readonly activeTimeline = this.store.selectSignal(
+    timelineFeature.selectActiveTimeline
+  );
 
   isLoading = computed(() => {
     return this.isAuthLoading() || this.isTimelineLoading();
   });
+  addTimeline(name: string | null) {
+    this.store.dispatch(TimelineActions.addTimeline({ name: name }));
+  }
 }

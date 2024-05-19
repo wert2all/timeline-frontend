@@ -5,5 +5,11 @@
     </div>
   } @else {
     <app-timeline-container />
+    @if (!activeTimeline()) {
+      <app-create-timeline-button
+        [isAuthorized]="true"
+        [isLoading]="isLoading()"
+        (addTimeline)="addTimeline($event)" />
+    }
   }
 </app-layout>

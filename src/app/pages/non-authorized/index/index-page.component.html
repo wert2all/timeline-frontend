@@ -9,13 +9,14 @@
           and achievements.
         </p>
         <div class="flex w-full flex-col items-center lg:flex-row">
-          <button
-            class="btn btn-accent btn-lg me-4 text-base-content"
-            (click)="toggleAddTimelineForm()">
-            <ng-icon name="saxHierarchySquare3Outline" size="32"></ng-icon
-            >create timeline
-          </button>
+          <app-create-timeline-button
+            [isLarge]="true"
+            [isAuthorized]="isAuthorized()"
+            [isLoading]="isLoading()"
+            (addTimeline)="addTimeline($event)" />
+
           <div class="divider lg:divider-horizontal">or</div>
+
           <button
             class="btn"
             (click)="login()"
