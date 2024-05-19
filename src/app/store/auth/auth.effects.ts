@@ -108,7 +108,7 @@ const setToken = (
         map(result => result.data?.profile || null),
         map(profile =>
           profile
-            ? AuthActions.loadUserSuccess({ token: token, user: profile })
+            ? AuthActions.successLoadUser({ token: token, user: profile })
             : AuthActions.emptyProfile()
         ),
         catchError(exception =>
@@ -120,7 +120,7 @@ const setToken = (
 
 const setAuthorized = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.loadUserSuccess, AuthActions.successLoadUserAfterInit),
+    ofType(AuthActions.successLoadUser, AuthActions.successLoadUserAfterInit),
     map(({ token, user }) =>
       AuthActions.authorized({
         token: token,
@@ -138,7 +138,7 @@ const redirectAfterLogin = (
   router = inject(Router)
 ) =>
   actions$.pipe(
-    ofType(AuthActions.loadUserSuccess),
+    ofType(AuthActions.successLoadUser),
     tap(() => router.navigate(['/', 'my']))
   );
 

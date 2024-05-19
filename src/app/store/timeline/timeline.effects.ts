@@ -199,7 +199,7 @@ export const timelineEffects = {
 
 const setTimelinesAfterAuthorize = (actions$ = inject(Actions)) =>
   actions$.pipe(
-    ofType(AuthActions.successLoadUserAfterInit),
+    ofType(AuthActions.successLoadUserAfterInit, AuthActions.successLoadUser),
     map(({ user }) => user.timelines.find(Boolean) || null),
     map(timeline =>
       timeline ? { ...timeline, name: timeline.name || null } : null
