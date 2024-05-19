@@ -1,16 +1,8 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import {
-  catchError,
-  exhaustMap,
-  filter,
-  map,
-  mergeMap,
-  of,
-  tap,
-  zip,
-} from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, tap, zip } from 'rxjs';
 import {
   ApiClient,
   Status,
@@ -91,7 +83,8 @@ const apiException = (
 const addEvent = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
     ofType(EventActions.addEvent),
-    mergeMap(() => store.select(timelineFeature.selectEventForPush)),
+    concatLatestFrom(() => store.select(timelineFeature.selectEventForPush)),
+    map(([, event]) => event),
     filter(preview => !!preview),
     map(preview => preview as TimelineEventInput),
     map(preview => EventActions.pushEventToAPI({ event: preview }))
