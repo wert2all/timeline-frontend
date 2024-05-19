@@ -1,0 +1,16 @@
+<button
+  class="btn btn-accent text-base-content"
+  [class.btn-lg]="isLarge()"
+  (click)="showAddTimelineWindow.set(true)">
+  <ng-icon name="saxHierarchySquare3Outline" [size]="size()"></ng-icon>
+  create timeline
+</button>
+
+<app-modal
+  [show]="showAddTimelineWindow()"
+  (onClosed)="showAddTimelineWindow.set(false)">
+  <app-add-timeline
+    [isAuthorized]="isAuthorized()"
+    [isLoading]="isLoading()"
+    (addTimeline)="addTimeline.emit($event)" />
+</app-modal>

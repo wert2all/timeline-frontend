@@ -44,6 +44,10 @@ export class TimelineComponent {
     timelineFeature.selectPreview
   );
 
+  readonly activeTimeline = this.store.selectSignal(
+    timelineFeature.selectActiveTimeline
+  );
+
   readonly timeline = this.store.selectSignal(
     timelineFeature.selectEditableEvents
   );
