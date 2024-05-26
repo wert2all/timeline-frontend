@@ -12,19 +12,19 @@ import { CreateTimelineButtonComponent } from '../../../share/timeline/create/cr
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
-import { TimelineComponent } from '../../../widgets/timeline-container/timeline-container.component';
+import { TimelineContainerComponent } from '../../../widgets/timeline-container/timeline-container.component';
 
 @Component({
   selector: 'app-my-page',
   standalone: true,
   templateUrl: './my-page.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
     LayoutComponent,
-    TimelineComponent,
     CreateTimelineButtonComponent,
+    TimelineContainerComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyPageComponent {
   private readonly store = inject(Store);

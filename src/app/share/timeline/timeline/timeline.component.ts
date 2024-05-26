@@ -7,14 +7,14 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
-import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
 import {
   AddValue,
   EditableTimelineEvent,
   EditableTimelineTypes,
   EditableViewTimelineEvent,
   ViewTimelineTag,
-} from '../timeline.types';
+} from '../../../widgets/timeline-container/timeline.types';
+import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { DateComponent } from './event/date/date.component';
 import { TimelineEventMenuComponent } from './event/menu/menu.component';
@@ -22,10 +22,10 @@ import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 
 @Component({
-  selector: 'app-active-timeline',
+  selector: 'app-timeline',
   standalone: true,
-  styleUrl: './active-timeline.component.scss',
-  templateUrl: './active-timeline.component.html',
+  styleUrl: './timeline.component.scss',
+  templateUrl: './timeline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
@@ -38,7 +38,7 @@ import { UrlComponent } from './event/url/url.component';
     NgIconComponent,
   ],
 })
-export class ActiveTimelineComponent {
+export class TimelineComponent {
   EditableTimelineTypes = EditableTimelineTypes;
   timeline = input.required<EditableViewTimelineEvent[]>();
 

@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { ViewTimelineDate } from '../../../timeline.types';
+import { ViewTimelineDate } from '../../../../../widgets/timeline-container/timeline.types';
 
 @Component({
   selector: 'app-timeline-event-date',
