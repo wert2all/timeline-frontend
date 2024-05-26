@@ -9,7 +9,7 @@
         }
         @case (EditableTimelineTypes.draft) {
           <div
-            class="bg-lighter timeline-box w-full rounded pr-2"
+            class="bg-lighter timeline-box w-full pr-2"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
             [class.timeline-end]="!event.changeDirection">
@@ -24,7 +24,7 @@
             <app-timeline-event-url [url]="event.url" />
           </div>
           <div
-            class="event-form bg-lighter timeline-box h-full w-full rounded"
+            class="event-form bg-lighter timeline-box h-full w-full"
             [class.timeline-start]="!event.changeDirection"
             [class.md:text-end]="!event.changeDirection"
             [class.timeline-end]="event.changeDirection">
@@ -44,7 +44,7 @@
             <ng-icon [svg]="event.icon.icon" size="24" />
           </div>
           <div
-            class="event-menu mb-8 rounded"
+            class="event-menu mb-8"
             [class.timeline-start]="!event.changeDirection"
             [class.md:text-end]="!event.changeDirection"
             [class.timeline-end]="event.changeDirection">
@@ -54,7 +54,7 @@
           </div>
 
           <div
-            class="mb-8 w-full rounded"
+            class="mb-8 w-full rounded-xl p-2 bg-base-100"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
             [class.timeline-end]="!event.changeDirection"
