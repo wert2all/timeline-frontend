@@ -1,6 +1,6 @@
 {
   "name": "timeline-frontend",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "nx serve",
@@ -11,7 +11,8 @@
     "lint:format": "prettier . --check",
     "lint:eslint": "nx lint",
     "format": "prettier . --write",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts",
+    "release": "commit-and-tag-version"
   },
   "private": true,
   "dependencies": {
@@ -80,6 +81,7 @@
     "@typescript-eslint/parser": "^7.9.0",
     "autoprefixer": "^10.4.19",
     "babel-plugin-macros": "3.1.0",
+    "commit-and-tag-version": "^12.4.1",
     "commitizen": "^4.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "daisyui": "^4.11.1",
@@ -111,6 +113,11 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "commit-and-tag-version": {
+    "scripts": {
+      "precommit": "prettier . --write >/dev/null"
     }
   }
 }
