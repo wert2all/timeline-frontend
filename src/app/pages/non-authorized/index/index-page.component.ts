@@ -19,6 +19,7 @@ import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { AddTimelineComponent } from '../../../widgets/timeline-container/add-timeline/add-timeline.component';
+import { HeroComponent } from './hero/hero.component';
 
 @Component({
   selector: 'app-index-page',
@@ -32,6 +33,7 @@ import { AddTimelineComponent } from '../../../widgets/timeline-container/add-ti
     NgIconComponent,
     ModalComponent,
     AddTimelineComponent,
+    HeroComponent,
     CreateTimelineButtonComponent,
   ],
 })
