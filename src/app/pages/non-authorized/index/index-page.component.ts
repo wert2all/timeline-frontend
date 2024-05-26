@@ -58,6 +58,25 @@ export class IndexPageComponent {
 
   private readonly events = signal<TimelineEvent[]>([
     {
+      date: new Date('2024-05-26T15:21:00.000+03:00'),
+      type: TimelimeEventType.selebrate,
+      title: 'we are alive!',
+      description:
+        'we are happy to announce the launch of our service! Now everyone can add their events and enjoy with us.',
+      tags: [
+        'server',
+        'timeline',
+        'ui',
+        'feature',
+        'party',
+        'start',
+        'important',
+      ],
+      url: 'https://timeln.rpm.kiev.ua/',
+      showTime: true,
+      loading: false,
+    },
+    {
       date: new Date('2024-05-08T16:26:00.000+03:00'),
       type: TimelimeEventType.default,
       title: 'remove it immediately!',
