@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.2](https://github.com/wert2all/timeline-frontend/compare/v0.0.1...v0.0.2) (2024-05-26)
+
+### Features
+
+- we are alive! ([be0995a](https://github.com/wert2all/timeline-frontend/commit/be0995ad251af6dfc3423570407ce5d4118b2b59))
+
+### Bug Fixes
+
+- add title component ([2b1e191](https://github.com/wert2all/timeline-frontend/commit/2b1e191afded99b459590a44f4234f1e6115c4dc))
+- remove project events from user timeline ([92e5f68](https://github.com/wert2all/timeline-frontend/commit/92e5f681c7036722eae5d3197c560cd3c2b43ce4))
+
 ## 0.0.1 (2024-05-26)
 
 ### Features
