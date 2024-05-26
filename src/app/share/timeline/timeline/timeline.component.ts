@@ -15,11 +15,11 @@ import {
   ViewTimelineTag,
 } from '../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
-import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { DateComponent } from './event/date/date.component';
 import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
+import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
 
 @Component({
   selector: 'app-timeline',
@@ -33,9 +33,9 @@ import { UrlComponent } from './event/url/url.component';
     MarkdownContentComponent,
     TagsComponent,
     DateComponent,
-    EditEventFormComponent,
     TimelineEventMenuComponent,
     NgIconComponent,
+    EditEventFormComponent,
   ],
 })
 export class TimelineComponent {
