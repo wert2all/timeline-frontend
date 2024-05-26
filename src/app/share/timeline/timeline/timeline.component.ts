@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Signal,
+  computed,
   input,
   output,
 } from '@angular/core';
@@ -20,7 +22,7 @@ import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
 import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
-
+type EventView = EditableViewTimelineEvent & { eventLength: string };
 @Component({
   selector: 'app-timeline',
   standalone: true,
@@ -47,6 +49,10 @@ export class TimelineComponent {
   saveAction = output();
   dismissAction = output();
   onDelete = output<EditableViewTimelineEvent>();
+
+  events: Signal<EventView[]> = computed(() =>
+    this.timeline().map(event => ({ ...event, eventLength: 'mb-8' }))
+  );
 
   valuesChanges(value: AddValue) {
     const time = value.time?.match('^\\d:') ? '0' + value.time : value.time;
