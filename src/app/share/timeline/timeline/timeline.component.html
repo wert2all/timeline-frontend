@@ -1,7 +1,7 @@
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
-  @for (event of timeline(); track $index) {
+  @for (event of events(); track $index) {
     <li class="timeline-item" [class.skeleton]="event.loading">
       @switch (event.type) {
         @case (EditableTimelineTypes.delimiter) {
@@ -54,7 +54,7 @@
           </div>
 
           <div
-            class="mb-8 w-full rounded-xl p-2 bg-base-100"
+            class="w- full rounded-xl p-2 bg-base-100 {{ event.eventLength }}"
             [class.timeline-start]="event.changeDirection"
             [class.md:text-end]="event.changeDirection"
             [class.timeline-end]="!event.changeDirection"
