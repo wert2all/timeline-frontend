@@ -5,7 +5,11 @@
     (addTimeline)="addTimeline($event)"
     (login)="login()" />
 
-  <app-timeline [timeline]="projectTimeline()"></app-timeline>
+  <div class="mt-4">
+    <app-content-title title="Our timeline" />
+
+    <app-timeline [timeline]="projectTimeline()"></app-timeline>
+  </div>
 
   <app-modal [show]="showAddTimelineWindow()">
     <app-add-timeline

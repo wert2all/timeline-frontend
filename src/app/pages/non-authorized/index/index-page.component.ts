@@ -11,6 +11,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 
+import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { ModalComponent } from '../../../share/modal/modal.component';
 import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
@@ -42,6 +43,7 @@ import { HeroComponent } from './hero/hero.component';
     HeroComponent,
     CreateTimelineButtonComponent,
     TimelineComponent,
+    TitleComponent,
   ],
 })
 export class IndexPageComponent {
