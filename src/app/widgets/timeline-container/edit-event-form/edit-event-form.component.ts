@@ -16,12 +16,10 @@ import {
   saxCalendarAddOutline,
 } from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
-import {
-  AddValue,
-  ViewTimelineTag,
-} from '../../../../widgets/timeline-container/timeline.types';
-import { DatePickerComponent } from '../../../date-picker/date-picker.component';
+
+import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
+import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;

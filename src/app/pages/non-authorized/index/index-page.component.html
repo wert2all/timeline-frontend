@@ -5,6 +5,8 @@
     (addTimeline)="addTimeline($event)"
     (login)="login()" />
 
+  <app-timeline [timeline]="projectTimeline()"></app-timeline>
+
   <app-modal [show]="showAddTimelineWindow()">
     <app-add-timeline
       [isAuthorized]="isAuthorized()"
