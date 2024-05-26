@@ -12,9 +12,9 @@ import { Store } from '@ngrx/store';
 import { ModalConfirmComponent } from '../../share/modal/confirm/modal-confirm.component';
 import { ModalComponent } from '../../share/modal/modal.component';
 
+import { TimelineComponent } from '../../share/timeline/timeline/timeline.component';
 import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
-import { ActiveTimelineComponent } from './active-timeline/active-timeline.component';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 import { AddTimelineComponent } from './add-timeline/add-timeline.component';
 import {
@@ -30,14 +30,14 @@ import {
   imports: [
     AsyncPipe,
     AddEventButtonComponent,
-    ActiveTimelineComponent,
+    TimelineComponent,
     ReactiveFormsModule,
     AddTimelineComponent,
     ModalComponent,
     ModalConfirmComponent,
   ],
 })
-export class TimelineComponent {
+export class TimelineContainerComponent {
   private store = inject(Store);
 
   private readonly previewEvent = this.store.selectSignal(

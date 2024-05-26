@@ -3,7 +3,7 @@
     (addEvent)="addEvent()"
     [disabled]="canAddNewEvent() !== true" />
 
-  <app-active-timeline
+  <app-timeline
     [timeline]="timeline()"
     (filterByTag)="filterByTag($event)"
     (formPreview)="updatePreview($event)"
