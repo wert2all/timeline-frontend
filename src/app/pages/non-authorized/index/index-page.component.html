@@ -1,9 +1,37 @@
 <app-layout>
-  <app-hero
-    [isAuthorized]="isAuthorized()"
-    [isLoading]="isLoading()"
-    (addTimeline)="addTimeline($event)"
-    (login)="login()" />
+  <app-hero>
+    <img src="/assets/timeline.png" class="max-w-sm" alt="timeline" />
+    <div>
+      <h1 class="text-5xl font-bold">add your first personal timeline</h1>
+      <p class="py-6">
+        create a dynamic story of your life by adding milestones, memories, and
+        achievements.
+      </p>
+      @if (!this.isAuthorized()) {
+        <div class="flex w-full flex-col items-center lg:flex-row">
+          <app-create-timeline-button
+            [isLarge]="true"
+            [isAuthorized]="isAuthorized()"
+            [isLoading]="isLoading()"
+            (addTimeline)="addTimeline($event)" />
+
+          <div class="divider lg:divider-horizontal">or</div>
+
+          <button
+            class="btn"
+            (click)="login()"
+            [attr.disabled]="isLoading() ? true : null">
+            @if (isLoading() === true) {
+              <span class="loading loading-spinner"></span>
+            }
+            authorize
+          </button>
+        </div>
+      } @else {
+        <a class="btn btn-primary" href="/my">go to timeline</a>
+      }
+    </div>
+  </app-hero>
 
   <div class="mx-4 mt-4">
     <app-content-title title="Our timeline" class="text-success" />

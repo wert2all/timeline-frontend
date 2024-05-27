@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CreateTimelineButtonComponent } from '../timeline/create/create-timeline-button/create-timeline-button.component';
 
 @Component({
@@ -7,10 +7,4 @@ import { CreateTimelineButtonComponent } from '../timeline/create/create-timelin
   imports: [CreateTimelineButtonComponent],
   templateUrl: './hero.component.html',
 })
-export class HeroComponent {
-  isAuthorized = input.required<boolean>();
-  isLoading = input.required<boolean>();
-
-  addTimeline = output<string | null>();
-  login = output();
-}
+export class HeroComponent { }
