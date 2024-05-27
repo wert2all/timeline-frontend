@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.4](https://github.com/wert2all/timeline-frontend/compare/v0.0.3...v0.0.4) (2024-05-27)
+
+### Features
+
+- add ng-content to hero component ([03e69b8](https://github.com/wert2all/timeline-frontend/commit/03e69b89acbcd7d08a5210060375d83ccb51f905))
+
+### Bug Fixes
+
+- fix login hero ([218181b](https://github.com/wert2all/timeline-frontend/commit/218181b98da398c58c540bde3d233dabf7bc7941))
+- fix padding for user dashboard ([295e4de](https://github.com/wert2all/timeline-frontend/commit/295e4dec5b93144b8b1d743683c45d0758163c34))
+- remove NX ([d54cb64](https://github.com/wert2all/timeline-frontend/commit/d54cb649531cb1ecda0a29d9603088e27b79bdf4))
+- remove useless code from login page ([cfe2f59](https://github.com/wert2all/timeline-frontend/commit/cfe2f59d656acb502cac3637a5e76db996344b94))
+
 ## [0.0.3](https://github.com/wert2all/timeline-frontend/compare/v0.0.2...v0.0.3) (2024-05-27)
 
 ### Bug Fixes
