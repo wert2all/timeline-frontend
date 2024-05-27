@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.3](https://github.com/wert2all/timeline-frontend/compare/v0.0.2...v0.0.3) (2024-05-27)
+
+### Bug Fixes
+
+- add event length to timeline ([17bc7aa](https://github.com/wert2all/timeline-frontend/commit/17bc7aacfa707e9d7e09abf23ff5733d73c73447))
+- fix design of index page ([ff64fd1](https://github.com/wert2all/timeline-frontend/commit/ff64fd1a565d9de9912a01e18f7fe11321e0a6ff))
+- fix design of timeline ([71c13ca](https://github.com/wert2all/timeline-frontend/commit/71c13ca50652e5771609375f9fae5e5ffff5ab4e))
+- fix favicon ([405c986](https://github.com/wert2all/timeline-frontend/commit/405c986240f28b806052fd61688b39cdc4171f72))
+
 ## [0.0.2](https://github.com/wert2all/timeline-frontend/compare/v0.0.1...v0.0.2) (2024-05-26)
 
 ### Features
