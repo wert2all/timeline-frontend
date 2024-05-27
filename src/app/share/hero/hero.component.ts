@@ -7,4 +7,4 @@ import { CreateTimelineButtonComponent } from '../timeline/create/create-timelin
   imports: [CreateTimelineButtonComponent],
   templateUrl: './hero.component.html',
 })
-export class HeroComponent { }
+export class HeroComponent {}

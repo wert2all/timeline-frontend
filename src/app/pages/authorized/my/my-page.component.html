@@ -1,15 +1,17 @@
 <app-layout>
-  @if (isLoading()) {
-    <div class="flex justify-center">
-      <progress class="progress w-3/4"></progress>
-    </div>
-  } @else {
-    <app-timeline-container />
-    @if (!activeTimeline()) {
-      <app-create-timeline-button
-        [isAuthorized]="true"
-        [isLoading]="isLoading()"
-        (addTimeline)="addTimeline($event)" />
+  <div class="p-4">
+    @if (isLoading()) {
+      <div class="flex justify-center">
+        <progress class="progress w-3/4"></progress>
+      </div>
+    } @else {
+      <app-timeline-container />
+      @if (!activeTimeline()) {
+        <app-create-timeline-button
+          [isAuthorized]="true"
+          [isLoading]="isLoading()"
+          (addTimeline)="addTimeline($event)" />
+      }
     }
-  }
+  </div>
 </app-layout>
