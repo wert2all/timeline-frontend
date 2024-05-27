@@ -26,7 +26,7 @@ import {
   TimelineEvent,
 } from '../../../store/timeline/timeline.types';
 import { AddTimelineComponent } from '../../../widgets/timeline-container/add-timeline/add-timeline.component';
-import { HeroComponent } from './hero/hero.component';
+import { HeroComponent } from '../../../share/hero/hero.component';
 
 @Component({
   selector: 'app-index-page',
@@ -40,10 +40,10 @@ import { HeroComponent } from './hero/hero.component';
     NgIconComponent,
     ModalComponent,
     AddTimelineComponent,
-    HeroComponent,
     CreateTimelineButtonComponent,
     TimelineComponent,
     TitleComponent,
+    HeroComponent,
   ],
 })
 export class IndexPageComponent {
