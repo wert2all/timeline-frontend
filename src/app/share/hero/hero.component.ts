@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CreateTimelineButtonComponent } from '../../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
+import { CreateTimelineButtonComponent } from '../timeline/create/create-timeline-button/create-timeline-button.component';
 
 @Component({
   selector: 'app-hero',
