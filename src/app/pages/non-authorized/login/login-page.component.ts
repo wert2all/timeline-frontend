@@ -23,7 +23,7 @@ import { HeroComponent } from '../../../share/hero/hero.component';
 export class LoginPageComponent {
   private readonly store = inject(Store);
 
-  isAuthorised = this.store.select(authFeature.isAuthorized);
+  private isAuthorised = this.store.select(authFeature.isAuthorized);
   isLoading = this.store.select(authFeature.isLoading);
 
   constructor(router: Router) {
@@ -33,7 +33,7 @@ export class LoginPageComponent {
         filter(isAuth => isAuth)
       )
       .subscribe(() => {
-        router.navigate(['/']);
+        router.navigate(['/my']);
       });
   }
 

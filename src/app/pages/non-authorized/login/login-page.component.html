@@ -9,33 +9,21 @@
 
   <app-hero>
     <div class="my-16 max-w-lg">
-      <h1 class="text-5xl font-bold">
-        @if ((isAuthorised | async) === false) {
-          Login with Google
-        } @else {
-          Thank you for authorizing on our service
-        }
-      </h1>
+      <h1 class="text-5xl font-bold">Login with Google</h1>
       <p class="pb-14 pt-6">
-        @if ((isAuthorised | async) === false) {
-          You must be signed in to your Google account to use Timeline
-        } @else {
-          You will now be redirected to the service
-        }
+        You must be signed in to your Google account to use Timeline
       </p>
-      @if ((isAuthorised | async) === false) {
-        <button
-          class="btn btn-primary"
-          (click)="login()"
-          [attr.disabled]="(isLoading | async) ? true : null">
-          @if ((isLoading | async) === true) {
-            <span class="loading loading-spinner"></span>
-          } @else {
-            <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
-          }
-          Authorize
-        </button>
-      }
+      <button
+        class="btn btn-primary"
+        (click)="login()"
+        [attr.disabled]="(isLoading | async) ? true : null">
+        @if ((isLoading | async) === true) {
+          <span class="loading loading-spinner"></span>
+        } @else {
+          <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
+        }
+        Authorize
+      </button>
     </div>
   </app-hero>
 </app-layout>
