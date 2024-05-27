@@ -11,13 +11,14 @@ import { filter } from 'rxjs';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
+import { HeroComponent } from '../../../share/hero/hero.component';
 
 @Component({
   selector: 'app-login-page',
   standalone: true,
   templateUrl: './login-page.component.html',
-  imports: [LayoutComponent, NgIconComponent, AsyncPipe],
   viewProviders: [provideIcons({ saxLogin1Outline })],
+  imports: [LayoutComponent, NgIconComponent, AsyncPipe, HeroComponent],
 })
 export class LoginPageComponent {
   private readonly store = inject(Store);
