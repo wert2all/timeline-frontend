@@ -47,9 +47,11 @@ export class TimelineContainerComponent {
   readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
-
   readonly timeline = this.store.selectSignal(
     timelineFeature.selectEditableEvents
+  );
+  readonly showTipForAddEvent = this.store.selectSignal(
+    timelineFeature.selectNewTimelineAdded
   );
 
   readonly shouldDeleteEvent = signal<number>(0);

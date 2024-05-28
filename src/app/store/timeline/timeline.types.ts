@@ -27,4 +27,5 @@ export type TimelineState = Loadable & {
   activeTimeline: ActiveTimeline | null;
   events: TimelineEvent[];
   preview: EditableTimelineEvent | null;
+  newTimelineAdded: boolean;
 };
