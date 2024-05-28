@@ -1,8 +1,17 @@
 @if (activeTimeline()) {
-  <app-add-event-button
-    (addEvent)="addEvent()"
-    [disabled]="canAddNewEvent() !== true" />
-
+  @if (showTipForAddEvent()) {
+    <div
+      class="tooltip tooltip-right tooltip-open tooltip-info"
+      data-tip="now you can add your first event">
+      <app-add-event-button
+        (addEvent)="addEvent()"
+        [disabled]="canAddNewEvent() !== true" />
+    </div>
+  } @else {
+    <app-add-event-button
+      (addEvent)="addEvent()"
+      [disabled]="canAddNewEvent() !== true" />
+  }
   <app-timeline
     [timeline]="timeline()"
     (filterByTag)="filterByTag($event)"

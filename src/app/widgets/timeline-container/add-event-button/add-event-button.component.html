@@ -1,11 +1,12 @@
 <a
   class="btn btn-accent"
-  (click)="addEvent.next(null)"
-  (keyup)="addEvent.next(null)"
+  (click)="addEvent.emit()"
+  (keyup)="addEvent.emit()"
   tabindex="0"
   [attr.disabled]="disabled() ? 'true' : null">
   @if (disabled() === true) {
-    submit new event <ng-icon name="saxArrowRight1Outline" size="24"></ng-icon>
+    submit new event
+    <ng-icon name="saxArrowRight1Outline" size="24"></ng-icon>
   } @else {
     <ng-icon name="saxAddOutline" size="24"></ng-icon> add event
   }
