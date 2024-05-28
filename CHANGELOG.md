@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.5](https://github.com/wert2all/timeline-frontend/compare/v0.0.4...v0.0.5) (2024-05-28)
+
+### Bug Fixes
+
+- fix name of angular application ([07544da](https://github.com/wert2all/timeline-frontend/commit/07544daa8d1289c00280a5cc83847930da338324))
+
 ## [0.0.4](https://github.com/wert2all/timeline-frontend/compare/v0.0.3...v0.0.4) (2024-05-27)
 
 ### Features
