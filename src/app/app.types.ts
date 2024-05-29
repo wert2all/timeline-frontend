@@ -5,6 +5,14 @@ export type Loadable = { loading: boolean };
 
 export type User = { name: string; avatar: string | null };
 
+export enum Status {
+  SUCCESS = 'SUCCESS',
+  ERROR = 'ERROR',
+  LOADING = 'LOADING',
+}
+
+export type DataWrapper<T> = { status: Status; data?: T; error?: Error };
+
 export const StoreDispatchEffect: EffectConfig & {
   functional: true;
   dispatch?: true;

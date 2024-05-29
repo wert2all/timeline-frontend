@@ -7,7 +7,7 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -20,6 +20,8 @@ import { DateTime } from 'luxon';
 import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
+import { LinkPreviewComponent } from '../../link-preview/link-preview.component';
+import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
@@ -44,10 +46,12 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
     ReactiveFormsModule,
     AddEventTagsComponent,
     DatePickerComponent,
+    LinkPreviewComponent,
   ],
 })
 export class EditEventFormComponent {
-  activeStep = signal(0);
+  saveEvent = output();
+  changeValues = output<AddValue>();
 
   form = inject(FormBuilder).group({
     id: [null],
@@ -63,17 +67,27 @@ export class EditEventFormComponent {
     link: [null, [Validators.pattern(URL_REGEXP)]],
   });
 
-  tags = signal<ViewTimelineTag[]>([]);
-  saveEvent = output();
-  changeValues = output<AddValue>();
-
   private formValues = signal<AddValue | null>(null);
+  private formChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
+
+  tags = signal<ViewTimelineTag[]>([]);
+  activeStep = signal(0);
+  previewLink = toSignal(
+    this.formChanges$
+      .pipe(takeUntilDestroyed(), debounceTime(2000), distinctUntilChanged())
+      .pipe(
+        map(values => values.link),
+        map(link => (link ? new URL(link) : null)),
+        map(url => url || null),
+        catchError(() => of(null))
+      )
+  );
 
   constructor() {
     this.form.controls.time.disable();
     this.form.controls.showTime.disable();
 
-    this.form.valueChanges.pipe(takeUntilDestroyed()).subscribe(values => {
+    this.formChanges$.subscribe(values => {
       this.formValues.set({
         ...values,
         time: values.time,
@@ -81,6 +95,7 @@ export class EditEventFormComponent {
         url: values.link,
       });
     });
+
     effect(() => {
       this.changeValues.emit({
         ...(this.formValues() || this.form.value),
