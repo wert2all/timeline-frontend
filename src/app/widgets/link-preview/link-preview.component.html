@@ -1,0 +1,30 @@
+@switch (previewWrapper().status) {
+  @case (Status.LOADING) {
+    <div class="flex gap-4">
+      <span class="skeleton h-32 w-32"></span>
+      <span class="flex-1">
+        <div class="flex shrink flex-col gap-4">
+          <div class="skeleton h-8 w-3/4"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+          <div class="skeleton h-4 w-full"></div>
+        </div>
+      </span>
+    </div>
+  }
+  @case (Status.SUCCESS) {
+    <div class="flex gap-4">
+      <span class="h-32 w-32"
+        ><img
+          src="{{ preview().image }}"
+          alt="{{ preview().title || preview().url }}"
+      /></span>
+      <span class="flex-1">
+        <div class="flex shrink flex-col gap-4">
+          <div class="font-bold">{{ preview().title || preview().url }}</div>
+          <div>{{ preview().description }}</div>
+        </div>
+      </span>
+    </div>
+  }
+}

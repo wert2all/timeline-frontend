@@ -146,10 +146,9 @@
       <div class="label" [class.hidden]="!form.controls.link.errors">
         <span class="label-text-alt text-error">Wrong URL</span>
       </div>
-      <div class="hidden">
-        <p class="mb-2">preview:</p>
-        <div class="skeleton h-32 w-32"></div>
-      </div>
+      @if (previewLink(); as link) {
+        <app-link-preview [link]="link" class="mt-4" />
+      }
     </label>
   }
 
