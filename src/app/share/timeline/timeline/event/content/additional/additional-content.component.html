@@ -1,0 +1,21 @@
+@switch (event().type) {
+  @case (EditableTimelineTypes.draft) {
+    <div class="event-form bg-lighter timeline-box">
+      <app-edit-event-form
+        (changeValues)="changeValues.emit($event)"
+        (saveEvent)="saveEvent.emit()" />
+      <button
+        class="close btn btn-circle btn-error btn-sm absolute"
+        (click)="dismissAction.emit()">
+        ✕
+      </button>
+    </div>
+  }
+  @default {
+    <div class="event-menu mb-8 h-full w-full">
+      <app-timeline-event-menu
+        [timelineEvent]="event()"
+        (onDelete)="onDelete.emit($event)" />
+    </div>
+  }
+}
