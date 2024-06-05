@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
+import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
 import {
   AddValue,
   EditableTimelineEvent,
@@ -18,11 +19,16 @@ import {
 } from '../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
 import { DateComponent } from './event/date/date.component';
+import { IconComponent } from './event/icon/icon.component';
 import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
-import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
-type EventView = EditableViewTimelineEvent & { eventLength: string };
+
+type EventView = EditableViewTimelineEvent & {
+  eventLength: string;
+  shouldAccentLine: boolean;
+};
+
 @Component({
   selector: 'app-timeline',
   standalone: true,
@@ -38,6 +44,7 @@ type EventView = EditableViewTimelineEvent & { eventLength: string };
     TimelineEventMenuComponent,
     NgIconComponent,
     EditEventFormComponent,
+    IconComponent,
   ],
 })
 export class TimelineComponent {
@@ -51,7 +58,11 @@ export class TimelineComponent {
   onDelete = output<EditableViewTimelineEvent>();
 
   events: Signal<EventView[]> = computed(() =>
-    this.timeline().map(event => ({ ...event, eventLength: 'mb-8' }))
+    this.timeline().map(event => ({
+      ...event,
+      eventLength: 'mb-8',
+      shouldAccentLine: event.type === EditableTimelineTypes.draft,
+    }))
   );
 
   valuesChanges(value: AddValue) {
