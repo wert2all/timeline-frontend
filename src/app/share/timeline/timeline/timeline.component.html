@@ -3,74 +3,80 @@
   appAnimate>
   @for (event of events(); track $index) {
     <li class="timeline-item" [class.skeleton]="event.loading">
-      @switch (event.type) {
-        @case (EditableTimelineTypes.delimiter) {
-          <div class="timeline-middle mt-8"></div>
-        }
-        @case (EditableTimelineTypes.draft) {
-          <div
-            class="bg-lighter timeline-box w-full pr-2"
-            [class.timeline-start]="event.changeDirection"
-            [class.md:text-end]="event.changeDirection"
-            [class.timeline-end]="!event.changeDirection">
-            <app-timeline-event-date [date]="event.date" />
-            <div class="text-lg font-black">{{ event.title }}</div>
-            <app-timeline-event-tags
-              [tags]="event.tags"
-              (clickToTag)="filterByTag.emit($event)" />
-            <app-markdown-content
-              [content]="event.description"
-              class="mt-2"></app-markdown-content>
-            <app-timeline-event-url [url]="event.url" />
-          </div>
-          <div
-            class="event-form bg-lighter timeline-box h-full w-full"
-            [class.timeline-start]="!event.changeDirection"
-            [class.md:text-end]="!event.changeDirection"
-            [class.timeline-end]="event.changeDirection">
-            <app-edit-event-form
-              (changeValues)="valuesChanges($event)"
-              (saveEvent)="saveAction.emit()" />
-            <button
-              class="close btn btn-circle btn-error btn-sm absolute"
-              (click)="dismissAction.emit()">
-              ✕
-            </button>
-          </div>
-          <hr class="bg-accent" />
-        }
-        @default {
-          <div class="timeline-middle" [class.opacity-20]="event.loading">
-            <ng-icon [svg]="event.icon.icon" size="24" />
-          </div>
-          <div
-            class="event-menu mb-8"
-            [class.timeline-start]="!event.changeDirection"
-            [class.md:text-end]="!event.changeDirection"
-            [class.timeline-end]="event.changeDirection">
-            <app-timeline-event-menu
-              [timelineEvent]="event"
-              (onDelete)="onDelete.emit($event)" />
-          </div>
+      @if (event.type === EditableTimelineTypes.delimiter) {
+        <div class="timeline-middle mt-8"></div>
+      } @else {
+        <div class="timeline-middle" [class.opacity-20]="event.loading">
+          <app-timeline-event-icon
+            [icon]="event.icon"
+            [shouldAccentLine]="event.shouldAccentLine" />
+        </div>
 
-          <div
-            class="w- full rounded-xl p-2 bg-base-100 {{ event.eventLength }}"
-            [class.timeline-start]="event.changeDirection"
-            [class.md:text-end]="event.changeDirection"
-            [class.timeline-end]="!event.changeDirection"
-            [class.opacity-20]="event.loading">
-            <app-timeline-event-date [date]="event.date" />
-            <div class="text-lg font-black">{{ event.title }}</div>
-            <app-timeline-event-tags
-              [tags]="event.tags"
-              (clickToTag)="filterByTag.emit($event)" />
-            <app-markdown-content
-              [content]="event.description"
-              class="mt-2"></app-markdown-content>
-            <app-timeline-event-url [url]="event.url" />
-          </div>
-          <hr [class.opacity-20]="event.loading" />
+        @switch (event.type) {
+          @case (EditableTimelineTypes.draft) {
+            <div
+              class="bg-lighter timeline-box w-full pr-2"
+              [class.timeline-start]="event.changeDirection"
+              [class.md:text-end]="event.changeDirection"
+              [class.timeline-end]="!event.changeDirection">
+              <app-timeline-event-date [date]="event.date" />
+              <div class="text-lg font-black">{{ event.title }}</div>
+              <app-timeline-event-tags
+                [tags]="event.tags"
+                (clickToTag)="filterByTag.emit($event)" />
+              <app-markdown-content
+                [content]="event.description"
+                class="mt-2"></app-markdown-content>
+              <app-timeline-event-url [url]="event.url" />
+            </div>
+            <div
+              class="event-form bg-lighter timeline-box h-full w-full"
+              [class.timeline-start]="!event.changeDirection"
+              [class.md:text-end]="!event.changeDirection"
+              [class.timeline-end]="event.changeDirection">
+              <app-edit-event-form
+                (changeValues)="valuesChanges($event)"
+                (saveEvent)="saveAction.emit()" />
+              <button
+                class="close btn btn-circle btn-error btn-sm absolute"
+                (click)="dismissAction.emit()">
+                ✕
+              </button>
+            </div>
+          }
+          @default {
+            <div
+              class="event-menu mb-8"
+              [class.timeline-start]="!event.changeDirection"
+              [class.md:text-end]="!event.changeDirection"
+              [class.timeline-end]="event.changeDirection">
+              <app-timeline-event-menu
+                [timelineEvent]="event"
+                (onDelete)="onDelete.emit($event)" />
+            </div>
+
+            <div
+              class="w-full rounded-xl p-2 bg-base-100 {{ event.eventLength }}"
+              [class.timeline-start]="event.changeDirection"
+              [class.md:text-end]="event.changeDirection"
+              [class.timeline-end]="!event.changeDirection"
+              [class.opacity-20]="event.loading">
+              <app-timeline-event-date [date]="event.date" />
+              <div class="text-lg font-black">{{ event.title }}</div>
+              <app-timeline-event-tags
+                [tags]="event.tags"
+                (clickToTag)="filterByTag.emit($event)" />
+              <app-markdown-content
+                [content]="event.description"
+                class="mt-2"></app-markdown-content>
+              <app-timeline-event-url [url]="event.url" />
+            </div>
+          }
         }
+
+        <hr
+          [class.opacity-20]="event.loading"
+          [class.bg-accent]="event.shouldAccentLine" />
       }
     </li>
   }

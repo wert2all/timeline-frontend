@@ -41,7 +41,7 @@ export type ViewTimelineEvent = Omit<
   'date' | 'url' | 'tags' | 'description'
 > & {
   description: string;
-  icon: ViewTimelineEventIcon;
+  icon?: ViewTimelineEventIcon;
   date: ViewTimelineDate;
   url: ViewTimelineUrl | null;
   tags: ViewTimelineTag[];
