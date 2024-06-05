@@ -1,0 +1,13 @@
+.event-menu {
+  opacity: 0;
+  transition: 0.8s;
+}
+
+.event-menu:hover {
+  opacity: 1;
+}
+
+.event-form button.close {
+  top: -15px;
+  right: -15px;
+}

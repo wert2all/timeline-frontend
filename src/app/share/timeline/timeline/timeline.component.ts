@@ -18,11 +18,13 @@ import {
   ViewTimelineTag,
 } from '../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
+import { EventMainContentComponent } from './event/content/main/main-content.component';
 import { DateComponent } from './event/date/date.component';
 import { IconComponent } from './event/icon/icon.component';
 import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
+import { EventAdditionalContentComponent } from './event/content/additional/additional-content.component';
 
 type EventView = EditableViewTimelineEvent & {
   eventLength: string;
@@ -32,7 +34,6 @@ type EventView = EditableViewTimelineEvent & {
 @Component({
   selector: 'app-timeline',
   standalone: true,
-  styleUrl: './timeline.component.scss',
   templateUrl: './timeline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
@@ -45,6 +46,8 @@ type EventView = EditableViewTimelineEvent & {
     NgIconComponent,
     EditEventFormComponent,
     IconComponent,
+    EventMainContentComponent,
+    EventAdditionalContentComponent,
   ],
 })
 export class TimelineComponent {
