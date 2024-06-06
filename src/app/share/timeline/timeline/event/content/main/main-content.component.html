@@ -1,3 +1,9 @@
+@if (event().type === TimelimeEventType.youtube) {
+  <div class="mb-2">
+    <app-timeline-event-yotube-preview [url]="event().url?.link" />
+  </div>
+  <app-timeline-event-url [url]="event().url" class="block" />
+}
 <app-timeline-event-date [date]="event().date" />
 <div class="text-lg font-black">{{ event().title }}</div>
 <app-timeline-event-tags
@@ -6,4 +12,7 @@
 <app-markdown-content
   [content]="event().description"
   class="mt-2"></app-markdown-content>
-<app-timeline-event-url [url]="event().url" />
+
+@if (event().type !== TimelimeEventType.youtube) {
+  <app-timeline-event-url [url]="event().url" />
+}
