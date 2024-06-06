@@ -11,6 +11,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 
+import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { ModalComponent } from '../../../share/modal/modal.component';
@@ -26,7 +27,6 @@ import {
   TimelineEvent,
 } from '../../../store/timeline/timeline.types';
 import { AddTimelineComponent } from '../../../widgets/timeline-container/add-timeline/add-timeline.component';
-import { HeroComponent } from '../../../share/hero/hero.component';
 
 @Component({
   selector: 'app-index-page',
@@ -115,7 +115,7 @@ export class IndexPageComponent {
     },
     {
       date: new Date('2024-04-17T03:29:00.000+03:00'),
-      type: TimelimeEventType.default,
+      type: TimelimeEventType.youtube,
       title: 'first stream ever!',
       description:
         'The first stream where the first lines of the future GraphQL API were written was a blast.\n The stream was a lot of fun, and it was a great way to get the project off the ground. We made a lot of progress in a short amount of time, and we are all very excited about the future of the GraphQL API.',
