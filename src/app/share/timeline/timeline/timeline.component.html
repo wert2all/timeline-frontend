@@ -25,7 +25,12 @@
           [class.timeline-start]="!event.changeDirection"
           [class.md:text-end]="!event.changeDirection"
           [class.timeline-end]="event.changeDirection">
-          <app-timeline-event-additional-content [event]="event" />
+          <app-timeline-event-additional-content
+            [event]="event"
+            (changeValues)="valuesChanges($event)"
+            (onDelete)="onDelete.emit($event)"
+            (dismissAction)="dismissAction.emit()"
+            (saveEvent)="saveAction.emit()" />
         </div>
 
         <hr
