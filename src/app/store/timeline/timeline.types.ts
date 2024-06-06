@@ -4,6 +4,7 @@ import { EditableTimelineEvent } from '../../widgets/timeline-container/timeline
 export enum TimelimeEventType {
   default = 'default',
   selebrate = 'selebrate',
+  youtube = 'youtube',
 }
 
 export type TimelineRequired = { date: Date; type: TimelimeEventType };
