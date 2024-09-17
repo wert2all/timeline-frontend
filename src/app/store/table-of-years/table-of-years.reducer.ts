@@ -4,10 +4,20 @@ import { TableOfYearsActions } from './table-of-years.actions';
 
 const initialState: TableOfYearsState = {
   years: [
-    { number: 2024, skipCount: 2, isActive: true },
-    { number: 2023, skipCount: 4, isActive: false },
-    { number: 2022, skipCount: 6, isActive: false },
-    { number: 2021, skipCount: 3, isActive: false },
+    {
+      number: 2024,
+      isActive: true,
+      subItems: [
+        { number: 1, text: 'jan' },
+        { skip: true },
+        { number: 2, text: 'feb' },
+        { text: 'mar' },
+        { skip: true },
+        { skip: true },
+        { skip: true },
+        { skip: true },
+      ],
+    },
   ],
 };
 

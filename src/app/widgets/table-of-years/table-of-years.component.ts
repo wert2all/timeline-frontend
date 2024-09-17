@@ -1,7 +1,10 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { tableOfYearFeature } from '../../store/table-of-years/table-of-years.reducer';
-import { Year } from '../../store/table-of-years/table-of-years.types';
+import {
+  Year,
+  YearSubItems,
+} from '../../store/table-of-years/table-of-years.types';
 import { TableOfYearsActions } from '../../store/table-of-years/table-of-years.actions';
 
 @Component({
@@ -11,20 +14,14 @@ import { TableOfYearsActions } from '../../store/table-of-years/table-of-years.a
 })
 export class TableOfYearsComponent {
   private readonly store = inject(Store);
-  private readonly rawYears = this.store.selectSignal(
-    tableOfYearFeature.selectYears
-  );
+  years = this.store.selectSignal(tableOfYearFeature.selectYears);
 
-  years = computed(() =>
-    this.rawYears().map(year => ({
-      ...year,
-      delimiters: Array.from({ length: year.skipCount }),
-    }))
-  );
-
-  setActiveYear(year: Year) {
+  setActiveYearAndMonth(year: Year, month?: YearSubItems) {
     this.store.dispatch(
-      TableOfYearsActions.setActiveYear({ year: year.number })
+      TableOfYearsActions.setActiveYear({
+        year: year.number,
+        month: month?.number,
+      })
     );
   }
 }
