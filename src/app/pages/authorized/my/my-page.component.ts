@@ -12,6 +12,7 @@ import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { TimelineContainerComponent } from '../../../widgets/timeline-container/timeline-container.component';
+import { TableOfYearsComponent } from '../../../widgets/table-of-years/table-of-years.component';
 
 @Component({
   selector: 'app-my-page',
@@ -22,6 +23,7 @@ import { TimelineContainerComponent } from '../../../widgets/timeline-container/
     CommonModule,
     LayoutComponent,
     CreateTimelineButtonComponent,
+    TableOfYearsComponent,
     TimelineContainerComponent,
   ],
 })
