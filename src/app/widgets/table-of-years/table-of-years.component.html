@@ -5,7 +5,9 @@
       <a
         class="badge block cursor-pointer"
         [class.badge-accent]="year.isActive"
+        tabindex="0"
         (click)="setActiveYearAndMonth(year)"
+        (keyup)="setActiveYearAndMonth(year)"
         >{{ year.number }}</a
       >
       @for (subItem of year.subItems; track $index) {
@@ -17,6 +19,8 @@
             <a
               class="badge mt-2 block cursor-pointer"
               (click)="setActiveYearAndMonth(year, subItem)"
+              (keyup))="setActiveYearAndMonth(year, subItem)"
+              tabindex="1"
               >{{ subItem.text }}</a
             >
           } @else {
