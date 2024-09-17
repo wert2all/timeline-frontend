@@ -1,15 +1,28 @@
-@if (years().length > 1) {
+@if (years().length >= 1) {
   <div
     class="absolute right-8 top-20 m-4 rounded-lg bg-base-200 p-4 opacity-45 hover:opacity-100">
     @for (year of years(); track $index) {
       <a
         class="badge block cursor-pointer"
         [class.badge-accent]="year.isActive"
-        (click)="setActiveYear(year)"
+        (click)="setActiveYearAndMonth(year)"
         >{{ year.number }}</a
       >
-      @for (del of year.delimiters; track $index) {
-        <div class="divider"></div>
+      @for (subItem of year.subItems; track $index) {
+        @if (subItem.skip) {
+          <div class="divider"></div>
+        }
+        @if (subItem.text) {
+          @if (subItem.number) {
+            <a
+              class="badge mt-2 block cursor-pointer"
+              (click)="setActiveYearAndMonth(year, subItem)"
+              >{{ subItem.text }}</a
+            >
+          } @else {
+            <span class="badge mt-2 block">{{ subItem.text }}</span>
+          }
+        }
       }
     }
   </div>
