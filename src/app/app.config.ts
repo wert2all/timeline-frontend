@@ -14,6 +14,7 @@ import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
 import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
+import { tableOfYearFeature } from './store/table-of-years/table-of-years.reducer';
 import {
   eventsEffects,
   timelineEffects,
@@ -28,6 +29,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       [authFeature.name]: authFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
+      [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
     }),
     provideEffects([
