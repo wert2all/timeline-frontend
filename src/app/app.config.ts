@@ -20,6 +20,7 @@ import {
   timelineEffects,
 } from './store/timeline/timeline.effects';
 import { timelineFeature } from './store/timeline/timeline.reducer';
+import { tableOfYearsEffects } from './store/table-of-years/table-of-years.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -34,8 +35,12 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects([
       authEffects,
+
       timelineEffects,
+
       eventsEffects,
+      tableOfYearsEffects,
+      ,
       previewEffects,
     ]),
     provideStoreDevtools({
