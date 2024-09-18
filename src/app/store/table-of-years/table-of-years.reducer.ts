@@ -25,6 +25,10 @@ export const tableOfYearFeature = createFeature({
   name: 'table-of-year',
   reducer: createReducer(
     initialState,
+    on(TableOfYearsActions.successLoadTableOfYears, (state, action) => ({
+      ...state,
+      years: action.years,
+    })),
     on(TableOfYearsActions.setActiveYear, (state, action) => ({
       ...state,
       years: state.years.map(year => ({
