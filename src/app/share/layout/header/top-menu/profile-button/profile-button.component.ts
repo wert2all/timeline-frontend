@@ -17,7 +17,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 })
 export class ProfileButtonComponent {
   isLoading = input.required<boolean>();
-  user = input.required<{ avatar: string; name: string } | null>();
+  user = input.required<{ avatar: string; name: string | null } | null>();
 
   toProfile = output();
 }
