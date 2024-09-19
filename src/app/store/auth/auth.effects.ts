@@ -126,7 +126,7 @@ const setAuthorized = (action$ = inject(Actions)) =>
         token: token,
         user: {
           uuid: user.id,
-          name: user.name || '',
+          name: user.name || null,
           avatar: user.avatar || '/assets/user.png',
         },
       })
