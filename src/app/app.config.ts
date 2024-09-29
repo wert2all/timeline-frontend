@@ -18,6 +18,8 @@ import {
   timelineEffects,
 } from './store/timeline/timeline.effects';
 import { timelineFeature } from './store/timeline/timeline.reducer';
+import { tableOfYearFeature } from './store/table-of-years/table-of-years.reducer';
+import { tableOfYearsEffects } from './store/table-of-years/table-of-years.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,8 +29,14 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       [authFeature.name]: authFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
+      [tableOfYearFeature.name]: tableOfYearFeature.reducer,
     }),
-    provideEffects([authEffects, timelineEffects, eventsEffects]),
+    provideEffects([
+      authEffects,
+      timelineEffects,
+      eventsEffects,
+      tableOfYearsEffects,
+    ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
       logOnly: !isDevMode(), // Restrict extension to log-only mode

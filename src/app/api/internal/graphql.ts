@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import * as ApolloCore from '@apollo/client/core';
-import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+import * as ApolloCore from '@apollo/client/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -78,8 +78,8 @@ export type ShortTimeline = { id: number; name?: string | null };
 
 export type User = {
   id: number;
-  name: string;
-  email: string;
+  name?: string | null;
+  email?: string | null;
   avatar?: string | null;
   timelines: Array<ShortTimeline>;
 };
