@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.6](https://github.com/wert2all/timeline-frontend/compare/v0.0.5...v0.0.6) (2024-10-17)
+
+### Features
+
+- add deploy stage ([fee8c05](https://github.com/wert2all/timeline-frontend/commit/fee8c05c9955ef513561db35f59198eba75e881a))
+- add link preview ([ce7e75e](https://github.com/wert2all/timeline-frontend/commit/ce7e75e37521880428b22fcd2b74357ac9fc145c))
+- add tooltip for add event button ([ae5f33e](https://github.com/wert2all/timeline-frontend/commit/ae5f33e8381412978f327718eb8ea568876b7a9a))
+- add youtube event type ([9ce5e52](https://github.com/wert2all/timeline-frontend/commit/9ce5e522e55b88ac247c2c6f6f143e7a7bd6805b))
+- add youtube preview ([c18c328](https://github.com/wert2all/timeline-frontend/commit/c18c3285bd0d06dcb697cd1196986912168f6f6c))
+- encrypt env file for production ([4d8d225](https://github.com/wert2all/timeline-frontend/commit/4d8d225b24808481d1f991a2217c99e6abc79898))
+- zoneless ([30efb81](https://github.com/wert2all/timeline-frontend/commit/30efb81601e310313b8c3017cd0840a393cc6e12))
+
+### Bug Fixes
+
+- fix actions of event ([53cac8e](https://github.com/wert2all/timeline-frontend/commit/53cac8e164c735d9c3c4c670c0cceb42858a06c5))
+- fix favicon ([357d5c5](https://github.com/wert2all/timeline-frontend/commit/357d5c531d28c6a8ccb269ac2a9e59ce39558aad))
+- fix path of deploy stage ([afa8928](https://github.com/wert2all/timeline-frontend/commit/afa8928551ab15550abfccb4e6207b255e9fe18b))
+
 ## [0.0.5](https://github.com/wert2all/timeline-frontend/compare/v0.0.4...v0.0.5) (2024-05-28)
 
 ### Bug Fixes
