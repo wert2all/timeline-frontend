@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.7](https://github.com/wert2all/timeline-frontend/compare/v0.0.6...v0.0.7) (2024-10-17)
+
+### Bug Fixes
+
+- fix decrypt permitions ([6ea9896](https://github.com/wert2all/timeline-frontend/commit/6ea98969dddcebc3860095e075229967ae79c946))
+
 ## [0.0.6](https://github.com/wert2all/timeline-frontend/compare/v0.0.5...v0.0.6) (2024-10-17)
 
 ### Features
