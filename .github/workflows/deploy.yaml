@@ -2,8 +2,15 @@ name: Deployment
 
 on:
   push:
-    tags:
-      - '*'
+    branches:
+      - master
+      - main
+  pull_request:
+
+# on:
+#   push:
+#     tags:
+#       - *'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
@@ -50,4 +57,5 @@ jobs:
           known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
 
       - name: Deploy with rsync
-        run: rsync -avz --delete ./dist/timeline-frontend/browser/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}
+        run: echo "${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}"
+        # run: rsync -avz --delete ./dist/timeline-frontend/browser/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:${{ secrets.SSH_PATH }}
