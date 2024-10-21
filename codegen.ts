@@ -3,14 +3,16 @@ import { environment } from './src/environments/environment';
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: environment.graphql,
-  documents: ['./src/app/api/internal/**/*.graphql'],
   emitLegacyCommonJSImports: false,
   generates: {
     './src/app/api/internal/schema.graphql': {
+      schema: environment.graphql,
+      documents: ['./src/app/api/internal/**/*.graphql'],
       plugins: ['schema-ast'],
     },
     './src/app/api/internal/graphql.ts': {
+      schema: environment.graphql,
+      documents: ['./src/app/api/internal/**/*.graphql'],
       plugins: [
         'typescript',
         'typescript-operations',
