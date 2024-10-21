@@ -37,7 +37,6 @@ export class GoogleOuthService {
   login(listeners: Listeners) {
     this.initialize(listeners);
     google.accounts.id.prompt(notification => {
-      console.log(notification);
       if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
         this.listeners.onNotDisplayed();
       }
@@ -53,7 +52,6 @@ export class GoogleOuthService {
   }
 
   private getResponseCallback(response: CredentialResponse) {
-    console.log(response);
     const userInfo = jwtDecode(response.credential) as GoogleUserInfo;
     if (userInfo.email_verified) {
       this.listeners.onSignIn(response.credential, userInfo);
