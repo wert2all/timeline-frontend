@@ -1,0 +1,3 @@
+fragment Preview on PreviewData {
+  id
+}
