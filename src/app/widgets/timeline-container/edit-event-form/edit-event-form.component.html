@@ -1,36 +1,32 @@
-<div role="tablist" class="tabs-boxed tabs">
+<div class="join rounded-t-none">
   <a
-    role="tab"
     tabindex="0"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 0"
+    class="btn btn-secondary join-item"
+    [class.btn-secondary]="this.activeStep() === 0"
     (click)="this.activeStep.set(0)"
     (keyup)="this.activeStep.set(0)">
     text something
   </a>
   <a
-    role="tab"
     tabindex="1"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 1"
+    class="btn join-item"
+    [class.btn-secondary]="this.activeStep() === 1"
     (click)="this.activeStep.set(1)"
     (keyup)="this.activeStep.set(1)">
     set date and time
   </a>
   <a
-    role="tab"
     tabindex="2"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 2"
+    class="btn join-item"
+    [class.btn-secondary]="this.activeStep() === 2"
     (click)="this.activeStep.set(2)"
     (keyup)="this.activeStep.set(2)">
     add tags</a
   >
   <a
-    role="tab"
     tabindex="3"
-    class="tab"
-    [class.tab-active]="this.activeStep() === 3"
+    class="btn join-item"
+    [class.btn-secondary]="this.activeStep() === 3"
     (click)="this.activeStep.set(3)"
     (keyup)="this.activeStep.set(3)"
     >add link</a
