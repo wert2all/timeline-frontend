@@ -17,11 +17,11 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
 
-import { AddValue, ViewTimelineTag } from '../timeline.types';
-import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
+import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { LinkPreviewComponent } from '../../link-preview/link-preview.component';
-import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
+import { AddValue, ViewTimelineTag } from '../timeline.types';
+import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
@@ -63,7 +63,7 @@ export class EditEventFormComponent {
     withTime: [false],
     showTime: [true],
     title: [''],
-    content: ['# hello!'],
+    content: [''],
     link: [null, [Validators.pattern(URL_REGEXP)]],
   });
 
