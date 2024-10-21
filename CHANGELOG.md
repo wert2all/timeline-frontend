@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.9](https://github.com/wert2all/timeline-frontend/compare/v0.0.8...v0.0.9) (2024-10-21)
+
+### Bug Fixes
+
+- add debug info ([b87ee77](https://github.com/wert2all/timeline-frontend/commit/b87ee77b8303409d2b1b77a72f8b66fc95516882))
+
 ## [0.0.8](https://github.com/wert2all/timeline-frontend/compare/v0.0.7...v0.0.8) (2024-10-21)
 
 ### Bug Fixes
