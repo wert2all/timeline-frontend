@@ -98,7 +98,7 @@ export const timelineFeature = createFeature({
       preview: {
         type: EditableTimelineTypes.draft,
         title: '',
-        description: '# hello!',
+        description: '',
         date: new Date(),
         isEditableType: true,
         loading: false,
