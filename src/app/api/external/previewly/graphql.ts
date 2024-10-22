@@ -37,7 +37,14 @@ export enum Status {
   success = 'success',
 }
 
-export type Preview = { id: number };
+export type Preview = {
+  id: number;
+  url: string;
+  image: string;
+  status: Status;
+  title?: string | null;
+  error?: string | null;
+};
 
 export type AddUrlVariables = Exact<{
   token: Scalars['String']['input'];
@@ -49,6 +56,11 @@ export type AddUrl = { preview?: Preview | null };
 export const Preview = gql`
   fragment Preview on PreviewData {
     id
+    url
+    image
+    status
+    title
+    error
   }
 `;
 export const AddUrlDocument = gql`
@@ -65,7 +77,7 @@ export const AddUrlDocument = gql`
 })
 export class AddUrlMutation extends Apollo.Mutation<AddUrl, AddUrlVariables> {
   override document = AddUrlDocument;
-
+  override client = 'previewly';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
@@ -77,7 +89,7 @@ interface MutationOptionsAlone<T, V>
   extends Omit<ApolloCore.MutationOptions<T, V>, 'mutation' | 'variables'> {}
 
 @Injectable({ providedIn: 'root' })
-export class PreviewlyApiClient {
+export class previewlyApiClient {
   constructor(private addUrlMutation: AddUrlMutation) {}
 
   addUrl(

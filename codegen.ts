@@ -6,7 +6,7 @@ const operationsConfig = (serviceName: string) => ({
   omitOperationSuffix: true,
   querySuffix: 'Query',
   mutationSuffix: 'Mutation',
-  serviceName: serviceName,
+  serviceName: serviceName + 'ApiClient',
   sdkClass: true,
   skipTypename: true,
 
@@ -19,6 +19,7 @@ const operationsConfig = (serviceName: string) => ({
   namingConvention: {
     enumValues: 'keep',
   },
+  namedClient: serviceName == '' ? 'default' : serviceName,
   strictScalars: true,
   scalars: {
     Time: 'string',
@@ -28,20 +29,20 @@ const operationsConfig = (serviceName: string) => ({
 const previewlyOperations = {
   path: './src/app/api/external/previewly/graphql.ts',
   config: {
-    schema: 'https://api.previewly.top/graphql',
+    schema: environment.services.previewly.url,
     documents: ['./src/app/api/external/previewly/**/*.graphql'],
     plugins: [
       'typescript',
       'typescript-operations',
       'typescript-apollo-angular',
     ],
-    config: operationsConfig('PreviewlyApiClient'),
+    config: operationsConfig('previewly'),
   },
 };
 const previewlyScheme = {
   path: './src/app/api/external/previewly/schema.graphql',
   config: {
-    schema: 'https://api.previewly.top/graphql',
+    schema: environment.services.previewly.url,
     documents: ['./src/app/api/external/previewly/**/*.graphql'],
     plugins: ['schema-ast'],
   },
@@ -66,7 +67,7 @@ const timelineOperations = {
       'typescript-operations',
       'typescript-apollo-angular',
     ],
-    config: operationsConfig('ApiClient'),
+    config: operationsConfig(''),
   },
 };
 
@@ -76,8 +77,8 @@ const config: CodegenConfig = {
   generates: {
     [previewlyScheme.path]: previewlyScheme.config,
     [previewlyOperations.path]: previewlyOperations.config,
-    [timelineScheme.path]: timelineScheme.config,
-    [timelineOperations.path]: timelineOperations.config,
+    // [timelineScheme.path]: timelineScheme.config,
+    // [timelineOperations.path]: timelineOperations.config,
   },
   hooks: { afterAllFileWrite: ['prettier --write'] },
 };
