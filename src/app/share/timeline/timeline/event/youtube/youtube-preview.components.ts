@@ -5,7 +5,7 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { SitePreviewService } from '../../../../../services/site-preview.service';
+import { ThumioService } from '../../../../../api/external/site-preview.service';
 
 @Component({
   selector: 'app-timeline-event-yotube-preview',
@@ -16,7 +16,7 @@ import { SitePreviewService } from '../../../../../services/site-preview.service
   }`,
 })
 export class YoutubePreviewComponent {
-  private previewService = inject(SitePreviewService);
+  private previewService = inject(ThumioService);
   url = input<string | undefined>(undefined);
   preview = computed(() => {
     const url = this.url();
