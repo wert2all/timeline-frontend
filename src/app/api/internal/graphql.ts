@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import * as ApolloCore from '@apollo/client/core';
-import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+import * as ApolloCore from '@apollo/client/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -78,8 +78,8 @@ export type ShortTimeline = { id: number; name?: string | null };
 
 export type User = {
   id: number;
-  name: string;
-  email: string;
+  name?: string | null;
+  email?: string | null;
   avatar?: string | null;
   timelines: Array<ShortTimeline>;
 };
@@ -159,7 +159,7 @@ export class AuthorizeMutation extends Apollo.Mutation<
   AuthorizeVariables
 > {
   override document = AuthorizeDocument;
-
+  override client = 'default';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
@@ -181,7 +181,7 @@ export class AddTimelineMutationMutation extends Apollo.Mutation<
   AddTimelineMutationVariables
 > {
   override document = AddTimelineMutationDocument;
-
+  override client = 'default';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
@@ -203,7 +203,7 @@ export class AddTimelineEventMutation extends Apollo.Mutation<
   AddTimelineEventVariables
 > {
   override document = AddTimelineEventDocument;
-
+  override client = 'default';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
@@ -222,7 +222,7 @@ export class DeleteEventMutation extends Apollo.Mutation<
   DeleteEventVariables
 > {
   override document = DeleteEventDocument;
-
+  override client = 'default';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
@@ -247,7 +247,7 @@ export class GetEventsQuery extends Apollo.Query<
   GetEventsVariables
 > {
   override document = GetEventsDocument;
-
+  override client = 'default';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
   }
