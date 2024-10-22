@@ -1,0 +1,6 @@
+query GetPreview($token: String!, $url: String!)
+@namedClient(name: "previewly") {
+  preview: getPreviewData(token: $token, url: $url) {
+    ...Preview
+  }
+}
