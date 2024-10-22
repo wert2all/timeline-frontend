@@ -17,6 +17,8 @@ import {
 import { environment } from '../../../environments/environment';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import { DataWrapper, Status, StoreDispatchEffect } from '../../app.types';
+
+import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
 import { PreviewItem } from './preview.types';
@@ -30,21 +32,11 @@ const addUrl = (
 ) => {
   return action$.pipe(
     ofType(PreviewActions.addURL),
-    exhaustMap(({ url }) => {
-      return apiClient.addUrl({ token: TOKEN, url: url.toString() }).pipe(
-        map(result => {
-          if (result.errors) {
-            throw new Error(result.errors[result.errors.length - 1].message);
-          }
-          return result.data?.preview;
-        }),
-        map(preview => {
-          if (preview) {
-            return preview;
-          } else {
-            throw new Error('Empty preview');
-          }
-        }),
+    exhaustMap(({ url }) =>
+      apiClient.addUrl({ token: TOKEN, url: url.toString() }).pipe(
+        map(result =>
+          apiAssertNotNull(extractApiData(result)?.preview, 'Empty preview')
+        ),
         map((preview): DataWrapper<PreviewItem> => {
           switch (preview.status) {
             case 'success':
@@ -70,8 +62,8 @@ const addUrl = (
             preview: preview,
           });
         })
-      );
-    })
+      )
+    )
   );
 };
 
@@ -124,21 +116,12 @@ const polling = (
               { fetchPolicy: 'no-cache' }
             )
             .pipe(
-              map(result => {
-                if (result.errors) {
-                  throw new Error(
-                    result.errors[result.errors.length - 1].message
-                  );
-                }
-                return result.data?.preview;
-              }),
-              map(preview => {
-                if (preview) {
-                  return preview;
-                } else {
-                  throw new Error('Empty preview');
-                }
-              }),
+              map(result =>
+                apiAssertNotNull(
+                  extractApiData(result)?.preview,
+                  'Empty preview'
+                )
+              ),
               map((preview): DataWrapper<PreviewItem> => {
                 switch (preview.status) {
                   case 'success':
