@@ -4,13 +4,14 @@ import { saxWarning2Bulk } from '@ng-icons/iconsax/bulk';
 import { Store } from '@ngrx/store';
 import { Status } from '../../app.types';
 
+import { JsonPipe } from '@angular/common';
 import { previewFeature } from '../../store/preview/preview.reducers';
 
 @Component({
   selector: 'app-link-preview',
   standalone: true,
   templateUrl: './link-preview.component.html',
-  imports: [NgIconComponent],
+  imports: [NgIconComponent, JsonPipe],
   viewProviders: [provideIcons({ saxWarning2Bulk })],
 })
 export class LinkPreviewComponent {
