@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 export type Preview = {
   url: string;
@@ -9,17 +9,11 @@ export type Preview = {
 };
 
 @Injectable({ providedIn: 'root' })
-export class SitePreviewService {
-  private apiKey: string;
-
-  constructor() {
-    this.apiKey = environment.thumApiKey;
-  }
-
+export class ThumioService {
   getPreview(url: string): Preview {
     return {
       url: url,
-      image: `https://image.thum.io/get/auth/${this.apiKey}/${url}`,
+      image: `https://image.thum.io/get/auth/${environment.services.thumio.apiKey}/${url}`,
     };
   }
 }

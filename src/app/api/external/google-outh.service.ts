@@ -23,7 +23,7 @@ const defaultListeners: Listeners = {
 })
 export class GoogleOuthService {
   private isInitialized: boolean = false;
-  private readonly clientId = environment.googleClientId;
+  private readonly clientId = environment.services.google.clientId;
   private googleConfiguration: IdConfiguration = {
     client_id: this.clientId,
     callback: this.getResponseCallback.bind(this),
