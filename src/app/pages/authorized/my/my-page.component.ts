@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
-import { DevelopmentComponent } from '../../../share/development/development.component';
+
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
 import { authFeature } from '../../../store/auth/auth.reducer';
@@ -25,7 +25,6 @@ import { TimelineContainerComponent } from '../../../widgets/timeline-container/
     LayoutComponent,
     CreateTimelineButtonComponent,
     TimelineContainerComponent,
-    DevelopmentComponent,
   ],
 })
 export class MyPageComponent {
