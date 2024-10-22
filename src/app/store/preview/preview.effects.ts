@@ -4,8 +4,9 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
-import { Status, StoreDispatchEffect } from '../../app.types';
+import { DataWrapper, Status, StoreDispatchEffect } from '../../app.types';
 import { PreviewActions } from './preview.actions';
+import { PreviewItem } from './preview.types';
 
 const TOKEN = environment.services.previewly.token;
 const addUrl = (
@@ -29,12 +30,15 @@ const addUrl = (
             throw new Error('Empty preview');
           }
         }),
-        map(preview => {
+        map((preview): DataWrapper<PreviewItem> => {
           switch (preview.status) {
             case 'success':
               return {
                 status: Status.SUCCESS,
-                data: { image: preview.image, title: preview.title },
+                data: {
+                  image: preview.image,
+                  title: preview.title || undefined,
+                },
               };
             case 'error':
               throw new Error(preview.error || 'Something was wrong');

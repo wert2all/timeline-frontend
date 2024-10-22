@@ -27,18 +27,20 @@
     </div>
   }
   @if (previewHolder.data.status === Status.SUCCESS) {
-    <!-- <div class="flex gap-4">
-      <span class="h-32 w-48"
-        ><img
-          src="{{ preview().image }}"
-          alt="{{ preview().title || preview().url }}"
-      /></span>
+    <div class="flex gap-4">
+      <span class="h-32 w-48">
+        <img
+          src="{{ previewHolder.data.data?.image }}"
+          [alt]="previewHolder.data.data?.title || previewHolder.url" />
+      </span>
       <span class="flex-1">
-        <div class="flex shrink flex-col gap-4">
-          <div class="font-bold">{{ preview().title || preview().url }}</div>
-          <div>{{ preview().description }}</div>
+        <div class="flex shrink flex-col">
+          <div class="font-bold">
+            {{ previewHolder.data.data?.title || previewHolder.url }}
+          </div>
+          <div>{{ previewHolder.url }}</div>
         </div>
       </span>
-    </div> -->
+    </div>
   }
 }
