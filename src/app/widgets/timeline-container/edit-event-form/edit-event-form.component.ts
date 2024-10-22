@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   effect,
   inject,
   output,
@@ -28,6 +29,7 @@ import {
 } from 'rxjs';
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { PreviewActions } from '../../../store/preview/preview.actions';
+import { previewFeature } from '../../../store/preview/preview.reducers';
 import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
@@ -79,9 +81,13 @@ export class EditEventFormComponent {
   private formValues = signal<AddValue | null>(null);
   private formChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
   private store = inject(Store);
+  private readonly allPreviews = this.store.selectSignal(
+    previewFeature.selectPreviews
+  );
 
   tags = signal<ViewTimelineTag[]>([]);
   activeStep = signal(0);
+
   previewLink = toSignal(
     this.formChanges$
       .pipe(takeUntilDestroyed(), debounceTime(2000), distinctUntilChanged())
@@ -97,6 +103,12 @@ export class EditEventFormComponent {
         catchError(() => of(null))
       )
   );
+
+  previewHolder = computed(() => {
+    return this.allPreviews().find(
+      item => item.url === this.previewLink()?.toString()
+    );
+  });
 
   constructor() {
     this.form.controls.time.disable();

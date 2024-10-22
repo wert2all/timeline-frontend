@@ -142,8 +142,8 @@
       <div class="label" [class.hidden]="!form.controls.link.errors">
         <span class="label-text-alt text-error">Wrong URL</span>
       </div>
-      @if (previewLink(); as link) {
-        <app-link-preview [link]="link" class="mt-4" />
+      @if (previewHolder(); as previewHolder) {
+        <app-link-preview [preview]="previewHolder" class="mt-4" />
       }
     </label>
   }
