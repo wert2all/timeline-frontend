@@ -28,7 +28,6 @@
     "@apollo/client": "^3.11.8",
     "@formkit/auto-animate": "^0.8.2",
     "@ng-icons/core": "^29.5.1",
-    "@ng-icons/heroicons": "^29.5.1",
     "@ng-icons/iconsax": "^29.5.1",
     "@ngrx/effects": "^18.1.0",
     "@ngrx/entity": "^18.1.0",
