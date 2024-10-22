@@ -24,16 +24,19 @@ export class DevelopPageComponent {
 
   dumpPreviewWithError = signal<PreviewHolder>({
     url: dumpLink,
+    updateAttemps: 0,
     data: { status: Status.ERROR, error: new Error('some error') },
   });
 
   dumpPreviewLoading = signal<PreviewHolder>({
     url: dumpLink,
+    updateAttemps: 0,
     data: { status: Status.LOADING },
   });
 
   dumpPreview = signal<PreviewHolder>({
     url: dumpLink,
+    updateAttemps: 0,
     data: {
       status: Status.SUCCESS,
       data: {

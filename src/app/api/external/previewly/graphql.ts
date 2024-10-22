@@ -1,7 +1,7 @@
-import { gql } from 'apollo-angular';
 import { Injectable } from '@angular/core';
-import * as Apollo from 'apollo-angular';
 import * as ApolloCore from '@apollo/client/core';
+import * as Apollo from 'apollo-angular';
+import { gql } from 'apollo-angular';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -53,6 +53,13 @@ export type AddUrlVariables = Exact<{
 
 export type AddUrl = { preview?: Preview | null };
 
+export type GetPreviewVariables = Exact<{
+  token: Scalars['String']['input'];
+  url: Scalars['String']['input'];
+}>;
+
+export type GetPreview = { preview?: Preview | null };
+
 export const Preview = gql`
   fragment Preview on PreviewData {
     id
@@ -82,20 +89,65 @@ export class AddUrlMutation extends Apollo.Mutation<AddUrl, AddUrlVariables> {
     super(apollo);
   }
 }
+export const GetPreviewDocument = gql`
+  query GetPreview($token: String!, $url: String!) {
+    preview: getPreviewData(token: $token, url: $url) {
+      ...Preview
+    }
+  }
+  ${Preview}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetPreviewQuery extends Apollo.Query<
+  GetPreview,
+  GetPreviewVariables
+> {
+  override document = GetPreviewDocument;
+  override client = 'previewly';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface WatchQueryOptionsAlone<V extends ApolloCore.OperationVariables>
+  extends Omit<ApolloCore.WatchQueryOptions<V>, 'query' | 'variables'> {}
+
+interface QueryOptionsAlone<V>
+  extends Omit<ApolloCore.QueryOptions<V>, 'query' | 'variables'> {}
 
 interface MutationOptionsAlone<T, V>
   extends Omit<ApolloCore.MutationOptions<T, V>, 'mutation' | 'variables'> {}
 
 @Injectable({ providedIn: 'root' })
 export class previewlyApiClient {
-  constructor(private addUrlMutation: AddUrlMutation) {}
+  constructor(
+    private addUrlMutation: AddUrlMutation,
+    private getPreviewQuery: GetPreviewQuery
+  ) {}
 
   addUrl(
     variables: AddUrlVariables,
     options?: MutationOptionsAlone<AddUrl, AddUrlVariables>
   ) {
     return this.addUrlMutation.mutate(variables, options);
+  }
+
+  getPreview(
+    variables: GetPreviewVariables,
+    options?: QueryOptionsAlone<GetPreviewVariables>
+  ) {
+    return this.getPreviewQuery.fetch(variables, options);
+  }
+
+  getPreviewWatch(
+    variables: GetPreviewVariables,
+    options?: WatchQueryOptionsAlone<GetPreviewVariables>
+  ) {
+    return this.getPreviewQuery.watch(variables, options);
   }
 }
