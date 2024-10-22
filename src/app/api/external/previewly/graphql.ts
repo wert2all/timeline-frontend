@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
 import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+import * as ApolloCore from '@apollo/client/core';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -37,13 +39,51 @@ export enum Status {
 
 export type Preview = { id: number };
 
+export type AddUrlVariables = Exact<{
+  token: Scalars['String']['input'];
+  url: Scalars['String']['input'];
+}>;
+
+export type AddUrl = { preview?: Preview | null };
+
 export const Preview = gql`
   fragment Preview on PreviewData {
     id
   }
 `;
+export const AddUrlDocument = gql`
+  mutation AddUrl($token: String!, $url: String!) {
+    preview: addUrl(token: $token, url: $url) {
+      ...Preview
+    }
+  }
+  ${Preview}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AddUrlMutation extends Apollo.Mutation<AddUrl, AddUrlVariables> {
+  override document = AddUrlDocument;
+
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+
+type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
+
+interface MutationOptionsAlone<T, V>
+  extends Omit<ApolloCore.MutationOptions<T, V>, 'mutation' | 'variables'> {}
 
 @Injectable({ providedIn: 'root' })
 export class PreviewlyApiClient {
-  constructor() {}
+  constructor(private addUrlMutation: AddUrlMutation) {}
+
+  addUrl(
+    variables: AddUrlVariables,
+    options?: MutationOptionsAlone<AddUrl, AddUrlVariables>
+  ) {
+    return this.addUrlMutation.mutate(variables, options);
+  }
 }
