@@ -1,4 +1,5 @@
-mutation AddUrl($token: String!, $url: String!) {
+mutation AddUrl($token: String!, $url: String!)
+@namedClient(name: "previewly") {
   preview: addUrl(token: $token, url: $url) {
     ...Preview
   }

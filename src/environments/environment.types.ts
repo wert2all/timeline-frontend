@@ -12,6 +12,7 @@ export type ThumioServiceEnvironment = {
 
 export type PreviewlyServiceEnvironment = {
   token: string;
+  url: string;
 };
 
 export type ServiceEnvironments = {
