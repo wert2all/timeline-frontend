@@ -17,11 +17,20 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
 
-import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
+import { Store } from '@ngrx/store';
+import {
+  catchError,
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  of,
+  tap,
+} from 'rxjs';
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
-import { LinkPreviewComponent } from '../../link-preview/link-preview.component';
+import { PreviewActions } from '../../../store/preview/preview.actions';
 import { AddValue, ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
+import { LinkPreviewComponent } from './link-preview/link-preview.component';
 
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
@@ -69,6 +78,7 @@ export class EditEventFormComponent {
 
   private formValues = signal<AddValue | null>(null);
   private formChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
+  private store = inject(Store);
 
   tags = signal<ViewTimelineTag[]>([]);
   activeStep = signal(0);
@@ -79,6 +89,11 @@ export class EditEventFormComponent {
         map(values => values.link),
         map(link => (link ? new URL(link) : null)),
         map(url => url || null),
+        tap(url => {
+          if (url) {
+            this.store.dispatch(PreviewActions.addURL({ url }));
+          }
+        }),
         catchError(() => of(null))
       )
   );

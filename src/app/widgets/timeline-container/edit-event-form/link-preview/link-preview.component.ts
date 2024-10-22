@@ -2,10 +2,10 @@ import { Component, computed, inject, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxWarning2Bulk } from '@ng-icons/iconsax/bulk';
 import { Store } from '@ngrx/store';
-import { Status } from '../../app.types';
 
 import { JsonPipe } from '@angular/common';
-import { previewFeature } from '../../store/preview/preview.reducers';
+import { Status } from '../../../../app.types';
+import { previewFeature } from '../../../../store/preview/preview.reducers';
 
 @Component({
   selector: 'app-link-preview',
