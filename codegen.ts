@@ -77,8 +77,8 @@ const config: CodegenConfig = {
   generates: {
     [previewlyScheme.path]: previewlyScheme.config,
     [previewlyOperations.path]: previewlyOperations.config,
-    // [timelineScheme.path]: timelineScheme.config,
-    // [timelineOperations.path]: timelineOperations.config,
+    [timelineScheme.path]: timelineScheme.config,
+    [timelineOperations.path]: timelineOperations.config,
   },
   hooks: { afterAllFileWrite: ['prettier --write'] },
 };
