@@ -1,7 +1,7 @@
 {
   "root": true,
   "ignorePatterns": ["projects/**/*"],
-  "plugins": ["unused-imports", "sonarjs", "import", "simple-import-sort"],
+  "plugins": ["unused-imports", "simple-import-sort"],
   "overrides": [
     {
       "files": ["*.ts"],
@@ -27,7 +27,8 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@typescript-eslint/no-empty-object-type": "off"
       }
     },
     {

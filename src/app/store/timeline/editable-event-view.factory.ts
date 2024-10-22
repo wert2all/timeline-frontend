@@ -24,7 +24,7 @@ const createPreviewEvent = (preview: EditableTimelineEvent | null) =>
 const prepareUrl = (url: string | undefined) => {
   try {
     return url ? { title: new URL(url).host, link: url } : null;
-  } catch (e) {
+  } catch {
     return null;
   }
 };
