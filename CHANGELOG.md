@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.11](https://github.com/wert2all/timeline-frontend/compare/v0.0.10...v0.0.11) (2024-10-22)
+
+### Features
+
+- add develop page ([b655cd6](https://github.com/wert2all/timeline-frontend/commit/b655cd68adf50fc3bf43507b39cbc8e6bba149e3))
+- add development component ([571bdff](https://github.com/wert2all/timeline-frontend/commit/571bdff4020d4f8f98b7f16851ecc554580ebf29))
+- add polling previews ([e31f3a7](https://github.com/wert2all/timeline-frontend/commit/e31f3a74aa2c122b86c8c16f63ff031fb014a836))
+- add previewly GQL codegen ([1291095](https://github.com/wert2all/timeline-frontend/commit/12910958b15153cf5be329ea44d76cd491b3aec0))
+- expose preview after adding url ([762f145](https://github.com/wert2all/timeline-frontend/commit/762f145ddd08eb636440bf2ee2c78da93681abe2))
+- link preview component start using previewly service ([dc64f7e](https://github.com/wert2all/timeline-frontend/commit/dc64f7e7258bcd6ccd924c9e21529d7acd92cd4e))
+
+### Bug Fixes
+
+- change add event tabs to join list ([88249e1](https://github.com/wert2all/timeline-frontend/commit/88249e199298ee7f716ddbdd6a95b5596ce83ce7))
+- fix auth store after update scheme ([2868c30](https://github.com/wert2all/timeline-frontend/commit/2868c304c876a0ff97df310580bc61abe59df3ea))
+- fix showing link preview ([f596db5](https://github.com/wert2all/timeline-frontend/commit/f596db5619335f585d6f34706b482fcbf7eb606a))
+- fix showing preview image ([1229088](https://github.com/wert2all/timeline-frontend/commit/12290885a9a800c27d8faa82c60c33ac6c86804c))
+- remove link preview conponent from development component ([bcbdeb7](https://github.com/wert2all/timeline-frontend/commit/bcbdeb7c79c1106c77006bb0a7a726aaa73f15c9))
+- remove placeholder ([62c46fd](https://github.com/wert2all/timeline-frontend/commit/62c46fd87808d855a405046adcd46e6f6e6206a9))
+
 ## [0.0.10](https://github.com/wert2all/timeline-frontend/compare/v0.0.9...v0.0.10) (2024-10-21)
 
 ### Bug Fixes
