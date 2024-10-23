@@ -10,5 +10,11 @@
         <app-link-preview [preview]="dumpPreviewLoading()" class="col-span-2" />
       </div>
     </div>
+    <div class="py-4">
+      <h2 class="text-2xl">EventAdditionalContentComponent</h2>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        <app-timeline-event-additional-content [event]="dumpAddEvent()" />
+      </div>
+    </div>
   </div>
 </app-layout>
