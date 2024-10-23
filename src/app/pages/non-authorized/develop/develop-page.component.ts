@@ -10,6 +10,7 @@ import {
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { EventAdditionalContentComponent } from '../../../share/timeline/timeline/event/content/additional/additional-content.component';
+import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../widgets/timeline-container/edit-event-form/link-preview/link-preview.component';
@@ -28,6 +29,7 @@ import {
     LinkPreviewComponent,
     EditEventFormComponent,
     EventAdditionalContentComponent,
+    TimelineEventMenuComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
