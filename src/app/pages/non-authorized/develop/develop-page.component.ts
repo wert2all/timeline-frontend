@@ -33,6 +33,27 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent {
+  private readonly dumpEvent: EditableViewTimelineEvent & {
+    eventLength: string;
+    shouldAccentLine: boolean;
+  } = {
+    ...dumpEvent,
+    id: 1,
+    url: {
+      title: dumpLinkTitle,
+      link: dumpLink,
+    },
+    date: {
+      date: '2024-05-26T15:21:00.000+03:00',
+      relative: '2 days ago',
+    },
+    changeDirection: false,
+    tags: dumpTags,
+    description: 'Some description',
+    type: EditableTimelineTypes.draft,
+    eventLength: 'mb-8',
+    shouldAccentLine: true,
+  };
   dumpLink = signal(new URL(dumpLink));
 
   dumpPreviewWithError = signal<PreviewHolder>({
@@ -59,26 +80,5 @@ export class DevelopPageComponent {
     },
   });
 
-  dumpAddEvent = signal<
-    EditableViewTimelineEvent & {
-      eventLength: string;
-      shouldAccentLine: boolean;
-    }
-  >({
-    ...dumpEvent,
-    url: {
-      title: dumpLinkTitle,
-      link: dumpLink,
-    },
-    date: {
-      date: '2024-05-26T15:21:00.000+03:00',
-      relative: '2 days ago',
-    },
-    changeDirection: false,
-    tags: dumpTags,
-    description: 'Some description',
-    type: EditableTimelineTypes.draft,
-    eventLength: 'mb-8',
-    shouldAccentLine: true,
-  });
+  dumpAddEvent = signal(this.dumpEvent);
 }

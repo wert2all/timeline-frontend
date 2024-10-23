@@ -27,7 +27,9 @@ type EventView = EditableViewTimelineEvent & {
 })
 export class EventAdditionalContentComponent {
   EditableTimelineTypes = EditableTimelineTypes;
+
   event = input.required<EventView>();
+  openTab = input(0);
 
   saveEvent = output();
   dismissAction = output();

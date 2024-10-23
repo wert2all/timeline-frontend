@@ -5,6 +5,7 @@ import {
   computed,
   effect,
   inject,
+  input,
   output,
   signal,
 } from '@angular/core';
@@ -63,6 +64,10 @@ export class EditEventFormComponent {
   saveEvent = output();
   changeValues = output<AddValue>();
 
+  openTab = input(0);
+
+  activeStep = signal(0);
+
   form = inject(FormBuilder).group({
     id: [null],
     date: [DateTime.now().toISODate(), Validators.required],
@@ -85,7 +90,6 @@ export class EditEventFormComponent {
   );
 
   tags = signal<ViewTimelineTag[]>([]);
-  activeStep = signal(0);
 
   previewLink = toSignal(
     this.formChanges$
@@ -122,12 +126,19 @@ export class EditEventFormComponent {
       });
     });
 
-    effect(() => {
-      this.changeValues.emit({
-        ...(this.formValues() || this.form.value),
-        tags: this.tags().map(tag => tag.value),
-      });
-    });
+    effect(
+      () => {
+        this.activeStep.set(this.openTab());
+
+        this.changeValues.emit({
+          ...(this.formValues() || this.form.value),
+          tags: this.tags().map(tag => tag.value),
+        });
+      },
+      {
+        allowSignalWrites: true,
+      }
+    );
   }
 
   addTag(input: HTMLInputElement) {
