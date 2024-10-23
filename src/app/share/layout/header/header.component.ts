@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxMenu1Outline } from '@ng-icons/iconsax/outline';
+import { saxGhostOutline, saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
@@ -15,7 +15,7 @@ import { ProfileButtonComponent } from './top-menu/profile-button/profile-button
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
-  viewProviders: [provideIcons({ saxMenu1Outline })],
+  viewProviders: [provideIcons({ saxMenu1Outline, saxGhostOutline })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
