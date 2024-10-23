@@ -2,38 +2,38 @@
   <a
     tabindex="0"
     class="btn btn-secondary join-item"
-    [class.btn-secondary]="this.activeStep() === 0"
-    (click)="this.activeStep.set(0)"
-    (keyup)="this.activeStep.set(0)">
+    [class.btn-secondary]="isActiveTab(0)"
+    (click)="switchTo(0)"
+    (keyup)="switchTo(0)">
     text something
   </a>
   <a
     tabindex="1"
     class="btn join-item"
-    [class.btn-secondary]="this.activeStep() === 1"
-    (click)="this.activeStep.set(1)"
-    (keyup)="this.activeStep.set(1)">
+    [class.btn-secondary]="isActiveTab(1)"
+    (click)="switchTo(1)"
+    (keyup)="switchTo(1)">
     set date and time
   </a>
   <a
     tabindex="2"
     class="btn join-item"
-    [class.btn-secondary]="this.activeStep() === 2"
-    (click)="this.activeStep.set(2)"
-    (keyup)="this.activeStep.set(2)">
+    [class.btn-secondary]="isActiveTab(2)"
+    (click)="switchTo(2)"
+    (keyup)="switchTo(2)">
     add tags</a
   >
   <a
     tabindex="3"
     class="btn join-item"
-    [class.btn-secondary]="this.activeStep() === 3"
-    (click)="this.activeStep.set(3)"
-    (keyup)="this.activeStep.set(3)"
+    [class.btn-secondary]="isActiveTab(3)"
+    (click)="switchTo(3)"
+    (keyup)="switchTo(3)"
     >add link</a
   >
 </div>
 <div>
-  @if (this.activeStep() === 0) {
+  @if (isActiveTab(0)) {
     <label class="form-control">
       <div class="label">
         <span class="label-text">Title</span>
@@ -56,7 +56,7 @@
         [formControl]="form.controls.content"></textarea>
     </label>
   }
-  @if (this.activeStep() === 1) {
+  @if (isActiveTab(1)) {
     <div class="mt-4">
       <app-date-picker
         (selectDate)="updateDate($event)"
@@ -107,7 +107,7 @@
       </div>
     </div>
   }
-  @if (this.activeStep() === 2) {
+  @if (isActiveTab(2)) {
     <label class="form-control">
       <div class="label">
         <span class="label-text">Tags</span>
@@ -126,7 +126,7 @@
         (clickToTag)="removeTag($event)"></app-add-event-tags>
     </label>
   }
-  @if (this.activeStep() === 3) {
+  @if (isActiveTab(3)) {
     <label class="form-control">
       <div class="label">
         <span class="label-text">link</span>

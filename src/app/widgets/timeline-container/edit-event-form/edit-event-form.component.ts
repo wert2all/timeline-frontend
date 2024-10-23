@@ -66,8 +66,6 @@ export class EditEventFormComponent {
 
   openTab = input(0);
 
-  activeStep = signal(0);
-
   form = inject(FormBuilder).group({
     id: [null],
     date: [DateTime.now().toISODate(), Validators.required],
@@ -89,6 +87,7 @@ export class EditEventFormComponent {
     previewFeature.selectPreviews
   );
 
+  switchTab = signal<null | number>(null);
   tags = signal<ViewTimelineTag[]>([]);
 
   previewLink = toSignal(
@@ -107,11 +106,13 @@ export class EditEventFormComponent {
       )
   );
 
-  previewHolder = computed(() => {
-    return this.allPreviews().find(
-      item => item.url === this.previewLink()?.toString()
-    );
-  });
+  previewHolder = computed(() =>
+    this.allPreviews().find(item => item.url === this.previewLink()?.toString())
+  );
+
+  activeStep = computed(() =>
+    this.switchTab() !== null ? this.switchTab() : this.openTab()
+  );
 
   constructor() {
     this.form.controls.time.disable();
@@ -126,19 +127,12 @@ export class EditEventFormComponent {
       });
     });
 
-    effect(
-      () => {
-        this.activeStep.set(this.openTab());
-
-        this.changeValues.emit({
-          ...(this.formValues() || this.form.value),
-          tags: this.tags().map(tag => tag.value),
-        });
-      },
-      {
-        allowSignalWrites: true,
-      }
-    );
+    effect(() => {
+      this.changeValues.emit({
+        ...(this.formValues() || this.form.value),
+        tags: this.tags().map(tag => tag.value),
+      });
+    });
   }
 
   addTag(input: HTMLInputElement) {
@@ -171,5 +165,13 @@ export class EditEventFormComponent {
 
   updateDate(date: Date) {
     this.form.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
+  }
+
+  isActiveTab(tabNUmber: number): boolean {
+    return this.activeStep() === tabNUmber;
+  }
+
+  switchTo(tabNumber: number) {
+    this.switchTab.set(tabNumber);
   }
 }
