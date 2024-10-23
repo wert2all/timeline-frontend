@@ -44,6 +44,9 @@ importers:
       '@ng-icons/core':
         specifier: ^29.5.1
         version: 29.5.1(@angular/common@18.2.8(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1))(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
+      '@ng-icons/huge-icons':
+        specifier: ^29.5.1
+        version: 29.5.1
       '@ng-icons/iconsax':
         specifier: ^29.5.1
         version: 29.5.1
@@ -2269,6 +2272,9 @@ packages:
       '@angular/common': '>=18.0.0'
       '@angular/core': '>=18.0.0'
       rxjs: ^6.5.3 || ^7.4.0
+
+  '@ng-icons/huge-icons@29.5.1':
+    resolution: {integrity: sha512-/koZXCVIlQps96AldnpZvZP4sKSWIPlS6pa+mPRLb19hXc6Lx4ncp3nkYlAFvGYyX2bnB3zBl2kHqps0LQmpgw==}
 
   '@ng-icons/iconsax@29.5.1':
     resolution: {integrity: sha512-v03WTnhRSDH837O+xySUmO02NIk26lR6K8YqIS6DWEys2060DFCsaYFiWXiz6cQSCz3f6nA2UclLzoqp+3c3ug==}
@@ -10734,6 +10740,10 @@ snapshots:
       '@angular/common': 18.2.8(@angular/core@18.2.8(rxjs@7.8.1)(zone.js@0.14.10))(rxjs@7.8.1)
       '@angular/core': 18.2.8(rxjs@7.8.1)(zone.js@0.14.10)
       rxjs: 7.8.1
+      tslib: 2.8.0
+
+  '@ng-icons/huge-icons@29.5.1':
+    dependencies:
       tslib: 2.8.0
 
   '@ng-icons/iconsax@29.5.1':
