@@ -8,5 +8,21 @@
   "trailingComma": "es5",
   "bracketSameLine": true,
   "printWidth": 80,
-  "plugins": ["prettier-plugin-tailwindcss"]
+  "endOfLine": "lf",
+  "plugins": [
+    "prettier-plugin-tailwindcss",
+    "@ianvs/prettier-plugin-sort-imports"
+  ],
+  "importOrder": [
+    "<BUILTIN_MODULES>",
+    "^react",
+    "<THIRD_PARTY_MODULES>",
+    "^@inkdropapp",
+    "^@[/]",
+    "^[.].*$",
+    "<TYPES>",
+    "^[/].*$",
+    "[.]css$"
+  ],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"]
 }
