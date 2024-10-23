@@ -8,6 +8,7 @@ export const createViewDatetime = (
   const dateTime = DateTime.fromISO(date.toISOString());
 
   return {
+    originalDate: date,
     relative: showTime ? dateTime.toRelative() : dateTime.toRelativeCalendar(),
     date:
       dateTime.toLocaleString(DateTime.DATE_SHORT) +

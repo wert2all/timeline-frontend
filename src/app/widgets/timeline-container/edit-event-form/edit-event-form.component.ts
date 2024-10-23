@@ -35,7 +35,11 @@ import {
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
-import { AddValue, ViewTimelineTag } from '../timeline.types';
+import {
+  AddValue,
+  EditableViewTimelineEvent,
+  ViewTimelineTag,
+} from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
 
@@ -80,6 +84,7 @@ export class EditEventFormComponent {
   saveEvent = output();
   changeValues = output<AddValue>();
 
+  editEvent = input<EditableViewTimelineEvent | null>(null);
   openTab = input(0);
 
   editForm = new FormGroup<EditForm>({
@@ -146,6 +151,25 @@ export class EditEventFormComponent {
     });
 
     effect(() => {
+      const editEvent = this.editEvent();
+      if (editEvent) {
+        this.editForm.controls.id.setValue(editEvent.id || null);
+        this.editForm.controls.title.setValue(editEvent.title || '');
+        this.editForm.controls.content.setValue(editEvent.description);
+
+        this.editForm.controls.date.setValue(
+          (editEvent.date.date
+            ? DateTime.fromJSDate(editEvent.date.originalDate)
+            : DateTime.now()
+          ).toISODate()
+        );
+
+        this.editForm.controls.withTime.setValue(editEvent.showTime || false);
+        this.editForm.controls.showTime.setValue(editEvent.showTime || false);
+
+        // this.editForm.controls.link.setValue(editEvent.url || null);
+        // this.tags.set(editEvent.tags.map(tag => new ViewTimelineTag(tag)));
+      }
       this.changeValues.emit({
         ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),

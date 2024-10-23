@@ -38,6 +38,13 @@
       <div class="label">
         <span class="label-text">Title</span>
       </div>
+
+      <input
+        type="hidden"
+        name="id"
+        [formControl]="editForm.controls.id"
+        readonly />
+
       <label class="input input-bordered flex items-center gap-2">
         <input
           type="text"
@@ -62,11 +69,6 @@
         (selectDate)="updateDate($event)"
         [fromDate]="editForm.controls.date.value" />
 
-      <input
-        type="hidden"
-        name="id"
-        [formControl]="editForm.controls.id"
-        readonly />
       <input
         type="hidden"
         name="date"
