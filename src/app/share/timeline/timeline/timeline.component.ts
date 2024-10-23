@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  Signal,
   computed,
   input,
   output,
+  Signal,
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
 import { DateTime } from 'luxon';
@@ -18,13 +18,13 @@ import {
   ViewTimelineTag,
 } from '../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
+import { EventAdditionalContentComponent } from './event/content/additional/additional-content.component';
 import { EventMainContentComponent } from './event/content/main/main-content.component';
 import { DateComponent } from './event/date/date.component';
 import { IconComponent } from './event/icon/icon.component';
 import { TimelineEventMenuComponent } from './event/menu/menu.component';
 import { TagsComponent } from './event/tags/tags.component';
 import { UrlComponent } from './event/url/url.component';
-import { EventAdditionalContentComponent } from './event/content/additional/additional-content.component';
 
 type EventView = EditableViewTimelineEvent & {
   eventLength: string;

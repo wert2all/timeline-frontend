@@ -1,7 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxWarning2Bulk } from '@ng-icons/iconsax/bulk';
-
 import { Status } from '../../../../app.types';
 import { PreviewHolder } from '../../../../store/preview/preview.types';
 

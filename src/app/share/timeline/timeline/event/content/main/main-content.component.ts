@@ -15,6 +15,7 @@ import { DateComponent } from '../../date/date.component';
 import { TagsComponent } from '../../tags/tags.component';
 import { UrlComponent } from '../../url/url.component';
 import { YoutubePreviewComponent } from '../../youtube/youtube-preview.components';
+
 type EventView = EditableViewTimelineEvent & {
   eventLength: string;
   shouldAccentLine: boolean;

@@ -1,6 +1,5 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
-
 import {
   TimelimeEventType,
   TimelineEvent,

@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, ViewEncapsulation, input } from '@angular/core';
+import { Component, input, ViewEncapsulation } from '@angular/core';
 import { MarkdownModule, provideMarkdown } from 'ngx-markdown';
 
 @Component({
