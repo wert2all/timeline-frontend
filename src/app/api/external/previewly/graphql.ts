@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as ApolloCore from '@apollo/client/core';
 import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
+
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {

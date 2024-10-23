@@ -1,3 +1,4 @@
+import { AsyncPipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -5,13 +6,10 @@ import {
   inject,
   signal,
 } from '@angular/core';
-
-import { AsyncPipe } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ModalConfirmComponent } from '../../share/modal/confirm/modal-confirm.component';
 import { ModalComponent } from '../../share/modal/modal.component';
-
 import { TimelineComponent } from '../../share/timeline/timeline/timeline.component';
 import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
@@ -22,6 +20,7 @@ import {
   EditableViewTimelineEvent,
   ViewTimelineTag,
 } from './timeline.types';
+
 @Component({
   selector: 'app-timeline-container',
   templateUrl: './timeline-container.component.html',

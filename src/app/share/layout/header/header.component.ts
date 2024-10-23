@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';

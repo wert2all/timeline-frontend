@@ -5,9 +5,7 @@ import {
   computed,
   inject,
 } from '@angular/core';
-
 import { Store } from '@ngrx/store';
-
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
 import { authFeature } from '../../../store/auth/auth.reducer';

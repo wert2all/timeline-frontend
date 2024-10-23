@@ -11,6 +11,7 @@ import {
   EditableViewTimelineEvent,
 } from '../../../../../../widgets/timeline-container/timeline.types';
 import { TimelineEventMenuComponent } from '../../menu/menu.component';
+
 type EventView = EditableViewTimelineEvent & {
   eventLength: string;
   shouldAccentLine: boolean;

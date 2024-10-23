@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import {
@@ -17,7 +16,6 @@ import {
 import { environment } from '../../../environments/environment';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import { DataWrapper, Status, StoreDispatchEffect } from '../../app.types';
-
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';

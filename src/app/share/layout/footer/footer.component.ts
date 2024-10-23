@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxVideoSquareOutline } from '@ng-icons/iconsax/outline';
+
 @Component({
   selector: 'app-footer',
   standalone: true,

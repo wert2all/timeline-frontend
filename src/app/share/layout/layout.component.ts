@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NotificationsContainerComponent } from '../notifications/notifications-container.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';

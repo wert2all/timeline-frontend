@@ -1,5 +1,5 @@
-import type { CodegenConfig } from '@graphql-codegen/cli';
 import { environment } from './src/environments/environment';
+import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const operationsConfig = (serviceName: string) => ({
   addExplicitOverride: true,

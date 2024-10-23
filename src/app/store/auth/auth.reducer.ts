@@ -1,5 +1,4 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-
 import { AuthActions } from './auth.actions';
 import { AuthState } from './auth.types';
 
