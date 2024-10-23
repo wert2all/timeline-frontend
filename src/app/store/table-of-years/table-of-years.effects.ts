@@ -1,9 +1,9 @@
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { StoreDispatchEffect } from '../../app.types';
-import { TableOfYearsActions } from './table-of-years.actions';
-import { map } from 'rxjs';
 import { inject } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map } from 'rxjs';
+import { StoreDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
+import { TableOfYearsActions } from './table-of-years.actions';
 
 const loadTableOfYears = (action$ = inject(Actions)) => {
   return action$.pipe(

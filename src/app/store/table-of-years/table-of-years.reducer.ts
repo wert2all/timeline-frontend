@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { TableOfYearsState } from './table-of-years.types';
 import { TableOfYearsActions } from './table-of-years.actions';
+import { TableOfYearsState } from './table-of-years.types';
 
 const initialState: TableOfYearsState = { years: [] };
 
