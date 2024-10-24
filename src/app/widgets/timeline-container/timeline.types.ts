@@ -1,5 +1,6 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
+import { ViewDatetime } from '../../libs/view/date.types';
 import {
   TimelimeEventType,
   TimelineEvent,
@@ -17,10 +18,6 @@ export class ViewTimelineTag {
   }
 }
 export type ViewTimelineUrl = { title: string; link: string };
-export type ViewTimelineDate = {
-  date: string;
-  relative: string | null;
-};
 
 export class ViewTimelineEventIcon {
   readonly icon: IconType;
@@ -41,7 +38,7 @@ export type ViewTimelineEvent = Omit<
 > & {
   description: string;
   icon?: ViewTimelineEventIcon;
-  date: ViewTimelineDate;
+  date: ViewDatetime;
   url: ViewTimelineUrl | null;
   tags: ViewTimelineTag[];
   changeDirection: boolean;

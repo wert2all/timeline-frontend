@@ -1,8 +1,7 @@
-import { DateTime } from 'luxon';
+import { createViewDatetime } from '../../libs/view/date.functions';
 import {
   EditableTimelineEvent,
   EditableTimelineTypes,
-  ViewTimelineDate,
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from '../../widgets/timeline-container/timeline.types';
@@ -29,17 +28,6 @@ const prepareUrl = (url: string | undefined) => {
   }
 };
 
-const createDate = (date: Date, showTime: boolean): ViewTimelineDate => {
-  const dateTime = DateTime.fromISO(date.toISOString());
-
-  return {
-    relative: showTime ? dateTime.toRelative() : dateTime.toRelativeCalendar(),
-    date:
-      dateTime.toLocaleString(DateTime.DATE_SHORT) +
-      (showTime ? ' ' + dateTime.toLocaleString(DateTime.TIME_24_SIMPLE) : ''),
-  };
-};
-
 const createTags = (tags: string[] | undefined) =>
   tags?.map(tag => new ViewTimelineTag(tag)) || [];
 
@@ -59,7 +47,7 @@ export const createEditableView = (
       description: event.description || '',
       icon: new ViewTimelineEventIcon(event.type),
       url: prepareUrl(event.url),
-      date: createDate(event.date, event.showTime || false),
+      date: createViewDatetime(event.date, event.showTime || false),
       changeDirection: index % 2 === 0,
       tags: createTags(event.tags),
       draft: isDraftEvent(event),
