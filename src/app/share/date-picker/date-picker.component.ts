@@ -74,10 +74,13 @@ export class DatePickerComponent {
   }
 
   isSelectedDay(day: number) {
-    return this.getDateByDay(day).toISODate() === this.inputDate().toISODate();
+    return (
+      this.getDateByDay(day).toISODate() === this.selectedDate().toISODate()
+    );
   }
 
   selectDay(day: number) {
+    this.triggerDateTime.set(this.getDateByDay(day));
     this.selectDate.emit(this.getDateByDay(day).toJSDate());
   }
 
@@ -112,6 +115,6 @@ export class DatePickerComponent {
   }
 
   private getDateByDay(day: number): DateTime {
-    return this.firstDayOfMounth().set({ day: day });
+    return this.selectedDate().set({ day: day });
   }
 }
