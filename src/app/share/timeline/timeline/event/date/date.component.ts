@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { ViewTimelineDate } from '../../../../../widgets/timeline-container/timeline.types';
+import { ViewDatetime } from '../../../../../libs/view/date.types';
 
 @Component({
   selector: 'app-timeline-event-date',
@@ -7,7 +7,7 @@ import { ViewTimelineDate } from '../../../../../widgets/timeline-container/time
   standalone: true,
 })
 export class DateComponent {
-  date = input.required<ViewTimelineDate>();
+  date = input.required<ViewDatetime>();
   showRelevant = signal(true);
 
   toggle() {
