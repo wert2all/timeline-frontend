@@ -10,7 +10,12 @@ import {
   signal,
 } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
@@ -39,6 +44,17 @@ const URL_REGEXP =
 
 const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
 
+interface EditForm {
+  id: FormControl<number | null>;
+  date: FormControl<string | null>;
+  time: FormControl<string | null>;
+  withTime: FormControl<boolean>;
+  showTime: FormControl<boolean>;
+  title: FormControl<string>;
+  content: FormControl<string>;
+  link: FormControl<string | null>;
+}
+
 @Component({
   selector: 'app-edit-event-form',
   standalone: true,
@@ -66,22 +82,24 @@ export class EditEventFormComponent {
 
   openTab = input(0);
 
-  form = inject(FormBuilder).group({
-    id: [null],
-    date: [DateTime.now().toISODate(), Validators.required],
-    time: [
+  editForm = new FormGroup<EditForm>({
+    id: new FormControl(null),
+    date: new FormControl<string>(DateTime.now().toISODate(), [
+      Validators.required,
+    ]),
+    time: new FormControl<string>(
       DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE),
-      Validators.pattern(TIME_REGEXP),
-    ],
-    withTime: [false],
-    showTime: [true],
-    title: [''],
-    content: [''],
-    link: [null, [Validators.pattern(URL_REGEXP)]],
+      [Validators.pattern(TIME_REGEXP)]
+    ),
+    withTime: new FormControl(false, { nonNullable: true }),
+    showTime: new FormControl(false, { nonNullable: true }),
+    title: new FormControl('', { nonNullable: true }),
+    content: new FormControl('', { nonNullable: true }),
+    link: new FormControl(null, [Validators.pattern(URL_REGEXP)]),
   });
 
   private formValues = signal<AddValue | null>(null);
-  private formChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
+  private formChanges$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
   private store = inject(Store);
   private readonly allPreviews = this.store.selectSignal(
     previewFeature.selectPreviews
@@ -115,8 +133,8 @@ export class EditEventFormComponent {
   );
 
   constructor() {
-    this.form.controls.time.disable();
-    this.form.controls.showTime.disable();
+    this.editForm.controls.time.disable();
+    this.editForm.controls.showTime.disable();
 
     this.formChanges$.subscribe(values => {
       this.formValues.set({
@@ -129,7 +147,7 @@ export class EditEventFormComponent {
 
     effect(() => {
       this.changeValues.emit({
-        ...(this.formValues() || this.form.value),
+        ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),
       });
     });
@@ -154,17 +172,17 @@ export class EditEventFormComponent {
   }
 
   handleWithTimeChange() {
-    if (this.form.controls.withTime.value) {
-      this.form.controls.time.enable();
-      this.form.controls.showTime.enable();
+    if (this.editForm.controls.withTime.value) {
+      this.editForm.controls.time.enable();
+      this.editForm.controls.showTime.enable();
     } else {
-      this.form.controls.time.disable();
-      this.form.controls.showTime.disable();
+      this.editForm.controls.time.disable();
+      this.editForm.controls.showTime.disable();
     }
   }
 
   updateDate(date: Date) {
-    this.form.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
+    this.editForm.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
   }
 
   isActiveTab(tabNUmber: number): boolean {

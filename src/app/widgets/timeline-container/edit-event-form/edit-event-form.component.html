@@ -43,7 +43,7 @@
           type="text"
           class="w-full grow"
           name="title"
-          [formControl]="form.controls.title" />
+          [formControl]="editForm.controls.title" />
       </label>
     </label>
     <label class="form-control">
@@ -53,24 +53,24 @@
       <textarea
         class="textarea textarea-bordered h-32 w-full"
         name="content"
-        [formControl]="form.controls.content"></textarea>
+        [formControl]="editForm.controls.content"></textarea>
     </label>
   }
   @if (isActiveTab(1)) {
     <div class="mt-4">
       <app-date-picker
         (selectDate)="updateDate($event)"
-        [fromDate]="form.controls.date.value" />
+        [fromDate]="editForm.controls.date.value" />
 
       <input
         type="hidden"
         name="id"
-        [formControl]="form.controls.id"
+        [formControl]="editForm.controls.id"
         readonly />
       <input
         type="hidden"
         name="date"
-        [formControl]="form.controls.date"
+        [formControl]="editForm.controls.date"
         readonly />
 
       <div class="form-control mt-4">
@@ -81,7 +81,7 @@
             type="checkbox"
             (change)="handleWithTimeChange()"
             class="toggle"
-            [formControl]="form.controls.withTime" />
+            [formControl]="editForm.controls.withTime" />
         </label>
       </div>
       <div class="form-control">
@@ -91,8 +91,8 @@
             name="time"
             type="text"
             class="input input-bordered w-20"
-            [class.input-error]="!form.controls.time.valid"
-            [formControl]="form.controls.time" />
+            [class.input-error]="!editForm.controls.time.valid"
+            [formControl]="editForm.controls.time" />
         </label>
       </div>
       <div class="form-control">
@@ -102,7 +102,7 @@
             name="show-time"
             type="checkbox"
             class="toggle"
-            [formControl]="form.controls.showTime" />
+            [formControl]="editForm.controls.showTime" />
         </label>
       </div>
     </div>
@@ -137,9 +137,9 @@
           type="text"
           class="grow"
           placeholder="Url"
-          [formControl]="form.controls.link" />
+          [formControl]="editForm.controls.link" />
       </label>
-      <div class="label" [class.hidden]="!form.controls.link.errors">
+      <div class="label" [class.hidden]="!editForm.controls.link.errors">
         <span class="label-text-alt text-error">Wrong URL</span>
       </div>
       @if (previewHolder(); as previewHolder) {
@@ -151,7 +151,7 @@
   <button
     (click)="saveEvent.emit()"
     class="btn btn-primary mt-8"
-    [attr.disabled]="!form.valid ? true : null">
+    [attr.disabled]="!editForm.valid ? true : null">
     <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
     Add
   </button>
