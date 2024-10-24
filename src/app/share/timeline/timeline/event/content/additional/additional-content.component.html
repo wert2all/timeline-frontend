@@ -2,6 +2,7 @@
   @case (EditableTimelineTypes.draft) {
     <div class="event-form bg-lighter timeline-box relative pt-0">
       <app-edit-event-form
+        [editEvent]="event()"
         [openTab]="openTab()"
         (changeValues)="changeValues.emit($event)"
         (saveEvent)="saveEvent.emit()" />
