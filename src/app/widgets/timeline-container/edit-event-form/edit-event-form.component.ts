@@ -111,19 +111,17 @@ export class EditEventFormComponent {
   tags = signal<ViewTimelineTag[]>([]);
 
   previewLink = toSignal(
-    this.formChanges$
-      .pipe(takeUntilDestroyed(), debounceTime(2000), distinctUntilChanged())
-      .pipe(
-        map(values => values.link),
-        map(link => (link ? new URL(link) : null)),
-        map(url => url || null),
-        tap(url => {
-          if (url) {
-            this.store.dispatch(PreviewActions.addURL({ url }));
-          }
-        }),
-        catchError(() => of(null))
-      )
+    this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
+      map(values => values.link),
+      map(link => (link ? new URL(link) : null)),
+      map(url => url || null),
+      tap(url => {
+        if (url) {
+          this.store.dispatch(PreviewActions.addURL({ url }));
+        }
+      }),
+      catchError(() => of(null))
+    )
   );
 
   previewHolder = computed(() =>
@@ -137,6 +135,18 @@ export class EditEventFormComponent {
   constructor() {
     this.editForm.controls.time.disable();
     this.editForm.controls.showTime.disable();
+
+    this.editForm.controls.withTime.valueChanges
+      .pipe(takeUntilDestroyed())
+      .subscribe(withTime => {
+        if (withTime) {
+          this.editForm.controls.time.enable();
+          this.editForm.controls.showTime.enable();
+        } else {
+          this.editForm.controls.time.disable();
+          this.editForm.controls.showTime.disable();
+        }
+      });
 
     this.formChanges$.subscribe(values => {
       this.formValues.set({
@@ -171,16 +181,6 @@ export class EditEventFormComponent {
     this.tags.update(existTags =>
       existTags.filter(existTag => existTag.title !== tag.title)
     );
-  }
-
-  handleWithTimeChange() {
-    if (this.editForm.controls.withTime.value) {
-      this.editForm.controls.time.enable();
-      this.editForm.controls.showTime.enable();
-    } else {
-      this.editForm.controls.time.disable();
-      this.editForm.controls.showTime.disable();
-    }
   }
 
   updateDate(date: Date) {
