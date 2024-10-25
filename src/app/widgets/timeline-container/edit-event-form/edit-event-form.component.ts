@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import {
+  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -35,7 +36,11 @@ import {
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
-import { AddValue, ViewTimelineTag } from '../timeline.types';
+import {
+  AddValue,
+  EditableViewTimelineEvent,
+  ViewTimelineTag,
+} from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
 
@@ -77,10 +82,11 @@ interface EditForm {
     LinkPreviewComponent,
   ],
 })
-export class EditEventFormComponent {
+export class EditEventFormComponent implements AfterViewInit {
   saveEvent = output();
   changeValues = output<AddValue>();
 
+  editEvent = input<EditableViewTimelineEvent | null>(null);
   openTab = input(0);
 
   editForm = new FormGroup<EditForm>({
@@ -163,6 +169,30 @@ export class EditEventFormComponent {
         tags: this.tags().map(tag => tag.value),
       });
     });
+  }
+
+  ngAfterViewInit(): void {
+    const editEvent = this.editEvent();
+
+    if (editEvent) {
+      this.editForm.controls.id.setValue(editEvent.id || null);
+      this.editForm.controls.title.setValue(editEvent.title || '');
+      this.editForm.controls.content.setValue(editEvent.description);
+
+      this.editForm.controls.date.setValue(
+        (editEvent.date.date
+          ? DateTime.fromJSDate(editEvent.date.originalDate)
+          : DateTime.now()
+        ).toISODate()
+      );
+
+      this.editForm.controls.withTime.setValue(editEvent.showTime || false);
+      this.editForm.controls.showTime.setValue(editEvent.showTime || false);
+      this.editForm.controls.time.setValue(editEvent.date.time);
+
+      this.editForm.controls.link.setValue(editEvent.url?.link || null);
+      this.tags.set(editEvent.tags);
+    }
   }
 
   addTag(input: HTMLInputElement) {
