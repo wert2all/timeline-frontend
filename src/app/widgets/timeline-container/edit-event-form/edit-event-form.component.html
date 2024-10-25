@@ -148,11 +148,28 @@
     </label>
   }
 
-  <button
-    (click)="saveEvent.emit()"
-    class="btn btn-primary mt-8"
-    [attr.disabled]="!editForm.valid ? true : null">
-    <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
-    Add
-  </button>
+  <div class="mt-8 flex place-items-center gap-4">
+    <div class="flex-none">
+      <button
+        (click)="saveEvent.emit()"
+        class="btn btn-primary"
+        [attr.disabled]="!editForm.valid ? true : null">
+        <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
+        Add
+      </button>
+    </div>
+    <div class="shrink">
+      <label for="is_private" class="flex place-items-center gap-2 opacity-40">
+        <input
+          id="is_private"
+          type="checkbox"
+          class="checkbox"
+          disabled
+          [attr.checked]="
+            editForm.controls.isPrivate.value === true ? 'checked' : null
+          " />
+        keep private
+      </label>
+    </div>
+  </div>
 </div>

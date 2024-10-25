@@ -67,4 +67,5 @@ export type AddValue = Partial<{
   content: string | null;
   url: string | null;
   tags: string[];
+  isPrivate: boolean | null;
 }>;
