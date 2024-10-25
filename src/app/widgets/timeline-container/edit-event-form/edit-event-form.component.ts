@@ -53,6 +53,7 @@ interface EditForm {
   title: FormControl<string>;
   content: FormControl<string>;
   link: FormControl<string | null>;
+  isPrivate: FormControl<boolean | null>;
 }
 
 @Component({
@@ -96,6 +97,7 @@ export class EditEventFormComponent {
     title: new FormControl('', { nonNullable: true }),
     content: new FormControl('', { nonNullable: true }),
     link: new FormControl(null, [Validators.pattern(URL_REGEXP)]),
+    isPrivate: new FormControl(false),
   });
 
   private formValues = signal<AddValue | null>(null);
