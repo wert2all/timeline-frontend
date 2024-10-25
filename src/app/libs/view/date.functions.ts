@@ -12,5 +12,6 @@ export const createViewDatetime = (
     date:
       dateTime.toLocaleString(DateTime.DATE_SHORT) +
       (showTime ? ' ' + dateTime.toLocaleString(DateTime.TIME_24_SIMPLE) : ''),
+    time: dateTime.toLocaleString(DateTime.TIME_24_SIMPLE),
   };
 };
