@@ -16,6 +16,7 @@
   @default {
     <div class="event-menu mb-8 h-full w-full">
       <app-timeline-event-menu
+        class="h-full w-full"
         [timelineEvent]="event()"
         (onDelete)="onDelete.emit($event)" />
     </div>

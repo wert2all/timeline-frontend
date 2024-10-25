@@ -26,6 +26,7 @@
           [class.md:text-end]="!event.changeDirection"
           [class.timeline-end]="event.changeDirection">
           <app-timeline-event-additional-content
+            class="block h-full w-full"
             [event]="event"
             (changeValues)="valuesChanges($event)"
             (onDelete)="onDelete.emit($event)"
