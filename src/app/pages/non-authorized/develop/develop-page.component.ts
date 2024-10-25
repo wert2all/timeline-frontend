@@ -3,10 +3,12 @@ import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
 import {
+  dumpContent,
   dumpEvent,
   dumpLink,
   dumpLinkTitle,
-  dumpTags,
+  dumpTag,
+  dumpTitle,
 } from '../../../share/dump.types';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
@@ -46,10 +48,12 @@ export class DevelopPageComponent {
       title: dumpLinkTitle,
       link: dumpLink,
     },
-    date: createViewDatetime(new Date(), true),
+    date: createViewDatetime(dumpEvent.date, true),
+    title: dumpTitle,
+    description: dumpContent,
+    showTime: true,
     changeDirection: false,
-    tags: dumpTags,
-    description: 'Some description',
+    tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
     type: EditableTimelineTypes.draft,
     eventLength: 'mb-8',
     shouldAccentLine: true,
