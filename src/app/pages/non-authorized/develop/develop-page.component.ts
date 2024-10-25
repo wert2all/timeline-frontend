@@ -12,6 +12,7 @@ import {
 } from '../../../share/dump.types';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
+import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
 import { EventAdditionalContentComponent } from '../../../share/timeline/timeline/event/content/additional/additional-content.component';
 import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
@@ -33,6 +34,7 @@ import {
     EditEventFormComponent,
     EventAdditionalContentComponent,
     TimelineEventMenuComponent,
+    MarkdownContentComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -66,6 +68,7 @@ export class DevelopPageComponent {
     data: { status: Status.ERROR, error: new Error('some error') },
   });
 
+  dumpContent = signal(dumpContent);
   dumpPreviewLoading = signal<PreviewHolder>({
     url: dumpLink,
     updateAttemps: 0,
