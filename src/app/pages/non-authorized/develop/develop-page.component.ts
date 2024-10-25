@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { Status } from '../../../app.types';
+import { createViewDatetime } from '../../../libs/view/date.functions';
 import {
   dumpEvent,
   dumpLink,
@@ -45,10 +46,7 @@ export class DevelopPageComponent {
       title: dumpLinkTitle,
       link: dumpLink,
     },
-    date: {
-      date: '2024-05-26T15:21:00.000+03:00',
-      relative: '2 days ago',
-    },
+    date: createViewDatetime(new Date(), true),
     changeDirection: false,
     tags: dumpTags,
     description: 'Some description',
