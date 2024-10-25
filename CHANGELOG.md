@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.12](https://github.com/wert2all/timeline-frontend/compare/v0.0.11...v0.0.12) (2024-10-25)
+
+### Features
+
+- add actions for load table of years ([19f1da1](https://github.com/wert2all/timeline-frontend/commit/19f1da15728c6ba4d628a856bf11b9e1bf777b52))
+- add button for adding issue on github ([e6f5f85](https://github.com/wert2all/timeline-frontend/commit/e6f5f85b91d03853ed7d599eddfea49ef80c54d7))
+- add effects for table of years ([747900e](https://github.com/wert2all/timeline-frontend/commit/747900e9d6c27d13565a401565d6b0eaf5e9f316))
+- add month support for table of years ([33eb6a9](https://github.com/wert2all/timeline-frontend/commit/33eb6a9c65c50f3f4f9f8f29a1b6eaf9a7c048c5))
+- add private checkbox to edit event form ([b5f2bee](https://github.com/wert2all/timeline-frontend/commit/b5f2beee716f66b82757b6941a7aae329d4d8285))
+- add state for table of years ([ee60ad4](https://github.com/wert2all/timeline-frontend/commit/ee60ad44af5a114c1f58d0d3c58305943ced2edf))
+- add table of years component ([31cfe1f](https://github.com/wert2all/timeline-frontend/commit/31cfe1f85ffdaf9d5c6a6efd7bd95ef7bd38d8fb))
+- add time to ViewDatetime object ([94041fc](https://github.com/wert2all/timeline-frontend/commit/94041fcedd85d204068f9278e6292fbed6c5df33))
+- add tooltip to private checkbox ([58f33f2](https://github.com/wert2all/timeline-frontend/commit/58f33f2e2850fedb82432da903a6a8d4e2d1b419))
+- edit event form could init by exist event ([4a2b2f5](https://github.com/wert2all/timeline-frontend/commit/4a2b2f55f26ebdc89666da7eb9390d6a5556ebe9))
+
+### Bug Fixes
+
+- fix application build ([41a7406](https://github.com/wert2all/timeline-frontend/commit/41a7406efa33ef06a57e4637fbd49051e6b9c219))
+- fix close form button position ([4c0f6c0](https://github.com/wert2all/timeline-frontend/commit/4c0f6c0a0d54d3e77bff178cfe3ad2e19aae7eca))
+- fix nullable user name of google user ([cad3126](https://github.com/wert2all/timeline-frontend/commit/cad312675151c582ae157aafd7c73d22333f82d6))
+- fix selecting a day on date picker ([1bad34b](https://github.com/wert2all/timeline-frontend/commit/1bad34b7e5c8e76b04e99fe790a1bdb18a1c8492))
+- fix setting date on date picker ([b504e12](https://github.com/wert2all/timeline-frontend/commit/b504e12faa8d5c5c64f4afc78b6ac2ab5591b964))
+- fix showing menu of event ([bffab38](https://github.com/wert2all/timeline-frontend/commit/bffab385dd0227755e85668eab1d3097d89b5403))
+- fix static test ([975db75](https://github.com/wert2all/timeline-frontend/commit/975db756d26eb82a925f2dc389fd3c9bb07f06f4))
+- format code by updated prettier config ([1e33704](https://github.com/wert2all/timeline-frontend/commit/1e33704ad63327e102c73a9c92f62b814ae1e846))
+
 ## [0.0.11](https://github.com/wert2all/timeline-frontend/compare/v0.0.10...v0.0.11) (2024-10-22)
 
 ### Features
