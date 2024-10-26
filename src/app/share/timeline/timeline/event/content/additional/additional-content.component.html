@@ -18,7 +18,8 @@
       <app-timeline-event-menu
         class="h-full w-full"
         [timelineEvent]="event()"
-        (onDelete)="onDelete.emit($event)" />
+        (onDelete)="onDelete.emit($event)"
+        (onEdit)="onEdit.emit($event)" />
     </div>
   }
 }

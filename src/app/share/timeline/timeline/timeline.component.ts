@@ -59,6 +59,7 @@ export class TimelineComponent {
   saveAction = output();
   dismissAction = output();
   onDelete = output<EditableViewTimelineEvent>();
+  onEdit = output<EditableViewTimelineEvent>();
 
   events: Signal<EventView[]> = computed(() =>
     this.timeline().map(event => ({

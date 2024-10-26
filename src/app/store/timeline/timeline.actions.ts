@@ -38,6 +38,8 @@ export const EventActions = createActionGroup({
     'Update preview': props<{ event: EditableTimelineEvent | null }>(),
     'Clean preview': emptyProps(),
 
+    'Create preview for edit': props<{ eventId: number | null | undefined }>(),
+
     'Confirm to delete event': props<{ eventId: number }>(),
     'Delete event': props<{ eventId: number }>(),
     'Success delete event': props<{ eventId: number }>(),

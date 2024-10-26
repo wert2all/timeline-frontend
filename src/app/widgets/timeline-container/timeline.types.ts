@@ -1,5 +1,6 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
+import { Iterable } from '../../app.types';
 import { ViewDatetime } from '../../libs/view/date.types';
 import {
   TimelimeEventType,
@@ -17,10 +18,12 @@ export class ViewTimelineTag {
     return '#' + this.value;
   }
 }
+
 export type ViewTimelineUrl = { title: string; link: string };
 
 export class ViewTimelineEventIcon {
   readonly icon: IconType;
+
   constructor(type: TimelimeEventType | EditableTimelineTypes) {
     switch (type) {
       case TimelimeEventType.selebrate:
@@ -58,7 +61,7 @@ export type EditableViewTimelineEvent = Omit<ViewTimelineEvent, 'type'> & {
   type: TimelimeEventType | EditableTimelineTypes;
 };
 
-export type AddValue = Partial<{
+export type ApiAddEvent = {
   date: string | null;
   time: string | null;
   withTime: boolean | null;
@@ -68,4 +71,8 @@ export type AddValue = Partial<{
   url: string | null;
   tags: string[];
   isPrivate: boolean | null;
-}>;
+};
+export type ApiEditEvent = ApiAddEvent & Iterable;
+
+export type AddValue = Partial<ApiAddEvent>;
+export type EditValue = Partial<ApiEditEvent>;

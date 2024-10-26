@@ -30,6 +30,7 @@
             [event]="event"
             (changeValues)="valuesChanges($event)"
             (onDelete)="onDelete.emit($event)"
+            (onEdit)="onEdit.emit($event)"
             (dismissAction)="dismissAction.emit()"
             (saveEvent)="saveAction.emit()" />
         </div>
