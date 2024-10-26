@@ -2,6 +2,7 @@ import { createViewDatetime } from '../../libs/view/date.functions';
 import {
   EditableTimelineEvent,
   EditableTimelineTypes,
+  EditableViewTimelineEvent,
   ViewTimelineEventIcon,
   ViewTimelineTag,
 } from '../../widgets/timeline-container/timeline.types';
@@ -39,7 +40,7 @@ const isDraftEvent = (event: TimelineEvent | EditableTimelineEvent): boolean =>
 export const createEditableView = (
   events: TimelineEvent[],
   preview: EditableTimelineEvent | null
-) =>
+): EditableViewTimelineEvent[] =>
   [...createPreviewEvent(preview), ...events]
     .filter(event => !!event)
     .map((event, index) => ({
@@ -51,4 +52,5 @@ export const createEditableView = (
       changeDirection: index % 2 === 0,
       tags: createTags(event.tags),
       draft: isDraftEvent(event),
+      isEditableType: true,
     }));

@@ -52,14 +52,19 @@ export enum EditableTimelineTypes {
   delimiter = 'delimiter',
 }
 
-export type EditableTimelineEvent = Omit<TimelineEvent, 'type'> & {
-  type: TimelimeEventType | EditableTimelineTypes;
+export type EditableEvent = {
   isEditableType: boolean;
 };
 
-export type EditableViewTimelineEvent = Omit<ViewTimelineEvent, 'type'> & {
-  type: TimelimeEventType | EditableTimelineTypes;
-};
+export type EditableTimelineEvent = Omit<TimelineEvent, 'type'> &
+  EditableEvent & {
+    type: TimelimeEventType | EditableTimelineTypes;
+  };
+
+export type EditableViewTimelineEvent = Omit<ViewTimelineEvent, 'type'> &
+  EditableEvent & {
+    type: TimelimeEventType | EditableTimelineTypes;
+  };
 
 export type ApiAddEvent = {
   date: string | null;
