@@ -35,4 +35,5 @@ export class EventAdditionalContentComponent {
   dismissAction = output();
   changeValues = output<AddValue>();
   onDelete = output<EditableViewTimelineEvent>();
+  onEdit = output<EditableViewTimelineEvent>();
 }

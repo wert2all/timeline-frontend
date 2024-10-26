@@ -62,6 +62,12 @@ export class TimelineContainerComponent {
     this.store.dispatch(EventActions.createPreview());
   }
 
+  editEvent(event: EditableViewTimelineEvent) {
+    this.store.dispatch(
+      EventActions.createPreviewForEdit({ eventId: event.id })
+    );
+  }
+
   filterByTag(tag: ViewTimelineTag) {
     throw new Error('Method not implemented.' + tag);
   }

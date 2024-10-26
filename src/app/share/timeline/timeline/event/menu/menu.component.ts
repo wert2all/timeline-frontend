@@ -14,4 +14,5 @@ export class TimelineEventMenuComponent {
   timelineEvent = input.required<EditableViewTimelineEvent>();
 
   onDelete = output<EditableViewTimelineEvent>();
+  onEdit = output<EditableViewTimelineEvent>();
 }

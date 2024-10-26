@@ -1,13 +1,16 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { TimelineEventInput } from '../../api/internal/graphql';
-import { EditableTimelineTypes } from '../../widgets/timeline-container/timeline.types';
+import {
+  EditableTimelineEvent,
+  EditableTimelineTypes,
+} from '../../widgets/timeline-container/timeline.types';
 import { createEditableView } from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
 import {
   fromEditableEventStateToApiInput,
   fromEditableEventToTimelineEvent,
 } from './timeline.convertors';
-import { TimelineState } from './timeline.types';
+import { TimelineEvent, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
@@ -17,6 +20,20 @@ const initialState: TimelineState = {
   events: [],
   newTimelineAdded: false,
 };
+const createPreviewFromEvent = (
+  event: TimelineEvent | null | undefined
+): EditableTimelineEvent => ({
+  id: event?.id || undefined,
+  type: EditableTimelineTypes.draft,
+  date: event?.date || new Date(),
+  title: event?.title || '',
+  description: event?.description || '',
+  showTime: event?.showTime || true,
+  url: event?.url || undefined,
+  tags: event?.tags || [],
+  loading: false,
+  isEditableType: true,
+});
 
 export const timelineFeature = createFeature({
   name: 'timeline',
@@ -95,15 +112,16 @@ export const timelineFeature = createFeature({
 
     on(EventActions.createPreview, state => ({
       ...state,
-      preview: {
-        type: EditableTimelineTypes.draft,
-        title: '',
-        description: '',
-        date: new Date(),
-        isEditableType: true,
-        loading: false,
-      },
+      preview: createPreviewFromEvent(null),
     })),
+
+    on(EventActions.createPreviewForEdit, (state, { eventId }) => ({
+      ...state,
+      preview: createPreviewFromEvent(
+        state.events.find(event => event.id === eventId)
+      ),
+    })),
+
     on(EventActions.updatePreview, (state, { event }) => ({
       ...state,
       preview: event,
