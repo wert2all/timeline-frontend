@@ -59,6 +59,7 @@ export class DevelopPageComponent {
     type: EditableTimelineTypes.draft,
     eventLength: 'mb-8',
     shouldAccentLine: true,
+    isEditableType: true,
   };
   dumpLink = signal(new URL(dumpLink));
 
