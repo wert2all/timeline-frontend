@@ -1,7 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { TimelineEventInput } from '../../api/internal/graphql';
-import { EditableTimelineEvent } from '../../widgets/timeline-container/timeline.types';
-import { Timeline, TimelineEvent } from './timeline.types';
+import { Undefined } from '../../app.types';
+import { ExistTimelineEvent, Timeline, TimelineEvent } from './timeline.types';
 
 export const TimelineActions = createActionGroup({
   source: 'Timeline',
@@ -24,21 +23,28 @@ export const TimelineActions = createActionGroup({
 export const EventActions = createActionGroup({
   source: 'Event',
   events: {
-    'Add event': emptyProps(),
-
-    'Push event to API': props<{ event: TimelineEventInput }>(),
-    'Clean preview after push event': emptyProps(),
-
     'Load active timeline events': props<{ timelineId: number }>(),
+    'Success load active timeline events': props<{
+      events: ExistTimelineEvent[];
+    }>(),
 
-    'Success push event': props<{ addedEvent: TimelineEvent }>(),
-    'Success load active timeline events': props<{ events: TimelineEvent[] }>(),
+    'Show add evertForm': emptyProps(),
+    'Show edit event form': props<{ eventId: number | Undefined }>(),
+    'Close edit form': emptyProps(),
 
-    'Create preview': emptyProps(),
-    'Update preview': props<{ event: EditableTimelineEvent | null }>(),
-    'Clean preview': emptyProps(),
+    'Update preview of editable event': props<{ event: TimelineEvent }>(),
 
-    'Create preview for edit': props<{ eventId: number | null | undefined }>(),
+    // 'Add event': emptyProps(),
+    //
+    // 'Push event to API': props<{ event: TimelineEventInput }>(),
+    // 'Clean preview after push event': emptyProps(),
+    // 'Success push event': props<{ addedEvent: TimelineEvent }>(),
+
+    // 'Create preview': emptyProps(),
+    // 'Update preview': props<{ event: TimelineEvent | null }>(),
+    // 'Clean preview': emptyProps(),
+
+    // 'Create preview for edit': props<{ eventId: number | null | undefined }>(),
 
     'Confirm to delete event': props<{ eventId: number }>(),
     'Delete event': props<{ eventId: number }>(),

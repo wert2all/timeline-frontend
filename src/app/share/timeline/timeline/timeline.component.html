@@ -1,44 +1,37 @@
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
-  @for (event of events(); track $index) {
+  @for (event of timeline(); track $index) {
     <li class="timeline-item" [class.skeleton]="event.loading">
-      @if (event.type === EditableTimelineTypes.delimiter) {
-        <div class="timeline-middle mt-8"></div>
-      } @else {
-        <div class="timeline-middle" [class.opacity-20]="event.loading">
-          <app-timeline-event-icon
-            [icon]="event.icon"
-            [shouldAccentLine]="event.shouldAccentLine" />
-        </div>
+      <div class="timeline-middle" [class.opacity-20]="event.loading">
+        <app-timeline-event-icon [icon]="event.icon" />
+      </div>
 
-        <div
-          class="w-full rounded-xl p-2 bg-base-100 {{ event.eventLength }}"
-          [class.timeline-start]="event.changeDirection"
-          [class.md:text-end]="event.changeDirection"
-          [class.timeline-end]="!event.changeDirection"
-          [class.opacity-20]="event.loading">
-          <app-timeline-event-main-content [event]="event" />
-        </div>
-        <div
-          class="h-full w-full"
-          [class.timeline-start]="!event.changeDirection"
-          [class.md:text-end]="!event.changeDirection"
-          [class.timeline-end]="event.changeDirection">
-          <app-timeline-event-additional-content
-            class="block h-full w-full"
-            [event]="event"
-            (changeValues)="valuesChanges($event)"
-            (onDelete)="onDelete.emit($event)"
-            (onEdit)="onEdit.emit($event)"
-            (dismissAction)="dismissAction.emit()"
-            (saveEvent)="saveAction.emit()" />
-        </div>
+      <div
+        class="w-full rounded-xl bg-base-100 p-2"
+        [class.timeline-start]="event.changeDirection"
+        [class.md:text-end]="event.changeDirection"
+        [class.timeline-end]="!event.changeDirection"
+        [class.opacity-20]="event.loading">
+        <app-timeline-event-main-content [event]="event" />
+      </div>
+      <div
+        class="h-full w-full"
+        [class.timeline-start]="!event.changeDirection"
+        [class.md:text-end]="!event.changeDirection"
+        [class.timeline-end]="event.changeDirection">
+        @if (event.id; as id) {
+          <div class="event-menu mb-8 h-full w-full">
+            <app-timeline-event-menu
+              class="h-full w-full"
+              [timelineEvent]="{ id: id }"
+              (onDelete)="onDelete.emit($event)"
+              (onEdit)="onEdit.emit($event)" />
+          </div>
+        }
+      </div>
 
-        <hr
-          [class.opacity-20]="event.loading"
-          [class.bg-accent]="event.shouldAccentLine" />
-      }
+      <hr [class.opacity-20]="event.loading" />
     </li>
   }
 </ul>

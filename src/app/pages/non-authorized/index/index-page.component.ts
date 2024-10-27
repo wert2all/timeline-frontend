@@ -17,12 +17,12 @@ import { CreateTimelineButtonComponent } from '../../../share/timeline/create/cr
 import { TimelineComponent } from '../../../share/timeline/timeline/timeline.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
-import { createEditableView } from '../../../store/timeline/editable-event-view.factory';
+import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import {
-  TimelimeEventType,
-  TimelineEvent,
+  ExistTimelineEvent,
+  TimelineEventType,
 } from '../../../store/timeline/timeline.types';
 import { AddTimelineComponent } from '../../../widgets/timeline-container/add-timeline/add-timeline.component';
 
@@ -54,10 +54,11 @@ export class IndexPageComponent {
     authFeature.isLoading
   );
 
-  private readonly events = signal<TimelineEvent[]>([
+  private readonly events = signal<ExistTimelineEvent[]>([
     {
+      id: 0,
       date: new Date('2024-05-26T15:21:00.000+03:00'),
-      type: TimelimeEventType.selebrate,
+      type: TimelineEventType.celebrate,
       title: 'we are alive!',
       description:
         'we are happy to announce the launch of our service! Now everyone can add their events and enjoy with us.',
@@ -75,8 +76,9 @@ export class IndexPageComponent {
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-05-08T16:26:00.000+03:00'),
-      type: TimelimeEventType.default,
+      type: TimelineEventType.default,
       title: 'remove it immediately!',
       description:
         'if you already used the previous feature that allowed you to add everything to your timeline, now you can delete everything!',
@@ -85,8 +87,9 @@ export class IndexPageComponent {
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-05-06T10:24:00.000+03:00'),
-      type: TimelimeEventType.default,
+      type: TimelineEventType.default,
       title: 'it is not enough just to add, you need to get it',
       description:
         'finally! previously you could add your events only, but they began to show in the timeline today',
@@ -95,8 +98,9 @@ export class IndexPageComponent {
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-04-17T18:24:00.000+03:00'),
-      type: TimelimeEventType.default,
+      type: TimelineEventType.default,
       title: '33ae550a244a4267a3f07862420622fcd4f7498b',
       description: 'The backend server now knows how to authenticate users! ',
       tags: [
@@ -112,8 +116,9 @@ export class IndexPageComponent {
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-04-17T03:29:00.000+03:00'),
-      type: TimelimeEventType.youtube,
+      type: TimelineEventType.youtube,
       title: 'first stream ever!',
       description:
         'The first stream where the first lines of the future GraphQL API were written was a blast.\n The stream was a lot of fun, and it was a great way to get the project off the ground. We made a lot of progress in a short amount of time, and we are all very excited about the future of the GraphQL API.',
@@ -122,16 +127,18 @@ export class IndexPageComponent {
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-04-07T03:29:00.000+03:00'),
-      type: TimelimeEventType.default,
+      type: TimelineEventType.default,
       title: 'we want to create **something** new',
       description: 'may be add **strong** tag',
       loading: false,
     },
     {
+      id: 0,
       date: new Date('2024-04-06T03:29:00.000+03:00'),
       showTime: true,
-      type: TimelimeEventType.selebrate,
+      type: TimelineEventType.celebrate,
       title: 'first commit to timelime was pushed',
       tags: ['party', 'selebrate', 'start', 'timeline', 'important'],
       description:
@@ -141,7 +148,12 @@ export class IndexPageComponent {
     },
   ]);
   readonly projectTimeline = computed(() =>
-    createEditableView(this.events(), null)
+    this.events().map((event, index) => {
+      return {
+        ...createViewTimelineEvent(event, index % 2 === 0),
+        id: event.id,
+      };
+    })
   );
   readonly showAddTimelineWindow = signal<boolean>(false);
   readonly isAuthorized = this.store.selectSignal(authFeature.isAuthorized);

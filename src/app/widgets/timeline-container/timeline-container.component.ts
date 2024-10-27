@@ -8,18 +8,16 @@ import {
 } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Iterable } from '../../app.types';
 import { ModalConfirmComponent } from '../../share/modal/confirm/modal-confirm.component';
 import { ModalComponent } from '../../share/modal/modal.component';
 import { TimelineComponent } from '../../share/timeline/timeline/timeline.component';
 import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
+import { EditEventComponent } from '../edit-event/edit-event.component';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 import { AddTimelineComponent } from './add-timeline/add-timeline.component';
-import {
-  EditableTimelineEvent,
-  EditableViewTimelineEvent,
-  ViewTimelineTag,
-} from './timeline.types';
+import { ViewTimelineTag } from './timeline.types';
 
 @Component({
   selector: 'app-timeline-container',
@@ -34,63 +32,43 @@ import {
     AddTimelineComponent,
     ModalComponent,
     ModalConfirmComponent,
+    EditEventComponent,
   ],
 })
 export class TimelineContainerComponent {
   private store = inject(Store);
 
-  private readonly previewEvent = this.store.selectSignal(
-    timelineFeature.selectPreview
+  private readonly isEditingEvent = this.store.selectSignal(
+    timelineFeature.isEditingEvent
   );
 
   readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
-  readonly timeline = this.store.selectSignal(
-    timelineFeature.selectEditableEvents
-  );
+  readonly timeline = this.store.selectSignal(timelineFeature.selectViewEvents);
+
   readonly showTipForAddEvent = this.store.selectSignal(
     timelineFeature.selectNewTimelineAdded
   );
 
   readonly shouldDeleteEvent = signal<number>(0);
 
-  canAddNewEvent = computed(() => this.previewEvent() === null);
+  canAddNewEvent = computed(() => !this.isEditingEvent());
   showConfirmWindow = computed(() => this.shouldDeleteEvent() > 0);
 
-  addEvent() {
-    this.store.dispatch(EventActions.createPreview());
-  }
-
-  editEvent(event: EditableViewTimelineEvent) {
-    this.store.dispatch(
-      EventActions.createPreviewForEdit({ eventId: event.id })
-    );
+  editEvent(event: Iterable) {
+    this.store.dispatch(EventActions.showEditEventForm({ eventId: event.id }));
   }
 
   filterByTag(tag: ViewTimelineTag) {
     throw new Error('Method not implemented.' + tag);
   }
 
-  dismiss() {
-    this.store.dispatch(EventActions.cleanPreview());
-  }
-
-  insertEvent() {
-    this.store.dispatch(EventActions.addEvent());
-  }
-
-  updatePreview(event: EditableTimelineEvent | null) {
-    this.store.dispatch(EventActions.updatePreview({ event: event }));
-  }
-
-  deleteEvent(event: EditableViewTimelineEvent) {
-    if (event.id) {
-      this.shouldDeleteEvent.set(event.id);
-      this.store.dispatch(
-        EventActions.confirmToDeleteEvent({ eventId: event.id })
-      );
-    }
+  deleteEvent(event: Iterable) {
+    this.shouldDeleteEvent.set(event.id);
+    this.store.dispatch(
+      EventActions.confirmToDeleteEvent({ eventId: event.id })
+    );
   }
 
   confirmDelete() {
@@ -104,5 +82,9 @@ export class TimelineContainerComponent {
 
   dismissDelete() {
     this.shouldDeleteEvent.set(0);
+  }
+
+  dispatchNewEventCreation() {
+    this.store.dispatch(EventActions.showAddEvertForm());
   }
 }

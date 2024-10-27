@@ -1,0 +1,30 @@
+@if (editEvent(); as editEvent) {
+  <ul
+    class="timeline timeline-vertical timeline-snap-icon mb-8 max-md:timeline-compact"
+    appAnimate>
+    <li class="timeline-item" [class.skeleton]="editEvent.loading === true">
+      <div
+        class="timeline-middle"
+        [class.opacity-20]="editEvent.loading === true">
+        <app-timeline-event-icon [icon]="icon" [shouldAccentLine]="true" />
+      </div>
+
+      <div
+        class="timeline-start w-full rounded-xl bg-base-100 p-2 text-end"
+        [class.opacity-20]="editEvent.loading === true">
+        <app-timeline-event-main-content [event]="previewEvent()" />
+      </div>
+
+      <div class="timeline-end h-full w-full">
+        <app-edit-event-form
+          [editEvent]="formEvent()"
+          [openTab]="openTab()"
+          (dismissAction)="closeEditForm()"
+          (valuesChanged)="updatePreviewEvent($event)"
+          (saveEvent)="saveEvent()" />
+      </div>
+
+      <hr class="bg-accent" [class.opacity-20]="editEvent.loading === true" />
+    </li>
+  </ul>
+}

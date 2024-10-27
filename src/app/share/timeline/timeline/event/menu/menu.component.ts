@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxEditOutline, saxTrashOutline } from '@ng-icons/iconsax/outline';
-import { EditableViewTimelineEvent } from '../../../../../widgets/timeline-container/timeline.types';
+import { Iterable } from '../../../../../app.types';
 
 @Component({
   standalone: true,
@@ -11,8 +11,8 @@ import { EditableViewTimelineEvent } from '../../../../../widgets/timeline-conta
   viewProviders: [provideIcons({ saxEditOutline, saxTrashOutline })],
 })
 export class TimelineEventMenuComponent {
-  timelineEvent = input.required<EditableViewTimelineEvent>();
+  timelineEvent = input.required<Iterable>();
 
-  onDelete = output<EditableViewTimelineEvent>();
-  onEdit = output<EditableViewTimelineEvent>();
+  onDelete = output<Iterable>();
+  onEdit = output<Iterable>();
 }

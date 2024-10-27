@@ -13,15 +13,11 @@ import {
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
-import { EventAdditionalContentComponent } from '../../../share/timeline/timeline/event/content/additional/additional-content.component';
 import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
+import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../widgets/timeline-container/edit-event-form/link-preview/link-preview.component';
-import {
-  EditableTimelineTypes,
-  EditableViewTimelineEvent,
-} from '../../../widgets/timeline-container/timeline.types';
 
 @Component({
   selector: 'app-develop-page',
@@ -32,7 +28,6 @@ import {
     TitleComponent,
     LinkPreviewComponent,
     EditEventFormComponent,
-    EventAdditionalContentComponent,
     TimelineEventMenuComponent,
     MarkdownContentComponent,
   ],
@@ -40,7 +35,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent {
-  private readonly dumpEvent: EditableViewTimelineEvent & {
+  private readonly dumpEvent: ViewTimelineEvent & {
     eventLength: string;
     shouldAccentLine: boolean;
   } = {
@@ -56,12 +51,9 @@ export class DevelopPageComponent {
     showTime: true,
     changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
-    type: EditableTimelineTypes.draft,
     eventLength: 'mb-8',
     shouldAccentLine: true,
-    isEditableType: true,
   };
-  dumpLink = signal(new URL(dumpLink));
 
   dumpPreviewWithError = signal<PreviewHolder>({
     url: dumpLink,

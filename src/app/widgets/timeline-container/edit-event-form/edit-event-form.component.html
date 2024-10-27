@@ -1,178 +1,188 @@
-<div class="join rounded-t-none">
-  <a
-    tabindex="0"
-    class="btn btn-secondary join-item"
-    [class.btn-secondary]="isActiveTab(0)"
-    (click)="switchTo(0)"
-    (keyup)="switchTo(0)">
-    text something
-  </a>
-  <a
-    tabindex="1"
-    class="btn join-item"
-    [class.btn-secondary]="isActiveTab(1)"
-    (click)="switchTo(1)"
-    (keyup)="switchTo(1)">
-    set date and time
-  </a>
-  <a
-    tabindex="2"
-    class="btn join-item"
-    [class.btn-secondary]="isActiveTab(2)"
-    (click)="switchTo(2)"
-    (keyup)="switchTo(2)">
-    add tags</a
-  >
-  <a
-    tabindex="3"
-    class="btn join-item"
-    [class.btn-secondary]="isActiveTab(3)"
-    (click)="switchTo(3)"
-    (keyup)="switchTo(3)"
-    >add link</a
-  >
-</div>
-<div>
-  @if (isActiveTab(0)) {
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Title</span>
-      </div>
+<div class="event-form bg-lighter timeline-box relative pt-0">
+  <div class="join rounded-t-none">
+    <a
+      tabindex="0"
+      class="btn btn-secondary join-item"
+      [class.btn-secondary]="isActiveTab(0)"
+      (click)="switchTo(0)"
+      (keyup)="switchTo(0)">
+      text something
+    </a>
+    <a
+      tabindex="1"
+      class="btn join-item"
+      [class.btn-secondary]="isActiveTab(1)"
+      (click)="switchTo(1)"
+      (keyup)="switchTo(1)">
+      set date and time
+    </a>
+    <a
+      tabindex="2"
+      class="btn join-item"
+      [class.btn-secondary]="isActiveTab(2)"
+      (click)="switchTo(2)"
+      (keyup)="switchTo(2)">
+      add tags</a
+    >
+    <a
+      tabindex="3"
+      class="btn join-item"
+      [class.btn-secondary]="isActiveTab(3)"
+      (click)="switchTo(3)"
+      (keyup)="switchTo(3)"
+      >add link</a
+    >
+  </div>
+  <div>
+    @if (isActiveTab(0)) {
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Title</span>
+        </div>
 
-      <input
-        type="hidden"
-        name="id"
-        [formControl]="editForm.controls.id"
-        readonly />
-
-      <label class="input input-bordered flex items-center gap-2">
         <input
-          type="text"
-          class="w-full grow"
-          name="title"
-          [formControl]="editForm.controls.title" />
-      </label>
-    </label>
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Content</span>
-      </div>
-      <textarea
-        class="textarea textarea-bordered h-32 w-full"
-        name="content"
-        [formControl]="editForm.controls.content"></textarea>
-    </label>
-  }
-  @if (isActiveTab(1)) {
-    <div class="mt-4">
-      <app-date-picker
-        (selectDate)="updateDate($event)"
-        [fromDate]="editForm.controls.date.value" />
+          type="hidden"
+          name="id"
+          [formControl]="editForm.controls.id"
+          readonly />
 
-      <input
-        type="hidden"
-        name="date"
-        [formControl]="editForm.controls.date"
-        readonly />
-
-      <div class="form-control mt-4">
-        <label class="label cursor-pointer">
-          <span class="label-text">Add time</span>
+        <label class="input input-bordered flex items-center gap-2">
           <input
-            name="add-time"
-            type="checkbox"
-            class="toggle"
-            [formControl]="editForm.controls.withTime" />
-        </label>
-      </div>
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Time</span>
-          <input
-            name="time"
             type="text"
-            class="input input-bordered w-20"
-            [class.input-error]="!editForm.controls.time.valid"
-            [formControl]="editForm.controls.time" />
+            class="w-full grow"
+            name="title"
+            [formControl]="editForm.controls.title" />
         </label>
-      </div>
-      <div class="form-control">
-        <label class="label cursor-pointer">
-          <span class="label-text">Show time on timeline</span>
-          <input
-            name="show-time"
-            type="checkbox"
-            class="toggle"
-            [formControl]="editForm.controls.showTime" />
-        </label>
-      </div>
-    </div>
-  }
-  @if (isActiveTab(2)) {
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">Tags</span>
-      </div>
-      <label class="input input-bordered flex items-center gap-2">
-        <input #tag type="text" class="w-full" (keyup.enter)="addTag(tag)" />
       </label>
-      <div class="label">
-        <span class="label-text-alt">
-          Pressing Enter will add a tag. You can add multiple tags, separated by
-          commas.
-        </span>
-      </div>
-      <app-add-event-tags
-        [tags]="tags()"
-        (clickToTag)="removeTag($event)"></app-add-event-tags>
-    </label>
-  }
-  @if (isActiveTab(3)) {
-    <label class="form-control">
-      <div class="label">
-        <span class="label-text">link</span>
-      </div>
-      <label class="input input-bordered flex items-center gap-2">
-        <input
-          name="url"
-          type="text"
-          class="grow"
-          placeholder="Url"
-          [formControl]="editForm.controls.link" />
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Content</span>
+        </div>
+        <textarea
+          class="textarea textarea-bordered h-32 w-full"
+          name="content"
+          [formControl]="editForm.controls.content"></textarea>
       </label>
-      <div class="label" [class.hidden]="!editForm.controls.link.errors">
-        <span class="label-text-alt text-error">Wrong URL</span>
-      </div>
-      @if (previewHolder(); as previewHolder) {
-        <app-link-preview [preview]="previewHolder" class="mt-4" />
-      }
-    </label>
-  }
+    }
+    @if (isActiveTab(1)) {
+      <div class="mt-4">
+        <app-date-picker
+          (selectDate)="updateDate($event)"
+          [fromDate]="editForm.controls.date.value" />
 
-  <div class="mt-8 flex place-items-center gap-4">
-    <div class="flex-none">
-      <button
-        (click)="saveEvent.emit()"
-        class="btn btn-primary"
-        [attr.disabled]="!editForm.valid ? true : null">
-        <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
-        Add
-      </button>
-    </div>
-    <div class="tooltip tooltip-top tooltip-info shrink" data-tip="coming soon">
-      <label
-        for="is_private"
-        class="flex cursor-not-allowed place-items-center gap-2 opacity-40">
         <input
-          id="is_private"
-          type="checkbox"
-          class="checkbox"
-          disabled
-          [attr.checked]="
-            editForm.controls.isPrivate.value === true ? 'checked' : null
-          " />
-        keep private
+          type="hidden"
+          name="date"
+          [formControl]="editForm.controls.date"
+          readonly />
+
+        <div class="form-control mt-4">
+          <label class="label cursor-pointer">
+            <span class="label-text">Add time</span>
+            <input
+              name="add-time"
+              type="checkbox"
+              class="toggle"
+              [formControl]="editForm.controls.withTime" />
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">Time</span>
+            <input
+              name="time"
+              type="text"
+              class="input input-bordered w-20"
+              [class.input-error]="!editForm.controls.time.valid"
+              [formControl]="editForm.controls.time" />
+          </label>
+        </div>
+        <div class="form-control">
+          <label class="label cursor-pointer">
+            <span class="label-text">Show time on timeline</span>
+            <input
+              name="show-time"
+              type="checkbox"
+              class="toggle"
+              [formControl]="editForm.controls.showTime" />
+          </label>
+        </div>
+      </div>
+    }
+    @if (isActiveTab(2)) {
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">Tags</span>
+        </div>
+        <label class="input input-bordered flex items-center gap-2">
+          <input #tag type="text" class="w-full" (keyup.enter)="addTag(tag)" />
+        </label>
+        <div class="label">
+          <span class="label-text-alt">
+            Pressing Enter will add a tag. You can add multiple tags, separated
+            by commas.
+          </span>
+        </div>
+        <app-add-event-tags
+          [tags]="tags()"
+          (clickToTag)="removeTag($event)"></app-add-event-tags>
       </label>
+    }
+    @if (isActiveTab(3)) {
+      <label class="form-control">
+        <div class="label">
+          <span class="label-text">link</span>
+        </div>
+        <label class="input input-bordered flex items-center gap-2">
+          <input
+            name="url"
+            type="text"
+            class="grow"
+            placeholder="Url"
+            [formControl]="editForm.controls.link" />
+        </label>
+        <div class="label" [class.hidden]="!editForm.controls.link.errors">
+          <span class="label-text-alt text-error">Wrong URL</span>
+        </div>
+        @if (previewHolder(); as previewHolder) {
+          <app-link-preview [preview]="previewHolder" class="mt-4" />
+        }
+      </label>
+    }
+
+    <div class="mt-8 flex place-items-center gap-4">
+      <div class="flex-none">
+        <button
+          (click)="saveEvent.emit()"
+          class="btn btn-primary"
+          [attr.disabled]="!editForm.valid ? true : null">
+          <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
+          Add
+        </button>
+      </div>
+      <div
+        class="tooltip tooltip-top tooltip-info shrink"
+        data-tip="coming soon">
+        <label
+          for="is_private"
+          class="flex cursor-not-allowed place-items-center gap-2 opacity-40">
+          <input
+            id="is_private"
+            type="checkbox"
+            class="checkbox"
+            disabled
+            [attr.checked]="
+              editForm.controls.isPrivate.value === true ? 'checked' : null
+            " />
+          keep private
+        </label>
+      </div>
     </div>
   </div>
+
+  <button
+    class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4"
+    (click)="dismissAction.emit()">
+    ✕
+  </button>
 </div>
