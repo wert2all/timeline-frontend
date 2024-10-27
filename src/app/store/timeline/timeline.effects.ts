@@ -1,12 +1,16 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of, tap, zip } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
+import { isTimelineEventExist } from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
 import { fromApiEventToState } from './timeline.convertors';
+import { timelineFeature } from './timeline.reducer';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -195,11 +199,26 @@ const setTimelinesAfterAuthorize = (actions$ = inject(Actions)) =>
     )
   );
 
+const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
+  actions$.pipe(
+    ofType(EventActions.saveEditableEvent),
+    concatLatestFrom(() => store.select(timelineFeature.selectEditEvent)),
+    map(([, editEvent]) => editEvent?.event),
+    map(event =>
+      event
+        ? isTimelineEventExist(event)
+          ? EventActions.updateExistEventOnAPI({ event: event })
+          : EventActions.pushNewEventToAPI({ event: event })
+        : EventActions.nothingToSave()
+    )
+  );
+
 export const eventsEffects = {
   // addEvent: createEffect(addEvent, StoreDispatchEffect),
   // pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
   // dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
 
+  saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
   setTimelinesAfterAuthorize: createEffect(
     setTimelinesAfterAuthorize,
     StoreDispatchEffect

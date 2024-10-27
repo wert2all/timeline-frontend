@@ -35,6 +35,10 @@ export const EventActions = createActionGroup({
     'Update preview of editable event': props<{ event: TimelineEvent }>(),
     'Save editable event': emptyProps(),
 
+    'Push new event to API': props<{ event: TimelineEvent }>(),
+    'Update exist event on API': props<{ event: ExistTimelineEvent }>(),
+
+    'Nothing to save': emptyProps(),
     // 'Add event': emptyProps(),
     //
     // 'Push event to API': props<{ event: TimelineEventInput }>(),

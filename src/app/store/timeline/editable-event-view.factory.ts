@@ -4,6 +4,7 @@ import {
   ViewTimelineTag,
 } from '../../widgets/timeline-container/timeline.types';
 import {
+  ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
   ViewTimelineEvent,
@@ -36,3 +37,9 @@ export const createViewTimelineEvent = (
   tags: createTags(event.tags),
   changeDirection: changeDirection,
 });
+
+export const isTimelineEventExist = (
+  event: TimelineEvent | ExistTimelineEvent
+): event is ExistTimelineEvent => {
+  return event && event.id !== undefined;
+};
