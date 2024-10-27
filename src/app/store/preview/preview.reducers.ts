@@ -20,7 +20,7 @@ export const previewFeature = createFeature({
       ) {
         previews.push({
           url: url.toString(),
-          updateAttemps: 0,
+          updateAttempts: 0,
           data: { status: Status.LOADING },
         });
       }
@@ -49,7 +49,7 @@ export const previewFeature = createFeature({
             ? {
                 url: existPreview.url,
                 status: found.preview.status,
-                updateAttemps: existPreview.updateAttemps + 1,
+                updateAttempts: existPreview.updateAttempts + 1,
                 data: found.preview,
               }
             : existPreview;
@@ -62,7 +62,7 @@ export const previewFeature = createFeature({
       previews.filter(
         preview =>
           preview.data.status === Status.LOADING &&
-          preview.updateAttemps <= MAX_ATTEMPTS
+          preview.updateAttempts <= MAX_ATTEMPTS
       )
     ),
   }),

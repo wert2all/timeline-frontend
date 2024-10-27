@@ -7,7 +7,7 @@ export type PreviewItem = {
 
 export type PreviewHolder = {
   url: string;
-  updateAttemps: number;
+  updateAttempts: number;
   data: DataWrapper<PreviewItem>;
 };
 
