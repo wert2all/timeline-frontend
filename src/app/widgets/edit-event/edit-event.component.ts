@@ -15,8 +15,8 @@ import {
   TimelineEventType,
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
-import { EditEventFormComponent } from '../timeline-container/edit-event-form/edit-event-form.component';
 import { ViewTimelineEventIcon } from '../timeline-container/timeline.types';
+import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { EditValue } from './edit-event.types';
 
 @Component({
