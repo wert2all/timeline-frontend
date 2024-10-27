@@ -35,13 +35,18 @@ export class EditEventComponent {
   protected readonly editEvent = this.store.selectSignal(
     timelineFeature.selectEditEvent
   );
+  private readonly activeTimeline = this.store.selectSignal(
+    timelineFeature.selectActiveTimeline
+  );
+
+  private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
 
   protected readonly icon = new ViewTimelineEventIcon(
     TimelineEventType.default
   );
   protected readonly previewEvent: Signal<ViewTimelineEvent> = computed(() =>
     createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(),
+      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId()),
       false
     )
   );
@@ -49,7 +54,7 @@ export class EditEventComponent {
 
   protected readonly formEvent: Signal<ViewTimelineEvent> = computed(() => ({
     ...createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(),
+      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId()),
       false
     ),
     isEditableType: true,
@@ -73,6 +78,7 @@ export class EditEventComponent {
       tags: value.tags || undefined,
       url: value.url || undefined,
       loading: false,
+      timelineId: this.timelineId(),
     };
     this.store.dispatch(
       EventActions.updatePreviewOfEditableEvent({ event: updatedEvent })
