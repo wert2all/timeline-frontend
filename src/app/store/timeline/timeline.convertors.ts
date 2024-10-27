@@ -1,8 +1,13 @@
 import {
   TimelineEvent as GQLTimelineEvent,
+  TimelineEventInput as GQLTimelineEventInput,
   TimelineType as GQLTimelineType,
 } from '../../api/internal/graphql';
-import { ExistTimelineEvent, TimelineEventType } from './timeline.types';
+import {
+  ExistTimelineEvent,
+  TimelineEvent,
+  TimelineEventType,
+} from './timeline.types';
 
 export const fromApiTypeToState = (
   type: GQLTimelineType
@@ -32,39 +37,32 @@ export const fromApiEventToState = (
   loading: false,
   tags: event.tags || [],
 });
-//
-// export const fromEventTypeStateToApiType = (
-//   type: TimelineEventType | EditableTimelineTypes
-// ): GQLTimelineType | null => {
-//   switch (type) {
-//     case TimelineEventType.celebrate:
-//       return GQLTimelineType.selebrate;
-//     default:
-//       return null;
-//   }
-// };
-//
-// export const fromEditableEventStateToApiInput = (
-//   event: EditableTimelineEvent | null,
-//   timelineId: number | null
-// ): GQLTimelineEventInput | null => {
-//   if (event && timelineId) {
-//     return {
-//       id: event.id,
-//       date: event.date.toISOString(),
-//       timelineId: timelineId,
-//       type: fromEventTypeStateToApiType(event.type),
-//       title: event.title,
-//       description: event.description,
-//       showTime: event.showTime,
-//       url: event.url,
-//       tags: event.tags,
-//     };
-//   } else {
-//     return null;
-//   }
-// };
-//
+
+export const fromEventTypeStateToApiType = (
+  type: TimelineEventType
+): GQLTimelineType | null => {
+  switch (type) {
+    case TimelineEventType.celebrate:
+      return GQLTimelineType.selebrate;
+    default:
+      return null;
+  }
+};
+
+export const fromEditableEventStateToApiInput = (
+  event: TimelineEvent | ExistTimelineEvent
+): GQLTimelineEventInput => ({
+  id: event.id,
+  date: event.date.toISOString(),
+  timelineId: event.timelineId,
+  type: fromEventTypeStateToApiType(event.type),
+  title: event.title,
+  description: event.description,
+  showTime: event.showTime,
+  url: event.url,
+  tags: event.tags,
+});
+
 // export const fromEditableEventToTimelineEvent = (
 //   event: EditableTimelineEvent
 // ): TimelineEvent => ({

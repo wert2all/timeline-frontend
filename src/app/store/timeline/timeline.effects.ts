@@ -5,11 +5,14 @@ import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of, tap, zip } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
-import { isTimelineEventExist } from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
-import { fromApiEventToState } from './timeline.convertors';
+import {
+  fromApiEventToState,
+  fromEditableEventStateToApiInput,
+} from './timeline.convertors';
 import { timelineFeature } from './timeline.reducer';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
@@ -204,12 +207,33 @@ const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
     ofType(EventActions.saveEditableEvent),
     concatLatestFrom(() => store.select(timelineFeature.selectEditEvent)),
     map(([, editEvent]) => editEvent?.event),
+    map(event => (event ? fromEditableEventStateToApiInput(event) : null)),
     map(event =>
       event
-        ? isTimelineEventExist(event)
+        ? event.id
           ? EventActions.updateExistEventOnAPI({ event: event })
           : EventActions.pushNewEventToAPI({ event: event })
         : EventActions.nothingToSave()
+    )
+  );
+
+const pushNewEventToApi = (
+  actions$ = inject(Actions),
+  api = inject(ApiClient),
+  notification = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(EventActions.pushNewEventToAPI),
+    exhaustMap(({ event }) =>
+      api.addTimelineEvent({ event: event }).pipe(
+        map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
+        map(data => fromApiEventToState(data.event, event.timelineId)),
+        map(event => EventActions.successPushNewEvent({ event })),
+        catchError(error => {
+          notification.addMessage(error, 'error');
+          return of(EventActions.emptyEvent);
+        })
+      )
     )
   );
 
@@ -218,7 +242,6 @@ export const eventsEffects = {
   // pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
   // dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
 
-  saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
   setTimelinesAfterAuthorize: createEffect(
     setTimelinesAfterAuthorize,
     StoreDispatchEffect
@@ -236,4 +259,7 @@ export const eventsEffects = {
     loadActiveTimelineEvents,
     StoreDispatchEffect
   ),
+
+  saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
+  pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
 };
