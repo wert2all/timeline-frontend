@@ -28,7 +28,7 @@ export const EventActions = createActionGroup({
       events: ExistTimelineEvent[];
     }>(),
 
-    'Show add event form': emptyProps(),
+    'Show add event form': props<{ timelineId: number }>(),
     'Show edit event form': props<{ eventId: number | Undefined }>(),
     'Close edit form': emptyProps(),
 

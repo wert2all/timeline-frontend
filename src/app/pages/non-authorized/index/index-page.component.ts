@@ -57,6 +57,7 @@ export class IndexPageComponent {
   private readonly events = signal<ExistTimelineEvent[]>([
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-05-26T15:21:00.000+03:00'),
       type: TimelineEventType.celebrate,
       title: 'we are alive!',
@@ -77,6 +78,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-05-08T16:26:00.000+03:00'),
       type: TimelineEventType.default,
       title: 'remove it immediately!',
@@ -88,6 +90,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-05-06T10:24:00.000+03:00'),
       type: TimelineEventType.default,
       title: 'it is not enough just to add, you need to get it',
@@ -99,6 +102,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-04-17T18:24:00.000+03:00'),
       type: TimelineEventType.default,
       title: '33ae550a244a4267a3f07862420622fcd4f7498b',
@@ -117,6 +121,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-04-17T03:29:00.000+03:00'),
       type: TimelineEventType.youtube,
       title: 'first stream ever!',
@@ -128,6 +133,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-04-07T03:29:00.000+03:00'),
       type: TimelineEventType.default,
       title: 'we want to create **something** new',
@@ -136,6 +142,7 @@ export class IndexPageComponent {
     },
     {
       id: 0,
+      timelineId: 0,
       date: new Date('2024-04-06T03:29:00.000+03:00'),
       showTime: true,
       type: TimelineEventType.celebrate,

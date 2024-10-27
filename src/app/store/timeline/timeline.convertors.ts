@@ -18,9 +18,11 @@ export const fromApiTypeToState = (
 };
 
 export const fromApiEventToState = (
-  event: GQLTimelineEvent
+  event: GQLTimelineEvent,
+  timelineId: number
 ): ExistTimelineEvent => ({
   id: event.id,
+  timelineId: timelineId,
   date: new Date(event.date),
   type: fromApiTypeToState(event.type),
   title: event.title || undefined,

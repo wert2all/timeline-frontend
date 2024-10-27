@@ -12,7 +12,11 @@ export enum TimelineEventType {
   youtube = 'youtube',
 }
 
-export type TimelineRequired = { date: Date; type: TimelineEventType };
+export type TimelineRequired = {
+  date: Date;
+  type: TimelineEventType;
+  timelineId: number;
+};
 
 export type TimelineEvent = TimelineRequired &
   Loadable & {

@@ -133,7 +133,7 @@ const loadActiveTimelineEvents = (
         map(result => result.data.events || []),
         map(events =>
           EventActions.successLoadActiveTimelineEvents({
-            events: events.map(event => fromApiEventToState(event)),
+            events: events.map(event => fromApiEventToState(event, timelineId)),
           })
         ),
         catchError(exception =>

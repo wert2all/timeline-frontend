@@ -21,9 +21,14 @@ const prepareUrl = (url: string | undefined) => {
 const createTags = (tags: string[] | undefined) =>
   tags?.map(tag => new ViewTimelineTag(tag)) || [];
 
-export const createDefaultTimelineEvent = (): TimelineEvent => {
-  return { date: new Date(), type: TimelineEventType.default, loading: false };
-};
+export const createDefaultTimelineEvent = (
+  timelineId: number
+): TimelineEvent => ({
+  date: new Date(),
+  type: TimelineEventType.default,
+  timelineId: timelineId,
+  loading: false,
+});
 
 export const createViewTimelineEvent = (
   event: TimelineEvent,

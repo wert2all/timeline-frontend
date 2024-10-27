@@ -13,6 +13,7 @@ export const dumpTag: ViewTimelineTag = { value: 'dumpTag', title: '#dumpTag' };
 
 export const dumpEvent: TimelineEvent = {
   id: 0,
+  timelineId: 0,
   date: dumpDate,
   type: TimelineEventType.default,
   title: dumpTitle,

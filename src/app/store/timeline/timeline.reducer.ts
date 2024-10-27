@@ -76,11 +76,11 @@ export const timelineFeature = createFeature({
 
     on(
       EventActions.showAddEventForm,
-      (state): TimelineState => ({
+      (state, { timelineId }): TimelineState => ({
         ...state,
         editEvent: {
           loading: false,
-          event: createDefaultTimelineEvent(),
+          event: createDefaultTimelineEvent(timelineId),
         },
       })
     ),
