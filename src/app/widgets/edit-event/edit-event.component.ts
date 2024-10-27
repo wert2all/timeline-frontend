@@ -54,6 +54,7 @@ export class EditEventComponent {
     ),
     isEditableType: true,
   }));
+  protected loading = computed(() => this.editEvent()?.loading === true);
 
   protected closeEditForm() {
     this.store.dispatch(EventActions.closeEditForm());
@@ -79,6 +80,6 @@ export class EditEventComponent {
   }
 
   protected saveEvent() {
-    this.store.dispatch(EventActions.saveEditableEvent())
+    this.store.dispatch(EventActions.saveEditableEvent());
   }
 }

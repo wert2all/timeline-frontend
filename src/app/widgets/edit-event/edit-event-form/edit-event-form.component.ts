@@ -87,6 +87,7 @@ export class EditEventFormComponent implements AfterViewInit {
 
   editEvent = input<ViewTimelineEvent | null>(null);
   openTab = input(0);
+  loading = input(false);
 
   editForm = new FormGroup<EditForm>({
     id: new FormControl(null),
@@ -115,6 +116,8 @@ export class EditEventFormComponent implements AfterViewInit {
   switchTab = signal<null | number>(null);
   tags = signal<ViewTimelineTag[]>([]);
 
+  protected isDisabled = computed(() => this.loading() === true);
+
   previewLink = toSignal(
     this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
       map(values => values.link),
@@ -138,9 +141,6 @@ export class EditEventFormComponent implements AfterViewInit {
   );
 
   constructor() {
-    this.editForm.controls.time.disable();
-    this.editForm.controls.showTime.disable();
-
     this.editForm.controls.withTime.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(withTime => {
@@ -163,6 +163,7 @@ export class EditEventFormComponent implements AfterViewInit {
     });
 
     effect(() => {
+      this.updateDisabledControls();
       this.valuesChanged.emit({
         ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),
@@ -222,5 +223,29 @@ export class EditEventFormComponent implements AfterViewInit {
 
   switchTo(tabNumber: number) {
     this.switchTab.set(tabNumber);
+  }
+
+  private updateDisabledControls() {
+    if (this.isDisabled()) {
+      this.editForm.controls.title.disable();
+      this.editForm.controls.content.disable();
+
+      this.editForm.controls.withTime.disable();
+      this.editForm.controls.date.disable();
+      this.editForm.controls.time.disable();
+      this.editForm.controls.showTime.disable();
+
+      this.editForm.controls.link.disable();
+    } else {
+      this.editForm.controls.title.enable();
+      this.editForm.controls.content.enable();
+
+      this.editForm.controls.withTime.enable();
+      this.editForm.controls.date.enable();
+      this.editForm.controls.time.enable();
+      this.editForm.controls.showTime.enable();
+
+      this.editForm.controls.link.enable();
+    }
   }
 }

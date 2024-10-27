@@ -19,6 +19,7 @@
         <app-edit-event-form
           [editEvent]="formEvent()"
           [openTab]="openTab()"
+          [loading]="loading()"
           (dismissAction)="closeEditForm()"
           (valuesChanged)="updatePreviewEvent($event)"
           (saveEvent)="saveEvent()" />

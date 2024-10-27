@@ -95,11 +95,19 @@ export const timelineFeature = createFeature({
       (state, { event }): TimelineState => ({
         ...state,
         editEvent: {
-          loading: false,
+          loading: state.editEvent?.loading || false,
           event: event,
         },
       })
     ),
+
+    on(EventActions.saveEditableEvent, (state): TimelineState => {
+      let editEvent = state.editEvent;
+      if (editEvent) {
+        editEvent = { ...editEvent, loading: true };
+      }
+      return { ...state, editEvent: editEvent };
+    }),
 
     on(EventActions.deleteEvent, (state, { eventId }) => ({
       ...state,
