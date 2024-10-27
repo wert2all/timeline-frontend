@@ -87,6 +87,7 @@ export const timelineFeature = createFeature({
 
     on(
       EventActions.closeEditForm,
+      EventActions.nothingToSave,
       (state): TimelineState => ({ ...state, editEvent: null })
     ),
 

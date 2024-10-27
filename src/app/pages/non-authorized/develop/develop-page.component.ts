@@ -42,10 +42,7 @@ import { LinkPreviewComponent } from '../../../widgets/edit-event/edit-event-for
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent {
-  private readonly dumpEvent: ExistViewTimelineEvent & {
-    eventLength: string;
-    shouldAccentLine: boolean;
-  } = {
+  private readonly dumpEvent: ExistViewTimelineEvent = {
     ...dumpEvent,
     id: 0,
     url: {
@@ -58,8 +55,6 @@ export class DevelopPageComponent {
     showTime: true,
     changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
-    eventLength: 'mb-8',
-    shouldAccentLine: true,
   };
 
   dumpPreviewWithError = signal<PreviewHolder>({
