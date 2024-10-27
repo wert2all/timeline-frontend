@@ -75,7 +75,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      EventActions.showAddEvertForm,
+      EventActions.showAddEventForm,
       (state): TimelineState => ({
         ...state,
         editEvent: {

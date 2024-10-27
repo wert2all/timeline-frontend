@@ -78,5 +78,7 @@ export class EditEventComponent {
     );
   }
 
-  protected saveEvent() {}
+  protected saveEvent() {
+    this.store.dispatch(EventActions.saveEditableEvent())
+  }
 }

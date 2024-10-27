@@ -85,6 +85,6 @@ export class TimelineContainerComponent {
   }
 
   dispatchNewEventCreation() {
-    this.store.dispatch(EventActions.showAddEvertForm());
+    this.store.dispatch(EventActions.showAddEventForm());
   }
 }
