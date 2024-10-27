@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
 import {
@@ -14,8 +19,9 @@ import { TitleComponent } from '../../../share/layout/content/title/title.compon
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
 import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
+import { TimelineComponent } from '../../../share/timeline/timeline/timeline.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
-import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
+import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 import { EditEventFormComponent } from '../../../widgets/timeline-container/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../widgets/timeline-container/edit-event-form/link-preview/link-preview.component';
 
@@ -30,17 +36,18 @@ import { LinkPreviewComponent } from '../../../widgets/timeline-container/edit-e
     EditEventFormComponent,
     TimelineEventMenuComponent,
     MarkdownContentComponent,
+    TimelineComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent {
-  private readonly dumpEvent: ViewTimelineEvent & {
+  private readonly dumpEvent: ExistViewTimelineEvent & {
     eventLength: string;
     shouldAccentLine: boolean;
   } = {
     ...dumpEvent,
-    id: 1,
+    id: 0,
     url: {
       title: dumpLinkTitle,
       link: dumpLink,
@@ -81,4 +88,8 @@ export class DevelopPageComponent {
   });
 
   dumpAddEvent = signal(this.dumpEvent);
+  dumpTimelineEvents: WritableSignal<ExistViewTimelineEvent[]> = signal([
+    this.dumpEvent,
+    { ...this.dumpEvent, loading: true, changeDirection: true },
+  ]);
 }
