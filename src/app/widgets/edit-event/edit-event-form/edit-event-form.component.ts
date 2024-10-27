@@ -37,8 +37,8 @@ import { DatePickerComponent } from '../../../share/date-picker/date-picker.comp
 import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
-import { EditValue } from '../../edit-event/edit-event.types';
-import { ViewTimelineTag } from '../timeline.types';
+import { ViewTimelineTag } from '../../timeline-container/timeline.types';
+import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
 
@@ -154,7 +154,6 @@ export class EditEventFormComponent implements AfterViewInit {
       });
 
     this.formChanges$.subscribe(values => {
-      console.log(values);
       this.formValues.set({
         ...values,
         time: values.time,
