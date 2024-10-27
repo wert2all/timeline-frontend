@@ -3,6 +3,13 @@
     <app-content-title title="UI components" />
 
     <div class="py-4">
+      <h2 class="text-2xl">EditEventFormComponent</h2>
+      <div class="mt-4 grid grid-cols-2 gap-4">
+        Edit event form with preview
+      </div>
+    </div>
+
+    <div class="py-4">
       <h2 class="text-2xl">MarkdownContentComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-markdown-content [content]="dumpContent()" />
@@ -21,25 +28,10 @@
     <div class="py-4">
       <h2 class="text-2xl">EventAdditionalContentComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
-        <app-timeline-event-additional-content [event]="dumpAddEvent()" />
-        <app-timeline-event-additional-content
-          [event]="dumpAddEvent()"
-          [openTab]="1" />
-        <app-timeline-event-additional-content
-          [event]="dumpAddEvent()"
-          [openTab]="2" />
-        <app-timeline-event-additional-content
-          [event]="dumpAddEvent()"
-          [openTab]="3" />
-      </div>
-    </div>
-
-    <div class="py-4">
-      <h2 class="text-2xl">LinkPreviewComponent</h2>
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        <app-link-preview [preview]="dumpPreviewWithError()" />
-        <app-link-preview [preview]="dumpPreview()" />
-        <app-link-preview [preview]="dumpPreviewLoading()" class="col-span-2" />
+        <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="1" />
+        <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="2" />
+        <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="3" />
+        <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="4" />
       </div>
     </div>
 
@@ -47,7 +39,7 @@
       <h2 class="text-2xl">TimelineEventMenuComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-timeline-event-menu
-          [timelineEvent]="dumpAddEvent()"></app-timeline-event-menu>
+          [timelineEvent]="{ id: 1 }"></app-timeline-event-menu>
       </div>
     </div>
   </div>

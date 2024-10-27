@@ -1,39 +1,19 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { TimelineEventInput } from '../../api/internal/graphql';
 import {
-  EditableTimelineEvent,
-  EditableTimelineTypes,
-} from '../../widgets/timeline-container/timeline.types';
-import { createEditableView } from './editable-event-view.factory';
+  createDefaultTimelineEvent,
+  createViewTimelineEvent,
+} from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
-import {
-  fromEditableEventStateToApiInput,
-  fromEditableEventToTimelineEvent,
-} from './timeline.convertors';
-import { TimelineEvent, TimelineState } from './timeline.types';
+import { ExistViewTimelineEvent, TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
-  preview: null,
   timelines: [],
   activeTimeline: null,
   events: [],
   newTimelineAdded: false,
+  editEvent: null,
 };
-const createPreviewFromEvent = (
-  event: TimelineEvent | null | undefined
-): EditableTimelineEvent => ({
-  id: event?.id || undefined,
-  type: EditableTimelineTypes.draft,
-  date: event?.date || new Date(),
-  title: event?.title || '',
-  description: event?.description || '',
-  showTime: event?.showTime || true,
-  url: event?.url || undefined,
-  tags: event?.tags || [],
-  loading: false,
-  isEditableType: true,
-});
 
 export const timelineFeature = createFeature({
   name: 'timeline',
@@ -45,6 +25,7 @@ export const timelineFeature = createFeature({
       EventActions.loadActiveTimelineEvents,
       state => ({ ...state, loading: true })
     ),
+
     on(
       TimelineActions.successAddTimeline,
       EventActions.successLoadActiveTimelineEvents,
@@ -56,16 +37,17 @@ export const timelineFeature = createFeature({
       TimelineActions.apiException,
       EventActions.apiException,
       EventActions.emptyEvent,
-
       state => ({
         ...state,
         loading: false,
       })
     ),
+
     on(TimelineActions.successAddTimeline, (state, { timelines }) => ({
       ...state,
       timelines: [...timelines, ...state.timelines],
     })),
+
     on(
       TimelineActions.setActiveTimelineAfterAuthorize,
       (state, { timeline }) => ({
@@ -76,28 +58,10 @@ export const timelineFeature = createFeature({
       })
     ),
 
-    on(EventActions.addEvent, state => ({
+    on(EventActions.emptyEvent, EventActions.apiException, state => ({
       ...state,
-      events: [
-        ...(state.preview ? [state.preview] : []).map(event =>
-          fromEditableEventToTimelineEvent(event)
-        ),
-        ...state.events,
-      ],
+      events: state.events.filter(event => !event.loading),
     })),
-    on(EventActions.successPushEvent, (state, { addedEvent }) => ({
-      ...state,
-      events: [...[addedEvent], ...state.events],
-    })),
-    on(
-      EventActions.successPushEvent,
-      EventActions.emptyEvent,
-      EventActions.apiException,
-      state => ({
-        ...state,
-        events: state.events.filter(event => !event.loading),
-      })
-    ),
 
     on(EventActions.successLoadActiveTimelineEvents, (state, { events }) => ({
       ...state,
@@ -110,27 +74,33 @@ export const timelineFeature = createFeature({
       state => ({ ...state, newTimelineAdded: true })
     ),
 
-    on(EventActions.createPreview, state => ({
-      ...state,
-      preview: createPreviewFromEvent(null),
-    })),
-
-    on(EventActions.createPreviewForEdit, (state, { eventId }) => ({
-      ...state,
-      preview: createPreviewFromEvent(
-        state.events.find(event => event.id === eventId)
-      ),
-    })),
-
-    on(EventActions.updatePreview, (state, { event }) => ({
-      ...state,
-      preview: event,
-    })),
     on(
-      EventActions.cleanPreview,
-      EventActions.cleanPreviewAfterPushEvent,
-      state => ({ ...state, preview: null })
+      EventActions.showAddEvertForm,
+      (state): TimelineState => ({
+        ...state,
+        editEvent: {
+          loading: false,
+          event: createDefaultTimelineEvent(),
+        },
+      })
     ),
+
+    on(
+      EventActions.closeEditForm,
+      (state): TimelineState => ({ ...state, editEvent: null })
+    ),
+
+    on(
+      EventActions.updatePreviewOfEditableEvent,
+      (state, { event }): TimelineState => ({
+        ...state,
+        editEvent: {
+          loading: false,
+          event: event,
+        },
+      })
+    ),
+
     on(EventActions.deleteEvent, (state, { eventId }) => ({
       ...state,
       events: state.events.map(event => ({
@@ -138,10 +108,12 @@ export const timelineFeature = createFeature({
         loading: event.id === eventId ? true : event.loading,
       })),
     })),
+
     on(EventActions.successDeleteEvent, (state, { eventId }) => ({
       ...state,
       events: state.events.filter(event => event.id !== eventId),
     })),
+
     on(EventActions.failedDeleteEvent, (state, { eventId }) => ({
       ...state,
       events: state.events.map(event => ({
@@ -150,31 +122,20 @@ export const timelineFeature = createFeature({
       })),
     }))
   ),
-  extraSelectors: ({
-    selectEvents,
-    selectActiveTimeline,
-    selectLoading,
-    selectPreview,
-  }) => ({
+
+  extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
     isLoading: createSelector(selectLoading, loading => loading),
-    selectEditableEvents: createSelector(
-      selectActiveTimeline,
-      selectEvents,
-      selectPreview,
-      (selectActiveTimeline, selectEvents, selectPreview) =>
-        createEditableView(
-          selectActiveTimeline ? selectEvents : [],
-          selectPreview
-        )
+    selectViewEvents: createSelector(selectEvents, selectEvents =>
+      selectEvents.map(
+        (event, index): ExistViewTimelineEvent => ({
+          ...createViewTimelineEvent(event, index % 2 === 0),
+          id: event.id,
+        })
+      )
     ),
-    selectEventForPush: createSelector(
-      selectPreview,
-      selectActiveTimeline,
-      (selectPreview, selectActiveTimeline): TimelineEventInput | null =>
-        fromEditableEventStateToApiInput(
-          selectPreview,
-          selectActiveTimeline?.id || null
-        )
+    isEditingEvent: createSelector(
+      selectEditEvent,
+      selectEditEvent => selectEditEvent !== null
     ),
   }),
 });

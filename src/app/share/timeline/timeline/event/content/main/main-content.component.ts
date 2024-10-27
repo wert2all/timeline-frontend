@@ -5,21 +5,16 @@ import {
   input,
   output,
 } from '@angular/core';
-import { TimelimeEventType } from '../../../../../../store/timeline/timeline.types';
 import {
-  EditableViewTimelineEvent,
-  ViewTimelineTag,
-} from '../../../../../../widgets/timeline-container/timeline.types';
+  TimelineEventType,
+  ViewTimelineEvent,
+} from '../../../../../../store/timeline/timeline.types';
+import { ViewTimelineTag } from '../../../../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../../../../markdown-content/markdown-content.component';
 import { DateComponent } from '../../date/date.component';
 import { TagsComponent } from '../../tags/tags.component';
 import { UrlComponent } from '../../url/url.component';
 import { YoutubePreviewComponent } from '../../youtube/youtube-preview.components';
-
-type EventView = EditableViewTimelineEvent & {
-  eventLength: string;
-  shouldAccentLine: boolean;
-};
 
 @Component({
   selector: 'app-timeline-event-main-content',
@@ -36,7 +31,7 @@ type EventView = EditableViewTimelineEvent & {
   ],
 })
 export class EventMainContentComponent {
-  TimelimeEventType = TimelimeEventType;
-  event = input.required<EventView>();
+  TimelimeEventType = TimelineEventType;
+  event = input.required<ViewTimelineEvent>();
   filterByTag = output<ViewTimelineTag>();
 }

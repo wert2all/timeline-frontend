@@ -4,20 +4,19 @@
       class="tooltip tooltip-right tooltip-open tooltip-info"
       data-tip="now you can add your first event">
       <app-add-event-button
-        (addEvent)="addEvent()"
+        (addEvent)="dispatchNewEventCreation()"
         [disabled]="canAddNewEvent() !== true" />
     </div>
   } @else {
     <app-add-event-button
-      (addEvent)="addEvent()"
+      (addEvent)="dispatchNewEventCreation()"
       [disabled]="canAddNewEvent() !== true" />
   }
+
+  <app-edit-event />
   <app-timeline
     [timeline]="timeline()"
     (filterByTag)="filterByTag($event)"
-    (formPreview)="updatePreview($event)"
-    (saveAction)="insertEvent()"
-    (dismissAction)="dismiss()"
     (onDelete)="deleteEvent($event)"
     (onEdit)="editEvent($event)" />
 }

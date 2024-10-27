@@ -1,19 +1,12 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of, tap, zip } from 'rxjs';
-import {
-  ApiClient,
-  Status,
-  TimelineEventInput,
-} from '../../api/internal/graphql';
+import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { EventActions, TimelineActions } from './timeline.actions';
 import { fromApiEventToState } from './timeline.convertors';
-import { timelineFeature } from './timeline.reducer';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -80,41 +73,41 @@ const apiException = (
     )
   );
 
-const addEvent = (actions$ = inject(Actions), store = inject(Store)) =>
-  actions$.pipe(
-    ofType(EventActions.addEvent),
-    concatLatestFrom(() => store.select(timelineFeature.selectEventForPush)),
-    map(([, event]) => event),
-    filter(preview => !!preview),
-    map(preview => preview as TimelineEventInput),
-    map(preview => EventActions.pushEventToAPI({ event: preview }))
-  );
+// const addEvent = (actions$ = inject(Actions), store = inject(Store)) =>
+//   actions$.pipe(
+//     ofType(EventActions.addEvent),
+//     concatLatestFrom(() => store.select(timelineFeature.selectEventForPush)),
+//     map(([, event]) => event),
+//     filter(preview => !!preview),
+//     map(preview => preview as TimelineEventInput),
+//     map(preview => EventActions.pushEventToAPI({ event: preview }))
+//   );
 
-const dissmissAddForm = (actions$ = inject(Actions)) =>
-  actions$.pipe(
-    ofType(EventActions.pushEventToAPI),
-    map(EventActions.cleanPreviewAfterPushEvent)
-  );
+// const dissmissAddForm = (actions$ = inject(Actions)) =>
+//   actions$.pipe(
+//     ofType(EventActions.pushEventToAPI),
+//     map(EventActions.cleanPreviewAfterPushEvent)
+//   );
 
-const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) =>
-  action$.pipe(
-    ofType(EventActions.pushEventToAPI),
-    exhaustMap(({ event }) =>
-      api.addTimelineEvent({ event: event }).pipe(
-        map(result => result.data?.event || null),
-        map(event =>
-          event
-            ? EventActions.successPushEvent({
-                addedEvent: fromApiEventToState(event),
-              })
-            : EventActions.emptyEvent()
-        ),
-        catchError(exception =>
-          of(EventActions.apiException({ exception: exception }))
-        )
-      )
-    )
-  );
+// const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) =>
+//   action$.pipe(
+//     ofType(EventActions.pushEventToAPI),
+//     exhaustMap(({ event }) =>
+//       api.addTimelineEvent({ event: event }).pipe(
+//         map(result => result.data?.event || null),
+//         map(event =>
+//           event
+//             ? EventActions.successPushEvent({
+//                 addedEvent: fromApiEventToState(event),
+//               })
+//             : EventActions.emptyEvent()
+//         ),
+//         catchError(exception =>
+//           of(EventActions.apiException({ exception: exception }))
+//         )
+//       )
+//     )
+//   );
 
 const afterSetActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -203,9 +196,9 @@ const setTimelinesAfterAuthorize = (actions$ = inject(Actions)) =>
   );
 
 export const eventsEffects = {
-  addEvent: createEffect(addEvent, StoreDispatchEffect),
-  pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
-  dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
+  // addEvent: createEffect(addEvent, StoreDispatchEffect),
+  // pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
+  // dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
 
   setTimelinesAfterAuthorize: createEffect(
     setTimelinesAfterAuthorize,

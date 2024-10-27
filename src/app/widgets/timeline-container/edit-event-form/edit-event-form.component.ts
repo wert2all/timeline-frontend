@@ -36,11 +36,9 @@ import {
 import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
-import {
-  AddValue,
-  EditableViewTimelineEvent,
-  ViewTimelineTag,
-} from '../timeline.types';
+import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
+import { EditValue } from '../../edit-event/edit-event.types';
+import { ViewTimelineTag } from '../timeline.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
 
@@ -84,9 +82,10 @@ interface EditForm {
 })
 export class EditEventFormComponent implements AfterViewInit {
   saveEvent = output();
-  changeValues = output<AddValue>();
+  valuesChanged = output<EditValue>();
+  dismissAction = output();
 
-  editEvent = input<EditableViewTimelineEvent | null>(null);
+  editEvent = input<ViewTimelineEvent | null>(null);
   openTab = input(0);
 
   editForm = new FormGroup<EditForm>({
@@ -106,7 +105,7 @@ export class EditEventFormComponent implements AfterViewInit {
     isPrivate: new FormControl(false),
   });
 
-  private formValues = signal<AddValue | null>(null);
+  private formValues = signal<EditValue | null>(null);
   private formChanges$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
   private store = inject(Store);
   private readonly allPreviews = this.store.selectSignal(
@@ -155,6 +154,7 @@ export class EditEventFormComponent implements AfterViewInit {
       });
 
     this.formChanges$.subscribe(values => {
+      console.log(values);
       this.formValues.set({
         ...values,
         time: values.time,
@@ -164,7 +164,7 @@ export class EditEventFormComponent implements AfterViewInit {
     });
 
     effect(() => {
-      this.changeValues.emit({
+      this.valuesChanged.emit({
         ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),
       });
@@ -217,8 +217,8 @@ export class EditEventFormComponent implements AfterViewInit {
     this.editForm.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
   }
 
-  isActiveTab(tabNUmber: number): boolean {
-    return this.activeStep() === tabNUmber;
+  isActiveTab(tabNumber: number): boolean {
+    return this.activeStep() === tabNumber;
   }
 
   switchTo(tabNumber: number) {
