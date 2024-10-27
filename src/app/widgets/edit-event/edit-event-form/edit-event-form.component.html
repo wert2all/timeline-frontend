@@ -1,4 +1,6 @@
-<div class="event-form bg-lighter timeline-box relative pt-0">
+<div
+  class="event-form bg-lighter timeline-box relative pt-0"
+  [class.skeleton]="isDisabled()">
   <div class="join rounded-t-none">
     <a
       tabindex="0"
@@ -115,7 +117,12 @@
           <span class="label-text">Tags</span>
         </div>
         <label class="input input-bordered flex items-center gap-2">
-          <input #tag type="text" class="w-full" (keyup.enter)="addTag(tag)" />
+          <input
+            #tag
+            type="text"
+            class="w-full"
+            (keyup.enter)="addTag(tag)"
+            [attr.disabled]="isDisabled() === true ? true : null" />
         </label>
         <div class="label">
           <span class="label-text-alt">
@@ -155,7 +162,9 @@
         <button
           (click)="saveEvent.emit()"
           class="btn btn-primary"
-          [attr.disabled]="!editForm.valid ? true : null">
+          [attr.disabled]="
+            !editForm.valid || isDisabled() === true ? true : null
+          ">
           <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
           Add
         </button>
@@ -182,6 +191,7 @@
 
   <button
     class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4"
+    [attr.disabled]="isDisabled() === true ? true : null"
     (click)="dismissAction.emit()">
     ✕
   </button>
