@@ -28,11 +28,12 @@ export const EventActions = createActionGroup({
       events: ExistTimelineEvent[];
     }>(),
 
-    'Show add evertForm': emptyProps(),
+    'Show add event form': emptyProps(),
     'Show edit event form': props<{ eventId: number | Undefined }>(),
     'Close edit form': emptyProps(),
 
     'Update preview of editable event': props<{ event: TimelineEvent }>(),
+    'Save editable event': emptyProps(),
 
     // 'Add event': emptyProps(),
     //
