@@ -1,16 +1,17 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../app.types';
+import { AuthActions } from '../auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { PreviewState } from './preview.types';
 
 const MAX_ATTEMPTS = 5;
 
-const initState: PreviewState = { previews: [] };
+const initialState: PreviewState = { previews: [] };
 
 export const previewFeature = createFeature({
   name: 'preview',
   reducer: createReducer(
-    initState,
+    initialState,
 
     on(PreviewActions.addURL, (state, { url }) => {
       const previews = [...state.previews];
@@ -55,7 +56,8 @@ export const previewFeature = createFeature({
             : existPreview;
         }),
       })
-    )
+    ),
+    on(AuthActions.cleanAuthState, () => initialState)
   ),
   extraSelectors: ({ selectPreviews }) => ({
     selectShouldUpdate: createSelector(selectPreviews, previews =>

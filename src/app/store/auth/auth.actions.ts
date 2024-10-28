@@ -23,5 +23,7 @@ export const AuthActions = createActionGroup({
     'Empty profile': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
     'User email is not verified': emptyProps(),
+
+    'Clean auth state': emptyProps(),
   },
 });

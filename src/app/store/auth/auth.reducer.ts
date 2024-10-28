@@ -22,22 +22,13 @@ export const authFeature = createFeature({
         loading: true,
       })
     ),
-    on(
-      AuthActions.promptNotDisplayed,
-      AuthActions.userEmailIsNotVerified,
-      AuthActions.emptyProfile,
-      AuthActions.apiException,
-      AuthActions.logout,
-      AuthActions.coulndNotLoadUserAfterInit,
-
-      state => ({
-        ...state,
-        authorizedUser: null,
-        token: null,
-        loading: false,
-        potentialUser: null,
-      })
-    ),
+    on(AuthActions.cleanAuthState, state => ({
+      ...state,
+      authorizedUser: null,
+      token: null,
+      loading: false,
+      potentialUser: null,
+    })),
     on(AuthActions.initAuthorizedUser, (state, { token }) => ({
       ...state,
       token: token,

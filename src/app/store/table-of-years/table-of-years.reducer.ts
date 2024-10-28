@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { AuthActions } from '../auth/auth.actions';
 import { TableOfYearsActions } from './table-of-years.actions';
 import { TableOfYearsState } from './table-of-years.types';
 
@@ -18,6 +19,7 @@ export const tableOfYearFeature = createFeature({
         ...year,
         isActive: year.number === action.year,
       })),
-    }))
+    })),
+    on(AuthActions.cleanAuthState, () => initialState)
   ),
 });

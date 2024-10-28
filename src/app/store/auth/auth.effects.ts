@@ -192,6 +192,20 @@ const logout = (action$ = inject(Actions), router = inject(Router)) =>
     tap(() => router.navigate(['/']))
   );
 
+const dispatchCleanState = (action$ = inject(Actions)) => {
+  return action$.pipe(
+    ofType(
+      AuthActions.promptNotDisplayed,
+      AuthActions.userEmailIsNotVerified,
+      AuthActions.emptyProfile,
+      AuthActions.apiException,
+      AuthActions.logout,
+      AuthActions.coulndNotLoadUserAfterInit
+    ),
+    map(() => AuthActions.cleanAuthState())
+  );
+};
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
   loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
@@ -213,4 +227,6 @@ export const authEffects = {
 
   emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
   apiException: createEffect(apiException, StoreUnDispatchEffect),
+
+  cleanAuthState: createEffect(dispatchCleanState, StoreDispatchEffect),
 };
