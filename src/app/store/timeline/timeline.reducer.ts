@@ -1,4 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { AuthActions } from '../auth/auth.actions';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -138,7 +139,9 @@ export const timelineFeature = createFeature({
         ...event,
         loading: event.id === eventId ? false : event.loading,
       })),
-    }))
+    })),
+
+    on(AuthActions.cleanAuthState, () => initialState)
   ),
 
   extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
