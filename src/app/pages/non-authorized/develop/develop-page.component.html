@@ -3,6 +3,28 @@
     <app-content-title title="UI components" />
 
     <div class="py-4">
+      <h2 class="text-2xl">Layout testing</h2>
+      <div class="mt-4 grid w-full grid-cols-1 gap-4">
+        <div class="screen relative bg-base-100">
+          <div
+            class="content-container relative my-4 ms-4 w-[calc(100%-20rem)]">
+            <app-develop-content />
+            <app-table-of-contents-container
+              [state]="tableOfContent()"
+              [isOpen]="true" />
+          </div>
+        </div>
+        <div class="screen relative bg-base-100">
+          <div
+            class="content-container relative my-4 ms-4 w-[calc(100%-20rem)]">
+            <app-develop-content />
+            <app-table-of-contents-container [state]="tableOfContent()" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="py-4">
       <h2 class="text-2xl">TimelineComponent</h2>
       <div class="mt-4 grid w-full grid-cols-1 gap-4">
         <app-timeline [timeline]="dumpTimelineEvents()" />

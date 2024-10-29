@@ -1,7 +1,13 @@
 <app-header />
-<div class="flex min-h-[calc(100vh-70px-64px)] bg-base-100">
-  <div class="mx-auto my-4 w-full max-w-5xl rounded-lg bg-base-200">
-    <ng-content></ng-content>
+<div
+  class="flex min-h-[calc(100vh-70px-64px)] place-content-center bg-base-100">
+  <div class="relative my-4 w-full max-w-5xl">
+    <div
+      class="relative z-20 h-full rounded-lg bg-base-200 shadow-xl shadow-base-300">
+      <ng-content></ng-content>
+    </div>
+    <app-table-of-contents-container
+      [state]="tableOfContent()"></app-table-of-contents-container>
   </div>
 </div>
 <app-notifications />

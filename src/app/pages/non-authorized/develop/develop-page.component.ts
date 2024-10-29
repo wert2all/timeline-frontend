@@ -15,15 +15,21 @@ import {
   dumpTag,
   dumpTitle,
 } from '../../../share/dump.types';
+import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
+
+import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
+import { TableOfContentsComponent } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.component';
+import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
 import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
 import { TimelineComponent } from '../../../share/timeline/timeline/timeline.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 import { EditEventFormComponent } from '../../../widgets/edit-event/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../widgets/edit-event/edit-event-form/link-preview/link-preview.component';
+import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
 @Component({
   selector: 'app-develop-page',
@@ -37,6 +43,10 @@ import { LinkPreviewComponent } from '../../../widgets/edit-event/edit-event-for
     TimelineEventMenuComponent,
     MarkdownContentComponent,
     TimelineComponent,
+    TableOfContentsComponent,
+    HeroComponent,
+    DevelopContentComponent,
+    TableOfContentsContainerComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -87,4 +97,33 @@ export class DevelopPageComponent {
     this.dumpEvent,
     { ...this.dumpEvent, loading: true, changeDirection: true },
   ]);
+
+  protected readonly tableOfContent = signal<TableOfContents>({
+    items: [
+      {
+        title: 'Layout',
+        uuid: 'LayoutTesting',
+      },
+      {
+        title: 'Timeline',
+        uuid: 'TimelineComponent',
+      },
+      {
+        title: 'Markdown',
+        uuid: 'MarkdownContentComponent',
+      },
+      {
+        title: 'Link Preview',
+        uuid: 'LinkPreviewComponent',
+      },
+      {
+        title: 'Edit Event Form ',
+        uuid: 'EditEventFormComponent',
+      },
+      {
+        title: 'Event Menu',
+        uuid: 'TimelineEventMenuComponent',
+      },
+    ],
+  });
 }

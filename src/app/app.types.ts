@@ -3,6 +3,10 @@ import { EffectConfig } from '@ngrx/effects';
 export type Iterable = { id: number };
 export type Loadable = { loading: boolean };
 export type Undefined = null | undefined;
+export interface Clickable<T> {
+  click: (item: T) => void;
+}
+export type Unique = { uuid: string };
 
 export type User = { name: string; avatar: string | null };
 
