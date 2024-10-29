@@ -1,0 +1,15 @@
+.item {
+  transition: 0.5s ease-out all;
+
+  &.active {
+    @apply border-r-4 border-primary;
+    opacity: 1;
+
+    a {
+      @apply font-medium;
+    }
+  }
+  a {
+    @apply font-light;
+  }
+}

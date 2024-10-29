@@ -1,0 +1,15 @@
+@if (state().items.length > 0) {
+  <div class="table-container absolute top-10 z-0 w-36" [class.open]="isOpen()">
+    <div
+      class="rounded-r-xl bg-accent py-4 text-xl text-accent-content shadow-2xl shadow-black">
+      <div class="icon absolute cursor-pointer text-primary">
+        <ng-icon name="saxArrowSquareRightBold" size="48"></ng-icon>
+      </div>
+
+      <app-table-of-content
+        class="table-of-content"
+        setActive="LayoutTesting"
+        [state]="state()"></app-table-of-content>
+    </div>
+  </div>
+}

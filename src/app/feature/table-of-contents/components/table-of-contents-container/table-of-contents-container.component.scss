@@ -1,0 +1,34 @@
+$icon-opacity-duration: 0.5s;
+$container-duration: 0.2s;
+$transition-linear: linear;
+
+.table-container {
+  right: -3rem;
+  transition: right $container-duration $transition-linear;
+
+  .icon {
+    opacity: 1;
+
+    right: 0rem;
+    top: 0;
+
+    transition: opacity $icon-opacity-duration $transition-linear;
+  }
+
+  .table-of-content {
+    opacity: 0;
+    transition: opacity $icon-opacity-duration $transition-linear;
+  }
+
+  &:hover,
+  &.open {
+    right: -9rem;
+
+    .icon {
+      opacity: 0;
+    }
+    .table-of-content {
+      opacity: 1;
+    }
+  }
+}

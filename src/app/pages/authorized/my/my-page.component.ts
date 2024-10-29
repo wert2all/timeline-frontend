@@ -11,7 +11,7 @@ import { CreateTimelineButtonComponent } from '../../../share/timeline/create/cr
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
-import { TableOfYearsComponent } from '../../../widgets/table-of-years/table-of-years.component';
+
 import { TimelineContainerComponent } from '../../../widgets/timeline-container/timeline-container.component';
 
 @Component({
@@ -23,7 +23,6 @@ import { TimelineContainerComponent } from '../../../widgets/timeline-container/
     CommonModule,
     LayoutComponent,
     CreateTimelineButtonComponent,
-    TableOfYearsComponent,
     TimelineContainerComponent,
   ],
 })
