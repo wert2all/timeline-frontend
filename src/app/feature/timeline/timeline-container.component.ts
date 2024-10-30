@@ -15,9 +15,6 @@ import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
 import { TimelineComponent } from './components/timeline/timeline.component';
 
-import { EditEventComponent } from '../edit-event/edit-event.component';
-import { AddEventButtonComponent } from './components/add-event-button/add-event-button.component';
-import { AddTimelineComponent } from './components/add-timeline/add-timeline.component';
 import { ViewTimelineTag } from './timeline.types';
 
 @Component({
@@ -27,35 +24,23 @@ import { ViewTimelineTag } from './timeline.types';
   standalone: true,
   imports: [
     AsyncPipe,
-    AddEventButtonComponent,
     TimelineComponent,
     ReactiveFormsModule,
-    AddTimelineComponent,
     ModalComponent,
     ModalConfirmComponent,
-    EditEventComponent,
   ],
 })
 export class TimelineContainerComponent {
   private store = inject(Store);
 
-  private readonly isEditingEvent = this.store.selectSignal(
-    timelineFeature.isEditingEvent
-  );
-
   protected readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
-  private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
-  readonly timeline = this.store.selectSignal(timelineFeature.selectViewEvents);
 
-  readonly showTipForAddEvent = this.store.selectSignal(
-    timelineFeature.selectNewTimelineAdded
-  );
+  readonly timeline = this.store.selectSignal(timelineFeature.selectViewEvents);
 
   readonly shouldDeleteEvent = signal<number>(0);
 
-  canAddNewEvent = computed(() => !this.isEditingEvent());
   showConfirmWindow = computed(() => this.shouldDeleteEvent() > 0);
 
   editEvent(event: Iterable) {
@@ -84,11 +69,5 @@ export class TimelineContainerComponent {
 
   dismissDelete() {
     this.shouldDeleteEvent.set(0);
-  }
-
-  dispatchNewEventCreation() {
-    this.store.dispatch(
-      EventActions.showAddEventForm({ timelineId: this.timelineId() })
-    );
   }
 }
