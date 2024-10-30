@@ -2,7 +2,7 @@
   <div class="p-4">
     <app-content-title title="UI components" />
 
-    <div class="py-4">
+    <div class="py-4" id="LayoutTesting">
       <h2 class="text-2xl">Layout testing</h2>
       <div class="mt-4 grid w-full grid-cols-1 gap-4">
         <div class="screen relative bg-base-100">
@@ -11,6 +11,7 @@
             <app-develop-content />
             <app-table-of-contents-container
               [state]="tableOfContent()"
+              setActive="LayoutTesting"
               [isOpen]="true" />
           </div>
         </div>
@@ -24,21 +25,21 @@
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="py-4" id="TimelineComponent">
       <h2 class="text-2xl">TimelineComponent</h2>
       <div class="mt-4 grid w-full grid-cols-1 gap-4">
         <app-timeline [timeline]="dumpTimelineEvents()" />
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="py-4" id="MarkdownContentComponent">
       <h2 class="text-2xl">MarkdownContentComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-markdown-content [content]="dumpContent()" />
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="py-4" id="LinkPreviewComponent">
       <h2 class="text-2xl">LinkPreviewComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-link-preview [preview]="dumpPreviewWithError()" />
@@ -47,7 +48,7 @@
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="py-4" id="EditEventFormComponent">
       <h2 class="text-2xl">EditEventFormComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="0" />
@@ -61,7 +62,7 @@
       </div>
     </div>
 
-    <div class="py-4">
+    <div class="py-4" id="TimelineEventMenuComponent">
       <h2 class="text-2xl">TimelineEventMenuComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
         <app-timeline-event-menu

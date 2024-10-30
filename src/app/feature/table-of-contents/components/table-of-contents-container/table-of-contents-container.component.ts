@@ -17,4 +17,6 @@ import { TableOfContents } from '../table-of-contents/table-of-contents.types';
 export class TableOfContentsContainerComponent {
   state = input.required<TableOfContents>();
   isOpen = input<boolean>(false);
+
+  setActive = input<string | null>(null);
 }
