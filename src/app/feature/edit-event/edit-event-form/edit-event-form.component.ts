@@ -22,6 +22,7 @@ import {
   saxAddOutline,
   saxCalendar1Outline,
   saxCalendarAddOutline,
+  saxCalendarTickOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
@@ -70,6 +71,7 @@ interface EditForm {
       saxAddOutline,
       saxCalendarAddOutline,
       saxCalendar1Outline,
+      saxCalendarTickOutline,
     }),
   ],
   imports: [
@@ -90,7 +92,7 @@ export class EditEventFormComponent implements AfterViewInit {
   openTab = input(0);
   loading = input(false);
 
-  editForm = new FormGroup<EditForm>({
+  protected readonly editForm = new FormGroup<EditForm>({
     id: new FormControl(null),
     date: new FormControl<string>(DateTime.now().toISODate(), [
       Validators.required,
@@ -114,12 +116,18 @@ export class EditEventFormComponent implements AfterViewInit {
     previewFeature.selectPreviews
   );
 
-  switchTab = signal<null | number>(null);
-  tags = signal<ViewTimelineTag[]>([]);
+  protected readonly switchTab = signal<null | number>(null);
+  protected readonly tags = signal<ViewTimelineTag[]>([]);
 
   protected isDisabled = computed(() => this.loading() === true);
+  protected buttonIcon = computed(() =>
+    this.editEvent()?.id ? 'saxCalendarTickOutline' : 'saxCalendarAddOutline'
+  );
+  protected buttonTitle = computed(() =>
+    this.editEvent()?.id ? 'Save' : 'Add'
+  );
 
-  previewLink = toSignal(
+  protected readonly previewLink = toSignal(
     this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
       map(values => values.link),
       map(link => (link ? new URL(link) : null)),
@@ -133,11 +141,11 @@ export class EditEventFormComponent implements AfterViewInit {
     )
   );
 
-  previewHolder = computed(() =>
+  protected readonly previewHolder = computed(() =>
     this.allPreviews().find(item => item.url === this.previewLink()?.toString())
   );
 
-  activeStep = computed(() =>
+  protected readonly activeStep = computed(() =>
     this.switchTab() !== null ? this.switchTab() : this.openTab()
   );
 

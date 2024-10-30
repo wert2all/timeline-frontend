@@ -71,6 +71,7 @@ export class EditEventComponent {
     const date = DateTime.fromISO(value.date + (time ? 'T' + time : ''));
 
     const updatedEvent: TimelineEvent = {
+      id: value.id || undefined,
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
       type: TimelineEventType.default,
       title: value.title || '',
