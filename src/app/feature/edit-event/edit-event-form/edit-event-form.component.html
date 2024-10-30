@@ -165,8 +165,8 @@
           [attr.disabled]="
             !editForm.valid || isDisabled() === true ? true : null
           ">
-          <ng-icon name="saxCalendarAddOutline" size="24"></ng-icon>
-          Add
+          <ng-icon [name]="buttonIcon()" size="24"></ng-icon>
+          {{ buttonTitle() }}
         </button>
       </div>
       <div
