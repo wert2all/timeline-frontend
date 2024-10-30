@@ -4,7 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { ViewTimelineTag } from '../../../../timeline.types';
+import { ViewTimelineTag } from '../../../timeline.types';
 
 @Component({
   standalone: true,
