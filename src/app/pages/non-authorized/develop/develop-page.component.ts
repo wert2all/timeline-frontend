@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  OnInit,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -56,7 +57,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DevelopPageComponent {
+export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
   private readonly dumpEvent: ExistViewTimelineEvent = {
     ...dumpEvent,
@@ -133,7 +134,7 @@ export class DevelopPageComponent {
     ],
   });
 
-  constructor() {
+  ngOnInit(): void {
     this.store.dispatch(
       TableOfContentsActions.setTableOfContents(this.tableOfContent())
     );
