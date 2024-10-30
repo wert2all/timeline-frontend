@@ -5,12 +5,31 @@
         <progress class="progress w-3/4"></progress>
       </div>
     } @else {
-      <app-timeline-container />
-      @if (!activeTimeline()) {
-        <app-create-timeline-button
-          [isAuthorized]="true"
-          [isLoading]="isLoading()"
-          (addTimeline)="addTimeline($event)" />
+      @if (activeTimeline()) {
+        @if (showTipForAddEvent()) {
+          <div
+            class="tooltip tooltip-right tooltip-open tooltip-info"
+            data-tip="now you can add your first event">
+            <app-add-event-button
+              (addEvent)="dispatchNewEventCreation()"
+              [disabled]="canAddNewEvent() !== true" />
+          </div>
+        } @else {
+          <app-add-event-button
+            (addEvent)="dispatchNewEventCreation()"
+            [disabled]="canAddNewEvent() !== true" />
+        }
+
+        <app-edit-event />
+
+        <app-timeline-container />
+
+        @if (!activeTimeline()) {
+          <app-create-timeline-button
+            [isAuthorized]="true"
+            [isLoading]="isLoading()"
+            (addTimeline)="addTimeline($event)" />
+        }
       }
     }
   </div>
