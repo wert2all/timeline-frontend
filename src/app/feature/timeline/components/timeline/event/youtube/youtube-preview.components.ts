@@ -5,7 +5,7 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { ThumioService } from '../../../../../api/external/site-preview.service';
+import { ThumioService } from '../../../../../../api/external/site-preview.service';
 
 @Component({
   selector: 'app-timeline-event-yotube-preview',

@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxEditOutline, saxTrashOutline } from '@ng-icons/iconsax/outline';
-import { Iterable } from '../../../../../app.types';
+import { Iterable } from '../../../../../../app.types';
 
 @Component({
   standalone: true,

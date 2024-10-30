@@ -2,8 +2,6 @@ import { Component, computed, inject, signal, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 import { AutoAnimateDirective } from '../../libs/auto-animate.directive';
-import { EventMainContentComponent } from '../../share/timeline/timeline/event/content/main/main-content.component';
-import { IconComponent } from '../../share/timeline/timeline/event/icon/icon.component';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -15,6 +13,8 @@ import {
   TimelineEventType,
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
+import { EventMainContentComponent } from '../timeline/components/timeline/event/content/main/main-content.component';
+import { IconComponent } from '../timeline/components/timeline/event/icon/icon.component';
 
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
