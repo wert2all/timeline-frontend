@@ -19,6 +19,7 @@ import { ModalComponent } from '../../../share/modal/modal.component';
 import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
+import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
@@ -166,7 +167,13 @@ export class IndexPageComponent {
   readonly showAddTimelineWindow = signal<boolean>(false);
   readonly isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
 
-  isLoading = computed(() => this.isTimelineLoading() || this.isAuthLoading());
+  protected readonly isLoading = computed(
+    () => this.isTimelineLoading() || this.isAuthLoading()
+  );
+
+  constructor() {
+    this.store.dispatch(TableOfContentsActions.cleanItems());
+  }
 
   toggleAddTimelineForm() {
     this.showAddTimelineWindow.set(true);

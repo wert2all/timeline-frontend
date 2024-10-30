@@ -24,6 +24,7 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 
 import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
+import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
   selector: 'app-my-page',
@@ -67,6 +68,10 @@ export class MyPageComponent {
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEvent() > 0
   );
+
+  constructor() {
+    this.store.dispatch(TableOfContentsActions.cleanItems());
+  }
 
   editEvent(event: Iterable) {
     this.store.dispatch(EventActions.showEditEventForm({ eventId: event.id }));
