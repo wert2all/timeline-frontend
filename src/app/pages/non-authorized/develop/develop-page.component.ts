@@ -110,26 +110,32 @@ export class DevelopPageComponent implements OnInit {
       {
         title: 'Layout',
         uuid: 'LayoutTesting',
+        link: '/develop#LayoutTesting',
       },
       {
         title: 'Timeline',
         uuid: 'TimelineComponent',
+        link: '/develop#TimelineComponent',
       },
       {
         title: 'Markdown',
         uuid: 'MarkdownContentComponent',
+        link: '/develop#MarkdownContentComponent',
       },
       {
         title: 'Link Preview',
         uuid: 'LinkPreviewComponent',
+        link: '/develop#LinkPreviewComponent',
       },
       {
         title: 'Edit Event Form ',
         uuid: 'EditEventFormComponent',
+        link: '/develop#EditEventFormComponent',
       },
       {
         title: 'Event Menu',
         uuid: 'TimelineEventMenuComponent',
+        link: '/develop#TimelineEventMenuComponent',
       },
     ],
   });
