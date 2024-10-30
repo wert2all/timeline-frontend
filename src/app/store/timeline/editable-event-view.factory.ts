@@ -1,8 +1,8 @@
-import { createViewDatetime } from '../../libs/view/date.functions';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
-} from '../../widgets/timeline-container/timeline.types';
+} from '../../feature/timeline/timeline.types';
+import { createViewDatetime } from '../../libs/view/date.functions';
 import {
   TimelineEvent,
   TimelineEventType,

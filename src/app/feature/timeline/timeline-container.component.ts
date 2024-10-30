@@ -15,7 +15,7 @@ import { TimelineComponent } from '../../share/timeline/timeline/timeline.compon
 import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
 
-import { EditEventComponent } from '../../feature/edit-event/edit-event.component';
+import { EditEventComponent } from '../edit-event/edit-event.component';
 import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 import { AddTimelineComponent } from './add-timeline/add-timeline.component';
 import { ViewTimelineTag } from './timeline.types';

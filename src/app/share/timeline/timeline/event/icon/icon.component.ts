@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
-import { ViewTimelineEventIcon } from '../../../../../widgets/timeline-container/timeline.types';
+import { ViewTimelineEventIcon } from '../../../../../feature/timeline/timeline.types';
 
 @Component({
   selector: 'app-timeline-event-icon',
