@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
-import { AddTimelineComponent } from '../../../../widgets/timeline-container/add-timeline/add-timeline.component';
+import { AddTimelineComponent } from '../../../../feature/timeline/add-timeline/add-timeline.component';
 import { ModalComponent } from '../../../modal/modal.component';
 
 @Component({

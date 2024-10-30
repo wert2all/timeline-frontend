@@ -16,7 +16,7 @@ import {
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
 
-import { ViewTimelineEventIcon } from '../../widgets/timeline-container/timeline.types';
+import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { EditValue } from './edit-event.types';
 

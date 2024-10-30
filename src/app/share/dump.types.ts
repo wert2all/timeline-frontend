@@ -1,8 +1,8 @@
+import { ViewTimelineTag } from '../feature/timeline/timeline.types';
 import {
   TimelineEvent,
   TimelineEventType,
 } from '../store/timeline/timeline.types';
-import { ViewTimelineTag } from '../widgets/timeline-container/timeline.types';
 
 export const dumpTitle = 'Dump title';
 export const dumpContent = '# Hello, Neptune!';

@@ -38,7 +38,7 @@ import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
-import { ViewTimelineTag } from '../../../widgets/timeline-container/timeline.types';
+import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';

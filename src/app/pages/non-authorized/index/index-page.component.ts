@@ -9,6 +9,7 @@ import {
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
+import { AddTimelineComponent } from '../../../feature/timeline/add-timeline/add-timeline.component';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
@@ -24,7 +25,6 @@ import {
   ExistTimelineEvent,
   TimelineEventType,
 } from '../../../store/timeline/timeline.types';
-import { AddTimelineComponent } from '../../../widgets/timeline-container/add-timeline/add-timeline.component';
 
 @Component({
   selector: 'app-index-page',

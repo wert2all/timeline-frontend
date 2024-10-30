@@ -1,10 +1,10 @@
 import { Iterable, Loadable, Undefined } from '../../app.types';
-import { ViewDatetime } from '../../libs/view/date.types';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
   ViewTimelineUrl,
-} from '../../widgets/timeline-container/timeline.types';
+} from '../../feature/timeline/timeline.types';
+import { ViewDatetime } from '../../libs/view/date.types';
 
 export enum TimelineEventType {
   default = 'default',
