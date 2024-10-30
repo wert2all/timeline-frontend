@@ -7,11 +7,12 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../share/layout/layout.component';
-import { CreateTimelineButtonComponent } from '../../../share/timeline/create/create-timeline-button/create-timeline-button.component';
+
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 
+import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
 import { TimelineContainerComponent } from '../../../feature/timeline/timeline-container.component';
 
 @Component({

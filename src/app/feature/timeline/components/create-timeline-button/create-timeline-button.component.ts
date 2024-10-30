@@ -9,8 +9,8 @@ import {
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
-import { AddTimelineComponent } from '../../../../feature/timeline/add-timeline/add-timeline.component';
-import { ModalComponent } from '../../../modal/modal.component';
+import { AddTimelineComponent } from '../../../../feature/timeline/components/add-timeline/add-timeline.component';
+import { ModalComponent } from '../../../../share/modal/modal.component';
 
 @Component({
   selector: 'app-create-timeline-button',

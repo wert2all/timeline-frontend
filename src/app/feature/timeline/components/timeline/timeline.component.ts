@@ -6,13 +6,13 @@ import {
   output,
 } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
-import { Iterable } from '../../../app.types';
-import { AutoAnimateDirective } from '../../../libs/auto-animate.directive';
-import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
+import { Iterable } from '../../../../app.types';
+import { AutoAnimateDirective } from '../../../../libs/auto-animate.directive';
+import { ExistViewTimelineEvent } from '../../../../store/timeline/timeline.types';
 
-import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
-import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
-import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
+import { MarkdownContentComponent } from '../../../../share/markdown-content/markdown-content.component';
+import { EditEventFormComponent } from '../../../edit-event/edit-event-form/edit-event-form.component';
+import { ViewTimelineTag } from '../../timeline.types';
 import { EventMainContentComponent } from './event/content/main/main-content.component';
 import { DateComponent } from './event/date/date.component';
 import { IconComponent } from './event/icon/icon.component';

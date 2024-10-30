@@ -23,8 +23,8 @@ import { MarkdownContentComponent } from '../../../share/markdown-content/markdo
 import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
 import { TableOfContentsComponent } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.component';
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
-import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/event/menu/menu.component';
-import { TimelineComponent } from '../../../share/timeline/timeline/timeline.component';
+import { TimelineEventMenuComponent } from '../../../feature/timeline/components/timeline/event/menu/menu.component';
+import { TimelineComponent } from '../../../feature/timeline/components/timeline/timeline.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 

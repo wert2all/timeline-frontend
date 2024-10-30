@@ -5,12 +5,12 @@ import {
   input,
   output,
 } from '@angular/core';
-import { ViewTimelineTag } from '../../../../../../feature/timeline/timeline.types';
+import { MarkdownContentComponent } from '../../../../../../../share/markdown-content/markdown-content.component';
 import {
   TimelineEventType,
   ViewTimelineEvent,
-} from '../../../../../../store/timeline/timeline.types';
-import { MarkdownContentComponent } from '../../../../../markdown-content/markdown-content.component';
+} from '../../../../../../../store/timeline/timeline.types';
+import { ViewTimelineTag } from '../../../../../timeline.types';
 import { DateComponent } from '../../date/date.component';
 import { TagsComponent } from '../../tags/tags.component';
 import { UrlComponent } from '../../url/url.component';
