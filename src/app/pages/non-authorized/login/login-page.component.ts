@@ -10,6 +10,7 @@ import { HeroComponent } from '../../../share/hero/hero.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
+import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -25,6 +26,7 @@ export class LoginPageComponent {
   isLoading = this.store.select(authFeature.isLoading);
 
   constructor(router: Router) {
+    this.store.dispatch(TableOfContentsActions.cleanItems());
     this.isAuthorised
       .pipe(
         takeUntilDestroyed(),
