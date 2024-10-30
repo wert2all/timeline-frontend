@@ -14,8 +14,8 @@ import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
 import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
-import { tableOfYearsEffects } from './store/table-of-years/table-of-years.effects';
-import { tableOfYearFeature } from './store/table-of-years/table-of-years.reducer';
+import { tableOfYearsEffects } from './store/table-of-contents/table-of-contents.effects';
+import { tableOfYearFeature } from './store/table-of-contents/table-of-contents.reducer';
 import {
   eventsEffects,
   timelineEffects,
