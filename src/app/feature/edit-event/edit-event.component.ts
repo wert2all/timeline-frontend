@@ -13,9 +13,9 @@ import {
   TimelineEventType,
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
-import { EventMainContentComponent } from '../timeline/components/timeline/event/content/main/main-content.component';
-import { IconComponent } from '../timeline/components/timeline/event/icon/icon.component';
 
+import { EventMainContentComponent } from '../timeline/components/event/content/main/main-content.component';
+import { IconComponent } from '../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { EditValue } from './edit-event.types';

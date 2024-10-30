@@ -10,7 +10,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { AddTimelineComponent } from '../../../feature/timeline/components/add-timeline/add-timeline.component';
-import { TimelineComponent } from '../../../feature/timeline/components/timeline/timeline.component';
+import { TimelineComponent } from '../../../feature/timeline/timeline.component';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
