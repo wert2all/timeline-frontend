@@ -27,8 +27,9 @@ import { TimelineEventMenuComponent } from '../../../share/timeline/timeline/eve
 import { TimelineComponent } from '../../../share/timeline/timeline/timeline.component';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
-import { EditEventFormComponent } from '../../../widgets/edit-event/edit-event-form/edit-event-form.component';
-import { LinkPreviewComponent } from '../../../widgets/edit-event/edit-event-form/link-preview/link-preview.component';
+
+import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
+import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
 @Component({

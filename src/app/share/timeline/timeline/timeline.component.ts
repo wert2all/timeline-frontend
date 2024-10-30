@@ -9,7 +9,8 @@ import { NgIconComponent } from '@ng-icons/core';
 import { Iterable } from '../../../app.types';
 import { AutoAnimateDirective } from '../../../libs/auto-animate.directive';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
-import { EditEventFormComponent } from '../../../widgets/edit-event/edit-event-form/edit-event-form.component';
+
+import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
 import { ViewTimelineTag } from '../../../widgets/timeline-container/timeline.types';
 import { MarkdownContentComponent } from '../../markdown-content/markdown-content.component';
 import { EventMainContentComponent } from './event/content/main/main-content.component';
