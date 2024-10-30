@@ -12,7 +12,9 @@ export const tableOfYearFeature = createFeature({
     on(TableOfContentsActions.setTableOfContents, (state, { items }) => ({
       ...state,
       items,
-    }))
+    })),
+
+    on(TableOfContentsActions.cleanItems, state => ({ ...state, items: [] }))
   ),
   extraSelectors: ({ selectItems }) => ({
     selectState: createSelector(selectItems, items => ({ items })),
