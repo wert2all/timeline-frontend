@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   signal,
   WritableSignal,
 } from '@angular/core';
@@ -28,9 +29,11 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 import { PreviewHolder } from '../../../store/preview/preview.types';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
+import { Store } from '@ngrx/store';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
+import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
 @Component({
@@ -54,6 +57,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent {
+  private readonly store = inject(Store);
   private readonly dumpEvent: ExistViewTimelineEvent = {
     ...dumpEvent,
     id: 0,
@@ -128,4 +132,10 @@ export class DevelopPageComponent {
       },
     ],
   });
+
+  constructor() {
+    this.store.dispatch(
+      TableOfContentsActions.setTableOfContents(this.tableOfContent())
+    );
+  }
 }
