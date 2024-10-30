@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import * as ApolloCore from '@apollo/client/core';
 import * as Apollo from 'apollo-angular';
 import { gql } from 'apollo-angular';
-
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -35,6 +34,18 @@ export interface Scalars {
 
 export interface AddTimeline {
   name?: InputMaybe<Scalars['String']['input']>;
+}
+
+export interface ExistTimelineEventInput {
+  date: Scalars['Time']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  id: Scalars['Int']['input'];
+  showTime?: InputMaybe<Scalars['Boolean']['input']>;
+  tags?: InputMaybe<Array<Scalars['String']['input']>>;
+  timelineId: Scalars['Int']['input'];
+  title?: InputMaybe<Scalars['String']['input']>;
+  type?: InputMaybe<TimelineType>;
+  url?: InputMaybe<Scalars['String']['input']>;
 }
 
 export interface Limit {

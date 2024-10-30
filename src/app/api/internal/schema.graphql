@@ -10,6 +10,18 @@ input AddTimeline {
   name: String
 }
 
+input ExistTimelineEventInput {
+  date: Time!
+  description: String
+  id: Int!
+  showTime: Boolean
+  tags: [String!]
+  timelineId: Int!
+  title: String
+  type: TimelineType
+  url: String
+}
+
 input Limit {
   from: Int
   to: Int
@@ -20,6 +32,7 @@ type Mutation {
   addTimeline(timeline: AddTimeline): ShortUserTimeline!
   authorize: User
   deleteEvent(eventId: Int!): Status!
+  editEvent(event: ExistTimelineEventInput!): TimelineEvent!
 }
 
 type Query {
