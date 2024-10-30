@@ -20,11 +20,11 @@
         [class.timeline-start]="!event.changeDirection"
         [class.md:text-end]="!event.changeDirection"
         [class.timeline-end]="event.changeDirection">
-        @if (event.id; as id) {
+        @if (canEditEvent(event)) {
           <div class="event-menu mb-8 h-full w-full">
             <app-timeline-event-menu
               class="h-full w-full"
-              [timelineEvent]="{ id: id }"
+              [timelineEvent]="{ id: event.id }"
               (onDelete)="onDelete.emit($event)"
               (onEdit)="onEdit.emit($event)" />
           </div>

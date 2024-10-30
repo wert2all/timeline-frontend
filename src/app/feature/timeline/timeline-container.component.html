@@ -2,7 +2,8 @@
   [timeline]="timeline()"
   (filterByTag)="filterByTag($event)"
   (onDelete)="deleteEvent($event)"
-  (onEdit)="editEvent($event)" />
+  (onEdit)="editEvent($event)"
+  [canEdit]="true" />
 
 <app-modal-confirm
   [show]="showConfirmWindow()"

@@ -42,8 +42,13 @@ import { UrlComponent } from './event/url/url.component';
 })
 export class TimelineComponent {
   timeline = input.required<ExistViewTimelineEvent[]>();
+  canEdit = input(false);
 
   filterByTag = output<ViewTimelineTag>();
   onDelete = output<Iterable>();
   onEdit = output<Iterable>();
+
+  canEditEvent(event: ExistViewTimelineEvent): boolean {
+    return this.canEdit() && !!event.id;
+  }
 }
