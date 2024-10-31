@@ -80,42 +80,6 @@ const apiException = (
     )
   );
 
-// const addEvent = (actions$ = inject(Actions), store = inject(Store)) =>
-//   actions$.pipe(
-//     ofType(EventActions.addEvent),
-//     concatLatestFrom(() => store.select(timelineFeature.selectEventForPush)),
-//     map(([, event]) => event),
-//     filter(preview => !!preview),
-//     map(preview => preview as TimelineEventInput),
-//     map(preview => EventActions.pushEventToAPI({ event: preview }))
-//   );
-
-// const dissmissAddForm = (actions$ = inject(Actions)) =>
-//   actions$.pipe(
-//     ofType(EventActions.pushEventToAPI),
-//     map(EventActions.cleanPreviewAfterPushEvent)
-//   );
-
-// const pushEventToApi = (action$ = inject(Actions), api = inject(ApiClient)) =>
-//   action$.pipe(
-//     ofType(EventActions.pushEventToAPI),
-//     exhaustMap(({ event }) =>
-//       api.addTimelineEvent({ event: event }).pipe(
-//         map(result => result.data?.event || null),
-//         map(event =>
-//           event
-//             ? EventActions.successPushEvent({
-//                 addedEvent: fromApiEventToState(event),
-//               })
-//             : EventActions.emptyEvent()
-//         ),
-//         catchError(exception =>
-//           of(EventActions.apiException({ exception: exception }))
-//         )
-//       )
-//     )
-//   );
-
 const afterSetActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(TimelineActions.setActiveTimelineAfterAuthorize),
@@ -211,7 +175,9 @@ const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
     map(event =>
       event
         ? event.id
-          ? EventActions.updateExistEventOnAPI({ event: event })
+          ? EventActions.updateExistEventOnAPI({
+              event: { ...event, id: event.id },
+            })
           : EventActions.pushNewEventToAPI({ event: event })
         : EventActions.nothingToSave()
     )
@@ -237,11 +203,27 @@ const pushNewEventToApi = (
     )
   );
 
-export const eventsEffects = {
-  // addEvent: createEffect(addEvent, StoreDispatchEffect),
-  // pushEventToApi: createEffect(pushEventToApi, StoreDispatchEffect),
-  // dissmissAddForm: createEffect(dissmissAddForm, StoreDispatchEffect),
+const pushExistEventToApi = (
+  actions$ = inject(Actions),
+  api = inject(ApiClient),
+  notification = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(EventActions.updateExistEventOnAPI),
+    exhaustMap(({ event }) =>
+      api.saveExistTimelineEvent({ event: event }).pipe(
+        map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
+        map(data => fromApiEventToState(data.event, event.timelineId)),
+        map(event => EventActions.successUpdateEvent({ event })),
+        catchError(error => {
+          notification.addMessage(error, 'error');
+          return of(EventActions.emptyEvent);
+        })
+      )
+    )
+  );
 
+export const eventsEffects = {
   setTimelinesAfterAuthorize: createEffect(
     setTimelinesAfterAuthorize,
     StoreDispatchEffect
@@ -261,5 +243,7 @@ export const eventsEffects = {
   ),
 
   saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
+
   pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
+  pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
 };

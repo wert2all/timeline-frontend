@@ -101,6 +101,7 @@ export const timelineFeature = createFeature({
       EventActions.closeEditForm,
       EventActions.nothingToSave,
       EventActions.successPushNewEvent,
+      EventActions.successUpdateEvent,
       (state): TimelineState => ({ ...state, editEvent: null })
     ),
 
@@ -128,6 +129,14 @@ export const timelineFeature = createFeature({
       (state, { event }): TimelineState => ({
         ...state,
         events: [event, ...state.events],
+      })
+    ),
+
+    on(
+      EventActions.successUpdateEvent,
+      (state, { event }): TimelineState => ({
+        ...state,
+        events: state.events.map(e => (e.id === event.id ? event : e)),
       })
     ),
 
