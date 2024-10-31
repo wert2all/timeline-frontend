@@ -145,4 +145,8 @@ export class DevelopPageComponent implements OnInit {
       TableOfContentsActions.setTableOfContents(this.tableOfContent())
     );
   }
+
+  onScroll() {
+    console.log('scroll');
+  }
 }
