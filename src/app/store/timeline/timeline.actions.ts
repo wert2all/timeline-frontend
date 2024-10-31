@@ -1,5 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { TimelineEventInput } from '../../api/internal/graphql';
+import {
+  ExistTimelineEventInput,
+  TimelineEventInput,
+} from '../../api/internal/graphql';
 import { Undefined } from '../../app.types';
 import { ExistTimelineEvent, Timeline, TimelineEvent } from './timeline.types';
 
@@ -39,21 +42,10 @@ export const EventActions = createActionGroup({
     'Push new event to API': props<{ event: TimelineEventInput }>(),
     'Success push new event': props<{ event: ExistTimelineEvent }>(),
 
-    'Update exist event on API': props<{ event: TimelineEventInput }>(),
+    'Update exist event on API': props<{ event: ExistTimelineEventInput }>(),
     'Success update event': props<{ event: ExistTimelineEvent }>(),
 
     'Nothing to save': emptyProps(),
-    // 'Add event': emptyProps(),
-    //
-    // 'Push event to API': props<{ event: TimelineEventInput }>(),
-    // 'Clean preview after push event': emptyProps(),
-    // 'Success push event': props<{ addedEvent: TimelineEvent }>(),
-
-    // 'Create preview': emptyProps(),
-    // 'Update preview': props<{ event: TimelineEvent | null }>(),
-    // 'Clean preview': emptyProps(),
-
-    // 'Create preview for edit': props<{ eventId: number | null | undefined }>(),
 
     'Confirm to delete event': props<{ eventId: number }>(),
     'Delete event': props<{ eventId: number }>(),

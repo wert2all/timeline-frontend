@@ -112,6 +112,12 @@ export type AddTimelineEventVariables = Exact<{
 
 export type AddTimelineEvent = { event: TimelineEvent };
 
+export type SaveExistTimelineEventVariables = Exact<{
+  event: ExistTimelineEventInput;
+}>;
+
+export type SaveExistTimelineEvent = { event: TimelineEvent };
+
 export type DeleteEventVariables = Exact<{
   eventId: Scalars['Int']['input'];
 }>;
@@ -220,6 +226,28 @@ export class AddTimelineEventMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const SaveExistTimelineEventDocument = gql`
+  mutation SaveExistTimelineEvent($event: ExistTimelineEventInput!) {
+    event: editEvent(event: $event) {
+      ...TimelineEvent
+    }
+  }
+  ${TimelineEvent}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SaveExistTimelineEventMutation extends Apollo.Mutation<
+  SaveExistTimelineEvent,
+  SaveExistTimelineEventVariables
+> {
+  override document = SaveExistTimelineEventDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 export const DeleteEventDocument = gql`
   mutation DeleteEvent($eventId: Int!) {
     deleteEvent(eventId: $eventId)
@@ -282,6 +310,7 @@ export class ApiClient {
     private authorizeMutation: AuthorizeMutation,
     private addTimelineMutationMutation: AddTimelineMutationMutation,
     private addTimelineEventMutation: AddTimelineEventMutation,
+    private saveExistTimelineEventMutation: SaveExistTimelineEventMutation,
     private deleteEventMutation: DeleteEventMutation,
     private getEventsQuery: GetEventsQuery
   ) {}
@@ -308,6 +337,16 @@ export class ApiClient {
     options?: MutationOptionsAlone<AddTimelineEvent, AddTimelineEventVariables>
   ) {
     return this.addTimelineEventMutation.mutate(variables, options);
+  }
+
+  saveExistTimelineEvent(
+    variables: SaveExistTimelineEventVariables,
+    options?: MutationOptionsAlone<
+      SaveExistTimelineEvent,
+      SaveExistTimelineEventVariables
+    >
+  ) {
+    return this.saveExistTimelineEventMutation.mutate(variables, options);
   }
 
   deleteEvent(
