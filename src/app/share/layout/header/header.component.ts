@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxGhostOutline, saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
+import { ProfileButtonComponent } from '../../../feature/profile/profile-button/profile-button.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';
 import { LoginButtonComponent } from './top-menu/login-button/login-button.component';
 import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.component';
-import { ProfileButtonComponent } from './top-menu/profile-button/profile-button.component';
 
 @Component({
   selector: 'app-header',
