@@ -125,7 +125,7 @@ export class IndexPageComponent {
       id: 0,
       timelineId: 0,
       date: new Date('2024-04-17T03:29:00.000+03:00'),
-      type: TimelineEventType.youtube,
+      type: TimelineEventType.default,
       title: 'first stream ever!',
       description:
         'The first stream where the first lines of the future GraphQL API were written was a blast.\n The stream was a lot of fun, and it was a great way to get the project off the ground. We made a lot of progress in a short amount of time, and we are all very excited about the future of the GraphQL API.',
