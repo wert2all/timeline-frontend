@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.13](https://github.com/wert2all/timeline-frontend/compare/v0.0.12...v0.0.13) (2024-11-01)
+
+### Features
+
+- add actions for saving event ([e9a8a42](https://github.com/wert2all/timeline-frontend/commit/e9a8a424e6cc4be8db4ed53e2b5fda6fd054aa60))
+- add disabled state for edit form components ([420f10c](https://github.com/wert2all/timeline-frontend/commit/420f10c68aeceba4017bf44aa3acef48ae5ec181))
+- create preview for editing events ([ed1eda9](https://github.com/wert2all/timeline-frontend/commit/ed1eda972f9b786855f8214ac540922aa15a0aa8))
+- extract table of contents to separate component ([79ddd9e](https://github.com/wert2all/timeline-frontend/commit/79ddd9e473e93c832442f369bd80a893c85c6f14))
+- saving event ([54abb6d](https://github.com/wert2all/timeline-frontend/commit/54abb6de66e83ea2712fb3149dcccb00a1d46350))
+- showing table of contents ([574e554](https://github.com/wert2all/timeline-frontend/commit/574e554b71e2af9a88b77adba1c3644a69a939eb))
+- update scheme ([c4136b7](https://github.com/wert2all/timeline-frontend/commit/c4136b77ef09097026857d8930e94df1a422a3ca))
+
+### Bug Fixes
+
+- add property which control the ability to edit event ([e43f8b6](https://github.com/wert2all/timeline-frontend/commit/e43f8b60e8ad07697dbc8ed386450f5ee55cb6de))
+- add smooth scroll ([2465f76](https://github.com/wert2all/timeline-frontend/commit/2465f762c437d58b1e78559524001c56c6141e9e))
+- add table of contents to develop page ([debe7b4](https://github.com/wert2all/timeline-frontend/commit/debe7b4c5ffc14d303d8e4fb68490d945352138b))
+- add timelineId to event type ([d031aff](https://github.com/wert2all/timeline-frontend/commit/d031aff191121ea8b98bcb955d9b9f953375a727))
+- clean store states after logout ([fc78068](https://github.com/wert2all/timeline-frontend/commit/fc78068c5f9a5b6e021e71d04fa04eb7ebdc07c9))
+- clean table of contents after route navigated ([62fccaa](https://github.com/wert2all/timeline-frontend/commit/62fccaae9f2f3efdea7f526370cb50290fe6da1a))
+- clean table of contents on all pages ([a7fb62c](https://github.com/wert2all/timeline-frontend/commit/a7fb62c94f9d78188438badd21b391752153675b))
+- fire an action for saving event ([7a6278c](https://github.com/wert2all/timeline-frontend/commit/7a6278c22efa42832fb7e4bad78bb48ddfc4a784))
+- fix saving id of event ([a1737f2](https://github.com/wert2all/timeline-frontend/commit/a1737f257c2834603fada8028f85323845c9cc1d))
+- fix showing edit form on edit event ([c291153](https://github.com/wert2all/timeline-frontend/commit/c2911537f073ec4efeeae24faf985eed57a70fd1))
+- fix typo ([392d8ae](https://github.com/wert2all/timeline-frontend/commit/392d8ae0f231793aeee59d3eb14616973f77e752))
+- fix typo ([538131e](https://github.com/wert2all/timeline-frontend/commit/538131e13baa04fe92b73a23fbeb94801efee8a3))
+
 ## [0.0.12](https://github.com/wert2all/timeline-frontend/compare/v0.0.11...v0.0.12) (2024-10-25)
 
 ### Features
