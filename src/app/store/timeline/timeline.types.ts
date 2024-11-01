@@ -9,7 +9,6 @@ import { ViewDatetime } from '../../libs/view/date.types';
 export enum TimelineEventType {
   default = 'default',
   celebrate = 'celebrate',
-  youtube = 'youtube',
 }
 
 export type TimelineRequired = {

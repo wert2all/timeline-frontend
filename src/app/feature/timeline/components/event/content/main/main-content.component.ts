@@ -15,7 +15,6 @@ import { ViewTimelineTag } from '../../../../timeline.types';
 import { DateComponent } from '../../date/date.component';
 import { TagsComponent } from '../../tags/tags.component';
 import { UrlComponent } from '../../url/url.component';
-import { YoutubePreviewComponent } from '../../youtube/youtube-preview.components';
 
 @Component({
   selector: 'app-timeline-event-main-content',
@@ -28,7 +27,6 @@ import { YoutubePreviewComponent } from '../../youtube/youtube-preview.component
     MarkdownContentComponent,
     TagsComponent,
     DateComponent,
-    YoutubePreviewComponent,
   ],
 })
 export class EventMainContentComponent {

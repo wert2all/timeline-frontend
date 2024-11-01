@@ -6,10 +6,6 @@ export type GoogleServiceEnvironment = {
   clientId: string;
 };
 
-export type ThumioServiceEnvironment = {
-  apiKey: string;
-};
-
 export type PreviewlyServiceEnvironment = {
   token: string;
   url: string;
@@ -17,7 +13,6 @@ export type PreviewlyServiceEnvironment = {
 
 export type ServiceEnvironments = {
   google: GoogleServiceEnvironment;
-  thumio: ThumioServiceEnvironment;
   previewly: PreviewlyServiceEnvironment;
 };
 
