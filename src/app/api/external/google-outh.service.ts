@@ -32,15 +32,18 @@ export class GoogleOuthService {
     use_fedcm_for_prompt: true,
   };
 
+  // private onNotification = (
+  //   notification: google.accounts.id.PromptMomentNotification
+  // ) => {
+  //   if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+  //     this.listeners.onNotDisplayed();
+  //   }
+  // };
   private listeners: Listeners = defaultListeners;
 
   login(listeners: Listeners) {
     this.initialize(listeners);
-    google.accounts.id.prompt(notification => {
-      if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-        this.listeners.onNotDisplayed();
-      }
-    });
+    google.accounts.id.prompt();
   }
 
   private initialize(listeners: Listeners) {
