@@ -1,0 +1,23 @@
+@if (user(); as user) {
+  <details class="dropdown">
+    <summary class="btn btn-ghost" (click)="toProfile.emit()">
+      <div class="avatar">
+        @if (isLoading() === true) {
+          <span class="loading loading-spinner"></span>
+        } @else {
+          <div class="w-8 rounded">
+            <img [src]="user.avatar" [alt]="user.name" />
+          </div>
+        }
+      </div>
+      {{ user.name }}
+    </summary>
+    <app-feature-flag feature="profile_dropdown">
+      <ul
+        class="menu dropdown-content z-20 w-52 rounded-box bg-base-100 p-2 shadow">
+        <li><a>Item 1</a></li>
+        <li><a>Item 2</a></li>
+      </ul>
+    </app-feature-flag>
+  </details>
+}

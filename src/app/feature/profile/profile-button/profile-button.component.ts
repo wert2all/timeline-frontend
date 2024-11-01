@@ -6,11 +6,12 @@ import {
   output,
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { FeatureFlagComponent } from '../../flag/feature-flag/feature-flag.component';
 
 @Component({
   selector: 'app-profile-button',
   standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, FeatureFlagComponent],
   templateUrl: './profile-button.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({})],
