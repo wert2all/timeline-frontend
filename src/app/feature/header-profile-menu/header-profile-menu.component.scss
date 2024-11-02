@@ -1,0 +1,19 @@
+.dropdown {
+  &:hover {
+    .profile_button {
+      @apply rounded-b-none bg-success text-success-content;
+    }
+  }
+
+  .dropdown-content {
+    @apply menu z-20 w-52 rounded-b-xl rounded-l-xl bg-success text-success-content;
+
+    .divider {
+      @apply divider-secondary m-0 p-0;
+    }
+
+    a {
+      @apply btn-ghost btn-sm justify-start px-0 font-normal;
+    }
+  }
+}

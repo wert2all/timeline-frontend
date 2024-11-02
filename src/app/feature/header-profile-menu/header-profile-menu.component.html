@@ -1,0 +1,78 @@
+@if (authorizedUser(); as user) {
+  <div class="dropdown dropdown-end dropdown-hover">
+    <div
+      tabindex="0"
+      role="button"
+      class="profile_button btn btn-ghost"
+      (click)="goToDashboard()"
+      (keyup)="goToDashboard()">
+      <div class="avatar">
+        @if (isLoading() === true) {
+          <span class="loading loading-spinner"></span>
+        } @else {
+          <div class="w-8 rounded">
+            <img [src]="user.avatar" [alt]="user.name" />
+          </div>
+        }
+      </div>
+      {{ user.name }}
+    </div>
+
+    <app-feature-flag feature="profile_dropdown">
+      <ul tabindex="0" class="dropdown-content">
+        <app-feature-flag feature="user_settings">
+          <li>
+            <a tabindex="0" class="btn">
+              <ng-icon name="saxSetting2Outline" size="22"></ng-icon>
+              Settings
+            </a>
+          </li>
+        </app-feature-flag>
+        <app-feature-flag feature="user_feature_flag">
+          <li>
+            <a tabindex="0" class="btn">
+              <ng-icon name="saxFlag2Outline" size="22"></ng-icon>
+              Features
+            </a>
+          </li>
+        </app-feature-flag>
+
+        <div class="divider"></div>
+
+        <li>
+          <a
+            tabindex="0"
+            class="btn"
+            (click)="copyToClipboard()"
+            (keyup)="copyToClipboard()">
+            <ng-icon [name]="copyIcon()" size="22"></ng-icon>
+            @if (isCopied()) {
+              Copied!!!
+            } @else {
+              Copy token
+            }
+          </a>
+        </li>
+        <li>
+          <a
+            tabindex="0"
+            class="btn"
+            href="https://github.com/wert2all/timeline-frontend/issues/new"
+            target="_blank">
+            <ng-icon name="saxGhostOutline" size="22"></ng-icon>
+            Send issue
+          </a>
+        </li>
+
+        <div class="divider"></div>
+
+        <li>
+          <a tabindex="0" class="btn" (click)="logout()" (keyup)="logout()">
+            <ng-icon name="saxLogout1Outline" size="22"></ng-icon>
+            Log out
+          </a>
+        </li>
+      </ul>
+    </app-feature-flag>
+  </div>
+}
