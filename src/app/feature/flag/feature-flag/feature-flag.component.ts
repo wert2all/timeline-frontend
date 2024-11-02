@@ -16,5 +16,11 @@ import { FEATURE_FLAGS, FeatureFlagName } from './feature-flag.types';
 })
 export class FeatureFlagComponent {
   feature = input.required<FeatureFlagName>();
-  enabledFeature = computed(() => FEATURE_FLAGS[this.feature()]);
+  nigate = input(false);
+
+  enabledFeature = computed(() =>
+    this.nigate()
+      ? !FEATURE_FLAGS[this.feature()]
+      : FEATURE_FLAGS[this.feature()]
+  );
 }
