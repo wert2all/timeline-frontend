@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxGhostOutline, saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { ProfileButtonComponent } from '../../../feature/profile/profile-button/profile-button.component';
+import { FeatureFlagComponent } from '../../../feature/flag/feature-flag/feature-flag.component';
+import { HeaderProfileMenuComponent } from '../../../feature/header-profile-menu/header-profile-menu.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';
@@ -21,9 +22,10 @@ import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.co
     CommonModule,
     NgIconComponent,
     LoginButtonComponent,
-    ProfileButtonComponent,
     LogoutButtonComponent,
     CopyTokenComponent,
+    HeaderProfileMenuComponent,
+    FeatureFlagComponent,
   ],
 })
 export class HeaderComponent {
@@ -36,13 +38,12 @@ export class HeaderComponent {
 
   authorizedUser = this.store.selectSignal(authFeature.selectAuthorizedUser);
   token = this.store.selectSignal(authFeature.selectToken);
+
   login() {
     this.router.navigate(['user', 'login']);
   }
+
   logout() {
     this.store.dispatch(AuthActions.logout());
-  }
-  goToMy() {
-    this.router.navigate(['my']);
   }
 }

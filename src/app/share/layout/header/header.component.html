@@ -10,24 +10,27 @@
     </a>
   </div>
   <div class="flex-none gap-2">
-    <div
-      class="tooltip tooltip-left tooltip-primary me-14"
-      data-tip="Add an issue">
-      <a
-        href="https://github.com/wert2all/timeline-frontend/issues/new"
-        target="_blank">
-        <ng-icon name="saxGhostOutline" size="32"></ng-icon>
-      </a>
-    </div>
+    <app-feature-flag feature="profile_dropdown" [nigate]="true">
+      <div
+        class="tooltip tooltip-left tooltip-primary me-14"
+        data-tip="Add an issue">
+        <a
+          href="https://github.com/wert2all/timeline-frontend/issues/new"
+          target="_blank">
+          <ng-icon name="saxGhostOutline" size="32"></ng-icon>
+        </a>
+      </div>
+    </app-feature-flag>
     <app-login-button
       [isLoading]="isLoading()"
       [isAuthorized]="isAuthorized()"
       (login)="login()" />
-    <app-copy-token [token]="token()" />
-    <app-profile-button
-      [isLoading]="isLoading()"
-      [user]="authorizedUser()"
-      (toProfile)="goToMy()" />
-    <app-logout-button [isAuthorized]="isAuthorized()" (logout)="logout()" />
+    <app-feature-flag feature="profile_dropdown" [nigate]="true">
+      <app-copy-token [token]="token()" />
+    </app-feature-flag>
+    <app-header-profile-menu />
+    <app-feature-flag feature="profile_dropdown" [nigate]="true">
+      <app-logout-button [isAuthorized]="isAuthorized()" (logout)="logout()" />
+    </app-feature-flag>
   </div>
 </div>
