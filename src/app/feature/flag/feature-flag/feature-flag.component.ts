@@ -3,9 +3,10 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
 } from '@angular/core';
-import { FEATURE_FLAGS, FeatureFlagName } from './feature-flag.types';
+import { FeatureFlagName, FeaturesService } from '../../features.service';
 
 @Component({
   selector: 'app-feature-flag',
@@ -15,12 +16,14 @@ import { FEATURE_FLAGS, FeatureFlagName } from './feature-flag.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureFlagComponent {
+  private readonly featuresService = inject(FeaturesService);
+
   feature = input.required<FeatureFlagName>();
   nigate = input(false);
 
   enabledFeature = computed(() =>
     this.nigate()
-      ? !FEATURE_FLAGS[this.feature()]
-      : FEATURE_FLAGS[this.feature()]
+      ? !this.featuresService.canShow(this.feature())
+      : this.featuresService.canShow(this.feature())
   );
 }
