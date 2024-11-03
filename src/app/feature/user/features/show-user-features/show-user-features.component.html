@@ -12,7 +12,9 @@
       <div class="w-14 flex-none place-content-center">
         <input
           type="checkbox"
+          [name]="feature.name"
           class="toggle"
+          (change)="changeFeature(feature, $event)"
           [class.toggle-success]="feature.canShow"
           [attr.checked]="feature.canShow() ? 'checked' : null" />
       </div>

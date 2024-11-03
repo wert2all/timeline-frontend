@@ -77,4 +77,8 @@ export class HeaderProfileMenuComponent {
       this.isCopied.set(true);
     }
   }
+
+  saveFeature(event: { name: string; active: boolean }) {
+    console.log(event);
+  }
 }
