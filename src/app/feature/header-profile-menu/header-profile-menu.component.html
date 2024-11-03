@@ -77,6 +77,8 @@
   </div>
 
   <app-feature-flag feature="user_feature_flag">
-    <app-show-user-features [showFeatures]="false" />
+    <app-show-user-features
+      [showFeatures]="true"
+      (save)="saveFeature($event)" />
   </app-feature-flag>
 }

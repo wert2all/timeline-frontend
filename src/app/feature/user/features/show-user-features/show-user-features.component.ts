@@ -4,9 +4,11 @@ import {
   Component,
   inject,
   input,
+  output,
 } from '@angular/core';
+
 import { ModalComponent } from '../../../../share/modal/modal.component';
-import { FeaturesService } from '../../../features.service';
+import { Feature, FeaturesService } from '../../../features.service';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 
 @Component({
@@ -19,6 +21,12 @@ import { FeatureStageComponent } from '../feature-stage/feature-stage.component'
 export class ShowUserFeaturesComponent {
   private readonly featuresService = inject(FeaturesService);
   showFeatures = input(false);
+  save = output<{ name: string; active: boolean }>();
 
   protected readonly features = this.featuresService.getAllFeatures();
+
+  changeFeature(feature: Feature, event: Event) {
+    const input = event.currentTarget as HTMLInputElement;
+    this.save.emit({ name: feature.name, active: input.checked });
+  }
 }
