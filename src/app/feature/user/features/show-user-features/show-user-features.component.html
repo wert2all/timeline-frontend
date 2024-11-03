@@ -1,0 +1,25 @@
+<app-modal [show]="showFeatures()" title="Features">
+  @for (feature of features; track $index) {
+    <div class="mt-4 flex">
+      <div class="order flex-auto">
+        <p class="text-xl font-bold">{{ feature.name }}</p>
+        <p>{{ feature.description }}</p>
+      </div>
+
+      <div class="w-36 flex-none place-content-center text-center">
+        <app-feature-stage [stage]="feature.stage" />
+      </div>
+      <div class="w-14 flex-none place-content-center">
+        <input
+          type="checkbox"
+          class="toggle"
+          [class.toggle-success]="feature.canShow"
+          [attr.checked]="feature.canShow() ? 'checked' : null" />
+      </div>
+    </div>
+  }
+
+  <div class="modal-action">
+    <button class="btn btn-primary">confirm</button>
+  </div>
+</app-modal>

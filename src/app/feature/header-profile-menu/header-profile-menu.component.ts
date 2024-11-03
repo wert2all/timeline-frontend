@@ -21,11 +21,17 @@ import { Store } from '@ngrx/store';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { authFeature } from '../../store/auth/auth.reducer';
 import { FeatureFlagComponent } from '../flag/feature-flag/feature-flag.component';
+import { ShowUserFeaturesComponent } from '../user/features/show-user-features/show-user-features.component';
 
 @Component({
   selector: 'app-header-profile-menu',
   standalone: true,
-  imports: [CommonModule, NgIconComponent, FeatureFlagComponent],
+  imports: [
+    CommonModule,
+    NgIconComponent,
+    FeatureFlagComponent,
+    ShowUserFeaturesComponent,
+  ],
   templateUrl: './header-profile-menu.component.html',
   styleUrls: ['./header-profile-menu.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

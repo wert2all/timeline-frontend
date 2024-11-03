@@ -2,32 +2,44 @@ import { Injectable } from '@angular/core';
 
 export type FeatureFlagName = keyof typeof FEATURE_FLAGS;
 
+export enum FeatureStage {
+  started,
+  development,
+  testing,
+  done,
+}
+
 export interface Feature {
   name: string;
   description: string;
+  stage: FeatureStage;
   canShow(): boolean;
 }
 
 const FEATURE_FLAGS = {
   edit_event: {
-    name: '',
-    description: '',
+    name: 'Edit event',
+    description: 'Update exist event',
     canShow: () => false,
+    stage: FeatureStage.testing,
   },
   profile_dropdown: {
-    name: '',
-    description: '',
+    name: 'Dropdown menu',
+    description: 'Show user dropdown menu',
     canShow: () => false,
+    stage: FeatureStage.development,
   },
   user_settings: {
-    name: '',
-    description: '',
+    name: 'User settings',
+    description: 'Change user profile settings',
     canShow: () => false,
+    stage: FeatureStage.started,
   },
   user_feature_flag: {
-    name: '',
-    description: '',
+    name: 'Features',
+    description: 'Change some features of application.',
     canShow: () => false,
+    stage: FeatureStage.development,
   },
 } as const satisfies Record<string, Feature>;
 
@@ -35,6 +47,9 @@ const FEATURE_FLAGS = {
   providedIn: 'root',
 })
 export class FeaturesService {
+  getAllFeatures(): Feature[] {
+    return Object.values(FEATURE_FLAGS);
+  }
   canShow(feature: FeatureFlagName): boolean {
     return this.getFeature(feature)?.canShow() || false;
   }
