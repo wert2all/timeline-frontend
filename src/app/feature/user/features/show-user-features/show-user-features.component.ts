@@ -21,7 +21,9 @@ import { FeatureStageComponent } from '../feature-stage/feature-stage.component'
 export class ShowUserFeaturesComponent {
   private readonly featuresService = inject(FeaturesService);
   showFeatures = input(false);
+
   save = output<{ name: string; active: boolean }>();
+  onClose = output();
 
   protected readonly features = this.featuresService.getAllFeatures();
 

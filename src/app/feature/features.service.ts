@@ -26,19 +26,19 @@ const FEATURE_FLAGS = {
   profile_dropdown: {
     name: 'Dropdown menu',
     description: 'Show user dropdown menu',
-    canShow: () => true,
+    canShow: () => false,
     stage: FeatureStage.development,
   },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
-    canShow: () => true,
+    canShow: () => false,
     stage: FeatureStage.started,
   },
   user_feature_flag: {
     name: 'Features',
     description: 'Change some features of application.',
-    canShow: () => true,
+    canShow: () => false,
     stage: FeatureStage.development,
   },
 } as const satisfies Record<string, Feature>;
