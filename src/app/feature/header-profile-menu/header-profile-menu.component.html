@@ -30,7 +30,11 @@
         </app-feature-flag>
         <app-feature-flag feature="user_feature_flag">
           <li>
-            <a tabindex="0" class="btn">
+            <a
+              tabindex="0"
+              class="btn"
+              (click)="showFeatures.set(true)"
+              (keyup)="showFeatures.set(true)">
               <ng-icon name="saxFlag2Outline" size="22"></ng-icon>
               Features
             </a>
@@ -78,7 +82,8 @@
 
   <app-feature-flag feature="user_feature_flag">
     <app-show-user-features
-      [showFeatures]="true"
-      (save)="saveFeature($event)" />
+      [showFeatures]="showFeatures()"
+      (save)="saveFeature($event)"
+      (onClose)="showFeatures.set(false)" />
   </app-feature-flag>
 }

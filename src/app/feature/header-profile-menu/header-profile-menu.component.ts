@@ -56,7 +56,9 @@ export class HeaderProfileMenuComponent {
     authFeature.selectAuthorizedUser
   );
   protected readonly token = this.store.selectSignal(authFeature.selectToken);
+
   protected readonly isCopied = signal(false);
+  protected readonly showFeatures = signal(false);
 
   protected readonly copyIcon = computed(() =>
     this.isCopied() ? 'saxCopySuccessOutline' : 'saxCopyOutline'
