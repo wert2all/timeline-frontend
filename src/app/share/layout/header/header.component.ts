@@ -6,6 +6,7 @@ import { saxGhostOutline, saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { FeatureFlagComponent } from '../../../feature/flag/feature-flag/feature-flag.component';
 import { HeaderProfileMenuComponent } from '../../../feature/header-profile-menu/header-profile-menu.component';
+import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';
@@ -26,6 +27,7 @@ import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.co
     CopyTokenComponent,
     HeaderProfileMenuComponent,
     FeatureFlagComponent,
+    ShowUserFeaturesComponent,
   ],
 })
 export class HeaderComponent {
