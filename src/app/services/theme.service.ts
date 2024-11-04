@@ -3,7 +3,7 @@ import { effect, Injectable, signal, WritableSignal } from '@angular/core';
 export const storageKey = 'theme';
 enum Themes {
   gruvbox = 'gruvbox',
-  bumblebee = 'bumblebee',
+  pastel = 'pastel',
 }
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
@@ -22,7 +22,7 @@ export class ThemeService {
 
   toggleTheme(): void {
     this.themeSignal.update(prev =>
-      prev === Themes.gruvbox ? Themes.bumblebee : Themes.gruvbox
+      prev === Themes.gruvbox ? Themes.pastel : Themes.gruvbox
     );
   }
 
@@ -42,8 +42,8 @@ export class ThemeService {
     switch (theme) {
       case Themes.gruvbox:
         return Themes.gruvbox;
-      case Themes.bumblebee:
-        return Themes.bumblebee;
+      case Themes.pastel:
+        return Themes.pastel;
       default:
         return Themes.gruvbox;
     }

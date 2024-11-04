@@ -8,7 +8,7 @@ module.exports = {
   daisyui: {
     logs: false,
     themes: [
-      'bumblebee',
+      'pastel',
       {
         gruvbox: {
           primary: '#448588',
