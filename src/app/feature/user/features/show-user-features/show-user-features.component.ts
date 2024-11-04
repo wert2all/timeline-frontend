@@ -25,7 +25,10 @@ export class ShowUserFeaturesComponent {
   save = output<{ name: string; active: boolean }>();
   onClose = output();
 
-  protected readonly features = this.featuresService.getAllFeatures();
+  protected readonly features = this.featuresService
+    .getAllFeatures()
+    .sort((a, b) => a.stage.toString().localeCompare(b.stage.toString()))
+    .reverse();
 
   changeFeature(feature: Feature, event: Event) {
     const input = event.currentTarget as HTMLInputElement;
