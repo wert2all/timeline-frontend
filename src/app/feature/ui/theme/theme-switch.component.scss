@@ -13,12 +13,12 @@ $size-default-border-with: 1px;
 $size-space: 1px;
 $animation-durtation: 0.3s;
 
-$animation-durtation-sunny-clouds: $animation-durtation / 2;
+$animation-durtation-sunny-clouds: calc($animation-durtation / 2);
 
 $size-width: $size-height * 2;
 
 $size-toggle-border-width: $size-default-border-with;
-$size-toggle-border-radius: $size-height/2;
+$size-toggle-border-radius: calc($size-height/2);
 
 $size-sun-border-width: $size-default-border-with;
 $size-sun-height: $size-height - 2 * $size-toggle-border-width - 2 *
@@ -31,9 +31,10 @@ $size-sun-border-radius: $size-sun-height;
 $size-cloud-height: $size-toggle-border-width;
 $size-cloud-border-radius: $size-cloud-height;
 $size-cloud-small-width: $size-cloud-height * 2;
-$size-cloud-small-left-position: ($size-toggle-border-radius + $size-width/2) -
-  $size-cloud-small-width;
-$size-cloud-small-top-position: $size-height/2 - $size-cloud-height;
+$size-cloud-small-left-position: calc(
+  ($size-toggle-border-radius + $size-width/2) - $size-cloud-small-width
+);
+$size-cloud-small-top-position: calc($size-height/2 - $size-cloud-height);
 $size-cloud-big-width: $size-cloud-small-width * 4;
 $size-cloud-big-first-top-position: -$size-cloud-height;
 $size-cloud-big-first-left-position: -($size-cloud-small-width * 2);
@@ -42,7 +43,7 @@ $size-cloud-big-second-left-position: -$size-cloud-small-width;
 
 $size-dimple-height: $size-toggle-border-width * 2;
 $size-dimple-width: $size-dimple-height;
-$size-dimple-top: $size-height/2/2;
+$size-dimple-top: calc($size-height / 2 / 2);
 $size-dimple-left: $size-height + $size-toggle-border-radius -
   $size-dimple-width;
 $size-dimple-big-increase: 2 * $size-space;
@@ -56,10 +57,23 @@ $size-dimple-small-move-bottom: $size-dimple-width + $size-dimple-big-increase;
 $size-star-height: $size-toggle-border-width;
 $size-star-width: $size-star-height;
 $size-star-left: $size-toggle-border-radius;
-$size-star-top-increase: $size-toggle-border-radius / 2;
+$size-star-top-increase: calc($size-toggle-border-radius / 2);
 $size-star-up-top: -$size-star-top-increase;
 $size-star-down-top: $size-star-top-increase;
 $size-star-down-left: -$size-star-top-increase;
+
+$animation-sun-moon-width: $size-sun-width;
+$animation-60-width: calc(
+  $size-width/2 + ($size-sun-border-width + $size-space) * 2
+);
+
+$animation-sun-position-left: $size-sun-border-width - $size-space;
+$animation-moon-position-left: calc(
+  $size-width/2 + $size-sun-border-width - $size-space
+);
+
+$animation-reverse-left: $animation-moon-position-left -
+  ($animation-60-width - $animation-sun-moon-width);
 
 //background of toggle
 .toggle--label {
@@ -177,16 +191,6 @@ $size-star-down-left: -$size-star-top-increase;
   top: $size-star-down-top;
 }
 // end stars
-
-$animation-sun-moon-width: $size-sun-width;
-$animation-60-width: $size-width/2 + ($size-sun-border-width + $size-space) * 2;
-
-$animation-sun-position-left: $size-sun-border-width - $size-space;
-$animation-moon-position-left: $size-width/2 + $size-sun-border-width -
-  $size-space;
-
-$animation-reverse-left: $animation-moon-position-left -
-  ($animation-60-width - $animation-sun-moon-width);
 
 @keyframes reverse {
   0% {
