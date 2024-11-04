@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-.bg-lighter {
+html[data-theme='gruvbox'] .hero {
   background-color: #3c3836;
+}
+
+html[data-theme='bumblebee'] .hero {
+  @apply bg-base-300;
 }
