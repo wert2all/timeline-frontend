@@ -4,6 +4,20 @@
 @tailwind components;
 @tailwind utilities;
 
+.btn.logo,
+.logo {
+  transition: 1s ease-out all;
+
+  opacity: 1;
+  color: white;
+  border-color: oklch(0.621735 0.170672 45.8116);
+  background-color: oklch(0.621735 0.170672 45.8116);
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
 html.dark .hero {
   background-color: #3c3836;
 }
