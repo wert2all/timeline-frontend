@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.14](https://github.com/wert2all/timeline-frontend/compare/v0.0.13...v0.0.14) (2024-11-04)
+
+### Features
+
+- add feature flag component and disable editing ([39ff04d](https://github.com/wert2all/timeline-frontend/commit/39ff04df30757547f4516274e1c86ca6f9f211a5))
+- add nigate to feature flag component ([0f7b04f](https://github.com/wert2all/timeline-frontend/commit/0f7b04fbda357e371390bd1b12a353ad0ef824a3))
+- add theme switcher ([39e254f](https://github.com/wert2all/timeline-frontend/commit/39e254fa412c00a3706469e81e6a97741a6c2bd3))
+- add theme switcher to page ([93d9bde](https://github.com/wert2all/timeline-frontend/commit/93d9bdefdb208bdfe5066785fb96d5f1bbd2485c))
+- create a design of modal window by user control of features ([c50132b](https://github.com/wert2all/timeline-frontend/commit/c50132bb930b3180a2692dc877e44ec1c6513a2f))
+- create action for saving features for user ([a24230d](https://github.com/wert2all/timeline-frontend/commit/a24230dec165cef7e0bb4895ce99d89edf2898f2))
+- create dropdown user menu on header ([dcd5e4d](https://github.com/wert2all/timeline-frontend/commit/dcd5e4d99c9e2c7b668d9f4219673a3d1af9a3c2))
+
+### Bug Fixes
+
+- disable eslint for project ([7472820](https://github.com/wert2all/timeline-frontend/commit/7472820c728f3aecfc687db30be80944920b6faf))
+- fix aouth on firefox (remove checking is skipped) ([7414a84](https://github.com/wert2all/timeline-frontend/commit/7414a84f5fbe77af139701de390f83b5e559f0d8))
+- fix dark/light theme ([0ec9186](https://github.com/wert2all/timeline-frontend/commit/0ec91868cc24ea69deba70c94b33f46c08bcb338))
+- fix hero ([ce51636](https://github.com/wert2all/timeline-frontend/commit/ce51636ee7c987080398fb982eb6fa9c292c2c5a))
+- fix logo color ([dcb35fa](https://github.com/wert2all/timeline-frontend/commit/dcb35fa70f2339dcd51532d37cea2612c90bae31))
+- fix showing logout button ([39609d0](https://github.com/wert2all/timeline-frontend/commit/39609d0552d1fed46abdb3f7666a42cc1a2b71ea))
+- fix theme switcher position ([2edd7b6](https://github.com/wert2all/timeline-frontend/commit/2edd7b611ba6b4bea8b0182601739aba86b9d856))
+- remove sass deprications ([bd7b178](https://github.com/wert2all/timeline-frontend/commit/bd7b178a838b6c52e29d437d5ed1a2f4d898c707))
+- remove youtube component ([d59649c](https://github.com/wert2all/timeline-frontend/commit/d59649cec452ed05e14d9cb1f4fc6463d8112fe4))
+- show features after click on dropdown menu ([a2230ec](https://github.com/wert2all/timeline-frontend/commit/a2230ecc1a8e97efafd63bcfccb1d6a2c59fe731))
+- sorting features on user list ([e3e1021](https://github.com/wert2all/timeline-frontend/commit/e3e1021cfc15496c0645b8cc4e7400b2c5d6869c))
+- update light theme ([0388f5c](https://github.com/wert2all/timeline-frontend/commit/0388f5c71621a92822575c3ed1095cf834636884))
+
 ## [0.0.13](https://github.com/wert2all/timeline-frontend/compare/v0.0.12...v0.0.13) (2024-11-01)
 
 ### Features
