@@ -4,10 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html[data-theme='gruvbox'] .hero {
+html.dark .hero {
   background-color: #3c3836;
 }
 
-html[data-theme='bumblebee'] .hero {
+html.light .hero {
   @apply bg-base-300;
 }
