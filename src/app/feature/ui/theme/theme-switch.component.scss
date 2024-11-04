@@ -1,0 +1,217 @@
+$blue-color: #96dcee;
+$blue-border: #72cce3;
+$yellow-background: #fffaa8;
+$yellow-border: #f5eb71;
+$white: #fff;
+$indigo-border: #5d6baa;
+$indigo-color: #6b7abb;
+$gray-border: #e8e8ea;
+$gray-dots: #e8e8ea;
+
+$size-height: 30px;
+$size-default-border-with: 1px;
+$size-space: 1px;
+$animation-durtation: 0.3s;
+
+$animation-durtation-sunny-clouds: $animation-durtation / 2;
+
+$size-width: $size-height * 2;
+
+$size-toggle-border-width: $size-default-border-with;
+$size-toggle-border-radius: $size-height/2;
+
+$size-sun-border-width: $size-default-border-with;
+$size-sun-height: $size-height - 2 * $size-toggle-border-width - 2 *
+  $size-sun-border-width + $size-space * 2;
+$size-sun-width: $size-sun-height;
+$size-sun-top-position: $size-sun-border-width - $size-space;
+$size-sun-left-position: $size-sun-top-position;
+$size-sun-border-radius: $size-sun-height;
+
+$size-cloud-height: $size-toggle-border-width;
+$size-cloud-border-radius: $size-cloud-height;
+$size-cloud-small-width: $size-cloud-height * 2;
+$size-cloud-small-left-position: ($size-toggle-border-radius + $size-width/2) -
+  $size-cloud-small-width;
+$size-cloud-small-top-position: $size-height/2 - $size-cloud-height;
+$size-cloud-big-width: $size-cloud-small-width * 4;
+$size-cloud-big-first-top-position: -$size-cloud-height;
+$size-cloud-big-first-left-position: -($size-cloud-small-width * 2);
+$size-cloud-big-second-top-position: $size-cloud-height;
+$size-cloud-big-second-left-position: -$size-cloud-small-width;
+
+$size-dimple-height: $size-toggle-border-width * 2;
+$size-dimple-width: $size-dimple-height;
+$size-dimple-top: $size-height/2/2;
+$size-dimple-left: $size-height + $size-toggle-border-radius -
+  $size-dimple-width;
+$size-dimple-big-increase: 2 * $size-space;
+$size-dimple-big-move-left: -($size-dimple-width + $size-dimple-big-increase +
+      $size-space);
+$size-dimple-small-increase: 0;
+$size-dimple-small-move-left: -($size-dimple-width + $size-dimple-big-increase) *
+  2;
+$size-dimple-small-move-bottom: $size-dimple-width + $size-dimple-big-increase;
+
+$size-star-height: $size-toggle-border-width;
+$size-star-width: $size-star-height;
+$size-star-left: $size-toggle-border-radius;
+$size-star-top-increase: $size-toggle-border-radius / 2;
+$size-star-up-top: -$size-star-top-increase;
+$size-star-down-top: $size-star-top-increase;
+$size-star-down-left: -$size-star-top-increase;
+
+//background of toggle
+.toggle--label {
+  width: $size-width;
+  height: $size-height;
+  background: $blue-color;
+  border-radius: $size-toggle-border-radius;
+  border: $size-toggle-border-width solid $blue-border;
+  transition: all $animation-durtation ease-in;
+}
+
+//sun icon
+.toggle--label:before {
+  animation-name: reverse;
+  animation-duration: $animation-durtation;
+  animation-fill-mode: forwards;
+  transition: all $animation-durtation ease-in;
+  content: '';
+  width: $size-sun-width;
+  height: $size-sun-height;
+  border: $size-sun-border-width solid $yellow-border;
+  top: $size-sun-top-position;
+  left: $size-sun-left-position;
+  position: absolute;
+  border-radius: $size-sun-border-radius;
+  background: $yellow-background;
+}
+
+// sunny clouds
+.toggle--label-background {
+  width: $size-cloud-small-width;
+  height: $size-cloud-height;
+  border-radius: $size-cloud-border-radius;
+  position: relative;
+  background: $white;
+  left: $size-cloud-small-left-position;
+  top: $size-cloud-small-top-position;
+  transition: all $animation-durtation-sunny-clouds ease-in;
+}
+
+.toggle--label-background:before {
+  content: '';
+  position: absolute;
+  top: $size-cloud-big-first-top-position;
+  width: $size-cloud-big-width;
+  height: $size-cloud-height;
+  border-radius: $size-cloud-border-radius;
+  background: $white;
+  left: $size-cloud-big-first-left-position;
+  transition: all $animation-durtation ease-in;
+}
+.toggle--label-background:after {
+  content: '';
+  position: absolute;
+  top: $size-cloud-big-second-top-position;
+  width: $size-cloud-big-width;
+  height: $size-cloud-height;
+  border-radius: $size-cloud-border-radius;
+  background: $white;
+  left: $size-cloud-big-second-left-position;
+  transition: all 150ms ease-in;
+}
+//end sunny clouds
+
+.toggle--checkbox:checked + .toggle--label {
+  background: $indigo-color;
+  border-color: $indigo-border;
+}
+
+//moon
+.toggle--checkbox:checked + .toggle--label:before {
+  background: $white;
+  border-color: $gray-border;
+  animation-name: switch;
+  animation-duration: $animation-durtation;
+  animation-fill-mode: forwards;
+}
+// dimples of moon
+.toggle--label:after {
+  transition-delay: 0ms;
+  transition: all $animation-durtation ease-in;
+  position: absolute;
+  content: '';
+  box-shadow:
+    $gray-dots $size-dimple-big-move-left 0 0 $size-dimple-big-increase,
+    $gray-dots $size-dimple-small-move-left $size-dimple-small-move-bottom 0
+      $size-dimple-small-increase;
+  left: $size-dimple-left;
+  top: $size-dimple-top;
+  width: $size-dimple-width;
+  height: $size-dimple-height;
+  background: transparent;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.toggle--checkbox:checked + .toggle--label:after {
+  transition-delay: $animation-durtation;
+  opacity: 1;
+}
+// stars
+.toggle--checkbox:checked + .toggle--label .toggle--label-background {
+  left: $size-star-left;
+  width: $size-star-width;
+}
+.toggle--checkbox:checked + .toggle--label .toggle--label-background:before {
+  width: $size-star-width;
+  height: $size-star-height;
+  top: $size-star-up-top;
+}
+.toggle--checkbox:checked + .toggle--label .toggle--label-background:after {
+  width: $size-star-width;
+  height: $size-star-height;
+  left: $size-star-down-left;
+  top: $size-star-down-top;
+}
+// end stars
+
+$animation-sun-moon-width: $size-sun-width;
+$animation-60-width: $size-width/2 + ($size-sun-border-width + $size-space) * 2;
+
+$animation-sun-position-left: $size-sun-border-width - $size-space;
+$animation-moon-position-left: $size-width/2 + $size-sun-border-width -
+  $size-space;
+
+$animation-reverse-left: $animation-moon-position-left -
+  ($animation-60-width - $animation-sun-moon-width);
+
+@keyframes reverse {
+  0% {
+    left: $animation-moon-position-left;
+    width: $animation-sun-moon-width;
+  }
+  60% {
+    left: $animation-reverse-left;
+    width: $animation-60-width;
+  }
+  100% {
+    left: $animation-sun-position-left;
+  }
+}
+
+@keyframes switch {
+  0% {
+    left: $animation-sun-position-left;
+  }
+  60% {
+    left: $animation-sun-position-left;
+    width: $animation-60-width;
+  }
+  100% {
+    left: $animation-moon-position-left;
+    width: $animation-sun-moon-width;
+  }
+}

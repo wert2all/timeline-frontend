@@ -34,6 +34,7 @@ import { Store } from '@ngrx/store';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
+import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -53,6 +54,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     HeroComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
+    ThemeSwitchComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -137,6 +139,11 @@ export class DevelopPageComponent implements OnInit {
         uuid: 'TimelineEventMenuComponent',
         link: '/develop#TimelineEventMenuComponent',
       },
+      {
+        title: 'Theme switcher',
+        uuid: 'ThemeSwitchComponent',
+        link: '/develop#ThemeSwitchComponent',
+      },
     ],
   });
 
@@ -144,9 +151,5 @@ export class DevelopPageComponent implements OnInit {
     this.store.dispatch(
       TableOfContentsActions.setTableOfContents(this.tableOfContent())
     );
-  }
-
-  onScroll() {
-    console.log('scroll');
   }
 }

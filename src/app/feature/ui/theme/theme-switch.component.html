@@ -1,0 +1,10 @@
+<input
+  type="checkbox"
+  id="toggle_theme"
+  class="toggle--checkbox hidden"
+  [checked]="isDark ? 'checked' : null"
+  (change)="themeService.toggleTheme()" />
+
+<label for="toggle_theme" class="toggle--label cursor-pointer flex relative">
+  <span class="toggle--label-background"></span>
+</label>
