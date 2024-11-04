@@ -20,7 +20,7 @@ const FEATURE_FLAGS = {
   dark_light_mode: {
     name: 'Dark/Light mode',
     description: 'Toggle between dark and light mode',
-    canShow: () => false,
+    canShow: () => true,
     stage: FeatureStage.development,
   },
   edit_event: {

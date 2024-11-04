@@ -54,6 +54,9 @@ export class ThemeService {
       this.#htmlElement.attributes.getNamedItem('data-theme')?.value !==
       this.themeSignal()
     ) {
+      this.#htmlElement.classList.remove(this.isDark() ? 'light' : 'dark');
+      this.#htmlElement.classList.add(this.isDark() ? 'dark' : 'light');
+
       this.#htmlElement.setAttribute('data-theme', this.themeSignal());
     }
     localStorage.setItem(storageKey, this.themeSignal());
