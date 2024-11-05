@@ -32,34 +32,18 @@ export class GoogleOuthService {
     use_fedcm_for_prompt: true,
   };
 
-  // private onNotification = (
-  //   notification: google.accounts.id.PromptMomentNotification
-  // ) => {
-  //   if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-  //     this.listeners.onNotDisplayed();
-  //   }
-  // };
+  private onNotification = (
+    notification: google.accounts.id.PromptMomentNotification
+  ) => {
+    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+      this.listeners.onNotDisplayed();
+    }
+  };
   private listeners: Listeners = defaultListeners;
 
   login(listeners: Listeners) {
-    document
-      .hasStorageAccess()
-      .then(hasAccess => {
-        if (!hasAccess) {
-          console.log('no access - requesting access');
-          document.requestStorageAccess();
-        }
-      })
-      .then(() => {
-        document.hasStorageAccess().then(hasAccess => {
-          console.log('hasAccess:', hasAccess);
-          this.initialize(listeners);
-          google.accounts.id.prompt();
-        });
-      })
-      .catch(err => {
-        console.log('hasStorageAccess() failed', err);
-      });
+    this.initialize(listeners);
+    google.accounts.id.prompt(this.onNotification);
   }
   private initialize(listeners: Listeners) {
     if (!this.isInitialized) {
