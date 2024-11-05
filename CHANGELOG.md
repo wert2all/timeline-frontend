@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.15](https://github.com/wert2all/timeline-frontend/compare/v0.0.14...v0.0.15) (2024-11-05)
+
+### Bug Fixes
+
+- add dump for login issues ([e960722](https://github.com/wert2all/timeline-frontend/commit/e96072233dd5093d7562aa985247cf3732132cf4))
+
 ## [0.0.14](https://github.com/wert2all/timeline-frontend/compare/v0.0.13...v0.0.14) (2024-11-04)
 
 ### Features
