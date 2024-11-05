@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.17](https://github.com/wert2all/timeline-frontend/compare/v0.0.16...v0.0.17) (2024-11-05)
+
+### Bug Fixes
+
+- add debug info again ([f24a1ea](https://github.com/wert2all/timeline-frontend/commit/f24a1ea7fe619ff49545678118de1060ed7ae473))
+- update google client id for production ([592d0e8](https://github.com/wert2all/timeline-frontend/commit/592d0e8d328fa15c580403d009cae0a492efcd55))
+
 ## [0.0.16](https://github.com/wert2all/timeline-frontend/compare/v0.0.15...v0.0.16) (2024-11-05)
 
 ### Bug Fixes
