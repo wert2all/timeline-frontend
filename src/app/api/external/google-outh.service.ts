@@ -35,11 +35,6 @@ export class GoogleOuthService {
   private onNotification = (
     notification: google.accounts.id.PromptMomentNotification
   ) => {
-    console.log('display: ', notification.getNotDisplayedReason());
-    console.log('moment: ', notification.getMomentType());
-    console.log('dissmis: ', notification.getDismissedReason());
-    console.log('skip: ', notification.getSkippedReason());
-
     if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
       this.listeners.onNotDisplayed();
     }
