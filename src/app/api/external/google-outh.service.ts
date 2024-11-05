@@ -42,10 +42,25 @@ export class GoogleOuthService {
   private listeners: Listeners = defaultListeners;
 
   login(listeners: Listeners) {
-    this.initialize(listeners);
-    google.accounts.id.prompt();
+    document
+      .hasStorageAccess()
+      .then(hasAccess => {
+        if (!hasAccess) {
+          console.log('no access - requesting access');
+          document.requestStorageAccess();
+        }
+      })
+      .then(() => {
+        document.hasStorageAccess().then(hasAccess => {
+          console.log('hasAccess:', hasAccess);
+          this.initialize(listeners);
+          google.accounts.id.prompt();
+        });
+      })
+      .catch(err => {
+        console.log('hasStorageAccess() failed', err);
+      });
   }
-
   private initialize(listeners: Listeners) {
     if (!this.isInitialized) {
       google.accounts.id.initialize(this.googleConfiguration);
