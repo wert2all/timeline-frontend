@@ -34,13 +34,11 @@
           (confirmAction)="confirmDelete()"
           (dismissAction)="dismissDelete()"
           confirmMessage="Are you shure you want to delete this event?"></app-modal-confirm>
-
-        @if (!activeTimeline()) {
-          <app-create-timeline-button
-            [isAuthorized]="true"
-            [isLoading]="isLoading()"
-            (addTimeline)="addTimeline($event)" />
-        }
+      } @else {
+        <app-create-timeline-button
+          [isAuthorized]="true"
+          [isLoading]="isLoading()"
+          (addTimeline)="addTimeline($event)" />
       }
     }
   </div>
