@@ -49,21 +49,30 @@ export class MyPageComponent {
   );
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
 
-  readonly isAuthLoading = this.store.selectSignal(authFeature.isLoading);
-  readonly isTimelineLoading = this.store.selectSignal(
+  protected readonly isAuthLoading = this.store.selectSignal(
+    authFeature.isLoading
+  );
+  protected readonly isTimelineLoading = this.store.selectSignal(
     timelineFeature.isLoading
   );
 
-  readonly activeTimeline = this.store.selectSignal(
+  protected readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
-  readonly showTipForAddEvent = this.store.selectSignal(
+
+  protected readonly isLoading = computed(() => {
+    return this.isAuthLoading() || this.isTimelineLoading();
+  });
+
+  protected readonly showTipForAddEvent = this.store.selectSignal(
     timelineFeature.selectNewTimelineAdded
   );
-  readonly canAddNewEvent = computed(() => !this.isEditingEvent());
-  readonly timeline = this.store.selectSignal(timelineFeature.selectViewEvents);
+  protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
+  protected readonly timeline = this.store.selectSignal(
+    timelineFeature.selectViewEvents
+  );
 
-  readonly shouldDeleteEvent = signal<number>(0);
+  protected readonly shouldDeleteEvent = signal<number>(0);
 
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEvent() > 0
@@ -100,10 +109,6 @@ export class MyPageComponent {
   dismissDelete() {
     this.shouldDeleteEvent.set(0);
   }
-
-  isLoading = computed(() => {
-    return this.isAuthLoading() || this.isTimelineLoading();
-  });
 
   addTimeline(name: string | null) {
     this.store.dispatch(TimelineActions.addTimeline({ name: name }));
