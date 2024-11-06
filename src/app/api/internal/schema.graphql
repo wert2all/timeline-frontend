@@ -6,6 +6,11 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
+type Account {
+  avatar: String
+  name: String
+}
+
 input AddTimeline {
   name: String
 }
@@ -80,6 +85,7 @@ enum TimelineType {
 }
 
 type User {
+  accounts: [Account]!
   avatar: String
   email: String
   id: Int!

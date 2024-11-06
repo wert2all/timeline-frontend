@@ -94,7 +94,10 @@ export type User = {
   email?: string | null;
   avatar?: string | null;
   timelines: Array<ShortTimeline>;
+  accounts: Array<Account | null>;
 };
+
+export type Account = { name?: string | null; avatar?: string | null };
 
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
@@ -148,6 +151,12 @@ export const ShortTimeline = gql`
     name
   }
 `;
+export const Account = gql`
+  fragment Account on Account {
+    name
+    avatar
+  }
+`;
 export const User = gql`
   fragment User on User {
     id
@@ -157,8 +166,12 @@ export const User = gql`
     timelines {
       ...ShortTimeline
     }
+    accounts {
+      ...Account
+    }
   }
   ${ShortTimeline}
+  ${Account}
 `;
 export const AuthorizeDocument = gql`
   mutation Authorize {
