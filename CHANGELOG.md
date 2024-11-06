@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.20](https://github.com/wert2all/timeline-frontend/compare/v0.0.19...v0.0.20) (2024-11-06)
+
+### Bug Fixes
+
+- fix showing create timeline button ([c9e6b82](https://github.com/wert2all/timeline-frontend/commit/c9e6b82dd8ae3bc4e41a0cc129419db33c49119c))
+
 ## [0.0.19](https://github.com/wert2all/timeline-frontend/compare/v0.0.18...v0.0.19) (2024-11-05)
 
 ### Bug Fixes
