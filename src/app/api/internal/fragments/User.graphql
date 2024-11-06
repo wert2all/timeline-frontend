@@ -11,4 +11,12 @@ fragment User on User {
   timelines {
     ...ShortTimeline
   }
+  accounts {
+    ...Account
+  }
+}
+
+fragment Account on Account {
+  name
+  avatar
 }
