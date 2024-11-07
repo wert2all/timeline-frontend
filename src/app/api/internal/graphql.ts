@@ -91,7 +91,7 @@ export type ShortTimeline = { id: number; name?: string | null };
 export type User = {
   id: number;
   name?: string | null;
-  email?: string | null;
+  email: string;
   avatar?: string | null;
   timelines: Array<ShortTimeline>;
   accounts: Array<Account | null>;
