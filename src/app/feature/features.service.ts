@@ -47,6 +47,12 @@ const FEATURE_FLAGS = {
     canShow: () => false,
     stage: FeatureStage.development,
   },
+  show_user_accounts: {
+    name: 'Accounts',
+    description: 'Show user accounts',
+    canShow: () => false,
+    stage: FeatureStage.started,
+  },
 } as const satisfies Record<string, Feature>;
 
 @Injectable({

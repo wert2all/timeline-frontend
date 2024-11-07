@@ -72,9 +72,40 @@
 
     <div class="py-4" id="ThemeSwitchComponent">
       <h2 class="text-2xl">ThemeSwitchComponent</h2>
-
       <div class="mt-4 grid w-full grid-cols-1 gap-4">
         <app-theme-switch />
+      </div>
+    </div>
+
+    <div class="py-4" id="MenuAccountsComponent">
+      <h2 class="text-2xl">MenuAccountsComponent</h2>
+      <div class="mt-4 grid w-full grid-cols-3 gap-4">
+        <div>
+          <h2 class="text-xl">One account</h2>
+          <app-menu-accounts [currentAccount]="currentAccountWithAvatar" />
+        </div>
+        <div>
+          <h2 class="text-xl">Many accounts</h2>
+
+          <app-menu-accounts
+            [accounts]="userAccounts"
+            [currentAccount]="currentAccountWithAvatar" />
+        </div>
+        <div>
+          <h2 class="text-xl">One account without avatar</h2>
+          <app-menu-accounts [currentAccount]="currentAccountWithoutAvatar" />
+        </div>
+        <div>
+          <h2 class="text-xl">Many accounts without avatar</h2>
+
+          <app-menu-accounts
+            [accounts]="userAccounts"
+            [currentAccount]="currentAccountWithoutAvatar" />
+        </div>
+        <div>
+          <h2 class="text-xl">Nullable current account</h2>
+          <app-menu-accounts [currentAccount]="null" />
+        </div>
       </div>
     </div>
   </div>

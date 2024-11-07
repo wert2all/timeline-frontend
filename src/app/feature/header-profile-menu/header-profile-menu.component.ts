@@ -15,12 +15,14 @@ import {
   saxFlag2Outline,
   saxGhostOutline,
   saxLogout1Outline,
+  saxProfile2userOutline,
   saxSetting2Outline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { authFeature } from '../../store/auth/auth.reducer';
 import { FeatureFlagComponent } from '../flag/feature-flag/feature-flag.component';
+import { MenuAccountsComponent } from '../user/accounts/menu-accounts/menu-accounts.component';
 import { ShowUserFeaturesComponent } from '../user/features/show-user-features/show-user-features.component';
 
 @Component({
@@ -31,6 +33,7 @@ import { ShowUserFeaturesComponent } from '../user/features/show-user-features/s
     NgIconComponent,
     FeatureFlagComponent,
     ShowUserFeaturesComponent,
+    MenuAccountsComponent,
   ],
   templateUrl: './header-profile-menu.component.html',
   styleUrls: ['./header-profile-menu.component.scss'],
@@ -43,6 +46,7 @@ import { ShowUserFeaturesComponent } from '../user/features/show-user-features/s
       saxCopyOutline,
       saxGhostOutline,
       saxCopySuccessOutline,
+      saxProfile2userOutline,
     }),
   ],
 })
@@ -63,6 +67,8 @@ export class HeaderProfileMenuComponent {
   protected readonly copyIcon = computed(() =>
     this.isCopied() ? 'saxCopySuccessOutline' : 'saxCopyOutline'
   );
+  //TODO
+  protected readonly currentAccount = signal(null);
 
   logout() {
     this.store.dispatch(AuthActions.logout());

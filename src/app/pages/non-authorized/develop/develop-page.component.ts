@@ -35,6 +35,7 @@ import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-f
 import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
+import { MenuAccountsComponent } from '../../../feature/user/accounts/menu-accounts/menu-accounts.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -55,6 +56,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     DevelopContentComponent,
     TableOfContentsContainerComponent,
     ThemeSwitchComponent,
+    MenuAccountsComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -107,6 +109,25 @@ export class DevelopPageComponent implements OnInit {
     { ...this.dumpEvent, loading: true, changeDirection: true },
   ]);
 
+  protected readonly currentAccountWithAvatar = {
+    uuid: '1',
+    name: 'John Doe',
+    firstLetter: 'J',
+    avatar:
+      'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
+  };
+
+  protected readonly currentAccountWithoutAvatar = {
+    uuid: '2',
+    name: 'John Doe',
+    firstLetter: 'J',
+  };
+
+  protected readonly userAccounts = [
+    this.currentAccountWithAvatar,
+    this.currentAccountWithoutAvatar,
+  ];
+
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
       {
@@ -143,6 +164,11 @@ export class DevelopPageComponent implements OnInit {
         title: 'Theme switcher',
         uuid: 'ThemeSwitchComponent',
         link: '/develop#ThemeSwitchComponent',
+      },
+      {
+        title: 'User accounts',
+        uuid: 'MenuAccountsComponent',
+        link: '/develop#MenuAccountsComponent',
       },
     ],
   });
