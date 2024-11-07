@@ -5,7 +5,7 @@ import {
   saxArrowRightOutline,
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../../app.types';
-import { CurrentAccountComponent } from '../current-account/current-account.component';
+import { MenuAccountComponent } from '../menu-account/menu-account.component';
 
 type Account = Unique & {
   name: string;
@@ -16,7 +16,7 @@ type Account = Unique & {
   selector: 'app-menu-accounts',
   standalone: true,
   templateUrl: './menu-accounts.component.html',
-  imports: [CurrentAccountComponent, NgIconComponent],
+  imports: [MenuAccountsComponent, NgIconComponent, MenuAccountComponent],
   viewProviders: [provideIcons({ saxArrowLeftOutline, saxArrowRightOutline })],
 })
 export class MenuAccountsComponent {

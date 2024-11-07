@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-current-account',
+  selector: 'app-menu-account',
   standalone: true,
-  templateUrl: './current-account.component.html',
+  templateUrl: './menu-account.component.html',
 })
-export class CurrentAccountComponent {
+export class MenuAccountComponent {
   name = input.required<string>();
   firstLetter = input.required<string>();
 
