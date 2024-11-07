@@ -87,7 +87,7 @@ enum TimelineType {
 type User {
   accounts: [Account]!
   avatar: String
-  email: String
+  email: String!
   id: Int!
   isNew: Boolean!
   name: String
