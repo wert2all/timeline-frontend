@@ -20,19 +20,19 @@ const FEATURE_FLAGS = {
   dark_light_mode: {
     name: 'Dark/Light mode',
     description: 'Toggle between dark and light mode',
-    canShow: () => false,
+    canShow: () => true,
     stage: FeatureStage.development,
   },
   edit_event: {
     name: 'Edit event',
     description: 'Update exist event',
-    canShow: () => false,
+    canShow: () => true,
     stage: FeatureStage.testing,
   },
   profile_dropdown: {
     name: 'Dropdown menu',
     description: 'Show user dropdown menu',
-    canShow: () => false,
+    canShow: () => true,
     stage: FeatureStage.development,
   },
   user_settings: {
@@ -50,7 +50,7 @@ const FEATURE_FLAGS = {
   show_user_accounts: {
     name: 'Accounts',
     description: 'Show user accounts',
-    canShow: () => false,
+    canShow: () => true,
     stage: FeatureStage.started,
   },
 } as const satisfies Record<string, Feature>;
