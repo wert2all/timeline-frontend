@@ -2,6 +2,7 @@ import { Loadable, User } from '../../app.types';
 
 export type AuthorizedUser = {
   uuid: number;
+  email: string;
   name: string | null;
   avatar: string;
 };
