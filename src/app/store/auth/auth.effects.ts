@@ -129,6 +129,13 @@ const setAuthorized = (action$ = inject(Actions)) =>
           email: user.email,
           name: user.name || null,
           avatar: user.avatar || '/assets/user.png',
+          accounts:
+            user.accounts
+              .filter(account => !!account)
+              .map(account => ({
+                avatar: account.avatar || undefined,
+                name: account.name || undefined,
+              })) || [],
         },
       })
     )
