@@ -1,0 +1,60 @@
+@if (accounts().length <= 1) {
+  @if (currentAccount(); as user) {
+    <app-current-account
+      [name]="user.name"
+      [avatar]="user.avatar || null"
+      [firstLetter]="user.firstLetter" />
+  }
+}
+
+@if (accounts().length > 0) {
+  <ul
+    class="rounded-xl p-2 transition-all duration-500"
+    [class.bg-accent]="isAccountChange() === true">
+    <li
+      tabindex="0"
+      class="flex w-full cursor-pointer place-items-center p-2 hover:rounded hover:bg-success"
+      (click)="changeAccountClick()"
+      (keyup)="changeAccountClick()">
+      <div class="flex-1">
+        <div
+          class="flex place-items-center"
+          [class.hidden]="isAccountChange() !== true">
+          <ng-icon name="saxArrowLeftOutline" size="28" class="me-2"></ng-icon>
+          Accounts:
+        </div>
+        <div [class.hidden]="isAccountChange() === true">Change account</div>
+      </div>
+      <ng-icon
+        [class.hidden]="isAccountChange() === true"
+        name="saxArrowRightOutline"
+        size="28"
+        class="flex-none"></ng-icon>
+    </li>
+    @if (isAccountChange() === true) {
+      @if (currentAccount(); as user) {
+        <li>
+          Current account:
+          <app-current-account
+            [name]="user.name"
+            [avatar]="user.avatar || null"
+            [firstLetter]="user.firstLetter" />
+        </li>
+        <li><div class="divider m-0"></div></li>
+      }
+
+      @for (account of accounts(); track $index) {
+        <li
+          tabindex="0"
+          class="w-full cursor-pointer ps-2 hover:rounded hover:bg-success"
+          (click)="selectAccountClick(account)"
+          (keyup)="selectAccountClick(account)">
+          <app-current-account
+            [name]="account.name"
+            [avatar]="account.avatar || null"
+            [firstLetter]="account.firstLetter" />
+        </li>
+      }
+    }
+  </ul>
+}
