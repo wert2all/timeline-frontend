@@ -19,12 +19,14 @@ import {
   saxSetting2Outline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { Unique } from '../../app.types';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { authFeature } from '../../store/auth/auth.reducer';
 import { Account } from '../../store/auth/auth.types';
 import { FeatureFlagComponent } from '../flag/feature-flag/feature-flag.component';
-import { MenuAccountsComponent } from '../user/accounts/menu-accounts/menu-accounts.component';
+import {
+  AccountView,
+  MenuAccountsComponent,
+} from '../user/accounts/menu-accounts/menu-accounts.component';
 import { ShowUserFeaturesComponent } from '../user/features/show-user-features/show-user-features.component';
 
 @Component({
@@ -73,19 +75,17 @@ export class HeaderProfileMenuComponent {
     this.isCopied() ? 'saxCopySuccessOutline' : 'saxCopyOutline'
   );
 
-  protected readonly currentAccount = computed(() => {
-    return this.toViewAccount(this.activeAccount());
-  });
+  protected readonly currentAccount = computed(() =>
+    this.toAccountView(this.activeAccount())
+  );
 
-  protected readonly userAccounts = computed(() =>
+  protected readonly userAccounts = computed<AccountView[]>(() =>
     (this.authorizedUser()?.accounts || [])
-      .map(acc => this.toViewAccount(acc))
+      .map(acc => this.toAccountView(acc))
       .filter(acc => !!acc)
   );
 
-  private toViewAccount(
-    account: Account | null
-  ): (Unique & { name: string; avatar?: string; firstLetter: string }) | null {
+  private toAccountView(account: Account | null): AccountView | null {
     return account
       ? {
           uuid: account.id.toString(),

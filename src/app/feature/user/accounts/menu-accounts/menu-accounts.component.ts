@@ -7,7 +7,7 @@ import {
 import { Unique } from '../../../../app.types';
 import { MenuAccountComponent } from '../menu-account/menu-account.component';
 
-type Account = Unique & {
+export type AccountView = Unique & {
   name: string;
   firstLetter: string;
   avatar?: string;
@@ -20,8 +20,8 @@ type Account = Unique & {
   viewProviders: [provideIcons({ saxArrowLeftOutline, saxArrowRightOutline })],
 })
 export class MenuAccountsComponent {
-  currentAccount = input.required<Account | null>();
-  accounts = input<Account[]>([]);
+  currentAccount = input.required<AccountView | null>();
+  accounts = input<AccountView[]>([]);
   isAccountChange = signal(false);
   selectAccount = output<Unique>();
 
@@ -29,7 +29,7 @@ export class MenuAccountsComponent {
     this.isAccountChange.set(!this.isAccountChange());
   }
 
-  selectAccountClick(account: Account) {
+  selectAccountClick(account: AccountView) {
     this.selectAccount.emit(account);
     this.changeAccountClick();
   }
