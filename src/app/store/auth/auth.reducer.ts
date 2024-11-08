@@ -46,7 +46,21 @@ export const authFeature = createFeature({
       ...state,
       loading: false,
       authorizedUser: user,
-    }))
+    })),
+
+    on(AuthActions.setOneExistAccountAsActive, (state): AuthState => {
+      let authUser = state.authorizedUser;
+      if (authUser) {
+        authUser = {
+          ...authUser,
+          accounts: authUser.accounts.map(acc => ({ ...acc, isActive: true })),
+        };
+      }
+      return {
+        ...state,
+        authorizedUser: authUser,
+      };
+    })
   ),
   extraSelectors: ({
     selectLoading,
