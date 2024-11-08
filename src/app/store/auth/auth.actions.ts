@@ -31,6 +31,9 @@ export const AuthActions = createActionGroup({
 
     'Select active account': props<{ accounts: Account[] }>(),
     'Set one exist account as active': emptyProps(),
+    'Show select acccount window': props<{ accounts: Account[] }>(),
     'Success select active account': props<{ account: Account }>(),
+
+    'Empty accounts': props<{ email: string }>(),
   },
 });

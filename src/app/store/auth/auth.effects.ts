@@ -255,6 +255,25 @@ const updateAccountFromStorage = (
     )
   );
 
+const dispatchSelectAccount = (
+  actions = inject(Actions),
+  store = inject(Store)
+) =>
+  actions.pipe(
+    ofType(AuthActions.selectActiveAccount),
+    concatLatestFrom(() => store.select(authFeature.selectAuthorizedUser)),
+    map(([{ accounts }, user]) => {
+      if (accounts.length === 0) {
+        return AuthActions.emptyAccounts({ email: user?.email || 'no_email' });
+      }
+      if (accounts.length !== 1) {
+        return AuthActions.showSelectAcccountWindow({ accounts: accounts });
+      } else {
+        return AuthActions.setOneExistAccountAsActive();
+      }
+    })
+  );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
   loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
@@ -282,6 +301,11 @@ export const authEffects = {
   dispatchSetAccount: createEffect(dispatchSetAccount, StoreDispatchEffect),
   updateAccountFromStorage: createEffect(
     updateAccountFromStorage,
+    StoreDispatchEffect
+  ),
+
+  dispatchSelectAccount: createEffect(
+    dispatchSelectAccount,
     StoreDispatchEffect
   ),
 };
