@@ -10,6 +10,7 @@ import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.com
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
+import { LegacyUserButtonComponent } from './legacy-user-button/legacy-user-button.component';
 import { CopyTokenComponent } from './top-menu/copy-token/copy-token.component';
 import { LoginButtonComponent } from './top-menu/login-button/login-button.component';
 import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.component';
@@ -30,6 +31,7 @@ import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.co
     FeatureFlagComponent,
     ShowUserFeaturesComponent,
     ThemeSwitchComponent,
+    LegacyUserButtonComponent,
   ],
 })
 export class HeaderComponent {

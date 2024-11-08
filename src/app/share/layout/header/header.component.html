@@ -30,7 +30,13 @@
       <app-copy-token [token]="token()" />
     </app-feature-flag>
 
-    <app-header-profile-menu />
+    <app-feature-flag feature="profile_dropdown" [nigate]="true">
+      <app-legacy-user-button />
+    </app-feature-flag>
+
+    <app-feature-flag feature="profile_dropdown">
+      <app-header-profile-menu />
+    </app-feature-flag>
 
     <app-feature-flag feature="profile_dropdown" [nigate]="true">
       <app-logout-button
