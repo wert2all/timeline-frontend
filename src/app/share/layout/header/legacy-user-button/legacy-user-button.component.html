@@ -1,0 +1,19 @@
+@if (authorizedUser(); as user) {
+  <div
+    tabindex="0"
+    role="button"
+    class="profile_button btn btn-ghost"
+    (click)="goToDashboard()"
+    (keyup)="goToDashboard()">
+    <div class="avatar">
+      @if (isLoading() === true) {
+        <span class="loading loading-spinner"></span>
+      } @else {
+        <div class="w-8 rounded">
+          <img [src]="user.avatar" [alt]="user.name" />
+        </div>
+      }
+    </div>
+    {{ user.name }}
+  </div>
+}
