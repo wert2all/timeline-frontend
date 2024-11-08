@@ -87,9 +87,9 @@ const loadUserAfterInit = (
         map(profile =>
           profile
             ? AuthActions.successLoadUserAfterInit({
-              token: token,
-              user: profile,
-            })
+                token: token,
+                user: profile,
+              })
             : AuthActions.coulndNotLoadUserAfterInit()
         ),
         catchError(() => of(AuthActions.coulndNotLoadUserAfterInit()))
@@ -249,8 +249,8 @@ const updateAccountFromStorage = (
     map(data =>
       data.exist
         ? AuthActions.successUpdateActiveAccountFromStorage({
-          account: data.exist,
-        })
+            account: data.exist,
+          })
         : AuthActions.selectActiveAccount({ accounts: data.accounts })
     )
   );

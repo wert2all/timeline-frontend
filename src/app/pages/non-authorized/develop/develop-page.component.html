@@ -82,7 +82,9 @@
       <div class="mt-4 grid w-full grid-cols-3 gap-4">
         <div>
           <h2 class="text-xl">One account</h2>
-          <app-menu-accounts [currentAccount]="currentAccountWithAvatar" />
+          <app-menu-accounts
+            [currentAccount]="currentAccountWithAvatar"
+            [accounts]="[currentAccountWithAvatar]" />
         </div>
         <div>
           <h2 class="text-xl">Many accounts</h2>
@@ -93,7 +95,9 @@
         </div>
         <div>
           <h2 class="text-xl">One account without avatar</h2>
-          <app-menu-accounts [currentAccount]="currentAccountWithoutAvatar" />
+          <app-menu-accounts
+            [currentAccount]="currentAccountWithoutAvatar"
+            [accounts]="[currentAccountWithoutAvatar]" />
         </div>
         <div>
           <h2 class="text-xl">Many accounts without avatar</h2>

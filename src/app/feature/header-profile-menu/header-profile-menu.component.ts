@@ -19,8 +19,10 @@ import {
   saxSetting2Outline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
+import { Unique } from '../../app.types';
 import { AuthActions } from '../../store/auth/auth.actions';
 import { authFeature } from '../../store/auth/auth.reducer';
+import { Account } from '../../store/auth/auth.types';
 import { FeatureFlagComponent } from '../flag/feature-flag/feature-flag.component';
 import { MenuAccountsComponent } from '../user/accounts/menu-accounts/menu-accounts.component';
 import { ShowUserFeaturesComponent } from '../user/features/show-user-features/show-user-features.component';
@@ -72,15 +74,28 @@ export class HeaderProfileMenuComponent {
   );
 
   protected readonly currentAccount = computed(() => {
-    const activeAccount = this.activeAccount();
-    return activeAccount
+    return this.toViewAccount(this.activeAccount());
+  });
+
+  protected readonly userAccounts = computed(() =>
+    (this.authorizedUser()?.accounts || [])
+      .map(acc => this.toViewAccount(acc))
+      .filter(acc => !!acc)
+  );
+
+  private toViewAccount(
+    account: Account | null
+  ): (Unique & { name: string; avatar?: string; firstLetter: string }) | null {
+    return account
       ? {
-          uuid: activeAccount.id.toString(),
-          name: activeAccount.name || 'John Doe',
-          firstLetter: activeAccount.name?.charAt(0).toUpperCase() || 'J',
+          uuid: account.id.toString(),
+          name: account.name || 'John Doe',
+          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+          avatar: account.avatar,
         }
       : null;
-  });
+  }
+
   logout() {
     this.store.dispatch(AuthActions.logout());
   }
