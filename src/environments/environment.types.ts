@@ -11,7 +11,12 @@ export type PreviewlyServiceEnvironment = {
   url: string;
 };
 
+export type SentryServiceEnvironment = {
+  dsn: string;
+};
+
 export type ServiceEnvironments = {
+  sentry: SentryServiceEnvironment;
   google: GoogleServiceEnvironment;
   previewly: PreviewlyServiceEnvironment;
 };
