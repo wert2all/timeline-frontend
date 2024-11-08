@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { User } from '../../api/internal/graphql';
+import { Account, User } from '../../api/internal/graphql';
 import { AuthorizedUser, GoogleUserInfo } from './auth.types';
 
 export const AuthActions = createActionGroup({
@@ -25,5 +25,11 @@ export const AuthActions = createActionGroup({
     'User email is not verified': emptyProps(),
 
     'Clean auth state': emptyProps(),
+
+    'Update active account from storage': props<{ accountId: string | null }>(),
+    'Success update active account from storage': props<{ account: Account }>(),
+
+    'Select active account': emptyProps(),
+    'Success select active account': props<{ account: Account }>(),
   },
 });

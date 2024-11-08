@@ -63,5 +63,10 @@ export const authFeature = createFeature({
       selectAuthorizedUser,
       (potential, authorized) => (authorized ? authorized : potential)
     ),
+    selectActiveAccount: createSelector(
+      selectAuthorizedUser,
+      authorized =>
+        authorized?.accounts.find(account => account.isActive) || null
+    ),
   }),
 });

@@ -97,7 +97,11 @@ export type User = {
   accounts: Array<Account | null>;
 };
 
-export type Account = { name?: string | null; avatar?: string | null };
+export type Account = {
+  id: number;
+  name?: string | null;
+  avatar?: string | null;
+};
 
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
@@ -153,6 +157,7 @@ export const ShortTimeline = gql`
 `;
 export const Account = gql`
   fragment Account on Account {
+    id
     name
     avatar
   }

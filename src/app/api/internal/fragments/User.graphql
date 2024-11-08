@@ -17,6 +17,7 @@ fragment User on User {
 }
 
 fragment Account on Account {
+  id
   name
   avatar
 }
