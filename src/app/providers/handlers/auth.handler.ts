@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { AuthTokenStorageService } from '../../store/auth/auth-token-storage.service';
+import { AuthStorageService } from '../../store/auth/auth-storage.service';
 
 export const handleAuthLink = (
-  tokenStorage = inject(AuthTokenStorageService)
+  tokenStorage = inject(AuthStorageService)
 ): ApolloLink =>
   setContext(() => ({
     headers: {

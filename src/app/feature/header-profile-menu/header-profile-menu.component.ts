@@ -54,6 +54,9 @@ export class HeaderProfileMenuComponent {
   private readonly router = inject(Router);
   private readonly store = inject(Store);
   private readonly clipboard: Clipboard = inject(Clipboard);
+  private readonly activeAccount = this.store.selectSignal(
+    authFeature.selectActiveAccount
+  );
 
   protected readonly isLoading = this.store.selectSignal(authFeature.isLoading);
   protected readonly authorizedUser = this.store.selectSignal(
@@ -67,9 +70,17 @@ export class HeaderProfileMenuComponent {
   protected readonly copyIcon = computed(() =>
     this.isCopied() ? 'saxCopySuccessOutline' : 'saxCopyOutline'
   );
-  //TODO
-  protected readonly currentAccount = signal(null);
 
+  protected readonly currentAccount = computed(() => {
+    const activeAccount = this.activeAccount();
+    return activeAccount
+      ? {
+          uuid: activeAccount.id.toString(),
+          name: activeAccount.name || 'John Doe',
+          firstLetter: activeAccount.name?.charAt(0).toUpperCase() || 'J',
+        }
+      : null;
+  });
   logout() {
     this.store.dispatch(AuthActions.logout());
   }

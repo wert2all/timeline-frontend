@@ -1,8 +1,9 @@
-import { Loadable, User } from '../../app.types';
+import { Iterable, Loadable, User } from '../../app.types';
 
-export type Account = {
+export type Account = Iterable & {
   name?: string;
   avatar?: string;
+  isActive?: boolean;
 };
 
 export type AuthorizedUser = {

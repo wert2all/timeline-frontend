@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthTokenStorageService {
+export class AuthStorageService {
   private readonly tokenKey = 'timeline_auth_token';
 
   getToken() {

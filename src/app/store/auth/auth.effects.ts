@@ -12,12 +12,12 @@ import { GoogleOuthService } from '../../api/external/google-outh.service';
 import { ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { NotificationStore } from '../notifications/notifications.store';
-import { AuthTokenStorageService } from './auth-token-storage.service';
+import { AuthStorageService } from './auth-storage.service';
 import { AuthActions } from './auth.actions';
 
 const initAuth = (
   actions$ = inject(Actions),
-  tokenService = inject(AuthTokenStorageService)
+  tokenService = inject(AuthStorageService)
 ) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
@@ -97,7 +97,7 @@ const loadUserAfterInit = (
 };
 const setToken = (
   action$ = inject(Actions),
-  tokenService = inject(AuthTokenStorageService),
+  tokenService = inject(AuthStorageService),
   api = inject(ApiClient)
 ) =>
   action$.pipe(
@@ -133,6 +133,7 @@ const setAuthorized = (action$ = inject(Actions)) =>
             user.accounts
               .filter(account => !!account)
               .map(account => ({
+                id: account.id,
                 avatar: account.avatar || undefined,
                 name: account.name || undefined,
               })) || [],
@@ -152,7 +153,7 @@ const redirectAfterLogin = (
 
 const authorized = (
   action$ = inject(Actions),
-  tokenService = inject(AuthTokenStorageService)
+  tokenService = inject(AuthStorageService)
 ) =>
   action$.pipe(
     ofType(AuthActions.authorized),
@@ -180,7 +181,7 @@ const apiException = (
 
 const cleanToken = (
   action$ = inject(Actions),
-  tokenService = inject(AuthTokenStorageService)
+  tokenService = inject(AuthStorageService)
 ) =>
   action$.pipe(
     ofType(
