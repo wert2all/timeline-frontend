@@ -10,6 +10,7 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { provideApollo } from './providers/apollo.provider';
+import { provideSentry } from './providers/sentry.provider';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
 import { previewEffects } from './store/preview/preview.effects';
@@ -26,6 +27,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
+    provideSentry(),
     provideApollo(),
     provideStore({
       [authFeature.name]: authFeature.reducer,
