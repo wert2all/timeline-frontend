@@ -15,42 +15,42 @@ export interface Feature {
   stage: FeatureStage;
   canShow(): boolean;
 }
-
+const isActive = false;
 const FEATURE_FLAGS = {
   dark_light_mode: {
     name: 'Dark/Light mode',
     description: 'Toggle between dark and light mode',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.development,
   },
   edit_event: {
     name: 'Edit event',
     description: 'Update exist event',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.testing,
   },
   profile_dropdown: {
     name: 'Dropdown menu',
     description: 'Show user dropdown menu',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.development,
   },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.started,
   },
   user_feature_flag: {
     name: 'Features',
     description: 'Change some features of application.',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.development,
   },
   show_user_accounts: {
     name: 'Accounts',
     description: 'Show user accounts',
-    canShow: () => false,
+    canShow: () => isActive,
     stage: FeatureStage.started,
   },
 } as const satisfies Record<string, Feature>;
