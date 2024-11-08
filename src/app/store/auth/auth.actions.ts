@@ -29,7 +29,8 @@ export const AuthActions = createActionGroup({
     'Update active account from storage': props<{ accountId: string | null }>(),
     'Success update active account from storage': props<{ account: Account }>(),
 
-    'Select active account': emptyProps(),
+    'Select active account': props<{ accounts: Account[] }>(),
+    'Set one exist account as active': emptyProps(),
     'Success select active account': props<{ account: Account }>(),
   },
 });

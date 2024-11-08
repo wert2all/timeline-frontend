@@ -6,6 +6,7 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { GoogleOuthService } from '../../api/external/google-outh.service';
@@ -14,6 +15,7 @@ import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AuthStorageService } from './auth-storage.service';
 import { AuthActions } from './auth.actions';
+import { authFeature } from './auth.reducer';
 
 const initAuth = (
   actions$ = inject(Actions),
@@ -85,9 +87,9 @@ const loadUserAfterInit = (
         map(profile =>
           profile
             ? AuthActions.successLoadUserAfterInit({
-                token: token,
-                user: profile,
-              })
+              token: token,
+              user: profile,
+            })
             : AuthActions.coulndNotLoadUserAfterInit()
         ),
         catchError(() => of(AuthActions.coulndNotLoadUserAfterInit()))
@@ -95,6 +97,7 @@ const loadUserAfterInit = (
     )
   );
 };
+
 const setToken = (
   action$ = inject(Actions),
   tokenService = inject(AuthStorageService),
@@ -215,6 +218,43 @@ const dispatchCleanState = (action$ = inject(Actions)) => {
   );
 };
 
+const dispatchSetAccount = (
+  actions$ = inject(Actions),
+  storage = inject(AuthStorageService)
+) =>
+  actions$.pipe(
+    ofType(AuthActions.authorized),
+    map(() =>
+      AuthActions.updateActiveAccountFromStorage({
+        accountId: storage.getAccountId(),
+      })
+    )
+  );
+
+const updateAccountFromStorage = (
+  action$ = inject(Actions),
+  store = inject(Store)
+) =>
+  action$.pipe(
+    ofType(AuthActions.updateActiveAccountFromStorage),
+    concatLatestFrom(() =>
+      store
+        .select(authFeature.selectAuthorizedUser)
+        .pipe(map(user => user?.accounts))
+    ),
+    map(([{ accountId }, accounts]) => ({
+      exist: accounts?.find(acc => acc.id.toString() === accountId),
+      accounts: accounts || [],
+    })),
+    map(data =>
+      data.exist
+        ? AuthActions.successUpdateActiveAccountFromStorage({
+          account: data.exist,
+        })
+        : AuthActions.selectActiveAccount({ accounts: data.accounts })
+    )
+  );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
   loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
@@ -238,4 +278,10 @@ export const authEffects = {
   apiException: createEffect(apiException, StoreUnDispatchEffect),
 
   cleanAuthState: createEffect(dispatchCleanState, StoreDispatchEffect),
+
+  dispatchSetAccount: createEffect(dispatchSetAccount, StoreDispatchEffect),
+  updateAccountFromStorage: createEffect(
+    updateAccountFromStorage,
+    StoreDispatchEffect
+  ),
 };
