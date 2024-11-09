@@ -33,7 +33,7 @@ const FEATURE_FLAGS = {
     name: 'Dropdown menu',
     description: 'Show user dropdown menu',
     canShow: () => isActive,
-    stage: FeatureStage.development,
+    stage: FeatureStage.testing,
   },
   user_settings: {
     name: 'User settings',
