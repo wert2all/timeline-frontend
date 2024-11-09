@@ -26,23 +26,20 @@ import { Unique } from '../../../app.types';
 import { Account } from '../../../store/auth/auth.types';
 import { FeatureFlagName } from '../../features.service';
 import { FeatureFlagComponent } from '../../flag/feature-flag/feature-flag.component';
-import {
-  AccountView,
-  MenuAccountsComponent,
-} from '../accounts/menu-accounts/menu-accounts.component';
 import { ShowUserFeaturesComponent } from '../features/show-user-features/show-user-features.component';
+
+type AccountView = Unique & {
+  name: string;
+  firstLetter: string;
+  avatar?: string;
+};
 
 @Component({
   selector: 'app-top-menu',
   templateUrl: './top-menu.component.html',
   styleUrls: ['./top-menu.component.scss'],
   standalone: true,
-  imports: [
-    MenuAccountsComponent,
-    FeatureFlagComponent,
-    NgIconComponent,
-    ShowUserFeaturesComponent,
-  ],
+  imports: [FeatureFlagComponent, NgIconComponent, ShowUserFeaturesComponent],
   viewProviders: [
     provideIcons({
       saxFlag2Outline,

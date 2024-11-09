@@ -25,10 +25,13 @@
   }
 
   .current_account {
-    @apply flex cursor-pointer place-items-center justify-start gap-2 bg-accent text-accent-content;
+    @apply flex cursor-pointer place-items-center justify-start gap-2 bg-accent pe-2 text-accent-content;
   }
 
   .content {
+    &.open {
+      @apply my-2;
+    }
     .accounts_switcher {
       @apply relative;
 

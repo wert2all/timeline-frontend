@@ -4,18 +4,19 @@
     (click)="openMenu()"
     (keydown.enter)="openMenu()"
     tabindex="0">
-    @if (currentAccount().avatar) {
-      <img
-        [src]="currentAccount().avatar"
-        [alt]="currentAccount().name"
-        class="w-12" />
-    } @else {
-      <div class="avatar placeholder">
-        <div class="w-12 bg-primary text-primary-content">
-          <span class="text-3xl">{{ currentAccount().firstLetter }}</span>
+    <div class="avatar placeholder bg-primary text-primary-content">
+      @if (currentAccount().avatar) {
+        <div
+          class="w-12 bg-cover"
+          style="background-image: url('{{ currentAccount().avatar }}');"></div>
+      } @else {
+        <div class="w-12">
+          <span class="text-2xl">
+            {{ currentAccount().firstLetter }}
+          </span>
         </div>
-      </div>
-    }
+      }
+    </div>
     {{ currentAccount().name }}
   </div>
   <div class="content collapsable" [class.open]="isOpenMenu()">

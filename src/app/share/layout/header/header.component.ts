@@ -5,9 +5,9 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxGhostOutline, saxMenu1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { FeatureFlagComponent } from '../../../feature/flag/feature-flag/feature-flag.component';
-import { HeaderProfileMenuComponent } from '../../../feature/header-profile-menu/header-profile-menu.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
+import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { LegacyUserButtonComponent } from './legacy-user-button/legacy-user-button.component';
@@ -23,11 +23,11 @@ import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.co
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
+    TopMenuComponent,
     NgIconComponent,
     LoginButtonComponent,
     LogoutButtonComponent,
     CopyTokenComponent,
-    HeaderProfileMenuComponent,
     FeatureFlagComponent,
     ShowUserFeaturesComponent,
     ThemeSwitchComponent,
@@ -39,11 +39,9 @@ export class HeaderComponent {
   private readonly router = inject(Router);
 
   isLoading = this.store.selectSignal(authFeature.isLoading);
-  // isLoading = signal(true);
   isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
-
-  authorizedUser = this.store.selectSignal(authFeature.selectAuthorizedUser);
   token = this.store.selectSignal(authFeature.selectToken);
+  activeAccount = this.store.selectSignal(authFeature.selectActiveAccount);
 
   login() {
     this.router.navigate(['user', 'login']);
@@ -51,5 +49,9 @@ export class HeaderComponent {
 
   logout() {
     this.store.dispatch(AuthActions.logout());
+  }
+
+  goToDashboard() {
+    this.router.navigate(['my']);
   }
 }
