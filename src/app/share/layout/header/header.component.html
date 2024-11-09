@@ -31,11 +31,19 @@
     </app-feature-flag>
 
     <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <app-legacy-user-button />
+      <app-legacy-user-button (onGoToDashboard)="goToDashboard()" />
     </app-feature-flag>
 
     <app-feature-flag feature="profile_dropdown">
-      <app-header-profile-menu />
+      @if (activeAccount(); as account) {
+        @if (token(); as token) {
+          <app-top-menu
+            [authorizedUserToken]="token"
+            [activeAccount]="account"
+            (onAccountClick)="goToDashboard()"
+            (onLogout)="logout()" />
+        }
+      }
     </app-feature-flag>
 
     <app-feature-flag feature="profile_dropdown" [nigate]="true">

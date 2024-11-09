@@ -3,8 +3,8 @@
     tabindex="0"
     role="button"
     class="profile_button btn btn-ghost"
-    (click)="goToDashboard()"
-    (keyup)="goToDashboard()">
+    (click)="onGoToDashboard.emit()"
+    (keyup.enter)="onGoToDashboard.emit()">
     <div class="avatar">
       @if (isLoading() === true) {
         <span class="loading loading-spinner"></span>

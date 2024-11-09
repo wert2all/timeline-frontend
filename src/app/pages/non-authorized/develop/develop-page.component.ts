@@ -35,7 +35,6 @@ import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-f
 import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
-import { MenuAccountsComponent } from '../../../feature/user/accounts/menu-accounts/menu-accounts.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
@@ -57,7 +56,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     DevelopContentComponent,
     TableOfContentsContainerComponent,
     ThemeSwitchComponent,
-    MenuAccountsComponent,
     TopMenuComponent,
   ],
   templateUrl: './develop-page.component.html',
