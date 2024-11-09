@@ -25,3 +25,22 @@ html.dark .hero {
 html.light .hero {
   @apply bg-base-300;
 }
+
+.collapsable {
+  @apply invisible opacity-0;
+
+  height: 0;
+  overflow: hidden;
+  transition: all 0.2s linear;
+
+  &.open {
+    @apply visible opacity-100;
+    height: calc-size(auto, size);
+  }
+
+  @supports (-moz-appearance: none) {
+    &.open {
+      height: auto;
+    }
+  }
+}

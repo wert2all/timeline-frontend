@@ -15,7 +15,7 @@ export interface Feature {
   stage: FeatureStage;
   canShow(): boolean;
 }
-const isActive = false;
+const isActive = true;
 const FEATURE_FLAGS = {
   dark_light_mode: {
     name: 'Dark/Light mode',

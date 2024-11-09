@@ -36,6 +36,7 @@ import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-for
 import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { MenuAccountsComponent } from '../../../feature/user/accounts/menu-accounts/menu-accounts.component';
+import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -57,6 +58,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TableOfContentsContainerComponent,
     ThemeSwitchComponent,
     MenuAccountsComponent,
+    TopMenuComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -110,7 +112,7 @@ export class DevelopPageComponent implements OnInit {
   ]);
 
   protected readonly currentAccountWithAvatar = {
-    uuid: '1',
+    id: 1,
     name: 'John Doe',
     firstLetter: 'J',
     avatar:
@@ -118,7 +120,7 @@ export class DevelopPageComponent implements OnInit {
   };
 
   protected readonly currentAccountWithoutAvatar = {
-    uuid: '2',
+    id: 2,
     name: 'John Doe',
     firstLetter: 'J',
   };
@@ -166,9 +168,9 @@ export class DevelopPageComponent implements OnInit {
         link: '/develop#ThemeSwitchComponent',
       },
       {
-        title: 'User accounts',
-        uuid: 'MenuAccountsComponent',
-        link: '/develop#MenuAccountsComponent',
+        title: 'Top menu',
+        uuid: 'TopMenuComponent',
+        link: '/develop#TopMenuComponent',
       },
     ],
   });

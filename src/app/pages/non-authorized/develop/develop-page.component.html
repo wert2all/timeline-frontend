@@ -77,38 +77,37 @@
       </div>
     </div>
 
-    <div class="py-4" id="MenuAccountsComponent">
-      <h2 class="text-2xl">MenuAccountsComponent</h2>
-      <div class="mt-4 grid w-full grid-cols-3 gap-4">
+    <div class="py-4" id="TopMenuComponent">
+      <h2 class="text-2xl">TopMenuComponent</h2>
+      <div class="mt-4 grid w-full grid-cols-4 gap-4">
         <div>
           <h2 class="text-xl">One account</h2>
-          <app-menu-accounts
-            [currentAccount]="currentAccountWithAvatar"
-            [accounts]="[currentAccountWithAvatar]" />
+          <app-top-menu
+            authorizedUserToken="token"
+            [accounts]="[currentAccountWithAvatar]"
+            [activeAccount]="currentAccountWithAvatar" />
         </div>
         <div>
           <h2 class="text-xl">Many accounts</h2>
-
-          <app-menu-accounts
+          <app-top-menu
+            authorizedUserToken="token"
             [accounts]="userAccounts"
-            [currentAccount]="currentAccountWithAvatar" />
+            [activeAccount]="currentAccountWithAvatar" />
         </div>
         <div>
           <h2 class="text-xl">One account without avatar</h2>
-          <app-menu-accounts
-            [currentAccount]="currentAccountWithoutAvatar"
+          <app-top-menu
+            authorizedUserToken="token"
+            [activeAccount]="currentAccountWithoutAvatar"
             [accounts]="[currentAccountWithoutAvatar]" />
         </div>
         <div>
           <h2 class="text-xl">Many accounts without avatar</h2>
 
-          <app-menu-accounts
+          <app-top-menu
+            authorizedUserToken="token"
             [accounts]="userAccounts"
-            [currentAccount]="currentAccountWithoutAvatar" />
-        </div>
-        <div>
-          <h2 class="text-xl">Nullable current account</h2>
-          <app-menu-accounts [currentAccount]="null" />
+            [activeAccount]="currentAccountWithoutAvatar" />
         </div>
       </div>
     </div>
