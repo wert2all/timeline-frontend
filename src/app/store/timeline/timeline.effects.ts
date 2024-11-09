@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, filter, map, of, tap, zip } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
@@ -17,23 +17,20 @@ import { timelineFeature } from './timeline.reducer';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(
-      TimelineActions.successAddTimeline,
-      TimelineActions.successAddTimelineAfterLogin
-    ),
+    ofType(TimelineActions.successAddTimeline),
     map(({ timelines }) =>
       timelines.length > 0 ? timelines[0] || null : null
     ),
     map(timeline =>
-      TimelineActions.setActiveTimelineAfterAuthorize({ timeline: timeline })
+      TimelineActions.setActiveTimelineAfterAuthorize({ timeline })
     )
   );
 
 const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
   action$.pipe(
     ofType(TimelineActions.addTimeline),
-    exhaustMap(({ name }) =>
-      api.addTimelineMutation({ timeline: { name: name } }).pipe(
+    exhaustMap(({ name, accountId }) =>
+      api.addTimelineMutation({ timeline: { name, accountId } }).pipe(
         map(result => result.data?.timeline || null),
         map(timeline =>
           timeline
@@ -48,17 +45,6 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
       )
     )
   );
-
-const addTimelineAfterLogin = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(TimelineActions.addTimelineAfterLogin),
-    map(() => AuthActions.promptLogin())
-  );
-
-const loginSuccessAddTimeline = (action$ = inject(Actions)) =>
-  zip(action$.pipe(ofType(TimelineActions.addTimelineAfterLogin)))
-    .pipe(map(result => result[0].name))
-    .pipe(map(name => TimelineActions.addTimeline({ name: name })));
 
 const emptyProfile = (
   action$ = inject(Actions),
@@ -140,14 +126,6 @@ const failedDeleteEvent = (
 
 export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
-  addTimelineAfterLogin: createEffect(
-    addTimelineAfterLogin,
-    StoreDispatchEffect
-  ),
-  loginSuccessAddTimeline: createEffect(
-    loginSuccessAddTimeline,
-    StoreDispatchEffect
-  ),
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
 
   emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),

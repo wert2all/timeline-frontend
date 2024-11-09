@@ -75,8 +75,8 @@ const config: CodegenConfig = {
   overwrite: true,
   emitLegacyCommonJSImports: false,
   generates: {
-    [previewlyScheme.path]: previewlyScheme.config,
-    [previewlyOperations.path]: previewlyOperations.config,
+    // [previewlyScheme.path]: previewlyScheme.config,
+    // [previewlyOperations.path]: previewlyOperations.config,
     [timelineScheme.path]: timelineScheme.config,
     [timelineOperations.path]: timelineOperations.config,
   },

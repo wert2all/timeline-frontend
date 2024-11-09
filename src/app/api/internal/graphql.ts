@@ -33,6 +33,7 @@ export interface Scalars {
 }
 
 export interface AddTimeline {
+  accountId: Scalars['Int']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
 }
 
