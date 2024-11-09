@@ -19,13 +19,16 @@
         </a>
       </div>
     </app-feature-flag>
+
     <app-feature-flag feature="dark_light_mode">
       <app-theme-switch />
     </app-feature-flag>
+
     <app-login-button
       [isLoading]="isLoading()"
       [isAuthorized]="isAuthorized()"
       (login)="login()" />
+
     <app-feature-flag feature="profile_dropdown" [nigate]="true">
       <app-copy-token [token]="token()" />
     </app-feature-flag>
@@ -37,11 +40,14 @@
     <app-feature-flag feature="profile_dropdown">
       @if (activeAccount(); as account) {
         @if (token(); as token) {
-          <app-top-menu
-            [authorizedUserToken]="token"
-            [activeAccount]="account"
-            (onAccountClick)="goToDashboard()"
-            (onLogout)="logout()" />
+          <div class="relative w-56">
+            <app-top-menu
+              class="absolute -top-6 right-0 z-20 w-56"
+              [authorizedUserToken]="token"
+              [activeAccount]="account"
+              (onAccountClick)="goToDashboard()"
+              (onLogout)="logout()" />
+          </div>
         }
       }
     </app-feature-flag>
