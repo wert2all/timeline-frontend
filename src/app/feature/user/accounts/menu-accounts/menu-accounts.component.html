@@ -1,19 +1,15 @@
-@if (accounts().length <= 1) {
-  @if (currentAccount(); as user) {
-    <app-menu-account
-      [name]="user.name"
-      [avatar]="user.avatar || null"
-      [firstLetter]="user.firstLetter" />
-  }
+@if (currentAccount(); as user) {
+  <app-menu-account
+    [name]="user.name"
+    [avatar]="user.avatar || null"
+    [firstLetter]="user.firstLetter" />
 }
 
 @if (accounts().length > 1) {
-  <ul
-    class="rounded-xl p-2 transition-all duration-500"
-    [class.bg-accent]="isAccountChange() === true">
+  <ul class="rounded-xl p-2 transition-all duration-500">
     <li
       tabindex="0"
-      class="flex w-full cursor-pointer place-items-center p-2 hover:rounded hover:bg-success"
+      class="flex w-full cursor-pointer place-items-center"
       (click)="changeAccountClick()"
       (keyup)="changeAccountClick()">
       <div class="flex-1">
@@ -25,24 +21,11 @@
         </div>
         <div [class.hidden]="isAccountChange() === true">Change account</div>
       </div>
-      <ng-icon
-        [class.hidden]="isAccountChange() === true"
-        name="saxArrowRightOutline"
-        size="28"
-        class="flex-none"></ng-icon>
+      <div class="flex-none" [class.hidden]="isAccountChange() === true">
+        <ng-icon name="saxArrowRightOutline" size="28"></ng-icon>
+      </div>
     </li>
     @if (isAccountChange() === true) {
-      @if (currentAccount(); as user) {
-        <li>
-          Current account:
-          <app-menu-account
-            [name]="user.name"
-            [avatar]="user.avatar || null"
-            [firstLetter]="user.firstLetter" />
-        </li>
-        <li><div class="divider m-0"></div></li>
-      }
-
       @for (account of accounts(); track $index) {
         <li
           tabindex="0"
