@@ -22,7 +22,6 @@ export const timelineFeature = createFeature({
     initialState,
     on(
       TimelineActions.addTimeline,
-      TimelineActions.addTimelineAfterLogin,
       EventActions.loadActiveTimelineEvents,
       state => ({ ...state, loading: true })
     ),
@@ -69,11 +68,10 @@ export const timelineFeature = createFeature({
       events: [...events, ...state.events],
     })),
 
-    on(
-      TimelineActions.successAddTimeline,
-      TimelineActions.successAddTimelineAfterLogin,
-      state => ({ ...state, newTimelineAdded: true })
-    ),
+    on(TimelineActions.successAddTimeline, state => ({
+      ...state,
+      newTimelineAdded: true,
+    })),
 
     on(
       EventActions.showAddEventForm,

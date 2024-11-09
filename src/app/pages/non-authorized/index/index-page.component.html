@@ -9,14 +9,6 @@
       </p>
       @if (!this.isAuthorized()) {
         <div class="flex w-full flex-col items-center lg:flex-row">
-          <app-create-timeline-button
-            [isLarge]="true"
-            [isAuthorized]="isAuthorized()"
-            [isLoading]="isLoading()"
-            (addTimeline)="addTimeline($event)" />
-
-          <div class="divider lg:divider-horizontal">or</div>
-
           <button
             class="btn"
             (click)="login()"
@@ -38,11 +30,4 @@
 
     <app-timeline [timeline]="projectTimeline()"></app-timeline>
   </div>
-
-  <app-modal [show]="showAddTimelineWindow()">
-    <app-add-timeline
-      [isAuthorized]="isAuthorized()"
-      [isLoading]="isLoading()"
-      (addTimeline)="addTimeline($event)" />
-  </app-modal>
 </app-layout>

@@ -16,7 +16,7 @@ import {
 } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 
-import { Iterable } from '../../../app.types';
+import { Iterable, Undefined } from '../../../app.types';
 import { EditEventComponent } from '../../../feature/edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../../../feature/timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
@@ -71,13 +71,14 @@ export class MyPageComponent {
   protected readonly timeline = this.store.selectSignal(
     timelineFeature.selectViewEvents
   );
+  protected readonly activeAccount = this.store.selectSignal(
+    authFeature.selectActiveAccount
+  );
 
   protected readonly shouldDeleteEvent = signal<number>(0);
-
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEvent() > 0
   );
-
   constructor() {
     this.store.dispatch(TableOfContentsActions.cleanItems());
   }
@@ -110,9 +111,10 @@ export class MyPageComponent {
     this.shouldDeleteEvent.set(0);
   }
 
-  addTimeline(name: string | null) {
-    this.store.dispatch(TimelineActions.addTimeline({ name: name }));
+  addTimeline(name: string | Undefined, accountId: number) {
+    this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
   }
+
   dispatchNewEventCreation() {
     this.store.dispatch(
       EventActions.showAddEventForm({ timelineId: this.timelineId() })

@@ -9,14 +9,12 @@ import {
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { AddTimelineComponent } from '../../../feature/timeline/components/add-timeline/add-timeline.component';
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
-import { ModalComponent } from '../../../share/modal/modal.component';
 
-import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
+import { Undefined } from '../../../app.types';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -38,9 +36,6 @@ import {
     CommonModule,
     LayoutComponent,
     NgIconComponent,
-    ModalComponent,
-    AddTimelineComponent,
-    CreateTimelineButtonComponent,
     TimelineComponent,
     TitleComponent,
     HeroComponent,
@@ -156,7 +151,7 @@ export class IndexPageComponent {
       loading: false,
     },
   ]);
-  readonly projectTimeline = computed(() =>
+  protected readonly projectTimeline = computed(() =>
     this.events().map((event, index) => {
       return {
         ...createViewTimelineEvent(event, index % 2 === 0),
@@ -164,9 +159,12 @@ export class IndexPageComponent {
       };
     })
   );
-  readonly showAddTimelineWindow = signal<boolean>(false);
-  readonly isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
-
+  protected readonly isAuthorized = this.store.selectSignal(
+    authFeature.isAuthorized
+  );
+  protected readonly activeAccount = this.store.selectSignal(
+    authFeature.selectActiveAccount
+  );
   protected readonly isLoading = computed(
     () => this.isTimelineLoading() || this.isAuthLoading()
   );
@@ -175,19 +173,11 @@ export class IndexPageComponent {
     this.store.dispatch(TableOfContentsActions.cleanItems());
   }
 
-  toggleAddTimelineForm() {
-    this.showAddTimelineWindow.set(true);
-  }
-
   login() {
     this.store.dispatch(AuthActions.promptLogin());
   }
 
-  addTimeline(name: string | null) {
-    this.store.dispatch(
-      this.isAuthorized()
-        ? TimelineActions.addTimeline({ name: name })
-        : TimelineActions.addTimelineAfterLogin({ name: name })
-    );
+  addTimeline(name: string | Undefined, accountId: number) {
+    this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
   }
 }
