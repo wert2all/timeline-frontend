@@ -5,81 +5,64 @@ import { AuthState } from './auth.types';
 const initialState: AuthState = {
   loading: false,
   authorizedUser: null,
-  potentialUser: null,
+  activeAccount: null,
 };
 
 export const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
     initialState,
+
+    on(AuthActions.promptLogin, AuthActions.initAuthorizedUser, state => ({
+      ...state,
+      loading: true,
+    })),
+
     on(
-      AuthActions.promptLogin,
-      AuthActions.setTokenAndProfile,
-      AuthActions.initAuthorizedUser,
-      state => ({
+      AuthActions.cleanAuthState,
+      (state): AuthState => ({
         ...state,
-        loading: true,
+        authorizedUser: null,
+        activeAccount: null,
+        loading: false,
       })
     ),
-    on(AuthActions.cleanAuthState, state => ({
-      ...state,
-      authorizedUser: null,
-      token: null,
-      loading: false,
-      potentialUser: null,
-    })),
+
     on(AuthActions.initAuthorizedUser, (state, { token }) => ({
       ...state,
       token: token,
     })),
-    on(AuthActions.setTokenAndProfile, (state, { token, profile }) => ({
-      ...state,
-      token: token,
-      potentialUser: {
-        name: profile.name,
-        avatar: profile.picture,
-        email: profile.email,
-      },
-    })),
-    on(AuthActions.authorized, (state, { user }) => ({
-      ...state,
-      loading: false,
-      authorizedUser: user,
-    })),
 
-    on(AuthActions.setOneExistAccountAsActive, (state): AuthState => {
-      let authUser = state.authorizedUser;
-      if (authUser) {
-        authUser = {
-          ...authUser,
-          accounts: authUser.accounts.map(acc => ({ ...acc, isActive: true })),
-        };
-      }
-      return {
+    on(
+      AuthActions.successAuthorized,
+      (state, { account, user }): AuthState => ({
         ...state,
-        authorizedUser: authUser,
-      };
-    })
+        activeAccount: {
+          id: account.id,
+          name: account.name || undefined,
+          avatar: account.avatar || undefined,
+        },
+        authorizedUser: {
+          id: user.id,
+          email: user.email,
+          accounts: user.accounts
+            .filter(account => !!account)
+            .map(account => ({
+              id: account.id,
+              name: account.name || undefined,
+              avatar: account.avatar || undefined,
+            })),
+        },
+        loading: false,
+      })
+    )
   ),
-  extraSelectors: ({
-    selectLoading,
-    selectAuthorizedUser,
-    selectPotentialUser,
-  }) => ({
+
+  extraSelectors: ({ selectLoading, selectActiveAccount }) => ({
     isLoading: createSelector(selectLoading, loading => loading),
     isAuthorized: createSelector(
-      selectAuthorizedUser,
-      authorizedUser => authorizedUser != null
-    ),
-    selectPotentialUser: createSelector(
-      selectPotentialUser,
-      selectAuthorizedUser,
-      (potential, authorized) => (authorized ? authorized : potential)
-    ),
-    selectActiveAccount: createSelector(
-      selectAuthorizedUser,
-      authorized =>
-        authorized?.accounts.find(account => account.isActive) || null
+      selectActiveAccount,
+      account => account != null
     ),
   }),
 });

@@ -40,7 +40,7 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.store.dispatch(AuthActions.logout());
+    this.store.dispatch(AuthActions.dispatchLogout());
   }
 
   goToDashboard() {

@@ -1,39 +1,26 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Account, User } from '../../api/internal/graphql';
-import { AuthorizedUser, GoogleUserInfo } from './auth.types';
+import { ShortAccount, User } from '../../api/internal/graphql';
 
 export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
     'Init authorized user': props<{ token: string }>(),
-    'Empty initial token': emptyProps(),
+
     'Prompt Login': emptyProps(),
-    'Prompt not displayed': emptyProps(),
-    'Success load user': props<{ token: string; user: User }>(),
-    'Set token and profile': props<{
-      token: string;
-      profile: GoogleUserInfo;
-    }>(),
-    'Success load user after init': props<{ token: string; user: User }>(),
-    'Coulnd not load user after init': emptyProps(),
+    'Set user token': props<{ token: string }>(),
 
-    Authorized: props<{ token: string; user: AuthorizedUser }>(),
-    Logout: emptyProps(),
+    'Show select account window': props<{ accounts: ShortAccount[] }>(),
 
-    'Empty profile': emptyProps(),
-    'Api Exception': props<{ exception: string }>(),
-    'User email is not verified': emptyProps(),
-
+    'Dispatch logout': emptyProps(),
     'Clean auth state': emptyProps(),
 
-    'Update active account from storage': props<{ accountId: string | null }>(),
-    'Success update active account from storage': props<{ account: Account }>(),
-
-    'Select active account': props<{ accounts: Account[] }>(),
-    'Set one exist account as active': emptyProps(),
-    'Show select acccount window': props<{ accounts: Account[] }>(),
-    'Success select active account': props<{ account: Account }>(),
+    'Success Authorized': props<{
+      account: ShortAccount;
+      user: User;
+      token: string;
+    }>(),
 
     'Empty accounts': props<{ email: string }>(),
+    'Dispatch auth error': props<{ error: string }>(),
   },
 });

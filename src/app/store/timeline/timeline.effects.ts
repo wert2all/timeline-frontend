@@ -6,7 +6,6 @@ import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { EventActions, TimelineActions } from './timeline.actions';
 import {
@@ -132,18 +131,6 @@ export const timelineEffects = {
   apiException: createEffect(apiException, StoreUnDispatchEffect),
 };
 
-const setTimelinesAfterAuthorize = (actions$ = inject(Actions)) =>
-  actions$.pipe(
-    ofType(AuthActions.successLoadUserAfterInit, AuthActions.successLoadUser),
-    map(({ user }) => user.timelines.find(Boolean) || null),
-    map(timeline =>
-      timeline ? { ...timeline, name: timeline.name || null } : null
-    ),
-    map(timeline =>
-      TimelineActions.setActiveTimelineAfterAuthorize({ timeline })
-    )
-  );
-
 const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
     ofType(EventActions.saveEditableEvent),
@@ -202,11 +189,6 @@ const pushExistEventToApi = (
   );
 
 export const eventsEffects = {
-  setTimelinesAfterAuthorize: createEffect(
-    setTimelinesAfterAuthorize,
-    StoreDispatchEffect
-  ),
-
   afterSetActiveTimeline: createEffect(
     afterSetActiveTimeline,
     StoreDispatchEffect

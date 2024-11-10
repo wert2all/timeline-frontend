@@ -8,3 +8,8 @@ fragment TimelineEvent on TimelineEvent {
   url
   tags
 }
+
+fragment ShortTimeline on ShortUserTimeline {
+  id
+  name
+}

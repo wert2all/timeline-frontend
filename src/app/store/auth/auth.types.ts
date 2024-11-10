@@ -1,22 +1,18 @@
-import { Iterable, Loadable, User } from '../../app.types';
+import { Iterable, Loadable } from '../../app.types';
 
 export type Account = Iterable & {
   name?: string;
   avatar?: string;
-  isActive?: boolean;
 };
 
-export type AuthorizedUser = {
-  uuid: number;
+export type AuthorizedUser = Iterable & {
   email: string;
-  name: string | null;
-  avatar: string;
   accounts: Account[];
 };
 
 export type AuthState = Loadable & {
   authorizedUser: AuthorizedUser | null;
-  potentialUser: User | null;
+  activeAccount: Account | null;
 };
 
 export type IdConfiguration = google.accounts.id.IdConfiguration;

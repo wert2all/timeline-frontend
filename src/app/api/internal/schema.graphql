@@ -6,12 +6,6 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
-type Account {
-  avatar: String
-  id: Int!
-  name: String
-}
-
 input AddTimeline {
   accountId: Int!
   name: String
@@ -43,7 +37,14 @@ type Mutation {
 }
 
 type Query {
+  myAccountTimelines(accountId: Int!): [ShortUserTimeline!]!
   timelineEvents(limit: Limit, timelineId: Int!): [TimelineEvent!]!
+}
+
+type ShortAccount {
+  avatar: String
+  id: Int!
+  name: String
 }
 
 type ShortUserTimeline {
@@ -87,11 +88,10 @@ enum TimelineType {
 }
 
 type User {
-  accounts: [Account]!
+  accounts: [ShortAccount]!
   avatar: String
   email: String!
   id: Int!
   isNew: Boolean!
   name: String
-  timelines: [ShortUserTimeline!]!
 }
