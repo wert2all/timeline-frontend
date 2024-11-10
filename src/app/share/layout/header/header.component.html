@@ -1,25 +1,8 @@
 <div class="navbar bg-secondary">
-  <div class="flex-none">
-    <!-- <button class="btn btn-square btn-ghost">
-      <ng-icon name="saxMenu1Outline" size="24"></ng-icon>
-    </button> -->
-  </div>
   <div class="flex-1">
     <a class="logo btn text-xl" href="/"> timeline </a>
   </div>
   <div class="flex-none gap-2">
-    <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <div
-        class="tooltip tooltip-left tooltip-primary me-14"
-        data-tip="Add an issue">
-        <a
-          href="https://github.com/wert2all/timeline-frontend/issues/new"
-          target="_blank">
-          <ng-icon name="saxGhostOutline" size="32"></ng-icon>
-        </a>
-      </div>
-    </app-feature-flag>
-
     <app-feature-flag feature="dark_light_mode">
       <app-theme-switch />
     </app-feature-flag>
@@ -29,33 +12,17 @@
       [isAuthorized]="isAuthorized()"
       (login)="login()" />
 
-    <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <app-copy-token [token]="token" />
-    </app-feature-flag>
-
-    <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <app-legacy-user-button (onGoToDashboard)="goToDashboard()" />
-    </app-feature-flag>
-
-    <app-feature-flag feature="profile_dropdown">
-      @if (activeAccount(); as account) {
-        @if (token) {
-          <div class="relative w-56">
-            <app-top-menu
-              class="absolute -top-6 right-0 z-20 w-56"
-              [authorizedUserToken]="token"
-              [activeAccount]="account"
-              (onAccountClick)="goToDashboard()"
-              (onLogout)="logout()" />
-          </div>
-        }
+    @if (activeAccount(); as account) {
+      @if (token) {
+        <div class="relative w-56">
+          <app-top-menu
+            class="absolute -top-6 right-0 z-20 w-56"
+            [authorizedUserToken]="token"
+            [activeAccount]="account"
+            (onAccountClick)="goToDashboard()"
+            (onLogout)="logout()" />
+        </div>
       }
-    </app-feature-flag>
-
-    <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <app-logout-button
-        [isAuthorized]="isAuthorized()"
-        (logout)="logout()"></app-logout-button>
-    </app-feature-flag>
+    }
   </div>
 </div>

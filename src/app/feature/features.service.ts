@@ -29,12 +29,6 @@ const FEATURE_FLAGS = {
     canShow: () => isActive,
     stage: FeatureStage.testing,
   },
-  profile_dropdown: {
-    name: 'Dropdown menu',
-    description: 'Show user dropdown menu',
-    canShow: () => isActive,
-    stage: FeatureStage.testing,
-  },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
