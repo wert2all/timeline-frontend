@@ -33,7 +33,6 @@ export interface Scalars {
 }
 
 export interface AddTimeline {
-  accountId: Scalars['Int']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
 }
 
@@ -89,14 +88,7 @@ export type TimelineEvent = {
 
 export type ShortTimeline = { id: number; name?: string | null };
 
-export type User = {
-  id: number;
-  name?: string | null;
-  email: string;
-  avatar?: string | null;
-  timelines: Array<ShortTimeline>;
-  accounts: Array<Account | null>;
-};
+export type User = { email: string; accounts: Array<Account | null> };
 
 export type Account = {
   id: number;
@@ -165,18 +157,11 @@ export const Account = gql`
 `;
 export const User = gql`
   fragment User on User {
-    id
-    name
     email
-    avatar
-    timelines {
-      ...ShortTimeline
-    }
     accounts {
       ...Account
     }
   }
-  ${ShortTimeline}
   ${Account}
 `;
 export const AuthorizeDocument = gql`

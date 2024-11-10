@@ -128,10 +128,7 @@ const setAuthorized = (action$ = inject(Actions)) =>
       AuthActions.authorized({
         token: token,
         user: {
-          uuid: user.id,
           email: user.email,
-          name: user.name || null,
-          avatar: user.avatar || '/assets/user.png',
           accounts:
             user.accounts
               .filter(account => !!account)

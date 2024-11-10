@@ -13,7 +13,6 @@ type Account {
 }
 
 input AddTimeline {
-  accountId: Int!
   name: String
 }
 

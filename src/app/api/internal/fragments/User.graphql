@@ -1,16 +1,5 @@
-fragment ShortTimeline on ShortUserTimeline {
-  id
-  name
-}
-
 fragment User on User {
-  id
-  name
   email
-  avatar
-  timelines {
-    ...ShortTimeline
-  }
   accounts {
     ...Account
   }

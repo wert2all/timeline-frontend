@@ -7,10 +7,7 @@ export type Account = Iterable & {
 };
 
 export type AuthorizedUser = {
-  uuid: number;
   email: string;
-  name: string | null;
-  avatar: string;
   accounts: Account[];
 };
 
