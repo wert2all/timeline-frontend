@@ -30,7 +30,7 @@
       (login)="login()" />
 
     <app-feature-flag feature="profile_dropdown" [nigate]="true">
-      <app-copy-token [token]="token()" />
+      <app-copy-token [token]="token" />
     </app-feature-flag>
 
     <app-feature-flag feature="profile_dropdown" [nigate]="true">
@@ -39,7 +39,7 @@
 
     <app-feature-flag feature="profile_dropdown">
       @if (activeAccount(); as account) {
-        @if (token(); as token) {
+        @if (token) {
           <div class="relative w-56">
             <app-top-menu
               class="absolute -top-6 right-0 z-20 w-56"
