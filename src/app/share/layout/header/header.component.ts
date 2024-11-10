@@ -8,6 +8,7 @@ import { FeatureFlagComponent } from '../../../feature/flag/feature-flag/feature
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
+import { AuthStorageService } from '../../../store/auth/auth-storage.service';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { LegacyUserButtonComponent } from './legacy-user-button/legacy-user-button.component';
@@ -37,10 +38,11 @@ import { LogoutButtonComponent } from './top-menu/logout-button/logout-button.co
 export class HeaderComponent {
   private readonly store = inject(Store);
   private readonly router = inject(Router);
+  private readonly authStorage = inject(AuthStorageService);
 
   isLoading = this.store.selectSignal(authFeature.isLoading);
   isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
-  token = this.store.selectSignal(authFeature.selectToken);
+  token = this.authStorage.getToken();
   activeAccount = this.store.selectSignal(authFeature.selectActiveAccount);
 
   login() {

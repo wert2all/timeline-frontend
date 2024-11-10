@@ -3,7 +3,6 @@ import { AuthActions } from './auth.actions';
 import { AuthState } from './auth.types';
 
 const initialState: AuthState = {
-  token: null,
   loading: false,
   authorizedUser: null,
   potentialUser: null,

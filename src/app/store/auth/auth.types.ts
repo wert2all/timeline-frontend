@@ -15,7 +15,6 @@ export type AuthorizedUser = {
 };
 
 export type AuthState = Loadable & {
-  token: string | null;
   authorizedUser: AuthorizedUser | null;
   potentialUser: User | null;
 };
