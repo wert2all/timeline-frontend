@@ -9,7 +9,7 @@ fragment TimelineEvent on TimelineEvent {
   tags
 }
 
-fragment ShortTimeline on ShortUserTimeline {
+fragment ShortTimeline on ShortTimeline {
   id
   name
 }

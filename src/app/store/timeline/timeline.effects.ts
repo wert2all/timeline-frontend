@@ -6,6 +6,7 @@ import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
+import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { EventActions, TimelineActions } from './timeline.actions';
 import {
@@ -13,6 +14,24 @@ import {
   fromEditableEventStateToApiInput,
 } from './timeline.convertors';
 import { timelineFeature } from './timeline.reducer';
+
+const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
+  actions$.pipe(
+    ofType(AuthActions.successAuthorized),
+    exhaustMap(({ account }) =>
+      api.getAccountTimelines({ accountId: account.id }).pipe(
+        map(result => extractApiData(result)),
+        map(data =>
+          TimelineActions.setActiveTimelineAfterAuthorize({
+            timeline: data?.timelines[0]
+              ? { name: data.timelines[0].name || '', id: data.timelines[0].id }
+              : null,
+          })
+        )
+      )
+    ),
+    catchError(err => of(TimelineActions.apiException({ exception: err })))
+  );
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -189,6 +208,8 @@ const pushExistEventToApi = (
   );
 
 export const eventsEffects = {
+  loadTimelines: createEffect(loadTimelines, StoreDispatchEffect),
+
   afterSetActiveTimeline: createEffect(
     afterSetActiveTimeline,
     StoreDispatchEffect

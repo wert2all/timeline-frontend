@@ -137,6 +137,12 @@ export type GetEventsVariables = Exact<{
 
 export type GetEvents = { events: Array<TimelineEvent> };
 
+export type GetAccountTimelinesVariables = Exact<{
+  accountId: Scalars['Int']['input'];
+}>;
+
+export type GetAccountTimelines = { timelines: Array<ShortTimeline> };
+
 export const TimelineEvent = gql`
   fragment TimelineEvent on TimelineEvent {
     id
@@ -150,7 +156,7 @@ export const TimelineEvent = gql`
   }
 `;
 export const ShortTimeline = gql`
-  fragment ShortTimeline on ShortUserTimeline {
+  fragment ShortTimeline on ShortTimeline {
     id
     name
   }
@@ -306,6 +312,28 @@ export class GetEventsQuery extends Apollo.Query<
     super(apollo);
   }
 }
+export const GetAccountTimelinesDocument = gql`
+  query GetAccountTimelines($accountId: Int!) {
+    timelines: myAccountTimelines(accountId: $accountId) {
+      ...ShortTimeline
+    }
+  }
+  ${ShortTimeline}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetAccountTimelinesQuery extends Apollo.Query<
+  GetAccountTimelines,
+  GetAccountTimelinesVariables
+> {
+  override document = GetAccountTimelinesDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -326,7 +354,8 @@ export class ApiClient {
     private addTimelineEventMutation: AddTimelineEventMutation,
     private saveExistTimelineEventMutation: SaveExistTimelineEventMutation,
     private deleteEventMutation: DeleteEventMutation,
-    private getEventsQuery: GetEventsQuery
+    private getEventsQuery: GetEventsQuery,
+    private getAccountTimelinesQuery: GetAccountTimelinesQuery
   ) {}
 
   authorize(
@@ -382,5 +411,19 @@ export class ApiClient {
     options?: WatchQueryOptionsAlone<GetEventsVariables>
   ) {
     return this.getEventsQuery.watch(variables, options);
+  }
+
+  getAccountTimelines(
+    variables: GetAccountTimelinesVariables,
+    options?: QueryOptionsAlone<GetAccountTimelinesVariables>
+  ) {
+    return this.getAccountTimelinesQuery.fetch(variables, options);
+  }
+
+  getAccountTimelinesWatch(
+    variables: GetAccountTimelinesVariables,
+    options?: WatchQueryOptionsAlone<GetAccountTimelinesVariables>
+  ) {
+    return this.getAccountTimelinesQuery.watch(variables, options);
   }
 }

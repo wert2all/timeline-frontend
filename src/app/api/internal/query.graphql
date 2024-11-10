@@ -3,3 +3,9 @@ query GetEvents($timelineId: Int!) {
     ...TimelineEvent
   }
 }
+
+query GetAccountTimelines($accountId: Int!) {
+  timelines: myAccountTimelines(accountId: $accountId) {
+    ...ShortTimeline
+  }
+}
