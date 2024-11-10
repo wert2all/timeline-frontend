@@ -94,11 +94,10 @@ export type User = {
   name?: string | null;
   email: string;
   avatar?: string | null;
-  timelines: Array<ShortTimeline>;
-  accounts: Array<Account | null>;
+  accounts: Array<ShortAccount | null>;
 };
 
-export type Account = {
+export type ShortAccount = {
   id: number;
   name?: string | null;
   avatar?: string | null;
@@ -156,8 +155,8 @@ export const ShortTimeline = gql`
     name
   }
 `;
-export const Account = gql`
-  fragment Account on Account {
+export const ShortAccount = gql`
+  fragment ShortAccount on ShortAccount {
     id
     name
     avatar
@@ -169,15 +168,11 @@ export const User = gql`
     name
     email
     avatar
-    timelines {
-      ...ShortTimeline
-    }
     accounts {
-      ...Account
+      ...ShortAccount
     }
   }
-  ${ShortTimeline}
-  ${Account}
+  ${ShortAccount}
 `;
 export const AuthorizeDocument = gql`
   mutation Authorize {

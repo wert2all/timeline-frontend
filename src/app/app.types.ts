@@ -8,8 +8,6 @@ export interface Clickable<T> {
 }
 export type Unique = { uuid: string };
 
-export type User = { email: string; name: string; avatar: string | null };
-
 export enum Status {
   SUCCESS = 'SUCCESS',
   ERROR = 'ERROR',

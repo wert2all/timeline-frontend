@@ -6,16 +6,15 @@ import {
   ofType,
   ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { GoogleOuthService } from '../../api/external/google-outh.service';
-import { ApiClient } from '../../api/internal/graphql';
+import { ApiClient, User } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AuthStorageService } from './auth-storage.service';
 import { AuthActions } from './auth.actions';
-import { authFeature } from './auth.reducer';
 
 const initAuth = (
   actions$ = inject(Actions),
@@ -27,8 +26,72 @@ const initAuth = (
     map(token =>
       token
         ? AuthActions.initAuthorizedUser({ token })
-        : AuthActions.emptyInitialToken()
+        : AuthActions.cleanAuthState()
     )
+  );
+
+const authorizeByApi = (api: ApiClient) => {
+  return () =>
+    api
+      .authorize()
+      .pipe(
+        map(result =>
+          apiAssertNotNull(
+            extractApiData(result)?.profile,
+            'Could not authorize.'
+          )
+        )
+      );
+};
+
+const selectAccountAction = (profile: User & { token: string }) => {
+  const accounts = profile.accounts.filter(account => !!account) || [];
+
+  if (profile.accounts.length === 0) {
+    return AuthActions.emptyAccounts({
+      email: profile.email || 'no_email',
+    });
+  }
+  if (profile.accounts.length !== 1) {
+    return AuthActions.showSelectAccountWindow({ accounts });
+  } else {
+    return AuthActions.successAuthorized({
+      account: accounts[0],
+      user: profile,
+      token: profile.token,
+    });
+  }
+};
+
+const authorizeByToken = (
+  actions$ = inject(Actions),
+  authStorage = inject(AuthStorageService),
+  api = inject(ApiClient)
+) =>
+  actions$.pipe(
+    ofType(AuthActions.initAuthorizedUser),
+    exhaustMap(authorizeByApi(api)),
+    map(profile =>
+      selectAccountAction({ ...profile, token: authStorage.getToken() || '' })
+    ),
+    catchError(error => of(AuthActions.dispatchAuthError({ error })))
+  );
+
+const authorizeByLogin = (
+  action$ = inject(Actions),
+  authStorage = inject(AuthStorageService),
+  api = inject(ApiClient)
+) =>
+  action$.pipe(
+    ofType(AuthActions.setUserToken),
+    tap(({ token }) => {
+      authStorage.setToken(token);
+    }),
+    exhaustMap(authorizeByApi(api)),
+    map(profile =>
+      selectAccountAction({ ...profile, token: authStorage.getToken() || '' })
+    ),
+    catchError(error => of(AuthActions.dispatchAuthError({ error })))
   );
 
 const promptLogin = (
@@ -40,146 +103,25 @@ const promptLogin = (
     ofType(AuthActions.promptLogin),
     tap(() => {
       outhService.login({
-        onSignIn: (token, user) => {
-          store.dispatch(
-            AuthActions.setTokenAndProfile({ token: token, profile: user })
-          );
+        onSignIn: token => {
+          store.dispatch(AuthActions.setUserToken({ token: token }));
         },
         onNotDisplayed: () => {
-          store.dispatch(AuthActions.promptNotDisplayed());
+          store.dispatch(
+            AuthActions.dispatchAuthError({
+              error: 'Google auth not displayed',
+            })
+          );
         },
         onNotVerifiedEmail: () => {
-          store.dispatch(AuthActions.userEmailIsNotVerified());
+          store.dispatch(
+            AuthActions.dispatchAuthError({
+              error: 'User email is not verified',
+            })
+          );
         },
       });
     })
-  );
-
-const promptNotDisplayed = (
-  actions$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  actions$.pipe(
-    ofType(AuthActions.promptNotDisplayed),
-    tap(() => {
-      notification.addMessage('Google auth not displayed', 'error');
-    })
-  );
-
-const userEmailIsNotVerified = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  action$.pipe(
-    ofType(AuthActions.userEmailIsNotVerified),
-    tap(() => notification.addMessage('User email is not verified', 'error'))
-  );
-
-const loadUserAfterInit = (
-  action$ = inject(Actions),
-  api = inject(ApiClient)
-) => {
-  return action$.pipe(
-    ofType(AuthActions.initAuthorizedUser),
-    exhaustMap(({ token }) =>
-      api.authorize().pipe(
-        map(result => result.data?.profile || null),
-        map(profile =>
-          profile
-            ? AuthActions.successLoadUserAfterInit({
-                token: token,
-                user: profile,
-              })
-            : AuthActions.coulndNotLoadUserAfterInit()
-        ),
-        catchError(() => of(AuthActions.coulndNotLoadUserAfterInit()))
-      )
-    )
-  );
-};
-
-const setToken = (
-  action$ = inject(Actions),
-  tokenService = inject(AuthStorageService),
-  api = inject(ApiClient)
-) =>
-  action$.pipe(
-    ofType(AuthActions.setTokenAndProfile),
-    tap(({ token }) => tokenService.setToken(token)),
-    exhaustMap(({ token }) =>
-      api.authorize().pipe(
-        map(result => result.data?.profile || null),
-        map(profile =>
-          profile
-            ? AuthActions.successLoadUser({ token: token, user: profile })
-            : AuthActions.emptyProfile()
-        ),
-        catchError(exception =>
-          of(AuthActions.apiException({ exception: exception }))
-        )
-      )
-    )
-  );
-
-const setAuthorized = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(AuthActions.successLoadUser, AuthActions.successLoadUserAfterInit),
-    map(({ token, user }) =>
-      AuthActions.authorized({
-        token: token,
-        user: {
-          uuid: user.id,
-          email: user.email,
-          name: user.name || null,
-          avatar: user.avatar || '/assets/user.png',
-          accounts:
-            user.accounts
-              .filter(account => !!account)
-              .map(account => ({
-                id: account.id,
-                avatar: account.avatar || undefined,
-                name: account.name || undefined,
-              })) || [],
-        },
-      })
-    )
-  );
-
-const redirectAfterLogin = (
-  actions$ = inject(Actions),
-  router = inject(Router)
-) =>
-  actions$.pipe(
-    ofType(AuthActions.successLoadUser),
-    tap(() => router.navigate(['/', 'my']))
-  );
-
-const authorized = (
-  action$ = inject(Actions),
-  tokenService = inject(AuthStorageService)
-) =>
-  action$.pipe(
-    ofType(AuthActions.authorized),
-    tap(({ token }) => tokenService.setToken(token))
-  );
-const emptyProfile = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  action$.pipe(
-    ofType(AuthActions.emptyProfile),
-    tap(() => notification.addMessage('Cannot authorize', 'error'))
-  );
-
-const apiException = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  action$.pipe(
-    ofType(AuthActions.apiException),
-    tap(() =>
-      notification.addMessage('Something went wrong. Try again later', 'error')
-    )
   );
 
 const cleanToken = (
@@ -187,125 +129,61 @@ const cleanToken = (
   tokenService = inject(AuthStorageService)
 ) =>
   action$.pipe(
-    ofType(
-      AuthActions.promptNotDisplayed,
-      AuthActions.userEmailIsNotVerified,
-      AuthActions.emptyProfile,
-      AuthActions.apiException,
-      AuthActions.logout,
-      AuthActions.coulndNotLoadUserAfterInit
-    ),
+    ofType(AuthActions.cleanAuthState),
     tap(() => tokenService.setToken(null))
   );
 
 const logout = (action$ = inject(Actions), router = inject(Router)) =>
   action$.pipe(
-    ofType(AuthActions.logout),
+    ofType(AuthActions.dispatchLogout),
     tap(() => router.navigate(['/']))
   );
 
-const dispatchCleanState = (action$ = inject(Actions)) => {
-  return action$.pipe(
-    ofType(
-      AuthActions.promptNotDisplayed,
-      AuthActions.userEmailIsNotVerified,
-      AuthActions.emptyProfile,
-      AuthActions.apiException,
-      AuthActions.logout,
-      AuthActions.coulndNotLoadUserAfterInit
-    ),
+const dispatchCleanState = (action$ = inject(Actions)) =>
+  action$.pipe(
+    ofType(AuthActions.dispatchLogout, AuthActions.dispatchAuthError),
     map(() => AuthActions.cleanAuthState())
   );
-};
 
-const dispatchSetAccount = (
+const dispatchAuthError = (
   actions$ = inject(Actions),
-  storage = inject(AuthStorageService)
+  notification = inject(NotificationStore)
 ) =>
   actions$.pipe(
-    ofType(AuthActions.authorized),
-    map(() =>
-      AuthActions.updateActiveAccountFromStorage({
-        accountId: storage.getAccountId(),
-      })
-    )
+    ofType(AuthActions.dispatchAuthError),
+    tap(({ error }) => {
+      notification.addMessage(error, 'error');
+    })
   );
 
-const updateAccountFromStorage = (
-  action$ = inject(Actions),
-  store = inject(Store)
+const saveAccountToStorage = (
+  actions$ = inject(Actions),
+  authStorage = inject(AuthStorageService)
 ) =>
-  action$.pipe(
-    ofType(AuthActions.updateActiveAccountFromStorage),
-    concatLatestFrom(() =>
-      store
-        .select(authFeature.selectAuthorizedUser)
-        .pipe(map(user => user?.accounts))
-    ),
-    map(([{ accountId }, accounts]) => ({
-      exist: accounts?.find(acc => acc.id.toString() === accountId),
-      accounts: accounts || [],
-    })),
-    map(data =>
-      data.exist
-        ? AuthActions.successUpdateActiveAccountFromStorage({
-            account: data.exist,
-          })
-        : AuthActions.selectActiveAccount({ accounts: data.accounts })
-    )
-  );
-
-const dispatchSelectAccount = (
-  actions = inject(Actions),
-  store = inject(Store)
-) =>
-  actions.pipe(
-    ofType(AuthActions.selectActiveAccount),
-    concatLatestFrom(() => store.select(authFeature.selectAuthorizedUser)),
-    map(([{ accounts }, user]) => {
-      if (accounts.length === 0) {
-        return AuthActions.emptyAccounts({ email: user?.email || 'no_email' });
-      }
-      if (accounts.length !== 1) {
-        return AuthActions.showSelectAcccountWindow({ accounts: accounts });
-      } else {
-        return AuthActions.setOneExistAccountAsActive();
-      }
+  actions$.pipe(
+    ofType(AuthActions.successAuthorized),
+    tap(({ account, token }) => {
+      authStorage.setToken(token);
+      authStorage.setAccount(account);
     })
   );
 
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
-  loadUserAfterInit: createEffect(loadUserAfterInit, StoreDispatchEffect),
 
-  redirectAfterLogin: createEffect(redirectAfterLogin, StoreUnDispatchEffect),
   promptLogin: createEffect(promptLogin, StoreUnDispatchEffect),
-  setToken: createEffect(setToken, StoreDispatchEffect),
   cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),
-  setAuthorized: createEffect(setAuthorized, StoreDispatchEffect),
-  authorized: createEffect(authorized, StoreUnDispatchEffect),
-
-  promptNotDisplayed: createEffect(promptNotDisplayed, StoreUnDispatchEffect),
-  userEmailIsNotVerified: createEffect(
-    userEmailIsNotVerified,
-    StoreUnDispatchEffect
-  ),
 
   logout: createEffect(logout, StoreUnDispatchEffect),
-
-  emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
-  apiException: createEffect(apiException, StoreUnDispatchEffect),
-
   cleanAuthState: createEffect(dispatchCleanState, StoreDispatchEffect),
 
-  dispatchSetAccount: createEffect(dispatchSetAccount, StoreDispatchEffect),
-  updateAccountFromStorage: createEffect(
-    updateAccountFromStorage,
-    StoreDispatchEffect
-  ),
+  dispatchAuthError: createEffect(dispatchAuthError, StoreUnDispatchEffect),
 
-  dispatchSelectAccount: createEffect(
-    dispatchSelectAccount,
-    StoreDispatchEffect
+  authorizeByToken: createEffect(authorizeByToken, StoreDispatchEffect),
+  authorizeByLogin: createEffect(authorizeByLogin, StoreDispatchEffect),
+
+  saveAccountToStorage: createEffect(
+    saveAccountToStorage,
+    StoreUnDispatchEffect
   ),
 };
