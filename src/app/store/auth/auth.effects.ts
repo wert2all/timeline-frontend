@@ -30,20 +30,6 @@ const initAuth = (
     )
   );
 
-const authorizeByApi = (api: ApiClient) => {
-  return () =>
-    api
-      .authorize()
-      .pipe(
-        map(result =>
-          apiAssertNotNull(
-            extractApiData(result)?.profile,
-            'Could not authorize.'
-          )
-        )
-      );
-};
-
 const selectAccountAction = (profile: User & { token: string }) => {
   const accounts = profile.accounts.filter(account => !!account) || [];
 
@@ -63,6 +49,18 @@ const selectAccountAction = (profile: User & { token: string }) => {
   }
 };
 
+const authorizeByApi = (api: ApiClient) => () =>
+  api
+    .authorize()
+    .pipe(
+      map(result =>
+        apiAssertNotNull(
+          extractApiData(result)?.profile,
+          'Could not authorize.'
+        )
+      )
+    );
+
 const authorizeByToken = (
   actions$ = inject(Actions),
   authStorage = inject(AuthStorageService),
@@ -74,7 +72,7 @@ const authorizeByToken = (
     map(profile =>
       selectAccountAction({ ...profile, token: authStorage.getToken() || '' })
     ),
-    catchError(error => of(AuthActions.dispatchAuthError({ error })))
+    catchError(() => of(AuthActions.shouldNotAuthorizeByToken()))
   );
 
 const authorizeByLogin = (
@@ -141,7 +139,11 @@ const logout = (action$ = inject(Actions), router = inject(Router)) =>
 
 const dispatchCleanState = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(AuthActions.dispatchLogout, AuthActions.dispatchAuthError),
+    ofType(
+      AuthActions.dispatchLogout,
+      AuthActions.dispatchAuthError,
+      AuthActions.shouldNotAuthorizeByToken
+    ),
     map(() => AuthActions.cleanAuthState())
   );
 
