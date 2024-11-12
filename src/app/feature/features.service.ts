@@ -26,7 +26,7 @@ const FEATURE_FLAGS = {
   edit_event: {
     name: 'Edit event',
     description: 'Update exist event',
-    canShow: () => isActive,
+    canShow: () => true,
     stage: FeatureStage.testing,
   },
   user_settings: {
