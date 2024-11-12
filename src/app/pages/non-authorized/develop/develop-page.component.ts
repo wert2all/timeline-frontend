@@ -7,7 +7,6 @@ import {
   signal,
   WritableSignal,
 } from '@angular/core';
-import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
 import {
   dumpContent,
@@ -27,13 +26,11 @@ import { TableOfContentsComponent } from '../../../feature/table-of-contents/com
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
 
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
-import { PreviewHolder } from '../../../store/preview/preview.types';
 import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { Store } from '@ngrx/store';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
 import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
-import { TimelineEventMenuComponent } from '../../../feature/timeline/components/event/menu/menu.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -48,7 +45,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TitleComponent,
     LinkPreviewComponent,
     EditEventFormComponent,
-    TimelineEventMenuComponent,
     MarkdownContentComponent,
     TimelineComponent,
     TableOfContentsComponent,
@@ -77,31 +73,6 @@ export class DevelopPageComponent implements OnInit {
     changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
   };
-
-  dumpPreviewWithError = signal<PreviewHolder>({
-    url: dumpLink,
-    updateAttempts: 0,
-    data: { status: Status.ERROR, error: new Error('some error') },
-  });
-
-  dumpContent = signal(dumpContent);
-  dumpPreviewLoading = signal<PreviewHolder>({
-    url: dumpLink,
-    updateAttempts: 0,
-    data: { status: Status.LOADING },
-  });
-
-  dumpPreview = signal<PreviewHolder>({
-    url: dumpLink,
-    updateAttempts: 0,
-    data: {
-      status: Status.SUCCESS,
-      data: {
-        image: 'https://img.previewly.top/screenshots/httpswww.thum.io.jpeg',
-        title: 'Thum.io | Fast real-time website screenshot API',
-      },
-    },
-  });
 
   dumpAddEvent = signal(this.dumpEvent);
   dumpTimelineEvents: WritableSignal<ExistViewTimelineEvent[]> = signal([
@@ -141,24 +112,9 @@ export class DevelopPageComponent implements OnInit {
         link: '/develop#TimelineComponent',
       },
       {
-        title: 'Markdown',
-        uuid: 'MarkdownContentComponent',
-        link: '/develop#MarkdownContentComponent',
-      },
-      {
-        title: 'Link Preview',
-        uuid: 'LinkPreviewComponent',
-        link: '/develop#LinkPreviewComponent',
-      },
-      {
         title: 'Edit Event Form ',
         uuid: 'EditEventFormComponent',
         link: '/develop#EditEventFormComponent',
-      },
-      {
-        title: 'Event Menu',
-        uuid: 'TimelineEventMenuComponent',
-        link: '/develop#TimelineEventMenuComponent',
       },
       {
         title: 'Theme switcher',

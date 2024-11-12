@@ -32,22 +32,6 @@
       </div>
     </div>
 
-    <div class="py-4" id="MarkdownContentComponent">
-      <h2 class="text-2xl">MarkdownContentComponent</h2>
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        <app-markdown-content [content]="dumpContent()" />
-      </div>
-    </div>
-
-    <div class="py-4" id="LinkPreviewComponent">
-      <h2 class="text-2xl">LinkPreviewComponent</h2>
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        <app-link-preview [preview]="dumpPreviewWithError()" />
-        <app-link-preview [preview]="dumpPreview()" />
-        <app-link-preview [preview]="dumpPreviewLoading()" class="col-span-2" />
-      </div>
-    </div>
-
     <div class="py-4" id="EditEventFormComponent">
       <h2 class="text-2xl">EditEventFormComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
@@ -59,14 +43,6 @@
           [editEvent]="dumpAddEvent()"
           [loading]="true"
           class="col-span-2" />
-      </div>
-    </div>
-
-    <div class="py-4" id="TimelineEventMenuComponent">
-      <h2 class="text-2xl">TimelineEventMenuComponent</h2>
-      <div class="mt-4 grid grid-cols-2 gap-4">
-        <app-timeline-event-menu
-          [timelineEvent]="{ id: 1 }"></app-timeline-event-menu>
       </div>
     </div>
 
