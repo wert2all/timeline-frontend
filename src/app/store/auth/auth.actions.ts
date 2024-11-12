@@ -5,6 +5,7 @@ export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
     'Init authorized user': props<{ token: string }>(),
+    'Should not authorize by token': emptyProps(),
 
     'Prompt Login': emptyProps(),
     'Set user token': props<{ token: string }>(),
