@@ -1,0 +1,14 @@
+h2 {
+  @apply pt-4 text-2xl font-semibold;
+}
+
+p {
+  @apply py-2;
+}
+
+ul {
+  @apply list-disc ps-5;
+  li {
+    @apply pb-2;
+  }
+}

@@ -1,8 +1,20 @@
-<footer class="footer items-center bg-neutral p-4 text-neutral-content">
-  <aside class="grid-flow-col items-center">
+<footer class="footer bg-neutral p-4 text-neutral-content">
+  <aside class="grid grid-flow-col gap-4">
     <span class="logo block px-2">timeline</span>
-    <p>Copyright © 2024 - All right reserved</p>
+    <p class="hidden lg:block">Copyright © 2024 - All right reserved</p>
+
+    <nav class="grid grid-flow-col gap-4 lg:hidden">
+      <a class="link-hover link" href="/terms">Terms of Service</a>
+      <a class="link-hover link" href="/privacy">Privacy Policy</a>
+    </nav>
   </aside>
+
+  <nav class="hidden lg:grid">
+    <h6 class="footer-title">Legal</h6>
+    <a class="link-hover link" href="/terms">Terms of Service</a>
+    <a class="link-hover link" href="/privacy">Privacy Policy</a>
+  </nav>
+
   <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
     <div
       class="tooltip tooltip-right tooltip-primary lg:tooltip-left lg:tooltip-open"
