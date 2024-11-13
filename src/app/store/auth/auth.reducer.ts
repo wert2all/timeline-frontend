@@ -41,6 +41,7 @@ export const authFeature = createFeature({
           id: account.id,
           name: account.name || undefined,
           avatar: account.avatar || undefined,
+          settings: account.settings || [],
         },
         authorizedUser: {
           id: user.id,
@@ -51,6 +52,7 @@ export const authFeature = createFeature({
               id: account.id,
               name: account.name || undefined,
               avatar: account.avatar || undefined,
+              settings: account.settings || [],
             })),
         },
         loading: false,

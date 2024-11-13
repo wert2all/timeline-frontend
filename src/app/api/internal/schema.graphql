@@ -6,6 +6,18 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
+type Account {
+  avatar: String
+  id: Int!
+  name: String
+  settings: [AccountSettings!]!
+}
+
+type AccountSettings {
+  key: String!
+  value: String!
+}
+
 input AddTimeline {
   accountId: Int!
   name: String
@@ -45,6 +57,7 @@ type ShortAccount {
   avatar: String
   id: Int!
   name: String
+  settings: [AccountSettings!]!
 }
 
 type ShortTimeline {

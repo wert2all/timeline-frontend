@@ -101,7 +101,10 @@ export type ShortAccount = {
   id: number;
   name?: string | null;
   avatar?: string | null;
+  settings: Array<Settings>;
 };
+
+export type Settings = { key: string; value: string };
 
 export type AuthorizeVariables = Exact<{ [key: string]: never }>;
 
@@ -161,12 +164,22 @@ export const ShortTimeline = gql`
     name
   }
 `;
+export const Settings = gql`
+  fragment Settings on AccountSettings {
+    key
+    value
+  }
+`;
 export const ShortAccount = gql`
   fragment ShortAccount on ShortAccount {
     id
     name
     avatar
+    settings {
+      ...Settings
+    }
   }
+  ${Settings}
 `;
 export const User = gql`
   fragment User on User {
