@@ -47,10 +47,13 @@ $size-dimple-top: calc($size-height / 2 / 2);
 $size-dimple-left: $size-height + $size-toggle-border-radius -
   $size-dimple-width;
 $size-dimple-big-increase: 2 * $size-space;
-$size-dimple-big-move-left: -($size-dimple-width + $size-dimple-big-increase +
-      $size-space);
+$size-dimple-big-move-left: -(
+    $size-dimple-width + $size-dimple-big-increase + $size-space
+  );
 $size-dimple-small-increase: 0;
-$size-dimple-small-move-left: -($size-dimple-width + $size-dimple-big-increase) *
+$size-dimple-small-move-left: -(
+    $size-dimple-width + $size-dimple-big-increase
+  ) *
   2;
 $size-dimple-small-move-bottom: $size-dimple-width + $size-dimple-big-increase;
 
