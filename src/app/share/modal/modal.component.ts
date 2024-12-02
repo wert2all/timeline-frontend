@@ -21,7 +21,7 @@ export class ModalComponent implements AfterViewInit {
 
   show = input.required<boolean>();
   title = input<string>();
-  onClosed = output<boolean>();
+  closed = output<boolean>();
 
   constructor() {
     effect(() => {
@@ -34,7 +34,7 @@ export class ModalComponent implements AfterViewInit {
   }
   ngAfterViewInit(): void {
     this.modal?.nativeElement.addEventListener('close', () => {
-      this.onClosed.emit(true);
+      this.closed.emit(true);
     });
   }
 }

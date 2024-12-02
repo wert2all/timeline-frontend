@@ -14,6 +14,6 @@ import { FeatureFlagComponent } from '../../../../flag/feature-flag/feature-flag
 export class TimelineEventMenuComponent {
   timelineEvent = input.required<Iterable>();
 
-  onDelete = output<Iterable>();
-  onEdit = output<Iterable>();
+  delete = output<Iterable>();
+  edit = output<Iterable>();
 }
