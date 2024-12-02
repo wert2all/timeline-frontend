@@ -23,12 +23,6 @@ const FEATURE_FLAGS = {
     canShow: () => isActive,
     stage: FeatureStage.development,
   },
-  edit_event: {
-    name: 'Edit event',
-    description: 'Update exist event',
-    canShow: () => isActive,
-    stage: FeatureStage.testing,
-  },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
