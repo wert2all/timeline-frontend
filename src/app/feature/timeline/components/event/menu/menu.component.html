@@ -1,16 +1,14 @@
 @if (timelineEvent().id) {
   <ul class="bg-lighter menu menu-horizontal gap-2 rounded-box">
-    <app-feature-flag feature="edit_event">
-      <li>
-        <a
-          tabindex="0"
-          class="btn btn-ghost btn-sm"
-          (click)="edit.emit(timelineEvent())"
-          (keyup)="edit.emit(timelineEvent())">
-          <ng-icon name="saxEditOutline" size="20" />
-        </a>
-      </li>
-    </app-feature-flag>
+    <li>
+      <a
+        tabindex="0"
+        class="btn btn-ghost btn-sm"
+        (click)="edit.emit(timelineEvent())"
+        (keyup)="edit.emit(timelineEvent())">
+        <ng-icon name="saxEditOutline" size="20" />
+      </a>
+    </li>
     <li>
       <a
         tabindex="0"
