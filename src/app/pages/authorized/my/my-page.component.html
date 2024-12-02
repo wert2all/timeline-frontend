@@ -25,8 +25,8 @@
         <app-timeline
           [timeline]="timeline()"
           (filterByTag)="filterByTag($event)"
-          (onDelete)="deleteEvent($event)"
-          (onEdit)="editEvent($event)"
+          (delete)="deleteEvent($event)"
+          (edit)="editEvent($event)"
           [canEdit]="true" />
 
         <app-modal-confirm

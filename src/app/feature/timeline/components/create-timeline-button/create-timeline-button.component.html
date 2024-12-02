@@ -8,7 +8,7 @@
 
 <app-modal
   [show]="showAddTimelineWindow()"
-  (onClosed)="showAddTimelineWindow.set(false)">
+  (closed)="showAddTimelineWindow.set(false)">
   <app-add-timeline
     [isAuthorized]="isAuthorized()"
     [isLoading]="isLoading()"

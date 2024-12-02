@@ -23,7 +23,7 @@ export class ShowUserFeaturesComponent {
   showFeatures = input(false);
 
   save = output<{ name: string; active: boolean }>();
-  onClose = output();
+  close = output();
 
   protected readonly features = this.featuresService
     .getAllFeatures()

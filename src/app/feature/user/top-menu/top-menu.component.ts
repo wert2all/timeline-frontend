@@ -59,9 +59,9 @@ type AccountView = Unique & {
 })
 export class TopMenuComponent {
   changeAccount = output<Unique>();
-  onAccountClick = output<void>();
-  onSaveFeature = output<{ feature: FeatureFlagName; isActive: boolean }>();
-  onLogout = output<void>();
+  accountClick = output<void>();
+  saveFeature = output<{ feature: FeatureFlagName; isActive: boolean }>();
+  logout = output<void>();
 
   authorizedUserToken = input.required<string>();
   activeAccount = input.required<Account>();
@@ -94,7 +94,7 @@ export class TopMenuComponent {
     this.isCopied.set(true);
   }
 
-  saveFeature(event: { name: string; active: boolean }) {
+  saveFeatureClick(event: { name: string; active: boolean }) {
     console.log(event);
   }
 
@@ -109,7 +109,7 @@ export class TopMenuComponent {
 
   openMenu() {
     this.isOpenMenu.set(!this.isOpenMenu());
-    this.onAccountClick.emit();
+    this.accountClick.emit();
   }
 
   private toAccountView(account: Account): AccountView {

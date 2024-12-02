@@ -20,13 +20,13 @@ import { TableItem, TableOfContents } from './table-of-contents.types';
 export class TableOfContentsComponent implements OnInit {
   state = input.required<TableOfContents>();
   setActive = input<string | null>(null);
-  click = output<TableItem>();
+  clickItem = output<TableItem>();
 
   protected selected = signal<string | null>(null);
 
   protected itemClick(item: TableItem) {
     this.selected.set(item.uuid);
-    this.click.emit(item);
+    this.clickItem.emit(item);
   }
 
   ngOnInit(): void {

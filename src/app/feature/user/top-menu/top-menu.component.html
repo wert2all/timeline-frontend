@@ -96,7 +96,7 @@
 
     <div class="divider"></div>
 
-    <a tabindex="0" (click)="onLogout.emit()" (keyup.enter)="onLogout.emit()">
+    <a tabindex="0" (click)="logout.emit()" (keyup.enter)="logout.emit()">
       <ng-icon name="saxLogout1Outline" size="22"></ng-icon>
       Log out
     </a>
@@ -104,8 +104,8 @@
     <app-feature-flag feature="user_feature_flag">
       <app-show-user-features
         [showFeatures]="showFeatures()"
-        (save)="saveFeature($event)"
-        (onClose)="showFeatures.set(false)" />
+        (save)="saveFeatureClick($event)"
+        (close)="showFeatures.set(false)" />
     </app-feature-flag>
   </div>
 </div>

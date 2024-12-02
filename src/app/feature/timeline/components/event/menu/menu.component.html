@@ -5,8 +5,8 @@
         <a
           tabindex="0"
           class="btn btn-ghost btn-sm"
-          (click)="onEdit.emit(timelineEvent())"
-          (keyup)="onEdit.emit(timelineEvent())">
+          (click)="edit.emit(timelineEvent())"
+          (keyup)="edit.emit(timelineEvent())">
           <ng-icon name="saxEditOutline" size="20" />
         </a>
       </li>
@@ -15,8 +15,8 @@
       <a
         tabindex="0"
         class="btn btn-ghost btn-sm hover:bg-warning hover:text-warning-content"
-        (click)="onDelete.emit(timelineEvent())"
-        (keyup)="onDelete.emit(timelineEvent())">
+        (click)="delete.emit(timelineEvent())"
+        (keyup)="delete.emit(timelineEvent())">
         <ng-icon name="saxTrashOutline" size="20" />
       </a>
     </li>
