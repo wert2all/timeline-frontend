@@ -41,7 +41,13 @@ export const authFeature = createFeature({
           id: account.id,
           name: account.name || undefined,
           avatar: account.avatar || undefined,
-          settings: account.settings || [],
+          settings: account.settings.reduce(
+            (prev, cur) => ({
+              ...prev,
+              [cur.key]: cur.value,
+            }),
+            {}
+          ),
         },
         authorizedUser: {
           id: user.id,
@@ -52,7 +58,13 @@ export const authFeature = createFeature({
               id: account.id,
               name: account.name || undefined,
               avatar: account.avatar || undefined,
-              settings: account.settings || [],
+              settings: account.settings.reduce(
+                (prev, cur) => ({
+                  ...prev,
+                  [cur.key]: cur.value,
+                }),
+                {}
+              ),
             })),
         },
         loading: false,

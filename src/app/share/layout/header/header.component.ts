@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FeatureFlagComponent } from '../../../feature/flag/feature-flag/feature-flag.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
-import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { AuthStorageService } from '../../../store/auth/auth-storage.service';
 import { AuthActions } from '../../../store/auth/auth.actions';
@@ -21,7 +20,6 @@ import { LoginButtonComponent } from './login-button/login-button.component';
     TopMenuComponent,
     LoginButtonComponent,
     FeatureFlagComponent,
-    ShowUserFeaturesComponent,
     ThemeSwitchComponent,
   ],
 })

@@ -1,11 +1,11 @@
 import { Iterable, Loadable } from '../../app.types';
 
-export type AccountSetting = { key: string; value: string };
+export type AccountSettings = Record<string, string>;
 
 export type Account = Iterable & {
   name?: string;
   avatar?: string;
-  settings: AccountSetting[];
+  settings: AccountSettings;
 };
 
 export type AuthorizedUser = Iterable & {

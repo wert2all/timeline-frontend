@@ -3,7 +3,9 @@
     <a class="logo btn text-xl" href="/"> timeline </a>
   </div>
   <div class="flex-none gap-2">
-    <app-feature-flag feature="dark_light_mode">
+    <app-feature-flag
+      feature="dark_light_mode"
+      [accountSettings]="activeAccount()?.settings || {}">
       <app-theme-switch />
     </app-feature-flag>
 

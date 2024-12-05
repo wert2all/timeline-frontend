@@ -16,13 +16,10 @@ import {
   dumpTag,
   dumpTitle,
 } from '../../../share/dump.types';
-import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
-import { MarkdownContentComponent } from '../../../share/markdown-content/markdown-content.component';
 
 import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
-import { TableOfContentsComponent } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.component';
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
 
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
@@ -30,7 +27,6 @@ import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { Store } from '@ngrx/store';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
-import { LinkPreviewComponent } from '../../../feature/edit-event/edit-event-form/link-preview/link-preview.component';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -43,12 +39,8 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     CommonModule,
     LayoutComponent,
     TitleComponent,
-    LinkPreviewComponent,
     EditEventFormComponent,
-    MarkdownContentComponent,
     TimelineComponent,
-    TableOfContentsComponent,
-    HeroComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
     ThemeSwitchComponent,
@@ -84,7 +76,7 @@ export class DevelopPageComponent implements OnInit {
     id: 1,
     name: 'John Doe',
     firstLetter: 'J',
-    settings: [],
+    settings: {},
     avatar:
       'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
   };
@@ -93,7 +85,7 @@ export class DevelopPageComponent implements OnInit {
     id: 2,
     name: 'John Doe',
     firstLetter: 'J',
-    settings: [],
+    settings: {},
   };
 
   protected readonly userAccounts = [

@@ -24,7 +24,7 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../app.types';
 import { Account } from '../../../store/auth/auth.types';
-import { FeatureFlagName } from '../../features.service';
+import { FeatureFlagName, FeaturesService } from '../../features.service';
 import { FeatureFlagComponent } from '../../flag/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../features/show-user-features/show-user-features.component';
 
@@ -68,6 +68,7 @@ export class TopMenuComponent {
 
   accounts = input<Account[]>([]);
 
+  private readonly featuresService = inject(FeaturesService);
   private readonly clipboard: Clipboard = inject(Clipboard);
 
   protected readonly isCopied = signal(false);
@@ -88,6 +89,27 @@ export class TopMenuComponent {
       .map(account => this.toAccountView(account))
       .filter(acc => !!acc)
   );
+
+  protected readonly allFeatures = computed(() => {
+    const allFeatures = this.featuresService
+      .getAllFeatures()
+      .sort((a, b) => a.stage.toString().localeCompare(b.stage.toString()))
+      .reverse();
+    const featureAccount = {
+      settings: allFeatures
+        .map(feature => ({
+          key: feature.key,
+          value: this.activeAccount().settings[feature.name] === 'true',
+        }))
+        .reduce((prev, curr) => ({ ...prev, [curr.key]: curr.value }), {}),
+    };
+    return allFeatures.map(feature => ({
+      name: feature.name,
+      description: feature.description,
+      stage: feature.stage,
+      isActive: feature.canShow(featureAccount),
+    }));
+  });
 
   copyToClipboard() {
     this.clipboard.copy(this.authorizedUserToken());
