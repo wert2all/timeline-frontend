@@ -1,5 +1,5 @@
 <app-modal [show]="showFeatures()" title="Features" (closed)="close.emit()">
-  @for (feature of features; track $index) {
+  @for (feature of features(); track $index) {
     <div class="mt-4 flex">
       <div class="order flex-auto">
         <p class="text-xl font-bold">{{ feature.name }}</p>
@@ -15,8 +15,8 @@
           [name]="feature.name"
           class="toggle"
           (change)="changeFeature(feature, $event)"
-          [class.toggle-success]="feature.canShow"
-          [attr.checked]="feature.canShow() ? 'checked' : null" />
+          [class.toggle-success]="feature.isActive"
+          [attr.checked]="feature.isActive ? 'checked' : null" />
       </div>
     </div>
   }

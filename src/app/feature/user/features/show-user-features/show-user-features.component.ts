@@ -2,14 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   input,
   output,
 } from '@angular/core';
 
 import { ModalComponent } from '../../../../share/modal/modal.component';
-import { Feature, FeaturesService } from '../../../features.service';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
+import { UserFeature } from './show-user-features.types';
 
 @Component({
   selector: 'app-show-user-features',
@@ -19,18 +18,13 @@ import { FeatureStageComponent } from '../feature-stage/feature-stage.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowUserFeaturesComponent {
-  private readonly featuresService = inject(FeaturesService);
+  features = input.required<UserFeature[]>();
   showFeatures = input(false);
 
   save = output<{ name: string; active: boolean }>();
   close = output();
 
-  protected readonly features = this.featuresService
-    .getAllFeatures()
-    .sort((a, b) => a.stage.toString().localeCompare(b.stage.toString()))
-    .reverse();
-
-  changeFeature(feature: Feature, event: Event) {
+  changeFeature(feature: UserFeature, event: Event) {
     const input = event.currentTarget as HTMLInputElement;
     this.save.emit({ name: feature.name, active: input.checked });
   }

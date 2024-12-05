@@ -6,7 +6,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
@@ -35,7 +35,6 @@ import {
   imports: [
     CommonModule,
     LayoutComponent,
-    NgIconComponent,
     TimelineComponent,
     TitleComponent,
     HeroComponent,

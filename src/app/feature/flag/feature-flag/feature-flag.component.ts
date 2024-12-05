@@ -5,8 +5,14 @@ import {
   computed,
   inject,
   input,
+  Signal,
 } from '@angular/core';
-import { FeatureFlagName, FeaturesService } from '../../features.service';
+import {
+  AccountFeaturesSettings,
+  FeatureFlagName,
+  FeaturesAccount,
+  FeaturesService,
+} from '../../features.service';
 
 @Component({
   selector: 'app-feature-flag',
@@ -19,11 +25,16 @@ export class FeatureFlagComponent {
   private readonly featuresService = inject(FeaturesService);
 
   feature = input.required<FeatureFlagName>();
+  accountSettings = input.required<AccountFeaturesSettings>();
   nigate = input(false);
+
+  private account: Signal<FeaturesAccount> = computed(() => ({
+    settings: this.accountSettings,
+  }));
 
   enabledFeature = computed(() =>
     this.nigate()
-      ? !this.featuresService.canShow(this.feature())
-      : this.featuresService.canShow(this.feature())
+      ? !this.featuresService.canShow(this.feature(), this.account())
+      : this.featuresService.canShow(this.feature(), this.account())
   );
 }
