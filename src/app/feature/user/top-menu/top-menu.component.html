@@ -22,7 +22,7 @@
   <div class="content collapsable" [class.open]="isOpenMenu()">
     <app-feature-flag
       feature="show_user_accounts"
-      [accountSettings]="activeAccount().settings">
+      [accountSettings]="activeAccountSettings()">
       @if (userAccounts().length > 1) {
         <div class="accounts_switcher">
           <div class="accounts_title" [class.open]="isAccountChange()">
@@ -59,7 +59,7 @@
 
     <app-feature-flag
       feature="user_settings"
-      [accountSettings]="activeAccount().settings">
+      [accountSettings]="activeAccountSettings()">
       <a tabindex="0">
         <ng-icon name="saxSetting2Outline" size="22"></ng-icon>
         Settings
@@ -68,7 +68,7 @@
 
     <app-feature-flag
       feature="user_feature_flag"
-      [accountSettings]="activeAccount().settings">
+      [accountSettings]="activeAccountSettings()">
       <a
         tabindex="0"
         (click)="showFeatures.set(true)"
@@ -109,7 +109,7 @@
 
     <app-feature-flag
       feature="user_feature_flag"
-      [accountSettings]="activeAccount().settings">
+      [accountSettings]="activeAccountSettings()">
       <app-show-user-features
         [features]="allFeatures()"
         [showFeatures]="showFeatures()"

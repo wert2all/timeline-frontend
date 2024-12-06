@@ -22,9 +22,8 @@ export interface Feature {
   canShow(account: FeaturesAccount): boolean;
 }
 
-const canShow = (account: FeaturesAccount, flag: string): boolean => {
-  return account.settings[flag as FeatureFlagName] === true;
-};
+const canShow = (account: FeaturesAccount, flag: string): boolean =>
+  account.settings[flag as FeatureFlagName] === true;
 
 const FEATURE_FLAGS = {
   dark_light_mode: {

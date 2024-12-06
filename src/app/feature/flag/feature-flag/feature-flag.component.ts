@@ -29,7 +29,7 @@ export class FeatureFlagComponent {
   nigate = input(false);
 
   private account: Signal<FeaturesAccount> = computed(() => ({
-    settings: this.accountSettings,
+    settings: this.accountSettings(),
   }));
 
   enabledFeature = computed(() =>
