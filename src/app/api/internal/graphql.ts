@@ -32,6 +32,11 @@ export interface Scalars {
   Time: { input: string; output: string };
 }
 
+export interface AccountSettingInput {
+  key: Scalars['String']['input'];
+  value?: InputMaybe<Scalars['String']['input']>;
+}
+
 export interface AddTimeline {
   accountId: Scalars['Int']['input'];
   name?: InputMaybe<Scalars['String']['input']>;
