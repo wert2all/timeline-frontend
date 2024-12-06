@@ -13,6 +13,11 @@ type Account {
   settings: [AccountSettings!]!
 }
 
+input AccountSettingInput {
+  key: String!
+  value: String
+}
+
 type AccountSettings {
   key: String!
   value: String!
@@ -46,6 +51,7 @@ type Mutation {
   authorize: User
   deleteEvent(eventId: Int!): Status!
   editEvent(event: ExistTimelineEventInput!): TimelineEvent!
+  saveSettings(accountId: Int!, settings: [AccountSettingInput]): Status!
 }
 
 type Query {
