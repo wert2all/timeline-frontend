@@ -99,7 +99,7 @@ export class TopMenuComponent {
       settings: allFeatures
         .map(feature => ({
           key: feature.key,
-          value: this.activeAccount().settings[feature.name] === 'true',
+          value: this.activeAccount().settings[feature.key] === 'true',
         }))
         .reduce((prev, curr) => ({ ...prev, [curr.key]: curr.value }), {}),
     };
@@ -109,6 +109,18 @@ export class TopMenuComponent {
       stage: feature.stage,
       isActive: feature.canShow(featureAccount),
     }));
+  });
+
+  protected activeAccountSettings = computed(() => {
+    const settings: Record<string, string | boolean> = {};
+    Object.entries(this.activeAccount().settings).forEach(([key, value]) => {
+      if (value === 'true' || value === 'false') {
+        settings[key] = value === 'true';
+      } else {
+        settings[key] = value;
+      }
+    });
+    return settings;
   });
 
   copyToClipboard() {
