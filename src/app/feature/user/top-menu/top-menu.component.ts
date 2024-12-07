@@ -23,7 +23,7 @@ import {
   saxTickCircleOutline,
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../app.types';
-import { Account } from '../../../store/auth/auth.types';
+import { Account } from '../../../store/account/account.types';
 import { FeatureFlagName, FeaturesService } from '../../features.service';
 import { FeatureFlagComponent } from '../features/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../features/show-user-features/show-user-features.component';

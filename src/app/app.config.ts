@@ -11,6 +11,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { provideApollo } from './providers/apollo.provider';
 import { provideSentry } from './providers/sentry.provider';
+import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
 import { previewEffects } from './store/preview/preview.effects';
@@ -34,6 +35,7 @@ export const appConfig: ApplicationConfig = {
       [timelineFeature.name]: timelineFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
+      [accountFeature.name]: accountFeature.reducer,
     }),
     provideEffects([
       authEffects,
