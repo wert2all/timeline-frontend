@@ -24,6 +24,7 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 
 import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
+import { accountFeature } from '../../../store/account/account.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
@@ -72,7 +73,7 @@ export class MyPageComponent {
     timelineFeature.selectViewEvents
   );
   protected readonly activeAccount = this.store.selectSignal(
-    authFeature.selectActiveAccount
+    accountFeature.selectActiveAccount
   );
 
   protected readonly shouldDeleteEvent = signal<number>(0);

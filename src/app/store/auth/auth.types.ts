@@ -8,7 +8,6 @@ export type AuthorizedUser = Iterable & {
 
 export type AuthState = Loadable & {
   authorizedUser: AuthorizedUser | null;
-  activeAccount: Account | null;
 };
 
 export type IdConfiguration = google.accounts.id.IdConfiguration;

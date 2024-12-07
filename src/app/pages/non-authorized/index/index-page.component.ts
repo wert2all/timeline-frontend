@@ -15,6 +15,7 @@ import { TitleComponent } from '../../../share/layout/content/title/title.compon
 import { LayoutComponent } from '../../../share/layout/layout.component';
 
 import { Undefined } from '../../../app.types';
+import { accountFeature } from '../../../store/account/account.reducer';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -159,10 +160,10 @@ export class IndexPageComponent {
     })
   );
   protected readonly isAuthorized = this.store.selectSignal(
-    authFeature.isAuthorized
+    accountFeature.isAuthorized
   );
   protected readonly activeAccount = this.store.selectSignal(
-    authFeature.selectActiveAccount
+    accountFeature.selectActiveAccount
   );
   protected readonly isLoading = computed(
     () => this.isTimelineLoading() || this.isAuthLoading()

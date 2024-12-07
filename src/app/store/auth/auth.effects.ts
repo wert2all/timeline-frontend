@@ -12,6 +12,7 @@ import { GoogleOuthService } from '../../api/external/google-outh.service';
 import { ApiClient, User } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
+import { AccountActions } from '../account/account.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AuthStorageService } from './auth-storage.service';
 import { AuthActions } from './auth.actions';
@@ -170,6 +171,24 @@ const saveAccountToStorage = (
     })
   );
 
+const setActiveAccount = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AuthActions.successAuthorized),
+    map(({ account }) => ({
+      id: account.id,
+      name: account.name || undefined,
+      avatar: account.avatar || undefined,
+      settings: account.settings.reduce(
+        (prev, cur) => ({
+          ...prev,
+          [cur.key]: cur.value,
+        }),
+        {}
+      ),
+    })),
+    map(account => AccountActions.setAccount({ account }))
+  );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
 
@@ -188,4 +207,6 @@ export const authEffects = {
     saveAccountToStorage,
     StoreUnDispatchEffect
   ),
+
+  setActiveAccount: createEffect(setActiveAccount, StoreDispatchEffect),
 };

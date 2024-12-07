@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
+import { accountFeature } from '../../../store/account/account.reducer';
 import { AuthStorageService } from '../../../store/auth/auth-storage.service';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
@@ -29,9 +30,9 @@ export class HeaderComponent {
   private readonly authStorage = inject(AuthStorageService);
 
   isLoading = this.store.selectSignal(authFeature.isLoading);
-  isAuthorized = this.store.selectSignal(authFeature.isAuthorized);
+  isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
   token = this.authStorage.getToken();
-  activeAccount = this.store.selectSignal(authFeature.selectActiveAccount);
+  activeAccount = this.store.selectSignal(accountFeature.selectActiveAccount);
 
   login() {
     this.router.navigate(['user', 'login']);
