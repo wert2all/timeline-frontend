@@ -105,6 +105,7 @@ export class TopMenuComponent {
     };
     return allFeatures.map(feature => ({
       name: feature.name,
+      key: feature.key,
       description: feature.description,
       stage: feature.stage,
       isActive: feature.canShow(featureAccount),
@@ -128,8 +129,8 @@ export class TopMenuComponent {
     this.isCopied.set(true);
   }
 
-  saveFeatureClick(event: { name: string; active: boolean }) {
-    console.log(event);
+  saveFeatureClick(event: { name: FeatureFlagName; active: boolean }) {
+    this.saveFeature.emit({ feature: event.name, isActive: event.active });
   }
 
   changeAccountClick() {

@@ -22,6 +22,7 @@
             [authorizedUserToken]="token"
             [activeAccount]="account"
             (accountClick)="goToDashboard()"
+            (saveFeature)="saveFeature($event)"
             (logout)="logout()" />
         </div>
       }

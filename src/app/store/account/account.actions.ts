@@ -6,5 +6,7 @@ export const AccountActions = createActionGroup({
   events: {
     'Clean account': emptyProps(),
     'Set account': props<{ account: Account }>(),
+
+    'Update one setting': props<{ key: string; value: string }>(),
   },
 });

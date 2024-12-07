@@ -1,10 +1,24 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { KeyValue } from '../../app.types';
 import { AccountActions } from './account.actions';
-import { AccountState } from './account.types';
+import { Account, AccountState } from './account.types';
 
-const initialState: AccountState = {
-  activeAccount: null,
+export const mergeAccountSettings = (
+  account: Account | null,
+  { key, value }: KeyValue<string>
+) => {
+  if (account) {
+    const settings = { ...account?.settings };
+    if (settings) {
+      settings[key] = value;
+    }
+    return { ...account, settings };
+  } else {
+    return null;
+  }
 };
+
+const initialState: AccountState = { activeAccount: null };
 
 export const accountFeature = createFeature({
   name: 'account',
@@ -18,6 +32,14 @@ export const accountFeature = createFeature({
     on(AccountActions.setAccount, (state, { account }) => ({
       ...state,
       activeAccount: account,
+    })),
+
+    on(AccountActions.updateOneSetting, (state, action) => ({
+      ...state,
+      activeAccount: mergeAccountSettings(state.activeAccount, {
+        key: action.key,
+        value: action.value,
+      }),
     }))
   ),
   extraSelectors: ({ selectActiveAccount }) => ({
