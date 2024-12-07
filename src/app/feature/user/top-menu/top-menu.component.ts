@@ -25,7 +25,7 @@ import {
 import { Unique } from '../../../app.types';
 import { Account } from '../../../store/auth/auth.types';
 import { FeatureFlagName, FeaturesService } from '../../features.service';
-import { FeatureFlagComponent } from '../../flag/feature-flag/feature-flag.component';
+import { FeatureFlagComponent } from '../features/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../features/show-user-features/show-user-features.component';
 
 type AccountView = Unique & {
