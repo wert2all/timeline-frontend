@@ -12,7 +12,7 @@ import {
   FeatureFlagName,
   FeaturesAccount,
   FeaturesService,
-} from '../../features.service';
+} from '../../../features.service';
 
 @Component({
   selector: 'app-feature-flag',
