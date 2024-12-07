@@ -106,15 +106,15 @@
       <ng-icon name="saxLogout1Outline" size="22"></ng-icon>
       Log out
     </a>
-
-    <app-feature-flag
-      feature="user_feature_flag"
-      [accountSettings]="activeAccountSettings()">
-      <app-show-user-features
-        [features]="allFeatures()"
-        [showFeatures]="showFeatures()"
-        (save)="saveFeatureClick($event)"
-        (close)="showFeatures.set(false)" />
-    </app-feature-flag>
   </div>
 </div>
+
+<app-feature-flag
+  feature="user_feature_flag"
+  [accountSettings]="activeAccountSettings()">
+  <app-show-user-features
+    [features]="allFeatures()"
+    [showFeatures]="showFeatures()"
+    (save)="saveFeatureClick($event)"
+    (close)="showFeatures.set(false)" />
+</app-feature-flag>
