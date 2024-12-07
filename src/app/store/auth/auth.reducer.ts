@@ -5,7 +5,6 @@ import { AuthState } from './auth.types';
 const initialState: AuthState = {
   loading: false,
   authorizedUser: null,
-  activeAccount: null,
 };
 
 export const authFeature = createFeature({
@@ -23,7 +22,6 @@ export const authFeature = createFeature({
       (state): AuthState => ({
         ...state,
         authorizedUser: null,
-        activeAccount: null,
         loading: false,
       })
     ),
@@ -35,20 +33,8 @@ export const authFeature = createFeature({
 
     on(
       AuthActions.successAuthorized,
-      (state, { account, user }): AuthState => ({
+      (state, { user }): AuthState => ({
         ...state,
-        activeAccount: {
-          id: account.id,
-          name: account.name || undefined,
-          avatar: account.avatar || undefined,
-          settings: account.settings.reduce(
-            (prev, cur) => ({
-              ...prev,
-              [cur.key]: cur.value,
-            }),
-            {}
-          ),
-        },
         authorizedUser: {
           id: user.id,
           email: user.email,
@@ -72,11 +58,7 @@ export const authFeature = createFeature({
     )
   ),
 
-  extraSelectors: ({ selectLoading, selectActiveAccount }) => ({
+  extraSelectors: ({ selectLoading }) => ({
     isLoading: createSelector(selectLoading, loading => loading),
-    isAuthorized: createSelector(
-      selectActiveAccount,
-      account => account != null
-    ),
   }),
 });

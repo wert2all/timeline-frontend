@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
+import { accountFeature } from '../../../store/account/account.reducer';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { authFeature } from '../../../store/auth/auth.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -22,7 +23,7 @@ import { TableOfContentsActions } from '../../../store/table-of-contents/table-o
 export class LoginPageComponent {
   private readonly store = inject(Store);
 
-  private isAuthorised = this.store.select(authFeature.isAuthorized);
+  private isAuthorised = this.store.select(accountFeature.isAuthorized);
   isLoading = this.store.select(authFeature.isLoading);
 
   constructor(router: Router) {
