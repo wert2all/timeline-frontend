@@ -13,9 +13,8 @@
         <input
           type="checkbox"
           [name]="feature.name"
-          class="toggle"
+          class="toggle toggle-success"
           (change)="changeFeature(feature, $event)"
-          [class.toggle-success]="feature.isActive"
           [attr.checked]="feature.isActive ? 'checked' : null" />
       </div>
     </div>
