@@ -1,39 +1,47 @@
 <div
   class="event-form bg-lighter timeline-box relative pt-0"
   [class.skeleton]="isDisabled()">
-  <div class="join rounded-t-none">
+  <div class="form-tabs join rounded-t-none">
     <a
       tabindex="0"
-      class="btn btn-secondary join-item"
-      [class.btn-secondary]="isActiveTab(0)"
+      class="btn join-item"
+      [class.active]="isActiveTab(0)"
       (click)="switchTo(0)"
-      (keyup)="switchTo(0)">
-      text something
+      (keyup)="switchTo(0)"
+      title="text something">
+      <ng-icon name="saxTextBlockOutline" size="24"></ng-icon>
+      <span>text something</span>
     </a>
     <a
       tabindex="1"
       class="btn join-item"
-      [class.btn-secondary]="isActiveTab(1)"
+      [class.active]="isActiveTab(1)"
       (click)="switchTo(1)"
-      (keyup)="switchTo(1)">
-      set date and time
+      (keyup)="switchTo(1)"
+      title="set date and time">
+      <ng-icon name="saxCalendar1Outline" size="24"></ng-icon>
+      <span>set date and time</span>
     </a>
     <a
       tabindex="2"
       class="btn join-item"
-      [class.btn-secondary]="isActiveTab(2)"
+      [class.active]="isActiveTab(2)"
       (click)="switchTo(2)"
-      (keyup)="switchTo(2)">
-      add tags</a
-    >
+      (keyup)="switchTo(2)"
+      title="add tags">
+      <ng-icon name="saxTagOutline" size="24"></ng-icon>
+      <span>add tags</span>
+    </a>
     <a
       tabindex="3"
       class="btn join-item"
-      [class.btn-secondary]="isActiveTab(3)"
+      [class.active]="isActiveTab(3)"
       (click)="switchTo(3)"
       (keyup)="switchTo(3)"
-      >add link</a
-    >
+      title="add link">
+      <ng-icon name="saxLinkSquareOutline" size="24"></ng-icon>
+      <span>add link</span>
+    </a>
   </div>
   <div>
     @if (isActiveTab(0)) {

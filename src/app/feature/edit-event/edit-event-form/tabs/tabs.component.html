@@ -1,0 +1,34 @@
+<div class="join rounded-t-none">
+  <a
+    tabindex="0"
+    class="btn btn-secondary join-item"
+    [class.btn-secondary]="isActiveTab(0)"
+    (click)="switchTo(0)"
+    (keyup)="switchTo(0)">
+    text something
+  </a>
+  <a
+    tabindex="1"
+    class="btn join-item"
+    [class.btn-secondary]="isActiveTab(1)"
+    (click)="switchTo(1)"
+    (keyup)="switchTo(1)">
+    set date and time
+  </a>
+  <a
+    tabindex="2"
+    class="btn join-item"
+    [class.btn-secondary]="isActiveTab(2)"
+    (click)="switchTo(2)"
+    (keyup)="switchTo(2)">
+    add tags</a
+  >
+  <a
+    tabindex="3"
+    class="btn join-item"
+    [class.btn-secondary]="isActiveTab(3)"
+    (click)="switchTo(3)"
+    (keyup)="switchTo(3)"
+    >add link</a
+  >
+</div>
