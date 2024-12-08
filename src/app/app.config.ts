@@ -11,6 +11,7 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { provideApollo } from './providers/apollo.provider';
 import { provideSentry } from './providers/sentry.provider';
+import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
@@ -43,6 +44,7 @@ export const appConfig: ApplicationConfig = {
       eventsEffects,
       tableOfYearsEffects,
       previewEffects,
+      accountEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
