@@ -1,4 +1,4 @@
-<div class="top-menu">
+<div class="top-menu" (clickOutside)="closeMenu()">
   <div
     class="current_account"
     (click)="openMenu()"
@@ -71,8 +71,8 @@
       [accountSettings]="activeAccountSettings()">
       <a
         tabindex="0"
-        (click)="showFeatures.set(true)"
-        (keyup.enter)="showFeatures.set(true)">
+        (click)="openUserFeatures()"
+        (keyup.enter)="openUserFeatures()">
         <ng-icon name="saxFlag2Outline" size="22"></ng-icon>
         Features
       </a>
@@ -95,7 +95,9 @@
     <a
       tabindex="0"
       href="https://github.com/wert2all/timeline-frontend/issues/new"
-      target="_blank">
+      target="_blank"
+      (click)="closeMenu()"
+      (keyup.enter)="closeMenu()">
       <ng-icon name="saxGhostOutline" size="22"></ng-icon>
       Send issue
     </a>

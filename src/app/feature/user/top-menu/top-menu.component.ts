@@ -23,6 +23,7 @@ import {
   saxTickCircleOutline,
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../app.types';
+import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { Account } from '../../../store/account/account.types';
 import { FeatureFlagName, FeaturesService } from '../../features.service';
 import { FeatureFlagComponent } from '../features/feature-flag/feature-flag.component';
@@ -39,7 +40,12 @@ type AccountView = Unique & {
   templateUrl: './top-menu.component.html',
   styleUrls: ['./top-menu.component.scss'],
   standalone: true,
-  imports: [FeatureFlagComponent, NgIconComponent, ShowUserFeaturesComponent],
+  imports: [
+    ClickOutsideDirective,
+    FeatureFlagComponent,
+    NgIconComponent,
+    ShowUserFeaturesComponent,
+  ],
   viewProviders: [
     provideIcons({
       saxFlag2Outline,
@@ -127,6 +133,9 @@ export class TopMenuComponent {
   copyToClipboard() {
     this.clipboard.copy(this.authorizedUserToken());
     this.isCopied.set(true);
+    setTimeout(() => {
+      this.isCopied.set(false);
+    }, 3000);
   }
 
   saveFeatureClick(event: { name: FeatureFlagName; active: boolean }) {
@@ -142,9 +151,18 @@ export class TopMenuComponent {
     this.changeAccountClick();
   }
 
+  openUserFeatures() {
+    this.showFeatures.set(true);
+    this.closeMenu();
+  }
+
   openMenu() {
     this.isOpenMenu.set(!this.isOpenMenu());
     this.accountClick.emit();
+  }
+
+  closeMenu() {
+    this.isOpenMenu.set(false);
   }
 
   private toAccountView(account: Account): AccountView {
