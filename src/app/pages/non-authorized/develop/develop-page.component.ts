@@ -15,6 +15,7 @@ import {
   dumpLinkTitle,
   dumpTag,
   dumpTitle,
+  dumpUserSettings,
 } from '../../../share/dump.types';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
@@ -77,7 +78,7 @@ export class DevelopPageComponent implements OnInit {
     name: 'John Doe',
     firstLetter: 'J',
     previewlyToken: 'token',
-    settings: {},
+    settings: dumpUserSettings,
     avatar:
       'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
   };
@@ -87,7 +88,7 @@ export class DevelopPageComponent implements OnInit {
     name: 'John Doe',
     firstLetter: 'J',
     previewlyToken: 'token',
-    settings: {},
+    settings: dumpUserSettings,
   };
 
   protected readonly userAccounts = [
