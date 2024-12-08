@@ -1,5 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FeatureFlagName } from '../../../feature/features.service';
@@ -31,10 +36,27 @@ export class HeaderComponent {
   private readonly router = inject(Router);
   private readonly authStorage = inject(AuthStorageService);
 
-  isLoading = this.store.selectSignal(authFeature.isLoading);
-  isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
-  token = this.authStorage.getToken();
-  activeAccount = this.store.selectSignal(accountFeature.selectActiveAccount);
+  protected isLoading = this.store.selectSignal(authFeature.isLoading);
+  protected isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
+  protected token = this.authStorage.getToken();
+  protected activeAccount = this.store.selectSignal(
+    accountFeature.selectActiveAccount
+  );
+  protected activeAccountSettings = computed(() => {
+    const settings: Record<string, string | boolean> = {};
+    const activeAccount = this.activeAccount();
+    if (activeAccount) {
+      Object.entries(activeAccount.settings).forEach(([key, value]) => {
+        if (value === 'true' || value === 'false') {
+          settings[key] = value === 'true';
+        } else {
+          settings[key] = value;
+        }
+      });
+    }
+
+    return settings;
+  });
 
   login() {
     this.router.navigate(['user', 'login']);
