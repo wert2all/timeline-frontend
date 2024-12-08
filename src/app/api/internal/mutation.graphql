@@ -25,3 +25,10 @@ mutation SaveExistTimelineEvent($event: ExistTimelineEventInput!) {
 mutation DeleteEvent($eventId: Int!) {
   deleteEvent(eventId: $eventId)
 }
+
+mutation SaveAccountSettings(
+  $accountId: Int!
+  $settings: [AccountSettingInput]!
+) {
+  saveSettings(accountId: $accountId, settings: $settings)
+}

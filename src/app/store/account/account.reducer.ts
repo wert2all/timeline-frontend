@@ -6,7 +6,7 @@ import { Account, AccountState } from './account.types';
 export const mergeAccountSettings = (
   account: Account | null,
   { key, value }: KeyValue<string>
-) => {
+): Account | null => {
   if (account) {
     const settings = { ...account?.settings };
     if (settings) {
