@@ -30,7 +30,7 @@ const FEATURE_FLAGS = {
     name: 'Dark/Light mode',
     description: 'Toggle between dark and light mode',
     canShow: account => canShow(account, 'dark_light_mode'),
-    stage: FeatureStage.development,
+    stage: FeatureStage.testing,
   },
   user_settings: {
     name: 'User settings',
@@ -41,7 +41,7 @@ const FEATURE_FLAGS = {
   user_feature_flag: {
     name: 'Features',
     description: 'Change some features of application.',
-    stage: FeatureStage.development,
+    stage: FeatureStage.testing,
     canShow: account => canShow(account, 'user_feature_flag'),
   },
   show_user_accounts: {
