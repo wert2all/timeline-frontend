@@ -20,6 +20,8 @@ import {
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
+  saxArrowLeft1Outline,
+  saxArrowRight4Outline,
   saxCalendar1Outline,
   saxCalendarAddOutline,
   saxCalendarTickOutline,
@@ -79,6 +81,8 @@ interface EditForm {
       saxTextBlockOutline,
       saxTagOutline,
       saxLinkSquareOutline,
+      saxArrowRight4Outline,
+      saxArrowLeft1Outline,
     }),
   ],
   imports: [
@@ -239,6 +243,18 @@ export class EditEventFormComponent implements AfterViewInit {
 
   switchTo(tabNumber: number) {
     this.switchTab.set(tabNumber);
+  }
+
+  nextTab() {
+    if (this.activeStep() === 3) {
+      this.switchTo(0);
+    } else {
+      this.switchTo((this.activeStep() || 0) + 1);
+    }
+  }
+
+  previousTab() {
+    throw new Error('Method not implemented.');
   }
 
   private updateDisabledControls() {
