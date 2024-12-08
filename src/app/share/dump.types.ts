@@ -10,7 +10,10 @@ export const dumpLink = 'https://www.thum.io/';
 export const dumpLinkTitle = 'Link title';
 export const dumpDate = new Date('2022-10-21 13:34:40');
 export const dumpTag: ViewTimelineTag = { value: 'dumpTag', title: '#dumpTag' };
-
+export const dumpUserSettings = {
+  user_feature_flag: 'true',
+  show_user_accounts: 'true',
+};
 export const dumpEvent: TimelineEvent = {
   id: 0,
   timelineId: 0,
