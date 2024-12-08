@@ -113,11 +113,6 @@ export class DevelopPageComponent implements OnInit {
         link: '/develop#EditEventFormComponent',
       },
       {
-        title: 'Theme switcher',
-        uuid: 'ThemeSwitchComponent',
-        link: '/develop#ThemeSwitchComponent',
-      },
-      {
         title: 'Top menu',
         uuid: 'TopMenuComponent',
         link: '/develop#TopMenuComponent',
