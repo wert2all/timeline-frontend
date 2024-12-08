@@ -1,0 +1,8 @@
+.form-tabs {
+  a.active {
+    @apply btn-secondary;
+  }
+  a:not(.active) span {
+    @apply hidden;
+  }
+}

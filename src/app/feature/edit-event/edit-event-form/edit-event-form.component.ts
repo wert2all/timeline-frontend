@@ -23,6 +23,9 @@ import {
   saxCalendar1Outline,
   saxCalendarAddOutline,
   saxCalendarTickOutline,
+  saxLinkSquareOutline,
+  saxTagOutline,
+  saxTextBlockOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
@@ -65,6 +68,7 @@ interface EditForm {
   selector: 'app-edit-event-form',
   standalone: true,
   templateUrl: './edit-event-form.component.html',
+  styleUrls: ['./edit-event-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [
     provideIcons({
@@ -72,6 +76,9 @@ interface EditForm {
       saxCalendarAddOutline,
       saxCalendar1Outline,
       saxCalendarTickOutline,
+      saxTextBlockOutline,
+      saxTagOutline,
+      saxLinkSquareOutline,
     }),
   ],
   imports: [
