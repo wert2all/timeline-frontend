@@ -5,7 +5,7 @@
   <div class="flex-none gap-2">
     <app-feature-flag
       feature="dark_light_mode"
-      [accountSettings]="activeAccount()?.settings || {}">
+      [accountSettings]="activeAccountSettings()">
       <app-theme-switch />
     </app-feature-flag>
 
