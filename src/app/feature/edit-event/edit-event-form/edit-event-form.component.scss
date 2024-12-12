@@ -6,3 +6,27 @@
     @apply hidden;
   }
 }
+
+.upload_image_container {
+  .preview {
+    opacity: 0.1;
+  }
+
+  @keyframes animate {
+    0% {
+      border-radius: 50px 50px 50px 5px;
+    }
+    25% {
+      border-radius: 5px 50px 50px 50px;
+    }
+    50% {
+      border-radius: 50px 5px 50px 50px;
+    }
+    75% {
+      border-radius: 50px 50px 5px 50px;
+    }
+    100% {
+      border-radius: 50px 50px 50px 5px;
+    }
+  }
+}
