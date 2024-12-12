@@ -105,13 +105,6 @@ const promptLogin = (
         onSignIn: token => {
           store.dispatch(AuthActions.setUserToken({ token: token }));
         },
-        onNotDisplayed: () => {
-          store.dispatch(
-            AuthActions.dispatchAuthError({
-              error: 'Google auth not displayed',
-            })
-          );
-        },
         onNotVerifiedEmail: () => {
           store.dispatch(
             AuthActions.dispatchAuthError({

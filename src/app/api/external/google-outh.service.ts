@@ -9,12 +9,10 @@ import {
 
 export interface Listeners {
   onSignIn: (token: string, user: GoogleUserInfo) => void;
-  onNotDisplayed: () => void;
   onNotVerifiedEmail: () => void;
 }
 const defaultListeners: Listeners = {
   onSignIn: () => {},
-  onNotDisplayed: () => {},
   onNotVerifiedEmail: () => {},
 };
 
@@ -26,24 +24,19 @@ export class GoogleOuthService {
   private readonly clientId = environment.services.google.clientId;
   private googleConfiguration: IdConfiguration = {
     client_id: this.clientId,
-    callback: this.getResponseCallback.bind(this),
+    callback: responce => {
+      this.getResponseCallback(responce);
+    },
     auto_select: true,
     cancel_on_tap_outside: false,
     use_fedcm_for_prompt: true,
   };
 
-  private onNotification = (
-    notification: google.accounts.id.PromptMomentNotification
-  ) => {
-    if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-      this.listeners.onNotDisplayed();
-    }
-  };
   private listeners: Listeners = defaultListeners;
 
   login(listeners: Listeners) {
     this.initialize(listeners);
-    google.accounts.id.prompt(this.onNotification);
+    google.accounts.id.prompt();
   }
   private initialize(listeners: Listeners) {
     if (!this.isInitialized) {
