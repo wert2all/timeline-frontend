@@ -1,0 +1,6 @@
+fragment UploadImageStatus on UploadImageStatus {
+  id
+  name
+  status
+  error
+}

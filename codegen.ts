@@ -23,6 +23,7 @@ const operationsConfig = (serviceName: string) => ({
   strictScalars: true,
   scalars: {
     Time: 'string',
+    Upload: 'File',
   },
 });
 

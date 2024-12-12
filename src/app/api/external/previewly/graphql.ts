@@ -29,6 +29,7 @@ export interface Scalars {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  Upload: { input: File; output: File };
 }
 
 export enum Status {
@@ -46,12 +47,25 @@ export type Preview = {
   error?: string | null;
 };
 
+export type UploadImageStatus = {
+  id: number;
+  name: string;
+  status: Status;
+  error?: string | null;
+};
+
 export type AddUrlVariables = Exact<{
   token: Scalars['String']['input'];
   url: Scalars['String']['input'];
 }>;
 
 export type AddUrl = { preview?: Preview | null };
+
+export type UploadImagesVariables = Exact<{
+  images: Array<Scalars['Upload']['input']> | Scalars['Upload']['input'];
+}>;
+
+export type UploadImages = { upload: Array<UploadImageStatus> };
 
 export type GetPreviewVariables = Exact<{
   token: Scalars['String']['input'];
@@ -70,6 +84,14 @@ export const Preview = gql`
     error
   }
 `;
+export const UploadImageStatus = gql`
+  fragment UploadImageStatus on UploadImageStatus {
+    id
+    name
+    status
+    error
+  }
+`;
 export const AddUrlDocument = gql`
   mutation AddUrl($token: String!, $url: String!) {
     preview: addUrl(token: $token, url: $url) {
@@ -84,6 +106,28 @@ export const AddUrlDocument = gql`
 })
 export class AddUrlMutation extends Apollo.Mutation<AddUrl, AddUrlVariables> {
   override document = AddUrlDocument;
+  override client = 'previewly';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+export const UploadImagesDocument = gql`
+  mutation UploadImages($images: [Upload!]!) {
+    upload(images: $images) {
+      ...UploadImageStatus
+    }
+  }
+  ${UploadImageStatus}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class UploadImagesMutation extends Apollo.Mutation<
+  UploadImages,
+  UploadImagesVariables
+> {
+  override document = UploadImagesDocument;
   override client = 'previewly';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
@@ -127,6 +171,7 @@ interface MutationOptionsAlone<T, V>
 export class previewlyApiClient {
   constructor(
     private addUrlMutation: AddUrlMutation,
+    private uploadImagesMutation: UploadImagesMutation,
     private getPreviewQuery: GetPreviewQuery
   ) {}
 
@@ -135,6 +180,13 @@ export class previewlyApiClient {
     options?: MutationOptionsAlone<AddUrl, AddUrlVariables>
   ) {
     return this.addUrlMutation.mutate(variables, options);
+  }
+
+  uploadImages(
+    variables: UploadImagesVariables,
+    options?: MutationOptionsAlone<UploadImages, UploadImagesVariables>
+  ) {
+    return this.uploadImagesMutation.mutate(variables, options);
   }
 
   getPreview(
