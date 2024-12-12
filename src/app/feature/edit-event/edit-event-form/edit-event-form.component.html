@@ -5,6 +5,14 @@
     <a
       tabindex="0"
       class="btn join-item"
+      title="previous"
+      (click)="previousTab()"
+      (keyup)="previousTab()">
+      <ng-icon name="saxArrowLeft1Outline" size="24"></ng-icon>
+    </a>
+    <a
+      tabindex="0"
+      class="btn join-item"
       [class.active]="isActiveTab(0)"
       (click)="switchTo(0)"
       (keyup)="switchTo(0)"
@@ -20,7 +28,7 @@
       (keyup)="switchTo(1)"
       title="set date and time">
       <ng-icon name="saxCalendar1Outline" size="24"></ng-icon>
-      <span>set date and time</span>
+      <span>set date</span>
     </a>
     <a
       tabindex="2"
@@ -41,6 +49,14 @@
       title="add link">
       <ng-icon name="saxLinkSquareOutline" size="24"></ng-icon>
       <span>add link</span>
+    </a>
+    <a
+      tabindex="0"
+      class="btn join-item"
+      title="next"
+      (click)="nextTab()"
+      (keyup)="nextTab()">
+      <ng-icon name="saxArrowRight4Outline" size="24"></ng-icon>
     </a>
   </div>
   <div>
