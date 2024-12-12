@@ -42,6 +42,18 @@
       <ng-icon name="saxLinkSquareOutline" size="24"></ng-icon>
       <span>add link</span>
     </a>
+    @if (this.isEditing() === false) {
+      <a
+        tabindex="0"
+        class="btn join-item"
+        [class.active]="isActiveTab(4)"
+        (click)="switchTo(4)"
+        (keyup)="switchTo(4)"
+        title="add image">
+        <ng-icon name="saxImageOutline" size="24"></ng-icon>
+        <span>add image</span>
+      </a>
+    }
   </div>
   <div>
     @if (isActiveTab(0)) {
@@ -164,7 +176,32 @@
         }
       </label>
     }
+    @if (isActiveTab(4) && isEditing() === false) {
+      <button
+        class="upload_image_container btn btn-square mt-4 h-full w-full bg-no-repeat p-4"
+        (click)="image.click()"
+        (keyup)="image.click()">
+        <div class="flex h-56 place-items-center">
+          @if (previewImage(); as previewImage) {
+            <img
+              [src]="previewImage"
+              class="preview h-full w-full"
+              [alt]="editForm.controls.title.value" />
+            <app-loader />
+          } @else {
+            <span> drop or click </span>
+          }
+        </div>
+      </button>
 
+      <input
+        #image
+        type="file"
+        multiple="false"
+        class="hidden"
+        accept="image/*"
+        (change)="handleFileSelect($event)" />
+    }
     <div class="mt-8 flex place-items-center gap-4">
       <div class="flex-none">
         <button

@@ -23,6 +23,7 @@ import {
   saxCalendar1Outline,
   saxCalendarAddOutline,
   saxCalendarTickOutline,
+  saxImageOutline,
   saxLinkSquareOutline,
   saxTagOutline,
   saxTextBlockOutline,
@@ -42,6 +43,7 @@ import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
+import { LoaderComponent } from '../../../share/loader/loader.component';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
@@ -79,6 +81,7 @@ interface EditForm {
       saxTextBlockOutline,
       saxTagOutline,
       saxLinkSquareOutline,
+      saxImageOutline,
     }),
   ],
   imports: [
@@ -88,6 +91,7 @@ interface EditForm {
     AddEventTagsComponent,
     DatePickerComponent,
     LinkPreviewComponent,
+    LoaderComponent,
   ],
 })
 export class EditEventFormComponent implements AfterViewInit {
@@ -117,6 +121,7 @@ export class EditEventFormComponent implements AfterViewInit {
   });
 
   private formValues = signal<EditValue | null>(null);
+  private selectedUploadFile = signal<File | null>(null);
   private formChanges$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
   private store = inject(Store);
   private readonly allPreviews = this.store.selectSignal(
@@ -127,12 +132,16 @@ export class EditEventFormComponent implements AfterViewInit {
   protected readonly tags = signal<ViewTimelineTag[]>([]);
 
   protected isDisabled = computed(() => this.loading() === true);
+  protected isEditing = computed(() => !!this.editEvent()?.id);
+
   protected buttonIcon = computed(() =>
-    this.editEvent()?.id ? 'saxCalendarTickOutline' : 'saxCalendarAddOutline'
+    this.isEditing() ? 'saxCalendarTickOutline' : 'saxCalendarAddOutline'
   );
-  protected buttonTitle = computed(() =>
-    this.editEvent()?.id ? 'Save' : 'Add'
-  );
+  protected buttonTitle = computed(() => (this.isEditing() ? 'Save' : 'Add'));
+  protected previewImage = computed(() => {
+    const file = this.selectedUploadFile();
+    return file ? URL.createObjectURL(file) : null;
+  });
 
   protected readonly previewLink = toSignal(
     this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
@@ -239,6 +248,11 @@ export class EditEventFormComponent implements AfterViewInit {
 
   switchTo(tabNumber: number) {
     this.switchTab.set(tabNumber);
+  }
+
+  handleFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.selectedUploadFile.set(input.files![0]);
   }
 
   private updateDisabledControls() {
