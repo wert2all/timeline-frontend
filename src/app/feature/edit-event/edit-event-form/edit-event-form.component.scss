@@ -1,6 +1,14 @@
 .form-tabs {
+  a {
+    ng-icon {
+      @apply text-primary;
+    }
+  }
   a.active {
     @apply btn-secondary;
+    ng-icon {
+      @apply text-primary-content;
+    }
   }
   a:not(.active) span {
     @apply hidden;
