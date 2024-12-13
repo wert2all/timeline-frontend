@@ -64,6 +64,7 @@ interface EditForm {
   content: FormControl<string>;
   link: FormControl<string | null>;
   isPrivate: FormControl<boolean | null>;
+  imageId: FormControl<number | null>;
 }
 
 @Component({
@@ -118,6 +119,7 @@ export class EditEventFormComponent implements AfterViewInit {
     content: new FormControl('', { nonNullable: true }),
     link: new FormControl(null, [Validators.pattern(URL_REGEXP)]),
     isPrivate: new FormControl(false),
+    imageId: new FormControl<number | null>(null),
   });
 
   private formValues = signal<EditValue | null>(null);
@@ -216,6 +218,7 @@ export class EditEventFormComponent implements AfterViewInit {
       this.editForm.controls.time.setValue(editEvent.date.time);
 
       this.editForm.controls.link.setValue(editEvent.url?.link || null);
+      this.editForm.controls.imageId.setValue(editEvent.imageId || null);
       this.tags.set(editEvent.tags);
     }
   }

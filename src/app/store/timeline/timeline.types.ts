@@ -34,7 +34,7 @@ export type TimelineEvent = TimelineRequired &
     showTime?: boolean;
     url?: string;
     tags?: string[];
-    image?: PreviewlyUploadedImage;
+    imageId?: number;
   };
 
 export type ViewTimelineEvent = Omit<
