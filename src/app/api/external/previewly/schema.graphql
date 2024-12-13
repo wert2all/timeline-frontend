@@ -9,6 +9,7 @@ directive @defer(
 type Mutation {
   addUrl(token: String!, url: String!): PreviewData
   createToken: String!
+  upload(images: [Upload!]!): [UploadImageStatus!]!
 }
 
 type PreviewData {
@@ -29,4 +30,13 @@ enum Status {
   error
   pending
   success
+}
+
+scalar Upload
+
+type UploadImageStatus {
+  error: String
+  id: Int!
+  name: String!
+  status: Status!
 }

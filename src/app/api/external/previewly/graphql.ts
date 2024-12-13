@@ -29,6 +29,7 @@ export interface Scalars {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
+  Upload: { input: File; output: File };
 }
 
 export enum Status {
