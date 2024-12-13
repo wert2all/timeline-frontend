@@ -15,6 +15,8 @@ import {
 } from './timeline.convertors';
 import { timelineFeature } from './timeline.reducer';
 
+import { previewlyApiClient } from '../../api/external/previewly/graphql';
+import { accountFeature } from '../account/account.reducer';
 const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
     ofType(AuthActions.successAuthorized),
@@ -53,8 +55,8 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(timeline =>
           timeline
             ? TimelineActions.successAddTimeline({
-              timelines: [{ id: timeline.id, name: timeline.name || '' }],
-            })
+                timelines: [{ id: timeline.id, name: timeline.name || '' }],
+              })
             : TimelineActions.emptyTimeline()
         ),
         catchError(exception =>
@@ -160,8 +162,8 @@ const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
       event
         ? event.id
           ? EventActions.updateExistEventOnAPI({
-            event: { ...event, id: event.id },
-          })
+              event: { ...event, id: event.id },
+            })
           : EventActions.pushNewEventToAPI({ event: event })
         : EventActions.nothingToSave()
     )
@@ -207,6 +209,32 @@ const pushExistEventToApi = (
     )
   );
 
+const uploadImage = (
+  actions$ = inject(Actions),
+  store = inject(Store),
+  apiClient = inject(previewlyApiClient)
+) =>
+  actions$.pipe(
+    ofType(EventActions.uploadImage),
+    concatLatestFrom(() =>
+      store
+        .select(accountFeature.selectActiveAccount)
+        .pipe(map(account => account?.previewlyToken))
+    ),
+    exhaustMap(([{ image }, token]) => {
+      return token
+        ? apiClient.uploadImages({ images: [image], token }).pipe(
+            map(result => result.data?.upload),
+            map(data => {
+              console.log(data);
+              return EventActions.successUploadImage({ id: 0, url: '' });
+            }),
+            catchError(error => of(EventActions.failedUploadImage({ error })))
+          )
+        : of(EventActions.emptyPreviewlyToken());
+    })
+  );
+
 const notifyFailedUploadImage = (
   actions$ = inject(Actions),
   notification = inject(NotificationStore)
@@ -218,6 +246,16 @@ const notifyFailedUploadImage = (
     })
   );
 
+const emptyToken = (
+  actions$ = inject(Actions),
+  notification = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(EventActions.emptyPreviewlyToken),
+    tap(() => {
+      notification.addMessage('Empty token', 'error');
+    })
+  );
 export const eventsEffects = {
   loadTimelines: createEffect(loadTimelines, StoreDispatchEffect),
 
@@ -239,8 +277,10 @@ export const eventsEffects = {
   pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
   pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
 
+  uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
   failedUploadImage: createEffect(
     notifyFailedUploadImage,
     StoreUnDispatchEffect
   ),
+  emptyToken: createEffect(emptyToken, StoreUnDispatchEffect),
 };
