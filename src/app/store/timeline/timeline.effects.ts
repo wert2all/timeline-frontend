@@ -53,8 +53,8 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(timeline =>
           timeline
             ? TimelineActions.successAddTimeline({
-                timelines: [{ id: timeline.id, name: timeline.name || '' }],
-              })
+              timelines: [{ id: timeline.id, name: timeline.name || '' }],
+            })
             : TimelineActions.emptyTimeline()
         ),
         catchError(exception =>
@@ -160,8 +160,8 @@ const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
       event
         ? event.id
           ? EventActions.updateExistEventOnAPI({
-              event: { ...event, id: event.id },
-            })
+            event: { ...event, id: event.id },
+          })
           : EventActions.pushNewEventToAPI({ event: event })
         : EventActions.nothingToSave()
     )
@@ -207,6 +207,17 @@ const pushExistEventToApi = (
     )
   );
 
+const notifyFailedUploadImage = (
+  actions$ = inject(Actions),
+  notification = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(EventActions.failedUploadImage),
+    tap(error => {
+      notification.addMessage('Could not upload image: ' + error, 'error');
+    })
+  );
+
 export const eventsEffects = {
   loadTimelines: createEffect(loadTimelines, StoreDispatchEffect),
 
@@ -227,4 +238,9 @@ export const eventsEffects = {
 
   pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
   pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
+
+  failedUploadImage: createEffect(
+    notifyFailedUploadImage,
+    StoreUnDispatchEffect
+  ),
 };
