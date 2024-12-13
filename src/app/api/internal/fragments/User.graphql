@@ -12,6 +12,7 @@ fragment ShortAccount on ShortAccount {
   id
   name
   avatar
+  previewlyToken
   settings {
     ...Settings
   }

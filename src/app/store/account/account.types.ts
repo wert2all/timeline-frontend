@@ -4,6 +4,7 @@ export type AccountSettings = Record<string, string>;
 export type Account = Iterable & {
   name?: string;
   avatar?: string;
+  previewlyToken: string;
   settings: AccountSettings;
 };
 
