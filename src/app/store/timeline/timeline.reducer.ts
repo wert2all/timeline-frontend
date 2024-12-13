@@ -12,6 +12,7 @@ const initialState: TimelineState = {
   timelines: [],
   activeTimeline: null,
   events: [],
+  previewlyImages: [],
   newTimelineAdded: false,
   editEvent: null,
 };

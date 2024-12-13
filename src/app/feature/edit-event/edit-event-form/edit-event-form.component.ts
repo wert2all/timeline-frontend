@@ -44,6 +44,7 @@ import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
+import { EventActions } from '../../../store/timeline/timeline.actions';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
@@ -256,6 +257,7 @@ export class EditEventFormComponent implements AfterViewInit {
   handleFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
     this.selectedUploadFile.set(input.files![0]);
+    this.store.dispatch(EventActions.uploadImage({ image: input.files![0] }));
   }
 
   private updateDisabledControls() {
