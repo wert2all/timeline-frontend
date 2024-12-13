@@ -106,6 +106,7 @@ export type ShortAccount = {
   id: number;
   name?: string | null;
   avatar?: string | null;
+  previewlyToken: string;
   settings: Array<Settings>;
 };
 
@@ -189,6 +190,7 @@ export const ShortAccount = gql`
     id
     name
     avatar
+    previewlyToken
     settings {
       ...Settings
     }

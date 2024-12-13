@@ -76,6 +76,7 @@ export class DevelopPageComponent implements OnInit {
     id: 1,
     name: 'John Doe',
     firstLetter: 'J',
+    previewlyToken: 'token',
     settings: {},
     avatar:
       'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
@@ -85,6 +86,7 @@ export class DevelopPageComponent implements OnInit {
     id: 2,
     name: 'John Doe',
     firstLetter: 'J',
+    previewlyToken: 'token',
     settings: {},
   };
 

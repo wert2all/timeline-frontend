@@ -9,7 +9,7 @@ directive @defer(
 type Mutation {
   addUrl(token: String!, url: String!): PreviewData
   createToken: String!
-  upload(images: [Upload!]!): [UploadImageStatus!]!
+  upload(images: [Upload!]!, token: String!): [UploadImageStatus!]!
 }
 
 type PreviewData {

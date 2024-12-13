@@ -171,6 +171,7 @@ const setActiveAccount = (actions$ = inject(Actions)) =>
       id: account.id,
       name: account.name || undefined,
       avatar: account.avatar || undefined,
+      previewlyToken: account.previewlyToken,
       settings: account.settings.reduce(
         (prev, cur) => ({
           ...prev,
