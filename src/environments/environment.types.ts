@@ -7,7 +7,6 @@ export type GoogleServiceEnvironment = {
 };
 
 export type PreviewlyServiceEnvironment = {
-  token: string;
   url: string;
 };
 
