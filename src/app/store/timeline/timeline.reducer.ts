@@ -174,6 +174,12 @@ export const timelineFeature = createFeature({
       })
     ),
 
+    on(EventActions.successUploadImage, state => {
+      return {
+        ...state,
+        currentUpload: { preview: null, loading: false, error: null },
+      };
+    }),
     on(EventActions.failedUploadImage, (state, { error }) => ({
       ...state,
       currentUpload: {
