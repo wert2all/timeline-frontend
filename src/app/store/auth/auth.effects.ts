@@ -183,11 +183,17 @@ const setActiveAccount = (actions$ = inject(Actions)) =>
     map(account => AccountActions.setAccount({ account }))
   );
 
+const emptyPreviewlyToken = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AuthActions.emptyPreviewlyToken),
+    map(() => AuthActions.dispatchAuthError({ error: 'Empty token' }))
+  );
+
 export const authEffects = {
   initAuthEffect: createEffect(initAuth, StoreDispatchEffect),
 
   promptLogin: createEffect(promptLogin, StoreUnDispatchEffect),
-  cleanToke: createEffect(cleanToken, StoreUnDispatchEffect),
+  cleanToken: createEffect(cleanToken, StoreUnDispatchEffect),
 
   logout: createEffect(logout, StoreUnDispatchEffect),
   cleanAuthState: createEffect(dispatchCleanState, StoreDispatchEffect),
@@ -203,4 +209,5 @@ export const authEffects = {
   ),
 
   setActiveAccount: createEffect(setActiveAccount, StoreDispatchEffect),
+  emptyPreviewlyToken: createEffect(emptyPreviewlyToken, StoreDispatchEffect),
 };

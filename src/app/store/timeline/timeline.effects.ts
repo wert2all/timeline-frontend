@@ -231,7 +231,7 @@ const uploadImage = (
             }),
             catchError(error => of(EventActions.failedUploadImage({ error })))
           )
-        : of(EventActions.emptyPreviewlyToken());
+        : of(AuthActions.emptyPreviewlyToken());
     })
   );
 
@@ -246,16 +246,6 @@ const notifyFailedUploadImage = (
     })
   );
 
-const emptyToken = (
-  actions$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  actions$.pipe(
-    ofType(EventActions.emptyPreviewlyToken),
-    tap(() => {
-      notification.addMessage('Empty token', 'error');
-    })
-  );
 export const eventsEffects = {
   loadTimelines: createEffect(loadTimelines, StoreDispatchEffect),
 
@@ -282,5 +272,4 @@ export const eventsEffects = {
     notifyFailedUploadImage,
     StoreUnDispatchEffect
   ),
-  emptyToken: createEffect(emptyToken, StoreUnDispatchEffect),
 };

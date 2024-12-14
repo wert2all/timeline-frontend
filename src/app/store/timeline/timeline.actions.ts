@@ -54,7 +54,6 @@ export const EventActions = createActionGroup({
     'Success upload image': props<{ id: number; url: string }>(),
     'Failed upload image': props<{ error: string }>(),
 
-    'Empty previewly token': emptyProps(), //TODO
     'Empty event': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
   },
