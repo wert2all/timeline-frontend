@@ -172,6 +172,15 @@ export const timelineFeature = createFeature({
         },
       })
     ),
+
+    on(EventActions.failedUploadImage, (state, { error }) => ({
+      ...state,
+      currentUpload: {
+        preview: null,
+        loading: false,
+        error: error,
+      },
+    })),
     on(
       EventActions.emptyPreviewlyToken,
       (state: TimelineState): TimelineState => ({
