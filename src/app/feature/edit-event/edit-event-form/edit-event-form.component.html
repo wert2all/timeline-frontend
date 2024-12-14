@@ -181,15 +181,22 @@
         class="upload_image_container btn btn-square mt-4 h-full w-full bg-no-repeat p-4"
         (click)="image.click()"
         (keyup)="image.click()">
-        <div class="flex h-56 place-items-center">
-          @if (previewImage(); as previewImage) {
+        <div class="flex h-56 flex-col place-content-center">
+          @if (previewImage().preview) {
             <img
-              [src]="previewImage"
-              class="preview h-full w-full"
+              [src]="previewImage().preview"
+              class="event_image h-full w-full"
+              [class.preview]="previewImage().loading"
               [alt]="editForm.controls.title.value" />
+          }
+
+          @if (previewImage().loading) {
             <app-loader />
           } @else {
-            <span> drop or click </span>
+            <p>drop or click</p>
+          }
+          @if (previewImage().error) {
+            <p class="mt-4 font-bold text-error">{{ previewImage().error }}</p>
           }
         </div>
       </button>

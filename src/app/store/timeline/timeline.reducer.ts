@@ -12,9 +12,10 @@ const initialState: TimelineState = {
   timelines: [],
   activeTimeline: null,
   events: [],
-  previewlyImages: [],
   newTimelineAdded: false,
   editEvent: null,
+  previewlyImages: [],
+  currentUpload: { loading: false, preview: null, error: null },
 };
 
 export const timelineFeature = createFeature({
@@ -159,6 +160,29 @@ export const timelineFeature = createFeature({
         loading: event.id === eventId ? false : event.loading,
       })),
     })),
+
+    on(
+      EventActions.uploadImage,
+      (state, { image }): TimelineState => ({
+        ...state,
+        currentUpload: {
+          loading: true,
+          preview: URL.createObjectURL(image),
+          error: null,
+        },
+      })
+    ),
+    on(
+      EventActions.emptyPreviewlyToken,
+      (state: TimelineState): TimelineState => ({
+        ...state,
+        currentUpload: {
+          preview: null,
+          loading: false,
+          error: 'Empty previewly token',
+        },
+      })
+    ),
 
     on(AuthActions.cleanAuthState, () => initialState)
   ),
