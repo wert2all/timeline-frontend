@@ -129,6 +129,7 @@ export const timelineFeature = createFeature({
       (state, { event }): TimelineState => ({
         ...state,
         events: [event, ...state.events],
+        currentUpload: { preview: null, loading: false, error: null },
       })
     ),
 
