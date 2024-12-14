@@ -44,5 +44,21 @@ export const accountFeature = createFeature({
   ),
   extraSelectors: ({ selectActiveAccount }) => ({
     isAuthorized: createSelector(selectActiveAccount, account => !!account),
+    selectActiveAccountFeaturesSettings: createSelector(
+      selectActiveAccount,
+      account => {
+        const settings: Record<string, string | boolean> = {};
+        if (account) {
+          Object.entries(account.settings).forEach(([key, value]) => {
+            if (value === 'true' || value === 'false') {
+              settings[key] = value === 'true';
+            } else {
+              settings[key] = value;
+            }
+          });
+        }
+        return settings;
+      }
+    ),
   }),
 });
