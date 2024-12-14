@@ -188,17 +188,6 @@ export const timelineFeature = createFeature({
         error: error,
       },
     })),
-    on(
-      EventActions.emptyPreviewlyToken,
-      (state: TimelineState): TimelineState => ({
-        ...state,
-        currentUpload: {
-          preview: null,
-          loading: false,
-          error: 'Empty previewly token',
-        },
-      })
-    ),
 
     on(AuthActions.cleanAuthState, () => initialState)
   ),

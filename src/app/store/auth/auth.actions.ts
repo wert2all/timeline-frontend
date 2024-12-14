@@ -23,5 +23,7 @@ export const AuthActions = createActionGroup({
 
     'Empty accounts': props<{ email: string }>(),
     'Dispatch auth error': props<{ error: string }>(),
+
+    'Empty previewly token': emptyProps(),
   },
 });
