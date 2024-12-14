@@ -44,9 +44,11 @@ import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
+import { accountFeature } from '../../../store/account/account.reducer';
 import { EventActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
+import { FeatureFlagComponent } from '../../user/features/feature-flag/feature-flag.component';
 import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
 import { LinkPreviewComponent } from './link-preview/link-preview.component';
@@ -95,6 +97,7 @@ interface EditForm {
     DatePickerComponent,
     LinkPreviewComponent,
     LoaderComponent,
+    FeatureFlagComponent,
   ],
 })
 export class EditEventFormComponent implements AfterViewInit {
@@ -130,6 +133,10 @@ export class EditEventFormComponent implements AfterViewInit {
   private readonly allPreviews = this.store.selectSignal(
     previewFeature.selectPreviews
   );
+  private activeAccount = this.store.selectSignal(
+    accountFeature.selectActiveAccount
+  );
+
   protected previewImage = this.store.selectSignal(
     timelineFeature.selectCurrentUpload
   );
@@ -165,6 +172,21 @@ export class EditEventFormComponent implements AfterViewInit {
   protected readonly activeStep = computed(() =>
     this.switchTab() !== null ? this.switchTab() : this.openTab()
   );
+
+  protected accountSettings = computed(() => {
+    const settings: Record<string, string | boolean> = {};
+    const activeAccount = this.activeAccount();
+    if (activeAccount?.settings) {
+      Object.entries(activeAccount.settings).forEach(([key, value]) => {
+        if (value === 'true' || value === 'false') {
+          settings[key] = value === 'true';
+        } else {
+          settings[key] = value;
+        }
+      });
+    }
+    return settings;
+  });
 
   constructor() {
     this.editForm.controls.withTime.valueChanges

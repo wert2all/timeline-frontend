@@ -43,16 +43,20 @@
       <span>add link</span>
     </a>
     @if (this.isEditing() === false) {
-      <a
-        tabindex="0"
-        class="btn join-item"
-        [class.active]="isActiveTab(4)"
-        (click)="switchTo(4)"
-        (keyup)="switchTo(4)"
-        title="add image">
-        <ng-icon name="saxImageOutline" size="24"></ng-icon>
-        <span>add image</span>
-      </a>
+      <app-feature-flag
+        feature="upload_images"
+        [accountSettings]="accountSettings()">
+        <a
+          tabindex="0"
+          class="btn join-item"
+          [class.active]="isActiveTab(4)"
+          (click)="switchTo(4)"
+          (keyup)="switchTo(4)"
+          title="add image">
+          <ng-icon name="saxImageOutline" size="24"></ng-icon>
+          <span>add image</span>
+        </a>
+      </app-feature-flag>
     }
   </div>
   <div>

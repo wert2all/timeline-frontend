@@ -50,6 +50,12 @@ const FEATURE_FLAGS = {
     canShow: account => canShow(account, 'show_user_accounts'),
     stage: FeatureStage.started,
   },
+  upload_images: {
+    name: 'Upload images',
+    description: 'Upload images and assign to events',
+    canShow: account => canShow(account, 'upload_images'),
+    stage: FeatureStage.development,
+  },
 } as const satisfies Record<string, Feature>;
 
 @Injectable({
