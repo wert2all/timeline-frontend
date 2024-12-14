@@ -45,6 +45,7 @@ import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { EventActions } from '../../../store/timeline/timeline.actions';
+import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditValue } from '../edit-event.types';
 import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
@@ -124,11 +125,13 @@ export class EditEventFormComponent implements AfterViewInit {
   });
 
   private formValues = signal<EditValue | null>(null);
-  private selectedUploadFile = signal<File | null>(null);
   private formChanges$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
   private store = inject(Store);
   private readonly allPreviews = this.store.selectSignal(
     previewFeature.selectPreviews
+  );
+  protected previewImage = this.store.selectSignal(
+    timelineFeature.selectCurrentUpload
   );
 
   protected readonly switchTab = signal<null | number>(null);
@@ -141,11 +144,6 @@ export class EditEventFormComponent implements AfterViewInit {
     this.isEditing() ? 'saxCalendarTickOutline' : 'saxCalendarAddOutline'
   );
   protected buttonTitle = computed(() => (this.isEditing() ? 'Save' : 'Add'));
-  protected previewImage = computed(() => {
-    const file = this.selectedUploadFile();
-    return file ? URL.createObjectURL(file) : null;
-  });
-
   protected readonly previewLink = toSignal(
     this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
       map(values => values.link),
@@ -256,7 +254,6 @@ export class EditEventFormComponent implements AfterViewInit {
 
   handleFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.selectedUploadFile.set(input.files![0]);
     this.store.dispatch(EventActions.uploadImage({ image: input.files![0] }));
   }
 

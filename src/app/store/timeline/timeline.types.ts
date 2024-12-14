@@ -66,6 +66,8 @@ export type TimelineState = Loadable & {
   activeTimeline: ActiveTimeline | null;
   events: ExistTimelineEvent[];
   editEvent: EditEvent | null;
-  previewlyImages: PreviewlyUploadedImage[];
   newTimelineAdded: boolean;
+
+  previewlyImages: PreviewlyUploadedImage[];
+  currentUpload: Loadable & { preview: string | null; error: null | string };
 };
