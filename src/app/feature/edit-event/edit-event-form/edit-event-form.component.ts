@@ -173,21 +173,9 @@ export class EditEventFormComponent implements AfterViewInit {
     this.switchTab() !== null ? this.switchTab() : this.openTab()
   );
 
-  protected accountSettings = computed(() => {
-    const settings: Record<string, string | boolean> = {};
-    const activeAccount = this.activeAccount();
-    if (activeAccount?.settings) {
-      Object.entries(activeAccount.settings).forEach(([key, value]) => {
-        if (value === 'true' || value === 'false') {
-          settings[key] = value === 'true';
-        } else {
-          settings[key] = value;
-        }
-      });
-    }
-    return settings;
-  });
-
+  protected accountSettings = this.store.selectSignal(
+    accountFeature.selectActiveAccountFeaturesSettings
+  );
   constructor() {
     this.editForm.controls.withTime.valueChanges
       .pipe(takeUntilDestroyed())

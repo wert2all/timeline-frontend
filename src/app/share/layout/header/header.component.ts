@@ -1,10 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FeatureFlagName } from '../../../feature/features.service';
@@ -42,22 +37,10 @@ export class HeaderComponent {
   protected activeAccount = this.store.selectSignal(
     accountFeature.selectActiveAccount
   );
-  protected activeAccountSettings = computed(() => {
-    const settings: Record<string, string | boolean> = {};
-    const activeAccount = this.activeAccount();
-    if (activeAccount) {
-      Object.entries(activeAccount.settings).forEach(([key, value]) => {
-        if (value === 'true' || value === 'false') {
-          settings[key] = value === 'true';
-        } else {
-          settings[key] = value;
-        }
-      });
-    }
 
-    return settings;
-  });
-
+  protected activeAccountSettings = this.store.selectSignal(
+    accountFeature.selectActiveAccountFeaturesSettings
+  );
   login() {
     this.router.navigate(['user', 'login']);
   }
