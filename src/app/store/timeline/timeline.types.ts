@@ -17,15 +17,6 @@ export type TimelineRequired = {
   timelineId: number;
 };
 
-export type ImageData = {
-  original: string;
-};
-
-export type PreviewlyUploadedImage = {
-  id: number;
-  data?: ImageData;
-};
-
 export type TimelineEvent = TimelineRequired &
   Loadable & {
     id?: number;
@@ -67,7 +58,4 @@ export type TimelineState = Loadable & {
   events: ExistTimelineEvent[];
   editEvent: EditEvent | null;
   newTimelineAdded: boolean;
-
-  previewlyImages: PreviewlyUploadedImage[];
-  currentUpload: Loadable & { preview: string | null; error: null | string };
 };

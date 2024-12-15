@@ -50,10 +50,6 @@ export const EventActions = createActionGroup({
 
     'Failed delete event': props<{ eventId: number }>(),
 
-    'Upload image': props<{ image: File }>(),
-    'Success upload image': props<{ id: number; url: string }>(),
-    'Failed upload image': props<{ error: string }>(),
-
     'Empty event': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
   },

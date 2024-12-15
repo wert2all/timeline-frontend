@@ -18,6 +18,11 @@ export enum Status {
   LOADING = 'LOADING',
 }
 
+export enum Pending {
+  PENDING = 'PENDING',
+}
+export type StatusWithPending = Status | Pending;
+
 export type DataWrapper<T> = { status: Status; data?: T; error?: Error };
 
 export const StoreDispatchEffect: EffectConfig & {

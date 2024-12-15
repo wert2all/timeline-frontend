@@ -14,8 +14,6 @@ const initialState: TimelineState = {
   events: [],
   newTimelineAdded: false,
   editEvent: null,
-  previewlyImages: [],
-  currentUpload: { loading: false, preview: null, error: null },
 };
 
 export const timelineFeature = createFeature({
@@ -129,7 +127,6 @@ export const timelineFeature = createFeature({
       (state, { event }): TimelineState => ({
         ...state,
         events: [event, ...state.events],
-        currentUpload: { preview: null, loading: false, error: null },
       })
     ),
 
@@ -160,33 +157,6 @@ export const timelineFeature = createFeature({
         ...event,
         loading: event.id === eventId ? false : event.loading,
       })),
-    })),
-
-    on(
-      EventActions.uploadImage,
-      (state, { image }): TimelineState => ({
-        ...state,
-        currentUpload: {
-          loading: true,
-          preview: URL.createObjectURL(image),
-          error: null,
-        },
-      })
-    ),
-
-    on(EventActions.successUploadImage, state => {
-      return {
-        ...state,
-        currentUpload: { preview: null, loading: false, error: null },
-      };
-    }),
-    on(EventActions.failedUploadImage, (state, { error }) => ({
-      ...state,
-      currentUpload: {
-        preview: null,
-        loading: false,
-        error: error,
-      },
     })),
 
     on(AuthActions.cleanAuthState, () => initialState)
