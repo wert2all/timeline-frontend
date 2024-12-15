@@ -24,6 +24,8 @@ import {
   timelineEffects,
 } from './store/timeline/timeline.effects';
 import { timelineFeature } from './store/timeline/timeline.reducer';
+import { uploadEffects } from './store/upload/upload.effects';
+import { uploadFeature } from './store/upload/upload.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +39,7 @@ export const appConfig: ApplicationConfig = {
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
+      [uploadFeature.name]: uploadFeature.reducer,
     }),
     provideEffects([
       authEffects,
@@ -45,6 +48,7 @@ export const appConfig: ApplicationConfig = {
       tableOfYearsEffects,
       previewEffects,
       accountEffects,
+      uploadEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states

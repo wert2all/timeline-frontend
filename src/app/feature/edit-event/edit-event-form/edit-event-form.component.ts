@@ -45,8 +45,8 @@ import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { EventActions } from '../../../store/timeline/timeline.actions';
-import { timelineFeature } from '../../../store/timeline/timeline.reducer';
+import { UploadActions } from '../../../store/upload/upload.actions';
+import { uploadFeature } from '../../../store/upload/upload.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { FeatureFlagComponent } from '../../user/features/feature-flag/feature-flag.component';
 import { EditValue } from '../edit-event.types';
@@ -133,12 +133,9 @@ export class EditEventFormComponent implements AfterViewInit {
   private readonly allPreviews = this.store.selectSignal(
     previewFeature.selectPreviews
   );
-  private activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
-  );
 
   protected previewImage = this.store.selectSignal(
-    timelineFeature.selectCurrentUpload
+    uploadFeature.selectCurrentUpload
   );
 
   protected readonly switchTab = signal<null | number>(null);
@@ -264,7 +261,7 @@ export class EditEventFormComponent implements AfterViewInit {
 
   handleFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
-    this.store.dispatch(EventActions.uploadImage({ image: input.files![0] }));
+    this.store.dispatch(UploadActions.uploadImage({ image: input.files![0] }));
   }
 
   private updateDisabledControls() {

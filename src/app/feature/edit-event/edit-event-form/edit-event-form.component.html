@@ -186,9 +186,9 @@
         (click)="image.click()"
         (keyup)="image.click()">
         <div class="flex h-56 flex-col place-content-center">
-          @if (previewImage().preview) {
+          @if (previewImage().previewUrl) {
             <img
-              [src]="previewImage().preview"
+              [src]="previewImage().previewUrl"
               class="event_image h-full w-full"
               [class.preview]="previewImage().loading"
               [alt]="editForm.controls.title.value" />
