@@ -8,6 +8,7 @@ import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { provideApollo } from './providers/apollo.provider';
 import { provideSentry } from './providers/sentry.provider';
@@ -59,5 +60,6 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
     provideExperimentalZonelessChangeDetection(),
+    provideOAuthClient(),
   ],
 };

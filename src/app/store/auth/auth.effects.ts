@@ -105,7 +105,7 @@ const promptLogin = (
         onSignIn: token => {
           store.dispatch(AuthActions.setUserToken({ token: token }));
         },
-        onNotVerifiedEmail: () => {
+        onError: () => {
           store.dispatch(
             AuthActions.dispatchAuthError({
               error: 'User email is not verified',

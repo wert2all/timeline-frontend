@@ -6,12 +6,12 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
-import { HeroComponent } from '../../../share/hero/hero.component';
-import { LayoutComponent } from '../../../share/layout/layout.component';
-import { accountFeature } from '../../../store/account/account.reducer';
-import { AuthActions } from '../../../store/auth/auth.actions';
-import { authFeature } from '../../../store/auth/auth.reducer';
-import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
+import { HeroComponent } from '../../../../share/hero/hero.component';
+import { LayoutComponent } from '../../../../share/layout/layout.component';
+import { accountFeature } from '../../../../store/account/account.reducer';
+import { AuthActions } from '../../../../store/auth/auth.actions';
+import { authFeature } from '../../../../store/auth/auth.reducer';
+import { TableOfContentsActions } from '../../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
   selector: 'app-login-page',

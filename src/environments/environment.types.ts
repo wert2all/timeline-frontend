@@ -1,3 +1,5 @@
+import { AuthConfig } from 'angular-oauth2-oidc';
+
 export enum EnvironmentType {
   production = 'production',
   development = 'development',
@@ -16,8 +18,8 @@ export type SentryServiceEnvironment = {
 
 export type ServiceEnvironments = {
   sentry: SentryServiceEnvironment;
-  google: GoogleServiceEnvironment;
   previewly: PreviewlyServiceEnvironment;
+  oAuth: AuthConfig;
 };
 
 export interface Environment {

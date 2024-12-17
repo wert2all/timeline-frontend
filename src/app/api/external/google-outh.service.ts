@@ -1,57 +1,74 @@
-import { Injectable } from '@angular/core';
-import { jwtDecode } from 'jwt-decode';
+import { inject, Injectable } from '@angular/core';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { environment } from '../../../environments/environment';
-import {
-  CredentialResponse,
-  GoogleUserInfo,
-  IdConfiguration,
-} from '../../store/auth/auth.types';
 
-export interface Listeners {
-  onSignIn: (token: string, user: GoogleUserInfo) => void;
-  onNotVerifiedEmail: () => void;
+export interface OauthUserInfo {
+  info: {
+    sub: string;
+    email: string;
+    name: string;
+    picture: string;
+  };
 }
-const defaultListeners: Listeners = {
-  onSignIn: () => {},
-  onNotVerifiedEmail: () => {},
-};
+export interface Listeners {
+  onSignIn: (token: string, user: OauthUserInfo) => void;
+  onError: (error: string) => void;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class GoogleOuthService {
-  private isInitialized: boolean = false;
-  private readonly clientId = environment.services.google.clientId;
-  private googleConfiguration: IdConfiguration = {
-    client_id: this.clientId,
-    callback: responce => {
-      this.getResponseCallback(responce);
-    },
-    auto_select: true,
-    cancel_on_tap_outside: false,
-    use_fedcm_for_prompt: true,
-  };
-
-  private listeners: Listeners = defaultListeners;
+  private readonly oAuthService = inject(OAuthService);
+  constructor() {
+    this.oAuthService.configure(environment.services.oAuth);
+    // manually configure a logout url, because googles discovery document does not provide it
+    this.oAuthService.logoutUrl = 'https://www.google.com/accounts/Logout';
+  }
 
   login(listeners: Listeners) {
-    this.initialize(listeners);
-    google.accounts.id.prompt();
-  }
-  private initialize(listeners: Listeners) {
-    if (!this.isInitialized) {
-      google.accounts.id.initialize(this.googleConfiguration);
-      this.isInitialized = true;
-    }
-    this.listeners = listeners;
+    // loading the discovery document from google, which contains all relevant URL for
+    // the OAuth flow, e.g. login url
+    this.oAuthService.loadDiscoveryDocument().then(() => {
+      // // This method just tries to parse the token(s) within the url when
+      // // the auth-server redirects the user back to the web-app
+      // // It doesn't send the user the the login page
+      this.oAuthService.tryLoginImplicitFlow().then(() => {
+        // when not logged in, redirecvt to google for login
+        // else load user profile
+        debugger;
+        if (!this.oAuthService.hasValidAccessToken()) {
+          this.oAuthService.initLoginFlow();
+        } else {
+          this.oAuthService.loadUserProfile().then(userProfile => {
+            listeners.onSignIn(
+              this.oAuthService.getAccessToken(),
+              userProfile as OauthUserInfo
+            );
+          });
+        }
+      });
+    });
   }
 
-  private getResponseCallback(response: CredentialResponse) {
-    const userInfo = jwtDecode(response.credential) as GoogleUserInfo;
-    if (userInfo.email_verified) {
-      this.listeners.onSignIn(response.credential, userInfo);
-    } else {
-      this.listeners.onNotVerifiedEmail();
-    }
+  isAuthorized() {
+    this.oAuthService.loadDiscoveryDocument().then(() => {
+      // // This method just tries to parse the token(s) within the url when
+      // // the auth-server redirects the user back to the web-app
+      // // It doesn't send the user the the login page
+      this.oAuthService.tryLoginImplicitFlow().then(() => {
+        // when not logged in, redirecvt to google for login
+        // else load user profile
+        if (!this.oAuthService.hasValidAccessToken()) {
+          console.log('should log in');
+        } else {
+          this.oAuthService.loadUserProfile().then(userProfile => {
+            debugger;
+            console.log(userProfile);
+          });
+        }
+      });
+    });
+    return this.oAuthService.hasValidAccessToken();
   }
 }
