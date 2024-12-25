@@ -1,29 +1,16 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { ShortAccount, User } from '../../api/internal/graphql';
+import { createActionGroup, emptyProps } from '@ngrx/store';
 
 export const AuthActions = createActionGroup({
   source: 'Auth',
   events: {
-    'Init authorized user': props<{ token: string }>(),
-    'Should not authorize by token': emptyProps(),
-
-    'Prompt Login': emptyProps(),
-    'Set user token': props<{ token: string }>(),
-
-    'Show select account window': props<{ accounts: ShortAccount[] }>(),
-
+    'Dispatch api authorize on redirect': emptyProps(),
     'Dispatch logout': emptyProps(),
-    'Clean auth state': emptyProps(),
 
-    'Success Authorized': props<{
-      account: ShortAccount;
-      user: User;
-      token: string;
-    }>(),
+    'Dispatch backend api auth error': emptyProps(),
+    'Dispatch empty user profile on init': emptyProps(),
+    'Dispatch empty user profile on redirect': emptyProps(),
+    'Dispatch empty previewly token error': emptyProps(),
 
-    'Empty accounts': props<{ email: string }>(),
-    'Dispatch auth error': props<{ error: string }>(),
-
-    'Empty previewly token': emptyProps(),
+    'After logout': emptyProps(),
   },
 });

@@ -6,13 +6,32 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
+import { NavigationActions } from '../navigation/navigation.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AccountActions } from './account.actions';
 import { accountFeature, mergeAccountSettings } from './account.reducer';
 
+const setUser = (actions$ = inject(Actions)) => {
+  return actions$.pipe(
+    ofType(AccountActions.setUser, AccountActions.setUserOnRedirect),
+    map(({ user }) => user.accounts.slice(0, 1)[0]),
+    map(account =>
+      account
+        ? AccountActions.setAccount({ account })
+        : AccountActions.dispatchEmptyAccountError()
+    )
+  );
+};
+
+const afterSetUserOnRedirect = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AccountActions.setUserOnRedirect),
+    map(() => AccountActions.afterSetUserOnRedirect())
+  );
+
 const cleanEffect = (actions$ = inject(Actions)) =>
   actions$.pipe(
-    ofType(AuthActions.cleanAuthState),
+    ofType(AuthActions.dispatchLogout),
     map(() => AccountActions.cleanAccount())
   );
 
@@ -96,7 +115,21 @@ const apiException = (
     })
   );
 
+const dispatchLogoutOnEmptyAccount = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AccountActions.dispatchEmptyAccountError),
+    map(() => AuthActions.dispatchLogout())
+  );
+
+const navigateToDashboard = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AccountActions.afterSetUserOnRedirect),
+    map(() => NavigationActions.toUserDashboard())
+  );
+
 export const accountEffects = {
+  setUser: createEffect(setUser, StoreDispatchEffect),
+
   cleanAccount: createEffect(cleanEffect, StoreUnDispatchEffect),
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
   saveAccountSettings: createEffect(saveAccountSettings, StoreDispatchEffect),
@@ -112,4 +145,16 @@ export const accountEffects = {
   ),
 
   apiException: createEffect(apiException, StoreUnDispatchEffect),
+  onEmptyAccountError: createEffect(
+    dispatchLogoutOnEmptyAccount,
+    StoreDispatchEffect
+  ),
+  afterSetUserOnRedirect: createEffect(
+    afterSetUserOnRedirect,
+    StoreDispatchEffect
+  ),
+  navigateToDashboardAfterRedirect: createEffect(
+    navigateToDashboard,
+    StoreDispatchEffect
+  ),
 };

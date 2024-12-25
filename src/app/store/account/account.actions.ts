@@ -1,9 +1,13 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Account, AccountSettings } from './account.types';
+import { Account, AccountSettings, AccountUser } from './account.types';
 
 export const AccountActions = createActionGroup({
   source: 'Account',
   events: {
+    'Set user': props<{ user: AccountUser }>(),
+    'Set user on redirect': props<{ user: AccountUser }>(),
+    'After set user on redirect': emptyProps(),
+
     'Clean account': emptyProps(),
     'Set account': props<{ account: Account }>(),
 
@@ -19,5 +23,6 @@ export const AccountActions = createActionGroup({
 
     'Could not save account settings': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
+    'Dispatch empty account error': emptyProps(),
   },
 });

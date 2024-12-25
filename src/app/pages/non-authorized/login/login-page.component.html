@@ -1,12 +1,4 @@
 <app-layout>
-  <div
-    id="g_id_onload"
-    data-client_id="726286472190-n9mbol7839leajc1soh1b7p3a1tevvsi.apps.googleusercontent.com"
-    data-context="signin"
-    data-callback="g"
-    data-auto_select="true"
-    data-itp_support="true"></div>
-
   <app-hero>
     <div class="my-16 max-w-lg">
       <h1 class="text-5xl font-bold">Login with Google</h1>
@@ -16,8 +8,8 @@
       <button
         class="btn btn-primary"
         (click)="login()"
-        [attr.disabled]="(isLoading | async) ? true : null">
-        @if ((isLoading | async) === true) {
+        [attr.disabled]="isLoading() ? true : null">
+        @if (isLoading() === true) {
           <span class="loading loading-spinner"></span>
         } @else {
           <ng-icon name="saxLogin1Outline" size="24"></ng-icon>

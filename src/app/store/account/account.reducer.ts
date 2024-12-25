@@ -1,5 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { KeyValue } from '../../app.types';
+import { AuthActions } from '../auth/auth.actions';
 import { AccountActions } from './account.actions';
 import { Account, AccountState } from './account.types';
 
@@ -18,12 +19,33 @@ export const mergeAccountSettings = (
   }
 };
 
-const initialState: AccountState = { activeAccount: null };
+const initialState: AccountState = { activeAccount: null, activeUser: null };
 
 export const accountFeature = createFeature({
   name: 'account',
   reducer: createReducer(
     initialState,
+
+    on(
+      AccountActions.setUser,
+      AccountActions.setUserOnRedirect,
+      (state, { user }) => ({
+        ...state,
+        activeUser: user,
+      })
+    ),
+
+    on(
+      AuthActions.dispatchBackendApiAuthError,
+      AuthActions.dispatchLogout,
+      AuthActions.dispatchEmptyUserProfileOnInit,
+      state => ({
+        ...state,
+        activeUser: null,
+        activeAccount: null,
+      })
+    ),
+
     on(AccountActions.cleanAccount, state => ({
       ...state,
       activeAccount: null,

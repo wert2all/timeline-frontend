@@ -1,5 +1,12 @@
-import { Iterable } from '../../app.types';
+import { Iterable, Undefined } from '../../app.types';
 export type AccountSettings = Record<string, string>;
+
+export type AccountUser = {
+  id: number;
+  name: string | Undefined;
+  avatar: string | Undefined;
+  accounts: Account[];
+};
 
 export type Account = Iterable & {
   name?: string;
@@ -9,5 +16,6 @@ export type Account = Iterable & {
 };
 
 export type AccountState = {
+  activeUser: AccountUser | null;
   activeAccount: Account | null;
 };

@@ -1,16 +1,13 @@
-import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
+import { Component, inject, signal } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
+import { AuthService } from '../../../services/auth.service';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { AuthActions } from '../../../store/auth/auth.actions';
-import { authFeature } from '../../../store/auth/auth.reducer';
+import { NavigationActions } from '../../../store/navigation/navigation.actions';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
@@ -18,27 +15,26 @@ import { TableOfContentsActions } from '../../../store/table-of-contents/table-o
   standalone: true,
   templateUrl: './login-page.component.html',
   viewProviders: [provideIcons({ saxLogin1Outline })],
-  imports: [LayoutComponent, NgIconComponent, AsyncPipe, HeroComponent],
+  imports: [LayoutComponent, NgIconComponent, HeroComponent],
 })
 export class LoginPageComponent {
   private readonly store = inject(Store);
+  private readonly authService = inject(AuthService);
 
-  private isAuthorised = this.store.select(accountFeature.isAuthorized);
-  isLoading = this.store.select(authFeature.isLoading);
+  private onAuthorize = this.store
+    .select(accountFeature.isAuthorized)
+    .pipe(filter(isAuth => isAuth));
+  isLoading = signal(false);
 
-  constructor(router: Router) {
+  constructor() {
     this.store.dispatch(TableOfContentsActions.cleanItems());
-    this.isAuthorised
-      .pipe(
-        takeUntilDestroyed(),
-        filter(isAuth => isAuth)
-      )
-      .subscribe(() => {
-        router.navigate(['/my']);
-      });
+    this.onAuthorize.subscribe(() =>
+      this.store.dispatch(NavigationActions.toUserDashboard())
+    );
   }
 
   login() {
-    this.store.dispatch(AuthActions.promptLogin());
+    this.isLoading.set(true);
+    this.authService.login();
   }
 }

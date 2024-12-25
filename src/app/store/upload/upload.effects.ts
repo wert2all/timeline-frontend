@@ -54,7 +54,7 @@ const uploadImage = (
             ),
             catchError(error => of(UploadActions.failedUploadImage({ error })))
           )
-        : of(AuthActions.emptyPreviewlyToken())
+        : of(AuthActions.dispatchEmptyPreviewlyTokenError())
     )
   );
 

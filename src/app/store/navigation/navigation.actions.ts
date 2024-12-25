@@ -1,6 +1,12 @@
-import { createActionGroup } from '@ngrx/store';
+import { createActionGroup, emptyProps } from '@ngrx/store';
 
 export const NavigationActions = createActionGroup({
   source: 'Navigation',
-  events: {},
+  events: {
+    'To login': emptyProps(),
+    'To user dashboard': emptyProps(),
+
+    'After to login': emptyProps(),
+    'After to user dashboard': emptyProps(),
+  },
 });

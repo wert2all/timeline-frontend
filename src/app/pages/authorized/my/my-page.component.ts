@@ -9,7 +9,6 @@ import {
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 
-import { authFeature } from '../../../store/auth/auth.reducer';
 import {
   EventActions,
   TimelineActions,
@@ -50,9 +49,6 @@ export class MyPageComponent {
   );
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
 
-  protected readonly isAuthLoading = this.store.selectSignal(
-    authFeature.isLoading
-  );
   protected readonly isTimelineLoading = this.store.selectSignal(
     timelineFeature.isLoading
   );
@@ -62,7 +58,7 @@ export class MyPageComponent {
   );
 
   protected readonly isLoading = computed(() => {
-    return this.isAuthLoading() || this.isTimelineLoading();
+    return this.isTimelineLoading();
   });
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
