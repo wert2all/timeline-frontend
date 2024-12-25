@@ -28,7 +28,6 @@ import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { Store } from '@ngrx/store';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
-import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
@@ -44,7 +43,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TimelineComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
-    ThemeSwitchComponent,
     TopMenuComponent,
   ],
   templateUrl: './develop-page.component.html',
