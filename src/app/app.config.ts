@@ -8,13 +8,14 @@ import { provideRouter } from '@angular/router';
 import { provideEffects } from '@ngrx/effects';
 import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { provideApollo } from './providers/apollo.provider';
+import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
-import { authFeature } from './store/auth/auth.reducer';
 import { navigationEffects } from './store/navigation/navigation.effects';
 import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
@@ -33,10 +34,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
+    provideOAuthClient(),
     provideSentry(),
     provideApollo(),
     provideStore({
-      [authFeature.name]: authFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
@@ -63,5 +64,6 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
     provideExperimentalZonelessChangeDetection(),
+    provideAuthConfig(),
   ],
 };

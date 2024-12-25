@@ -14,14 +14,9 @@ import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 
-import { Undefined } from '../../../app.types';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { AuthActions } from '../../../store/auth/auth.actions';
-import { authFeature } from '../../../store/auth/auth.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
-import { TimelineActions } from '../../../store/timeline/timeline.actions';
-import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import {
   ExistTimelineEvent,
   TimelineEventType,
@@ -43,13 +38,6 @@ import {
 })
 export class IndexPageComponent {
   private store = inject(Store);
-
-  private readonly isTimelineLoading = this.store.selectSignal(
-    timelineFeature.isLoading
-  );
-  private readonly isAuthLoading = this.store.selectSignal(
-    authFeature.isLoading
-  );
 
   private readonly events = signal<ExistTimelineEvent[]>([
     {
@@ -152,32 +140,19 @@ export class IndexPageComponent {
     },
   ]);
   protected readonly projectTimeline = computed(() =>
-    this.events().map((event, index) => {
-      return {
-        ...createViewTimelineEvent(event, index % 2 === 0),
-        id: event.id,
-      };
-    })
+    this.events().map((event, index) => ({
+      ...createViewTimelineEvent(event, index % 2 === 0),
+      id: event.id,
+    }))
   );
+
   protected readonly isAuthorized = this.store.selectSignal(
     accountFeature.isAuthorized
-  );
-  protected readonly activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
-  );
-  protected readonly isLoading = computed(
-    () => this.isTimelineLoading() || this.isAuthLoading()
   );
 
   constructor() {
     this.store.dispatch(TableOfContentsActions.cleanItems());
   }
 
-  login() {
-    this.store.dispatch(AuthActions.promptLogin());
-  }
-
-  addTimeline(name: string | Undefined, accountId: number) {
-    this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
-  }
+  login() {}
 }

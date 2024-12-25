@@ -6,7 +6,7 @@ import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { AuthActions } from '../auth/auth.actions';
+import { AccountActions } from '../account/account.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { EventActions, TimelineActions } from './timeline.actions';
 import {
@@ -17,7 +17,7 @@ import { timelineFeature } from './timeline.reducer';
 
 const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
-    ofType(AuthActions.successAuthorized),
+    ofType(AccountActions.setAccount),
     exhaustMap(({ account }) =>
       api.getAccountTimelines({ accountId: account.id }).pipe(
         map(result => extractApiData(result)),

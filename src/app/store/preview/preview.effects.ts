@@ -68,7 +68,7 @@ const addUrl = (
               });
             })
           )
-        : of(AuthActions.emptyPreviewlyToken());
+        : of(AuthActions.dispatchEmptyPreviewlyTokenError());
     })
   );
 
@@ -160,7 +160,7 @@ const polling = (
             toArray(),
             map(previews => PreviewActions.successUpdatePreviews({ previews }))
           )
-        : of(AuthActions.emptyPreviewlyToken())
+        : of(AuthActions.dispatchEmptyPreviewlyTokenError())
     )
   );
 

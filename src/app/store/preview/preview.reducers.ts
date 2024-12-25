@@ -57,7 +57,7 @@ export const previewFeature = createFeature({
         }),
       })
     ),
-    on(AuthActions.cleanAuthState, () => initialState)
+    on(AuthActions.afterLogout, () => initialState)
   ),
   extraSelectors: ({ selectPreviews }) => ({
     selectShouldUpdate: createSelector(selectPreviews, previews =>

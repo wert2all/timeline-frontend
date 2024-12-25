@@ -7,21 +7,13 @@
         create a dynamic story of your life by adding milestones, memories, and
         achievements.
       </p>
-      @if (!this.isAuthorized()) {
-        <div class="flex w-full flex-col items-center lg:flex-row">
-          <button
-            class="btn"
-            (click)="login()"
-            [attr.disabled]="isLoading() ? true : null">
-            @if (isLoading() === true) {
-              <span class="loading loading-spinner"></span>
-            }
-            authorize
-          </button>
-        </div>
-      } @else {
-        <a class="btn btn-primary" href="/my">go to timeline</a>
-      }
+      <div class="flex w-full flex-col items-center lg:flex-row">
+        @if (!this.isAuthorized()) {
+          <a class="btn btn-primary" href="/user/login">authorize</a>
+        } @else {
+          <a class="btn btn-primary" href="/my">go to timeline</a>
+        }
+      </div>
     </div>
   </app-hero>
 

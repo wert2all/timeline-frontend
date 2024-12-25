@@ -1,16 +1,20 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FeatureFlagName } from '../../../feature/features.service';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
+import { AuthService } from '../../../services/auth.service';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { AuthStorageService } from '../../../store/auth/auth-storage.service';
 import { AuthActions } from '../../../store/auth/auth.actions';
-import { authFeature } from '../../../store/auth/auth.reducer';
+import { NavigationActions } from '../../../store/navigation/navigation.actions';
 import { LoginButtonComponent } from './login-button/login-button.component';
 
 @Component({
@@ -28,12 +32,11 @@ import { LoginButtonComponent } from './login-button/login-button.component';
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  private readonly router = inject(Router);
-  private readonly authStorage = inject(AuthStorageService);
+  private readonly authService = inject(AuthService);
 
-  protected isLoading = this.store.selectSignal(authFeature.isLoading);
+  protected isLoading = signal(false);
   protected isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
-  protected token = this.authStorage.getToken();
+  protected token = this.authService.idToken;
   protected activeAccount = this.store.selectSignal(
     accountFeature.selectActiveAccount
   );
@@ -41,8 +44,9 @@ export class HeaderComponent {
   protected activeAccountSettings = this.store.selectSignal(
     accountFeature.selectActiveAccountFeaturesSettings
   );
+
   login() {
-    this.router.navigate(['user', 'login']);
+    this.store.dispatch(NavigationActions.toLogin());
   }
 
   logout() {
@@ -50,7 +54,7 @@ export class HeaderComponent {
   }
 
   goToDashboard() {
-    this.router.navigate(['my']);
+    this.store.dispatch(NavigationActions.toUserDashboard());
   }
 
   saveFeature($event: { feature: FeatureFlagName; isActive: boolean }) {

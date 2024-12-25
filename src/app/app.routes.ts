@@ -6,6 +6,7 @@ import { IndexPageComponent } from './pages/non-authorized/index/index-page.comp
 import { PrivacyPageComponent } from './pages/non-authorized/legal/privacy/privacy-page.component';
 import { TermsPageComponent } from './pages/non-authorized/legal/terms/terms-page.component';
 import { LoginPageComponent } from './pages/non-authorized/login/login-page.component';
+import { LoginRedirectPageComponent } from './pages/non-authorized/redirect/redirect.component';
 
 export const routes: Routes = [
   { path: '', component: IndexPageComponent },
@@ -13,7 +14,10 @@ export const routes: Routes = [
   { path: 'terms', component: TermsPageComponent },
   {
     path: 'user/login',
-    component: LoginPageComponent,
+    children: [
+      { path: '', component: LoginPageComponent },
+      { path: 'redirect', component: LoginRedirectPageComponent },
+    ],
   },
   {
     path: 'develop',

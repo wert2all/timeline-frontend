@@ -159,7 +159,7 @@ export const timelineFeature = createFeature({
       })),
     })),
 
-    on(AuthActions.cleanAuthState, () => initialState)
+    on(AuthActions.afterLogout, () => initialState)
   ),
 
   extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
