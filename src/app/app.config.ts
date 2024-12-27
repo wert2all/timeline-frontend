@@ -15,6 +15,8 @@ import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
 import { authFeature } from './store/auth/auth.reducer';
+import { navigationEffects } from './store/navigation/navigation.effects';
+import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
 import { tableOfYearsEffects } from './store/table-of-contents/table-of-contents.effects';
@@ -40,6 +42,7 @@ export const appConfig: ApplicationConfig = {
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
       [uploadFeature.name]: uploadFeature.reducer,
+      [navigationFeature.name]: navigationFeature.reducer,
     }),
     provideEffects([
       authEffects,
@@ -49,6 +52,7 @@ export const appConfig: ApplicationConfig = {
       previewEffects,
       accountEffects,
       uploadEffects,
+      navigationEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
