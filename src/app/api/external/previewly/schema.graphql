@@ -6,10 +6,51 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
+type ImageData {
+  name: String!
+  url: String!
+}
+
+type ImageProcess {
+  error: String
+  image: ImageData
+  processes: [OneImageProcess!]!
+  status: Status!
+}
+
+type ImageProcessOption {
+  key: String!
+  value: String
+}
+
+input ImageProcessOptionInput {
+  key: String!
+  value: String
+}
+
+enum ImageProcessType {
+  resize
+}
+
+input ImageProcessesInput {
+  options: [ImageProcessOptionInput!]!
+  type: ImageProcessType!
+}
+
 type Mutation {
   addUrl(token: String!, url: String!): PreviewData
   createToken: String!
+  processImage(
+    imageId: Int!
+    processes: [ImageProcessesInput!]!
+    token: String!
+  ): ImageProcess
   upload(images: [Upload!]!, token: String!): [UploadImageStatus!]!
+}
+
+type OneImageProcess {
+  options: [ImageProcessOption!]!
+  type: ImageProcessType!
 }
 
 type PreviewData {

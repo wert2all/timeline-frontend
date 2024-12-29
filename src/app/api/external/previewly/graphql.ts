@@ -32,6 +32,20 @@ export interface Scalars {
   Upload: { input: File; output: File };
 }
 
+export interface ImageProcessOptionInput {
+  key: Scalars['String']['input'];
+  value?: InputMaybe<Scalars['String']['input']>;
+}
+
+export enum ImageProcessType {
+  resize = 'resize',
+}
+
+export interface ImageProcessesInput {
+  options: Array<ImageProcessOptionInput>;
+  type: ImageProcessType;
+}
+
 export enum Status {
   error = 'error',
   pending = 'pending',
