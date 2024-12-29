@@ -42,14 +42,14 @@ importers:
         specifier: ^0.8.2
         version: 0.8.2
       '@ng-icons/core':
-        specifier: ^30.0.0
-        version: 30.0.0(@angular/common@19.0.5(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
+        specifier: ^30.1.0
+        version: 30.1.0(@angular/common@19.0.5(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
       '@ng-icons/huge-icons':
-        specifier: ^30.0.0
-        version: 30.0.0
+        specifier: ^30.1.0
+        version: 30.1.0
       '@ng-icons/iconsax':
-        specifier: ^30.0.0
-        version: 30.0.0
+        specifier: ^30.1.0
+        version: 30.1.0
       '@ngrx/effects':
         specifier: 19.0.0
         version: 19.0.0(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(@ngrx/store@19.0.0(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(rxjs@7.8.1)
@@ -2398,18 +2398,18 @@ packages:
     resolution: {integrity: sha512-zM0mVWSXE0a0h9aKACLwKmD6nHcRiKrPpCfvaKqG1CqDEyjEawId0ocXxVzPMCAm6kkWr2P025msfxXEnt8UGQ==}
     engines: {node: '>= 10'}
 
-  '@ng-icons/core@30.0.0':
-    resolution: {integrity: sha512-BafkeyhCC/NXo70C2eNmrB7xQoRGSyKZgN4a3R0kvyTKUOW1PdxDqC5aFhmoI6IGcMKEWyqAWsSMmWmM3R4MYA==}
+  '@ng-icons/core@30.1.0':
+    resolution: {integrity: sha512-NCakBifXVkz0hpmw7ypg7DCxg2lIruIYIPzj01yqW8XVMEvZb3kryMXncHxLz2tmXNnlrdXlAxctvbsPVfEqww==}
     peerDependencies:
       '@angular/common': '>=18.0.0'
       '@angular/core': '>=18.0.0'
       rxjs: ^6.5.3 || ^7.4.0
 
-  '@ng-icons/huge-icons@30.0.0':
-    resolution: {integrity: sha512-Ur7wj+y5wNHea/fQsZKeRFxr4fC6emOvt/lsvR2H1N7phnjplMYY8a1GbbvhScqp7XQGvKog4kEQCTnHUWYrGw==}
+  '@ng-icons/huge-icons@30.1.0':
+    resolution: {integrity: sha512-62haiKT85K1I8kJH+b2uetGnr86oI41howiEDOp6aX0CP71wjB6IChDkT6wxKGkmAj8bC3aV69hPGwdovbxABQ==}
 
-  '@ng-icons/iconsax@30.0.0':
-    resolution: {integrity: sha512-82ppZnh1Q8YT+uEDiKJlBtrPSpya1ogszYg43b8RyLEoHpxK6v4i7GaX6L9ODC1vgudfBZY9fKLiddtrKbxKLw==}
+  '@ng-icons/iconsax@30.1.0':
+    resolution: {integrity: sha512-+DGWd1unmfepa/Yv+5KvgvG/4yK+0Iw/wIZyGUw6KlJfMkV4mavrU4liReER6QIZXsV4mb2jAuJeFiEUhu6IgA==}
 
   '@ngrx/effects@19.0.0':
     resolution: {integrity: sha512-McNrbaPoDUlukrVPAckpRYLFSOoHwMQgMaiiNUvIGJuH/S1Wja+0xAT/e7+h+SO6xaFqDiEqj7GiR8lPkIAnVw==}
@@ -7527,8 +7527,8 @@ packages:
   thunky@1.1.0:
     resolution: {integrity: sha512-eHY7nBftgThBqOyHGVN+l8gF0BucP09fMo0oO/Lb0w1OF80dJv+lDVpXG60WMQvkcxAkNybKsrEIE3ZtKGmPrA==}
 
-  tinyexec@0.3.1:
-    resolution: {integrity: sha512-WiCJLEECkO18gwqIp6+hJg0//p23HXp4S+gGtAKu3mI2F2/sXC4FvHvXvB0zJVVaTPhx1/tOwdbRsa1sOBIKqQ==}
+  tinyexec@0.3.2:
+    resolution: {integrity: sha512-KQQR9yN7R5+OSwaK0XQoj22pwHoTlgYqmUscPYoknOoWCWfj/5/ABTMRi69FrKU5ffPVh5QcFikpWJI/P1ocHA==}
 
   title-case@3.0.3:
     resolution: {integrity: sha512-e1zGYRvbffpcHIrnuqT0Dh+gEJtDaxDSoG4JAIpq4oDFyooziLBIiYQv0GBT4FUAnUop5uZ1hiIAj7oAF6sOCA==}
@@ -9376,7 +9376,7 @@ snapshots:
       '@commitlint/load': 19.6.1(@types/node@22.10.2)(typescript@5.6.3)
       '@commitlint/read': 19.5.0
       '@commitlint/types': 19.5.0
-      tinyexec: 0.3.1
+      tinyexec: 0.3.2
       yargs: 17.7.2
     transitivePeerDependencies:
       - '@types/node'
@@ -9450,7 +9450,7 @@ snapshots:
       '@commitlint/types': 19.5.0
       git-raw-commits: 4.0.0
       minimist: 1.2.8
-      tinyexec: 0.3.1
+      tinyexec: 0.3.2
 
   '@commitlint/resolve-extends@19.5.0':
     dependencies:
@@ -10798,18 +10798,18 @@ snapshots:
       '@napi-rs/nice-win32-x64-msvc': 1.0.1
     optional: true
 
-  '@ng-icons/core@30.0.0(@angular/common@19.0.5(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)':
+  '@ng-icons/core@30.1.0(@angular/common@19.0.5(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)':
     dependencies:
       '@angular/common': 19.0.5(@angular/core@19.0.5(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
       '@angular/core': 19.0.5(rxjs@7.8.1)(zone.js@0.15.0)
       rxjs: 7.8.1
       tslib: 2.8.1
 
-  '@ng-icons/huge-icons@30.0.0':
+  '@ng-icons/huge-icons@30.1.0':
     dependencies:
       tslib: 2.8.1
 
-  '@ng-icons/iconsax@30.0.0':
+  '@ng-icons/iconsax@30.1.0':
     dependencies:
       tslib: 2.8.1
 
@@ -16878,7 +16878,7 @@ snapshots:
 
   thunky@1.1.0: {}
 
-  tinyexec@0.3.1: {}
+  tinyexec@0.3.2: {}
 
   title-case@3.0.3:
     dependencies:
