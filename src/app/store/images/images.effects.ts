@@ -9,10 +9,13 @@ import {
   StoreDispatchEffect,
   StoreUnDispatchEffect,
 } from '../../app.types';
+import { createPolling } from '../../libs/polling/polling.factory';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
-import { UploadActions } from './upload.actions';
+import { EventActions } from '../timeline/timeline.actions';
+import { ImagesActions, UploadActions } from './images.actions';
+import { ImagesPollingOptions } from './images.polling.options';
 
 const convertStatus = (status: string): Status => {
   switch (status) {
@@ -69,10 +72,37 @@ const notifyFailedUploadImage = (
     })
   );
 
-export const uploadEffects = {
+const dispatchImagePolling = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(
+      EventActions.successLoadActiveTimelineEvents,
+      EventActions.successUpdateEvent,
+      UploadActions.successUploadImage
+    ),
+    map(() => ImagesActions.dispatchPolling())
+  );
+
+export const imageEffects = {
   uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
   failedUploadImage: createEffect(
     notifyFailedUploadImage,
     StoreUnDispatchEffect
+  ),
+
+  dispatchPolling: createEffect(dispatchImagePolling, StoreDispatchEffect),
+  startPolling: createEffect(
+    (options = inject(ImagesPollingOptions)) =>
+      createPolling(options).startPolling(),
+    StoreDispatchEffect
+  ),
+  stopPolling: createEffect(
+    (options = inject(ImagesPollingOptions)) =>
+      createPolling(options).stopPolling(),
+    StoreDispatchEffect
+  ),
+  continuePolling: createEffect(
+    (options = inject(ImagesPollingOptions)) =>
+      createPolling(options).continuePolling(),
+    StoreDispatchEffect
   ),
 };

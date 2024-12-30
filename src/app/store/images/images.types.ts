@@ -5,9 +5,13 @@ import {
   Undefined,
 } from '../../app.types';
 
+export type ImageData = {
+  resized_490x250: string;
+};
+
 export type UploadedImage = Iterable & {
   status: StatusWithPending;
-  data: null;
+  data: null | ImageData;
   error: string | Undefined;
 };
 
@@ -16,7 +20,7 @@ export type CurrentUpload = Loadable & {
   previewUrl: Undefined | string;
 };
 
-export type UploadState = {
+export type ImagesState = {
   currentUpload: CurrentUpload;
-  images: UploadedImage[];
+  images: Record<number, UploadedImage>;
 };

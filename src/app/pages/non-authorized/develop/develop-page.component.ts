@@ -24,9 +24,13 @@ import { TableOfContentsContainerComponent } from '../../../feature/table-of-con
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
 
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
-import { ExistViewTimelineEvent } from '../../../store/timeline/timeline.types';
+import {
+  ExistViewTimelineEvent,
+  ViewEventImage,
+} from '../../../store/timeline/timeline.types';
 
 import { Store } from '@ngrx/store';
+import { Status } from '../../../app.types';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
 import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
@@ -50,6 +54,13 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 })
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly dumpEventImage: ViewEventImage = {
+    imageId: 1,
+    title: dumpTitle,
+    status: Status.SUCCESS,
+    previewUrl: 'https://picsum.photos/500/300',
+    url: 'https://picsum.photos/800/600',
+  };
   private readonly dumpEvent: ExistViewTimelineEvent = {
     ...dumpEvent,
     id: 0,
@@ -63,12 +74,13 @@ export class DevelopPageComponent implements OnInit {
     showTime: true,
     changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
+    image: this.dumpEventImage,
   };
 
   dumpAddEvent = signal(this.dumpEvent);
   dumpTimelineEvents: WritableSignal<ExistViewTimelineEvent[]> = signal([
     this.dumpEvent,
-    { ...this.dumpEvent, loading: true, changeDirection: true },
+    { ...this.dumpEvent, loading: true, changeDirection: true, image: null },
   ]);
 
   protected readonly currentAccountWithAvatar = {

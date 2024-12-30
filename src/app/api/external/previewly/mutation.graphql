@@ -11,3 +11,22 @@ mutation UploadImages($token: String!, $images: [Upload!]!)
     ...UploadImageStatus
   }
 }
+
+mutation GetResizedImage($token: String!, $imageId: Int!)
+@namedClient(name: "previewly") {
+  resizedImage: processImage(
+    imageId: $imageId
+    processes: [
+      {
+        options: [
+          { key: "width", value: "490" }
+          { key: "height", value: "250" }
+        ]
+        type: resize
+      }
+    ]
+    token: $token
+  ) {
+    ...ResizedImage
+  }
+}

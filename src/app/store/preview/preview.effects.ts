@@ -64,18 +64,18 @@ export const previewEffects = {
   addUrl: createEffect(addUrl, StoreDispatchEffect),
 
   startPolling: createEffect(
-    (factory = inject(PreviewPollingOptions)) =>
-      createPolling(factory).startPolling(),
+    (options = inject(PreviewPollingOptions)) =>
+      createPolling(options).startPolling(),
     StoreDispatchEffect
   ),
   continuePolling: createEffect(
-    (factory = inject(PreviewPollingOptions)) =>
-      createPolling(factory).continuePolling(),
+    (options = inject(PreviewPollingOptions)) =>
+      createPolling(options).continuePolling(),
     StoreDispatchEffect
   ),
   stopColling: createEffect(
-    (factory = inject(PreviewPollingOptions)) =>
-      createPolling(factory).stopPolling(),
+    (options = inject(PreviewPollingOptions)) =>
+      createPolling(options).stopPolling(),
     StoreDispatchEffect
   ),
 };

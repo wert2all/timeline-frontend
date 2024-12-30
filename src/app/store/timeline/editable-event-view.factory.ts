@@ -1,3 +1,4 @@
+import { Status } from '../../app.types';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
@@ -40,4 +41,7 @@ export const createViewTimelineEvent = (
   date: createViewDatetime(event.date, event.showTime || false),
   tags: createTags(event.tags),
   changeDirection: changeDirection,
+  image: event.imageId
+    ? { imageId: event.imageId, status: Status.LOADING }
+    : undefined,
 });

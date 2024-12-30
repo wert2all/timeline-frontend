@@ -1,4 +1,4 @@
-import { Iterable, Loadable, Undefined } from '../../app.types';
+import { Iterable, Loadable, Status, Undefined } from '../../app.types';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
@@ -28,6 +28,14 @@ export type TimelineEvent = TimelineRequired &
     imageId?: number;
   };
 
+export type ViewEventImage = {
+  imageId: number;
+  status: Status;
+  title?: string;
+  previewUrl?: string;
+  url?: string;
+};
+
 export type ViewTimelineEvent = Omit<
   TimelineEvent,
   'date' | 'url' | 'tags' | 'description'
@@ -38,6 +46,7 @@ export type ViewTimelineEvent = Omit<
   url: ViewTimelineUrl | null;
   tags: ViewTimelineTag[];
   changeDirection: boolean;
+  image: Undefined | ViewEventImage;
 };
 
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;

@@ -1,0 +1,5 @@
+@if (isLoading()) {
+  <div class="relative h-60 w-full bg-base-100"><app-loader /></div>
+} @else {
+  <img [src]="image().previewUrl" [alt]="image().title" />
+}

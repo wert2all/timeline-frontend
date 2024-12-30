@@ -9,6 +9,7 @@ export type EditableEvent = {
   url: string | null;
   tags: string[];
   isPrivate: boolean | null;
+  imageId: number | null;
 };
 
 export type EditValue = Partial<EditableEvent>;
