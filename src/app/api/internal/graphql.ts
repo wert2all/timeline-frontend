@@ -46,6 +46,7 @@ export interface ExistTimelineEventInput {
   date: Scalars['Time']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['Int']['input'];
+  previewlyImageId?: InputMaybe<Scalars['Int']['input']>;
   showTime?: InputMaybe<Scalars['Boolean']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   timelineId: Scalars['Int']['input'];
@@ -68,6 +69,7 @@ export interface TimelineEventInput {
   date: Scalars['Time']['input'];
   description?: InputMaybe<Scalars['String']['input']>;
   id?: InputMaybe<Scalars['Int']['input']>;
+  previewlyImageId?: InputMaybe<Scalars['Int']['input']>;
   showTime?: InputMaybe<Scalars['Boolean']['input']>;
   tags?: InputMaybe<Array<Scalars['String']['input']>>;
   timelineId: Scalars['Int']['input'];
