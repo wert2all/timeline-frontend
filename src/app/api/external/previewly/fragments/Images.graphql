@@ -1,0 +1,19 @@
+fragment UploadImageStatus on UploadImageStatus {
+  id
+  name
+  status
+  error
+}
+
+fragment ImageData on ImageData {
+  name
+  url
+}
+
+fragment ResizedImage on ImageProcess {
+  error
+  image {
+    ...ImageData
+  }
+  status
+}

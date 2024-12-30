@@ -15,7 +15,12 @@ import {
 } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 
-import { Iterable, Undefined } from '../../../app.types';
+import {
+  Iterable,
+  Status,
+  StatusWithPending,
+  Undefined,
+} from '../../../app.types';
 import { EditEventComponent } from '../../../feature/edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../../../feature/timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
@@ -24,6 +29,7 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { imagesFeature } from '../../../store/images/images.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
@@ -48,7 +54,12 @@ export class MyPageComponent {
     timelineFeature.isEditingEvent
   );
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
-
+  private readonly rawTimeline = this.store.selectSignal(
+    timelineFeature.selectViewEvents
+  );
+  private readonly rawImages = this.store.selectSignal(
+    imagesFeature.selectLoadedImages
+  );
   protected readonly isTimelineLoading = this.store.selectSignal(
     timelineFeature.isLoading
   );
@@ -65,9 +76,26 @@ export class MyPageComponent {
     timelineFeature.selectNewTimelineAdded
   );
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
-  protected readonly timeline = this.store.selectSignal(
-    timelineFeature.selectViewEvents
-  );
+  protected readonly timeline = computed(() => {
+    const images = this.rawImages();
+    return this.rawTimeline().map(event => {
+      if (event.image) {
+        const image = images.find(i => i.id === event.image?.imageId);
+        if (image) {
+          return {
+            ...event,
+            image: {
+              ...event.image,
+              previewUrl: image.data?.resized_490x250,
+              status: this.convertImageStatus(image.status),
+            },
+          };
+        }
+      }
+
+      return event;
+    });
+  });
   protected readonly activeAccount = this.store.selectSignal(
     accountFeature.selectActiveAccount
   );
@@ -116,5 +144,17 @@ export class MyPageComponent {
     this.store.dispatch(
       EventActions.showAddEventForm({ timelineId: this.timelineId() })
     );
+  }
+
+  private convertImageStatus(status: StatusWithPending): Status {
+    switch (status) {
+      case Status.ERROR:
+        return Status.ERROR;
+      case Status.SUCCESS:
+        return Status.SUCCESS;
+      default:
+        return Status.LOADING;
+    }
+    throw new Error('Method not implemented.');
   }
 }

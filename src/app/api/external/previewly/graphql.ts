@@ -68,6 +68,14 @@ export type UploadImageStatus = {
   error?: string | null;
 };
 
+export type ImageData = { name: string; url: string };
+
+export type ResizedImage = {
+  error?: string | null;
+  status: Status;
+  image?: ImageData | null;
+};
+
 export type AddUrlVariables = Exact<{
   token: Scalars['String']['input'];
   url: Scalars['String']['input'];
@@ -81,6 +89,13 @@ export type UploadImagesVariables = Exact<{
 }>;
 
 export type UploadImages = { upload: Array<UploadImageStatus> };
+
+export type GetResizedImageVariables = Exact<{
+  token: Scalars['String']['input'];
+  imageId: Scalars['Int']['input'];
+}>;
+
+export type GetResizedImage = { resizedImage?: ResizedImage | null };
 
 export type GetPreviewVariables = Exact<{
   token: Scalars['String']['input'];
@@ -106,6 +121,22 @@ export const UploadImageStatus = gql`
     status
     error
   }
+`;
+export const ImageData = gql`
+  fragment ImageData on ImageData {
+    name
+    url
+  }
+`;
+export const ResizedImage = gql`
+  fragment ResizedImage on ImageProcess {
+    error
+    image {
+      ...ImageData
+    }
+    status
+  }
+  ${ImageData}
 `;
 export const AddUrlDocument = gql`
   mutation AddUrl($token: String!, $url: String!) {
@@ -143,6 +174,40 @@ export class UploadImagesMutation extends Apollo.Mutation<
   UploadImagesVariables
 > {
   override document = UploadImagesDocument;
+  override client = 'previewly';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
+export const GetResizedImageDocument = gql`
+  mutation GetResizedImage($token: String!, $imageId: Int!) {
+    resizedImage: processImage(
+      imageId: $imageId
+      processes: [
+        {
+          options: [
+            { key: "width", value: "490" }
+            { key: "height", value: "250" }
+          ]
+          type: resize
+        }
+      ]
+      token: $token
+    ) {
+      ...ResizedImage
+    }
+  }
+  ${ResizedImage}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetResizedImageMutation extends Apollo.Mutation<
+  GetResizedImage,
+  GetResizedImageVariables
+> {
+  override document = GetResizedImageDocument;
   override client = 'previewly';
   constructor(apollo: Apollo.Apollo) {
     super(apollo);
@@ -187,6 +252,7 @@ export class previewlyApiClient {
   constructor(
     private addUrlMutation: AddUrlMutation,
     private uploadImagesMutation: UploadImagesMutation,
+    private getResizedImageMutation: GetResizedImageMutation,
     private getPreviewQuery: GetPreviewQuery
   ) {}
 
@@ -202,6 +268,13 @@ export class previewlyApiClient {
     options?: MutationOptionsAlone<UploadImages, UploadImagesVariables>
   ) {
     return this.uploadImagesMutation.mutate(variables, options);
+  }
+
+  getResizedImage(
+    variables: GetResizedImageVariables,
+    options?: MutationOptionsAlone<GetResizedImage, GetResizedImageVariables>
+  ) {
+    return this.getResizedImageMutation.mutate(variables, options);
   }
 
   getPreview(

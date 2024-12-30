@@ -5,16 +5,16 @@ import {
   input,
   output,
 } from '@angular/core';
-
-import { MarkdownContentComponent } from '../../../../../../share/markdown-content/markdown-content.component';
+import { MarkdownContentComponent } from '../../../../../share/markdown-content/markdown-content.component';
 import {
   TimelineEventType,
   ViewTimelineEvent,
-} from '../../../../../../store/timeline/timeline.types';
-import { ViewTimelineTag } from '../../../../timeline.types';
-import { DateComponent } from '../../date/date.component';
-import { TagsComponent } from '../../tags/tags.component';
-import { UrlComponent } from '../../url/url.component';
+} from '../../../../../store/timeline/timeline.types';
+import { ViewTimelineTag } from '../../../timeline.types';
+import { DateComponent } from '../date/date.component';
+import { EventImageComponent } from '../image/image.component';
+import { TagsComponent } from '../tags/tags.component';
+import { UrlComponent } from '../url/url.component';
 
 @Component({
   selector: 'app-timeline-event-main-content',
@@ -27,6 +27,7 @@ import { UrlComponent } from '../../url/url.component';
     MarkdownContentComponent,
     TagsComponent,
     DateComponent,
+    EventImageComponent,
   ],
 })
 export class EventMainContentComponent {

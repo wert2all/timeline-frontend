@@ -14,7 +14,7 @@ import {
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
 
-import { EventMainContentComponent } from '../timeline/components/event/content/main/main-content.component';
+import { EventMainContentComponent } from '../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
@@ -69,7 +69,6 @@ export class EditEventComponent {
   protected updatePreviewEvent(value: EditValue) {
     const time = value.time?.match('^\\d:') ? '0' + value.time : value.time;
     const date = DateTime.fromISO(value.date + (time ? 'T' + time : ''));
-
     const updatedEvent: TimelineEvent = {
       id: value.id || undefined,
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
@@ -81,6 +80,7 @@ export class EditEventComponent {
       url: value.url || undefined,
       loading: false,
       timelineId: this.timelineId(),
+      imageId: value.imageId || undefined,
     };
     this.store.dispatch(
       EventActions.updatePreviewOfEditableEvent({ event: updatedEvent })

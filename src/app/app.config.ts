@@ -16,6 +16,8 @@ import { provideSentry } from './providers/sentry.provider';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
+import { imageEffects } from './store/images/images.effects';
+import { imagesFeature } from './store/images/images.reducer';
 import { navigationEffects } from './store/navigation/navigation.effects';
 import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
@@ -27,8 +29,6 @@ import {
   timelineEffects,
 } from './store/timeline/timeline.effects';
 import { timelineFeature } from './store/timeline/timeline.reducer';
-import { uploadEffects } from './store/upload/upload.effects';
-import { uploadFeature } from './store/upload/upload.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
-      [uploadFeature.name]: uploadFeature.reducer,
+      [imagesFeature.name]: imagesFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
     }),
     provideEffects([
@@ -52,7 +52,7 @@ export const appConfig: ApplicationConfig = {
       tableOfYearsEffects,
       previewEffects,
       accountEffects,
-      uploadEffects,
+      imageEffects,
       navigationEffects,
     ]),
     provideStoreDevtools({
