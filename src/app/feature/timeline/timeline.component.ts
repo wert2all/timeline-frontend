@@ -8,7 +8,7 @@ import {
 import { Iterable } from '../../app.types';
 import { ExistViewTimelineEvent } from '../../store/timeline/timeline.types';
 
-import { EventMainContentComponent } from './components/event/content/main/main-content.component';
+import { EventMainContentComponent } from './components/event/content/main-content.component';
 import { IconComponent } from './components/event/icon/icon.component';
 import { TimelineEventMenuComponent } from './components/event/menu/menu.component';
 import { ViewTimelineTag } from './timeline.types';

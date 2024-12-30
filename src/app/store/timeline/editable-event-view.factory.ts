@@ -40,4 +40,5 @@ export const createViewTimelineEvent = (
   date: createViewDatetime(event.date, event.showTime || false),
   tags: createTags(event.tags),
   changeDirection: changeDirection,
+  image: event.imageId ? { imageId: event.imageId } : undefined,
 });

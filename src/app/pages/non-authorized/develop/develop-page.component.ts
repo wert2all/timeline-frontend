@@ -50,6 +50,12 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 })
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly dumpEventImage = {
+    imageId: 0,
+    title: dumpTitle,
+    previewUrl: 'https://picsum.photos/500/300',
+    url: 'https://picsum.photos/800/600',
+  };
   private readonly dumpEvent: ExistViewTimelineEvent = {
     ...dumpEvent,
     id: 0,
@@ -63,6 +69,7 @@ export class DevelopPageComponent implements OnInit {
     showTime: true,
     changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
+    image: this.dumpEventImage,
   };
 
   dumpAddEvent = signal(this.dumpEvent);
