@@ -13,3 +13,8 @@ export const UploadActions = createActionGroup({
     'Failed upload image': props<{ error: string }>(),
   },
 });
+
+export const ImagesActions = createActionGroup({
+  source: 'Images',
+  events: {},
+});
