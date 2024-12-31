@@ -6,11 +6,11 @@ import { ImagesState } from './images.types';
 
 const initState: ImagesState = {
   currentUpload: { loading: false, previewUrl: null, error: null },
-  images: [],
+  images: {},
 };
 
-export const uploadFeature = createFeature({
-  name: 'upload',
+export const imagesFeature = createFeature({
+  name: 'images',
   reducer: createReducer(
     initState,
 
@@ -27,19 +27,22 @@ export const uploadFeature = createFeature({
     ),
     on(
       UploadActions.successUploadImage,
-      (state, { id, status, error }): ImagesState => ({
-        ...state,
-        images: [
-          ...state.images,
-          {
-            id,
-            status: status == Status.SUCCESS ? Pending.PENDING : status,
-            error,
-            data: null,
-          },
-        ],
-        currentUpload: { previewUrl: null, loading: false, error: null },
-      })
+      (state, { id, status, error }): ImagesState => {
+        const images = { ...state.images };
+
+        images[id] = {
+          id,
+          status: status == Status.SUCCESS ? Pending.PENDING : status,
+          error,
+          data: null,
+        };
+
+        return {
+          ...state,
+          images: images,
+          currentUpload: { previewUrl: null, loading: false, error: null },
+        };
+      }
     ),
     on(UploadActions.failedUploadImage, (state, { error }) => ({
       ...state,
@@ -51,26 +54,22 @@ export const uploadFeature = createFeature({
     })),
 
     on(EventActions.successLoadActiveTimelineEvents, (state, { events }) => {
-      const maybeNewImages = events
-        .map(event =>
-          event.imageId
-            ? {
-                id: event.imageId,
-                status: Status.SUCCESS,
-                data: null,
-                error: null,
-              }
-            : undefined
-        )
-        .filter(image => !!image);
-
-      if (maybeNewImages.length > 0) {
-        return {
-          ...state,
-          images: [...state.images, ...maybeNewImages],
-        };
-      }
-      return state;
+      const images = { ...state.images };
+      events.forEach(event => {
+        if (event.imageId) {
+          const shouldUpdateImage =
+            !images[event.imageId] || !images[event.imageId].data;
+          if (shouldUpdateImage) {
+            images[event.imageId] = {
+              id: event.imageId,
+              status: Pending.PENDING,
+              error: null,
+              data: null,
+            };
+          }
+        }
+      });
+      return { ...state, images: images };
     })
   ),
 });

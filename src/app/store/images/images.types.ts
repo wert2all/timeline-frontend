@@ -18,5 +18,5 @@ export type CurrentUpload = Loadable & {
 
 export type ImagesState = {
   currentUpload: CurrentUpload;
-  images: UploadedImage[];
+  images: Record<number, UploadedImage>;
 };

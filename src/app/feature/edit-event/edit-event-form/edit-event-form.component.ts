@@ -46,7 +46,7 @@ import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { UploadActions } from '../../../store/images/images.actions';
-import { uploadFeature } from '../../../store/images/images.reducer';
+import { imagesFeature } from '../../../store/images/images.reducer';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { FeatureFlagComponent } from '../../user/features/feature-flag/feature-flag.component';
@@ -139,7 +139,7 @@ export class EditEventFormComponent implements AfterViewInit {
   );
 
   protected previewImage = this.store.selectSignal(
-    uploadFeature.selectCurrentUpload
+    imagesFeature.selectCurrentUpload
   );
 
   protected readonly switchTab = signal<null | number>(null);

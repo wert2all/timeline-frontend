@@ -17,7 +17,7 @@ import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
 import { uploadEffects } from './store/images/images.effects';
-import { uploadFeature } from './store/images/images.reducer';
+import { imagesFeature } from './store/images/images.reducer';
 import { navigationEffects } from './store/navigation/navigation.effects';
 import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
@@ -42,7 +42,7 @@ export const appConfig: ApplicationConfig = {
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
-      [uploadFeature.name]: uploadFeature.reducer,
+      [imagesFeature.name]: imagesFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
     }),
     provideEffects([
