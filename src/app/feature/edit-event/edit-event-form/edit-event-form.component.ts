@@ -45,9 +45,9 @@ import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { UploadActions } from '../../../store/images/images.actions';
+import { uploadFeature } from '../../../store/images/images.reducer';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
-import { UploadActions } from '../../../store/upload/upload.actions';
-import { uploadFeature } from '../../../store/upload/upload.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { FeatureFlagComponent } from '../../user/features/feature-flag/feature-flag.component';
 import { EditValue } from '../edit-event.types';

@@ -1,7 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
-import { UploadActions } from '../upload/upload.actions';
+import { UploadActions } from '../images/images.actions';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
