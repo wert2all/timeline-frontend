@@ -36,6 +36,7 @@ export const fromApiEventToState = (
   url: event.url || undefined,
   loading: false,
   tags: event.tags || [],
+  imageId: event.previewlyImageId || undefined,
 });
 
 export const fromEventTypeStateToApiType = (
@@ -61,18 +62,5 @@ export const fromEditableEventStateToApiInput = (
   showTime: event.showTime,
   url: event.url,
   tags: event.tags,
+  previewlyImageId: event.imageId,
 });
-
-// export const fromEditableEventToTimelineEvent = (
-//   event: EditableTimelineEvent
-// ): TimelineEvent => ({
-//   id: event.id,
-//   date: event.date,
-//   type: TimelineEventType.default,
-//   title: event.title,
-//   description: event.description,
-//   showTime: event.showTime,
-//   url: event.url,
-//   loading: true,
-//   tags: event.tags,
-// });

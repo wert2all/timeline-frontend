@@ -45,6 +45,7 @@ import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { UploadActions } from '../../../store/upload/upload.actions';
 import { uploadFeature } from '../../../store/upload/upload.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
@@ -133,6 +134,9 @@ export class EditEventFormComponent implements AfterViewInit {
   private readonly allPreviews = this.store.selectSignal(
     previewFeature.selectPreviews
   );
+  private readonly uploadedImageId = this.store.selectSignal(
+    timelineFeature.selectUploadedImageId
+  );
 
   protected previewImage = this.store.selectSignal(
     uploadFeature.selectCurrentUpload
@@ -173,6 +177,7 @@ export class EditEventFormComponent implements AfterViewInit {
   protected accountSettings = this.store.selectSignal(
     accountFeature.selectActiveAccountFeaturesSettings
   );
+
   constructor() {
     this.editForm.controls.withTime.valueChanges
       .pipe(takeUntilDestroyed())
@@ -200,6 +205,7 @@ export class EditEventFormComponent implements AfterViewInit {
       this.valuesChanged.emit({
         ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),
+        imageId: this.uploadedImageId(),
       });
     });
   }

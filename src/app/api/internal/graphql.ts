@@ -92,6 +92,7 @@ export type TimelineEvent = {
   showTime?: boolean | null;
   url?: string | null;
   tags: Array<string>;
+  previewlyImageId?: number | null;
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
@@ -173,6 +174,7 @@ export const TimelineEvent = gql`
     showTime
     url
     tags
+    previewlyImageId
   }
 `;
 export const ShortTimeline = gql`
