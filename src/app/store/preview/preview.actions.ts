@@ -13,7 +13,7 @@ export const PreviewActions = createActionGroup({
 
     'Start polling previews': props<{ urls: URL[] }>(),
     'Stop polling previews': emptyProps(),
-    'Continue polling previews': emptyProps(),
+    'Continue polling previews': props<{ urls: URL[] }>(),
 
     'Success update previews': props<{
       previews: {
