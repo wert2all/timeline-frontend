@@ -32,6 +32,7 @@ input ExistTimelineEventInput {
   date: Time!
   description: String
   id: Int!
+  previewlyImageId: Int
   showTime: Boolean
   tags: [String!]
   timelineId: Int!
@@ -83,6 +84,7 @@ type TimelineEvent {
   date: Time!
   description: String
   id: Int!
+  previewlyImageId: Int
   showTime: Boolean
   tags: [String!]!
   title: String
@@ -94,6 +96,7 @@ input TimelineEventInput {
   date: Time!
   description: String
   id: Int
+  previewlyImageId: Int
   showTime: Boolean
   tags: [String!]
   timelineId: Int!

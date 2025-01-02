@@ -12,7 +12,7 @@ import {
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
-import { UploadActions } from './upload.actions';
+import { UploadActions } from './images.actions';
 
 const convertStatus = (status: string): Status => {
   switch (status) {

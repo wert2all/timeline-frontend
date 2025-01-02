@@ -16,7 +16,7 @@ export type CurrentUpload = Loadable & {
   previewUrl: Undefined | string;
 };
 
-export type UploadState = {
+export type ImagesState = {
   currentUpload: CurrentUpload;
-  images: UploadedImage[];
+  images: Record<number, UploadedImage>;
 };

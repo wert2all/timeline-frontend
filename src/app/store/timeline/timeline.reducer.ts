@@ -1,5 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { Status } from '../../app.types';
 import { AuthActions } from '../auth/auth.actions';
+import { UploadActions } from '../images/images.actions';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -159,7 +161,19 @@ export const timelineFeature = createFeature({
       })),
     })),
 
-    on(AuthActions.afterLogout, () => initialState)
+    on(AuthActions.afterLogout, () => initialState),
+
+    on(UploadActions.successUploadImage, (state, { id, status }) =>
+      state.editEvent?.event && status === Status.SUCCESS
+        ? {
+            ...state,
+            editEvent: {
+              ...state.editEvent,
+              event: { ...state.editEvent.event, imageId: id },
+            },
+          }
+        : state
+    )
   ),
 
   extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
@@ -175,6 +189,10 @@ export const timelineFeature = createFeature({
     isEditingEvent: createSelector(
       selectEditEvent,
       selectEditEvent => selectEditEvent !== null
+    ),
+    selectUploadedImageId: createSelector(
+      selectEditEvent,
+      selectEditEvent => selectEditEvent?.event?.imageId
     ),
   }),
 });
