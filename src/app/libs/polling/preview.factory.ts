@@ -66,7 +66,7 @@ export class PreviewFactory implements Polling {
     );
   }
 
-  continuePolling() {
+  continuePolling(): Observable<Action<string>> {
     return this.selectContinuePolling().pipe(
       concatLatestFrom(() =>
         this.store

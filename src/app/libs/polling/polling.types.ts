@@ -11,4 +11,5 @@ export interface Polling {
   startPolling(): Observable<Action<string>>;
 
   stopPolling(): Observable<Action<string>>;
+  continuePolling(): Observable<Action<string>>;
 }
