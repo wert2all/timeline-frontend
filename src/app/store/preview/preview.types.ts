@@ -1,5 +1,7 @@
 import { DataWrapper } from '../../app.types';
 
+export type PreviewPollingActionsProps = { urls: URL[] };
+
 export type PreviewItem = {
   image: string;
   title?: string;

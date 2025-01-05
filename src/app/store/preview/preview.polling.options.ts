@@ -19,11 +19,10 @@ import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
-import { PreviewItem } from './preview.types';
-type PreviewPollingActionsProps = { urls: URL[] };
+import { PreviewItem, PreviewPollingActionsProps } from './preview.types';
 
 @Injectable({ providedIn: 'root' })
-export class PreviewPollingFactory
+export class PreviewPollingOptions
   implements PollingOptions<PreviewPollingActionsProps, URL>
 {
   private store = inject(Store);

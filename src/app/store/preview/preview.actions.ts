@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { DataWrapper } from '../../app.types';
-import { PreviewItem } from './preview.types';
+import { PreviewItem, PreviewPollingActionsProps } from './preview.types';
 
 export const PreviewActions = createActionGroup({
   source: 'Preview',
@@ -11,9 +11,9 @@ export const PreviewActions = createActionGroup({
       preview: DataWrapper<PreviewItem>;
     }>(),
 
-    'Start polling previews': props<{ urls: URL[] }>(),
+    'Start polling previews': props<PreviewPollingActionsProps>(),
     'Stop polling previews': emptyProps(),
-    'Continue polling previews': props<{ urls: URL[] }>(),
+    'Continue polling previews': props<PreviewPollingActionsProps>(),
 
     'Success update previews': props<{
       previews: {
@@ -22,6 +22,6 @@ export const PreviewActions = createActionGroup({
       }[];
     }>(),
 
-    'Update previews': props<{ urls: URL[] }>(),
+    'Update previews': props<PreviewPollingActionsProps>(),
   },
 });

@@ -10,7 +10,7 @@ import { createPolling } from '../../libs/polling/polling.factory';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { PreviewActions } from './preview.actions';
-import { PreviewPollingFactory } from './preview.polling.factory';
+import { PreviewPollingOptions } from './preview.polling.options';
 import { PreviewItem } from './preview.types';
 
 const addUrl = (
@@ -25,8 +25,8 @@ const addUrl = (
         .select(accountFeature.selectActiveAccount)
         .pipe(map(account => account?.previewlyToken))
     ),
-    exhaustMap(([{ url }, token]) => {
-      return token
+    exhaustMap(([{ url }, token]) =>
+      token
         ? apiClient.addUrl({ token: token, url: url.toString() }).pipe(
             map(result =>
               apiAssertNotNull(extractApiData(result)?.preview, 'Empty preview')
@@ -57,24 +57,24 @@ const addUrl = (
               });
             })
           )
-        : of(AuthActions.dispatchEmptyPreviewlyTokenError());
-    })
+        : of(AuthActions.dispatchEmptyPreviewlyTokenError())
+    )
   );
 export const previewEffects = {
   addUrl: createEffect(addUrl, StoreDispatchEffect),
 
   startPolling: createEffect(
-    (factory = inject(PreviewPollingFactory)) =>
+    (factory = inject(PreviewPollingOptions)) =>
       createPolling(factory).startPolling(),
     StoreDispatchEffect
   ),
   continuePolling: createEffect(
-    (factory = inject(PreviewPollingFactory)) =>
+    (factory = inject(PreviewPollingOptions)) =>
       createPolling(factory).continuePolling(),
     StoreDispatchEffect
   ),
   stopColling: createEffect(
-    (factory = inject(PreviewPollingFactory)) =>
+    (factory = inject(PreviewPollingOptions)) =>
       createPolling(factory).stopPolling(),
     StoreDispatchEffect
   ),
