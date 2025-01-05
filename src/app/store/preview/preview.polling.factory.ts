@@ -5,69 +5,54 @@ import { Action, Store } from '@ngrx/store';
 import {
   catchError,
   concat,
-  interval,
   map,
   Observable,
   of,
   switchMap,
-  takeUntil,
   toArray,
 } from 'rxjs';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import { DataWrapper, Status } from '../../app.types';
-import { accountFeature } from '../../store/account/account.reducer';
-import { AuthActions } from '../../store/auth/auth.actions';
-import { PreviewActions } from '../../store/preview/preview.actions';
-import { previewFeature } from '../../store/preview/preview.reducers';
-import { PreviewItem } from '../../store/preview/preview.types';
-import { apiAssertNotNull, extractApiData } from '../api.functions';
-import { Polling, PollingAction, PollingItem } from './polling.types';
-
-type PreviewProps = { urls: PollingItem<URL>[] };
-
-const DELAY = 3000;
+import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
+import { PollingOptions } from '../../libs/polling/polling.types';
+import { accountFeature } from '../account/account.reducer';
+import { AuthActions } from '../auth/auth.actions';
+import { PreviewActions } from './preview.actions';
+import { previewFeature } from './preview.reducers';
+import { PreviewItem } from './preview.types';
+type PreviewPollingActionsProps = { urls: URL[] };
 
 @Injectable({ providedIn: 'root' })
-export class PreviewFactory implements Polling {
-  private actions$ = inject(Actions);
+export class PreviewPollingFactory
+  implements PollingOptions<PreviewPollingActionsProps, URL>
+{
   private store = inject(Store);
   private api = inject(previewlyApiClient);
 
-  private startPollingAction: PollingAction<PreviewProps> =
-    PreviewActions.startPollingPreviews;
-  private stopPollingAction: PollingAction<void> =
-    PreviewActions.stopPollingPreviews;
-  private continuePollingAction: PollingAction<PreviewProps> =
-    PreviewActions.continuePollingPreviews;
+  startPollingAction = PreviewActions.startPollingPreviews;
+  stopPollingAction = PreviewActions.stopPollingPreviews;
+  continuePollingAction = PreviewActions.continuePollingPreviews;
 
-  private selectPollingItems: (
-    actions: Actions
-  ) => Observable<PollingItem<URL>[]> = (
-    actions: Actions,
-    store = inject(Store)
-  ) =>
-    actions.pipe(
+  convertToActionProps(items: URL[]) {
+    return { urls: items };
+  }
+
+  selectPollingItems(actions: Actions) {
+    return actions.pipe(
       ofType(PreviewActions.successAddingURL),
-      concatLatestFrom(() => store.select(previewFeature.selectShouldUpdate)),
+      concatLatestFrom(() =>
+        this.store.select(previewFeature.selectShouldUpdate)
+      ),
       map(([, shouldUpdate]) =>
         shouldUpdate.map(preview => new URL(preview.url))
       )
     );
-
-  startPolling(): Observable<Action<string>> {
-    return this.selectPollingItems(this.actions$).pipe(
-      map(this.shouldContinue(this.startPollingAction))
-    );
   }
 
-  stopPolling(): Observable<Action<string>> {
-    return this.selectPollingItems(this.actions$).pipe(
-      map(this.shouldContinue(this.continuePollingAction))
-    );
-  }
-
-  continuePolling() {
-    return this.selectContinuePolling().pipe(
+  continuePollingEffect(
+    flow$: Observable<PreviewPollingActionsProps & Action<string>>
+  ): Observable<Action<string>> {
+    return flow$.pipe(
       concatLatestFrom(() =>
         this.store
           .select(accountFeature.selectActiveAccount)
@@ -123,23 +108,6 @@ export class PreviewFactory implements Polling {
               )
             )
           : of(AuthActions.dispatchEmptyPreviewlyTokenError())
-      )
-    );
-  }
-
-  private shouldContinue(action: PollingAction<PreviewProps>) {
-    return (items: PollingItem<URL>[]) =>
-      items.length > 0 ? action({ urls: items }) : this.stopPollingAction();
-  }
-
-  private selectContinuePolling() {
-    return this.actions$.pipe(
-      ofType(this.startPollingAction),
-      switchMap(action =>
-        interval(DELAY).pipe(
-          takeUntil(this.actions$.pipe(ofType(this.stopPollingAction))),
-          map(() => action)
-        )
       )
     );
   }

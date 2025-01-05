@@ -6,10 +6,11 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import { DataWrapper, Status, StoreDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { PreviewFactory } from '../../libs/polling/preview.factory';
+import { createPolling } from '../../libs/polling/polling.factory';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { PreviewActions } from './preview.actions';
+import { PreviewPollingFactory } from './preview.polling.factory';
 import { PreviewItem } from './preview.types';
 
 const addUrl = (
@@ -59,20 +60,22 @@ const addUrl = (
         : of(AuthActions.dispatchEmptyPreviewlyTokenError());
     })
   );
-
 export const previewEffects = {
   addUrl: createEffect(addUrl, StoreDispatchEffect),
 
   startPolling: createEffect(
-    (factory = inject(PreviewFactory)) => factory.startPolling(),
+    (factory = inject(PreviewPollingFactory)) =>
+      createPolling(factory).startPolling(),
     StoreDispatchEffect
   ),
   continuePolling: createEffect(
-    (factory = inject(PreviewFactory)) => factory.continuePolling(),
+    (factory = inject(PreviewPollingFactory)) =>
+      createPolling(factory).continuePolling(),
     StoreDispatchEffect
   ),
   stopColling: createEffect(
-    (factory = inject(PreviewFactory)) => factory.stopPolling(),
+    (factory = inject(PreviewPollingFactory)) =>
+      createPolling(factory).stopPolling(),
     StoreDispatchEffect
   ),
 };
