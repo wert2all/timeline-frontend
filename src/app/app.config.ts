@@ -2,6 +2,7 @@ import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   isDevMode,
+  makeEnvironmentProviders,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
@@ -10,6 +11,8 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
+import { TaskRunner } from './feature/task/runner';
+import { taskRunnerFactory } from './feature/task/runner.factory';
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
@@ -24,6 +27,8 @@ import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
 import { tableOfYearsEffects } from './store/table-of-contents/table-of-contents.effects';
 import { tableOfYearFeature } from './store/table-of-contents/table-of-contents.reducer';
+import { taskEffects } from './store/task/task.effects';
+import { taskFeature } from './store/task/task.reducer';
 import {
   eventsEffects,
   timelineEffects,
@@ -44,6 +49,7 @@ export const appConfig: ApplicationConfig = {
       [accountFeature.name]: accountFeature.reducer,
       [imagesFeature.name]: imagesFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
+      [taskFeature.name]: taskFeature.reducer,
     }),
     provideEffects([
       authEffects,
@@ -54,6 +60,7 @@ export const appConfig: ApplicationConfig = {
       accountEffects,
       imageEffects,
       navigationEffects,
+      taskEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
@@ -65,5 +72,11 @@ export const appConfig: ApplicationConfig = {
     }),
     provideExperimentalZonelessChangeDetection(),
     provideAuthConfig(),
+    makeEnvironmentProviders([
+      {
+        provide: TaskRunner,
+        useFactory: taskRunnerFactory,
+      },
+    ]),
   ],
 };
