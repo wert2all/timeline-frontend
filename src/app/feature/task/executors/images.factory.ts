@@ -81,15 +81,13 @@ export class ImagesTaskExecutorFactory
     };
   }
 
-  static createTaskProps = (ids: number[], token: string): TaskActionProps => {
-    return {
-      type: ImagesTaskExecutorFactory.getType(),
-      options: [
-        { name: IDS_OPTION_NAME, value: ids.join(OPTION_SEPARATOR) },
-        { name: TOKEN_OPTION_NAME, value: token },
-      ],
-    };
-  };
+  static createTaskProps = (ids: number[], token: string): TaskActionProps => ({
+    type: ImagesTaskExecutorFactory.getType(),
+    options: [
+      { name: IDS_OPTION_NAME, value: ids.join(OPTION_SEPARATOR) },
+      { name: TOKEN_OPTION_NAME, value: token },
+    ],
+  });
 
   getType = () => ImagesTaskExecutorFactory.getType();
   static getType = (): TaskType => TaskType.LOAD_IMAGES;

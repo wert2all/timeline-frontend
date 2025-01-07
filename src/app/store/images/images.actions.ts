@@ -26,8 +26,6 @@ export const ImagesActions = createActionGroup({
     'Dispatch polling': emptyProps(),
     'Success update images': props<{ images: UploadedImage[] }>(),
 
-    'Start polling': props<ImagesPollingActionProps>(),
-    'Continue polling': props<ImagesPollingActionProps>(),
-    'Stop polling': emptyProps(),
+    'Should not load empty image list': emptyProps(),
   },
 });
