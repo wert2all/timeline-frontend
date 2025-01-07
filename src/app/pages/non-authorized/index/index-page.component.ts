@@ -43,6 +43,20 @@ export class IndexPageComponent {
     {
       id: 0,
       timelineId: 0,
+      date: new Date('2025-01-07T17:45:00.000+03:00'),
+      type: TimelineEventType.default,
+      title: 'images!',
+      description:
+        'after few months of development we add a new feature - images! now you could upload images to your timeline',
+      tags: ['images', 'timeline', 'ui', 'feature', 'party', 'important'],
+      url: 'https://timeln.rpm.kiev.ua/',
+      showTime: true,
+      loading: false,
+      imageId: 35,
+    },
+    {
+      id: 0,
+      timelineId: 0,
       date: new Date('2024-05-26T15:21:00.000+03:00'),
       type: TimelineEventType.celebrate,
       title: 'we are alive!',
