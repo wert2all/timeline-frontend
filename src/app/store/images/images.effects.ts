@@ -96,11 +96,14 @@ const createTaskForLoadImages = (
     ),
     map(([imageIds, token]) => {
       if (token) {
-        return ImagesTaskExecutorFactory.createTaskProps(imageIds, token);
+        return imageIds.length === 0
+          ? ImagesActions.shouldNotLoadEmptyImageList()
+          : TaskActions.createTask({
+              task: ImagesTaskExecutorFactory.createTaskProps(imageIds, token),
+            });
       }
       throw new Error('No token');
-    }),
-    map(task => TaskActions.createTask({ task }))
+    })
   );
 
 const successLoadingImagesTask = (actions$ = inject(Actions)) =>
