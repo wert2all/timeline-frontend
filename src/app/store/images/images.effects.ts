@@ -2,20 +2,22 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import {
   Status,
   StoreDispatchEffect,
   StoreUnDispatchEffect,
 } from '../../app.types';
-import { createPolling } from '../../libs/polling/polling.factory';
+import { TaskResultImages } from '../../feature/task/executors/images.executor';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
+import { TaskActions } from '../task/task.actions';
+import { TaskActionProps, TaskType } from '../task/task.types';
 import { EventActions } from '../timeline/timeline.actions';
 import { ImagesActions, UploadActions } from './images.actions';
-import { ImagesPollingOptions } from './images.polling.options';
+import { imagesFeature } from './images.reducer';
 
 const convertStatus = (status: string): Status => {
   switch (status) {
@@ -72,14 +74,39 @@ const notifyFailedUploadImage = (
     })
   );
 
-const dispatchImagePolling = (actions$ = inject(Actions)) =>
+const createTaskForLoadImages = (
+  actions$ = inject(Actions),
+  store = inject(Store)
+) =>
   actions$.pipe(
     ofType(
-      EventActions.successLoadActiveTimelineEvents,
       EventActions.successUpdateEvent,
-      UploadActions.successUploadImage
+      UploadActions.successUploadImage,
+      EventActions.successLoadActiveTimelineEvents
     ),
-    map(() => ImagesActions.dispatchPolling())
+    concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
+    map(([, images]) => images.map(image => image.id)),
+    map(
+      (imageIds): TaskActionProps => ({
+        type: TaskType.LOAD_IMAGES,
+        options: [
+          {
+            name: 'ids',
+            value: imageIds.join(','),
+          },
+        ],
+      })
+    ),
+    map(task => TaskActions.createTask({ task }))
+  );
+
+const successLoadingImagesTask = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(TaskActions.successTask),
+    filter(({ taskType }) => taskType === TaskType.LOAD_IMAGES),
+    map(({ data }) => data as TaskResultImages),
+    map(result => result.images),
+    map(images => ImagesActions.successUpdateImages({ images: images || [] }))
   );
 
 export const imageEffects = {
@@ -89,20 +116,12 @@ export const imageEffects = {
     StoreUnDispatchEffect
   ),
 
-  dispatchPolling: createEffect(dispatchImagePolling, StoreDispatchEffect),
-  startPolling: createEffect(
-    (options = inject(ImagesPollingOptions)) =>
-      createPolling(options).startPolling(),
+  createTaskForLoadImages: createEffect(
+    createTaskForLoadImages,
     StoreDispatchEffect
   ),
-  stopPolling: createEffect(
-    (options = inject(ImagesPollingOptions)) =>
-      createPolling(options).stopPolling(),
-    StoreDispatchEffect
-  ),
-  continuePolling: createEffect(
-    (options = inject(ImagesPollingOptions)) =>
-      createPolling(options).continuePolling(),
+  successTaskOfLoadingImages: createEffect(
+    successLoadingImagesTask,
     StoreDispatchEffect
   ),
 };
