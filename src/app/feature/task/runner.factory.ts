@@ -1,9 +1,6 @@
-import { TaskType } from '../../store/task/task.types';
-import { imageTaskExecutor } from './executors/images.executor';
+import { inject } from '@angular/core';
+import { ImagesTaskExecutorFactory } from './executors/images.factory';
 import { TaskRunner } from './runner';
 
-export const taskRunnerFactory = () => {
-  return new TaskRunner({
-    [TaskType.LOAD_IMAGES]: imageTaskExecutor(),
-  });
-};
+export const taskRunnerFactory = (image = inject(ImagesTaskExecutorFactory)) =>
+  new TaskRunner([image]);

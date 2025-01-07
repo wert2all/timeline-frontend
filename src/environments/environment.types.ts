@@ -8,6 +8,7 @@ export type GoogleServiceEnvironment = {
 
 export type PreviewlyServiceEnvironment = {
   url: string;
+  token: string;
 };
 
 export type SentryServiceEnvironment = {

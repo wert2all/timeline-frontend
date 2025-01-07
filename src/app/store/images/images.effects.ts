@@ -9,12 +9,15 @@ import {
   StoreDispatchEffect,
   StoreUnDispatchEffect,
 } from '../../app.types';
-import { TaskResultImages } from '../../feature/task/executors/images.executor';
+import {
+  ImagesTaskExecutorFactory,
+  TaskResultImages,
+} from '../../feature/task/executors/images.factory';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { TaskActions } from '../task/task.actions';
-import { TaskActionProps, TaskType } from '../task/task.types';
+import { TaskType } from '../task/task.types';
 import { EventActions } from '../timeline/timeline.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { imagesFeature } from './images.reducer';
@@ -86,17 +89,17 @@ const createTaskForLoadImages = (
     ),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
     map(([, images]) => images.map(image => image.id)),
-    map(
-      (imageIds): TaskActionProps => ({
-        type: TaskType.LOAD_IMAGES,
-        options: [
-          {
-            name: 'ids',
-            value: imageIds.join(','),
-          },
-        ],
-      })
+    concatLatestFrom(() =>
+      store
+        .select(accountFeature.selectActiveAccount)
+        .pipe(map(account => account?.previewlyToken))
     ),
+    map(([imageIds, token]) => {
+      if (token) {
+        return ImagesTaskExecutorFactory.createTaskProps(imageIds, token);
+      }
+      throw new Error('No token');
+    }),
     map(task => TaskActions.createTask({ task }))
   );
 

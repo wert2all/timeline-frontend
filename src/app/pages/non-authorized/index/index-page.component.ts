@@ -14,8 +14,13 @@ import { HeroComponent } from '../../../share/hero/hero.component';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 
+import { environment } from '../../../../environments/environment';
+import { Status, StatusWithPending } from '../../../app.types';
+import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { imagesFeature } from '../../../store/images/images.reducer';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
+import { TaskActions } from '../../../store/task/task.actions';
 import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 import {
   ExistTimelineEvent,
@@ -39,6 +44,10 @@ import {
 export class IndexPageComponent {
   private store = inject(Store);
 
+  private readonly rawImages = this.store.selectSignal(
+    imagesFeature.selectLoadedImages
+  );
+  private readonly indexImages = [35];
   private readonly events = signal<ExistTimelineEvent[]>([
     {
       id: 0,
@@ -153,12 +162,27 @@ export class IndexPageComponent {
       loading: false,
     },
   ]);
-  protected readonly projectTimeline = computed(() =>
-    this.events().map((event, index) => ({
-      ...createViewTimelineEvent(event, index % 2 === 0),
-      id: event.id,
-    }))
-  );
+
+  protected readonly projectTimeline = computed(() => {
+    const images = this.rawImages();
+    return this.events().map((event, index) => {
+      let image = undefined;
+      if (event.imageId) {
+        image = images.find(i => i.id === event.imageId);
+      }
+      return {
+        ...createViewTimelineEvent(event, index % 2 === 0),
+        id: event.id,
+        image: image
+          ? {
+              imageId: image.id,
+              previewUrl: image.data?.resized_490x250,
+              status: this.convertImageStatus(image.status),
+            }
+          : undefined,
+      };
+    });
+  });
 
   protected readonly isAuthorized = this.store.selectSignal(
     accountFeature.isAuthorized
@@ -166,7 +190,24 @@ export class IndexPageComponent {
 
   constructor() {
     this.store.dispatch(TableOfContentsActions.cleanItems());
+    this.store.dispatch(
+      TaskActions.createTask({
+        task: ImagesTaskExecutorFactory.createTaskProps(
+          this.indexImages,
+          environment.services.previewly.token
+        ),
+      })
+    );
   }
 
-  login() {}
+  private convertImageStatus(status: StatusWithPending): Status {
+    switch (status) {
+      case Status.ERROR:
+        return Status.ERROR;
+      case Status.SUCCESS:
+        return Status.SUCCESS;
+      default:
+        return Status.LOADING;
+    }
+  }
 }
