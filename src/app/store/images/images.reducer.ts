@@ -75,9 +75,7 @@ export const imagesFeature = createFeature({
     on(ImagesActions.successUpdateImages, (state, { images }) => {
       const existImages = { ...state.images };
       images.forEach(image => {
-        if (existImages[image.id]) {
-          existImages[image.id] = image;
-        }
+        existImages[image.id] = image;
       });
       return {
         ...state,
