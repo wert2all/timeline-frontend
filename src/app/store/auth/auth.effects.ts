@@ -11,6 +11,7 @@ import { StoreDispatchEffect, Undefined } from '../../app.types';
 import { AuthService } from '../../services/auth.service';
 import { AccountActions } from '../account/account.actions';
 import { Account, AccountUser } from '../account/account.types';
+import { NavigationActions } from '../navigation/navigation.actions';
 import { AuthActions } from './auth.actions';
 
 const convertApiProfileToAccount = (
@@ -106,4 +107,12 @@ export const authEffects = {
     StoreDispatchEffect
   ),
   logout: createEffect(logout, StoreDispatchEffect),
+  redirectAfterLogout: createEffect(
+    (actions$ = inject(Actions)) =>
+      actions$.pipe(
+        ofType(AuthActions.afterLogout),
+        map(() => NavigationActions.toHome())
+      ),
+    StoreDispatchEffect
+  ),
 };
