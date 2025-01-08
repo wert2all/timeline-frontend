@@ -1,7 +1,6 @@
 @if (editEvent(); as editEvent) {
   <ul
-    class="timeline timeline-vertical timeline-snap-icon mb-8 max-md:timeline-compact"
-    appAnimate>
+    class="timeline timeline-vertical timeline-snap-icon mb-8 max-md:timeline-compact">
     <li class="timeline-item" [class.skeleton]="editEvent.loading === true">
       <div
         class="timeline-middle"

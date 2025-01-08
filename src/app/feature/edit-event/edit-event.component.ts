@@ -1,7 +1,6 @@
 import { Component, computed, inject, signal, Signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
-import { AutoAnimateDirective } from '../../libs/auto-animate.directive';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -23,12 +22,7 @@ import { EditValue } from './edit-event.types';
 @Component({
   selector: 'app-edit-event',
   standalone: true,
-  imports: [
-    AutoAnimateDirective,
-    EventMainContentComponent,
-    IconComponent,
-    EditEventFormComponent,
-  ],
+  imports: [EventMainContentComponent, IconComponent, EditEventFormComponent],
   templateUrl: './edit-event.component.html',
 })
 export class EditEventComponent {
