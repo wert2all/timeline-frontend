@@ -3,6 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  effect,
   inject,
   signal,
 } from '@angular/core';
@@ -69,7 +70,7 @@ export class MyPageComponent {
   );
 
   protected readonly isLoading = computed(() => {
-    return this.isTimelineLoading();
+    return !this.activeAccount() || this.isTimelineLoading();
   });
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
@@ -104,8 +105,27 @@ export class MyPageComponent {
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEvent() > 0
   );
+
+  protected listTimelines = this.store.selectSignal(
+    timelineFeature.selectTimelines
+  );
+
+  protected shouldAddTimeline = computed(() => {
+    return this.listTimelines().length === 0;
+  });
+
   constructor() {
     this.store.dispatch(TableOfContentsActions.cleanItems());
+
+    effect(() => {
+      const account = this.activeAccount();
+      console.log(account);
+      if (account) {
+        this.store.dispatch(
+          TimelineActions.loadAccountTimelines({ accountId: account.id })
+        );
+      }
+    });
   }
 
   editEvent(event: Iterable) {
@@ -155,6 +175,5 @@ export class MyPageComponent {
       default:
         return Status.LOADING;
     }
-    throw new Error('Method not implemented.');
   }
 }

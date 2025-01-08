@@ -9,14 +9,16 @@ import { ExistTimelineEvent, Timeline, TimelineEvent } from './timeline.types';
 export const TimelineActions = createActionGroup({
   source: 'Timeline',
   events: {
-    'Set active timeline after authorize': props<{
-      timeline: Timeline | null;
-    }>(),
+    'Load account timelines': props<{ accountId: number }>(),
+    'Success load account timelines': props<{ timelines: Timeline[] }>(),
+
+    'Set active timeline': props<{ timeline: Timeline }>(),
 
     'Add timeline': props<{ name: string | Undefined; accountId: number }>(),
     'Success add timeline': props<{ timelines: Timeline[] }>(),
 
     'Empty timeline': emptyProps(),
+    'Empty timelines': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
   },
 });
@@ -24,10 +26,8 @@ export const TimelineActions = createActionGroup({
 export const EventActions = createActionGroup({
   source: 'Event',
   events: {
-    'Load active timeline events': props<{ timelineId: number }>(),
-    'Success load active timeline events': props<{
-      events: ExistTimelineEvent[];
-    }>(),
+    'Load timeline events': props<{ timelineId: number }>(),
+    'Success load timeline events': props<{ events: ExistTimelineEvent[] }>(),
 
     'Show add event form': props<{ timelineId: number }>(),
     'Show edit event form': props<{ eventId: number | Undefined }>(),

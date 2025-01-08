@@ -85,7 +85,7 @@ const createTaskForLoadImages = (
     ofType(
       EventActions.successUpdateEvent,
       UploadActions.successUploadImage,
-      EventActions.successLoadActiveTimelineEvents
+      EventActions.successLoadTimelineEvents
     ),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
     map(([, images]) => images.map(image => image.id)),
