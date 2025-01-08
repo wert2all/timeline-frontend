@@ -13,6 +13,7 @@ export const TimelineActions = createActionGroup({
     'Success load account timelines': props<{ timelines: Timeline[] }>(),
 
     'Set active timeline': props<{ timeline: Timeline }>(),
+    'Should not set active timeline': emptyProps(),
 
     'Add timeline': props<{ name: string | Undefined; accountId: number }>(),
     'Success add timeline': props<{ timelines: Timeline[] }>(),

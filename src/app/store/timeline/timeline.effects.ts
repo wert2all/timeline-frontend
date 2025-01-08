@@ -26,7 +26,7 @@ const setActiveTimeline = (action$ = inject(Actions)) =>
     map(timeline =>
       timeline
         ? TimelineActions.setActiveTimeline({ timeline })
-        : TimelineActions.emptyTimeline()
+        : TimelineActions.shouldNotSetActiveTimeline()
     )
   );
 
