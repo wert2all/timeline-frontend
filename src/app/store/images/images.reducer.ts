@@ -53,7 +53,7 @@ export const imagesFeature = createFeature({
       },
     })),
 
-    on(EventActions.successLoadActiveTimelineEvents, (state, { events }) => {
+    on(EventActions.successLoadTimelineEvents, (state, { events }) => {
       const images = { ...state.images };
       events.forEach(event => {
         if (event.imageId) {

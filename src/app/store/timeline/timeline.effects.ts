@@ -2,11 +2,10 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { AccountActions } from '../account/account.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { EventActions, TimelineActions } from './timeline.actions';
 import {
@@ -15,32 +14,19 @@ import {
 } from './timeline.convertors';
 import { timelineFeature } from './timeline.reducer';
 
-const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
-  actions$.pipe(
-    ofType(AccountActions.setAccount),
-    exhaustMap(({ account }) =>
-      api.getAccountTimelines({ accountId: account.id }).pipe(
-        map(result => extractApiData(result)),
-        map(data =>
-          TimelineActions.setActiveTimelineAfterAuthorize({
-            timeline: data?.timelines[0]
-              ? { name: data.timelines[0].name || '', id: data.timelines[0].id }
-              : null,
-          })
-        )
-      )
-    ),
-    catchError(err => of(TimelineActions.apiException({ exception: err })))
-  );
-
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(TimelineActions.successAddTimeline),
+    ofType(
+      TimelineActions.successAddTimeline,
+      TimelineActions.successLoadAccountTimelines
+    ),
     map(({ timelines }) =>
       timelines.length > 0 ? timelines[0] || null : null
     ),
     map(timeline =>
-      TimelineActions.setActiveTimelineAfterAuthorize({ timeline })
+      timeline
+        ? TimelineActions.setActiveTimeline({ timeline })
+        : TimelineActions.emptyTimeline()
     )
   );
 
@@ -84,26 +70,17 @@ const apiException = (
     )
   );
 
-const afterSetActiveTimeline = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(TimelineActions.setActiveTimelineAfterAuthorize),
-    map(({ timeline }) => timeline?.id || null),
-    filter(id => !!id),
-    map(id => id as number),
-    map(id => EventActions.loadActiveTimelineEvents({ timelineId: id }))
-  );
-
 const loadActiveTimelineEvents = (
   action$ = inject(Actions),
   api = inject(ApiClient)
 ) =>
   action$.pipe(
-    ofType(EventActions.loadActiveTimelineEvents),
+    ofType(EventActions.loadTimelineEvents),
     exhaustMap(({ timelineId }) =>
       api.getEvents({ timelineId: timelineId }).pipe(
         map(result => result.data.events || []),
         map(events =>
-          EventActions.successLoadActiveTimelineEvents({
+          EventActions.successLoadTimelineEvents({
             events: events.map(event => fromApiEventToState(event, timelineId)),
           })
         ),
@@ -141,14 +118,6 @@ const failedDeleteEvent = (
     ofType(EventActions.failedDeleteEvent),
     tap(() => notification.addMessage('Could not delete event', 'error'))
   );
-
-export const timelineEffects = {
-  addTimeline: createEffect(addTimeline, StoreDispatchEffect),
-  setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
-
-  emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
-  apiException: createEffect(apiException, StoreUnDispatchEffect),
-};
 
 const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
@@ -207,14 +176,53 @@ const pushExistEventToApi = (
     )
   );
 
-export const eventsEffects = {
-  loadTimelines: createEffect(loadTimelines, StoreDispatchEffect),
+const loadTimelines = (
+  actions$ = inject(Actions),
+  api = inject(ApiClient),
+  notification = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(TimelineActions.loadAccountTimelines),
+    exhaustMap(({ accountId }) =>
+      api.getAccountTimelines({ accountId }).pipe(
+        map(result =>
+          apiAssertNotNull(
+            extractApiData(result)?.timelines,
+            'Empty timelines'
+          ).map(timeline => ({ id: timeline.id, name: timeline.name || '' }))
+        ),
+        map(timelines =>
+          TimelineActions.successLoadAccountTimelines({ timelines })
+        ),
+        catchError(error => {
+          notification.addMessage(error, 'error');
+          return of(TimelineActions.emptyTimelines);
+        })
+      )
+    )
+  );
+const dispatchLoadEventsAfterSetActiveTimeline = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(TimelineActions.setActiveTimeline),
+    map(({ timeline }) =>
+      EventActions.loadTimelineEvents({ timelineId: timeline.id })
+    )
+  );
 
-  afterSetActiveTimeline: createEffect(
-    afterSetActiveTimeline,
+export const timelineEffects = {
+  loadAccountTimelines: createEffect(loadTimelines, StoreDispatchEffect),
+  addTimeline: createEffect(addTimeline, StoreDispatchEffect),
+
+  setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
+  dispatchLoadEventsAfterSetActiveTimeline: createEffect(
+    dispatchLoadEventsAfterSetActiveTimeline,
     StoreDispatchEffect
   ),
+  emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
+  apiException: createEffect(apiException, StoreUnDispatchEffect),
+};
 
+export const eventsEffects = {
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
   failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
 

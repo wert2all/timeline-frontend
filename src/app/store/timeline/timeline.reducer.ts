@@ -24,18 +24,24 @@ export const timelineFeature = createFeature({
     initialState,
     on(
       TimelineActions.addTimeline,
-      EventActions.loadActiveTimelineEvents,
-      state => ({ ...state, loading: true })
+      EventActions.loadTimelineEvents,
+      TimelineActions.loadAccountTimelines,
+      state => ({
+        ...state,
+        loading: true,
+      })
     ),
 
     on(
       TimelineActions.successAddTimeline,
-      EventActions.successLoadActiveTimelineEvents,
+      EventActions.successLoadTimelineEvents,
+      TimelineActions.successLoadAccountTimelines,
       state => ({ ...state, loading: false })
     ),
 
     on(
       TimelineActions.emptyTimeline,
+      TimelineActions.emptyTimelines,
       TimelineActions.apiException,
       EventActions.apiException,
       EventActions.emptyEvent,
@@ -50,22 +56,12 @@ export const timelineFeature = createFeature({
       timelines: [...timelines, ...state.timelines],
     })),
 
-    on(
-      TimelineActions.setActiveTimelineAfterAuthorize,
-      (state, { timeline }) => ({
-        ...state,
-        activeTimeline: timeline
-          ? { id: timeline.id, name: timeline.name || '' }
-          : null,
-      })
-    ),
-
     on(EventActions.emptyEvent, EventActions.apiException, state => ({
       ...state,
       events: state.events.filter(event => !event.loading),
     })),
 
-    on(EventActions.successLoadActiveTimelineEvents, (state, { events }) => ({
+    on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
       ...state,
       events: [...events, ...state.events],
     })),
@@ -173,7 +169,20 @@ export const timelineFeature = createFeature({
             },
           }
         : state
-    )
+    ),
+
+    on(TimelineActions.successLoadAccountTimelines, (state, { timelines }) => ({
+      ...state,
+      timelines,
+    })),
+
+    on(TimelineActions.setActiveTimeline, (state, { timeline }) => ({
+      ...state,
+      activeTimeline: {
+        name: timeline.name || '',
+        id: timeline.id,
+      },
+    }))
   ),
 
   extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
