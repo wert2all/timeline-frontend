@@ -22,6 +22,9 @@ const navEffect = (
   );
 
 export const navigationEffects = {
+  toHome: navEffect(NavigationActions.toHome, NavigationActions.afterToHome, [
+    '/',
+  ]),
   toLogin: navEffect(
     NavigationActions.toLogin,
     NavigationActions.afterToLogin,
