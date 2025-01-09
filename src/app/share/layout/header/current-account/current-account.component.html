@@ -1,0 +1,23 @@
+<div
+  class="flex cursor-pointer place-items-center justify-start gap-2 transition-all duration-300 ease-linear"
+  [class.bg-warning]="isOpenMenu()"
+  (click)="openMenu.emit()"
+  (keydown.enter)="openMenu.emit()"
+  tabindex="0">
+  <div class="avatar placeholder bg-primary text-primary-content">
+    @if (account().avatar) {
+      <div
+        class="w-12 bg-cover"
+        style="background-image: url('{{ account().avatar }}');"></div>
+    } @else {
+      <div class="w-12">
+        <span class="text-2xl">
+          {{ account().firstLetter }}
+        </span>
+      </div>
+    }
+  </div>
+  <div class="hidden pe-2 lg:block">
+    {{ account().name }}
+  </div>
+</div>

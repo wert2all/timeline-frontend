@@ -15,7 +15,6 @@ import {
   dumpLinkTitle,
   dumpTag,
   dumpTitle,
-  dumpUserSettings,
 } from '../../../share/dump.types';
 import { TitleComponent } from '../../../share/layout/content/title/title.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
@@ -32,7 +31,6 @@ import {
 import { Store } from '@ngrx/store';
 import { Status } from '../../../app.types';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
-import { TopMenuComponent } from '../../../feature/user/top-menu/top-menu.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -47,7 +45,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TimelineComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
-    TopMenuComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -83,29 +80,6 @@ export class DevelopPageComponent implements OnInit {
     { ...this.dumpEvent, loading: true, changeDirection: true, image: null },
   ]);
 
-  protected readonly currentAccountWithAvatar = {
-    id: 1,
-    name: 'John Doe',
-    firstLetter: 'J',
-    previewlyToken: 'token',
-    settings: dumpUserSettings,
-    avatar:
-      'https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp',
-  };
-
-  protected readonly currentAccountWithoutAvatar = {
-    id: 2,
-    name: 'John Doe',
-    firstLetter: 'J',
-    previewlyToken: 'token',
-    settings: dumpUserSettings,
-  };
-
-  protected readonly userAccounts = [
-    this.currentAccountWithAvatar,
-    this.currentAccountWithoutAvatar,
-  ];
-
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
       {
@@ -122,11 +96,6 @@ export class DevelopPageComponent implements OnInit {
         title: 'Edit Event Form ',
         uuid: 'EditEventFormComponent',
         link: '/develop#EditEventFormComponent',
-      },
-      {
-        title: 'Top menu',
-        uuid: 'TopMenuComponent',
-        link: '/develop#TopMenuComponent',
       },
     ],
   });

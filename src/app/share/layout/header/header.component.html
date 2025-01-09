@@ -9,23 +9,55 @@
       <app-theme-switch />
     </app-feature-flag>
 
-    <app-login-button
-      [isLoading]="isLoading()"
-      [isAuthorized]="isAuthorized()"
-      (login)="login()" />
+    @if (isAuthorized() === false) {
+      <app-login-button [isLoading]="isLoading()" (login)="login()" />
+    }
 
-    @if (activeAccount(); as account) {
-      @if (token) {
-        <div class="relative w-56">
-          <app-top-menu
-            class="absolute -top-6 right-0 z-20 w-56"
-            [authorizedUserToken]="token"
-            [activeAccount]="account"
-            (accountClick)="goToDashboard()"
-            (saveFeature)="saveFeature($event)"
+    @if (currentAccountView(); as account) {
+      <div class="relative lg:w-56">
+        <div
+          class="w-full overflow-hidden rounded-xl bg-success text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20"
+          (clickOutside)="closeMenu()">
+          <app-top-menu-current-account
+            (openMenu)="openMenu()"
+            [account]="account"
+            [isOpenMenu]="isOpenMenu()" />
+          <app-top-menu-collapsable-menu
+            class="hidden lg:block"
+            [isOpenMenu]="isOpenMenu()"
+            [accountSettings]="activeAccountSettings()"
+            [accounts]="[]"
+            [currentAccountUUID]="account.uuid"
+            (copyToken)="copyTokenToClipboard()"
+            (closeMenu)="closeMenu()"
+            (openUserFeatures)="openUserFeatures()"
             (logout)="logout()" />
         </div>
-      }
+      </div>
     }
   </div>
 </div>
+
+@if (currentAccountView(); as account) {
+  <div class="rounded-b-xl bg-success text-success-content lg:hidden">
+    <app-top-menu-collapsable-menu
+      [isOpenMenu]="isOpenMenu()"
+      [accountSettings]="activeAccountSettings()"
+      [accounts]="[]"
+      [currentAccountUUID]="account.uuid"
+      (copyToken)="copyTokenToClipboard()"
+      (closeMenu)="closeMenu()"
+      (openUserFeatures)="showFeatures.set(true)"
+      (logout)="logout()" />
+  </div>
+}
+
+<app-feature-flag
+  feature="user_feature_flag"
+  [accountSettings]="activeAccountSettings()">
+  <app-show-user-features
+    [features]="allFeatures()"
+    [showFeatures]="showFeatures()"
+    (save)="saveFeature({ feature: $event.name, isActive: $event.active })"
+    (close)="showFeatures.set(false)" />
+</app-feature-flag>
