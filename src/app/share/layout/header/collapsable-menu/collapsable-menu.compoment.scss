@@ -1,0 +1,57 @@
+.divider {
+  @apply m-0 mx-2 p-0;
+
+  &:before,
+  &:after {
+    @apply bg-base-content;
+  }
+}
+
+a {
+  @apply mx-1 flex cursor-pointer place-content-center justify-start rounded-lg px-2 py-2 hover:bg-secondary;
+
+  ng-icon {
+    @apply me-2;
+  }
+
+  &:active:hover,
+  &:active:focus {
+    animation: button-pop 0s ease-out;
+    transform: scale(var(--btn-focus-scale, 0.97));
+  }
+}
+
+.accounts_switcher {
+  .accounts_title {
+    .back_title,
+    &.open .change_title {
+      @apply hidden;
+    }
+    .change_title,
+    &.open .back_title {
+      @apply flex;
+    }
+
+    ng-icon {
+      transition: all 0.2s linear;
+    }
+
+    &.open {
+      ng-icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+
+@keyframes button-pop {
+  0% {
+    transform: scale(var(--btn-focus-scale, 0.98));
+  }
+  40% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

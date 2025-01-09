@@ -1,0 +1,87 @@
+<div class="collapsable" [class.open]="isOpenMenu()">
+  <div class="my-2">
+    <app-feature-flag
+      feature="show_user_accounts"
+      [accountSettings]="accountSettings()">
+      @if (accounts().length > 1) {
+      <div class="accounts_switcher relative">
+        <div class="accounts_title relative" [class.open]="isAccountChange()">
+          <a
+            tabindex="0"
+            (click)="changeAccountClick()"
+            (keyup.enter)="changeAccountClick()">
+            <ng-icon name="saxArrowRight2Outline" size="22" />
+
+            <span class="change_title">change account</span>
+            <span class="back_title">accounts:</span>
+          </a>
+        </div>
+        <div class="collapsable ms-4" [class.open]="isAccountChange()">
+          @for (account of accounts(); track $index) {
+          <a
+            tabindex="0"
+            (click)="selectAccountClick(account)"
+            (keyup.enter)="selectAccountClick(account)">
+            @if (currentAccountUUID() === account.uuid) {
+            <ng-icon name="saxTickCircleOutline" size="22"></ng-icon>
+            } @else {
+            <ng-icon name="" size="22"></ng-icon>
+            } {{ account.name }}
+          </a>
+          }
+        </div>
+
+        <div class="divider"></div>
+      </div>
+      }
+    </app-feature-flag>
+
+    <app-feature-flag
+      feature="user_settings"
+      [accountSettings]="accountSettings()">
+      <a tabindex="0">
+        <ng-icon name="saxSetting2Outline" size="22"></ng-icon>
+        Settings
+      </a>
+    </app-feature-flag>
+
+    <app-feature-flag
+      feature="user_feature_flag"
+      [accountSettings]="accountSettings()">
+      <a
+        tabindex="0"
+        (click)="openUserFeatures.emit()"
+        (keyup.enter)="openUserFeatures.emit()">
+        <ng-icon name="saxFlag2Outline" size="22"></ng-icon>
+        Features
+      </a>
+    </app-feature-flag>
+
+    <div class="divider"></div>
+
+    <a
+      tabindex="0"
+      (click)="copyToClipboard()"
+      (keyup.enter)="copyToClipboard()">
+      <ng-icon [name]="copyIcon()" size="22"></ng-icon>
+      @if (isCopied()) { Copied!!! } @else { Copy token }
+    </a>
+
+    <a
+      tabindex="0"
+      href="https://github.com/wert2all/timeline-frontend/issues/new"
+      target="_blank"
+      (click)="closeMenu.emit()"
+      (keyup.enter)="closeMenu.emit()">
+      <ng-icon name="saxGhostOutline" size="22"></ng-icon>
+      Send issue
+    </a>
+
+    <div class="divider"></div>
+
+    <a tabindex="0" (click)="logout.emit()" (keyup.enter)="logout.emit()">
+      <ng-icon name="saxLogout1Outline" size="22"></ng-icon>
+      Log out
+    </a>
+  </div>
+</div>

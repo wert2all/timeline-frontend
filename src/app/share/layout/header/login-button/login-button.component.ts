@@ -18,7 +18,5 @@ import { saxLoginOutline } from '@ng-icons/iconsax/outline';
 })
 export class LoginButtonComponent {
   isLoading = input.required<boolean>();
-  isAuthorized = input.required<boolean>();
-
   login = output();
 }
