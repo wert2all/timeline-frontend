@@ -1,4 +1,10 @@
-import { effect, Injectable, signal, WritableSignal } from '@angular/core';
+import {
+  computed,
+  effect,
+  Injectable,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 
 export const storageKey = 'theme';
 enum Themes {
@@ -12,6 +18,10 @@ export class ThemeService {
     Themes.gruvbox
   );
 
+  isDark = computed(() => {
+    return this.themeSignal() === Themes.gruvbox;
+  });
+
   constructor() {
     this.initializeThemeFromPreferences();
 
@@ -24,10 +34,6 @@ export class ThemeService {
     this.themeSignal.update(prev =>
       prev === Themes.gruvbox ? Themes.pastel : Themes.gruvbox
     );
-  }
-
-  isDark() {
-    return this.themeSignal() === Themes.gruvbox;
   }
 
   private initializeThemeFromPreferences() {
