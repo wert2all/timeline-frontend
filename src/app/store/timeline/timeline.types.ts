@@ -45,7 +45,6 @@ export type ViewTimelineEvent = Omit<
   date: ViewDatetime;
   url: ViewTimelineUrl | null;
   tags: ViewTimelineTag[];
-  changeDirection: boolean;
   image: Undefined | ViewEventImage;
 };
 

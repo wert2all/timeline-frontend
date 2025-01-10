@@ -211,8 +211,8 @@ export const timelineFeature = createFeature({
         Object.values(selectEvents)
           .filter(event => event.timelineId === activeTimeline?.id)
           .map(
-            (event, index): ExistViewTimelineEvent => ({
-              ...createViewTimelineEvent(event, index % 2 === 0),
+            (event): ExistViewTimelineEvent => ({
+              ...createViewTimelineEvent(event),
               id: event.id,
             })
           )

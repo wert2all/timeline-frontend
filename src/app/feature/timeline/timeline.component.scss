@@ -1,0 +1,18 @@
+.timeline-item {
+  &.to-left {
+    .item-content {
+      @apply timeline-end lg:timeline-start lg:text-right;
+    }
+    .item-menu {
+      @apply lg:timeline-end lg:text-left;
+    }
+  }
+  &.to-right {
+    .item-content {
+      @apply timeline-end lg:text-left;
+    }
+    .item-menu {
+      @apply lg:timeline-start lg:text-right;
+    }
+  }
+}
