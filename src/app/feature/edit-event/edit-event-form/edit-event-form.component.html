@@ -1,5 +1,5 @@
 <div
-  class="event-form bg-lighter timeline-box relative pt-0"
+  class="event-form bg-lighter timeline-box relative mt-4 pt-0 lg:mt-0"
   [class.skeleton]="isDisabled()">
   <div class="form-tabs join flex justify-center rounded-t-none">
     <a
@@ -213,6 +213,21 @@
         accept="image/*"
         (change)="handleFileSelect($event)" />
     }
+    <div class="mt-8 flex place-items-center gap-4 lg:hidden">
+      <label
+        for="is_private"
+        class="flex cursor-not-allowed place-items-center gap-2 opacity-40">
+        <input
+          id="is_private"
+          type="checkbox"
+          class="checkbox"
+          disabled
+          [attr.checked]="
+            editForm.controls.isPrivate.value === true ? 'checked' : null
+          " />
+        keep private (coming soon)
+      </label>
+    </div>
     <div class="mt-8 flex place-items-center gap-4">
       <div class="flex-none">
         <button
@@ -225,8 +240,11 @@
           {{ buttonTitle() }}
         </button>
       </div>
+      <div class="flex-none lg:hidden">
+        <button class="btn" (click)="dismissAction.emit()">close</button>
+      </div>
       <div
-        class="tooltip tooltip-top tooltip-info shrink"
+        class="tooltip tooltip-top tooltip-info hidden shrink lg:block"
         data-tip="coming soon">
         <label
           for="is_private"
@@ -246,7 +264,7 @@
   </div>
 
   <button
-    class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4"
+    class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4 hidden lg:flex"
     [attr.disabled]="isDisabled() === true ? true : null"
     (click)="dismissAction.emit()">
     ✕
