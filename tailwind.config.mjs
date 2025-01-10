@@ -1,7 +1,13 @@
 export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        128: '32rem',
+        192: '48rem',
+        256: '64rem',
+      },
+    },
   },
   plugins: [require('daisyui')],
   daisyui: {

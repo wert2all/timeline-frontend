@@ -162,6 +162,7 @@ export class IndexPageComponent {
       loading: false,
     },
   ]);
+  protected readonly isCollapsed = signal(true);
 
   protected readonly projectTimeline = computed(() => {
     const images = this.rawImages();
@@ -198,6 +199,10 @@ export class IndexPageComponent {
         ),
       })
     );
+  }
+
+  toggleCollapse() {
+    this.isCollapsed.set(!this.isCollapsed());
   }
 
   private convertImageStatus(status: StatusWithPending): Status {

@@ -21,7 +21,19 @@
 
   <div class="mx-4 mt-4">
     <app-content-title title="Our timeline" class="text-success" />
-
-    <app-timeline [timeline]="projectTimeline()"></app-timeline>
+  </div>
+  <div>
+    <div class="overflow-hidden px-4" [class.h-192]="isCollapsed()">
+      <app-timeline [timeline]="projectTimeline()"></app-timeline>
+    </div>
+    <p class="my-4 rounded-b-xl bg-base-300 p-4 text-center">
+      <a class="link" (click)="toggleCollapse()">
+        @if (isCollapsed()) {
+          show more
+        } @else {
+          hide
+        }
+      </a>
+    </p>
   </div>
 </app-layout>
