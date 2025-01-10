@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, Signal } from '@angular/core';
+import { Component, Signal, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 import {

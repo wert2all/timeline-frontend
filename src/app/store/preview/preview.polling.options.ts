@@ -1,12 +1,12 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Action, Store } from '@ngrx/store';
 import {
+  Observable,
   catchError,
   concat,
   map,
-  Observable,
   of,
   switchMap,
   toArray,

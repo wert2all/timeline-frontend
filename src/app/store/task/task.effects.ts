@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, first, map, Observable, of, switchMap, timer } from 'rxjs';
+import { Observable, catchError, first, map, of, switchMap, timer } from 'rxjs';
 import { StoreDispatchEffect } from '../../app.types';
 import { TaskRunner } from '../../feature/task/runner';
 import { ExecutorResult } from '../../feature/task/task.types';

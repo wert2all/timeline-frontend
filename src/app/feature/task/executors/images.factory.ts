@@ -1,5 +1,5 @@
-import { inject, Injectable } from '@angular/core';
-import { catchError, concat, map, Observable, of, toArray } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, catchError, concat, map, of, toArray } from 'rxjs';
 import {
   Status as ApiStatus,
   previewlyApiClient,

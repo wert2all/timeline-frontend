@@ -1,9 +1,9 @@
 import {
   Component,
+  Signal,
   computed,
   input,
   output,
-  Signal,
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';

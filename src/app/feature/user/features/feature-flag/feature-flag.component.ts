@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  Signal,
   computed,
   inject,
   input,
-  Signal,
 } from '@angular/core';
 import {
   AccountFeaturesSettings,
