@@ -27,7 +27,11 @@
       <app-timeline [timeline]="projectTimeline()"></app-timeline>
     </div>
     <p class="my-4 rounded-b-xl bg-base-300 p-4 text-center">
-      <a class="link" (click)="toggleCollapse()">
+      <a
+        class="link"
+        (click)="toggleCollapse()"
+        tabindex="0 "
+        (keypress.enter)="toggleCollapse()">
         @if (isCollapsed()) {
           show more
         } @else {
