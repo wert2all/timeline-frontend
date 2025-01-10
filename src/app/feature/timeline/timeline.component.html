@@ -14,6 +14,14 @@
         [class.timeline-end]="!event.changeDirection"
         [class.opacity-20]="event.loading">
         <app-timeline-event-main-content [event]="event" />
+
+        @if (canEditEvent(event)) {
+          <app-timeline-event-menu
+            class="absolute -bottom-2 right-2 lg:hidden"
+            [timelineEvent]="{ id: event.id }"
+            (delete)="delete.emit($event)"
+            (edit)="edit.emit($event)" />
+        }
       </div>
       <div
         class="h-full w-full"
@@ -21,7 +29,8 @@
         [class.md:text-end]="!event.changeDirection"
         [class.timeline-end]="event.changeDirection">
         @if (canEditEvent(event)) {
-          <div class="event-menu mb-8 h-full w-full">
+          <div
+            class="mt-10 hidden h-full w-full duration-100 hover:opacity-100 lg:block lg:opacity-0">
             <app-timeline-event-menu
               class="h-full w-full"
               [timelineEvent]="{ id: event.id }"
