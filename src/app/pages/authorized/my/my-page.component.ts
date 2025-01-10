@@ -119,7 +119,6 @@ export class MyPageComponent {
 
     effect(() => {
       const account = this.activeAccount();
-      console.log(account);
       if (account) {
         this.store.dispatch(
           TimelineActions.loadAccountTimelines({ accountId: account.id })
