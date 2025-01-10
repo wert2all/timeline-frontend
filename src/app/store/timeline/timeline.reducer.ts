@@ -216,6 +216,10 @@ export const timelineFeature = createFeature({
               id: event.id,
             })
           )
+          .sort(
+            (a, b) =>
+              b.date.originalDate.getTime() - a.date.originalDate.getTime()
+          )
     ),
     isEditingEvent: createSelector(
       selectEditEvent,
