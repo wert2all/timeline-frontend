@@ -69,7 +69,6 @@ export class DevelopPageComponent implements OnInit {
     title: dumpTitle,
     description: dumpContent,
     showTime: true,
-    changeDirection: false,
     tags: [dumpTag, { ...dumpTag, title: '#dump tag changed' }],
     image: this.dumpEventImage,
   };

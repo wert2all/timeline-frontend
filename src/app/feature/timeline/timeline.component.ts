@@ -17,6 +17,7 @@ import { ViewTimelineTag } from './timeline.types';
   selector: 'app-timeline',
   standalone: true,
   templateUrl: './timeline.component.html',
+  styleUrls: ['./timeline.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,

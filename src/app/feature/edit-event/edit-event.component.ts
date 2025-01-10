@@ -41,16 +41,14 @@ export class EditEventComponent {
   );
   protected readonly previewEvent: Signal<ViewTimelineEvent> = computed(() =>
     createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId()),
-      false
+      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId())
     )
   );
   protected readonly openTab = signal(0);
 
   protected readonly formEvent: Signal<ViewTimelineEvent> = computed(() => ({
     ...createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId()),
-      false
+      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId())
     ),
     isEditableType: true,
   }));

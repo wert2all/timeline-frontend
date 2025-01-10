@@ -165,13 +165,13 @@ export class IndexPageComponent {
 
   protected readonly projectTimeline = computed(() => {
     const images = this.rawImages();
-    return this.events().map((event, index) => {
+    return this.events().map(event => {
       let image = undefined;
       if (event.imageId) {
         image = images.find(i => i.id === event.imageId);
       }
       return {
-        ...createViewTimelineEvent(event, index % 2 === 0),
+        ...createViewTimelineEvent(event),
         id: event.id,
         image: image
           ? {

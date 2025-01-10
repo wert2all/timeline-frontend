@@ -1,17 +1,18 @@
 <ul
   class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact"
   appAnimate>
-  @for (event of timeline(); track $index) {
-    <li class="timeline-item" [class.skeleton]="event.loading">
+  @for (event of timeline(); track $index; let odd = $odd) {
+    <li
+      class="timeline-item"
+      [class.skeleton]="event.loading"
+      [class.to-left]="!odd"
+      [class.to-right]="odd">
       <div class="timeline-middle" [class.opacity-20]="event.loading">
         <app-timeline-event-icon [icon]="event.icon" />
       </div>
 
       <div
-        class="w-full overflow-hidden rounded-xl bg-base-100"
-        [class.timeline-start]="event.changeDirection"
-        [class.md:text-end]="event.changeDirection"
-        [class.timeline-end]="!event.changeDirection"
+        class="item-content w-full overflow-hidden rounded-xl bg-base-100"
         [class.opacity-20]="event.loading">
         <app-timeline-event-main-content [event]="event" />
 
@@ -23,14 +24,10 @@
             (edit)="edit.emit($event)" />
         }
       </div>
-      <div
-        class="h-full w-full"
-        [class.timeline-start]="!event.changeDirection"
-        [class.md:text-end]="!event.changeDirection"
-        [class.timeline-end]="event.changeDirection">
+      <div class="item-menu hidden h-full w-full lg:block">
         @if (canEditEvent(event)) {
           <div
-            class="mt-10 hidden h-full w-full duration-200 hover:opacity-100 lg:block lg:opacity-0">
+            class="mt-10 h-full w-full duration-100 hover:opacity-100 lg:opacity-0">
             <app-timeline-event-menu
               class="h-full w-full"
               [timelineEvent]="{ id: event.id }"

@@ -31,8 +31,7 @@ export const createDefaultTimelineEvent = (
 });
 
 export const createViewTimelineEvent = (
-  event: TimelineEvent,
-  changeDirection: boolean
+  event: TimelineEvent
 ): ViewTimelineEvent => ({
   ...event,
   description: event.description || '',
@@ -40,7 +39,6 @@ export const createViewTimelineEvent = (
   url: prepareUrl(event.url),
   date: createViewDatetime(event.date, event.showTime || false),
   tags: createTags(event.tags),
-  changeDirection: changeDirection,
   image: event.imageId
     ? { imageId: event.imageId, status: Status.LOADING }
     : undefined,
