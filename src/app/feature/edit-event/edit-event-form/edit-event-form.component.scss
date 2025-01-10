@@ -3,15 +3,21 @@
     ng-icon {
       @apply text-primary;
     }
-  }
-  a.active {
-    @apply btn-secondary;
-    ng-icon {
-      @apply text-primary-content;
+
+    span {
+      @apply hidden;
     }
-  }
-  a:not(.active) span {
-    @apply hidden;
+
+    &.active {
+      @apply btn-secondary;
+
+      ng-icon {
+        @apply text-primary-content;
+      }
+      span {
+        @apply lg:block;
+      }
+    }
   }
 }
 
