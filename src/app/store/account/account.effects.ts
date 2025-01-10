@@ -2,19 +2,29 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { ActiveAccountService } from '../../services/active-account.service';
 import { AuthActions } from '../auth/auth.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AccountActions } from './account.actions';
 import { accountFeature, mergeAccountSettings } from './account.reducer';
 
-const setUser = (actions$ = inject(Actions)) => {
+const setUser = (
+  actions$ = inject(Actions),
+  activeAccountService = inject(ActiveAccountService)
+) => {
   return actions$.pipe(
     ofType(AccountActions.setUser, AccountActions.setUserOnRedirect),
-    map(({ user }) => user.accounts.slice(0, 1)[0]),
+    map(({ user }) => {
+      const savedAccountId = activeAccountService.activeAccount;
+      return (
+        user.accounts.find(account => account.id === savedAccountId) ||
+        user.accounts.slice(0, 1)[0]
+      );
+    }),
     map(account =>
       account
         ? AccountActions.setAccount({ account })
@@ -121,6 +131,17 @@ const dispatchLogoutOnEmptyAccount = (actions$ = inject(Actions)) =>
     map(() => AuthActions.dispatchLogout())
   );
 
+const saveAccount = (
+  actions$ = inject(Actions),
+  accountService = inject(ActiveAccountService)
+) =>
+  actions$.pipe(
+    ofType(AccountActions.setAccount),
+    tap(({ account }) => {
+      accountService.activeAccount = account;
+    })
+  );
+
 const navigateToDashboard = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.afterSetUserOnRedirect),
@@ -130,6 +151,7 @@ const navigateToDashboard = (actions$ = inject(Actions)) =>
 export const accountEffects = {
   setUser: createEffect(setUser, StoreDispatchEffect),
 
+  saveAccountToLocalstorage: createEffect(saveAccount, StoreUnDispatchEffect),
   cleanAccount: createEffect(cleanEffect, StoreUnDispatchEffect),
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
   saveAccountSettings: createEffect(saveAccountSettings, StoreDispatchEffect),

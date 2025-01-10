@@ -9,6 +9,13 @@ export class AuthService {
   private authConfig = inject(AuthConfig);
   private _onAuth = signal(false);
 
+  public get idToken(): string | null {
+    return this.oAuthService.getIdToken();
+  }
+
+  public get onAuth() {
+    return this._onAuth;
+  }
   constructor() {
     this.oAuthService.configure(this.authConfig);
     this.oAuthService.setupAutomaticSilentRefresh();
@@ -27,15 +34,5 @@ export class AuthService {
     this.oAuthService.logOut();
   }
 
-  getProfile() {
-    return this.oAuthService.getIdentityClaims();
-  }
-
-  public get idToken(): string | null {
-    return this.oAuthService.getIdToken();
-  }
-
-  public get onAuth() {
-    return this._onAuth;
-  }
+  getProfile = () => this.oAuthService.getIdentityClaims();
 }
