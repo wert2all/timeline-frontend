@@ -1,7 +1,7 @@
 @if (showRelevant()) {
   <div
     tabindex="0"
-    class="tooltip"
+    class="tooltip tooltip-bottom"
     [attr.data-tip]="date().date"
     (click)="toggle()"
     (keyup)="toggle()">
