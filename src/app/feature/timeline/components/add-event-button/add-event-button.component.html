@@ -1,14 +1,22 @@
-<a
-  class="btn btn-accent lg:inline-flex"
-  (click)="addEvent.emit()"
-  (keyup.enter)="addEvent.emit()"
-  tabindex="0"
-  [class.hidden]="disabled()"
-  [attr.disabled]="disabled() ? 'true' : null">
-  @if (disabled() === true) {
-    submit new event
-    <ng-icon name="saxArrowRight1Outline" size="24"></ng-icon>
-  } @else {
-    <ng-icon name="saxAddOutline" size="24"></ng-icon> add event
-  }
-</a>
+<div
+  class="wrapper tooltip-right tooltip-info"
+  [class.tooltip]="withTooltip()"
+  [class.tooltip-open]="showTooltip()"
+  data-tip="now you can add your first event">
+  <a
+    class="btn btn-accent text-white lg:inline-flex"
+    tabindex="0"
+    [class.btn-circle]="!disabled()"
+    (click)="addEvent.emit()"
+    (keypress.enter)="addEvent.emit()"
+    [attr.disabled]="disabled() ? 'true' : null"
+    [class.hidden]="disabled()">
+    @if (disabled() === true) {
+      <ng-icon name="saxEditOutline" size="32"></ng-icon>
+      submit new event
+    } @else {
+      <ng-icon name="saxAddOutline" size="32" class="plus"></ng-icon>
+      <ng-icon name="saxEditOutline" size="32" class="edit"></ng-icon>
+    }
+  </a>
+</div>

@@ -14,19 +14,11 @@
         }
       } @else {
         @if (activeTimeline()) {
-          @if (showTipForAddEvent()) {
-            <div
-              class="tooltip tooltip-right tooltip-open tooltip-info"
-              data-tip="now you can add your first event">
-              <app-add-event-button
-                (addEvent)="dispatchNewEventCreation()"
-                [disabled]="canAddNewEvent() !== true" />
-            </div>
-          } @else {
-            <app-add-event-button
-              (addEvent)="dispatchNewEventCreation()"
-              [disabled]="canAddNewEvent() !== true" />
-          }
+          <app-add-event-button
+            (addEvent)="dispatchNewEventCreation()"
+            [disabled]="canAddNewEvent() !== true"
+            [withTooltip]="canAddNewEvent() === true"
+            [showTooltip]="showTipForAddEvent()" />
 
           <app-edit-event />
 
