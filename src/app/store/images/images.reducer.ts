@@ -1,5 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Pending, Status } from '../../app.types';
+import { updateStateRecord } from '../../libs/state.functions';
 import { EventActions } from '../timeline/timeline.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState } from './images.types';
@@ -28,7 +29,7 @@ export const imagesFeature = createFeature({
     on(
       UploadActions.successUploadImage,
       (state, { id, status, error }): ImagesState => {
-        const images = { ...state.images };
+        const images = { ...Object.values(state.images) };
 
         images[id] = {
           id,
@@ -53,35 +54,30 @@ export const imagesFeature = createFeature({
       },
     })),
 
-    on(EventActions.successLoadTimelineEvents, (state, { events }) => {
-      const images = { ...state.images };
-      events.forEach(event => {
-        if (event.imageId) {
-          const shouldUpdateImage =
-            !images[event.imageId] || !images[event.imageId].data;
-          if (shouldUpdateImage) {
-            images[event.imageId] = {
-              id: event.imageId,
-              status: Pending.PENDING,
-              error: null,
-              data: null,
-            };
-          }
-        }
-      });
-      return { ...state, images: images };
-    }),
+    on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
+      ...state,
+      images: updateStateRecord(
+        state.images,
+        events
+          .map(event =>
+            event.imageId &&
+            (!state.images[event.imageId] || !state.images[event.imageId].data)
+              ? {
+                  id: event.imageId,
+                  status: Pending.PENDING,
+                  error: null,
+                  data: null,
+                }
+              : null
+          )
+          .filter(image => !!image)
+      ),
+    })),
 
-    on(ImagesActions.successUpdateImages, (state, { images }) => {
-      const existImages = { ...state.images };
-      images.forEach(image => {
-        existImages[image.id] = image;
-      });
-      return {
-        ...state,
-        images: existImages,
-      };
-    })
+    on(ImagesActions.successUpdateImages, (state, { images }) => ({
+      ...state,
+      images: updateStateRecord(state.images, images),
+    }))
   ),
   extraSelectors: ({ selectImages }) => ({
     selectShouldUpdate: createSelector(selectImages, images =>
