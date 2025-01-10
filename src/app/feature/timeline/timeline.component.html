@@ -3,7 +3,7 @@
   appAnimate>
   @for (event of timeline(); track $index; let odd = $odd) {
     <li
-      class="timeline-item"
+      class="timeline-item mt-4"
       [class.skeleton]="event.loading"
       [class.to-left]="!odd"
       [class.to-right]="odd">
