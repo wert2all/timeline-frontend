@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.22](https://github.com/wert2all/timeline-frontend/compare/v0.0.21...v0.0.22) (2025-01-10)
+
+### Bug Fixes
+
+- add close button for mobile view ([0381910](https://github.com/wert2all/timeline-frontend/commit/0381910f60662dbbd2e6a58db0d755b769cf6efb))
+- add filter for events of active timeline ([d678393](https://github.com/wert2all/timeline-frontend/commit/d678393a741802884a4f0a8c2c03719224bc40ae))
+- do not show error message if empty account timelines ([cf306dc](https://github.com/wert2all/timeline-frontend/commit/cf306dcd6f392f1beaefc9f7e66df468abbe3433))
+- fix date tooltip ([3b77b01](https://github.com/wert2all/timeline-frontend/commit/3b77b01a1dab55db6c9327a2f227f3408689e34e))
+- fix edit event menu ([437b2bf](https://github.com/wert2all/timeline-frontend/commit/437b2bfcdf7f27ea7349c0f396f6cb83813e7cb0))
+- fix mobile view of edit event form ([d6243b8](https://github.com/wert2all/timeline-frontend/commit/d6243b80b5e3bacc0db4a16e7a0094dba84ef186))
+- fix order of events ([1e6be37](https://github.com/wert2all/timeline-frontend/commit/1e6be37177ac3682a2a0d4b095b34b0495cd6dc2))
+- fix showing event image ([0d46a86](https://github.com/wert2all/timeline-frontend/commit/0d46a86d47639fce4a14c05f8ae62f3f80070e00))
+- fix showing event menu for mobile devices ([e84bf8a](https://github.com/wert2all/timeline-frontend/commit/e84bf8ae7763dbbce89440168b2d905355419d08))
+- fix some mobile design issues ([057e60e](https://github.com/wert2all/timeline-frontend/commit/057e60e9d4ad97410551edea41fcf4bee66f8c27))
+- fix timeline events dublications ([d2fc52d](https://github.com/wert2all/timeline-frontend/commit/d2fc52dfea9762bf6a287cafcf85f871d4a0f914))
+- fix z-index of notifications ([7312c5d](https://github.com/wert2all/timeline-frontend/commit/7312c5d2d851c93ef0f12349c6154657d3266574))
+- redirect to home page after logout ([2bfe100](https://github.com/wert2all/timeline-frontend/commit/2bfe100ebd3bea9737c1d379de5cf91d563786ab))
+- remove animations ([e3cbdac](https://github.com/wert2all/timeline-frontend/commit/e3cbdac106b18346c239c2cfa46b8ef191226673))
+- remove debug info ([62571f9](https://github.com/wert2all/timeline-frontend/commit/62571f9f4d6c6bb4600f0354188fd1825995005b))
+- remove useless css style ([44b6a86](https://github.com/wert2all/timeline-frontend/commit/44b6a8627ac1aa1a1ba632cb42074bef900ed6d2))
+- remove useless styles ([208deb5](https://github.com/wert2all/timeline-frontend/commit/208deb550b67148a37f00c0d1b9228bd35052fa2))
+- theme switcher for mobile version is simple ([7f758be](https://github.com/wert2all/timeline-frontend/commit/7f758bec6e723c2469e3819e947d8939095db240))
+
 ## [0.0.21](https://github.com/wert2all/timeline-frontend/compare/v0.0.20...v0.0.21) (2025-01-08)
 
 ### Features
