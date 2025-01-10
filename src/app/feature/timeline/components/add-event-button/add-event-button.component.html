@@ -1,8 +1,9 @@
 <a
-  class="btn btn-accent"
+  class="btn btn-accent lg:inline-flex"
   (click)="addEvent.emit()"
-  (keyup)="addEvent.emit()"
+  (keyup.enter)="addEvent.emit()"
   tabindex="0"
+  [class.hidden]="disabled()"
   [attr.disabled]="disabled() ? 'true' : null">
   @if (disabled() === true) {
     submit new event
