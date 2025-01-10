@@ -56,7 +56,7 @@ export class MyPageComponent {
   );
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
   private readonly rawTimeline = this.store.selectSignal(
-    timelineFeature.selectViewEvents
+    timelineFeature.selectActiveTimelineViewEvents
   );
   private readonly rawImages = this.store.selectSignal(
     imagesFeature.selectLoadedImages

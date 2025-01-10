@@ -185,15 +185,25 @@ export const timelineFeature = createFeature({
     }))
   ),
 
-  extraSelectors: ({ selectEvents, selectLoading, selectEditEvent }) => ({
+  extraSelectors: ({
+    selectEvents,
+    selectLoading,
+    selectEditEvent,
+    selectActiveTimeline,
+  }) => ({
     isLoading: createSelector(selectLoading, loading => loading),
-    selectViewEvents: createSelector(selectEvents, selectEvents =>
-      selectEvents.map(
-        (event, index): ExistViewTimelineEvent => ({
-          ...createViewTimelineEvent(event, index % 2 === 0),
-          id: event.id,
-        })
-      )
+    selectActiveTimelineViewEvents: createSelector(
+      selectEvents,
+      selectActiveTimeline,
+      (selectEvents, activeTimeline) =>
+        selectEvents
+          .filter(event => event.timelineId === activeTimeline?.id)
+          .map(
+            (event, index): ExistViewTimelineEvent => ({
+              ...createViewTimelineEvent(event, index % 2 === 0),
+              id: event.id,
+            })
+          )
     ),
     isEditingEvent: createSelector(
       selectEditEvent,
