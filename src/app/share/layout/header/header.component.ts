@@ -15,6 +15,7 @@ import {
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
+import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { AuthService } from '../../../services/auth.service';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
@@ -37,6 +38,7 @@ import { LoginButtonComponent } from './login-button/login-button.component';
     ShowUserFeaturesComponent,
     CurrentAccountComponent,
     CollapsableMenuComponent,
+    ClickOutsideDirective,
   ],
 })
 export class HeaderComponent {
