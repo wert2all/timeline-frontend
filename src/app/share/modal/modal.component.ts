@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import {
   AfterViewInit,
   Component,
-  effect,
   ElementRef,
+  ViewChild,
+  effect,
   input,
   output,
-  ViewChild,
 } from '@angular/core';
 
 @Component({

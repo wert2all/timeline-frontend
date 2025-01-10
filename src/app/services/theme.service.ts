@@ -1,9 +1,9 @@
 import {
+  Injectable,
+  WritableSignal,
   computed,
   effect,
-  Injectable,
   signal,
-  WritableSignal,
 } from '@angular/core';
 
 export const storageKey = 'theme';

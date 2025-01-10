@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import {
   Actions,
+  ROOT_EFFECTS_INIT,
   createEffect,
   ofType,
-  ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, User } from '../../api/internal/graphql';

@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
 
 @Injectable({

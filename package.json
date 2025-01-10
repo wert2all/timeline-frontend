@@ -11,6 +11,7 @@
     "lint:format": "prettier . --check",
     "lint:eslint": "ng lint",
     "format": "prettier . --write",
+    "biome": "biome check --formatter-enabled=true --linter-enabled=true --organize-imports-enabled=true --write  .",
     "codegen": "graphql-codegen --config codegen.ts",
     "release": "commit-and-tag-version",
     "cy:open": "cypress open"
@@ -64,6 +65,7 @@
     "@angular-eslint/template-parser": "^19.0.2",
     "@angular/cli": "^19.0.7",
     "@angular/compiler-cli": "^19.0.6",
+    "@biomejs/biome": "1.9.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
     "@graphql-codegen/cli": "5.0.3",

@@ -2,10 +2,10 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  inject,
   OnInit,
-  signal,
   WritableSignal,
+  inject,
+  signal,
 } from '@angular/core';
 import { createViewDatetime } from '../../../libs/view/date.functions';
 import {
