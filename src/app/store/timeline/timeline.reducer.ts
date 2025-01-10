@@ -1,5 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../app.types';
+import { updateStateRecord } from '../../libs/state.functions';
 import { AuthActions } from '../auth/auth.actions';
 import { UploadActions } from '../images/images.actions';
 import {
@@ -7,7 +8,11 @@ import {
   createViewTimelineEvent,
 } from './editable-event-view.factory';
 import { EventActions, TimelineActions } from './timeline.actions';
-import { ExistViewTimelineEvent, TimelineState } from './timeline.types';
+import {
+  ExistTimelineEvent,
+  ExistViewTimelineEvent,
+  TimelineState,
+} from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
@@ -58,13 +63,21 @@ export const timelineFeature = createFeature({
 
     on(EventActions.emptyEvent, EventActions.apiException, state => ({
       ...state,
-      events: state.events.filter(event => !event.loading),
+      events: updateStateRecord(
+        state.events,
+        Object.values(state.events).filter(event => event.loading)
+      ),
     })),
 
-    on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
-      ...state,
-      events: [...events, ...state.events],
-    })),
+    on(
+      EventActions.successLoadTimelineEvents,
+      EventActions.successUpdateEvent,
+      EventActions.successPushNewEvent,
+      (state, { events }) => ({
+        ...state,
+        events: updateStateRecord(state.events, events),
+      })
+    ),
 
     on(TimelineActions.successAddTimeline, state => ({
       ...state,
@@ -86,10 +99,10 @@ export const timelineFeature = createFeature({
       EventActions.showEditEventForm,
       (state, { eventId }): TimelineState => ({
         ...state,
-        editEvent: {
-          event: state.events.find(event => event.id === eventId),
-          loading: false,
-        },
+        editEvent:
+          eventId && state.events[eventId]
+            ? { event: state.events[eventId], loading: false }
+            : null,
       })
     ),
 
@@ -120,42 +133,41 @@ export const timelineFeature = createFeature({
       return { ...state, editEvent: editEvent };
     }),
 
-    on(
-      EventActions.successPushNewEvent,
-      (state, { event }): TimelineState => ({
-        ...state,
-        events: [event, ...state.events],
-      })
+    on(EventActions.deleteEvent, (state, { eventId }) =>
+      state.events[eventId]
+        ? {
+            ...state,
+            events: updateStateRecord<ExistTimelineEvent>(state.events, [
+              { ...state.events[eventId], loading: true },
+            ]),
+          }
+        : state
     ),
 
-    on(
-      EventActions.successUpdateEvent,
-      (state, { event }): TimelineState => ({
-        ...state,
-        events: state.events.map(e => (e.id === event.id ? event : e)),
-      })
+    on(EventActions.successDeleteEvent, (state, { eventId }) =>
+      state.events[eventId]
+        ? {
+            ...state,
+            events: Object.values(state.events)
+              .filter(event => event.id !== eventId)
+              .reduce((acc: Record<number, ExistTimelineEvent>, event) => {
+                acc[event.id] = event;
+                return acc;
+              }, {}),
+          }
+        : state
     ),
 
-    on(EventActions.deleteEvent, (state, { eventId }) => ({
-      ...state,
-      events: state.events.map(event => ({
-        ...event,
-        loading: event.id === eventId ? true : event.loading,
-      })),
-    })),
-
-    on(EventActions.successDeleteEvent, (state, { eventId }) => ({
-      ...state,
-      events: state.events.filter(event => event.id !== eventId),
-    })),
-
-    on(EventActions.failedDeleteEvent, (state, { eventId }) => ({
-      ...state,
-      events: state.events.map(event => ({
-        ...event,
-        loading: event.id === eventId ? false : event.loading,
-      })),
-    })),
+    on(EventActions.failedDeleteEvent, (state, { eventId }) =>
+      state.events[eventId]
+        ? {
+            ...state,
+            events: updateStateRecord(state.events, [
+              { ...state.events[eventId], loading: false },
+            ]),
+          }
+        : state
+    ),
 
     on(AuthActions.afterLogout, () => initialState),
 
@@ -196,7 +208,7 @@ export const timelineFeature = createFeature({
       selectEvents,
       selectActiveTimeline,
       (selectEvents, activeTimeline) =>
-        selectEvents
+        Object.values(selectEvents)
           .filter(event => event.timelineId === activeTimeline?.id)
           .map(
             (event, index): ExistViewTimelineEvent => ({

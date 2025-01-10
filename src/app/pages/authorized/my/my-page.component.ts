@@ -55,7 +55,7 @@ export class MyPageComponent {
     timelineFeature.isEditingEvent
   );
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
-  private readonly rawTimeline = this.store.selectSignal(
+  private readonly rawTimelineEvents = this.store.selectSignal(
     timelineFeature.selectActiveTimelineViewEvents
   );
   private readonly rawImages = this.store.selectSignal(
@@ -79,7 +79,7 @@ export class MyPageComponent {
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
   protected readonly timeline = computed(() => {
     const images = this.rawImages();
-    return this.rawTimeline().map(event => {
+    return this.rawTimelineEvents().map(event => {
       if (event.image) {
         const image = images.find(i => i.id === event.image?.imageId);
         if (image) {
