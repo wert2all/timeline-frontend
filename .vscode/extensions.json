@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "angular.ng-template",
+    "biomejs.biome",
     "esbenp.prettier-vscode",
     "cyrilletuzi.angular-schematics",
     "graphql.vscode-graphql",
