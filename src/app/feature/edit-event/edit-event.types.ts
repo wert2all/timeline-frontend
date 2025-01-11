@@ -1,4 +1,4 @@
-export type EditableEvent = {
+type EditableEvent = {
   id: number | null;
   date: string | null;
   time: string | null;
@@ -10,6 +10,7 @@ export type EditableEvent = {
   tags: string[];
   isPrivate: boolean | null;
   imageId: number | null;
+  shouldRemoveImages: number[];
 };
 
 export type EditValue = Partial<EditableEvent>;

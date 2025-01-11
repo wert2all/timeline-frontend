@@ -14,6 +14,7 @@ import {
 } from '../../store/timeline/timeline.types';
 
 import { Pending, Status } from '../../app.types';
+import { ImagesActions } from '../../store/images/images.actions';
 import { imagesFeature } from '../../store/images/images.reducer';
 import { EventMainContentComponent } from '../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../timeline/components/event/icon/icon.component';
@@ -92,6 +93,13 @@ export class EditEventComponent {
       timelineId: this.timelineId(),
       imageId: value.imageId || undefined,
     };
+    if (value.shouldRemoveImages && value.shouldRemoveImages.length > 0) {
+      this.store.dispatch(
+        ImagesActions.maybeShouldRemoveImages({
+          images: value.shouldRemoveImages,
+        })
+      );
+    }
     this.store.dispatch(
       EventActions.updatePreviewOfEditableEvent({ event: updatedEvent })
     );
