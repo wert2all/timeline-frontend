@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.23](https://github.com/wert2all/timeline-frontend/compare/v0.0.22...v0.0.23) (2025-01-11)
+
+### Features
+
+- save active account ([f4d2df5](https://github.com/wert2all/timeline-frontend/commit/f4d2df5a9c0a8731b85044608152262f6472c97e))
+
+### Bug Fixes
+
+- fix click outside of account menu ([929210b](https://github.com/wert2all/timeline-frontend/commit/929210b516ac61c9e9324dd84e6d015ed575114e))
+- fix design ([030e511](https://github.com/wert2all/timeline-frontend/commit/030e5114feb91c711b65dc238998c4b4d8d7dc4b))
+- fix index page ([1ecbb4e](https://github.com/wert2all/timeline-frontend/commit/1ecbb4ec5e8514c2522cb5d14ecda250e4946b06))
+- fix main branch ([a2663dd](https://github.com/wert2all/timeline-frontend/commit/a2663ddd0b0a3022c2931326ddbe89199be77326))
+- fix theme switch ([c02c8ee](https://github.com/wert2all/timeline-frontend/commit/c02c8ee861027d7a4c09d7b06b443940a60aadb6))
+- update fonts ([ad96d13](https://github.com/wert2all/timeline-frontend/commit/ad96d139115ed5e9ef2be2b877732bc1d2cd3984))
+
 ## [0.0.22](https://github.com/wert2all/timeline-frontend/compare/v0.0.21...v0.0.22) (2025-01-10)
 
 ### Bug Fixes
