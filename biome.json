@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "ignore": ["**/.angular/**", "**/pnpm-lock.yaml"]
+    "ignore": [
+      "./.angular/**",
+      "./dist/**",
+      "./node_modules/**",
+      "./pnpm-lock.yaml"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -18,8 +23,7 @@
     "lineEnding": "lf",
     "lineWidth": 80,
     "attributePosition": "auto",
-    "bracketSpacing": true,
-    "ignore": ["**/.angular/**", "**/pnpm-lock.yaml"]
+    "bracketSpacing": true
   },
   "organizeImports": {
     "enabled": true
@@ -28,8 +32,7 @@
     "enabled": true,
     "rules": {
       "recommended": false
-    },
-    "ignore": ["**/.angular/**", "**/pnpm-lock.yaml"]
+    }
   },
   "javascript": {
     "formatter": {
