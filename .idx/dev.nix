@@ -7,6 +7,7 @@
   idx.extensions = [
     "angular.ng-template"
     "angular.ng-template"
+    "biomejs.biome"
     "esbenp.prettier-vscode"
     "cyrilletuzi.angular-schematics"
     "graphql.vscode-graphql"

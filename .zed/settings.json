@@ -1,0 +1,9 @@
+{
+  "formatter": "language_server",
+  "auto_install_extension": {
+    "html": true,
+    "dockerfile": true,
+    "scss": true,
+    "biome": true
+  }
+}
