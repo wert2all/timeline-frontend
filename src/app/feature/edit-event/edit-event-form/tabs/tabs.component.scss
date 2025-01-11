@@ -1,0 +1,25 @@
+.active-tab-0 a.tab-0.btn,
+.active-tab-1 a.tab-1.btn,
+.active-tab-2 a.tab-2.btn,
+.active-tab-3 a.tab-3.btn,
+.active-tab-4 a.tab-4.btn,
+.active-tab-5 a.tab-5.btn {
+  @apply btn-secondary;
+
+  ng-icon {
+    @apply text-primary-content;
+  }
+  span {
+    @apply lg:block;
+  }
+}
+
+.tabs a {
+  ng-icon {
+    @apply text-primary;
+  }
+
+  span {
+    @apply hidden;
+  }
+}
