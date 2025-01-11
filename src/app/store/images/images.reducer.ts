@@ -88,7 +88,20 @@ export const imagesFeature = createFeature({
     on(EventActions.closeEditForm, state => ({
       ...state,
       maybeShouldRemoveImages: [],
-    }))
+    })),
+
+    on(EventActions.deleteEvent, (state, { imageId }) => ({
+      ...state,
+      maybeShouldRemoveImages: imageId ? [imageId] : [],
+    })),
+    on(
+      EventActions.failedDeleteEvent,
+      EventActions.successDeleteEvent,
+      state => ({
+        ...state,
+        maybeShouldRemoveImages: [],
+      })
+    )
   ),
   extraSelectors: ({ selectImages }) => ({
     selectShouldUpdate: createSelector(selectImages, images =>
