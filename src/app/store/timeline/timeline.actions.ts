@@ -46,7 +46,7 @@ export const EventActions = createActionGroup({
     'Nothing to save': emptyProps(),
 
     'Confirm to delete event': props<{ eventId: number }>(),
-    'Delete event': props<{ eventId: number }>(),
+    'Delete event': props<{ eventId: number; imageId: number | Undefined }>(),
     'Success delete event': props<{ eventId: number }>(),
 
     'Failed delete event': props<{ eventId: number }>(),

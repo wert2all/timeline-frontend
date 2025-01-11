@@ -101,9 +101,14 @@ export class MyPageComponent {
     accountFeature.selectActiveAccount
   );
 
-  protected readonly shouldDeleteEvent = signal<number>(0);
+  protected readonly shouldDeleteEventId = signal<number>(0);
+  private readonly shouldDeleteImageId = computed(() => {
+    return this.rawTimelineEvents().find(
+      event => (event.id = this.shouldDeleteEventId())
+    )?.imageId;
+  });
   protected readonly showConfirmWindow = computed(
-    () => this.shouldDeleteEvent() > 0
+    () => this.shouldDeleteEventId() > 0
   );
 
   protected listTimelines = this.store.selectSignal(
@@ -136,23 +141,26 @@ export class MyPageComponent {
   }
 
   deleteEvent(event: Iterable) {
-    this.shouldDeleteEvent.set(event.id);
+    this.shouldDeleteEventId.set(event.id);
     this.store.dispatch(
       EventActions.confirmToDeleteEvent({ eventId: event.id })
     );
   }
 
   confirmDelete() {
-    if (this.shouldDeleteEvent() > 0) {
+    if (this.shouldDeleteEventId() > 0 && this.shouldDeleteImageId()) {
       this.store.dispatch(
-        EventActions.deleteEvent({ eventId: this.shouldDeleteEvent() })
+        EventActions.deleteEvent({
+          eventId: this.shouldDeleteEventId(),
+          imageId: this.shouldDeleteImageId(),
+        })
       );
     }
-    this.shouldDeleteEvent.set(0);
+    this.shouldDeleteEventId.set(0);
   }
 
   dismissDelete() {
-    this.shouldDeleteEvent.set(0);
+    this.shouldDeleteEventId.set(0);
   }
 
   addTimeline(name: string | Undefined, accountId: number) {

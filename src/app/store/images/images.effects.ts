@@ -120,7 +120,11 @@ const dispatchDeletingImages = (
   store = inject(Store)
 ) =>
   actions$.pipe(
-    ofType(EventActions.successUpdateEvent, EventActions.successPushNewEvent),
+    ofType(
+      EventActions.successUpdateEvent,
+      EventActions.successPushNewEvent,
+      EventActions.successDeleteEvent
+    ),
     concatLatestFrom(() =>
       store.select(imagesFeature.selectMaybeShouldRemoveImages)
     ),
