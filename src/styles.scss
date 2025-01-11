@@ -10,7 +10,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Inder', serif;
+  font-family: 'Roboto Mono', 'Roboto Mono', 'Vazirmatn', mono;
   font-weight: 400;
   font-style: normal;
 }
@@ -20,6 +20,10 @@ body {
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
+}
+
+.btn {
+  @apply font-normal;
 }
 
 .btn.logo,

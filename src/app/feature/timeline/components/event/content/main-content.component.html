@@ -2,7 +2,7 @@
   <div class="bg-base-300">
     <div class="p-2">
       <app-timeline-event-date [date]="event().date" />
-      <div class="text-lg font-black">{{ event().title }}</div>
+      <h6 class="text-lg">{{ event().title }}</h6>
       <app-timeline-event-tags
         [tags]="event().tags"
         (clickToTag)="filterByTag.emit($event)" />
@@ -12,7 +12,7 @@
 } @else {
   <div class="p-2">
     <app-timeline-event-date [date]="event().date" />
-    <div class="text-lg font-black">{{ event().title }}</div>
+    <h6 class="text-lg">{{ event().title }}</h6>
     <app-timeline-event-tags
       [tags]="event().tags"
       (clickToTag)="filterByTag.emit($event)" />
