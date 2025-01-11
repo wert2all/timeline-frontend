@@ -31,10 +31,7 @@ export const timelineFeature = createFeature({
       TimelineActions.addTimeline,
       EventActions.loadTimelineEvents,
       TimelineActions.loadAccountTimelines,
-      state => ({
-        ...state,
-        loading: true,
-      })
+      state => ({ ...state, loading: true })
     ),
 
     on(
@@ -50,10 +47,7 @@ export const timelineFeature = createFeature({
       TimelineActions.apiException,
       EventActions.apiException,
       EventActions.emptyEvent,
-      state => ({
-        ...state,
-        loading: false,
-      })
+      state => ({ ...state, loading: false })
     ),
 
     on(TimelineActions.successAddTimeline, (state, { timelines }) => ({

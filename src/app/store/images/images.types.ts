@@ -23,4 +23,5 @@ export type CurrentUpload = Loadable & {
 export type ImagesState = {
   currentUpload: CurrentUpload;
   images: Record<number, UploadedImage>;
+  maybeShouldRemoveImages: number[];
 };

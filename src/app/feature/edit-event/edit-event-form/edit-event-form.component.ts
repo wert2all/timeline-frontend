@@ -177,6 +177,7 @@ export class EditEventFormComponent implements AfterViewInit {
   protected accountSettings = this.store.selectSignal(
     accountFeature.selectActiveAccountFeaturesSettings
   );
+  private readonly shouldRemoveImages: number[] = [];
 
   constructor() {
     this.editForm.controls.withTime.valueChanges
@@ -197,7 +198,20 @@ export class EditEventFormComponent implements AfterViewInit {
         time: values.time,
         withTime: values.withTime,
         url: values.link,
+        imageId: values.imageId,
       });
+    });
+
+    effect(() => {
+      const uploadedImageId = this.uploadedImageId();
+      if (uploadedImageId) {
+        if (this.editForm.controls.imageId.value !== uploadedImageId) {
+          if (this.editForm.controls.imageId.value) {
+            this.shouldRemoveImages.push(this.editForm.controls.imageId.value);
+          }
+        }
+        this.editForm.controls.imageId.setValue(uploadedImageId);
+      }
     });
 
     effect(() => {
@@ -205,7 +219,7 @@ export class EditEventFormComponent implements AfterViewInit {
       this.valuesChanged.emit({
         ...(this.formValues() || this.editForm.value),
         tags: this.tags().map(tag => tag.value),
-        imageId: this.uploadedImageId(),
+        shouldRemoveImages: this.shouldRemoveImages,
       });
     });
   }

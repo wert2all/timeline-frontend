@@ -8,6 +8,7 @@ import { ImagesState } from './images.types';
 const initState: ImagesState = {
   currentUpload: { loading: false, previewUrl: null, error: null },
   images: {},
+  maybeShouldRemoveImages: [],
 };
 
 export const imagesFeature = createFeature({
@@ -77,6 +78,16 @@ export const imagesFeature = createFeature({
     on(ImagesActions.successUpdateImages, (state, { images }) => ({
       ...state,
       images: updateStateRecord(state.images, images),
+    })),
+
+    on(ImagesActions.maybeShouldRemoveImages, (state, { images }) => ({
+      ...state,
+      maybeShouldRemoveImages: images,
+    })),
+
+    on(EventActions.closeEditForm, state => ({
+      ...state,
+      maybeShouldRemoveImages: [],
     }))
   ),
   extraSelectors: ({ selectImages }) => ({
