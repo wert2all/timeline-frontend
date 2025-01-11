@@ -2,13 +2,6 @@
   <div class="p-4">
     <app-content-title title="UI components" />
 
-    <div class="py-4" id="TimelineComponent">
-      <h2 class="text-2xl">TimelineComponent</h2>
-      <div class="mt-4 grid w-full grid-cols-1 gap-4">
-        <app-timeline [timeline]="dumpTimelineEvents()" />
-      </div>
-    </div>
-
     <div class="py-4" id="EditEventFormComponent">
       <h2 class="text-2xl">EditEventFormComponent</h2>
       <div class="mt-4 grid grid-cols-2 gap-4">
@@ -18,6 +11,13 @@
         <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="1" />
         <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="2" />
         <app-edit-event-form [editEvent]="dumpAddEvent()" [openTab]="3" />
+      </div>
+    </div>
+
+    <div class="py-4" id="TimelineComponent">
+      <h2 class="text-2xl">TimelineComponent</h2>
+      <div class="mt-4 grid w-full grid-cols-1 gap-4">
+        <app-timeline [timeline]="dumpTimelineEvents()" />
       </div>
     </div>
 

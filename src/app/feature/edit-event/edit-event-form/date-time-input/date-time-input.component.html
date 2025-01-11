@@ -1,0 +1,41 @@
+<app-date-picker
+  (selectDate)="updateDate($event)"
+  [fromDate]="form().controls.date.value" />
+
+<input
+  type="hidden"
+  name="date"
+  [formControl]="form().controls.date"
+  readonly />
+
+<div class="form-control mt-4">
+  <label class="label cursor-pointer">
+    <span class="label-text">Add time</span>
+    <input
+      name="add-time"
+      type="checkbox"
+      class="toggle"
+      [formControl]="form().controls.withTime" />
+  </label>
+</div>
+<div class="form-control">
+  <label class="label cursor-pointer">
+    <span class="label-text">Time</span>
+    <input
+      name="time"
+      type="text"
+      class="input input-bordered w-20"
+      [class.input-error]="!form().controls.time.valid"
+      [formControl]="form().controls.time" />
+  </label>
+</div>
+<div class="form-control">
+  <label class="label cursor-pointer">
+    <span class="label-text">Show time on timeline</span>
+    <input
+      name="show-time"
+      type="checkbox"
+      class="toggle"
+      [formControl]="form().controls.showTime" />
+  </label>
+</div>

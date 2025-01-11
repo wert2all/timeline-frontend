@@ -38,39 +38,29 @@ import {
   of,
   tap,
 } from 'rxjs';
-import { DatePickerComponent } from '../../../share/date-picker/date-picker.component';
 import { PreviewActions } from '../../../store/preview/preview.actions';
 import { previewFeature } from '../../../store/preview/preview.reducers';
 import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
 
-import { LoaderComponent } from '../../../share/loader/loader.component';
+import { fromInputSignal } from '../../../libs/signal.functions';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { UploadActions } from '../../../store/images/images.actions';
 import { imagesFeature } from '../../../store/images/images.reducer';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
-import { FeatureFlagComponent } from '../../user/features/feature-flag/feature-flag.component';
 import { EditValue } from '../edit-event.types';
-import { AddEventTagsComponent } from './add-event-tags/add-event-tags.component';
-import { LinkPreviewComponent } from './link-preview/link-preview.component';
+import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
+import { EditForm } from './edit-event-form.types';
+import { EditFormLinkInputComponent } from './link-input/link-input.component';
+import { EditEventFormTabsComponent } from './tabs/tabs.component';
+import { EditFormTagsInputComponent } from './tags-input/tags-input.component';
+import { EditFormTextInputComponent } from './text-input/text-input.component';
+import { EditEventFormUploadInputComponent } from './upload-input/upload-input.component';
 
 const URL_REGEXP =
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
 
 const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
-
-interface EditForm {
-  id: FormControl<number | null>;
-  date: FormControl<string | null>;
-  time: FormControl<string | null>;
-  withTime: FormControl<boolean>;
-  showTime: FormControl<boolean>;
-  title: FormControl<string>;
-  content: FormControl<string>;
-  link: FormControl<string | null>;
-  isPrivate: FormControl<boolean | null>;
-  imageId: FormControl<number | null>;
-}
 
 @Component({
   selector: 'app-edit-event-form',
@@ -94,11 +84,12 @@ interface EditForm {
     CommonModule,
     NgIconComponent,
     ReactiveFormsModule,
-    AddEventTagsComponent,
-    DatePickerComponent,
-    LinkPreviewComponent,
-    LoaderComponent,
-    FeatureFlagComponent,
+    EditEventFormTabsComponent,
+    EditFormTextInputComponent,
+    EditFormDateTimeInputComponent,
+    EditFormTagsInputComponent,
+    EditFormLinkInputComponent,
+    EditEventFormUploadInputComponent,
   ],
 })
 export class EditEventFormComponent implements AfterViewInit {
@@ -142,7 +133,7 @@ export class EditEventFormComponent implements AfterViewInit {
     imagesFeature.selectCurrentUpload
   );
 
-  protected readonly switchTab = signal<null | number>(null);
+  protected readonly switchTab = fromInputSignal(this.openTab);
   protected readonly tags = signal<ViewTimelineTag[]>([]);
 
   protected isDisabled = computed(() => this.loading() === true);
@@ -168,10 +159,6 @@ export class EditEventFormComponent implements AfterViewInit {
 
   protected readonly previewHolder = computed(() =>
     this.allPreviews().find(item => item.url === this.previewLink()?.toString())
-  );
-
-  protected readonly activeStep = computed(() =>
-    this.switchTab() !== null ? this.switchTab() : this.openTab()
   );
 
   protected accountSettings = this.store.selectSignal(
@@ -249,39 +236,12 @@ export class EditEventFormComponent implements AfterViewInit {
     }
   }
 
-  addTag(input: HTMLInputElement) {
-    const tags = input.value
-      ?.split(',')
-      .map(tag => tag.trim())
-      .filter(tag => tag != '')
-      .map(tag => new ViewTimelineTag(tag));
-    if (tags) {
-      input.value = '';
-      this.tags.update(existTags => [...existTags, ...tags]);
-    }
-  }
-
-  removeTag(tag: ViewTimelineTag) {
-    this.tags.update(existTags =>
-      existTags.filter(existTag => existTag.title !== tag.title)
-    );
-  }
-
-  updateDate(date: Date) {
-    this.editForm.controls.date.setValue(DateTime.fromJSDate(date).toISODate());
-  }
-
-  isActiveTab(tabNumber: number): boolean {
-    return this.activeStep() === tabNumber;
-  }
-
   switchTo(tabNumber: number) {
     this.switchTab.set(tabNumber);
   }
 
-  handleFileSelect(event: Event) {
-    const input = event.target as HTMLInputElement;
-    this.store.dispatch(UploadActions.uploadImage({ image: input.files![0] }));
+  handleSelectFile(file: File) {
+    this.store.dispatch(UploadActions.uploadImage({ image: file }));
   }
 
   private updateDisabledControls() {

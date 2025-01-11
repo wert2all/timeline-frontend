@@ -1,0 +1,19 @@
+<label class="form-control">
+  <div class="label">
+    <span class="label-text">link</span>
+  </div>
+  <label class="input input-bordered flex items-center gap-2">
+    <input
+      name="url"
+      type="text"
+      class="grow"
+      placeholder="Url"
+      [formControl]="form().controls.link" />
+  </label>
+  <div class="label" [class.hidden]="!form().controls.link.errors">
+    <span class="label-text-alt text-error">Wrong URL</span>
+  </div>
+  @if (preview(); as preview) {
+    <app-link-preview [preview]="preview" class="mt-4" />
+  }
+</label>
