@@ -13,6 +13,8 @@ import {
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
 
+import { Pending, Status } from '../../app.types';
+import { imagesFeature } from '../../store/images/images.reducer';
 import { EventMainContentComponent } from '../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
@@ -33,17 +35,33 @@ export class EditEventComponent {
   private readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
-
+  private images = this.store.selectSignal(imagesFeature.selectLoadedImages);
   private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
 
   protected readonly icon = new ViewTimelineEventIcon(
     TimelineEventType.default
   );
-  protected readonly previewEvent: Signal<ViewTimelineEvent> = computed(() =>
-    createViewTimelineEvent(
+  protected readonly previewEvent: Signal<ViewTimelineEvent> = computed(() => {
+    const preview = createViewTimelineEvent(
       this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId())
-    )
-  );
+    );
+    if (preview.image?.status === Status.LOADING) {
+      const image = this.images().find(
+        image =>
+          image.id === preview.image?.imageId &&
+          image.status !== Pending.PENDING
+      );
+      if (image) {
+        preview.image.imageId = image.id;
+        preview.image.previewUrl = image.data?.resized_490x250;
+        preview.image.status =
+          image.status === Status.SUCCESS ? Status.SUCCESS : Status.ERROR;
+      }
+    }
+
+    return preview;
+  });
+
   protected readonly openTab = signal(0);
 
   protected readonly formEvent: Signal<ViewTimelineEvent> = computed(() => ({
