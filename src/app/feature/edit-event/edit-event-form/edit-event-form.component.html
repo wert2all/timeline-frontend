@@ -1,7 +1,7 @@
 <div
   class="active-tab-{{
     switchTab()
-  }} event-form bg-lighter timeline-box relative mt-4 pt-0 lg:mt-0"
+  }} event-form bg-base-300 timeline-box relative mt-4 pt-0 lg:mt-0"
   [class.skeleton]="isDisabled()">
   <app-edit-event-form-tabs
     (switchTab)="switchTo($event)"
@@ -10,7 +10,7 @@
 
   <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
   <app-edit-event-form-date-time-input
-    class="tab-content-1"
+    class="tab-content-1 mt-4"
     [form]="editForm" />
   <app-edit-event-form-tags-input
     class="tab-content-2"
