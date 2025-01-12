@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.24](https://github.com/wert2all/timeline-frontend/compare/v0.0.23...v0.0.24) (2025-01-12)
+
+### Features
+
+- add animation to tab content of edit event form ([d9b2ab3](https://github.com/wert2all/timeline-frontend/commit/d9b2ab319200061caec59016e732f87f91b90171))
+- create effects for deleted useless images ([409d841](https://github.com/wert2all/timeline-frontend/commit/409d8413ab9bf303f92426bf5d5e38c0fb91082a))
+
+### Bug Fixes
+
+- fix fonts ([05c75dd](https://github.com/wert2all/timeline-frontend/commit/05c75dd866539f0357bca8f34be74ef3dd6f41cb))
+- fix image preview on edit event ([a812580](https://github.com/wert2all/timeline-frontend/commit/a8125807c2e806d1c5cde5c1ce2d676b8441b4d0))
+- fix position of preview on edit event ([28d2022](https://github.com/wert2all/timeline-frontend/commit/28d2022d28b6c674b6b5b993c271e73eb8485fb3))
+- remove images of deleted event ([2cda378](https://github.com/wert2all/timeline-frontend/commit/2cda378884832d8f98892d352688c020880dab9c))
+
 ## [0.0.23](https://github.com/wert2all/timeline-frontend/compare/v0.0.22...v0.0.23) (2025-01-11)
 
 ### Features
