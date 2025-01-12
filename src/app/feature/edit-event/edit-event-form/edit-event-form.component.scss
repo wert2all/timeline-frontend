@@ -13,4 +13,14 @@
 .active-tab-4 .tab-content-4,
 .active-tab-5 .tab-content-5 {
   @apply block;
+  animation: 0.3s swipe-left;
+}
+
+@keyframes swipe-left {
+  0% {
+    margin-left: 110%;
+  }
+  100% {
+    margin-left: 0%;
+  }
 }
