@@ -31,6 +31,7 @@ import {
 import { Store } from '@ngrx/store';
 import { Status } from '../../../app.types';
 import { EditEventFormComponent } from '../../../feature/edit-event/edit-event-form/edit-event-form.component';
+import { LoaderComponent } from '../../../share/loader/loader.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -45,6 +46,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TimelineComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
+    LoaderComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -95,6 +97,11 @@ export class DevelopPageComponent implements OnInit {
         title: 'Edit Event Form ',
         uuid: 'EditEventFormComponent',
         link: '/develop#EditEventFormComponent',
+      },
+      {
+        title: 'Loader',
+        uuid: 'LoaderComponent',
+        link: '/develop#LoaderComponent',
       },
     ],
   });
