@@ -27,6 +27,7 @@ import { EditValue } from './edit-event.types';
   standalone: true,
   imports: [EventMainContentComponent, IconComponent, EditEventFormComponent],
   templateUrl: './edit-event.component.html',
+  styleUrls: ['./edit-event.component.scss'],
 })
 export class EditEventComponent {
   private readonly store = inject(Store);
