@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { EditForm } from '../edit-event-form.types';
+import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
   standalone: true,
@@ -9,5 +9,5 @@ import { EditForm } from '../edit-event-form.types';
   imports: [ReactiveFormsModule],
 })
 export class EditFormTextInputComponent {
-  form = input.required<FormGroup<EditForm>>();
+  form = input.required<FormGroup<EditEventForm>>();
 }

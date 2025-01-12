@@ -16,9 +16,9 @@
       commas.
     </span>
   </div>
-  @if (tags().length > 0) {
+  @if (viewTags().length > 0) {
     <div>
-      @for (tag of tags(); track $index) {
+      @for (tag of viewTags(); track $index) {
         <a
           class="badge badge-neutral badge-sm mr-2 cursor-pointer"
           (click)="removeTag(tag)"

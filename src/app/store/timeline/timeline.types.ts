@@ -64,6 +64,6 @@ export type TimelineState = Loadable & {
   timelines: Timeline[];
   activeTimeline: ActiveTimeline | null;
   events: Record<number, ExistTimelineEvent>;
-  editEvent: EditEvent | null;
+  showEditEventId: number | Undefined;
   newTimelineAdded: boolean;
 };

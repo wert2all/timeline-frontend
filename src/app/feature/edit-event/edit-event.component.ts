@@ -1,4 +1,11 @@
-import { Component, Signal, computed, inject, signal } from '@angular/core';
+import {
+  Component,
+  Signal,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 import {
@@ -8,19 +15,24 @@ import {
 import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
 import {
-  TimelineEvent,
   TimelineEventType,
   ViewTimelineEvent,
 } from '../../store/timeline/timeline.types';
 
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 import { Pending, Status } from '../../app.types';
-import { ImagesActions } from '../../store/images/images.actions';
+import { accountFeature } from '../../store/account/account.reducer';
+import { UploadActions } from '../../store/images/images.actions';
 import { imagesFeature } from '../../store/images/images.reducer';
+import { PreviewActions } from '../../store/preview/preview.actions';
+import { previewFeature } from '../../store/preview/preview.reducers';
 import { EventMainContentComponent } from '../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
-import { EditValue } from './edit-event.types';
+import { EditEventFormViewHelper } from './edit-event-form/edit-event-form.types';
+import { EditEventFormChanges } from './edit-event.types';
 
 @Component({
   selector: 'app-edit-event',
@@ -31,82 +43,132 @@ import { EditValue } from './edit-event.types';
 })
 export class EditEventComponent {
   private readonly store = inject(Store);
+  private readonly isEdit = this.store.selectSignal(
+    timelineFeature.isEditingEvent
+  );
   protected readonly editEvent = this.store.selectSignal(
-    timelineFeature.selectEditEvent
+    timelineFeature.selectShouldEditEvent
   );
-  private readonly activeTimeline = this.store.selectSignal(
-    timelineFeature.selectActiveTimeline
+
+  private readonly timelineId = toSignal(
+    this.store
+      .select(timelineFeature.selectActiveTimeline)
+      .pipe(map(timeline => timeline?.id || 0)),
+    { initialValue: 0 }
   );
-  private images = this.store.selectSignal(imagesFeature.selectLoadedImages);
-  private readonly timelineId = computed(() => this.activeTimeline()?.id || 0);
+
+  private readonly images = this.store.selectSignal(
+    imagesFeature.selectLoadedImages
+  );
+  private readonly currentUpload = this.store.selectSignal(
+    imagesFeature.selectCurrentUploadImage
+  );
+
+  protected readonly isUploadEnabled = toSignal(
+    this.store
+      .select(accountFeature.selectActiveAccountFeaturesSettings)
+      .pipe(map(settings => !!settings['upload_images'])),
+    { initialValue: false }
+  );
+
+  protected readonly isNew = computed(() => !this.editEvent()?.id);
+
+  private updatedEvent = signal(createDefaultTimelineEvent(this.timelineId()));
+
+  protected readonly previewEvent: Signal<ViewTimelineEvent | null> = computed(
+    () => {
+      const preview = createViewTimelineEvent(this.updatedEvent());
+
+      if (preview && preview.image?.status === Status.LOADING) {
+        const image = this.images().find(
+          image =>
+            image.id === preview.image?.imageId &&
+            image.status !== Pending.PENDING
+        );
+        if (image) {
+          preview.image.imageId = image.id;
+          preview.image.previewUrl = image.data?.resized_490x250;
+          preview.image.status =
+            image.status === Status.SUCCESS ? Status.SUCCESS : Status.ERROR;
+        }
+      }
+
+      return preview;
+    }
+  );
+
+  private readonly urlPreviews = this.store.selectSignal(
+    previewFeature.selectPreviews
+  );
+
+  protected formViewHelper = computed((): EditEventFormViewHelper => {
+    const event = this.updatedEvent();
+    return {
+      url: this.urlPreviews().find(preview => preview.url === event.url),
+      image: this.currentUpload(),
+    };
+  });
+  protected readonly openTab = signal(0);
+  protected readonly loading = signal(false);
 
   protected readonly icon = new ViewTimelineEventIcon(
     TimelineEventType.default
   );
-  protected readonly previewEvent: Signal<ViewTimelineEvent> = computed(() => {
-    const preview = createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId())
-    );
-    if (preview.image?.status === Status.LOADING) {
-      const image = this.images().find(
-        image =>
-          image.id === preview.image?.imageId &&
-          image.status !== Pending.PENDING
-      );
-      if (image) {
-        preview.image.imageId = image.id;
-        preview.image.previewUrl = image.data?.resized_490x250;
-        preview.image.status =
-          image.status === Status.SUCCESS ? Status.SUCCESS : Status.ERROR;
+
+  constructor() {
+    effect(() => {
+      if (this.isEdit() === false) {
+        this.loading.set(false);
       }
-    }
-
-    return preview;
-  });
-
-  protected readonly openTab = signal(0);
-
-  protected readonly formEvent: Signal<ViewTimelineEvent> = computed(() => ({
-    ...createViewTimelineEvent(
-      this.editEvent()?.event || createDefaultTimelineEvent(this.timelineId())
-    ),
-    isEditableType: true,
-  }));
-  protected loading = computed(() => this.editEvent()?.loading === true);
-
+    });
+  }
   protected closeEditForm() {
     this.store.dispatch(EventActions.closeEditForm());
   }
 
-  protected updatePreviewEvent(value: EditValue) {
+  protected updatePreviewEvent(value: EditEventFormChanges) {
     const time = value.time?.match('^\\d:') ? '0' + value.time : value.time;
     const date = DateTime.fromISO(value.date + (time ? 'T' + time : ''));
-    const updatedEvent: TimelineEvent = {
+
+    this.updatedEvent.set({
       id: value.id || undefined,
       date: (date.isValid ? date : DateTime.now()).toJSDate(),
       type: TimelineEventType.default,
       title: value.title || '',
       description: value.content || undefined,
-      showTime: (value.withTime && value.showTime) || false,
+      showTime: value.showTime || false,
       tags: value.tags || undefined,
-      url: value.url || undefined,
+      url: value.link || undefined,
       loading: false,
       timelineId: this.timelineId(),
       imageId: value.imageId || undefined,
-    };
-    if (value.shouldRemoveImages && value.shouldRemoveImages.length > 0) {
-      this.store.dispatch(
-        ImagesActions.maybeShouldRemoveImages({
-          images: value.shouldRemoveImages,
-        })
-      );
-    }
-    this.store.dispatch(
-      EventActions.updatePreviewOfEditableEvent({ event: updatedEvent })
-    );
+    });
+    // if (value.shouldRemoveImages && value.shouldRemoveImages.length > 0) {
+    //   this.store.dispatch(
+    //     ImagesActions.maybeShouldRemoveImages({
+    //       images: value.shouldRemoveImages,
+    //     })
+    //   );
+    // }
   }
 
   protected saveEvent() {
-    this.store.dispatch(EventActions.saveEditableEvent());
+    this.loading.set(true);
+    this.store.dispatch(
+      EventActions.saveEditableEvent({ event: this.updatedEvent() })
+    );
+  }
+
+  protected dispatchUpdateUrlPreview(url: URL) {
+    this.store.dispatch(PreviewActions.addURL({ url }));
+  }
+
+  protected handleFileSelected(image: File) {
+    this.store.dispatch(
+      UploadActions.uploadImage({
+        image: image,
+        uuid: URL.createObjectURL(image),
+      })
+    );
   }
 }

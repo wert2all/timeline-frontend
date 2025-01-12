@@ -1,8 +1,11 @@
 import {
   Iterable,
-  Loadable,
   StatusWithPending,
   Undefined,
+  Unique,
+  UniqueType,
+  WithError,
+  WithPandingStatus,
 } from '../../app.types';
 
 export type ImageData = {
@@ -14,14 +17,12 @@ export type UploadedImage = Iterable & {
   data: null | ImageData;
   error: string | Undefined;
 };
-
-export type CurrentUpload = Loadable & {
-  error: Undefined | string;
-  previewUrl: Undefined | string;
-};
+export type UploadQuequeImage = Unique &
+  WithError &
+  WithPandingStatus & { id?: number };
 
 export type ImagesState = {
-  currentUpload: CurrentUpload;
+  queue: Record<UniqueType, UploadQuequeImage>;
   images: Record<number, UploadedImage>;
   maybeShouldRemoveImages: number[];
 };

@@ -38,9 +38,7 @@ active-tab-{{ activeTab() }}
     <ng-icon name="saxLinkSquareOutline" size="24"></ng-icon>
     <span>add link</span>
   </a>
-  <app-feature-flag
-    feature="upload_images"
-    [accountSettings]="accountSettings()">
+  @if (enebleUpload()) {
     <a
       tabindex="0"
       class="tab-4 btn join-item"
@@ -50,5 +48,5 @@ active-tab-{{ activeTab() }}
       <ng-icon name="saxImageOutline" size="24"></ng-icon>
       <span>add image</span>
     </a>
-  </app-feature-flag>
+  }
 </div>

@@ -5,6 +5,7 @@ import {
 } from '../../feature/timeline/timeline.types';
 import { createViewDatetime } from '../../libs/view/date.functions';
 import {
+  ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
   ViewTimelineEvent,
@@ -31,7 +32,7 @@ export const createDefaultTimelineEvent = (
 });
 
 export const createViewTimelineEvent = (
-  event: TimelineEvent
+  event: TimelineEvent | ExistTimelineEvent
 ): ViewTimelineEvent => ({
   ...event,
   description: event.description || '',

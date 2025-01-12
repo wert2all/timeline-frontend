@@ -1,10 +1,10 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, computed, effect, input, output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxCloseCircleOutline } from '@ng-icons/iconsax/outline';
 import { fromInputSignal } from '../../../../libs/signal.functions';
 import { ViewTimelineTag } from '../../../timeline/timeline.types';
-import { EditForm } from '../edit-event-form.types';
+import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
   standalone: true,
@@ -14,13 +14,17 @@ import { EditForm } from '../edit-event-form.types';
   viewProviders: [provideIcons({ saxCloseCircleOutline })],
 })
 export class EditFormTagsInputComponent {
-  form = input.required<FormGroup<EditForm>>();
+  form = input.required<FormGroup<EditEventForm>>();
   isDisabled = input<boolean>(false);
-  inputTags = input<ViewTimelineTag[]>([]);
+  inputTags = input<string[]>([]);
 
-  outputTags = output<ViewTimelineTag[]>();
+  outputTags = output<string[]>();
 
-  protected readonly tags = fromInputSignal<ViewTimelineTag[]>(this.inputTags);
+  private readonly tags = fromInputSignal<string[]>(this.inputTags);
+
+  protected readonly viewTags = computed(() =>
+    this.tags().map(tag => new ViewTimelineTag(tag))
+  );
 
   constructor() {
     effect(() => {
@@ -32,8 +36,7 @@ export class EditFormTagsInputComponent {
     const tags = input.value
       ?.split(',')
       .map(tag => tag.trim())
-      .filter(tag => tag != '')
-      .map(tag => new ViewTimelineTag(tag));
+      .filter(tag => tag != '');
     if (tags) {
       input.value = '';
       this.tags.update(existTags => [...existTags, ...tags]);
@@ -42,7 +45,7 @@ export class EditFormTagsInputComponent {
 
   removeTag(tag: ViewTimelineTag) {
     this.tags.update(existTags =>
-      existTags.filter(existTag => existTag.title !== tag.title)
+      existTags.filter(existTag => existTag !== tag.value)
     );
   }
 }

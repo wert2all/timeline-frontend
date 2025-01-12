@@ -1,8 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Status } from '../../app.types';
 import { updateStateRecord } from '../../libs/state.functions';
 import { AuthActions } from '../auth/auth.actions';
-import { UploadActions } from '../images/images.actions';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -20,7 +18,7 @@ const initialState: TimelineState = {
   activeTimeline: null,
   events: [],
   newTimelineAdded: false,
-  editEvent: null,
+  showEditEventId: null,
 };
 
 export const timelineFeature = createFeature({
@@ -79,53 +77,11 @@ export const timelineFeature = createFeature({
     })),
 
     on(
-      EventActions.showAddEventForm,
-      (state, { timelineId }): TimelineState => ({
-        ...state,
-        editEvent: {
-          loading: false,
-          event: createDefaultTimelineEvent(timelineId),
-        },
-      })
-    ),
-
-    on(
-      EventActions.showEditEventForm,
-      (state, { eventId }): TimelineState => ({
-        ...state,
-        editEvent:
-          eventId && state.events[eventId]
-            ? { event: state.events[eventId], loading: false }
-            : null,
-      })
-    ),
-
-    on(
       EventActions.closeEditForm,
-      EventActions.nothingToSave,
       EventActions.successPushNewEvent,
       EventActions.successUpdateEvent,
-      (state): TimelineState => ({ ...state, editEvent: null })
+      (state): TimelineState => ({ ...state, showEditEventId: null })
     ),
-
-    on(
-      EventActions.updatePreviewOfEditableEvent,
-      (state, { event }): TimelineState => ({
-        ...state,
-        editEvent: {
-          loading: state.editEvent?.loading || false,
-          event: event,
-        },
-      })
-    ),
-
-    on(EventActions.saveEditableEvent, (state): TimelineState => {
-      let editEvent = state.editEvent;
-      if (editEvent) {
-        editEvent = { ...editEvent, loading: true };
-      }
-      return { ...state, editEvent: editEvent };
-    }),
 
     on(EventActions.deleteEvent, (state, { eventId }) =>
       state.events[eventId]
@@ -165,18 +121,6 @@ export const timelineFeature = createFeature({
 
     on(AuthActions.afterLogout, () => initialState),
 
-    on(UploadActions.successUploadImage, (state, { id, status }) =>
-      state.editEvent?.event && status === Status.SUCCESS
-        ? {
-            ...state,
-            editEvent: {
-              ...state.editEvent,
-              event: { ...state.editEvent.event, imageId: id },
-            },
-          }
-        : state
-    ),
-
     on(TimelineActions.successLoadAccountTimelines, (state, { timelines }) => ({
       ...state,
       timelines,
@@ -188,40 +132,59 @@ export const timelineFeature = createFeature({
         name: timeline.name || '',
         id: timeline.id,
       },
+    })),
+    on(EventActions.dispatchEditEvent, (state, { eventId }) => ({
+      ...state,
+      showEditEventId: eventId,
     }))
   ),
 
   extraSelectors: ({
     selectEvents,
     selectLoading,
-    selectEditEvent,
     selectActiveTimeline,
-  }) => ({
-    isLoading: createSelector(selectLoading, loading => loading),
-    selectActiveTimelineViewEvents: createSelector(
+    selectShowEditEventId,
+  }) => {
+    const selectActiveTimelineEventsSelector = createSelector(
       selectEvents,
       selectActiveTimeline,
       (selectEvents, activeTimeline) =>
         Object.values(selectEvents)
           .filter(event => event.timelineId === activeTimeline?.id)
-          .map(
+          .sort((a, b) => b.date.getTime() - a.date.getTime())
+    );
+    const selectShouldEditEventSelector = createSelector(
+      selectShowEditEventId,
+      selectActiveTimelineEventsSelector,
+      selectActiveTimeline,
+      (editEventId, events, activeTimeline) =>
+        activeTimeline?.id && editEventId === 0
+          ? createDefaultTimelineEvent(activeTimeline.id)
+          : events.find(event => event.id === editEventId)
+    );
+
+    return {
+      isLoading: createSelector(selectLoading, loading => loading),
+      selectActiveTimelineEvents: selectActiveTimelineEventsSelector,
+      selectActiveTimelineViewEvents: createSelector(
+        selectActiveTimelineEventsSelector,
+        events =>
+          events.map(
             (event): ExistViewTimelineEvent => ({
               ...createViewTimelineEvent(event),
               id: event.id,
             })
           )
-          .sort(
-            (a, b) =>
-              b.date.originalDate.getTime() - a.date.originalDate.getTime()
-          )
-    ),
-    isEditingEvent: createSelector(
-      selectEditEvent,
-      selectEditEvent => selectEditEvent !== null
-    ),
-    selectUploadedImageId: createSelector(
-      selectEditEvent,
-      selectEditEvent => selectEditEvent?.event?.imageId
-    ),
-  }),
+      ),
+      isEditingEvent: createSelector(
+        selectShouldEditEventSelector,
+        event => !!event
+      ),
+      selectShouldEditEvent: selectShouldEditEventSelector,
+      selectUploadedImageId: createSelector(
+        selectShouldEditEventSelector,
+        event => event?.imageId
+      ),
+    };
+  },
 });

@@ -132,10 +132,6 @@ export class MyPageComponent {
     });
   }
 
-  editEvent(event: Iterable) {
-    this.store.dispatch(EventActions.showEditEventForm({ eventId: event.id }));
-  }
-
   filterByTag(tag: ViewTimelineTag) {
     throw new Error('Method not implemented.' + tag);
   }
@@ -167,10 +163,11 @@ export class MyPageComponent {
     this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
   }
 
+  editEvent(event: Iterable) {
+    this.store.dispatch(EventActions.dispatchEditEvent({ eventId: event.id }));
+  }
   dispatchNewEventCreation() {
-    this.store.dispatch(
-      EventActions.showAddEventForm({ timelineId: this.timelineId() })
-    );
+    this.store.dispatch(EventActions.dispatchEditEvent({ eventId: 0 }));
   }
 
   private convertImageStatus(status: StatusWithPending): Status {

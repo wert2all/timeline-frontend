@@ -45,22 +45,26 @@ const uploadImage = (
         .select(accountFeature.selectActiveAccount)
         .pipe(map(account => account?.previewlyToken))
     ),
-    exhaustMap(([{ image }, token]) =>
+    exhaustMap(([{ image, uuid }, token]) =>
       token
         ? apiClient.uploadImages({ images: [image], token }).pipe(
             map(result => result.data?.upload),
             map(data =>
               data && data[0]
                 ? UploadActions.successUploadImage({
+                    uuid,
                     id: data[0].id,
                     status: convertStatus(data[0].status),
                     error: data[0].error,
                   })
                 : UploadActions.failedUploadImage({
+                    uuid,
                     error: 'Failed to load uploaded image',
                   })
             ),
-            catchError(error => of(UploadActions.failedUploadImage({ error })))
+            catchError(error =>
+              of(UploadActions.failedUploadImage({ uuid, error }))
+            )
           )
         : of(AuthActions.dispatchEmptyPreviewlyTokenError())
     )

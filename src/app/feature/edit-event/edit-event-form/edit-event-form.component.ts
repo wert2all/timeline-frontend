@@ -1,11 +1,9 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
   effect,
-  inject,
   input,
   output,
   signal,
@@ -28,29 +26,18 @@ import {
   saxTagOutline,
   saxTextBlockOutline,
 } from '@ng-icons/iconsax/outline';
-import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
-import {
-  catchError,
-  debounceTime,
-  distinctUntilChanged,
-  map,
-  of,
-  tap,
-} from 'rxjs';
-import { PreviewActions } from '../../../store/preview/preview.actions';
-import { previewFeature } from '../../../store/preview/preview.reducers';
-import { ViewTimelineEvent } from '../../../store/timeline/timeline.types';
+import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
+import { TimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { fromInputSignal } from '../../../libs/signal.functions';
-import { accountFeature } from '../../../store/account/account.reducer';
-import { UploadActions } from '../../../store/images/images.actions';
-import { imagesFeature } from '../../../store/images/images.reducer';
-import { timelineFeature } from '../../../store/timeline/timeline.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
-import { EditValue } from '../edit-event.types';
+import { EditEventFormChanges } from '../edit-event.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
-import { EditForm } from './edit-event-form.types';
+import {
+  EditEventForm,
+  EditEventFormViewHelper,
+} from './edit-event-form.types';
 import { EditFormLinkInputComponent } from './link-input/link-input.component';
 import { EditEventFormTabsComponent } from './tabs/tabs.component';
 import { EditFormTagsInputComponent } from './tags-input/tags-input.component';
@@ -92,16 +79,23 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
     EditEventFormUploadInputComponent,
   ],
 })
-export class EditEventFormComponent implements AfterViewInit {
-  saveEvent = output();
-  valuesChanged = output<EditValue>();
+export class EditEventFormComponent {
+  fileSelected = output<File>();
+  urlChanged = output<URL>();
+  valuesChanged = output<EditEventFormChanges>();
+
+  saveAction = output();
   dismissAction = output();
 
-  editEvent = input<ViewTimelineEvent | null>(null);
+  editEvent = input.required<TimelineEvent>();
+  viewHelper = input.required<EditEventFormViewHelper>();
+
+  isNew = input(false);
   openTab = input(0);
   loading = input(false);
+  enableUpload = input(false);
 
-  protected readonly editForm = new FormGroup<EditForm>({
+  protected readonly editForm = new FormGroup<EditEventForm>({
     id: new FormControl(null),
     date: new FormControl<string>(DateTime.now().toISODate(), [
       Validators.required,
@@ -110,161 +104,118 @@ export class EditEventFormComponent implements AfterViewInit {
       DateTime.now().toLocaleString(DateTime.TIME_24_SIMPLE),
       [Validators.pattern(TIME_REGEXP)]
     ),
-    withTime: new FormControl(false, { nonNullable: true }),
     showTime: new FormControl(false, { nonNullable: true }),
     title: new FormControl('', { nonNullable: true }),
     content: new FormControl('', { nonNullable: true }),
     link: new FormControl(null, [Validators.pattern(URL_REGEXP)]),
     isPrivate: new FormControl(false),
     imageId: new FormControl<number | null>(null),
+    tags: new FormControl<string[]>([]),
   });
 
-  private formValues = signal<EditValue | null>(null);
-  private formChanges$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
-  private store = inject(Store);
-  private readonly allPreviews = this.store.selectSignal(
-    previewFeature.selectPreviews
-  );
-  private readonly uploadedImageId = this.store.selectSignal(
-    timelineFeature.selectUploadedImageId
-  );
-
-  protected previewImage = this.store.selectSignal(
-    imagesFeature.selectCurrentUpload
-  );
+  private readonly imageId = computed(() => {
+    return this.viewHelper().image?.id;
+  });
+  private formChange$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
 
   protected readonly switchTab = fromInputSignal(this.openTab);
   protected readonly tags = signal<ViewTimelineTag[]>([]);
 
-  protected isDisabled = computed(() => this.loading() === true);
-  protected isEditing = computed(() => !!this.editEvent()?.id);
-
-  protected buttonIcon = computed(() =>
-    this.isEditing() ? 'saxCalendarTickOutline' : 'saxCalendarAddOutline'
+  protected readonly submitButton = computed(() =>
+    this.isNew()
+      ? { title: 'Add', icon: 'saxCalendarAddOutline' }
+      : { title: 'Save', icon: 'saxCalendarTickOutline' }
   );
-  protected buttonTitle = computed(() => (this.isEditing() ? 'Save' : 'Add'));
+
   protected readonly previewLink = toSignal(
-    this.formChanges$.pipe(debounceTime(2000), distinctUntilChanged()).pipe(
-      map(values => values.link),
+    this.editForm.controls.link.valueChanges.pipe(
+      debounceTime(2000),
+      distinctUntilChanged(),
       map(link => (link ? new URL(link) : null)),
-      map(url => url || null),
-      tap(url => {
-        if (url) {
-          this.store.dispatch(PreviewActions.addURL({ url }));
-        }
-      }),
       catchError(() => of(null))
     )
   );
 
-  protected readonly previewHolder = computed(() =>
-    this.allPreviews().find(item => item.url === this.previewLink()?.toString())
-  );
-
-  protected accountSettings = this.store.selectSignal(
-    accountFeature.selectActiveAccountFeaturesSettings
-  );
-  private readonly shouldRemoveImages: number[] = [];
-
   constructor() {
-    this.editForm.controls.withTime.valueChanges
-      .pipe(takeUntilDestroyed())
-      .subscribe(withTime => {
-        if (withTime) {
-          this.editForm.controls.time.enable();
-          this.editForm.controls.showTime.enable();
-        } else {
-          this.editForm.controls.time.disable();
-          this.editForm.controls.showTime.disable();
-        }
-      });
-
-    this.formChanges$.subscribe(values => {
-      this.formValues.set({
-        ...values,
-        time: values.time,
-        withTime: values.withTime,
-        url: values.link,
-        imageId: values.imageId,
-      });
-    });
-
     effect(() => {
-      const uploadedImageId = this.uploadedImageId();
-      if (uploadedImageId) {
-        if (this.editForm.controls.imageId.value !== uploadedImageId) {
-          if (this.editForm.controls.imageId.value) {
-            this.shouldRemoveImages.push(this.editForm.controls.imageId.value);
-          }
-        }
-        this.editForm.controls.imageId.setValue(uploadedImageId);
+      const event = this.editEvent();
+
+      this.editForm.controls.id.setValue(event.id || null);
+      this.editForm.controls.title.setValue(event.title || '');
+      this.editForm.controls.content.setValue(event.description || '');
+
+      const date = event.date
+        ? DateTime.fromJSDate(event.date)
+        : DateTime.now();
+
+      this.editForm.controls.date.setValue(date.toISODate());
+
+      this.editForm.controls.showTime.setValue(event.showTime || false);
+      this.editForm.controls.time.setValue(
+        date.toLocaleString(DateTime.TIME_24_SIMPLE)
+      );
+
+      this.editForm.controls.link.setValue(event.url || null);
+      this.editForm.controls.imageId.setValue(event.imageId || null);
+      this.editForm.controls.tags.setValue(event.tags || null);
+    });
+    effect(() => {
+      if (this.loading()) {
+        this.editForm.controls.title.disable();
+        this.editForm.controls.content.disable();
+
+        this.editForm.controls.date.disable();
+        this.editForm.controls.time.disable();
+        this.editForm.controls.showTime.disable();
+
+        this.editForm.controls.link.disable();
+      } else {
+        this.editForm.controls.title.enable();
+        this.editForm.controls.content.enable();
+
+        this.editForm.controls.date.enable();
+        this.editForm.controls.time.enable();
+        this.editForm.controls.showTime.enable();
+
+        this.editForm.controls.link.enable();
+      }
+    });
+    effect(() => {
+      const url = this.previewLink();
+      if (url) {
+        this.urlChanged.emit(url);
       }
     });
 
     effect(() => {
-      this.updateDisabledControls();
-      this.valuesChanged.emit({
-        ...(this.formValues() || this.editForm.value),
-        tags: this.tags().map(tag => tag.value),
-        shouldRemoveImages: this.shouldRemoveImages,
-      });
+      const imageId = this.imageId();
+      if (imageId) {
+        this.editForm.controls.imageId.setValue(imageId);
+      }
     });
-  }
 
-  ngAfterViewInit(): void {
-    const editEvent = this.editEvent();
-
-    if (editEvent) {
-      this.editForm.controls.id.setValue(editEvent.id || null);
-      this.editForm.controls.title.setValue(editEvent.title || '');
-      this.editForm.controls.content.setValue(editEvent.description);
-
-      this.editForm.controls.date.setValue(
-        (editEvent.date.date
-          ? DateTime.fromJSDate(editEvent.date.originalDate)
-          : DateTime.now()
-        ).toISODate()
-      );
-
-      this.editForm.controls.withTime.setValue(editEvent.showTime || false);
-      this.editForm.controls.showTime.setValue(editEvent.showTime || false);
-      this.editForm.controls.time.setValue(editEvent.date.time);
-
-      this.editForm.controls.link.setValue(editEvent.url?.link || null);
-      this.editForm.controls.imageId.setValue(editEvent.imageId || null);
-      this.tags.set(editEvent.tags);
-    }
+    this.formChange$.subscribe(() => {
+      this.valuesChanged.emit(this.editForm.value);
+    });
   }
 
   switchTo(tabNumber: number) {
     this.switchTab.set(tabNumber);
   }
 
-  handleSelectFile(file: File) {
-    this.store.dispatch(UploadActions.uploadImage({ image: file }));
+  couldRemoveImage() {
+    return !!this.editForm.controls.imageId.value;
   }
 
-  private updateDisabledControls() {
-    if (this.isDisabled()) {
-      this.editForm.controls.title.disable();
-      this.editForm.controls.content.disable();
+  removeImage() {
+    this.editForm.controls.imageId.setValue(null);
+  }
 
-      this.editForm.controls.withTime.disable();
-      this.editForm.controls.date.disable();
-      this.editForm.controls.time.disable();
-      this.editForm.controls.showTime.disable();
+  handleSelectFile(file: File) {
+    this.fileSelected.emit(file);
+  }
 
-      this.editForm.controls.link.disable();
-    } else {
-      this.editForm.controls.title.enable();
-      this.editForm.controls.content.enable();
-
-      this.editForm.controls.withTime.enable();
-      this.editForm.controls.date.enable();
-      this.editForm.controls.time.enable();
-      this.editForm.controls.showTime.enable();
-
-      this.editForm.controls.link.enable();
-    }
+  setTags(tags: string[]) {
+    this.editForm.controls.tags.setValue(tags);
   }
 }
