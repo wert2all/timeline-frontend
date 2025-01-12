@@ -1,3 +1,5 @@
+@use '../../../../assets/css/global' as g;
+
 .tab-content-0,
 .tab-content-1,
 .tab-content-2,
@@ -13,14 +15,6 @@
 .active-tab-4 .tab-content-4,
 .active-tab-5 .tab-content-5 {
   @apply block;
-  animation: 0.3s swipe-left;
-}
-
-@keyframes swipe-left {
-  0% {
-    margin-left: 110%;
-  }
-  100% {
-    margin-left: 0%;
-  }
+  animation-duration: g.$animation-duration;
+  animation-name: swipe-left-tab-content;
 }

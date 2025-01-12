@@ -1,32 +1,34 @@
 <div
   class="active-tab-{{
     switchTab()
-  }} event-form bg-base-300 timeline-box relative mt-4 pt-0 lg:mt-0"
+  }} event-form bg-base-300 timeline-box relative mt-4 pt-0 lg:mt-0 "
   [class.skeleton]="isDisabled()">
   <app-edit-event-form-tabs
     (switchTab)="switchTo($event)"
     [activeTab]="switchTab()"
     [accountSettings]="accountSettings()" />
 
-  <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
-  <app-edit-event-form-date-time-input
-    class="tab-content-1 mt-4"
-    [form]="editForm" />
-  <app-edit-event-form-tags-input
-    class="tab-content-2"
-    [form]="editForm"
-    [inputTags]="tags()"
-    [isDisabled]="isDisabled()"
-    (outputTags)="tags.set($event)" />
-  <app-edit-event-form-link-input
-    class="tab-content-3"
-    [form]="editForm"
-    [preview]="previewHolder()" />
-  <app-edit-event-form-upload-input
-    class="tab-content-4"
-    [form]="editForm"
-    [previewImage]="previewImage()"
-    (selectFile)="handleSelectFile($event)" />
+  <div class="overflow-hidden">
+    <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
+    <app-edit-event-form-date-time-input
+      class="tab-content-1 mt-4"
+      [form]="editForm" />
+    <app-edit-event-form-tags-input
+      class="tab-content-2"
+      [form]="editForm"
+      [inputTags]="tags()"
+      [isDisabled]="isDisabled()"
+      (outputTags)="tags.set($event)" />
+    <app-edit-event-form-link-input
+      class="tab-content-3"
+      [form]="editForm"
+      [preview]="previewHolder()" />
+    <app-edit-event-form-upload-input
+      class="tab-content-4"
+      [form]="editForm"
+      [previewImage]="previewImage()"
+      (selectFile)="handleSelectFile($event)" />
+  </div>
 
   <div class="mt-8 flex place-items-center gap-4 lg:hidden">
     <label
