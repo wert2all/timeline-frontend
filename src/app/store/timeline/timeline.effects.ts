@@ -1,7 +1,5 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
@@ -12,7 +10,6 @@ import {
   fromApiEventToState,
   fromEditableEventStateToApiInput,
 } from './timeline.convertors';
-import { timelineFeature } from './timeline.reducer';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
@@ -119,20 +116,17 @@ const failedDeleteEvent = (
     tap(() => notification.addMessage('Could not delete event', 'error'))
   );
 
-const saveEditableEvent = (actions$ = inject(Actions), store = inject(Store)) =>
+const saveEditableEvent = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(EventActions.saveEditableEvent),
-    concatLatestFrom(() => store.select(timelineFeature.selectEditEvent)),
-    map(([, editEvent]) => editEvent?.event),
-    map(event => (event ? fromEditableEventStateToApiInput(event) : null)),
+    map(({ event }) => fromEditableEventStateToApiInput(event)),
+    tap(event => console.log(event.date)),
     map(event =>
-      event
-        ? event.id
-          ? EventActions.updateExistEventOnAPI({
-              event: { ...event, id: event.id },
-            })
-          : EventActions.pushNewEventToAPI({ event: event })
-        : EventActions.nothingToSave()
+      event.id
+        ? EventActions.updateExistEventOnAPI({
+            event: { ...event, id: event.id },
+          })
+        : EventActions.pushNewEventToAPI({ event: event })
     )
   );
 

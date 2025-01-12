@@ -2,11 +2,11 @@
   class="active-tab-{{
     switchTab()
   }} event-form bg-base-300 timeline-box relative mt-4 pt-0 lg:mt-0 "
-  [class.skeleton]="isDisabled()">
+  [class.skeleton]="loading()">
   <app-edit-event-form-tabs
     (switchTab)="switchTo($event)"
     [activeTab]="switchTab()"
-    [accountSettings]="accountSettings()" />
+    [enebleUpload]="enableUpload()" />
 
   <div class="overflow-hidden">
     <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
@@ -16,18 +16,25 @@
     <app-edit-event-form-tags-input
       class="tab-content-2"
       [form]="editForm"
-      [inputTags]="tags()"
-      [isDisabled]="isDisabled()"
-      (outputTags)="tags.set($event)" />
+      [inputTags]="editForm.controls.tags.value || []"
+      [isDisabled]="loading()"
+      (outputTags)="setTags($event)" />
     <app-edit-event-form-link-input
       class="tab-content-3"
       [form]="editForm"
-      [preview]="previewHolder()" />
-    <app-edit-event-form-upload-input
-      class="tab-content-4"
-      [form]="editForm"
-      [previewImage]="previewImage()"
-      (selectFile)="handleSelectFile($event)" />
+      [preview]="viewHelper().url" />
+    @if (enableUpload()) {
+      <div class="tab-content-4">
+        <app-edit-event-form-upload-input
+          [previewImage]="viewHelper().image"
+          (selectFile)="handleSelectFile($event)" />
+        @if (couldRemoveImage()) {
+          <button class="btn btn-warning btn-sm mt-4" (click)="removeImage()">
+            remove image
+          </button>
+        }
+      </div>
+    }
   </div>
 
   <div class="mt-8 flex place-items-center gap-4 lg:hidden">
@@ -48,13 +55,11 @@
   <div class="mt-8 flex place-items-center gap-4">
     <div class="flex-none">
       <button
-        (click)="saveEvent.emit()"
+        (click)="saveAction.emit()"
         class="btn btn-primary"
-        [attr.disabled]="
-          !editForm.valid || isDisabled() === true ? true : null
-        ">
-        <ng-icon [name]="buttonIcon()" size="24"></ng-icon>
-        {{ buttonTitle() }}
+        [attr.disabled]="!editForm.valid || loading() === true ? true : null">
+        <ng-icon [name]="submitButton().icon" size="24"></ng-icon>
+        {{ submitButton().title }}
       </button>
     </div>
     <div class="flex-none lg:hidden">
@@ -81,7 +86,7 @@
 
   <button
     class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4 hidden lg:flex"
-    [attr.disabled]="isDisabled() === true ? true : null"
+    [attr.disabled]="loading() === true ? true : null"
     (click)="dismissAction.emit()">
     ✕
   </button>

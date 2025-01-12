@@ -2,7 +2,7 @@ import { Component, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateTime } from 'luxon';
 import { DatePickerComponent } from '../../../../share/date-picker/date-picker.component';
-import { EditForm } from '../edit-event-form.types';
+import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
   selector: 'app-edit-event-form-date-time-input',
@@ -10,7 +10,7 @@ import { EditForm } from '../edit-event-form.types';
   imports: [DatePickerComponent, ReactiveFormsModule],
 })
 export class EditFormDateTimeInputComponent {
-  form = input.required<FormGroup<EditForm>>();
+  form = input.required<FormGroup<EditEventForm>>();
 
   updateDate(date: Date) {
     this.form().controls.date.setValue(DateTime.fromJSDate(date).toISODate());

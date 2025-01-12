@@ -1,8 +1,7 @@
-import { Component, input, output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, computed, input, output, signal } from '@angular/core';
+import { Pending, Status, Undefined } from '../../../../app.types';
 import { LoaderComponent } from '../../../../share/loader/loader.component';
-import { CurrentUpload } from '../../../../store/images/images.types';
-import { EditForm } from '../edit-event-form.types';
+import { UploadQuequeImage } from '../../../../store/images/images.types';
 
 @Component({
   standalone: true,
@@ -11,13 +10,21 @@ import { EditForm } from '../edit-event-form.types';
   imports: [LoaderComponent],
 })
 export class EditEventFormUploadInputComponent {
-  form = input.required<FormGroup<EditForm>>();
-  previewImage = input.required<CurrentUpload>();
+  previewImage = input.required<Undefined | UploadQuequeImage>();
 
   selectFile = output<File>();
+  isLoading = computed(() => this.previewImage()?.status === Status.LOADING);
+  previewUrl = computed(() => {
+    return this.previewImage()?.status === Pending.PENDING
+      ? this.selectedFileUrl()
+      : null;
+  });
+
+  private readonly selectedFileUrl = signal<string | null>(null);
 
   handleFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
     this.selectFile.emit(input.files![0]);
+    this.selectedFileUrl.set(URL.createObjectURL(input.files![0]));
   }
 }

@@ -1,14 +1,26 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Pending, Status } from '../../app.types';
+import { Pending, Status, UniqueType } from '../../app.types';
 import { updateStateRecord } from '../../libs/state.functions';
 import { EventActions } from '../timeline/timeline.actions';
 import { ImagesActions, UploadActions } from './images.actions';
-import { ImagesState } from './images.types';
+import { ImagesState, UploadQuequeImage } from './images.types';
+
+const updateQueque = (
+  queue: Record<UniqueType, UploadQuequeImage>,
+  image: UploadQuequeImage
+): Record<UniqueType, UploadQuequeImage> =>
+  [...Object.values(queue), image].reduce(
+    (acc: Record<UniqueType, UploadQuequeImage>, event) => {
+      acc[event.uuid] = image.uuid === event.uuid ? image : event;
+      return acc;
+    },
+    {}
+  );
 
 const initState: ImagesState = {
-  currentUpload: { loading: false, previewUrl: null, error: null },
   images: {},
   maybeShouldRemoveImages: [],
+  queue: {},
 };
 
 export const imagesFeature = createFeature({
@@ -16,17 +28,6 @@ export const imagesFeature = createFeature({
   reducer: createReducer(
     initState,
 
-    on(
-      UploadActions.uploadImage,
-      (state, { image }): ImagesState => ({
-        ...state,
-        currentUpload: {
-          loading: true,
-          previewUrl: URL.createObjectURL(image),
-          error: null,
-        },
-      })
-    ),
     on(
       UploadActions.successUploadImage,
       (state, { id, status, error }): ImagesState => {
@@ -42,7 +43,6 @@ export const imagesFeature = createFeature({
         return {
           ...state,
           images: images,
-          currentUpload: { previewUrl: null, loading: false, error: null },
         };
       }
     ),
@@ -52,9 +52,37 @@ export const imagesFeature = createFeature({
         previewUrl: null,
         loading: false,
         error: error,
+        title: '',
       },
     })),
 
+    on(UploadActions.uploadImage, (state, { uuid }) => ({
+      ...state,
+      queue: updateQueque(state.queue, { uuid, status: Pending.PENDING }),
+    })),
+
+    on(
+      UploadActions.successUploadImage,
+      (state, { id, uuid, error, status }) => ({
+        ...state,
+        queue: updateQueque(state.queue, {
+          uuid,
+          error: error ? new Error(error) : undefined,
+          status,
+          id,
+        }),
+      })
+    ),
+    on(UploadActions.failedUploadImage, (state, { error, uuid }) => ({
+      ...state,
+      queue: updateQueque(state.queue, {
+        error: new Error(error),
+        uuid,
+        status: Status.ERROR,
+      }),
+    })),
+
+    on(EventActions.closeEditForm, state => ({ ...state, queue: {} })),
     on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
       ...state,
       images: updateStateRecord(
@@ -103,7 +131,10 @@ export const imagesFeature = createFeature({
       })
     )
   ),
-  extraSelectors: ({ selectImages }) => ({
+  extraSelectors: ({ selectImages, selectQueue }) => ({
+    selectCurrentUploadImage: createSelector(selectQueue, queque =>
+      Object.values(queque).pop()
+    ),
     selectShouldUpdate: createSelector(selectImages, images =>
       Object.values(images).filter(image => image.status == Pending.PENDING)
     ),

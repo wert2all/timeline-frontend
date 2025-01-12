@@ -30,12 +30,11 @@ export const EventActions = createActionGroup({
     'Load timeline events': props<{ timelineId: number }>(),
     'Success load timeline events': props<{ events: ExistTimelineEvent[] }>(),
 
-    'Show add event form': props<{ timelineId: number }>(),
-    'Show edit event form': props<{ eventId: number | Undefined }>(),
     'Close edit form': emptyProps(),
 
-    'Update preview of editable event': props<{ event: TimelineEvent }>(),
-    'Save editable event': emptyProps(),
+    'Save editable event': props<{
+      event: TimelineEvent | ExistTimelineEvent;
+    }>(),
 
     'Push new event to API': props<{ event: TimelineEventInput }>(),
     'Success push new event': props<{ events: ExistTimelineEvent[] }>(),
@@ -43,7 +42,7 @@ export const EventActions = createActionGroup({
     'Update exist event on API': props<{ event: ExistTimelineEventInput }>(),
     'Success update event': props<{ events: ExistTimelineEvent[] }>(),
 
-    'Nothing to save': emptyProps(),
+    'Dispatch edit event': props<{ eventId: number | Undefined }>(),
 
     'Confirm to delete event': props<{ eventId: number }>(),
     'Delete event': props<{ eventId: number; imageId: number | Undefined }>(),

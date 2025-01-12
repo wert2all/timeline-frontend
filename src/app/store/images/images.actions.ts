@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Status, Undefined } from '../../app.types';
+import { Status, Undefined, Unique } from '../../app.types';
 import { PollingActionProps } from '../../libs/polling/polling.types';
 import { UploadedImage } from './images.types';
 
@@ -10,13 +10,15 @@ export type ImagesPollingActionProps = PollingActionProps & {
 export const UploadActions = createActionGroup({
   source: 'Upload',
   events: {
-    'Upload image': props<{ image: File }>(),
-    'Success upload image': props<{
-      id: number;
-      status: Status;
-      error: Undefined | string;
-    }>(),
-    'Failed upload image': props<{ error: string }>(),
+    'Upload image': props<Unique & { image: File }>(),
+    'Success upload image': props<
+      Unique & {
+        id: number;
+        status: Status;
+        error: Undefined | string;
+      }
+    >(),
+    'Failed upload image': props<Unique & { error: string }>(),
   },
 });
 

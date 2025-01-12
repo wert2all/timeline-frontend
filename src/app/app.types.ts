@@ -6,7 +6,8 @@ export type Undefined = null | undefined;
 export interface Clickable<T> {
   click: (item: T) => void;
 }
-export type Unique = { uuid: string };
+export type UniqueType = string;
+export type Unique = { uuid: UniqueType };
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PartialRecord<K extends keyof any, T> = { [P in K]?: T };
@@ -23,7 +24,11 @@ export enum Pending {
 }
 export type StatusWithPending = Status | Pending;
 
-export type DataWrapper<T> = { status: Status; data?: T; error?: Error };
+export type WithError = { error?: Error | Undefined };
+export type WithStatus = { status: Status };
+export type WithPandingStatus = { status: Status | Pending };
+
+export type DataWrapper<T> = WithError & WithStatus & { data?: T };
 
 export const StoreDispatchEffect: EffectConfig & {
   functional: true;

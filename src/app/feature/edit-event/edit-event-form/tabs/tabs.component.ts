@@ -10,15 +10,13 @@ import {
   saxTagOutline,
   saxTextBlockOutline,
 } from '@ng-icons/iconsax/outline';
-import { AccountFeaturesSettings } from '../../../features.service';
-import { FeatureFlagComponent } from '../../../user/features/feature-flag/feature-flag.component';
 
 @Component({
   standalone: true,
   selector: 'app-edit-event-form-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
-  imports: [NgIconComponent, FeatureFlagComponent],
+  imports: [NgIconComponent],
   viewProviders: [
     provideIcons({
       saxAddOutline,
@@ -33,7 +31,8 @@ import { FeatureFlagComponent } from '../../../user/features/feature-flag/featur
   ],
 })
 export class EditEventFormTabsComponent {
-  accountSettings = input.required<AccountFeaturesSettings>();
   activeTab = input(0);
+  enebleUpload = input(false);
+
   switchTab = output<number>();
 }
