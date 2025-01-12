@@ -23,6 +23,7 @@ export interface Feature {
 }
 
 const canShow = (account: FeaturesAccount, flag: string): boolean =>
+  FEATURE_FLAGS[flag as FeatureFlagName].stage === FeatureStage.done ||
   account.settings[flag as FeatureFlagName] === true;
 
 const FEATURE_FLAGS = {
@@ -30,19 +31,19 @@ const FEATURE_FLAGS = {
     name: 'Dark/Light mode',
     description: 'Toggle between dark and light mode',
     canShow: account => canShow(account, 'dark_light_mode'),
-    stage: FeatureStage.testing,
+    stage: FeatureStage.done,
   },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
-    stage: FeatureStage.started,
     canShow: account => canShow(account, 'user_settings'),
+    stage: FeatureStage.started,
   },
   user_feature_flag: {
     name: 'Features',
     description: 'Change some features of application.',
-    stage: FeatureStage.testing,
     canShow: account => canShow(account, 'user_feature_flag'),
+    stage: FeatureStage.done,
   },
   show_user_accounts: {
     name: 'Accounts',
@@ -54,7 +55,7 @@ const FEATURE_FLAGS = {
     name: 'Upload images',
     description: 'Upload images and assign to events',
     canShow: account => canShow(account, 'upload_images'),
-    stage: FeatureStage.development,
+    stage: FeatureStage.testing,
   },
 } as const satisfies Record<string, Feature>;
 
