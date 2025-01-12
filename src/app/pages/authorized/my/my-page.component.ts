@@ -148,7 +148,7 @@ export class MyPageComponent {
   }
 
   confirmDelete() {
-    if (this.shouldDeleteEventId() > 0 && this.shouldDeleteImageId()) {
+    if (this.shouldDeleteEventId() > 0) {
       this.store.dispatch(
         EventActions.deleteEvent({
           eventId: this.shouldDeleteEventId(),
