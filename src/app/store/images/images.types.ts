@@ -24,5 +24,5 @@ export type UploadQuequeImage = Unique &
 export type ImagesState = {
   queue: Record<UniqueType, UploadQuequeImage>;
   images: Record<number, UploadedImage>;
-  maybeShouldRemoveImages: number[];
+  shouldDelete: Iterable[];
 };

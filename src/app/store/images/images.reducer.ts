@@ -5,23 +5,7 @@ import { EventActions } from '../timeline/timeline.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
 
-const updateQueque = (
-  queue: Record<UniqueType, UploadQuequeImage>,
-  image: UploadQuequeImage
-): Record<UniqueType, UploadQuequeImage> =>
-  [...Object.values(queue), image].reduce(
-    (acc: Record<UniqueType, UploadQuequeImage>, event) => {
-      acc[event.uuid] = image.uuid === event.uuid ? image : event;
-      return acc;
-    },
-    {}
-  );
-
-const initState: ImagesState = {
-  images: {},
-  maybeShouldRemoveImages: [],
-  queue: {},
-};
+const initState: ImagesState = { images: {}, queue: {}, shouldDelete: [] };
 
 export const imagesFeature = createFeature({
   name: 'images',
@@ -108,11 +92,6 @@ export const imagesFeature = createFeature({
       images: updateStateRecord(state.images, images),
     })),
 
-    on(ImagesActions.maybeShouldRemoveImages, (state, { images }) => ({
-      ...state,
-      maybeShouldRemoveImages: images,
-    })),
-
     on(EventActions.closeEditForm, state => ({
       ...state,
       maybeShouldRemoveImages: [],
@@ -143,3 +122,15 @@ export const imagesFeature = createFeature({
     ),
   }),
 });
+
+const updateQueque = (
+  queue: Record<UniqueType, UploadQuequeImage>,
+  image: UploadQuequeImage
+): Record<UniqueType, UploadQuequeImage> =>
+  [...Object.values(queue), image].reduce(
+    (acc: Record<UniqueType, UploadQuequeImage>, event) => {
+      acc[event.uuid] = image.uuid === event.uuid ? image : event;
+      return acc;
+    },
+    {}
+  );
