@@ -30,7 +30,6 @@ export const ImagesActions = createActionGroup({
 
     'Maybe should remove images': props<{ images: number[] }>(),
 
-    'Dispatch deleting images': props<{ images: number[] }>(),
     'Success deleting images': props<{ images: number[] }>(),
 
     'Should not load empty image list': emptyProps(),
