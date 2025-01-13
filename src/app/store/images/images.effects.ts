@@ -119,21 +119,6 @@ const successLoadingImagesTask = (actions$ = inject(Actions)) =>
     map(images => ImagesActions.successUpdateImages({ images: images || [] }))
   );
 
-const deleteImages = (actions$ = inject(Actions), store = inject(Store)) =>
-  actions$.pipe(
-    ofType(
-      EventActions.successUpdateEvent,
-      EventActions.successPushNewEvent,
-      EventActions.successDeleteEvent
-    ),
-    concatLatestFrom(() =>
-      store.select(imagesFeature.selectMaybeShouldRemoveImages)
-    ),
-    map(([, images]) => images),
-    tap(images => console.log('delete images: ', images)),
-    map(images => ImagesActions.successDeletingImages({ images }))
-  );
-
 export const imageEffects = {
   uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
   failedUploadImage: createEffect(
@@ -149,6 +134,4 @@ export const imageEffects = {
     successLoadingImagesTask,
     StoreDispatchEffect
   ),
-
-  deleteImages: createEffect(deleteImages, StoreDispatchEffect),
 };
