@@ -152,6 +152,18 @@ const deleteImagesAfterSave = (
     map(images => ImagesActions.successDeletingImages({ images }))
   );
 
+const deleteImagesAfterDelete = (
+  actions$ = inject(Actions),
+  store = inject(Store)
+) =>
+  actions$.pipe(
+    ofType(EventActions.successDeleteEvent),
+    concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
+    map(([, imageIds]) => imageIds.map(imageId => imageId.id)),
+    tap(images => console.log('deleted images: ', images)),
+    map(images => ImagesActions.successDeletingImages({ images }))
+  );
+
 export const imageEffects = {
   uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
   failedUploadImage: createEffect(
@@ -171,6 +183,11 @@ export const imageEffects = {
   addImageOnEdit: createEffect(addImageOnEdit, StoreDispatchEffect),
   deleteImagesAfterSave: createEffect(
     deleteImagesAfterSave,
+    StoreDispatchEffect
+  ),
+
+  deleteImagesAfterDelete: createEffect(
+    deleteImagesAfterDelete,
     StoreDispatchEffect
   ),
 };
