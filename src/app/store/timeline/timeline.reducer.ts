@@ -77,7 +77,7 @@ export const timelineFeature = createFeature({
     })),
 
     on(
-      EventActions.closeEditForm,
+      EventActions.stopEditingEvent,
       EventActions.successPushNewEvent,
       EventActions.successUpdateEvent,
       (state): TimelineState => ({ ...state, showEditEventId: null })

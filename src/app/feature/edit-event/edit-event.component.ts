@@ -123,7 +123,7 @@ export class EditEventComponent {
     });
   }
   protected closeEditForm() {
-    this.store.dispatch(EventActions.closeEditForm());
+    this.store.dispatch(EventActions.stopEditingEvent());
   }
 
   protected updatePreviewEvent(value: EditEventFormChanges) {
