@@ -1,15 +1,15 @@
 import { Observable } from 'rxjs';
 import { TaskType } from '../../store/task/task.types';
 
-export type ExecutorResult<T> = {
+export interface ExecutorResult<T> {
   status: 'done' | 'pending';
   data?: T;
-};
+}
 
-export type TaskOption = {
+export interface TaskOption {
   name: string;
   value: string;
-};
+}
 
 export type TaskExecutor<T> = (
   options: TaskOption[]

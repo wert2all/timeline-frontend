@@ -1,12 +1,12 @@
 export type MessageType = 'success' | 'error' | 'warning';
 
-export type NotificationMessage = {
+export interface NotificationMessage {
   uuid: string;
   read: boolean;
   message: string;
   type: MessageType;
-};
+}
 
-export type NotificationsState = {
+export interface NotificationsState {
   messages: NotificationMessage[];
-};
+}

@@ -6,6 +6,6 @@ export type TableItem = Unique & {
   alt?: string;
 };
 
-export type TableOfContents = {
+export interface TableOfContents {
   items: TableItem[];
-};
+}

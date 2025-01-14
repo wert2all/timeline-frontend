@@ -16,7 +16,7 @@ export interface EditEventForm {
   tags: FormControl<string[] | null>;
 }
 
-export type EditEventFormViewHelper = {
+export interface EditEventFormViewHelper {
   url: PreviewHolder | Undefined;
   image: Undefined | UploadQuequeImage;
-};
+}

@@ -11,11 +11,11 @@ export enum TimelineEventType {
   celebrate = 'celebrate',
 }
 
-export type TimelineRequired = {
+export interface TimelineRequired {
   date: Date;
   type: TimelineEventType;
   timelineId: number;
-};
+}
 
 export type TimelineEvent = TimelineRequired &
   Loadable & {
@@ -28,13 +28,13 @@ export type TimelineEvent = TimelineRequired &
     imageId?: number;
   };
 
-export type ViewEventImage = {
+export interface ViewEventImage {
   imageId: number;
   status: Status;
   title?: string;
   previewUrl?: string;
   url?: string;
-};
+}
 
 export type ViewTimelineEvent = Omit<
   TimelineEvent,

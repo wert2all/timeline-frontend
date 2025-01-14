@@ -42,6 +42,7 @@ export const fromApiEventToState = (
 export const fromEventTypeStateToApiType = (
   type: TimelineEventType
 ): GQLTimelineType | null => {
+  // eslint-disable-next-line  sonarjs/no-small-switch
   switch (type) {
     case TimelineEventType.celebrate:
       return GQLTimelineType.selebrate;

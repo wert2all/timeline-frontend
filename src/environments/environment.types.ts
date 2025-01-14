@@ -2,24 +2,24 @@ export enum EnvironmentType {
   production = 'production',
   development = 'development',
 }
-export type GoogleServiceEnvironment = {
+export interface GoogleServiceEnvironment {
   clientId: string;
-};
+}
 
-export type PreviewlyServiceEnvironment = {
+export interface PreviewlyServiceEnvironment {
   url: string;
   token: string;
-};
+}
 
-export type SentryServiceEnvironment = {
+export interface SentryServiceEnvironment {
   dsn: string;
-};
+}
 
-export type ServiceEnvironments = {
+export interface ServiceEnvironments {
   sentry: SentryServiceEnvironment;
   google: GoogleServiceEnvironment;
   previewly: PreviewlyServiceEnvironment;
-};
+}
 
 export interface Environment {
   type: EnvironmentType;

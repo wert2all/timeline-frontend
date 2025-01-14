@@ -14,12 +14,16 @@ export class ViewTimelineTag {
   }
 }
 
-export type ViewTimelineUrl = { title: string; link: string };
+export interface ViewTimelineUrl {
+  title: string;
+  link: string;
+}
 
 export class ViewTimelineEventIcon {
   readonly icon: IconType;
 
   constructor(type: TimelineEventType) {
+    // eslint-disable-next-line sonarjs/no-small-switch
     switch (type) {
       case TimelineEventType.celebrate:
         this.icon = saxCakeBulk;

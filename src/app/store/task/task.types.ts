@@ -11,21 +11,21 @@ export enum TaskResultStatus {
   PENDING = 'PENDING',
 }
 
-export type TaskActionProps = {
+export interface TaskActionProps {
   type: TaskType;
   options: TaskOption[];
-};
+}
 
 export type Task = Iterable & {
   result: TaskResult<unknown>;
 };
 
-export type TaskResult<T> = {
+export interface TaskResult<T> {
   status: TaskResultStatus;
   data?: T;
   error?: Error;
-};
+}
 
-export type TaskState = {
+export interface TaskState {
   tasks: Record<number, Task>;
-};
+}

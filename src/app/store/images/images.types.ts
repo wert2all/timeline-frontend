@@ -8,9 +8,9 @@ import {
   WithPandingStatus,
 } from '../../app.types';
 
-export type ImageData = {
+export interface ImageData {
   resized_490x250: string;
-};
+}
 
 export type UploadedImage = Iterable & {
   status: StatusWithPending;
@@ -21,8 +21,8 @@ export type UploadQuequeImage = Unique &
   WithError &
   WithPandingStatus & { id?: number };
 
-export type ImagesState = {
+export interface ImagesState {
   queue: Record<UniqueType, UploadQuequeImage>;
   images: Record<number, UploadedImage>;
   shouldDelete: Iterable[];
-};
+}

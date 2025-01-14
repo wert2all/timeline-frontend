@@ -45,6 +45,7 @@ import { EditFormTextInputComponent } from './text-input/text-input.component';
 import { EditEventFormUploadInputComponent } from './upload-input/upload-input.component';
 
 const URL_REGEXP =
+  // eslint-disable-next-line sonarjs/regex-complexity
   /^[A-Za-z][A-Za-z\d.+-]*:\/*(?:\w+(?::\w+)?@)?[^\s/]+(?::\d+)?(?:\/[\w#!:.?+=&%@\-/]*)?$/;
 
 const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
