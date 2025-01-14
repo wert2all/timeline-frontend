@@ -66,7 +66,7 @@ export const imagesFeature = createFeature({
       }),
     })),
 
-    on(EventActions.closeEditForm, state => ({ ...state, queue: {} })),
+    on(EventActions.stopEditingEvent, state => ({ ...state, queue: {} })),
     on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
       ...state,
       images: updateStateRecord(
