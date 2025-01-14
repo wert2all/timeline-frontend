@@ -92,6 +92,17 @@ export const imagesFeature = createFeature({
       images: updateStateRecord(state.images, images),
     })),
 
+    on(
+      ImagesActions.maybeShouldDeleteImage,
+      (state, { imageId }): ImagesState =>
+        imageId
+          ? {
+              ...state,
+              shouldDelete: [...state.shouldDelete, { id: imageId }],
+            }
+          : state
+    ),
+
     on(EventActions.deleteEvent, (state, { imageId }) => ({
       ...state,
       shouldDelete: imageId ? [{ id: imageId }] : [],
