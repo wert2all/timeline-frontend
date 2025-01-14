@@ -110,6 +110,19 @@ const createTaskForLoadImages = (
     })
   );
 
+const deleteImages = (actions$ = inject(Actions), store = inject(Store)) =>
+  actions$.pipe(
+    ofType(
+      EventActions.successDeleteEvent,
+      EventActions.successUpdateEvent,
+      EventActions.successPushNewEvent
+    ),
+    concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
+    map(([, images]) => images.map(image => image.id)),
+    tap(images => console.log('deleted images: ', images)),
+    map(images => ImagesActions.successDeletingImages({ images: images }))
+  );
+
 const successLoadingImagesTask = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(TaskActions.successTask),
@@ -134,4 +147,6 @@ export const imageEffects = {
     successLoadingImagesTask,
     StoreDispatchEffect
   ),
+
+  deleteImages: createEffect(deleteImages, StoreDispatchEffect),
 };

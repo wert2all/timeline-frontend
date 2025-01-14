@@ -92,23 +92,20 @@ export const imagesFeature = createFeature({
       images: updateStateRecord(state.images, images),
     })),
 
-    on(EventActions.closeEditForm, state => ({
-      ...state,
-      maybeShouldRemoveImages: [],
-    })),
-
     on(EventActions.deleteEvent, (state, { imageId }) => ({
       ...state,
-      maybeShouldRemoveImages: imageId ? [imageId] : [],
+      shouldDelete: imageId ? [{ id: imageId }] : [],
     })),
-    on(
-      EventActions.failedDeleteEvent,
-      EventActions.successDeleteEvent,
-      state => ({
-        ...state,
-        maybeShouldRemoveImages: [],
-      })
-    )
+
+    on(EventActions.failedDeleteEvent, state => ({
+      ...state,
+      shouldDelete: [],
+    })),
+
+    on(ImagesActions.successDeletingImages, state => ({
+      ...state,
+      shouldDelete: [],
+    }))
   ),
   extraSelectors: ({ selectImages, selectQueue }) => ({
     selectCurrentUploadImage: createSelector(selectQueue, queque =>
