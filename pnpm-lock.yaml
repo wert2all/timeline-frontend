@@ -162,6 +162,9 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.4.1
         version: 4.4.1(prettier@3.4.2)
+      '@ngrx/eslint-plugin':
+        specifier: ^19.0.0
+        version: 19.0.0(@typescript-eslint/utils@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.18.0(jiti@2.4.2))(typescript-eslint@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3))(typescript@5.6.3)
       '@ngrx/schematics':
         specifier: 19.0.0
         version: 19.0.0
@@ -2507,6 +2510,14 @@ packages:
       '@angular/core': ^19.0.0
       '@ngrx/store': 19.0.0
       rxjs: ^6.5.3 || ^7.5.0
+
+  '@ngrx/eslint-plugin@19.0.0':
+    resolution: {integrity: sha512-opL4ADcNfIIZ6V9uaiQ6+BhTGkpYUQeAYDhz5VYY7KlUdvDlhl3JARb851t1bI4fToJ+twvixP//zcZTZdBG2Q==}
+    peerDependencies:
+      '@typescript-eslint/utils': ^8.0.0
+      eslint: ^8.57.0 || ^9.0.0
+      typescript: '*'
+      typescript-eslint: ^8.0.0
 
   '@ngrx/operators@19.0.0':
     resolution: {integrity: sha512-IHh5bEjcubn3IZtm686tBfHctkgZESqu9Rgb76P+fsfTkLc4BEXlEBesIX8O6T0HS2OuTwOnyNRkWyexdZ0pmQ==}
@@ -7811,6 +7822,13 @@ packages:
   typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
+  typescript-eslint@8.20.0:
+    resolution: {integrity: sha512-Kxz2QRFsgbWj6Xcftlw3Dd154b3cEPFqQC+qMZrMypSijPd4UanKKvoKDrJ4o8AIfZFKAF+7sMaEIR8mTElozA==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0
+      typescript: '>=4.8.4 <5.8.0'
+
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
@@ -11014,6 +11032,15 @@ snapshots:
       '@ngrx/store': 19.0.0(@angular/core@19.0.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
       rxjs: 7.8.1
       tslib: 2.8.1
+
+  '@ngrx/eslint-plugin@19.0.0(@typescript-eslint/utils@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.18.0(jiti@2.4.2))(typescript-eslint@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3))(typescript@5.6.3)':
+    dependencies:
+      '@typescript-eslint/utils': 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3)
+      eslint: 9.18.0(jiti@2.4.2)
+      semver: 7.6.3
+      strip-json-comments: 3.1.1
+      typescript: 5.6.3
+      typescript-eslint: 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3)
 
   '@ngrx/operators@19.0.0(rxjs@7.8.1)':
     dependencies:
@@ -17261,6 +17288,16 @@ snapshots:
   typed-assert@1.0.9: {}
 
   typedarray@0.0.6: {}
+
+  typescript-eslint@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3):
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 8.20.0(@typescript-eslint/parser@8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3))(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3)
+      '@typescript-eslint/parser': 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3)
+      '@typescript-eslint/utils': 8.20.0(eslint@9.18.0(jiti@2.4.2))(typescript@5.6.3)
+      eslint: 9.18.0(jiti@2.4.2)
+      typescript: 5.6.3
+    transitivePeerDependencies:
+      - supports-color
 
   typescript@5.6.3: {}
 

@@ -13,7 +13,7 @@ export const previewFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(PreviewActions.addURL, (state, { url }) => {
+    on(PreviewActions.addURL, (state, { url }): PreviewState => {
       const previews = [...state.previews];
 
       if (
@@ -57,7 +57,7 @@ export const previewFeature = createFeature({
         }),
       })
     ),
-    on(AuthActions.afterLogout, () => initialState)
+    on(AuthActions.afterLogout, (): PreviewState => initialState)
   ),
   extraSelectors: ({ selectPreviews }) => ({
     selectShouldUpdate: createSelector(selectPreviews, previews =>

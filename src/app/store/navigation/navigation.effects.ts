@@ -11,15 +11,13 @@ const navEffect = (
   dispatchAction: Creator<string[], Action<string>>,
   routes: string[]
 ) =>
-  createEffect(
-    (actions = inject(Actions), router = inject(Router)) =>
-      actions.pipe(
-        ofType(fromAction),
-        tap(() => router.navigate(routes)),
-        map(() => dispatchAction())
-      ),
-    StoreDispatchEffect
-  );
+  createEffect((actions = inject(Actions), router = inject(Router)) => {
+    return actions.pipe(
+      ofType(fromAction),
+      tap(() => router.navigate(routes)),
+      map(() => dispatchAction())
+    );
+  }, StoreDispatchEffect);
 
 export const navigationEffects = {
   toHome: navEffect(NavigationActions.toHome, NavigationActions.afterToHome, [

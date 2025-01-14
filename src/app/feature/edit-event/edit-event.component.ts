@@ -53,6 +53,7 @@ export class EditEventComponent {
   private readonly timelineId = toSignal(
     this.store
       .select(timelineFeature.selectActiveTimeline)
+      //eslint-disable-next-line @ngrx/avoid-mapping-selectors
       .pipe(map(timeline => timeline?.id || 0)),
     { initialValue: 0 }
   );
@@ -67,6 +68,7 @@ export class EditEventComponent {
   protected readonly isUploadEnabled = toSignal(
     this.store
       .select(accountFeature.selectActiveAccountFeaturesSettings)
+      //eslint-disable-next-line @ngrx/avoid-mapping-selectors
       .pipe(map(settings => !!settings['upload_images'])),
     { initialValue: false }
   );

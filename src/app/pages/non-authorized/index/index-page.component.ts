@@ -190,7 +190,9 @@ export class IndexPageComponent {
   );
 
   constructor() {
+    //eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
     this.store.dispatch(TableOfContentsActions.cleanItems());
+    //eslint-disable-next-line @ngrx/avoid-dispatching-multiple-actions-sequentially
     this.store.dispatch(
       TaskActions.createTask({
         task: ImagesTaskExecutorFactory.createTaskProps(

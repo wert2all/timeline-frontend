@@ -53,17 +53,15 @@ export class PreviewPollingOptions
   ): Observable<Action<string>> {
     return flow$.pipe(
       concatLatestFrom(() =>
-        this.store
-          .select(accountFeature.selectActiveAccount)
-          .pipe(map(account => account?.previewlyToken))
+        this.store.select(accountFeature.selectActiveAccount)
       ),
-      switchMap(([{ urls }, token]) =>
-        token
+      switchMap(([{ urls }, account]) =>
+        account?.previewlyToken
           ? concat(
               ...urls.map(url =>
                 this.api
                   .getPreview(
-                    { token: token, url: url.toString() },
+                    { token: account.previewlyToken, url: url.toString() },
                     { fetchPolicy: 'no-cache' }
                   )
                   .pipe(

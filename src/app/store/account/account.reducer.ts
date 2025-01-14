@@ -29,7 +29,7 @@ export const accountFeature = createFeature({
     on(
       AccountActions.setUser,
       AccountActions.setUserOnRedirect,
-      (state, { user }) => ({
+      (state, { user }): AccountState => ({
         ...state,
         activeUser: user,
       })
@@ -39,30 +39,39 @@ export const accountFeature = createFeature({
       AuthActions.dispatchBackendApiAuthError,
       AuthActions.dispatchLogout,
       AuthActions.dispatchEmptyUserProfileOnInit,
-      state => ({
+      (state): AccountState => ({
         ...state,
         activeUser: null,
         activeAccount: null,
       })
     ),
 
-    on(AccountActions.cleanAccount, state => ({
-      ...state,
-      activeAccount: null,
-    })),
+    on(
+      AccountActions.cleanAccount,
+      (state): AccountState => ({
+        ...state,
+        activeAccount: null,
+      })
+    ),
 
-    on(AccountActions.setAccount, (state, { account }) => ({
-      ...state,
-      activeAccount: account,
-    })),
+    on(
+      AccountActions.setAccount,
+      (state, { account }): AccountState => ({
+        ...state,
+        activeAccount: account,
+      })
+    ),
 
-    on(AccountActions.updateOneSetting, (state, action) => ({
-      ...state,
-      activeAccount: mergeAccountSettings(state.activeAccount, {
-        key: action.key,
-        value: action.value,
-      }),
-    }))
+    on(
+      AccountActions.updateOneSetting,
+      (state, action): AccountState => ({
+        ...state,
+        activeAccount: mergeAccountSettings(state.activeAccount, {
+          key: action.key,
+          value: action.value,
+        }),
+      })
+    )
   ),
   extraSelectors: ({ selectActiveAccount }) => ({
     isAuthorized: createSelector(selectActiveAccount, account => !!account),

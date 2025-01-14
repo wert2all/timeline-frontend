@@ -9,12 +9,18 @@ export const tableOfYearFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(TableOfContentsActions.setTableOfContents, (state, { items }) => ({
-      ...state,
-      items,
-    })),
+    on(
+      TableOfContentsActions.setTableOfContents,
+      (state, { items }): TableOfContentsState => ({
+        ...state,
+        items,
+      })
+    ),
 
-    on(TableOfContentsActions.cleanItems, state => ({ ...state, items: [] }))
+    on(
+      TableOfContentsActions.cleanItems,
+      (state): TableOfContentsState => ({ ...state, items: [] })
+    )
   ),
   extraSelectors: ({ selectItems }) => ({
     selectState: createSelector(selectItems, items => ({ items })),

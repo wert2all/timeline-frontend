@@ -107,12 +107,10 @@ export const authEffects = {
     StoreDispatchEffect
   ),
   logout: createEffect(logout, StoreDispatchEffect),
-  redirectAfterLogout: createEffect(
-    (actions$ = inject(Actions)) =>
-      actions$.pipe(
-        ofType(AuthActions.afterLogout),
-        map(() => NavigationActions.toHome())
-      ),
-    StoreDispatchEffect
-  ),
+  redirectAfterLogout: createEffect((actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(AuthActions.afterLogout),
+      map(() => NavigationActions.toHome())
+    );
+  }, StoreDispatchEffect),
 };
