@@ -19,6 +19,7 @@ export class AuthService {
   constructor() {
     this.oAuthService.configure(this.authConfig);
     this.oAuthService.setupAutomaticSilentRefresh();
+    // eslint-disable-next-line sonarjs/no-async-constructor
     this.oAuthService
       .loadDiscoveryDocumentAndTryLogin()
       .then(result => this._onAuth.set(result))

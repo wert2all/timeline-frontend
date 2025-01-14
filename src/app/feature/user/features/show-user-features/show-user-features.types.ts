@@ -1,8 +1,8 @@
 import { FeatureStage } from '../../../features.service';
 
-export type UserFeature = {
+export interface UserFeature {
   name: string;
   description: string;
   stage: FeatureStage;
   isActive: boolean;
-};
+}

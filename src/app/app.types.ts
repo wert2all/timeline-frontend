@@ -1,17 +1,24 @@
 import { EffectConfig } from '@ngrx/effects';
 
-export type Iterable = { id: number };
-export type Loadable = { loading: boolean };
+export interface Iterable {
+  id: number;
+}
+export interface Loadable {
+  loading: boolean;
+}
 export type Undefined = null | undefined;
 export interface Clickable<T> {
   click: (item: T) => void;
 }
+// eslint-disable-next-line sonarjs/redundant-type-aliases
 export type UniqueType = string;
-export type Unique = { uuid: UniqueType };
+export interface Unique {
+  uuid: UniqueType;
+}
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type PartialRecord<K extends keyof any, T> = { [P in K]?: T };
-export type KeyValue<T> = { [key: string]: T };
+export type PartialRecord<K extends keyof any, T> = Partial<Record<K, T>>;
+export type KeyValue<T> = Record<string, T>;
 
 export enum Status {
   SUCCESS = 'SUCCESS',
@@ -24,9 +31,15 @@ export enum Pending {
 }
 export type StatusWithPending = Status | Pending;
 
-export type WithError = { error?: Error | Undefined };
-export type WithStatus = { status: Status };
-export type WithPandingStatus = { status: Status | Pending };
+export interface WithError {
+  error?: Error | Undefined;
+}
+export interface WithStatus {
+  status: Status;
+}
+export interface WithPandingStatus {
+  status: Status | Pending;
+}
 
 export type DataWrapper<T> = WithError & WithStatus & { data?: T };
 

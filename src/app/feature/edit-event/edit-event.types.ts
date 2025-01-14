@@ -1,4 +1,4 @@
-type EditableEvent = {
+interface EditableEvent {
   id: number | null;
   date: string | null;
   time: string | null;
@@ -9,6 +9,6 @@ type EditableEvent = {
   tags: string[] | null;
   isPrivate: boolean | null;
   imageId: number | null;
-};
+}
 
 export type EditEventFormChanges = Partial<EditableEvent>;

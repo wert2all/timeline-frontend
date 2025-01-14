@@ -4,6 +4,7 @@ import { AuthService } from '../../../services/auth.service';
 import { HeroComponent } from '../../../share/hero/hero.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
+import { NavigationActions } from '../../../store/navigation/navigation.actions';
 
 @Component({
   standalone: true,
@@ -16,12 +17,12 @@ export class LoginRedirectPageComponent {
   private onAuth = inject(AuthService).onAuth;
 
   constructor() {
-    //todo redirect to user dashboard if user is logged in
     effect(() => {
-      if (this.onAuth()) {
-        this.store.dispatch(AuthActions.dispatchApiAuthorizeOnRedirect());
-      }
-      //todo after timeout show error message and redirect to login page
+      this.store.dispatch(
+        this.onAuth()
+          ? AuthActions.dispatchApiAuthorizeOnRedirect()
+          : NavigationActions.toLogin()
+      );
     });
   }
 }

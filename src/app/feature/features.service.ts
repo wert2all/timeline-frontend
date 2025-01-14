@@ -11,9 +11,9 @@ export enum FeatureStage {
 }
 export type AccountFeaturesSettings = PartialRecord<FeatureFlagName, boolean>;
 
-export type FeaturesAccount = {
+export interface FeaturesAccount {
   settings: AccountFeaturesSettings;
-};
+}
 
 export interface Feature {
   name: string;

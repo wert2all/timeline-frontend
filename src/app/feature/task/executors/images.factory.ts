@@ -15,7 +15,9 @@ import {
   TaskOption,
 } from '../task.types';
 
-export type TaskResultImages = { images: UploadedImage[] };
+export interface TaskResultImages {
+  images: UploadedImage[];
+}
 
 const OPTION_SEPARATOR = ',';
 const IDS_OPTION_NAME = 'ids';
@@ -81,7 +83,10 @@ export class ImagesTaskExecutorFactory
     };
   }
 
-  static createTaskProps = (ids: number[], token: string): TaskActionProps => ({
+  static readonly createTaskProps = (
+    ids: number[],
+    token: string
+  ): TaskActionProps => ({
     type: ImagesTaskExecutorFactory.getType(),
     options: [
       { name: IDS_OPTION_NAME, value: ids.join(OPTION_SEPARATOR) },
@@ -90,7 +95,7 @@ export class ImagesTaskExecutorFactory
   });
 
   getType = () => ImagesTaskExecutorFactory.getType();
-  static getType = (): TaskType => TaskType.LOAD_IMAGES;
+  static readonly getType = (): TaskType => TaskType.LOAD_IMAGES;
 
   private extractIdFromOptions = (options: TaskOption[]): number[] =>
     options
@@ -103,6 +108,7 @@ export class ImagesTaskExecutorFactory
     return options.find(option => option.name === TOKEN_OPTION_NAME)?.value;
   }
 
+  //eslint-disable-next-line sonarjs/function-return-type
   private getImageStatus = (status: ApiStatus): StatusWithPending => {
     switch (status) {
       case 'success':

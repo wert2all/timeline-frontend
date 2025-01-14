@@ -1,18 +1,20 @@
 import { DataWrapper } from '../../app.types';
 
-export type PreviewPollingActionsProps = { urls: URL[] };
+export interface PreviewPollingActionsProps {
+  urls: URL[];
+}
 
-export type PreviewItem = {
+export interface PreviewItem {
   image: string;
   title?: string;
-};
+}
 
-export type PreviewHolder = {
+export interface PreviewHolder {
   url: string;
   updateAttempts: number;
   data: DataWrapper<PreviewItem>;
-};
+}
 
-export type PreviewState = {
+export interface PreviewState {
   previews: PreviewHolder[];
-};
+}

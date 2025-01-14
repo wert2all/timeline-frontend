@@ -3,6 +3,7 @@ import { Action, ActionCreator } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 export type PollingItem<T> = T;
+//eslint-disable-next-line sonarjs/redundant-type-aliases
 export type PollingActionProps = unknown;
 
 export type PollingAction<T = void> = T extends void

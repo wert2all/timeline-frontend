@@ -7,10 +7,10 @@ import {
 } from '@angular/core';
 import { FeatureStage } from '../../../features.service';
 
-type View = {
+interface View {
   title: string;
   stage: string;
-};
+}
 @Component({
   selector: 'app-feature-stage',
   standalone: true,
