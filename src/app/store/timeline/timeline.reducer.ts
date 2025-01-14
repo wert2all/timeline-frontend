@@ -29,14 +29,14 @@ export const timelineFeature = createFeature({
       TimelineActions.addTimeline,
       EventActions.loadTimelineEvents,
       TimelineActions.loadAccountTimelines,
-      state => ({ ...state, loading: true })
+      (state): TimelineState => ({ ...state, loading: true })
     ),
 
     on(
       TimelineActions.successAddTimeline,
       EventActions.successLoadTimelineEvents,
       TimelineActions.successLoadAccountTimelines,
-      state => ({ ...state, loading: false })
+      (state): TimelineState => ({ ...state, loading: false })
     ),
 
     on(
@@ -45,36 +45,46 @@ export const timelineFeature = createFeature({
       TimelineActions.apiException,
       EventActions.apiException,
       EventActions.emptyEvent,
-      state => ({ ...state, loading: false })
+      (state): TimelineState => ({ ...state, loading: false })
     ),
 
-    on(TimelineActions.successAddTimeline, (state, { timelines }) => ({
-      ...state,
-      timelines: [...timelines, ...state.timelines],
-    })),
+    on(
+      TimelineActions.successAddTimeline,
+      (state, { timelines }): TimelineState => ({
+        ...state,
+        timelines: [...timelines, ...state.timelines],
+      })
+    ),
 
-    on(EventActions.emptyEvent, EventActions.apiException, state => ({
-      ...state,
-      events: updateStateRecord(
-        state.events,
-        Object.values(state.events).filter(event => event.loading)
-      ),
-    })),
+    on(
+      EventActions.emptyEvent,
+      EventActions.apiException,
+      (state): TimelineState => ({
+        ...state,
+        events: updateStateRecord(
+          state.events,
+          Object.values(state.events).filter(event => event.loading)
+        ),
+      })
+    ),
 
     on(
       EventActions.successLoadTimelineEvents,
       EventActions.successUpdateEvent,
       EventActions.successPushNewEvent,
-      (state, { events }) => ({
+      (state, { events }): TimelineState => ({
         ...state,
         events: updateStateRecord(state.events, events),
       })
     ),
 
-    on(TimelineActions.successAddTimeline, state => ({
-      ...state,
-      newTimelineAdded: true,
-    })),
+    on(
+      TimelineActions.successAddTimeline,
+      (state): TimelineState => ({
+        ...state,
+        newTimelineAdded: true,
+      })
+    ),
 
     on(
       EventActions.stopEditingEvent,
@@ -83,60 +93,75 @@ export const timelineFeature = createFeature({
       (state): TimelineState => ({ ...state, showEditEventId: null })
     ),
 
-    on(EventActions.deleteEvent, (state, { eventId }) =>
-      state.events[eventId]
-        ? {
-            ...state,
-            events: updateStateRecord<ExistTimelineEvent>(state.events, [
-              { ...state.events[eventId], loading: true },
-            ]),
-          }
-        : state
+    on(
+      EventActions.deleteEvent,
+      (state, { eventId }): TimelineState =>
+        state.events[eventId]
+          ? {
+              ...state,
+              events: updateStateRecord<ExistTimelineEvent>(state.events, [
+                { ...state.events[eventId], loading: true },
+              ]),
+            }
+          : state
     ),
 
-    on(EventActions.successDeleteEvent, (state, { eventId }) =>
-      state.events[eventId]
-        ? {
-            ...state,
-            events: Object.values(state.events)
-              .filter(event => event.id !== eventId)
-              .reduce((acc: Record<number, ExistTimelineEvent>, event) => {
-                acc[event.id] = event;
-                return acc;
-              }, {}),
-          }
-        : state
+    on(
+      EventActions.successDeleteEvent,
+      (state, { eventId }): TimelineState =>
+        state.events[eventId]
+          ? {
+              ...state,
+              events: Object.values(state.events)
+                .filter(event => event.id !== eventId)
+                .reduce((acc: Record<number, ExistTimelineEvent>, event) => {
+                  acc[event.id] = event;
+                  return acc;
+                }, {}),
+            }
+          : state
     ),
 
-    on(EventActions.failedDeleteEvent, (state, { eventId }) =>
-      state.events[eventId]
-        ? {
-            ...state,
-            events: updateStateRecord(state.events, [
-              { ...state.events[eventId], loading: false },
-            ]),
-          }
-        : state
+    on(
+      EventActions.failedDeleteEvent,
+      (state, { eventId }): TimelineState =>
+        state.events[eventId]
+          ? {
+              ...state,
+              events: updateStateRecord(state.events, [
+                { ...state.events[eventId], loading: false },
+              ]),
+            }
+          : state
     ),
 
-    on(AuthActions.afterLogout, () => initialState),
+    on(AuthActions.afterLogout, (): TimelineState => initialState),
 
-    on(TimelineActions.successLoadAccountTimelines, (state, { timelines }) => ({
-      ...state,
-      timelines,
-    })),
+    on(
+      TimelineActions.successLoadAccountTimelines,
+      (state, { timelines }): TimelineState => ({
+        ...state,
+        timelines,
+      })
+    ),
 
-    on(TimelineActions.setActiveTimeline, (state, { timeline }) => ({
-      ...state,
-      activeTimeline: {
-        name: timeline.name || '',
-        id: timeline.id,
-      },
-    })),
-    on(EventActions.dispatchEditEvent, (state, { eventId }) => ({
-      ...state,
-      showEditEventId: eventId,
-    }))
+    on(
+      TimelineActions.setActiveTimeline,
+      (state, { timeline }): TimelineState => ({
+        ...state,
+        activeTimeline: {
+          name: timeline.name || '',
+          id: timeline.id,
+        },
+      })
+    ),
+    on(
+      EventActions.dispatchEditEvent,
+      (state, { eventId }): TimelineState => ({
+        ...state,
+        showEditEventId: eventId,
+      })
+    )
   ),
 
   extraSelectors: ({

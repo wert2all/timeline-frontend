@@ -63,19 +63,13 @@ const addUrl = (
 export const previewEffects = {
   addUrl: createEffect(addUrl, StoreDispatchEffect),
 
-  startPolling: createEffect(
-    (options = inject(PreviewPollingOptions)) =>
-      createPolling(options).startPolling(),
-    StoreDispatchEffect
-  ),
-  continuePolling: createEffect(
-    (options = inject(PreviewPollingOptions)) =>
-      createPolling(options).continuePolling(),
-    StoreDispatchEffect
-  ),
-  stopColling: createEffect(
-    (options = inject(PreviewPollingOptions)) =>
-      createPolling(options).stopPolling(),
-    StoreDispatchEffect
-  ),
+  startPolling: createEffect((options = inject(PreviewPollingOptions)) => {
+    return createPolling(options).startPolling();
+  }, StoreDispatchEffect),
+  continuePolling: createEffect((options = inject(PreviewPollingOptions)) => {
+    return createPolling(options).continuePolling();
+  }, StoreDispatchEffect),
+  stopColling: createEffect((options = inject(PreviewPollingOptions)) => {
+    return createPolling(options).stopPolling();
+  }, StoreDispatchEffect),
 };

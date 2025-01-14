@@ -30,24 +30,18 @@ export const imagesFeature = createFeature({
         };
       }
     ),
-    on(UploadActions.failedUploadImage, (state, { error }) => ({
-      ...state,
-      currentUpload: {
-        previewUrl: null,
-        loading: false,
-        error: error,
-        title: '',
-      },
-    })),
 
-    on(UploadActions.uploadImage, (state, { uuid }) => ({
-      ...state,
-      queue: updateQueque(state.queue, { uuid, status: Pending.PENDING }),
-    })),
+    on(
+      UploadActions.uploadImage,
+      (state, { uuid }): ImagesState => ({
+        ...state,
+        queue: updateQueque(state.queue, { uuid, status: Pending.PENDING }),
+      })
+    ),
 
     on(
       UploadActions.successUploadImage,
-      (state, { id, uuid, error, status }) => ({
+      (state, { id, uuid, error, status }): ImagesState => ({
         ...state,
         queue: updateQueque(state.queue, {
           uuid,
@@ -57,40 +51,53 @@ export const imagesFeature = createFeature({
         }),
       })
     ),
-    on(UploadActions.failedUploadImage, (state, { error, uuid }) => ({
-      ...state,
-      queue: updateQueque(state.queue, {
-        error: new Error(error),
-        uuid,
-        status: Status.ERROR,
-      }),
-    })),
+    on(
+      UploadActions.failedUploadImage,
+      (state, { error, uuid }): ImagesState => ({
+        ...state,
+        queue: updateQueque(state.queue, {
+          error: new Error(error),
+          uuid,
+          status: Status.ERROR,
+        }),
+      })
+    ),
 
-    on(EventActions.stopEditingEvent, state => ({ ...state, queue: {} })),
-    on(EventActions.successLoadTimelineEvents, (state, { events }) => ({
-      ...state,
-      images: updateStateRecord(
-        state.images,
-        events
-          .map(event =>
-            event.imageId &&
-            (!state.images[event.imageId] || !state.images[event.imageId].data)
-              ? {
-                  id: event.imageId,
-                  status: Pending.PENDING,
-                  error: null,
-                  data: null,
-                }
-              : null
-          )
-          .filter(image => !!image)
-      ),
-    })),
+    on(
+      EventActions.stopEditingEvent,
+      (state): ImagesState => ({ ...state, queue: {} })
+    ),
+    on(
+      EventActions.successLoadTimelineEvents,
+      (state, { events }): ImagesState => ({
+        ...state,
+        images: updateStateRecord(
+          state.images,
+          events
+            .map(event =>
+              event.imageId &&
+              (!state.images[event.imageId] ||
+                !state.images[event.imageId].data)
+                ? {
+                    id: event.imageId,
+                    status: Pending.PENDING,
+                    error: null,
+                    data: null,
+                  }
+                : null
+            )
+            .filter(image => !!image)
+        ),
+      })
+    ),
 
-    on(ImagesActions.successUpdateImages, (state, { images }) => ({
-      ...state,
-      images: updateStateRecord(state.images, images),
-    })),
+    on(
+      ImagesActions.successUpdateImages,
+      (state, { images }): ImagesState => ({
+        ...state,
+        images: updateStateRecord(state.images, images),
+      })
+    ),
 
     on(
       ImagesActions.maybeShouldDeleteImage,
@@ -103,20 +110,29 @@ export const imagesFeature = createFeature({
           : state
     ),
 
-    on(EventActions.deleteEvent, (state, { imageId }) => ({
-      ...state,
-      shouldDelete: imageId ? [{ id: imageId }] : [],
-    })),
+    on(
+      EventActions.deleteEvent,
+      (state, { imageId }): ImagesState => ({
+        ...state,
+        shouldDelete: imageId ? [{ id: imageId }] : [],
+      })
+    ),
 
-    on(EventActions.failedDeleteEvent, state => ({
-      ...state,
-      shouldDelete: [],
-    })),
+    on(
+      EventActions.failedDeleteEvent,
+      (state): ImagesState => ({
+        ...state,
+        shouldDelete: [],
+      })
+    ),
 
-    on(ImagesActions.successDeletingImages, state => ({
-      ...state,
-      shouldDelete: [],
-    }))
+    on(
+      ImagesActions.successDeletingImages,
+      (state): ImagesState => ({
+        ...state,
+        shouldDelete: [],
+      })
+    )
   ),
   extraSelectors: ({ selectImages, selectQueue }) => ({
     selectCurrentUploadImage: createSelector(selectQueue, queque =>
