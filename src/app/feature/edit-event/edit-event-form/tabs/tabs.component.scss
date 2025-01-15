@@ -1,20 +1,21 @@
-.tabs a {
-  ng-icon {
-    @apply text-primary;
-  }
-
+.form-tabs-title {
   span {
-    @apply hidden;
+    @apply bg-info;
   }
+}
+.form-tabs {
+  a {
+    @apply rounded-none;
 
-  &.active {
-    @apply btn-secondary;
-
-    ng-icon {
-      @apply text-primary-content;
+    &:first-child {
+      @apply rounded-es-lg rounded-ss-lg;
     }
-    span {
-      @apply lg:block;
+    &:last-child {
+      @apply rounded-ee-lg rounded-se-lg;
+    }
+
+    &.active {
+      @apply btn-info border-b-4 border-b-success;
     }
   }
 }

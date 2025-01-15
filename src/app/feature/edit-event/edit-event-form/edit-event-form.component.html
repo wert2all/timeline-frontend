@@ -2,35 +2,35 @@
   <app-edit-event-form-tabs
     [tabs]="tabs()"
     (switchTab)="switchTo($event)"
-    [activeTab]="switchTab()" />
+    [activeTab]="activeTab()" />
 
   <div class="overflow-hidden">
     <app-edit-event-form-text-input
       [form]="editForm"
       class="form-tab-content"
-      [class.active]="switchTab()?.uuid === 'text'" />
+      [class.active]="activeTab()?.uuid === 'text'" />
     <app-edit-event-form-upload-input
       [previewImage]="viewHelper().image"
       (selectFile)="handleSelectFile($event)"
       class="form-tab-content"
-      [class.active]="switchTab()?.uuid === 'upload'" />
+      [class.active]="activeTab()?.uuid === 'upload'" />
 
     <app-edit-event-form-date-time-input
       [form]="editForm"
       class="form-tab-content"
-      [class.active]="switchTab()?.uuid === 'date'" />
+      [class.active]="activeTab()?.uuid === 'date'" />
     <app-edit-event-form-tags-input
       [form]="editForm"
       [inputTags]="editForm.controls.tags.value || []"
       [isDisabled]="loading()"
       (outputTags)="setTags($event)"
       class="form-tab-content"
-      [class.active]="switchTab()?.uuid === 'tags'" />
+      [class.active]="activeTab()?.uuid === 'tags'" />
     <app-edit-event-form-link-input
       [form]="editForm"
       [preview]="viewHelper().url"
       class="form-tab-content"
-      [class.active]="switchTab()?.uuid === 'link'" />
+      [class.active]="activeTab()?.uuid === 'link'" />
   </div>
 
   <div class="mt-8 flex place-items-center gap-4 lg:hidden">

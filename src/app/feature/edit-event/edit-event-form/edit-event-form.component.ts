@@ -30,7 +30,6 @@ import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 import { TimelineEvent } from '../../../store/timeline/timeline.types';
 
-import { Unique } from '../../../app.types';
 import { fromInputSignal } from '../../../libs/signal.functions';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';
@@ -94,7 +93,6 @@ export class EditEventFormComponent {
   viewHelper = input.required<EditEventFormViewHelper>();
 
   isNew = input(false);
-  openTab = input<Unique | null>(null);
   loading = input(false);
   enableUpload = input(false);
 
@@ -153,7 +151,11 @@ export class EditEventFormComponent {
       isEnabled: true,
     },
   ]);
-  protected readonly switchTab = fromInputSignal(this.openTab);
+
+  private openTab = computed(() => {
+    return this.tabs().slice(0, 1)[0];
+  });
+  protected readonly activeTab = fromInputSignal(this.openTab);
 
   protected readonly tags = signal<ViewTimelineTag[]>([]);
 
@@ -235,8 +237,8 @@ export class EditEventFormComponent {
     });
   }
 
-  switchTo(tabUUID: Unique) {
-    this.switchTab.set(tabUUID);
+  switchTo(tab: Tabs) {
+    this.activeTab.set(tab);
   }
 
   couldRemoveImage() {

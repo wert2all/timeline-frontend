@@ -10,7 +10,6 @@ import {
   saxTagOutline,
   saxTextBlockOutline,
 } from '@ng-icons/iconsax/outline';
-import { Unique } from '../../../../app.types';
 import { Tabs } from '../edit-event-form.types';
 
 @Component({
@@ -34,7 +33,7 @@ import { Tabs } from '../edit-event-form.types';
 })
 export class EditEventFormTabsComponent {
   tabs = input.required<Tabs[]>();
-  activeTab = input<Unique | null>(null);
+  activeTab = input.required<Tabs>();
 
-  switchTab = output<Unique>();
+  switchTab = output<Tabs>();
 }
