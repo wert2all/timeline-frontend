@@ -1,52 +1,16 @@
-<div
-  class="
-active-tab-{{ activeTab() }}
-  tabs join flex justify-center rounded-t-none">
-  <a
-    tabindex="0"
-    class="tab-0 btn join-item"
-    (click)="switchTab.emit(0)"
-    (keyup)="switchTab.emit(0)"
-    title="text something">
-    <ng-icon name="saxTextBlockOutline" size="24"></ng-icon>
-    <span>text something</span>
-  </a>
-  <a
-    tabindex="0"
-    class="tab-1 btn join-item"
-    (click)="switchTab.emit(1)"
-    (keyup)="switchTab.emit(1)"
-    title="set date and time">
-    <ng-icon name="saxCalendar1Outline" size="24"></ng-icon>
-    <span>set date and time</span>
-  </a>
-  <a
-    tabindex="0"
-    class="tab-2 btn join-item"
-    (click)="switchTab.emit(2)"
-    (keyup)="switchTab.emit(2)"
-    title="add tags">
-    <ng-icon name="saxTagOutline" size="24"></ng-icon>
-    <span>add tags</span>
-  </a>
-  <a
-    tabindex="0"
-    class="tab-3 btn join-item"
-    (click)="switchTab.emit(3)"
-    (keyup)="switchTab.emit(3)"
-    title="add link">
-    <ng-icon name="saxLinkSquareOutline" size="24"></ng-icon>
-    <span>add link</span>
-  </a>
-  @if (enebleUpload()) {
-    <a
-      tabindex="0"
-      class="tab-4 btn join-item"
-      (click)="switchTab.emit(4)"
-      (keyup)="switchTab.emit(4)"
-      title="add image">
-      <ng-icon name="saxImageOutline" size="24"></ng-icon>
-      <span>add image</span>
-    </a>
+<div class="join tabs flex justify-center rounded-t-none">
+  @for (tab of tabs(); track $index) {
+    @if (tab.isEnabled) {
+      <a
+        tabindex="0"
+        class="tab-{{ tab.uuid }} join-item btn"
+        [class.active]="activeTab()?.uuid === tab.uuid"
+        [title]="tab.title"
+        (click)="switchTab.emit(tab)"
+        (keyup)="switchTab.emit(tab)">
+        <ng-icon [svg]="tab.icon" size="24"></ng-icon>
+        <span>{{ tab.title }}</span>
+      </a>
+    }
   }
 </div>

@@ -30,6 +30,7 @@ import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 import { TimelineEvent } from '../../../store/timeline/timeline.types';
 
+import { Unique } from '../../../app.types';
 import { fromInputSignal } from '../../../libs/signal.functions';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';
@@ -37,6 +38,7 @@ import { EditFormDateTimeInputComponent } from './date-time-input/date-time-inpu
 import {
   EditEventForm,
   EditEventFormViewHelper,
+  Tabs,
 } from './edit-event-form.types';
 import { EditFormLinkInputComponent } from './link-input/link-input.component';
 import { EditEventFormTabsComponent } from './tabs/tabs.component';
@@ -92,7 +94,7 @@ export class EditEventFormComponent {
   viewHelper = input.required<EditEventFormViewHelper>();
 
   isNew = input(false);
-  openTab = input(0);
+  openTab = input<Unique | null>(null);
   loading = input(false);
   enableUpload = input(false);
 
@@ -119,7 +121,40 @@ export class EditEventFormComponent {
   });
   private formChange$ = this.editForm.valueChanges.pipe(takeUntilDestroyed());
 
+  protected readonly tabs = computed((): Tabs[] => [
+    {
+      uuid: 'text',
+      title: 'text something',
+      icon: saxTextBlockOutline,
+      isEnabled: true,
+    },
+    {
+      uuid: 'upload',
+      title: 'add image',
+      icon: saxImageOutline,
+      isEnabled: this.enableUpload(),
+    },
+    {
+      uuid: 'date',
+      title: 'set date and time',
+      icon: saxCalendar1Outline,
+      isEnabled: true,
+    },
+    {
+      uuid: 'tags',
+      title: 'add tags',
+      icon: saxTagOutline,
+      isEnabled: true,
+    },
+    {
+      uuid: 'link',
+      title: 'add link',
+      icon: saxLinkSquareOutline,
+      isEnabled: true,
+    },
+  ]);
   protected readonly switchTab = fromInputSignal(this.openTab);
+
   protected readonly tags = signal<ViewTimelineTag[]>([]);
 
   protected readonly submitButton = computed(() =>
@@ -200,8 +235,8 @@ export class EditEventFormComponent {
     });
   }
 
-  switchTo(tabNumber: number) {
-    this.switchTab.set(tabNumber);
+  switchTo(tabUUID: Unique) {
+    this.switchTab.set(tabUUID);
   }
 
   couldRemoveImage() {

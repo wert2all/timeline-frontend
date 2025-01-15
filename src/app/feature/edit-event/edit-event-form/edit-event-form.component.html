@@ -1,38 +1,36 @@
-<div
-  class="edit-form active-tab-{{ switchTab() }}"
-  [class.skeleton]="loading()">
+<div class="edit-form" [class.skeleton]="loading()">
   <app-edit-event-form-tabs
+    [tabs]="tabs()"
     (switchTab)="switchTo($event)"
-    [activeTab]="switchTab()"
-    [enebleUpload]="enableUpload()" />
+    [activeTab]="switchTab()" />
 
   <div class="overflow-hidden">
-    <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
+    <app-edit-event-form-text-input
+      [form]="editForm"
+      class="form-tab-content"
+      [class.active]="switchTab()?.uuid === 'text'" />
+    <app-edit-event-form-upload-input
+      [previewImage]="viewHelper().image"
+      (selectFile)="handleSelectFile($event)"
+      class="form-tab-content"
+      [class.active]="switchTab()?.uuid === 'upload'" />
+
     <app-edit-event-form-date-time-input
-      class="tab-content-1"
-      [form]="editForm" />
+      [form]="editForm"
+      class="form-tab-content"
+      [class.active]="switchTab()?.uuid === 'date'" />
     <app-edit-event-form-tags-input
-      class="tab-content-2"
       [form]="editForm"
       [inputTags]="editForm.controls.tags.value || []"
       [isDisabled]="loading()"
-      (outputTags)="setTags($event)" />
+      (outputTags)="setTags($event)"
+      class="form-tab-content"
+      [class.active]="switchTab()?.uuid === 'tags'" />
     <app-edit-event-form-link-input
-      class="tab-content-3"
       [form]="editForm"
-      [preview]="viewHelper().url" />
-    @if (enableUpload()) {
-      <div class="tab-content-4">
-        <app-edit-event-form-upload-input
-          [previewImage]="viewHelper().image"
-          (selectFile)="handleSelectFile($event)" />
-        @if (couldRemoveImage()) {
-          <button class="btn btn-warning btn-sm mt-4" (click)="removeImage()">
-            remove image
-          </button>
-        }
-      </div>
-    }
+      [preview]="viewHelper().url"
+      class="form-tab-content"
+      [class.active]="switchTab()?.uuid === 'link'" />
   </div>
 
   <div class="mt-8 flex place-items-center gap-4 lg:hidden">
