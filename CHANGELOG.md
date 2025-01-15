@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.25](https://github.com/wert2all/timeline-frontend/compare/v0.0.24...v0.0.25) (2025-01-15)
+
+### Features
+
+- release uplload image anf user features ([69307da](https://github.com/wert2all/timeline-frontend/commit/69307da46335e307bb77bb6c5da2ca72b3c6e832))
+
+### Bug Fixes
+
+- change tabs view ([a3b2283](https://github.com/wert2all/timeline-frontend/commit/a3b2283dca1203b587e0c296fcb5a5a5cea5b029))
+- delete images after saving event ([0cd8b70](https://github.com/wert2all/timeline-frontend/commit/0cd8b70880af220637e85976d991a21189281467))
+- delete images on delete event ([a0ce8b6](https://github.com/wert2all/timeline-frontend/commit/a0ce8b6dacb25129ed79a2c96530febafe7b5578))
+- fix auth redirect ([d684394](https://github.com/wert2all/timeline-frontend/commit/d684394bac03c2c3990e6651c0e5c9696c375a0d))
+- fix delete event ([7d667e8](https://github.com/wert2all/timeline-frontend/commit/7d667e83fc6b8736f42ec35defa3bb8f3563bfdd))
+- fix edit event form design ([e7e14e7](https://github.com/wert2all/timeline-frontend/commit/e7e14e726952517616be375e2917d95709f23967))
+- fix flickering edit form ([312b599](https://github.com/wert2all/timeline-frontend/commit/312b59932b1b669fdbabe366c3d060eb8873fe5d))
+- remove dispatching table of contents from every page contructor ([e1c4082](https://github.com/wert2all/timeline-frontend/commit/e1c40821e7b827d6527d4aef2625433150957b03))
+- remove images after delete event ([4629ce7](https://github.com/wert2all/timeline-frontend/commit/4629ce7036d4a79809575d7bf70a942083866d6c))
+
 ## [0.0.24](https://github.com/wert2all/timeline-frontend/compare/v0.0.23...v0.0.24) (2025-01-12)
 
 ### Features
