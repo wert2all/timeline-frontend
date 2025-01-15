@@ -1,15 +1,19 @@
-<div class="join tabs flex justify-center rounded-t-none">
+<h2 class="form-tabs-title -mt-4 flex justify-center">
+  <span class="w-52 rounded-t-lg text-center text-info-content">
+    {{ activeTab().title }}
+  </span>
+</h2>
+<div class="form-tabs flex justify-center">
   @for (tab of tabs(); track $index) {
     @if (tab.isEnabled) {
       <a
         tabindex="0"
-        class="tab-{{ tab.uuid }} join-item btn"
-        [class.active]="activeTab()?.uuid === tab.uuid"
+        class="tab-{{ tab.uuid }} btn"
+        [class.active]="activeTab().uuid === tab.uuid"
         [title]="tab.title"
         (click)="switchTab.emit(tab)"
         (keyup)="switchTab.emit(tab)">
         <ng-icon [svg]="tab.icon" size="24"></ng-icon>
-        <span>{{ tab.title }}</span>
       </a>
     }
   }
