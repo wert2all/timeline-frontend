@@ -21,7 +21,7 @@ import {
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { Pending, Status } from '../../app.types';
+import { Pending, Status, Unique } from '../../app.types';
 import { accountFeature } from '../../store/account/account.reducer';
 import { UploadActions } from '../../store/images/images.actions';
 import { imagesFeature } from '../../store/images/images.reducer';
@@ -110,7 +110,7 @@ export class EditEventComponent {
       image: this.currentUpload(),
     };
   });
-  protected readonly openTab = signal(0);
+  protected readonly openTab = signal<Unique | null>({ uuid: 'text' });
   protected readonly loading = signal(false);
 
   protected readonly icon = new ViewTimelineEventIcon(
