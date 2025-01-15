@@ -1,7 +1,5 @@
 <div
-  class="active-tab-{{
-    switchTab()
-  }} event-form bg-base-300 timeline-box relative mt-4 pt-0 lg:mt-0 "
+  class="edit-form active-tab-{{ switchTab() }}"
   [class.skeleton]="loading()">
   <app-edit-event-form-tabs
     (switchTab)="switchTo($event)"
@@ -11,7 +9,7 @@
   <div class="overflow-hidden">
     <app-edit-event-form-text-input class="tab-content-0" [form]="editForm" />
     <app-edit-event-form-date-time-input
-      class="tab-content-1 mt-4"
+      class="tab-content-1"
       [form]="editForm" />
     <app-edit-event-form-tags-input
       class="tab-content-2"
@@ -83,11 +81,4 @@
       </label>
     </div>
   </div>
-
-  <button
-    class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4 hidden lg:flex"
-    [attr.disabled]="loading() === true ? true : null"
-    (click)="dismissAction.emit()">
-    ✕
-  </button>
 </div>
