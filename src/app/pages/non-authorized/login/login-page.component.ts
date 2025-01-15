@@ -8,7 +8,6 @@ import { HeroComponent } from '../../../share/hero/hero.component';
 import { LayoutComponent } from '../../../share/layout/layout.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { NavigationActions } from '../../../store/navigation/navigation.actions';
-import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
   selector: 'app-login-page',
@@ -27,7 +26,6 @@ export class LoginPageComponent {
   isLoading = signal(false);
 
   constructor() {
-    this.store.dispatch(TableOfContentsActions.cleanItems());
     this.onAuthorize.subscribe(() =>
       this.store.dispatch(NavigationActions.toUserDashboard())
     );

@@ -31,7 +31,6 @@ import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { imagesFeature } from '../../../store/images/images.reducer';
-import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 
 @Component({
   selector: 'app-my-page',
@@ -120,8 +119,6 @@ export class MyPageComponent {
   });
 
   constructor() {
-    this.store.dispatch(TableOfContentsActions.cleanItems());
-
     effect(() => {
       const account = this.activeAccount();
       if (account) {
