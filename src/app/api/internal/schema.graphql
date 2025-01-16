@@ -55,8 +55,20 @@ type Mutation {
   saveSettings(accountId: Int!, settings: [AccountSettingInput]): Status!
 }
 
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  startCursor: String
+}
+
 type Query {
   myAccountTimelines(accountId: Int!): [ShortTimeline!]!
+  timelineCursorEvents(
+    accountId: Int!
+    cursor: String
+    limit: Limit
+    timelineId: Int!
+  ): TimelineEvents!
   timelineEvents(limit: Limit, timelineId: Int!): [TimelineEvent!]!
 }
 
@@ -103,6 +115,11 @@ input TimelineEventInput {
   title: String
   type: TimelineType
   url: String
+}
+
+type TimelineEvents {
+  events: [TimelineEvent!]!
+  page: PageInfo!
 }
 
 enum TimelineType {

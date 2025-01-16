@@ -14,3 +14,12 @@ fragment ShortTimeline on ShortTimeline {
   id
   name
 }
+
+fragment TimelineEvents on TimelineEvents {
+  events {
+    ...TimelineEvent
+  }
+  page {
+    ...PageInfo
+  }
+}

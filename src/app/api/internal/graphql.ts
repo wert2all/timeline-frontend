@@ -83,6 +83,12 @@ export enum TimelineType {
   selebrate = 'selebrate',
 }
 
+export type PageInfo = {
+  startCursor?: string | null;
+  endCursor?: string | null;
+  hasNextPage: boolean;
+};
+
 export type TimelineEvent = {
   id: number;
   date: string;
@@ -96,6 +102,8 @@ export type TimelineEvent = {
 };
 
 export type ShortTimeline = { id: number; name?: string | null };
+
+export type TimelineEvents = { events: Array<TimelineEvent>; page: PageInfo };
 
 export type User = {
   id: number;
@@ -164,6 +172,12 @@ export type GetAccountTimelinesVariables = Exact<{
 
 export type GetAccountTimelines = { timelines: Array<ShortTimeline> };
 
+export const ShortTimeline = gql`
+  fragment ShortTimeline on ShortTimeline {
+    id
+    name
+  }
+`;
 export const TimelineEvent = gql`
   fragment TimelineEvent on TimelineEvent {
     id
@@ -177,11 +191,24 @@ export const TimelineEvent = gql`
     previewlyImageId
   }
 `;
-export const ShortTimeline = gql`
-  fragment ShortTimeline on ShortTimeline {
-    id
-    name
+export const PageInfo = gql`
+  fragment PageInfo on PageInfo {
+    startCursor
+    endCursor
+    hasNextPage
   }
+`;
+export const TimelineEvents = gql`
+  fragment TimelineEvents on TimelineEvents {
+    events {
+      ...TimelineEvent
+    }
+    page {
+      ...PageInfo
+    }
+  }
+  ${TimelineEvent}
+  ${PageInfo}
 `;
 export const Settings = gql`
   fragment Settings on AccountSettings {

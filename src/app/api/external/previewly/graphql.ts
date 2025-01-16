@@ -52,15 +52,6 @@ export enum Status {
   success = 'success',
 }
 
-export type Preview = {
-  id: number;
-  url: string;
-  image: string;
-  status: Status;
-  title?: string | null;
-  error?: string | null;
-};
-
 export type UploadImageStatus = {
   id: number;
   name: string;
@@ -74,6 +65,15 @@ export type ResizedImage = {
   error?: string | null;
   status: Status;
   image?: ImageData | null;
+};
+
+export type Preview = {
+  id: number;
+  url: string;
+  image: string;
+  status: Status;
+  title?: string | null;
+  error?: string | null;
 };
 
 export type AddUrlVariables = Exact<{
@@ -104,16 +104,6 @@ export type GetPreviewVariables = Exact<{
 
 export type GetPreview = { preview?: Preview | null };
 
-export const Preview = gql`
-  fragment Preview on PreviewData {
-    id
-    url
-    image
-    status
-    title
-    error
-  }
-`;
 export const UploadImageStatus = gql`
   fragment UploadImageStatus on UploadImageStatus {
     id
@@ -137,6 +127,16 @@ export const ResizedImage = gql`
     status
   }
   ${ImageData}
+`;
+export const Preview = gql`
+  fragment Preview on PreviewData {
+    id
+    url
+    image
+    status
+    title
+    error
+  }
 `;
 export const AddUrlDocument = gql`
   mutation AddUrl($token: String!, $url: String!) {
