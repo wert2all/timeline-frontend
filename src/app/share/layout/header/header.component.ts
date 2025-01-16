@@ -47,7 +47,9 @@ export class HeaderComponent {
   private readonly featuresService = inject(FeaturesService);
   private readonly clipboard = inject(Clipboard);
 
-  protected token = this.authService.idToken;
+  protected token = this.authService.idToken
+    ? btoa(this.authService.idToken)
+    : null;
 
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);

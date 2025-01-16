@@ -8,7 +8,9 @@ export const handleAuthLink = (authService = inject(AuthService)): ApolloLink =>
     headers: {
       Accept: 'charset=utf-8',
       ...(authService.idToken
-        ? { Authorization: `Bearer ${authService.idToken}` }
+        ? {
+            Authorization: `Bearer ` + btoa(authService.idToken),
+          }
         : {}),
     },
   }));
