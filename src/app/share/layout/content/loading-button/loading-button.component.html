@@ -1,0 +1,13 @@
+<button
+  class="btn btn-{{ style() }}"
+  (click)="clickEvent.emit()"
+  [attr.disabled]="isLoading() ? true : null">
+  @if (isLoading() === true) {
+    <span class="loading loading-spinner"></span>
+  } @else {
+    @if (icon(); as icon) {
+      <ng-icon [svg]="icon" size="24"></ng-icon>
+    }
+  }
+  <ng-content />
+</button>

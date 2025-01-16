@@ -41,3 +41,15 @@
     </li>
   }
 </ul>
+@if (hasMore()) {
+  <div class="mt-8 flex justify-center">
+    <app-loading-button
+      class="w-full"
+      [isLoading]="isLoading()"
+      [icon]="icon"
+      [style]="'neutral w-full'"
+      (clickEvent)="loadMore.emit()">
+      load more
+    </app-loading-button>
+  </div>
+}
