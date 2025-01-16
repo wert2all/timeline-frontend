@@ -18,13 +18,13 @@ import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { imagesFeature } from '../../../store/images/images.reducer';
-import { TaskActions } from '../../../store/task/task.actions';
-import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 import {
   ExistTimelineEvent,
   TimelineEventType,
-} from '../../../store/timeline/timeline.types';
+} from '../../../store/events/events.types';
+import { imagesFeature } from '../../../store/images/images.reducer';
+import { TaskActions } from '../../../store/task/task.actions';
+import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 
 @Component({
   selector: 'app-index-page',

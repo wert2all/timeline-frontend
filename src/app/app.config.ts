@@ -19,6 +19,8 @@ import { provideSentry } from './providers/sentry.provider';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
+import { eventsEffects } from './store/events/events.effects';
+import { eventsFeature } from './store/events/events.reducer';
 import { imageEffects } from './store/images/images.effects';
 import { imagesFeature } from './store/images/images.reducer';
 import { navigationEffects } from './store/navigation/navigation.effects';
@@ -29,10 +31,7 @@ import { tableOfYearsEffects } from './store/table-of-contents/table-of-contents
 import { tableOfYearFeature } from './store/table-of-contents/table-of-contents.reducer';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
-import {
-  eventsEffects,
-  timelineEffects,
-} from './store/timeline/timeline.effects';
+import { timelineEffects } from './store/timeline/timeline.effects';
 import { timelineFeature } from './store/timeline/timeline.reducer';
 
 export const appConfig: ApplicationConfig = {
@@ -44,6 +43,7 @@ export const appConfig: ApplicationConfig = {
     provideApollo(),
     provideStore({
       [timelineFeature.name]: timelineFeature.reducer,
+      [eventsFeature.name]: eventsFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,

@@ -1,7 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Pending, Status, UniqueType } from '../../app.types';
 import { updateStateRecord } from '../../libs/state.functions';
-import { EventActions } from '../timeline/timeline.actions';
+import { EventActions } from '../events/events.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
 

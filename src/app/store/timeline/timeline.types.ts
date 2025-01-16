@@ -5,28 +5,7 @@ import {
   ViewTimelineUrl,
 } from '../../feature/timeline/timeline.types';
 import { ViewDatetime } from '../../libs/view/date.types';
-
-export enum TimelineEventType {
-  default = 'default',
-  celebrate = 'celebrate',
-}
-
-export interface TimelineRequired {
-  date: Date;
-  type: TimelineEventType;
-  timelineId: number;
-}
-
-export type TimelineEvent = TimelineRequired &
-  Loadable & {
-    id?: number;
-    title?: string;
-    description?: string;
-    showTime?: boolean;
-    url?: string;
-    tags?: string[];
-    imageId?: number;
-  };
+import { TimelineEvent } from '../events/events.types';
 
 export interface ViewEventImage {
   imageId: number;
@@ -48,7 +27,6 @@ export type ViewTimelineEvent = Omit<
   image: Undefined | ViewEventImage;
 };
 
-export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 export type ExistViewTimelineEvent = Iterable & Omit<ViewTimelineEvent, 'id'>;
 
 export type Timeline = Iterable & { name: string | null };
@@ -63,7 +41,5 @@ export type EditEvent = Loadable & {
 export type TimelineState = Loadable & {
   timelines: Timeline[];
   activeTimeline: ActiveTimeline | null;
-  events: Record<number, ExistTimelineEvent>;
-  showEditEventId: number | Undefined;
   newTimelineAdded: boolean;
 };
