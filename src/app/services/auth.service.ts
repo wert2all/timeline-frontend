@@ -16,6 +16,7 @@ export class AuthService {
   public get onAuth() {
     return this._onAuth;
   }
+
   constructor() {
     this.oAuthService.configure(this.authConfig);
     this.oAuthService.setupAutomaticSilentRefresh();
