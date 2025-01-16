@@ -28,9 +28,9 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
-import { TimelineEvent } from '../../../store/timeline/timeline.types';
 
 import { fromInputSignal } from '../../../libs/signal.functions';
+import { TimelineEvent } from '../../../store/events/events.types';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';

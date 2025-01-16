@@ -12,17 +12,15 @@ import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
 } from '../../store/timeline/editable-event-view.factory';
-import { EventActions } from '../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../store/timeline/timeline.reducer';
-import {
-  TimelineEventType,
-  ViewTimelineEvent,
-} from '../../store/timeline/timeline.types';
+import { ViewTimelineEvent } from '../../store/timeline/timeline.types';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../app.types';
 import { accountFeature } from '../../store/account/account.reducer';
+import { EventActions } from '../../store/events/events.actions';
+import { TimelineEventType } from '../../store/events/events.types';
 import { UploadActions } from '../../store/images/images.actions';
 import { imagesFeature } from '../../store/images/images.reducer';
 import { PreviewActions } from '../../store/preview/preview.actions';

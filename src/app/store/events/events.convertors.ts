@@ -7,7 +7,7 @@ import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from './timeline.types';
+} from '../events/events.types';
 
 export const fromApiTypeToState = (
   type: GQLTimelineType

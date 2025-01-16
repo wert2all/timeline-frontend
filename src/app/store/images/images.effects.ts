@@ -15,10 +15,10 @@ import {
 } from '../../feature/task/executors/images.factory';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
+import { EventActions } from '../events/events.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { TaskActions } from '../task/task.actions';
 import { TaskType } from '../task/task.types';
-import { EventActions } from '../timeline/timeline.actions';
 import { timelineFeature } from '../timeline/timeline.reducer';
 import { ImagesActions, UploadActions } from './images.actions';
 import { imagesFeature } from './images.reducer';
