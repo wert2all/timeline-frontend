@@ -16,6 +16,7 @@ import { LayoutComponent } from '../../../share/layout/layout.component';
 
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
+import { createViewTimelineEvent } from '../../../feature/edit-event/editable-event-view.factory';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { accountFeature } from '../../../store/account/account.reducer';
 import {
@@ -24,7 +25,6 @@ import {
 } from '../../../store/events/events.types';
 import { imagesFeature } from '../../../store/images/images.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
-import { createViewTimelineEvent } from '../../../store/timeline/editable-event-view.factory';
 
 @Component({
   selector: 'app-index-page',

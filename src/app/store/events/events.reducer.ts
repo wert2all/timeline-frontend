@@ -1,5 +1,11 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import {
+  createDefaultTimelineEvent,
+  createViewTimelineEvent,
+} from '../../feature/edit-event/editable-event-view.factory';
 import { updateStateRecord } from '../../libs/state.functions';
+import { timelineFeature } from '../timeline/timeline.reducer';
+import { ExistViewTimelineEvent } from '../timeline/timeline.types';
 import { EventActions } from './events.actions';
 import { EventsState, ExistTimelineEvent } from './events.types';
 
@@ -112,5 +118,46 @@ export const eventsFeature = createFeature({
           : state
     )
   ),
-  extraSelectors: () => ({}),
+  extraSelectors: ({ selectShowEditEventId, selectEvents }) => {
+    const selectActiveTimelineEventsSelector = createSelector(
+      selectEvents,
+      timelineFeature.selectActiveTimeline,
+      (selectEvents, activeTimeline) =>
+        Object.values(selectEvents)
+          .filter(event => event.timelineId === activeTimeline?.id)
+          .sort((a, b) => b.date.getTime() - a.date.getTime())
+    );
+    const selectShouldEditEventSelector = createSelector(
+      selectShowEditEventId,
+      selectActiveTimelineEventsSelector,
+      timelineFeature.selectActiveTimeline,
+      (editEventId, events, activeTimeline) =>
+        activeTimeline?.id && editEventId === 0
+          ? createDefaultTimelineEvent(activeTimeline.id)
+          : events.find(event => event.id === editEventId)
+    );
+
+    return {
+      selectActiveTimelineEvents: selectActiveTimelineEventsSelector,
+      selectActiveTimelineViewEvents: createSelector(
+        selectActiveTimelineEventsSelector,
+        events =>
+          events.map(
+            (event): ExistViewTimelineEvent => ({
+              ...createViewTimelineEvent(event),
+              id: event.id,
+            })
+          )
+      ),
+      isEditingEvent: createSelector(
+        selectShouldEditEventSelector,
+        event => !!event
+      ),
+      selectShouldEditEvent: selectShouldEditEventSelector,
+      selectUploadedImageId: createSelector(
+        selectShouldEditEventSelector,
+        event => event?.imageId
+      ),
+    };
+  },
 });

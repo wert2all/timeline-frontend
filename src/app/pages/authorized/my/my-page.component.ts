@@ -51,10 +51,10 @@ export class MyPageComponent {
   private readonly store = inject(Store);
 
   private readonly isEditingEvent = this.store.selectSignal(
-    timelineFeature.isEditingEvent
+    eventsFeature.isEditingEvent
   );
   private readonly rawTimelineEvents = this.store.selectSignal(
-    timelineFeature.selectActiveTimelineViewEvents
+    eventsFeature.selectActiveTimelineViewEvents
   );
   private readonly rawImages = this.store.selectSignal(
     imagesFeature.selectLoadedImages

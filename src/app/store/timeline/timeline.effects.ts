@@ -13,12 +13,16 @@ const setActiveTimeline = (action$ = inject(Actions)) =>
       TimelineActions.successAddTimeline,
       TimelineActions.successLoadAccountTimelines
     ),
-    map(({ timelines }) =>
-      timelines.length > 0 ? timelines[0] || null : null
-    ),
-    map(timeline =>
-      timeline
-        ? TimelineActions.setActiveTimeline({ timeline })
+    map(({ timelines, accountId }) => ({
+      timeline: timelines.length > 0 ? timelines[0] || null : null,
+      accountId: accountId,
+    })),
+    map(options =>
+      options.timeline
+        ? TimelineActions.setActiveTimeline({
+            timeline: options.timeline,
+            accountId: options.accountId,
+          })
         : TimelineActions.shouldNotSetActiveTimeline()
     )
   );
@@ -32,6 +36,7 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
         map(timeline =>
           timeline
             ? TimelineActions.successAddTimeline({
+                accountId,
                 timelines: [{ id: timeline.id, name: timeline.name || '' }],
               })
             : TimelineActions.emptyTimeline()
@@ -79,7 +84,7 @@ const loadTimelines = (
           ).map(timeline => ({ id: timeline.id, name: timeline.name || '' }))
         ),
         map(timelines =>
-          TimelineActions.successLoadAccountTimelines({ timelines })
+          TimelineActions.successLoadAccountTimelines({ timelines, accountId })
         ),
         catchError(error => {
           notification.addMessage(error, 'error');

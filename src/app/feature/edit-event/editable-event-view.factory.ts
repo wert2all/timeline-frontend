@@ -8,8 +8,8 @@ import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../events/events.types';
-import { ViewTimelineEvent } from './timeline.types';
+} from '../../store/events/events.types';
+import { ViewTimelineEvent } from '../../store/timeline/timeline.types';
 
 const prepareUrl = (url: string | undefined) => {
   try {
