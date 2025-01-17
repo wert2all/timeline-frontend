@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.27](https://github.com/wert2all/timeline-frontend/compare/v0.0.26...v0.0.27) (2025-01-17)
+
+### Features
+
+- add animation to events on timeline ([e0db7ad](https://github.com/wert2all/timeline-frontend/commit/e0db7ad0b5cce0142000d978d2e890667b591137))
+
+### Bug Fixes
+
+- add animate.css ([0573140](https://github.com/wert2all/timeline-frontend/commit/0573140789e28b7ff3eadc188c7de54cce75a4ef))
+- fix events sorting ([e61cc88](https://github.com/wert2all/timeline-frontend/commit/e61cc88cd9731e34c5968c965a0186af4c62a66c))
+
 ## [0.0.26](https://github.com/wert2all/timeline-frontend/compare/v0.0.25...v0.0.26) (2025-01-17)
 
 ### Features
