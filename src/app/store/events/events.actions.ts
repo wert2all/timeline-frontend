@@ -15,7 +15,11 @@ export const EventActions = createActionGroup({
   events: {
     'Load timeline events': props<LoadEventActionOptions>(),
     'Load more events': props<LoadEventActionOptions>(),
-    'Success load timeline events': props<{ events: ExistTimelineEvent[] }>(),
+    'Success load timeline events': props<{
+      events: ExistTimelineEvent[];
+      cursor: string | Undefined;
+      hasNextPage: boolean;
+    }>(),
 
     'Dispatch edit event': props<{ eventId: number | Undefined }>(),
     'Stop editing event': emptyProps(),

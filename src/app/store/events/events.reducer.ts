@@ -50,6 +50,15 @@ export const eventsFeature = createFeature({
     ),
 
     on(
+      EventActions.successLoadTimelineEvents,
+      (state, { cursor, hasNextPage }): EventsState => ({
+        ...state,
+        nextCursor: cursor,
+        hasNextPage: hasNextPage,
+      })
+    ),
+
+    on(
       EventActions.stopEditingEvent,
       EventActions.successPushNewEvent,
       EventActions.successUpdateEvent,
