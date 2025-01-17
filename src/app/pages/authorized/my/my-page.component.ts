@@ -59,17 +59,20 @@ export class MyPageComponent {
   private readonly rawImages = this.store.selectSignal(
     imagesFeature.selectLoadedImages
   );
-  protected readonly isTimelineLoading = this.store.selectSignal(
-    timelineFeature.isLoading
-  );
 
   protected readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
 
+  protected readonly isTimelineLoading = this.store.selectSignal(
+    timelineFeature.isLoading
+  );
   protected readonly isLoading = computed(() => {
     return !this.activeAccount() || this.isTimelineLoading();
   });
+  protected readonly isEventsLoading = this.store.selectSignal(
+    eventsFeature.selectLoading
+  );
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
     timelineFeature.selectNewTimelineAdded
@@ -119,6 +122,10 @@ export class MyPageComponent {
   protected readonly lastEventCursor = this.store.selectSignal(
     eventsFeature.selectNextCursor
   );
+  protected readonly hasMoreEvents = this.store.selectSignal(
+    eventsFeature.selectHasNextPage
+  );
+
   protected readonly loadEventsOptions = computed(
     (): LoadEventActionOptions | null => {
       const accountId = this.activeAccount()?.id || null;
