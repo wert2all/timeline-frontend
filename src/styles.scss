@@ -7,8 +7,6 @@
 @import url('animate.css');
 @import url('./assets/css/global.scss');
 @import url('./assets/css/animation.scss');
-// <uniquifier>: Use a unique and descriptive class name
-// <weight>: Use a value from 100 to 700
 
 h1,
 h2,
@@ -16,25 +14,28 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Roboto Mono', 'Roboto Mono', 'Vazirmatn', mono;
+  font-family: 'Roboto Slab', mono;
   font-weight: 400;
   font-style: normal;
 }
 
 body {
-  font-family: 'Lexend', serif;
+  font-family: 'Inter', serif;
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
 }
 
 .btn {
-  @apply font-normal;
+  font-weight: 400;
+  font-size: 1rem;
 }
 
 .btn.logo,
 .logo {
   transition: 1s ease-out all;
+
+  font-family: 'JetBrains Mono', serif;
 
   opacity: 1;
   color: white;
