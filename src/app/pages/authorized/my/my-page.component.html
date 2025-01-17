@@ -28,7 +28,9 @@
             (delete)="deleteEvent($event)"
             (edit)="editEvent($event)"
             (loadMore)="loadMoreEvents()"
-            [canEdit]="true" />
+            [canEdit]="true"
+            [isLoading]="isEventsLoading()"
+            [hasMore]="hasMoreEvents()" />
 
           <app-modal-confirm
             [show]="showConfirmWindow()"

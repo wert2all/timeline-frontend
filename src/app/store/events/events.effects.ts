@@ -24,12 +24,9 @@ const dispatchLoadEventsAfterSetActiveTimeline = (actions$ = inject(Actions)) =>
     )
   );
 
-const loadActiveTimelineEvents = (
-  action$ = inject(Actions),
-  api = inject(ApiClient)
-) =>
+const loadEvents = (action$ = inject(Actions), api = inject(ApiClient)) =>
   action$.pipe(
-    ofType(EventActions.loadTimelineEvents),
+    ofType(EventActions.loadTimelineEvents, EventActions.loadMoreEvents),
     exhaustMap(({ timelineId }) =>
       api.getEvents({ timelineId: timelineId }).pipe(
         map(result => result.data.events || []),
@@ -143,10 +140,7 @@ export const eventsEffects = {
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
   failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
 
-  loadActiveTimelineEvents: createEffect(
-    loadActiveTimelineEvents,
-    StoreDispatchEffect
-  ),
+  loadActiveTimelineEvents: createEffect(loadEvents, StoreDispatchEffect),
 
   dispatchLoadEventsAfterSetActiveTimeline: createEffect(
     dispatchLoadEventsAfterSetActiveTimeline,
