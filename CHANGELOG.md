@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.26](https://github.com/wert2all/timeline-frontend/compare/v0.0.25...v0.0.26) (2025-01-17)
+
+### Features
+
+- add load more action for events store ([efad1b4](https://github.com/wert2all/timeline-frontend/commit/efad1b42428a0eb8061b27ccc16380e86611b3c1))
+- add load more button for timeline ([e1ba3d7](https://github.com/wert2all/timeline-frontend/commit/e1ba3d7a0cb234f15f4a6aefff0253de13d5a10b))
+- save cursor to events state ([8a07dab](https://github.com/wert2all/timeline-frontend/commit/8a07dab48c92f27d1e8ca143eba7558d2d728a85))
+- show 'load more' button for events ([fede3ef](https://github.com/wert2all/timeline-frontend/commit/fede3efac3cf03b47d3c1ec8f6466562e6521421))
+
+### Bug Fixes
+
+- token should be base64 encoded ([4cce61d](https://github.com/wert2all/timeline-frontend/commit/4cce61d3d27362a8965bec7200783c75c8c2958e))
+
 ## [0.0.25](https://github.com/wert2all/timeline-frontend/compare/v0.0.24...v0.0.25) (2025-01-15)
 
 ### Features
