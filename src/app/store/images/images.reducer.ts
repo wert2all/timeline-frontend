@@ -1,6 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Pending, Status, UniqueType } from '../../app.types';
-import { updateStateRecord } from '../../libs/state.functions';
+import { Iterable, Pending, Status, UniqueType } from '../../app.types';
 import { EventActions } from '../events/events.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
@@ -71,7 +70,7 @@ export const imagesFeature = createFeature({
       EventActions.successLoadTimelineEvents,
       (state, { events }): ImagesState => ({
         ...state,
-        images: updateStateRecord(
+        images: updateImagesState(
           state.images,
           events
             .map(event =>
@@ -95,7 +94,7 @@ export const imagesFeature = createFeature({
       ImagesActions.successUpdateImages,
       (state, { images }): ImagesState => ({
         ...state,
-        images: updateStateRecord(state.images, images),
+        images: updateImagesState(state.images, images),
       })
     ),
 
@@ -158,3 +157,20 @@ const updateQueque = (
     },
     {}
   );
+
+const updateImagesState = <T extends Iterable>(
+  existStateRecord: Record<number, T>,
+  items: T[]
+): Record<number, T> => {
+  if (items.length > 0) {
+    return [...Object.values(existStateRecord), ...items].reduce(
+      (acc: Record<number, T>, event) => {
+        acc[event.id] = items.find(e => e.id === event.id) || event;
+        return acc;
+      },
+      {}
+    );
+  }
+
+  return existStateRecord;
+};
