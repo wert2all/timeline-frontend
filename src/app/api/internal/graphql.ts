@@ -162,9 +162,11 @@ export type SaveAccountSettings = { saveSettings: Status };
 
 export type GetEventsVariables = Exact<{
   timelineId: Scalars['Int']['input'];
+  accountId: Scalars['Int']['input'];
+  cursor?: InputMaybe<Scalars['String']['input']>;
 }>;
 
-export type GetEvents = { events: Array<TimelineEvent> };
+export type GetEvents = { events: TimelineEvents };
 
 export type GetAccountTimelinesVariables = Exact<{
   accountId: Scalars['Int']['input'];
@@ -370,15 +372,17 @@ export class SaveAccountSettingsMutation extends Apollo.Mutation<
   }
 }
 export const GetEventsDocument = gql`
-  query GetEvents($timelineId: Int!) {
-    events: timelineEvents(
+  query GetEvents($timelineId: Int!, $accountId: Int!, $cursor: String) {
+    events: timelineCursorEvents(
       timelineId: $timelineId
+      accountId: $accountId
+      cursor: $cursor
       limit: { from: 0, to: 10 }
     ) {
-      ...TimelineEvent
+      ...TimelineEvents
     }
   }
-  ${TimelineEvent}
+  ${TimelineEvents}
 `;
 
 @Injectable({
