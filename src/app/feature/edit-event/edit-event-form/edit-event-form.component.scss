@@ -6,8 +6,8 @@
   .form-tab-content {
     @apply hidden h-92;
 
+    animation: backInRight;
     animation-duration: g.$animation-duration;
-    animation-name: swipe-left-tab-content;
 
     &.active {
       @apply block;
