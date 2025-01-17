@@ -36,6 +36,8 @@ const loadActiveTimelineEvents = (
         map(events =>
           EventActions.successLoadTimelineEvents({
             events: events.map(event => fromApiEventToState(event, timelineId)),
+            cursor: null,
+            hasNextPage: false,
           })
         ),
         catchError(exception =>
