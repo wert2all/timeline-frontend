@@ -4,12 +4,17 @@ import {
   TimelineEventInput,
 } from '../../api/internal/graphql';
 import { Undefined } from '../../app.types';
-import { ExistTimelineEvent, TimelineEvent } from './events.types';
+import {
+  ExistTimelineEvent,
+  LoadEventActionOptions,
+  TimelineEvent,
+} from './events.types';
 
 export const EventActions = createActionGroup({
   source: 'Event',
   events: {
     'Load timeline events': props<{ timelineId: number }>(),
+    'Load more events': props<LoadEventActionOptions>(),
     'Success load timeline events': props<{ events: ExistTimelineEvent[] }>(),
 
     'Dispatch edit event': props<{ eventId: number | Undefined }>(),

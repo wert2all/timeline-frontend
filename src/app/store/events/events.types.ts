@@ -26,7 +26,13 @@ export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 
 export type EventsState = Loadable & {
   events: Record<number, ExistTimelineEvent>;
-  showEditEventId: number | Undefined;
   nextCursor: string | Undefined;
   hasNextPage: boolean;
+  showEditEventId: number | Undefined;
 };
+
+export interface LoadEventActionOptions {
+  accountId: number;
+  timelineId: number;
+  cursor: string | Undefined;
+}

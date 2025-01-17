@@ -28,6 +28,8 @@ import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { EventActions } from '../../../store/events/events.actions';
+import { eventsFeature } from '../../../store/events/events.reducer';
+import { LoadEventActionOptions } from '../../../store/events/events.types';
 import { imagesFeature } from '../../../store/images/images.reducer';
 
 @Component({
@@ -114,6 +116,17 @@ export class MyPageComponent {
   protected shouldAddTimeline = computed(() => {
     return this.listTimelines().length === 0;
   });
+  protected readonly lastEventCursor = this.store.selectSignal(
+    eventsFeature.selectNextCursor
+  );
+  protected readonly loadEventsOptions = computed(
+    (): LoadEventActionOptions | null => {
+      const accountId = this.activeAccount()?.id || null;
+      const timelineId = this.activeTimeline()?.id || null;
+      const cursor = this.lastEventCursor();
+      return accountId && timelineId ? { accountId, timelineId, cursor } : null;
+    }
+  );
 
   constructor() {
     effect(() => {
@@ -162,6 +175,13 @@ export class MyPageComponent {
   }
   dispatchNewEventCreation() {
     this.store.dispatch(EventActions.dispatchEditEvent({ eventId: 0 }));
+  }
+
+  loadMoreEvents() {
+    const loadOptions = this.loadEventsOptions();
+    if (loadOptions) {
+      this.store.dispatch(EventActions.loadMoreEvents(loadOptions));
+    }
   }
 
   private convertImageStatus(status: StatusWithPending): Status {

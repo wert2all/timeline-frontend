@@ -16,6 +16,7 @@ export const eventsFeature = createFeature({
     initialState,
     on(
       EventActions.loadTimelineEvents,
+      EventActions.loadMoreEvents,
       (state): EventsState => ({ ...state, loading: true })
     ),
 
