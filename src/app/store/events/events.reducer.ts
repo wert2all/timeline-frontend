@@ -3,14 +3,13 @@ import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
 } from '../../feature/edit-event/editable-event-view.factory';
-import { updateStateRecord } from '../../libs/state.functions';
 import { timelineFeature } from '../timeline/timeline.reducer';
 import { ExistViewTimelineEvent } from '../timeline/timeline.types';
 import { EventActions } from './events.actions';
-import { EventsState, ExistTimelineEvent } from './events.types';
+import { EventsState } from './events.types';
 
 const initialState: EventsState = {
-  events: {},
+  events: [],
   loading: false,
   hasNextPage: false,
   nextCursor: undefined,
@@ -45,7 +44,7 @@ export const eventsFeature = createFeature({
       EventActions.successPushNewEvent,
       (state, { events }): EventsState => ({
         ...state,
-        events: updateStateRecord(state.events, events),
+        events: [...state.events, ...events],
       })
     ),
 
@@ -78,53 +77,38 @@ export const eventsFeature = createFeature({
       EventActions.apiException,
       (state): EventsState => ({
         ...state,
-        events: updateStateRecord(
-          state.events,
-          Object.values(state.events).filter(event => event.loading)
-        ),
+        events: state.events.filter(event => event.loading),
       })
     ),
 
     on(
       EventActions.deleteEvent,
-      (state, { eventId }): EventsState =>
-        state.events[eventId]
-          ? {
-              ...state,
-              events: updateStateRecord<ExistTimelineEvent>(state.events, [
-                { ...state.events[eventId], loading: true },
-              ]),
-            }
-          : state
+      (state, { eventId }): EventsState => ({
+        ...state,
+        events: state.events.map(event => ({
+          ...event,
+          loading: event.id === eventId ? true : event.loading,
+        })),
+      })
     ),
 
     on(
       EventActions.successDeleteEvent,
-      (state, { eventId }): EventsState =>
-        state.events[eventId]
-          ? {
-              ...state,
-              events: Object.values(state.events)
-                .filter(event => event.id !== eventId)
-                .reduce((acc: Record<number, ExistTimelineEvent>, event) => {
-                  acc[event.id] = event;
-                  return acc;
-                }, {}),
-            }
-          : state
+      (state, { eventId }): EventsState => ({
+        ...state,
+        events: state.events.filter(event => event.id !== eventId),
+      })
     ),
 
     on(
       EventActions.failedDeleteEvent,
-      (state, { eventId }): EventsState =>
-        state.events[eventId]
-          ? {
-              ...state,
-              events: updateStateRecord(state.events, [
-                { ...state.events[eventId], loading: false },
-              ]),
-            }
-          : state
+      (state, { eventId }): EventsState => ({
+        ...state,
+        events: state.events.map(event => ({
+          ...event,
+          loading: event.id === eventId ? false : event.loading,
+        })),
+      })
     )
   ),
   extraSelectors: ({ selectShowEditEventId, selectEvents }) => {
@@ -132,9 +116,9 @@ export const eventsFeature = createFeature({
       selectEvents,
       timelineFeature.selectActiveTimeline,
       (selectEvents, activeTimeline) =>
-        Object.values(selectEvents)
-          .filter(event => event.timelineId === activeTimeline?.id)
-          .sort((a, b) => b.date.getTime() - a.date.getTime())
+        Object.values(selectEvents).filter(
+          event => event.timelineId === activeTimeline?.id
+        )
     );
     const selectShouldEditEventSelector = createSelector(
       selectShowEditEventId,

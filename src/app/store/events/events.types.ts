@@ -25,7 +25,7 @@ export type TimelineEvent = TimelineRequired &
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 
 export type EventsState = Loadable & {
-  events: Record<number, ExistTimelineEvent>;
+  events: ExistTimelineEvent[];
   nextCursor: string | Undefined;
   hasNextPage: boolean;
   showEditEventId: number | Undefined;
