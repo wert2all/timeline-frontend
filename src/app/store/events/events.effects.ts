@@ -27,14 +27,16 @@ const dispatchLoadEventsAfterSetActiveTimeline = (actions$ = inject(Actions)) =>
 const loadEvents = (action$ = inject(Actions), api = inject(ApiClient)) =>
   action$.pipe(
     ofType(EventActions.loadTimelineEvents, EventActions.loadMoreEvents),
-    exhaustMap(({ timelineId }) =>
-      api.getEvents({ timelineId: timelineId }).pipe(
+    exhaustMap(({ timelineId, accountId, cursor }) =>
+      api.getEvents({ timelineId, accountId, cursor }).pipe(
         map(result => result.data.events || []),
-        map(events =>
+        map(result =>
           EventActions.successLoadTimelineEvents({
-            events: events.map(event => fromApiEventToState(event, timelineId)),
-            cursor: null,
-            hasNextPage: false,
+            events: result.events.map(event =>
+              fromApiEventToState(event, timelineId)
+            ),
+            cursor: result.page.endCursor,
+            hasNextPage: result.page.hasNextPage,
           })
         ),
         catchError(exception =>
