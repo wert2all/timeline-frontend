@@ -13,16 +13,14 @@ import {
 export const EventActions = createActionGroup({
   source: 'Event',
   events: {
-    'Load timeline events': props<{ timelineId: number }>(),
+    'Load timeline events': props<LoadEventActionOptions>(),
     'Load more events': props<LoadEventActionOptions>(),
     'Success load timeline events': props<{ events: ExistTimelineEvent[] }>(),
 
     'Dispatch edit event': props<{ eventId: number | Undefined }>(),
     'Stop editing event': emptyProps(),
 
-    'Save editable event': props<{
-      event: TimelineEvent | ExistTimelineEvent;
-    }>(),
+    'Save editable event': props<{ event: TimelineEvent }>(),
 
     'Push new event to API': props<{ event: TimelineEventInput }>(),
     'Success push new event': props<{ events: ExistTimelineEvent[] }>(),

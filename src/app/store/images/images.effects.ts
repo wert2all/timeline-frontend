@@ -16,10 +16,10 @@ import {
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { EventActions } from '../events/events.actions';
+import { eventsFeature } from '../events/events.reducer';
 import { NotificationStore } from '../notifications/notifications.store';
 import { TaskActions } from '../task/task.actions';
 import { TaskType } from '../task/task.types';
-import { timelineFeature } from '../timeline/timeline.reducer';
 import { ImagesActions, UploadActions } from './images.actions';
 import { imagesFeature } from './images.reducer';
 
@@ -124,7 +124,7 @@ const addImageOnEdit = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
     ofType(EventActions.dispatchEditEvent),
     concatLatestFrom(() =>
-      store.select(timelineFeature.selectActiveTimelineEvents)
+      store.select(eventsFeature.selectActiveTimelineEvents)
     ),
     map(
       ([{ eventId }, events]) =>

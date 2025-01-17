@@ -8,18 +8,19 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
+import { timelineFeature } from '../../store/timeline/timeline.reducer';
+import { ViewTimelineEvent } from '../../store/timeline/timeline.types';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
-} from '../../store/timeline/editable-event-view.factory';
-import { timelineFeature } from '../../store/timeline/timeline.reducer';
-import { ViewTimelineEvent } from '../../store/timeline/timeline.types';
+} from './editable-event-view.factory';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../app.types';
 import { accountFeature } from '../../store/account/account.reducer';
 import { EventActions } from '../../store/events/events.actions';
+import { eventsFeature } from '../../store/events/events.reducer';
 import { TimelineEventType } from '../../store/events/events.types';
 import { UploadActions } from '../../store/images/images.actions';
 import { imagesFeature } from '../../store/images/images.reducer';
@@ -45,10 +46,10 @@ import { EditEventFormChanges } from './edit-event.types';
 export class EditEventComponent {
   private readonly store = inject(Store);
   private readonly isEdit = this.store.selectSignal(
-    timelineFeature.isEditingEvent
+    eventsFeature.isEditingEvent
   );
   protected readonly editEvent = this.store.selectSignal(
-    timelineFeature.selectShouldEditEvent
+    eventsFeature.selectShouldEditEvent
   );
 
   private readonly timelineId = toSignal(

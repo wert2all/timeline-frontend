@@ -15,8 +15,12 @@ import {
 const dispatchLoadEventsAfterSetActiveTimeline = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(TimelineActions.setActiveTimeline),
-    map(({ timeline }) =>
-      EventActions.loadTimelineEvents({ timelineId: timeline.id })
+    map(({ timeline, accountId }) =>
+      EventActions.loadTimelineEvents({
+        timelineId: timeline.id,
+        cursor: null,
+        accountId,
+      })
     )
   );
 
