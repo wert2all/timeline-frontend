@@ -1,21 +1,23 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Iterable, Undefined } from '../app.types';
+import { LocalStorageService } from './local-storage.service';
 
 const ACTIVE_ACCOUNT_KEY = 'active-Account';
 @Injectable({
   providedIn: 'root',
 })
 export class ActiveAccountService {
+  private readonly localStorage = inject(LocalStorageService);
   public get activeAccount(): number | Undefined {
-    const accountId = Number(localStorage.getItem(ACTIVE_ACCOUNT_KEY));
+    const accountId = Number(this.localStorage.getItem(ACTIVE_ACCOUNT_KEY));
     return isFinite(accountId) ? accountId : undefined;
   }
 
   public set activeAccount(account: Iterable) {
-    localStorage.setItem(ACTIVE_ACCOUNT_KEY, account.id.toString());
+    this.localStorage.setItem(ACTIVE_ACCOUNT_KEY, account.id.toString());
   }
 
   public clean() {
-    localStorage.removeItem(ACTIVE_ACCOUNT_KEY);
+    this.localStorage.removeItem(ACTIVE_ACCOUNT_KEY);
   }
 }
