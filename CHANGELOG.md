@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.28](https://github.com/wert2all/timeline-frontend/compare/v0.0.27...v0.0.28) (2025-01-18)
+
+### Features
+
+- add application state with approves cookies categories ([d8ea690](https://github.com/wert2all/timeline-frontend/commit/d8ea69038f6b837c32b1210de4cb08297da9b6b6))
+- add cookie consent ([a0fd625](https://github.com/wert2all/timeline-frontend/commit/a0fd6251c392b9251d1ba6d621eab4271f585aad))
+- add cookie policy page ([63356c1](https://github.com/wert2all/timeline-frontend/commit/63356c1a49a5cfb6b0b4e59da56fac38a80bbc4e))
+- wrap local storage to service ([edaaf1a](https://github.com/wert2all/timeline-frontend/commit/edaaf1a4a57580d5abf91d604a0ab3922f560481))
+
+### Bug Fixes
+
+- disable authorize button if cookies was not accepted ([b61ce6c](https://github.com/wert2all/timeline-frontend/commit/b61ce6c643a592a2f8385e94847a4b6568fa2764))
+- does not save to local storage if cookie was not accepted ([b988f46](https://github.com/wert2all/timeline-frontend/commit/b988f463d4800b6a290e14ea909226d1d4b5c751))
+- fix design ([6a726d4](https://github.com/wert2all/timeline-frontend/commit/6a726d462fae6224b23ef3902ccf9f652fcb3fd9))
+- fix edit event ([d9bc912](https://github.com/wert2all/timeline-frontend/commit/d9bc912ac734e40999692d2069459e2d52f92f2e))
+- fix font of buttons ([3d35a6d](https://github.com/wert2all/timeline-frontend/commit/3d35a6dffad9cbeccbba08db63a093ef29ecfee6))
+- fix font of events title ([209c5cd](https://github.com/wert2all/timeline-frontend/commit/209c5cdccf54be279a7dce0cc809b3d2cb675607))
+- fix header border on mobile view ([79fb936](https://github.com/wert2all/timeline-frontend/commit/79fb93617cc3ee0ba37eab009d8c4dd4669064ca))
+- fix notification position ([dc2f8a8](https://github.com/wert2all/timeline-frontend/commit/dc2f8a80e213c45b18977618d7ce0518e6f1e533))
+- fix notifications ([d19700e](https://github.com/wert2all/timeline-frontend/commit/d19700e9c153ea456de8e5045db42682cde72f6e))
+- fix width of app ([5a28811](https://github.com/wert2all/timeline-frontend/commit/5a288112d292b01c6ddba3a12a63d9d978905eab))
+
 ## [0.0.27](https://github.com/wert2all/timeline-frontend/compare/v0.0.26...v0.0.27) (2025-01-17)
 
 ### Features
