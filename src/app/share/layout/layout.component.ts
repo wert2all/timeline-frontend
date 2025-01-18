@@ -4,6 +4,7 @@ import { NotificationsContainerComponent } from '../notifications/notifications-
 import { Store } from '@ngrx/store';
 import { TableOfContentsContainerComponent } from '../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
 import { tableOfYearFeature } from '../../store/table-of-contents/table-of-contents.reducer';
+import { CookieConsentComponent } from '../cookie-consent/cookie-consent.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 
@@ -16,6 +17,7 @@ import { HeaderComponent } from './header/header.component';
     HeaderComponent,
     NotificationsContainerComponent,
     TableOfContentsContainerComponent,
+    CookieConsentComponent,
   ],
 })
 export class LayoutComponent {
