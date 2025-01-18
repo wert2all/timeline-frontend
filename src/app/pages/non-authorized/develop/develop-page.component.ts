@@ -18,6 +18,7 @@ import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../../../share/loader/loader.component';
 import { NotificationStore } from '../../../store/notifications/notifications.store';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
+import { MarkdownHelpComponent } from '../static/markdown-help/markdown-help.component';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
 @Component({
@@ -31,6 +32,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     DevelopContentComponent,
     TableOfContentsContainerComponent,
     LoaderComponent,
+    MarkdownHelpComponent,
   ],
   templateUrl: './develop-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -64,6 +66,11 @@ export class DevelopPageComponent implements OnInit {
 
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
+      {
+        title: 'Markdown Help',
+        uuid: 'MarkdownHelpComponent',
+        link: '/develop#MarkdownHelpComponent',
+      },
       {
         title: 'Layout',
         uuid: 'LayoutTesting',

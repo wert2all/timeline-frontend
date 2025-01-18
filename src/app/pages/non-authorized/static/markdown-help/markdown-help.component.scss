@@ -1,0 +1,13 @@
+h2 {
+  @apply my-2 text-2xl font-bold;
+}
+p {
+  @apply my-2;
+}
+code,
+pre {
+  @apply rounded-lg bg-base-300 p-2;
+}
+li {
+  @apply py-2;
+}

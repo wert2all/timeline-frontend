@@ -15,10 +15,23 @@
 </label>
 <label class="form-control">
   <div class="label">
-    <span class="label-text">Content</span>
+    <span class="label-text"
+      >Mardown content
+      <a
+        class="link"
+        tabindex="1"
+        (click)="showHelp.set(true)"
+        (keyup.enter)="showHelp.set(true)">
+        <ng-icon name="saxMessageQuestionBulk" size="22" />
+      </a>
+    </span>
   </div>
   <textarea
-    class="textarea textarea-bordered h-32 w-full"
+    class="textarea textarea-bordered h-52 w-full"
     name="content"
     [formControl]="form().controls.content"></textarea>
 </label>
+
+<app-modal title="Markdown" [show]="showHelp()" (closed)="showHelp.set(false)">
+  <app-static-markdown-help />
+</app-modal>
