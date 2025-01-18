@@ -1,10 +1,5 @@
-import {
-  Injectable,
-  WritableSignal,
-  computed,
-  effect,
-  signal,
-} from '@angular/core';
+import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { LocalStorageService } from './local-storage.service';
 
 export const storageKey = 'theme';
 enum Themes {
@@ -13,11 +8,10 @@ enum Themes {
 }
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  readonly #htmlElement = document.getElementById('html') as HTMLHtmlElement;
-  private readonly themeSignal: WritableSignal<Themes> = signal<Themes>(
-    Themes.gruvbox
-  );
+  private readonly localStorage = inject(LocalStorageService);
+  private readonly themeSignal = signal<Themes>(Themes.gruvbox);
 
+  readonly #htmlElement = document.getElementById('html') as HTMLHtmlElement;
   isDark = computed(() => {
     return this.themeSignal() === Themes.gruvbox;
   });
@@ -37,7 +31,7 @@ export class ThemeService {
   }
 
   private initializeThemeFromPreferences() {
-    const storedTheme = localStorage.getItem(storageKey);
+    const storedTheme = this.localStorage.getItem(storageKey);
 
     if (storedTheme) {
       this.themeSignal.update(() => this.themeFrom(storedTheme));
@@ -65,6 +59,6 @@ export class ThemeService {
 
       this.#htmlElement.setAttribute('data-theme', this.themeSignal());
     }
-    localStorage.setItem(storageKey, this.themeSignal());
+    this.localStorage.setItem(storageKey, this.themeSignal());
   }
 }
