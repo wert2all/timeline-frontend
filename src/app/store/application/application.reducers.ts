@@ -1,4 +1,4 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { ApplicationActions } from './application.actions';
 import { ApplicationState, CookieCategory } from './application.types';
 
@@ -27,4 +27,9 @@ export const applicationFeature = createFeature({
       })
     )
   ),
+  extraSelectors: ({ selectCookie }) => ({
+    canUseNecessaryCookies: createSelector(selectCookie, cookie =>
+      cookie.includes(CookieCategory.NECESSARY)
+    ),
+  }),
 });

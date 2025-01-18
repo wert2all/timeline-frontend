@@ -20,7 +20,16 @@ export class ThemeService {
     this.initializeThemeFromPreferences();
 
     effect(() => {
-      this.updateRenderedTheme();
+      if (
+        this.#htmlElement.attributes.getNamedItem('data-theme')?.value !==
+        this.themeSignal()
+      ) {
+        this.#htmlElement.classList.remove(this.isDark() ? 'light' : 'dark');
+        this.#htmlElement.classList.add(this.isDark() ? 'dark' : 'light');
+
+        this.#htmlElement.setAttribute('data-theme', this.themeSignal());
+      }
+      this.localStorage.setItem(storageKey, this.themeSignal());
     });
   }
 
@@ -47,18 +56,5 @@ export class ThemeService {
       default:
         return Themes.gruvbox;
     }
-  }
-
-  private updateRenderedTheme(): void {
-    if (
-      this.#htmlElement.attributes.getNamedItem('data-theme')?.value !==
-      this.themeSignal()
-    ) {
-      this.#htmlElement.classList.remove(this.isDark() ? 'light' : 'dark');
-      this.#htmlElement.classList.add(this.isDark() ? 'dark' : 'light');
-
-      this.#htmlElement.setAttribute('data-theme', this.themeSignal());
-    }
-    this.localStorage.setItem(storageKey, this.themeSignal());
   }
 }
