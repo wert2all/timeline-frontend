@@ -1,28 +1,13 @@
-<div class="notification-bar fixed right-0 top-0 z-30 w-96 p-2 pe-6">
+<div class="notification-container">
   @for (message of messages(); track $index) {
     <div
-      [tabindex]="message.uuid"
-      class="notification-item mb-2 rounded-b-lg shadow-lg"
-      [class.bg-success]="message.type === 'success'"
-      [class.bg-warning]="message.type === 'warning'"
-      [class.bg-error]="message.type === 'error'"
-      (click)="onItemClick(message)"
-      (keyup)="onItemClick(message)">
-      <div
-        class="content"
-        [class.text-warning-content]="message.type === 'warning'"
-        [class.text-success-content]="message.type === 'success'"
-        [class.text-error-content]="message.type === 'error'">
-        <div
-          class="flex w-full flex-grow flex-col flex-wrap py-1 sm:flex-row sm:flex-nowrap">
-          <div class="w-full flex-grow px-3 pt-1">
-            <p>{{ message.message }}</p>
-          </div>
-        </div>
-      </div>
-      <div
-        class="indicator m-0 h-0.5 bg-neutral-content p-0"
-        (animationend)="onAnimationEnd(message)"></div>
+      tabindex="0"
+      class="toast {{ message.type }}"
+      (click)="closeMessage(message)"
+      (keyup.escape)="closeMessage(message)"
+      (keyup.enter)="closeMessage(message)">
+      <span>{{ message.message }} </span>
+      <span class="indicator" (animationend)="closeMessage(message)"></span>
     </div>
   }
 </div>
