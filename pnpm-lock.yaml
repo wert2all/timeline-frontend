@@ -113,6 +113,9 @@ importers:
       uuid:
         specifier: ^11.0.5
         version: 11.0.5
+      vanilla-cookieconsent:
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@angular-devkit/build-angular':
         specifier: ^19.1.2
@@ -8014,6 +8017,9 @@ packages:
   value-or-promise@1.0.12:
     resolution: {integrity: sha512-Z6Uz+TYwEqE7ZN50gwn+1LCVo9ZVrpxRPOhOLnncYkY1ZzOYtrX8Fwf/rFktZ8R5mJms6EZf5TqNOMeZmnPq9Q==}
     engines: {node: '>=12'}
+
+  vanilla-cookieconsent@3.0.1:
+    resolution: {integrity: sha512-gqc4x7O9t1I4xWr7x6/jtQWPr4PZK26SmeA0iyTv1WyoECfAGnu5JEOExmMEP+5Fz66AT9OiCBO3GII4wDQHLw==}
 
   vary@1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
@@ -17855,6 +17861,8 @@ snapshots:
   validate-npm-package-name@6.0.0: {}
 
   value-or-promise@1.0.12: {}
+
+  vanilla-cookieconsent@3.0.1: {}
 
   vary@1.1.2: {}
 
