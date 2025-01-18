@@ -27,10 +27,10 @@ export const EventActions = createActionGroup({
     'Save editable event': props<{ event: TimelineEvent }>(),
 
     'Push new event to API': props<{ event: TimelineEventInput }>(),
-    'Success push new event': props<{ events: ExistTimelineEvent[] }>(),
+    'Success push new event': props<{ event: ExistTimelineEvent }>(),
 
     'Update exist event on API': props<{ event: ExistTimelineEventInput }>(),
-    'Success update event': props<{ events: ExistTimelineEvent[] }>(),
+    'Success update event': props<{ event: ExistTimelineEvent }>(),
 
     'Confirm to delete event': props<{ eventId: number }>(),
     'Delete event': props<{ eventId: number; imageId: number | Undefined }>(),

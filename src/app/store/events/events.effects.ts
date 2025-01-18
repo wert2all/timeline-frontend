@@ -99,7 +99,7 @@ const pushNewEventToApi = (
       api.addTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
         map(data => fromApiEventToState(data.event, event.timelineId)),
-        map(event => EventActions.successPushNewEvent({ events: [event] })),
+        map(event => EventActions.successPushNewEvent({ event })),
         catchError(error => {
           notification.addMessage(error, 'error');
           return of(EventActions.emptyEvent);
@@ -119,7 +119,7 @@ const pushExistEventToApi = (
       api.saveExistTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
         map(data => fromApiEventToState(data.event, event.timelineId)),
-        map(event => EventActions.successUpdateEvent({ events: [event] })),
+        map(event => EventActions.successUpdateEvent({ event })),
         catchError(error => {
           notification.addMessage(error, 'error');
           return of(EventActions.emptyEvent);

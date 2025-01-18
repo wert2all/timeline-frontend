@@ -39,19 +39,26 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.successLoadTimelineEvents,
-      EventActions.successUpdateEvent,
       EventActions.successPushNewEvent,
-      (state, { events }): EventsState => ({
+      (state, { event }): EventsState => ({
         ...state,
-        events: [...state.events, ...events],
+        events: [event, ...state.events],
+      })
+    ),
+
+    on(
+      EventActions.successUpdateEvent,
+      (state, { event }): EventsState => ({
+        ...state,
+        events: state.events.map(e => (event.id === e.id ? event : e)),
       })
     ),
 
     on(
       EventActions.successLoadTimelineEvents,
-      (state, { cursor, hasNextPage }): EventsState => ({
+      (state, { events, cursor, hasNextPage }): EventsState => ({
         ...state,
+        events: [...state.events, ...events],
         nextCursor: cursor,
         hasNextPage: hasNextPage,
       })
