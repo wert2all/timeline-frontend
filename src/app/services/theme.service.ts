@@ -3,17 +3,18 @@ import { LocalStorageService } from './local-storage.service';
 
 export const storageKey = 'theme';
 enum Themes {
-  gruvbox = 'gruvbox',
-  pastel = 'pastel',
+  dark = 'gruvbox',
+  light = 'pastel',
 }
+
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private readonly localStorage = inject(LocalStorageService);
-  private readonly themeSignal = signal<Themes>(Themes.gruvbox);
+  private readonly themeSignal = signal<Themes>(Themes.dark);
 
   readonly #htmlElement = document.getElementById('html') as HTMLHtmlElement;
   isDark = computed(() => {
-    return this.themeSignal() === Themes.gruvbox;
+    return this.themeSignal() === Themes.dark;
   });
 
   constructor() {
@@ -35,7 +36,7 @@ export class ThemeService {
 
   toggleTheme(): void {
     this.themeSignal.update(prev =>
-      prev === Themes.gruvbox ? Themes.pastel : Themes.gruvbox
+      prev === Themes.dark ? Themes.light : Themes.dark
     );
   }
 
@@ -49,12 +50,12 @@ export class ThemeService {
 
   private themeFrom(theme: string): Themes {
     switch (theme) {
-      case Themes.gruvbox:
-        return Themes.gruvbox;
-      case Themes.pastel:
-        return Themes.pastel;
+      case Themes.dark:
+        return Themes.dark;
+      case Themes.light:
+        return Themes.light;
       default:
-        return Themes.gruvbox;
+        return Themes.dark;
     }
   }
 }
