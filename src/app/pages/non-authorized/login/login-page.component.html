@@ -5,10 +5,15 @@
       <p class="pb-14 pt-6">
         You must be signed in to your Google account to use Timeline
       </p>
+      @if (canUseCookies() === false) {
+        <p class="mb-4">Please accept the cookies for continue authorization</p>
+      }
       <button
         class="btn btn-primary"
         (click)="login()"
-        [attr.disabled]="isLoading() ? true : null">
+        [attr.disabled]="
+          isLoading() || canUseCookies() === false ? true : null
+        ">
         @if (isLoading() === true) {
           <span class="loading loading-spinner"></span>
         } @else {
