@@ -4,6 +4,9 @@ const extendHeight = {
   192: '48rem',
   256: '64rem',
 };
+const daisyuiThemes = require('daisyui/src/theming/themes');
+const pastelTheme = daisyuiThemes['pastel'];
+
 export default {
   content: ['./src/**/*.{html,ts}'],
   theme: {
@@ -16,7 +19,12 @@ export default {
   daisyui: {
     logs: false,
     themes: [
-      'pastel',
+      {
+        pastel: {
+          ...pastelTheme,
+          'base-200': '#e8e8e8',
+        },
+      },
       {
         gruvbox: {
           primary: '#448588',
