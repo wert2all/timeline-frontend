@@ -1,14 +1,20 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { applicationFeature } from '../store/application/application.reducers';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocalStorageService {
-  constructor() { }
-
+  private readonly canSave = inject(Store).selectSignal(
+    applicationFeature.canUseNecessaryCookies
+  );
+  //
   // Set a value in local storage
   setItem(key: string, value: string): void {
-    localStorage.setItem(key, value);
+    if (this.canSave()) {
+      localStorage.setItem(key, value);
+    }
   }
 
   // Get a value from local storage
@@ -18,11 +24,15 @@ export class LocalStorageService {
 
   // Remove a value from local storage
   removeItem(key: string): void {
-    localStorage.removeItem(key);
+    if (this.canSave()) {
+      localStorage.removeItem(key);
+    }
   }
 
   // Clear all items from local storage
   clear(): void {
-    localStorage.clear();
+    if (this.canSave()) {
+      localStorage.clear();
+    }
   }
 }
