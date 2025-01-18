@@ -139,15 +139,11 @@ const deleteImagesAfterSave = (
   actions$.pipe(
     ofType(EventActions.successUpdateEvent, EventActions.successPushNewEvent),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
-    map(([{ events }, shouldDelete]) => {
-      const eventImages = events
-        .map(event => event.imageId)
-        .filter(imageId => imageId != undefined);
-
-      return shouldDelete
-        .filter(imageId => !eventImages.find(e => e === imageId.id))
-        .map(imageId => imageId.id);
-    }),
+    map(([{ event }, shouldDelete]) =>
+      shouldDelete
+        .filter(imageId => event.imageId != imageId.id)
+        .map(imageId => imageId.id)
+    ),
     tap(images => console.log('deleted images: ', images)),
     map(images => ImagesActions.successDeletingImages({ images }))
   );
