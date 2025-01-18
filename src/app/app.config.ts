@@ -18,6 +18,7 @@ import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
+import { applicationFeature } from './store/application/application.reducers';
 import { authEffects } from './store/auth/auth.effects';
 import { eventsEffects } from './store/events/events.effects';
 import { eventsFeature } from './store/events/events.reducer';
@@ -42,6 +43,7 @@ export const appConfig: ApplicationConfig = {
     provideSentry(),
     provideApollo(),
     provideStore({
+      [applicationFeature.name]: applicationFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
       [eventsFeature.name]: eventsFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,

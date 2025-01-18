@@ -1,5 +1,7 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as CookieConsent from 'vanilla-cookieconsent';
+import { ApplicationActions } from '../../store/application/application.actions';
 
 @Component({
   standalone: true,
@@ -7,30 +9,13 @@ import * as CookieConsent from 'vanilla-cookieconsent';
   template: ``,
 })
 export class CookieConsentComponent implements AfterViewInit {
+  private readonly store = inject(Store);
   ngAfterViewInit(): void {
     CookieConsent.run({
-      onFirstConsent: ({ cookie }) => {
-        console.log('onFirstConsent fired', cookie);
-      },
-
       onConsent: ({ cookie }) => {
-        console.log('onConsent fired!', cookie);
-      },
-
-      onChange: ({ changedCategories, changedServices }) => {
-        console.log('onChange fired!', changedCategories, changedServices);
-      },
-
-      onModalReady: ({ modalName }) => {
-        console.log('ready:', modalName);
-      },
-
-      onModalShow: ({ modalName }) => {
-        console.log('visible:', modalName);
-      },
-
-      onModalHide: ({ modalName }) => {
-        console.log('hidden:', modalName);
+        this.store.dispatch(
+          ApplicationActions.dispatchCookieConsent({ cookie })
+        );
       },
 
       categories: {
