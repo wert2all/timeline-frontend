@@ -15,15 +15,7 @@ export class NotificationsContainerComponent {
   private readonly store = inject(NotificationStore);
   messages = this.store.unRead;
 
-  onItemClick(message: NotificationMessage) {
-    this.read(message);
-  }
-
-  onClose(message: NotificationMessage) {
-    this.read(message);
-  }
-
-  onAnimationEnd(message: NotificationMessage) {
+  closeMessage(message: NotificationMessage) {
     this.read(message);
   }
 

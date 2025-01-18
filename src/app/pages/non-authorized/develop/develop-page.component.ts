@@ -16,6 +16,7 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 
 import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../../../share/loader/loader.component';
+import { NotificationStore } from '../../../store/notifications/notifications.store';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
@@ -36,6 +37,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 })
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
+  private readonly notificationStore = inject(NotificationStore);
   // private readonly dumpEventImage: ViewEventImage = {
   //   imageId: 1,
   //   title: dumpTitle,

@@ -22,10 +22,11 @@ export const NotificationStore = signalStore(
         ...state,
         messages: state.messages.map(message => ({
           ...message,
-          read: message.uuid === uuid,
+          read: message.uuid === uuid ? true : message.read,
         })),
       }));
     },
+
     addMessage(message: string, type: MessageType): void {
       patchState(
         store,

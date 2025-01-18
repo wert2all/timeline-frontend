@@ -1,20 +1,52 @@
-.notification-item {
-  .indicator {
-    width: 100%;
-    animation-duration: 5s;
-    animation-name: progress;
-  }
+@use '../../../assets/css/global' as g;
 
-  &:hover .indicator {
-    animation-play-state: paused;
-  }
+.notification-container {
+  @apply fixed right-0 top-0 z-30 w-96 pe-4 pt-2;
 
-  @keyframes progress {
-    100% {
-      width: 0;
+  .toast {
+    @apply mt-2 rounded-t-lg bg-base-300;
+
+    position: relative;
+    animation-name: backInRight;
+    animation-duration: g.$animation-duration;
+
+    &.success {
+      @apply border-success;
     }
-    0% {
-      width: 100%;
+
+    &.warning {
+      @apply border-warning;
     }
+
+    &.error {
+      @apply border-error;
+    }
+
+    .indicator {
+      @apply absolute bottom-0 left-0 h-1 w-full;
+
+      animation: timeOut 5s linear 1 forwards;
+    }
+    &.success .indicator {
+      @apply bg-success;
+    }
+
+    &.warning .indicator {
+      @apply bg-warning;
+    }
+
+    &.error .indicator {
+      @apply bg-error;
+    }
+
+    &:hover .indicator {
+      animation-play-state: paused;
+    }
+  }
+}
+
+@keyframes timeOut {
+  to {
+    width: 0;
   }
 }
