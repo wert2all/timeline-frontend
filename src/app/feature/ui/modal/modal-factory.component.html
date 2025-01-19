@@ -1,0 +1,11 @@
+<app-modal
+  [show]="!!windowType()"
+  [title]="windowTitle()"
+  (closed)="closeWindow()">
+  @if (windowType() === ModalWindowType.FEATURES) {
+    <app-show-user-features />
+  }
+  @if (windowType() === ModalWindowType.SETTINGS) {
+    <app-show-user-settings />
+  }
+</app-modal>

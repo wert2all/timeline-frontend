@@ -2,7 +2,11 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { ApplicationActions } from './application.actions';
 import { ApplicationState, CookieCategory } from './application.types';
 
-const initialState: ApplicationState = { loading: false, cookie: [] };
+const initialState: ApplicationState = {
+  loading: false,
+  cookie: [],
+  windowType: null,
+};
 
 export const applicationFeature = createFeature({
   name: 'application',
@@ -24,6 +28,22 @@ export const applicationFeature = createFeature({
             return null;
           })
           .filter(Boolean) as CookieCategory[],
+      })
+    ),
+
+    on(
+      ApplicationActions.opensModalWindow,
+      (state, { windowType }): ApplicationState => ({
+        ...state,
+        windowType,
+      })
+    ),
+
+    on(
+      ApplicationActions.closeModalWindow,
+      (state): ApplicationState => ({
+        ...state,
+        windowType: null,
       })
     )
   ),

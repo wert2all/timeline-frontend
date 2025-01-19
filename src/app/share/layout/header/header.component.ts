@@ -10,14 +10,13 @@ import {
 import { Store } from '@ngrx/store';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
-import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
-import { ShowUserSettingsComponent } from '../../../feature/user/features/show-user-settings/show-user-settings.component';
 import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { AuthService } from '../../../services/auth.service';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { ApplicationActions } from '../../../store/application/application.actions';
+import { ModalWindowType } from '../../../store/application/application.types';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../store/navigation/navigation.actions';
-import { ModalComponent } from '../../modal/modal.component';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
 import { CurrentAccountComponent } from './current-account/current-account.component';
 import { LoginButtonComponent } from './login-button/login-button.component';
@@ -32,12 +31,9 @@ import { LoginButtonComponent } from './login-button/login-button.component';
     LoginButtonComponent,
     FeatureFlagComponent,
     ThemeSwitchComponent,
-    ShowUserFeaturesComponent,
     CurrentAccountComponent,
     CollapsableMenuComponent,
     ClickOutsideDirective,
-    ModalComponent,
-    ShowUserSettingsComponent,
   ],
 })
 export class HeaderComponent {
@@ -51,8 +47,6 @@ export class HeaderComponent {
 
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);
-  protected readonly showFeatures = signal(false);
-  protected readonly showSettings = signal(false);
 
   protected isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
   protected activeAccount = this.store.selectSignal(
@@ -84,12 +78,20 @@ export class HeaderComponent {
   }
 
   openUserFeatures() {
-    this.showFeatures.set(true);
+    this.store.dispatch(
+      ApplicationActions.opensModalWindow({
+        windowType: ModalWindowType.FEATURES,
+      })
+    );
     this.isOpenMenu.set(false);
   }
 
   openUserSettings() {
-    this.showSettings.set(true);
+    this.store.dispatch(
+      ApplicationActions.opensModalWindow({
+        windowType: ModalWindowType.SETTINGS,
+      })
+    );
     this.isOpenMenu.set(false);
   }
 
