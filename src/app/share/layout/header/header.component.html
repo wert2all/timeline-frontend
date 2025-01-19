@@ -31,6 +31,7 @@
             (copyToken)="copyTokenToClipboard()"
             (closeMenu)="closeMenu()"
             (openUserFeatures)="openUserFeatures()"
+            (openUserSettings)="openUserSettings()"
             (logout)="logout()" />
         </div>
       </div>
@@ -47,7 +48,8 @@
       [currentAccountUUID]="account.uuid"
       (copyToken)="copyTokenToClipboard()"
       (closeMenu)="closeMenu()"
-      (openUserFeatures)="showFeatures.set(true)"
+      (openUserFeatures)="openUserFeatures()"
+      (openUserSettings)="openUserSettings()"
       (logout)="logout()" />
   </div>
 }
@@ -60,4 +62,11 @@
     [showFeatures]="showFeatures()"
     (save)="saveFeature({ feature: $event.name, isActive: $event.active })"
     (close)="showFeatures.set(false)" />
+</app-feature-flag>
+<app-feature-flag
+  feature="user_settings"
+  [accountSettings]="activeAccountSettings()">
+  <app-show-user-settings
+    [showFeatures]="showSettings()"
+    (close)="showSettings.set(false)" />
 </app-feature-flag>

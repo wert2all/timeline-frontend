@@ -39,7 +39,10 @@
     <app-feature-flag
       feature="user_settings"
       [accountSettings]="accountSettings()">
-      <a tabindex="0">
+      <a
+        tabindex="0"
+        (click)="openUserSettings.emit()"
+        (keyup.enter)="openUserSettings.emit()">
         <ng-icon name="saxSetting2Outline" size="22"></ng-icon>
         Settings
       </a>
