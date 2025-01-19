@@ -18,6 +18,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../app.types';
+import { Tabs } from '../../share/tabs/tabs.types';
 import { accountFeature } from '../../store/account/account.reducer';
 import { EventActions } from '../../store/events/events.actions';
 import { eventsFeature } from '../../store/events/events.reducer';
@@ -30,10 +31,7 @@ import { EventMainContentComponent } from '../timeline/components/event/content/
 import { IconComponent } from '../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../timeline/timeline.types';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
-import {
-  EditEventFormViewHelper,
-  Tabs,
-} from './edit-event-form/edit-event-form.types';
+import { EditEventFormViewHelper } from './edit-event-form/edit-event-form.types';
 import { EditEventFormChanges } from './edit-event.types';
 
 @Component({

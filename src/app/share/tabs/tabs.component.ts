@@ -10,11 +10,11 @@ import {
   saxTagOutline,
   saxTextBlockOutline,
 } from '@ng-icons/iconsax/outline';
-import { Tabs } from '../edit-event-form.types';
+import { Tabs } from './tabs.types';
 
 @Component({
   standalone: true,
-  selector: 'app-edit-event-form-tabs',
+  selector: 'app-shared-tabs',
   templateUrl: './tabs.component.html',
   styleUrls: ['./tabs.component.scss'],
   imports: [NgIconComponent],
@@ -31,7 +31,7 @@ import { Tabs } from '../edit-event-form.types';
     }),
   ],
 })
-export class EditEventFormTabsComponent {
+export class SharedTabsComponent {
   tabs = input.required<Tabs[]>();
   activeTab = input.required<Tabs>();
 

@@ -1,5 +1,5 @@
 import { FormControl } from '@angular/forms';
-import { Undefined, Unique } from '../../../app.types';
+import { Undefined } from '../../../app.types';
 import { UploadQuequeImage } from '../../../store/images/images.types';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 
@@ -20,9 +20,3 @@ export interface EditEventFormViewHelper {
   url: PreviewHolder | Undefined;
   image: Undefined | UploadQuequeImage;
 }
-
-export type Tabs = Unique & {
-  title: string;
-  icon: string;
-  isEnabled: boolean;
-};

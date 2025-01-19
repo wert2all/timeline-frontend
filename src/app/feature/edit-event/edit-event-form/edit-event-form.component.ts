@@ -30,6 +30,8 @@ import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 import { fromInputSignal } from '../../../libs/signal.functions';
+import { SharedTabsComponent } from '../../../share/tabs/tabs.component';
+import { Tabs } from '../../../share/tabs/tabs.types';
 import { TimelineEvent } from '../../../store/events/events.types';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';
@@ -37,10 +39,8 @@ import { EditFormDateTimeInputComponent } from './date-time-input/date-time-inpu
 import {
   EditEventForm,
   EditEventFormViewHelper,
-  Tabs,
 } from './edit-event-form.types';
 import { EditFormLinkInputComponent } from './link-input/link-input.component';
-import { EditEventFormTabsComponent } from './tabs/tabs.component';
 import { EditFormTagsInputComponent } from './tags-input/tags-input.component';
 import { EditFormTextInputComponent } from './text-input/text-input.component';
 import { EditEventFormUploadInputComponent } from './upload-input/upload-input.component';
@@ -73,7 +73,7 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
     CommonModule,
     NgIconComponent,
     ReactiveFormsModule,
-    EditEventFormTabsComponent,
+    SharedTabsComponent,
     EditFormTextInputComponent,
     EditFormDateTimeInputComponent,
     EditFormTagsInputComponent,
