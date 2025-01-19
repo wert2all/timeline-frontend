@@ -25,6 +25,7 @@ import { CreateTimelineButtonComponent } from '../../../feature/timeline/compone
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
 
 import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
+import { ModalFactoryComponent } from '../../../feature/ui/modal/modal-factory.component';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { EventActions } from '../../../store/events/events.actions';
@@ -45,6 +46,7 @@ import { imagesFeature } from '../../../store/images/images.reducer';
     AddEventButtonComponent,
     ModalConfirmComponent,
     TimelineComponent,
+    ModalFactoryComponent,
   ],
 })
 export class MyPageComponent {

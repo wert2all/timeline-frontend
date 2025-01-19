@@ -53,21 +53,3 @@
       (logout)="logout()" />
   </div>
 }
-
-<app-feature-flag
-  feature="user_feature_flag"
-  [accountSettings]="activeAccountSettings()">
-  <app-modal
-    [show]="showFeatures()"
-    title="Features"
-    (closed)="showFeatures.set(false)">
-    <app-show-user-features />
-  </app-modal>
-</app-feature-flag>
-<app-feature-flag
-  feature="user_settings"
-  [accountSettings]="activeAccountSettings()">
-  <app-show-user-settings
-    [showFeatures]="showSettings()"
-    (close)="showSettings.set(false)" />
-</app-feature-flag>
