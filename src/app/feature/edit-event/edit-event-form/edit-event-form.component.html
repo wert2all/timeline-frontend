@@ -48,35 +48,28 @@
       keep private (coming soon)
     </label>
   </div>
-  <div class="mt-8 flex place-items-center gap-4">
-    <div class="flex-none">
-      <button
-        (click)="saveAction.emit()"
-        class="btn btn-primary"
-        [attr.disabled]="!editForm.valid || loading() === true ? true : null">
-        <ng-icon [name]="submitButton().icon" size="24"></ng-icon>
-        {{ submitButton().title }}
-      </button>
-    </div>
-    <div class="flex-none lg:hidden">
-      <button class="btn" (click)="dismissAction.emit()">close</button>
-    </div>
-    <div
-      class="tooltip tooltip-top tooltip-info hidden shrink lg:block"
-      data-tip="coming soon">
-      <label
-        for="is_private"
-        class="flex cursor-not-allowed place-items-center gap-2 opacity-40">
-        <input
-          id="is_private"
-          type="checkbox"
-          class="checkbox"
-          disabled
-          [attr.checked]="
-            editForm.controls.isPrivate.value === true ? 'checked' : null
-          " />
-        keep private
-      </label>
-    </div>
+  <div
+    class="tooltip tooltip-top tooltip-info hidden shrink lg:block"
+    data-tip="coming soon">
+    <label
+      for="is_private"
+      class="flex cursor-not-allowed place-items-center gap-2 opacity-40">
+      <input
+        id="is_private"
+        type="checkbox"
+        class="checkbox"
+        disabled
+        [attr.checked]="
+          editForm.controls.isPrivate.value === true ? 'checked' : null
+        " />
+      keep private
+    </label>
   </div>
+  <app-shared-form-controls
+    (acceptAction)="saveAction.emit()"
+    (dismissAction)="dismissAction.emit()"
+    [acceptButtonTitle]="submitButton().title"
+    dismissButtonTitle="close"
+    [acceptButtonIcon]="submitButton().icon"
+    [isDisabled]="!editForm.valid || loading()" />
 </div>
