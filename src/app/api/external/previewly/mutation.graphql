@@ -5,7 +5,7 @@ mutation AddUrl($token: String!, $url: String!)
   }
 }
 
-mutation UploadImages($token: String!, $images: [Upload!]!)
+mutation UploadImages($token: String!, $images: [UploadInput!]!)
 @namedClient(name: "previewly") {
   upload(token: $token, images: $images) {
     ...UploadImageStatus

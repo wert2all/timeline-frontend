@@ -3,6 +3,7 @@ fragment UploadImageStatus on UploadImageStatus {
   name
   status
   error
+  extra
 }
 
 fragment ImageData on ImageData {

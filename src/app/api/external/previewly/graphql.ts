@@ -52,11 +52,18 @@ export enum Status {
   success = 'success',
 }
 
+export interface UploadInput {
+  extra?: InputMaybe<Scalars['String']['input']>;
+  image: Scalars['Upload']['input'];
+  name?: InputMaybe<Scalars['String']['input']>;
+}
+
 export type UploadImageStatus = {
   id: number;
   name: string;
   status: Status;
   error?: string | null;
+  extra?: string | null;
 };
 
 export type ImageData = { name: string; url: string };
@@ -85,7 +92,7 @@ export type AddUrl = { preview?: Preview | null };
 
 export type UploadImagesVariables = Exact<{
   token: Scalars['String']['input'];
-  images: Array<Scalars['Upload']['input']> | Scalars['Upload']['input'];
+  images: Array<UploadInput> | UploadInput;
 }>;
 
 export type UploadImages = { upload: Array<UploadImageStatus> };
@@ -110,6 +117,7 @@ export const UploadImageStatus = gql`
     name
     status
     error
+    extra
   }
 `;
 export const ImageData = gql`
@@ -158,7 +166,7 @@ export class AddUrlMutation extends Apollo.Mutation<AddUrl, AddUrlVariables> {
   }
 }
 export const UploadImagesDocument = gql`
-  mutation UploadImages($token: String!, $images: [Upload!]!) {
+  mutation UploadImages($token: String!, $images: [UploadInput!]!) {
     upload(token: $token, images: $images) {
       ...UploadImageStatus
     }
