@@ -57,11 +57,12 @@
 <app-feature-flag
   feature="user_feature_flag"
   [accountSettings]="activeAccountSettings()">
-  <app-show-user-features
-    [features]="allFeatures()"
-    [showFeatures]="showFeatures()"
-    (save)="saveFeature({ feature: $event.name, isActive: $event.active })"
-    (close)="showFeatures.set(false)" />
+  <app-modal
+    [show]="showFeatures()"
+    title="Features"
+    (closed)="showFeatures.set(false)">
+    <app-show-user-features />
+  </app-modal>
 </app-feature-flag>
 <app-feature-flag
   feature="user_settings"

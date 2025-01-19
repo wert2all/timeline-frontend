@@ -8,20 +8,16 @@ import {
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import {
-  FeatureFlagName,
-  FeaturesService,
-} from '../../../feature/features.service';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
 import { ShowUserSettingsComponent } from '../../../feature/user/features/show-user-settings/show-user-settings.component';
 import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { AuthService } from '../../../services/auth.service';
-import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../store/navigation/navigation.actions';
+import { ModalComponent } from '../../modal/modal.component';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
 import { CurrentAccountComponent } from './current-account/current-account.component';
 import { LoginButtonComponent } from './login-button/login-button.component';
@@ -40,13 +36,13 @@ import { LoginButtonComponent } from './login-button/login-button.component';
     CurrentAccountComponent,
     CollapsableMenuComponent,
     ClickOutsideDirective,
+    ModalComponent,
     ShowUserSettingsComponent,
   ],
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
   private readonly authService = inject(AuthService);
-  private readonly featuresService = inject(FeaturesService);
   private readonly clipboard = inject(Clipboard);
 
   protected token = this.authService.idToken
@@ -66,27 +62,6 @@ export class HeaderComponent {
     accountFeature.selectActiveAccountFeaturesSettings
   );
 
-  protected readonly allFeatures = computed(() => {
-    const allFeatures = this.featuresService
-      .getAllFeatures()
-      .sort((a, b) => a.stage.toString().localeCompare(b.stage.toString()))
-      .reverse();
-    const featureAccount = {
-      settings: allFeatures
-        .map(feature => ({
-          key: feature.key,
-          value: this.activeAccount()?.settings[feature.key] === 'true',
-        }))
-        .reduce((prev, curr) => ({ ...prev, [curr.key]: curr.value }), {}),
-    };
-    return allFeatures.map(feature => ({
-      name: feature.name,
-      key: feature.key,
-      description: feature.description,
-      stage: feature.stage,
-      isActive: feature.canShow(featureAccount),
-    }));
-  });
   protected readonly currentAccountView = computed(() => {
     const account = this.activeAccount();
     return account
@@ -134,14 +109,5 @@ export class HeaderComponent {
 
   goToDashboard() {
     this.store.dispatch(NavigationActions.toUserDashboard());
-  }
-
-  saveFeature($event: { feature: FeatureFlagName; isActive: boolean }) {
-    this.store.dispatch(
-      AccountActions.updateOneSetting({
-        key: $event.feature,
-        value: $event.isActive ? 'true' : 'false',
-      })
-    );
   }
 }
