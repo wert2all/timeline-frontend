@@ -51,7 +51,10 @@ export class CollapsableMenuComponent {
   changeAccount = output<Unique>();
   copyToken = output<void>();
   closeMenu = output<void>();
+
   openUserFeatures = output<void>();
+  openUserSettings = output<void>();
+
   logout = output<void>();
 
   protected readonly isCopied = signal(false);

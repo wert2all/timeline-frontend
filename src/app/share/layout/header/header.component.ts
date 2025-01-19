@@ -15,6 +15,7 @@ import {
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
 import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { ShowUserFeaturesComponent } from '../../../feature/user/features/show-user-features/show-user-features.component';
+import { ShowUserSettingsComponent } from '../../../feature/user/features/show-user-settings/show-user-settings.component';
 import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { AuthService } from '../../../services/auth.service';
 import { AccountActions } from '../../../store/account/account.actions';
@@ -39,6 +40,7 @@ import { LoginButtonComponent } from './login-button/login-button.component';
     CurrentAccountComponent,
     CollapsableMenuComponent,
     ClickOutsideDirective,
+    ShowUserSettingsComponent,
   ],
 })
 export class HeaderComponent {
@@ -54,6 +56,7 @@ export class HeaderComponent {
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);
   protected readonly showFeatures = signal(false);
+  protected readonly showSettings = signal(false);
 
   protected isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
   protected activeAccount = this.store.selectSignal(
@@ -107,6 +110,11 @@ export class HeaderComponent {
 
   openUserFeatures() {
     this.showFeatures.set(true);
+    this.isOpenMenu.set(false);
+  }
+
+  openUserSettings() {
+    this.showSettings.set(true);
     this.isOpenMenu.set(false);
   }
 
