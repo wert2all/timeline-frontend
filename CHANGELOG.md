@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.29](https://github.com/wert2all/timeline-frontend/compare/v0.0.28...v0.0.29) (2025-01-19)
+
+### Features
+
+- add markdown help ([591d5ac](https://github.com/wert2all/timeline-frontend/commit/591d5ac9afa8d5cc03066567812f847e400756b6))
+- create user setting component ([f749100](https://github.com/wert2all/timeline-frontend/commit/f749100f23c0e69c65c7468d44ed86f2c1462f60))
+
+### Bug Fixes
+
+- fix light theme ([a67fca1](https://github.com/wert2all/timeline-frontend/commit/a67fca14117a551b1a58a38a4a6c31fd5c7f1fbb))
+- update scheme ([3ccacfd](https://github.com/wert2all/timeline-frontend/commit/3ccacfd48a4225791cafc3dda4d72701c964fce3))
+
 ## [0.0.28](https://github.com/wert2all/timeline-frontend/compare/v0.0.27...v0.0.28) (2025-01-18)
 
 ### Features
