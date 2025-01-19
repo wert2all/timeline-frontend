@@ -41,12 +41,13 @@ const uploadImage = (
 ) =>
   actions$.pipe(
     ofType(UploadActions.uploadImage),
-    concatLatestFrom(() =>
-      store
-        .select(accountFeature.selectActiveAccount)
-        .pipe(map(account => account?.previewlyToken))
-    ),
-    exhaustMap(([{ image, uuid }, token]) =>
+    concatLatestFrom(() => store.select(accountFeature.selectActiveAccount)),
+    map(([{ image, uuid }, account]) => ({
+      image: { image: image, extra: account?.id.toString() },
+      uuid,
+      token: account?.previewlyToken,
+    })),
+    exhaustMap(({ image, uuid, token }) =>
       token
         ? apiClient.uploadImages({ images: [image], token }).pipe(
             map(result => result.data?.upload),
