@@ -32,7 +32,7 @@ import { Tabs } from './tabs.types';
   ],
 })
 export class SharedTabsComponent {
-  tabs = input.required<Tabs[]>();
+  tabs = input<Tabs[]>([]);
   activeTab = input.required<Tabs>();
 
   switchTab = output<Tabs>();
