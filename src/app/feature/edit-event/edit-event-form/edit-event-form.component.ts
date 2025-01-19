@@ -30,6 +30,7 @@ import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 import { fromInputSignal } from '../../../libs/signal.functions';
+import { FormControlsComponent } from '../../../share/form/controls/controls.component';
 import { SharedTabsComponent } from '../../../share/tabs/tabs.component';
 import { Tabs } from '../../../share/tabs/tabs.types';
 import { TimelineEvent } from '../../../store/events/events.types';
@@ -79,6 +80,7 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
     EditFormTagsInputComponent,
     EditFormLinkInputComponent,
     EditEventFormUploadInputComponent,
+    FormControlsComponent,
   ],
 })
 export class EditEventFormComponent {
@@ -161,8 +163,8 @@ export class EditEventFormComponent {
 
   protected readonly submitButton = computed(() =>
     this.isNew()
-      ? { title: 'Add', icon: 'saxCalendarAddOutline' }
-      : { title: 'Save', icon: 'saxCalendarTickOutline' }
+      ? { title: 'Add', icon: saxCalendarAddOutline }
+      : { title: 'Save', icon: saxCalendarTickOutline }
   );
 
   protected readonly previewLink = toSignal(
