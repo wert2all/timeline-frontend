@@ -1,5 +1,5 @@
 <div class="edit-form" [class.skeleton]="loading()">
-  <app-edit-event-form-tabs
+  <app-shared-tabs
     [tabs]="tabs()"
     (switchTab)="switchTo($event)"
     [activeTab]="activeTab()" />
