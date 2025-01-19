@@ -2,31 +2,62 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  input,
-  output,
+  computed,
+  inject,
 } from '@angular/core';
 
-import { ModalComponent } from '../../../../share/modal/modal.component';
-import { FeatureFlagName } from '../../../features.service';
+import { Store } from '@ngrx/store';
+import { AccountActions } from '../../../../store/account/account.actions';
+import { accountFeature } from '../../../../store/account/account.reducer';
+import { FeatureFlagName, FeaturesService } from '../../../features.service';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 import { UserFeature } from './show-user-features.types';
 type ViewFeature = UserFeature & { key: FeatureFlagName };
 @Component({
   selector: 'app-show-user-features',
   standalone: true,
-  imports: [CommonModule, ModalComponent, FeatureStageComponent],
+  imports: [CommonModule, FeatureStageComponent],
   templateUrl: './show-user-features.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowUserFeaturesComponent {
-  features = input.required<ViewFeature[]>();
-  showFeatures = input(false);
+  private readonly store = inject(Store);
+  private readonly featuresService = inject(FeaturesService);
 
-  save = output<{ name: FeatureFlagName; active: boolean }>();
-  close = output();
+  protected activeAccount = this.store.selectSignal(
+    accountFeature.selectActiveAccount
+  );
+
+  protected readonly features = computed(() => {
+    const allFeatures = this.featuresService
+      .getAllFeatures()
+      .sort((a, b) => a.stage.toString().localeCompare(b.stage.toString()))
+      .reverse();
+    const featureAccount = {
+      settings: allFeatures
+        .map(feature => ({
+          key: feature.key,
+          value: this.activeAccount()?.settings[feature.key] === 'true',
+        }))
+        .reduce((prev, curr) => ({ ...prev, [curr.key]: curr.value }), {}),
+    };
+    return allFeatures.map(feature => ({
+      name: feature.name,
+      key: feature.key,
+      description: feature.description,
+      stage: feature.stage,
+      isActive: feature.canShow(featureAccount),
+    }));
+  });
 
   changeFeature(feature: ViewFeature, event: Event) {
     const input = event.currentTarget as HTMLInputElement;
-    this.save.emit({ name: feature.key, active: input.checked });
+
+    this.store.dispatch(
+      AccountActions.updateOneSetting({
+        key: feature.key,
+        value: input.checked ? 'true' : 'false',
+      })
+    );
   }
 }

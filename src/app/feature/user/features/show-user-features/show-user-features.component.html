@@ -1,22 +1,20 @@
-<app-modal [show]="showFeatures()" title="Features" (closed)="close.emit()">
-  @for (feature of features(); track $index) {
-    <div class="mt-4 flex">
-      <div class="order flex-auto">
-        <p class="text-xl">{{ feature.name }}</p>
-        <p>{{ feature.description }}</p>
-      </div>
-
-      <div class="w-36 flex-none place-content-center text-center">
-        <app-feature-stage [stage]="feature.stage" />
-      </div>
-      <div class="w-14 flex-none place-content-center">
-        <input
-          type="checkbox"
-          [name]="feature.name"
-          class="toggle toggle-success"
-          (change)="changeFeature(feature, $event)"
-          [attr.checked]="feature.isActive ? 'checked' : null" />
-      </div>
+@for (feature of features(); track $index) {
+  <div class="mt-4 flex">
+    <div class="order flex-auto">
+      <p class="text-xl">{{ feature.name }}</p>
+      <p>{{ feature.description }}</p>
     </div>
-  }
-</app-modal>
+
+    <div class="w-36 flex-none place-content-center text-center">
+      <app-feature-stage [stage]="feature.stage" />
+    </div>
+    <div class="w-14 flex-none place-content-center">
+      <input
+        type="checkbox"
+        [name]="feature.name"
+        class="toggle toggle-success"
+        (change)="changeFeature(feature, $event)"
+        [attr.checked]="feature.isActive ? 'checked' : null" />
+    </div>
+  </div>
+}
