@@ -60,6 +60,11 @@ export interface Limit {
   to?: InputMaybe<Scalars['Int']['input']>;
 }
 
+export interface SaveAccountInput {
+  avatarID?: InputMaybe<Scalars['Int']['input']>;
+  name: Scalars['String']['input'];
+}
+
 export enum Status {
   error = 'error',
   success = 'success',
@@ -159,6 +164,13 @@ export type SaveAccountSettingsVariables = Exact<{
 }>;
 
 export type SaveAccountSettings = { saveSettings: Status };
+
+export type SaveAccountVariables = Exact<{
+  accountId: Scalars['Int']['input'];
+  account: SaveAccountInput;
+}>;
+
+export type SaveAccount = { account: ShortAccount };
 
 export type GetEventsVariables = Exact<{
   timelineId: Scalars['Int']['input'];
@@ -371,6 +383,28 @@ export class SaveAccountSettingsMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const SaveAccountDocument = gql`
+  mutation SaveAccount($accountId: Int!, $account: SaveAccountInput!) {
+    account: saveAccount(accountId: $accountId, account: $account) {
+      ...ShortAccount
+    }
+  }
+  ${ShortAccount}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SaveAccountMutation extends Apollo.Mutation<
+  SaveAccount,
+  SaveAccountVariables
+> {
+  override document = SaveAccountDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 export const GetEventsDocument = gql`
   query GetEvents($timelineId: Int!, $accountId: Int!, $cursor: String) {
     events: timelineCursorEvents(
@@ -441,6 +475,7 @@ export class ApiClient {
     private saveExistTimelineEventMutation: SaveExistTimelineEventMutation,
     private deleteEventMutation: DeleteEventMutation,
     private saveAccountSettingsMutation: SaveAccountSettingsMutation,
+    private saveAccountMutation: SaveAccountMutation,
     private getEventsQuery: GetEventsQuery,
     private getAccountTimelinesQuery: GetAccountTimelinesQuery
   ) {}
@@ -494,6 +529,13 @@ export class ApiClient {
     >
   ) {
     return this.saveAccountSettingsMutation.mutate(variables, options);
+  }
+
+  saveAccount(
+    variables: SaveAccountVariables,
+    options?: MutationOptionsAlone<SaveAccount, SaveAccountVariables>
+  ) {
+    return this.saveAccountMutation.mutate(variables, options);
   }
 
   getEvents(

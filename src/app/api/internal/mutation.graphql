@@ -32,3 +32,9 @@ mutation SaveAccountSettings(
 ) {
   saveSettings(accountId: $accountId, settings: $settings)
 }
+
+mutation SaveAccount($accountId: Int!, $account: SaveAccountInput!) {
+  account: saveAccount(accountId: $accountId, account: $account) {
+    ...ShortAccount
+  }
+}
