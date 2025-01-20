@@ -1,14 +1,13 @@
 <div class="mt-8 flex place-items-center gap-4">
   <div class="flex-none">
-    <button
-      (click)="acceptAction.emit()"
-      class="btn btn-primary"
-      [attr.disabled]="isDisabled() === true ? true : null">
-      @if (acceptButtonIcon(); as icon) {
-        <ng-icon [svg]="icon" size="24"></ng-icon>
-      }
+    <app-loading-button
+      [title]="acceptButtonTitle()"
+      [isLoading]="isLoading()"
+      [isDisabled]="isDisabled()"
+      [icon]="acceptButtonIcon()"
+      (clickEvent)="acceptAction.emit()">
       {{ acceptButtonTitle() }}
-    </button>
+    </app-loading-button>
   </div>
   <div class="flex-none">
     <button class="btn" (click)="dismissAction.emit()">
