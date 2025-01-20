@@ -1,5 +1,10 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Account, AccountSettings, AccountUser } from './account.types';
+import {
+  Account,
+  AccountSettings,
+  AccountUser,
+  SavingAccountSettings,
+} from './account.types';
 
 export const AccountActions = createActionGroup({
   source: 'Account',
@@ -20,6 +25,10 @@ export const AccountActions = createActionGroup({
       settings: AccountSettings;
     }>(),
     'Success save account settings': emptyProps(),
+
+    'Dispatch save account settings': props<{
+      settings: SavingAccountSettings;
+    }>(),
 
     'Could not save account settings': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
