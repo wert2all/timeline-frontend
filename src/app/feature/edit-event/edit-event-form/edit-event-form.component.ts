@@ -15,7 +15,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import {
   saxAddOutline,
   saxCalendar1Outline,
@@ -72,7 +72,6 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
   ],
   imports: [
     CommonModule,
-    NgIconComponent,
     ReactiveFormsModule,
     SharedTabsComponent,
     EditFormTextInputComponent,
