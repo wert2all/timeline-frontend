@@ -52,6 +52,7 @@ type Mutation {
   authorize: User
   deleteEvent(eventId: Int!): Status!
   editEvent(event: ExistTimelineEventInput!): TimelineEvent!
+  saveAccount(account: SaveAccountInput!, accountId: Int!): ShortAccount!
   saveSettings(accountId: Int!, settings: [AccountSettingInput]): Status!
 }
 
@@ -70,6 +71,11 @@ type Query {
     timelineId: Int!
   ): TimelineEvents!
   timelineEvents(limit: Limit, timelineId: Int!): [TimelineEvent!]!
+}
+
+input SaveAccountInput {
+  avatarID: Int
+  name: String!
 }
 
 type ShortAccount {
