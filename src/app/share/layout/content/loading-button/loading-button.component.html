@@ -1,7 +1,7 @@
 <button
   class="btn btn-{{ style() }}"
   (click)="clickEvent.emit()"
-  [attr.disabled]="isLoading() ? true : null">
+  [attr.disabled]="shouldDisable() ? true : null">
   @if (isLoading() === true) {
     <span class="loading loading-spinner"></span>
   } @else {
