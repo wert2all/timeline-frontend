@@ -70,7 +70,7 @@ export class MyPageComponent {
     timelineFeature.isLoading
   );
   protected readonly isLoading = computed(() => {
-    return !this.activeAccount() || this.isTimelineLoading();
+    return !this.activeAccountId() || this.isTimelineLoading();
   });
   protected readonly isEventsLoading = this.store.selectSignal(
     eventsFeature.selectLoading
@@ -100,8 +100,8 @@ export class MyPageComponent {
       return event;
     });
   });
-  protected readonly activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
+  protected readonly activeAccountId = this.store.selectSignal(
+    accountFeature.selectActiveAccountId
   );
 
   protected readonly shouldDeleteEventId = signal<number>(0);
@@ -130,7 +130,7 @@ export class MyPageComponent {
 
   protected readonly loadEventsOptions = computed(
     (): LoadEventActionOptions | null => {
-      const accountId = this.activeAccount()?.id || null;
+      const accountId = this.activeAccountId();
       const timelineId = this.activeTimeline()?.id || null;
       const cursor = this.lastEventCursor();
       return accountId && timelineId ? { accountId, timelineId, cursor } : null;
@@ -139,10 +139,10 @@ export class MyPageComponent {
 
   constructor() {
     effect(() => {
-      const account = this.activeAccount();
-      if (account) {
+      const accountId = this.activeAccountId();
+      if (accountId) {
         this.store.dispatch(
-          TimelineActions.loadAccountTimelines({ accountId: account.id })
+          TimelineActions.loadAccountTimelines({ accountId })
         );
       }
     });
