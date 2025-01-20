@@ -1,0 +1,57 @@
+<div class="mt-4 lg:flex lg:gap-4">
+  <!-- <div class="relative lg:w-64 lg:flex-none"> -->
+  <!--   <div class="avatar"> -->
+  <!--     <div -->
+  <!--       class="rounded-xl ring ring-accent ring-offset-2 ring-offset-base-100"> -->
+  <!--       <img -->
+  <!--         src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" /> -->
+  <!--     </div> -->
+  <!--   </div> -->
+  <!---->
+  <!--   <div class="join absolute -bottom-2 right-0"> -->
+  <!--     <a -->
+  <!--       class="btn btn-warning join-item btn-sm" -->
+  <!--       (click)="removeAvatar()" -->
+  <!--       (keyup.enter)="removeAvatar()" -->
+  <!--       tabindex="0"> -->
+  <!--       <ng-icon name="saxCloseSquareOutline" size="24" /> -->
+  <!--     </a> -->
+  <!---->
+  <!--     <a -->
+  <!--       class="btn btn-primary join-item btn-sm" -->
+  <!--       (click)="changeAvatar()" -->
+  <!--       (keyup.enter)="changeAvatar()" -->
+  <!--       tabindex="0"> -->
+  <!--       <ng-icon name="saxCameraOutline" size="24" /> -->
+  <!--     </a> -->
+  <!--   </div> -->
+  <!-- </div> -->
+  <div class="lg:flex-auto">
+    <h3 class="text-lg lg:mb-2 lg:text-2xl">name</h3>
+    <label class="join w-full">
+      <input
+        type="text"
+        name="name"
+        [class.input-error]="form.controls.name.invalid"
+        class="input join-item input-bordered w-full grow"
+        [formControl]="form.controls.name" />
+      <!-- <button -->
+      <!--   class="btn join-item btn-neutral w-auto" -->
+      <!--   (click)="addAccount()" -->
+      <!--   (keyup.enter)="addAccount()" -->
+      <!--   tabindex="0"> -->
+      <!--   <ng-icon [svg]="addAccountIcon" size="24" /> -->
+      <!-- </button> -->
+    </label>
+  </div>
+</div>
+
+<input type="hidden" [formControl]="form.controls.accountId" name="accountId" />
+<input type="hidden" [formControl]="form.controls.avatarId" name="avatarId" />
+
+<app-shared-form-controls
+  [isDisabled]="isDisabled()"
+  [acceptButtonIcon]="icon"
+  acceptButtonTitle="save"
+  (acceptAction)="save()"
+  (dismissAction)="closeWindow()" />

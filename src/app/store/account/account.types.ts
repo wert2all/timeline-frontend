@@ -15,6 +15,13 @@ export type Account = Iterable & {
   settings: AccountSettings;
 };
 
+export interface SavingAccountSettings {
+  accountId: number;
+  name: string;
+  avatarId: number | Undefined;
+  settings: AccountSettings;
+}
+
 export interface AccountState {
   activeUser: AccountUser | null;
   activeAccount: Account | null;
