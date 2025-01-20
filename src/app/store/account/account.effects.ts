@@ -5,12 +5,14 @@ import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { ActiveAccountService } from '../../services/active-account.service';
 import { AuthActions } from '../auth/auth.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { NotificationStore } from '../notifications/notifications.store';
 import { AccountActions } from './account.actions';
 import { accountFeature, mergeAccountSettings } from './account.reducer';
+import { Account } from './account.types';
 
 const setUser = (
   actions$ = inject(Actions),
@@ -131,7 +133,7 @@ const dispatchLogoutOnEmptyAccount = (actions$ = inject(Actions)) =>
     map(() => AuthActions.dispatchLogout())
   );
 
-const saveAccount = (
+const saveAccountToStorage = (
   actions$ = inject(Actions),
   accountService = inject(ActiveAccountService)
 ) =>
@@ -148,10 +150,50 @@ const navigateToDashboard = (actions$ = inject(Actions)) =>
     map(() => NavigationActions.toUserDashboard())
   );
 
+const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
+  actions$.pipe(
+    ofType(AccountActions.dispatchSaveAccountSettings),
+    exhaustMap(({ settings }) =>
+      api
+        .saveAccount({
+          accountId: settings.accountId,
+          account: {
+            name: settings.name,
+            avatarID: settings.avatarId,
+          },
+        })
+        .pipe(
+          map(result =>
+            apiAssertNotNull(extractApiData(result)?.account, 'Empty account')
+          ),
+          map(
+            (acc): Account => ({
+              id: acc.id,
+              name: acc.name || undefined,
+              avatar: acc.avatar || undefined,
+              previewlyToken: acc.previewlyToken,
+              settings: acc.settings.reduce(
+                (acc, setting) => ({
+                  ...acc,
+                  [setting.key]: setting.value,
+                }),
+                {}
+              ),
+            })
+          )
+        )
+    ),
+    map(account => AccountActions.successSaveAccount({ account: account })),
+    catchError(err => of(AccountActions.apiException({ exception: err })))
+  );
+
 export const accountEffects = {
   setUser: createEffect(setUser, StoreDispatchEffect),
 
-  saveAccountToLocalstorage: createEffect(saveAccount, StoreUnDispatchEffect),
+  saveAccountToLocalstorage: createEffect(
+    saveAccountToStorage,
+    StoreUnDispatchEffect
+  ),
   cleanAccount: createEffect(cleanEffect, StoreUnDispatchEffect),
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
   saveAccountSettings: createEffect(saveAccountSettings, StoreDispatchEffect),
@@ -179,4 +221,5 @@ export const accountEffects = {
     navigateToDashboard,
     StoreDispatchEffect
   ),
+  saveAccount: createEffect(saveAccount, StoreDispatchEffect),
 };

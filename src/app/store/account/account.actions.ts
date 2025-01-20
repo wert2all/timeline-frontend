@@ -29,6 +29,7 @@ export const AccountActions = createActionGroup({
     'Dispatch save account settings': props<{
       settings: SavingAccountSettings;
     }>(),
+    'Success save account': props<{ account: Account }>(),
 
     'Could not save account settings': emptyProps(),
     'Api Exception': props<{ exception: string }>(),

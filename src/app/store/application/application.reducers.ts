@@ -1,4 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { AccountActions } from '../account/account.actions';
 import { ApplicationActions } from './application.actions';
 import { ApplicationState, CookieCategory } from './application.types';
 
@@ -30,7 +31,13 @@ export const applicationFeature = createFeature({
           .filter(Boolean) as CookieCategory[],
       })
     ),
-
+    on(
+      AccountActions.successSaveAccount,
+      (state): ApplicationState => ({
+        ...state,
+        windowType: null,
+      })
+    ),
     on(
       ApplicationActions.opensModalWindow,
       (state, { windowType }): ApplicationState => ({

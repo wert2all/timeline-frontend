@@ -48,8 +48,19 @@ export class SettingsComponent {
   private readonly activeAccount = this.store.selectSignal(
     accountFeature.selectActiveAccount
   );
+  protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
 
-  protected form = this.createForm();
+  protected form = new FormGroup<SettingForm>({
+    accountId: new FormControl(0, {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    name: new FormControl('', {
+      validators: [Validators.required],
+      nonNullable: true,
+    }),
+    avatarId: new FormControl(),
+  });
   protected valueChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
 
   protected isDisabled = toSignal(
@@ -87,14 +98,13 @@ export class SettingsComponent {
     const accountId = this.form.value.accountId;
     const name = this.form.value.name;
     if (this.form.valid && accountId && name) {
-      console.log('save: ', this.form.value);
       this.store.dispatch(
         AccountActions.dispatchSaveAccountSettings({
           settings: {
             accountId,
             name,
             avatarId: this.form.value.avatarId,
-            settings: {},
+            settings: this.activeAccount()?.settings || {},
           },
         })
       );
@@ -103,19 +113,5 @@ export class SettingsComponent {
 
   closeWindow() {
     this.store.dispatch(ApplicationActions.closeModalWindow());
-  }
-
-  private createForm(): FormGroup<SettingForm> {
-    return new FormGroup<SettingForm>({
-      accountId: new FormControl(0, {
-        validators: [Validators.required],
-        nonNullable: true,
-      }),
-      name: new FormControl('', {
-        validators: [Validators.required],
-        nonNullable: true,
-      }),
-      avatarId: new FormControl(),
-    });
   }
 }

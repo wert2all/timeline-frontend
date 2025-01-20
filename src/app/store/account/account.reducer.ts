@@ -19,12 +19,31 @@ export const mergeAccountSettings = (
   }
 };
 
-const initialState: AccountState = { activeAccount: null, activeUser: null };
+const initialState: AccountState = {
+  activeAccount: null,
+  activeUser: null,
+  loading: false,
+};
 
 export const accountFeature = createFeature({
   name: 'account',
   reducer: createReducer(
     initialState,
+
+    on(
+      AccountActions.dispatchSaveAccountSettings,
+      (state): AccountState => ({
+        ...state,
+        loading: true,
+      })
+    ),
+    on(
+      AccountActions.successSaveAccount,
+      (state): AccountState => ({
+        ...state,
+        loading: false,
+      })
+    ),
 
     on(
       AccountActions.setUser,
@@ -70,6 +89,13 @@ export const accountFeature = createFeature({
           key: action.key,
           value: action.value,
         }),
+      })
+    ),
+    on(
+      AccountActions.successSaveAccount,
+      (state, { account }): AccountState => ({
+        ...state,
+        activeAccount: account,
       })
     )
   ),
