@@ -101,6 +101,10 @@ export const accountFeature = createFeature({
   ),
   extraSelectors: ({ selectActiveAccount }) => ({
     isAuthorized: createSelector(selectActiveAccount, account => !!account),
+    selectActiveAccountId: createSelector(
+      selectActiveAccount,
+      account => account?.id || null
+    ),
     selectActiveAccountFeaturesSettings: createSelector(
       selectActiveAccount,
       account => {
