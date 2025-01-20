@@ -6,17 +6,13 @@ import { ApplicationActions } from '../../../store/application/application.actio
 import { applicationFeature } from '../../../store/application/application.reducers';
 import { ModalWindowType } from '../../../store/application/application.types';
 import { ShowUserFeaturesComponent } from '../../user/features/show-user-features/show-user-features.component';
-import { ShowUserSettingsComponent } from '../../user/features/show-user-settings/show-user-settings.component';
+import { SettingsComponent } from '../../user/settings/settings.component';
 
 @Component({
   standalone: true,
   selector: 'app-modal-factory',
   templateUrl: './modal-factory.component.html',
-  imports: [
-    ModalComponent,
-    ShowUserFeaturesComponent,
-    ShowUserSettingsComponent,
-  ],
+  imports: [ModalComponent, ShowUserFeaturesComponent, SettingsComponent],
 })
 export class ModalFactoryComponent {
   private readonly store = inject(Store);
