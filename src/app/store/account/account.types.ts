@@ -1,4 +1,4 @@
-import { Iterable, Undefined } from '../../app.types';
+import { Iterable, Loadable, Undefined } from '../../app.types';
 export type AccountSettings = Record<string, string>;
 
 export interface AccountUser {
@@ -22,7 +22,7 @@ export interface SavingAccountSettings {
   settings: AccountSettings;
 }
 
-export interface AccountState {
+export type AccountState = Loadable & {
   activeUser: AccountUser | null;
   activeAccount: Account | null;
-}
+};

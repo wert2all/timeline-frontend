@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   Component,
   computed,
@@ -29,8 +28,6 @@ import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalFactoryComponent } from '../../../feature/ui/modal/modal-factory.component';
 import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { ApplicationActions } from '../../../store/application/application.actions';
-import { ModalWindowType } from '../../../store/application/application.types';
 import { EventActions } from '../../../store/events/events.actions';
 import { eventsFeature } from '../../../store/events/events.reducer';
 import { LoadEventActionOptions } from '../../../store/events/events.types';
@@ -52,7 +49,7 @@ import { imagesFeature } from '../../../store/images/images.reducer';
     ModalFactoryComponent,
   ],
 })
-export class MyPageComponent implements AfterViewInit {
+export class MyPageComponent {
   private readonly store = inject(Store);
 
   private readonly isEditingEvent = this.store.selectSignal(
@@ -149,14 +146,6 @@ export class MyPageComponent implements AfterViewInit {
         );
       }
     });
-  }
-
-  ngAfterViewInit(): void {
-    this.store.dispatch(
-      ApplicationActions.opensModalWindow({
-        windowType: ModalWindowType.SETTINGS,
-      })
-    );
   }
 
   filterByTag(tag: ViewTimelineTag) {
