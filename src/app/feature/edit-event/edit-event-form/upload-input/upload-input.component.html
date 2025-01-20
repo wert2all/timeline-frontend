@@ -1,18 +1,17 @@
-<form method="post" enctype="multipart/form-data">
-  <input
-    #fileUpload
-    name="image"
-    type="file"
-    multiple="false"
-    class="hidden"
-    accept="image/*"
-    (change)="handleFileSelect($event)" />
-</form>
+<input
+  #fileUpload
+  name="image"
+  type="file"
+  multiple="false"
+  class="hidden"
+  accept="image/*"
+  (change)="handleFileSelect($event)" />
 <button
-  class="upload_image_container btn btn-square mt-4 h-full w-full bg-no-repeat p-4"
+  type="button"
+  class="upload_image_container btn btn-square mt-4 h-72 w-full bg-no-repeat p-4"
   (click)="fileUpload.click()"
   (keyup.enter)="fileUpload.click()">
-  <div class="flex h-56 flex-col place-content-center">
+  <div class="flex h-full flex-col place-content-center">
     @if (previewUrl(); as preview) {
       <img
         [src]="preview"

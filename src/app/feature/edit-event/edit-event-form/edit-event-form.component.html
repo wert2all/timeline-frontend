@@ -1,4 +1,8 @@
-<div class="edit-form" [class.skeleton]="loading()">
+<form
+  class="edit-form"
+  [class.skeleton]="loading()"
+  method="post"
+  enctype="multipart/form-data">
   <app-shared-tabs
     [tabs]="tabs()"
     (switchTab)="switchTo($event)"
@@ -9,12 +13,21 @@
       [form]="editForm"
       class="form-tab-content"
       [class.active]="activeTab().uuid === 'text'" />
-    <app-edit-event-form-upload-input
-      [previewImage]="viewHelper().image"
-      (selectFile)="handleSelectFile($event)"
+    <div
       class="form-tab-content"
-      [class.active]="activeTab().uuid === 'upload'" />
-
+      [class.active]="activeTab().uuid === 'upload'">
+      <app-edit-event-form-upload-input
+        [previewImage]="viewHelper().image"
+        (selectFile)="handleSelectFile($event)" />
+      @if (editForm.controls.imageId.value) {
+        <button
+          class="btn btn-warning btn-sm mt-4 w-full"
+          type="button"
+          (click)="removeImage()">
+          remove image {{ editForm.controls.imageId.value }}
+        </button>
+      }
+    </div>
     <app-edit-event-form-date-time-input
       [form]="editForm"
       class="form-tab-content"
@@ -72,4 +85,4 @@
     dismissButtonTitle="close"
     [acceptButtonIcon]="submitButton().icon"
     [isDisabled]="!editForm.valid || loading()" />
-</div>
+</form>
