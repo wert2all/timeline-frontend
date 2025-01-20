@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.30](https://github.com/wert2all/timeline-frontend/compare/v0.0.29...v0.0.30) (2025-01-20)
+
+### Features
+
+- create form for saving account settings ([b2a002b](https://github.com/wert2all/timeline-frontend/commit/b2a002b15d4443f235a66aac3b089775f3f8f526))
+- saving account ([297bb86](https://github.com/wert2all/timeline-frontend/commit/297bb8695a4b122fcdf91485b24f35b644fe7a73))
+
+### Bug Fixes
+
+- fix build warnings ([eff2356](https://github.com/wert2all/timeline-frontend/commit/eff2356741ce8d59cb143abf5c3c388511a7d1e4))
+- fix event dublicated after update account features or update settings ([c2ddedb](https://github.com/wert2all/timeline-frontend/commit/c2ddedb6552242ec233fbb3daf2ace4638416ca9))
+
 ## [0.0.29](https://github.com/wert2all/timeline-frontend/compare/v0.0.28...v0.0.29) (2025-01-19)
 
 ### Features
