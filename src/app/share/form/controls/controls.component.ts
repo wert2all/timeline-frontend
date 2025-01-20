@@ -1,10 +1,9 @@
 import { Component, input, output } from '@angular/core';
-import { NgIconComponent } from '@ng-icons/core';
 import { LoadingButtonComponent } from '../../layout/content/loading-button/loading-button.component';
 
 @Component({
   standalone: true,
-  imports: [NgIconComponent, LoadingButtonComponent],
+  imports: [LoadingButtonComponent],
   selector: 'app-shared-form-controls',
   templateUrl: './controls.component.html',
 })
