@@ -147,6 +147,13 @@ export class MyPageComponent {
       }
     });
   }
+  // ngAfterViewInit(): void {
+  //   this.store.dispatch(
+  //     ApplicationActions.opensModalWindow({
+  //       windowType: ModalWindowType.SETTINGS,
+  //     })
+  //   );
+  // }
 
   filterByTag(tag: ViewTimelineTag) {
     throw new Error('Method not implemented.' + tag);
