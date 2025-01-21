@@ -6,7 +6,7 @@ import {
   saxGhostOutline,
   saxVideoSquareOutline,
 } from '@ng-icons/iconsax/outline';
-import { FooterMenuComponent } from '../../../feature/non-authorized/legal/ui/footer-menu/footer-menu.component';
+import { FooterMenuComponent } from '../../../feature/non-authorized/legal/shared/footer-menu/footer-menu.component';
 
 @Component({
   selector: 'app-footer',
