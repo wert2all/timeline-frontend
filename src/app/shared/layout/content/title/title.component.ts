@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 
 @Component({
-  selector: 'app-ui-content-title',
+  selector: 'app-shared-content-title',
   standalone: true,
   templateUrl: './title.component.html',
 })

@@ -1,4 +1,4 @@
-<app-layout>
+<app-shared-layout>
   <app-hero>
     <img src="/assets/timeline_320x320.png" alt="timeline" />
     <div>
@@ -18,7 +18,7 @@
   </app-hero>
 
   <div class="mx-4 mt-4">
-    <app-ui-content-title title="Our timeline" class="text-success" />
+    <app-shared-content-title title="Our timeline" class="text-success" />
   </div>
   <div>
     <div class="overflow-hidden px-4" [class.h-192]="isCollapsed()">
@@ -39,6 +39,6 @@
     </p>
   </div>
   <div class="mt-4 hidden rounded-lg bg-base-100 p-4">
-    <app-ui-content-title title="Features" class="text-primary" />
+    <app-shared-content-title title="Features" class="text-primary" />
   </div>
-</app-layout>
+</app-shared-layout>

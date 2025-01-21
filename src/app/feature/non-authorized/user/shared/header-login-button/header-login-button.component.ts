@@ -3,7 +3,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLoginOutline } from '@ng-icons/iconsax/outline';
 
 @Component({
-  selector: 'app-header-login-button',
+  selector: 'app-shared-header-login-button',
   standalone: true,
   imports: [NgIconComponent],
   templateUrl: './header-login-button.component.html',
