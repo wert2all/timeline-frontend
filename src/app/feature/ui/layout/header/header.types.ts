@@ -1,4 +1,4 @@
-import { Unique } from '../../../app.types';
+import { Unique } from '../../../../app.types';
 
 export interface CurrentAccountView {
   name: string;

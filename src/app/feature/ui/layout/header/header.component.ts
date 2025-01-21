@@ -1,35 +1,26 @@
 import { Clipboard } from '@angular/cdk/clipboard';
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
-import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
-import { AuthService } from '../../../services/auth.service';
-import { accountFeature } from '../../../store/account/account.reducer';
-import { ApplicationActions } from '../../../store/application/application.actions';
-import { ModalWindowType } from '../../../store/application/application.types';
-import { AuthActions } from '../../../store/auth/auth.actions';
-import { NavigationActions } from '../../../store/navigation/navigation.actions';
+import { AuthService } from '../../../../services/auth.service';
+import { accountFeature } from '../../../../store/account/account.reducer';
+import { ApplicationActions } from '../../../../store/application/application.actions';
+import { ModalWindowType } from '../../../../store/application/application.types';
+import { AuthActions } from '../../../../store/auth/auth.actions';
+import { NavigationActions } from '../../../../store/navigation/navigation.actions';
+import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
+import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
+import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
-import { CurrentAccountComponent } from './current-account/current-account.component';
-import { LoginButtonComponent } from './login-button/login-button.component';
+import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   templateUrl: './header.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
-    LoginButtonComponent,
-    ThemeSwitchComponent,
-    CurrentAccountComponent,
+    HeaderLoginButtonComponent,
+    HeaderThemeSwitchComponent,
+    HeaderCurrentAccountComponent,
     CollapsableMenuComponent,
     ClickOutsideDirective,
   ],

@@ -3,12 +3,12 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
-import { AuthService } from '../../../../services/auth.service';
-import { HeroComponent } from '../../../../shared/hero/hero.component';
-import { LayoutComponent } from '../../../../shared/layout/layout.component';
-import { accountFeature } from '../../../../store/account/account.reducer';
-import { applicationFeature } from '../../../../store/application/application.reducers';
-import { NavigationActions } from '../../../../store/navigation/navigation.actions';
+import { AuthService } from '../../../../../services/auth.service';
+import { HeroComponent } from '../../../../../shared/hero/hero.component';
+import { LayoutComponent } from '../../../../../shared/layout/layout.component';
+import { accountFeature } from '../../../../../store/account/account.reducer';
+import { applicationFeature } from '../../../../../store/application/application.reducers';
+import { NavigationActions } from '../../../../../store/navigation/navigation.actions';
 
 @Component({
   selector: 'app-login-page',
