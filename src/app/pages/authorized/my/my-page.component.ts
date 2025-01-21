@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LayoutComponent } from '../../../share/layout/layout.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';
@@ -26,7 +26,7 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 
 import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
 import { ModalFactoryComponent } from '../../../feature/ui/modal/modal-factory.component';
-import { ModalConfirmComponent } from '../../../share/modal/confirm/modal-confirm.component';
+import { ModalConfirmComponent } from '../../../shared/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { EventActions } from '../../../store/events/events.actions';
 import { eventsFeature } from '../../../store/events/events.reducer';

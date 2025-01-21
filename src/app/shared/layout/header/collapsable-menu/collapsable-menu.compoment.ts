@@ -17,7 +17,7 @@ import {
 import { Unique } from '../../../../app.types';
 import { AccountFeaturesSettings } from '../../../../feature/features.service';
 import { FeatureFlagComponent } from '../../../../feature/user/features/feature-flag/feature-flag.component';
-import { AccountView } from '../../../../share/layout/header/header.types';
+import { AccountView } from '../../../layout/header/header.types';
 
 @Component({
   standalone: true,

@@ -1,6 +1,6 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { Pending, Status, Undefined } from '../../../../app.types';
-import { LoaderComponent } from '../../../../share/loader/loader.component';
+import { LoaderComponent } from '../../../../shared/loader/loader.component';
 import { UploadQuequeImage } from '../../../../store/images/images.types';
 
 @Component({

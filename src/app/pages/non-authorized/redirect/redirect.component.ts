@@ -1,8 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../../../services/auth.service';
-import { HeroComponent } from '../../../share/hero/hero.component';
-import { LayoutComponent } from '../../../share/layout/layout.component';
+import { HeroComponent } from '../../../shared/hero/hero.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { AuthActions } from '../../../store/auth/auth.actions';
 
 @Component({

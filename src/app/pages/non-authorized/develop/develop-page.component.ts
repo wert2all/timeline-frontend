@@ -6,8 +6,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { TitleComponent } from '../../../share/layout/content/title/title.component';
-import { LayoutComponent } from '../../../share/layout/layout.component';
+import { TitleComponent } from '../../../shared/layout/content/title/title.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 
 import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
@@ -15,7 +15,7 @@ import { TableOfContents } from '../../../feature/table-of-contents/components/t
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
 
 import { Store } from '@ngrx/store';
-import { LoaderComponent } from '../../../share/loader/loader.component';
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { NotificationStore } from '../../../store/notifications/notifications.store';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { MarkdownHelpComponent } from '../static/markdown-help/markdown-help.component';
