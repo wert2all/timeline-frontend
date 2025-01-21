@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { LoadingButtonComponent } from '../../layout/content/loading-button/loading-button.component';
+import { LoadingButtonComponent } from '../../ui/layout/content/loading-button/loading-button.component';
 
 @Component({
   standalone: true,
