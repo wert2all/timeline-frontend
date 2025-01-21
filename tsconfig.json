@@ -10,18 +10,15 @@
     "noUnusedParameters": true,
     "strictNullChecks": true,
     "useDefineForClassFields": false,
-    "plugins": [
-      {
-        "schema": "./src/app/api/schema.graphql",
-        "tadaOutputLocation": "./src/app/api/graphql-env.d.ts"
-      }
-    ]
+    "isolatedModules": true,
+    "plugins": []
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
+    "strictStandalone": true
   },
   "extends": "./tsconfig.base.json"
 }
