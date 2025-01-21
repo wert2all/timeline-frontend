@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   FormControl,
@@ -6,8 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxCloseSquareBold } from '@ng-icons/iconsax/bold';
+import { saxUserSquareBulk } from '@ng-icons/iconsax/bulk';
 import {
   saxCameraOutline,
   saxCloseSquareOutline,
@@ -32,7 +33,7 @@ interface SettingForm {
   standalone: true,
   selector: 'app-change-user-settings',
   templateUrl: './settings.component.html',
-  imports: [ReactiveFormsModule, FormControlsComponent],
+  imports: [ReactiveFormsModule, FormControlsComponent, NgIconComponent],
   viewProviders: [
     provideIcons({
       saxPenAddOutline,
@@ -40,6 +41,7 @@ interface SettingForm {
       saxCloseSquareBold,
       saxCloseSquareOutline,
       saxUserAddOutline,
+      saxUserSquareBulk,
     }),
   ],
 })
@@ -67,6 +69,13 @@ export class SettingsComponent {
     this.valueChanges$.pipe(map(() => this.form.invalid)),
     { initialValue: false }
   );
+  protected readonly avatarUrl = computed(() => {
+    const account = this.activeAccount();
+    if (account) {
+      return account.avatar;
+    }
+    return null;
+  });
 
   protected icon = saxPenAddOutline;
   protected addAccountIcon = saxUserAddOutline;
