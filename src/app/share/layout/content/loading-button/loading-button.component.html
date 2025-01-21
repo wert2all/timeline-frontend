@@ -1,4 +1,5 @@
 <button
+  type="button"
   class="btn btn-{{ style() }}"
   (click)="clickEvent.emit()"
   [attr.disabled]="shouldDisable() ? true : null">
