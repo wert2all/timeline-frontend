@@ -37,8 +37,8 @@ export class CookieConsentComponent implements AfterViewInit {
               acceptNecessaryBtn: 'Reject all',
               showPreferencesBtn: 'Manage Individual preferences',
               footer: `
-                    <a class="link" href="/cookie-policy" target="_blank">Cookie Policy</a>
-                    <a class="link" href="/privacy" target="_blank">Privacy Policy</a>
+                    <a class="link" href="/legal/cookie-policy" target="_blank">Cookie Policy</a>
+                    <a class="link" href="/legal/privacy" target="_blank">Privacy Policy</a>
                 `,
             },
             preferencesModal: {
@@ -94,7 +94,7 @@ export class CookieConsentComponent implements AfterViewInit {
                 {
                   title: 'More information',
                   description:
-                    'For any queries in relation to my policy on cookies and your choices, please <a href="#contact-page">contact us</a>',
+                    'For any queries in relation to my policy on cookies and your choices, please <a href="https://github.com/wert2all/timeline-frontend/issues/new">contact us</a>',
                 },
               ],
             },
