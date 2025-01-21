@@ -61,7 +61,6 @@ export class HeaderComponent {
           uuid: account.id.toString(),
           name: account.name || 'John Doe',
           firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-          avatar: account.avatar,
         }
       : null;
   });

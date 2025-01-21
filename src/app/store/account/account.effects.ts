@@ -170,7 +170,6 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
             (acc): Account => ({
               id: acc.id,
               name: acc.name || undefined,
-              avatar: acc.avatar || undefined,
               previewlyToken: acc.previewlyToken,
               settings: acc.settings.reduce(
                 (acc, setting) => ({

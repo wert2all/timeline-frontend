@@ -2,7 +2,6 @@ fragment User on User {
   id
   name
   email
-  avatar
   accounts {
     ...ShortAccount
   }
@@ -11,8 +10,8 @@ fragment User on User {
 fragment ShortAccount on ShortAccount {
   id
   name
-  avatar
   previewlyToken
+  avatarId
   settings {
     ...Settings
   }

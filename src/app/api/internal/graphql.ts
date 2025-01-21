@@ -114,15 +114,14 @@ export type User = {
   id: number;
   name?: string | null;
   email: string;
-  avatar?: string | null;
   accounts: Array<ShortAccount | null>;
 };
 
 export type ShortAccount = {
   id: number;
   name?: string | null;
-  avatar?: string | null;
   previewlyToken: string;
+  avatarId?: number | null;
   settings: Array<Settings>;
 };
 
@@ -234,8 +233,8 @@ export const ShortAccount = gql`
   fragment ShortAccount on ShortAccount {
     id
     name
-    avatar
     previewlyToken
+    avatarId
     settings {
       ...Settings
     }
@@ -247,7 +246,6 @@ export const User = gql`
     id
     name
     email
-    avatar
     accounts {
       ...ShortAccount
     }
