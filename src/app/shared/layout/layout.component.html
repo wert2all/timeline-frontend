@@ -10,6 +10,8 @@
       [state]="tableOfContents()"></app-table-of-contents-container>
   </div>
 </div>
-<app-notifications />
+<app-notifications-container
+  (markRead)="markRead($event)"
+  [messages]="unreadMessages()" />
 <app-cookie-consent (consent)="cookieConsent($event)" />
 <app-footer />
