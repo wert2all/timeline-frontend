@@ -27,12 +27,6 @@ const canShow = (account: FeaturesAccount, flag: string): boolean =>
   account.settings[flag as FeatureFlagName] === true;
 
 const FEATURE_FLAGS = {
-  dark_light_mode: {
-    name: 'Dark/Light mode',
-    description: 'Toggle between dark and light mode',
-    canShow: account => canShow(account, 'dark_light_mode'),
-    stage: FeatureStage.done,
-  },
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
