@@ -1,6 +1,7 @@
 <form
   class="edit-form"
   [class.skeleton]="loading()"
+  (submit)="formSubmit($event)"
   method="post"
   enctype="multipart/form-data">
   <app-shared-tabs

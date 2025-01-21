@@ -257,4 +257,8 @@ export class EditEventFormComponent {
   setTags(tags: string[]) {
     this.editForm.controls.tags.setValue(tags);
   }
+
+  formSubmit(event: Event) {
+    event.preventDefault();
+  }
 }
