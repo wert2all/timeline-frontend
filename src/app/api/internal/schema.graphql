@@ -7,7 +7,7 @@ directive @defer(
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
 type Account {
-  avatar: String
+  avatarId: Int
   id: Int!
   name: String
   settings: [AccountSettings!]!
@@ -79,7 +79,7 @@ input SaveAccountInput {
 }
 
 type ShortAccount {
-  avatar: String
+  avatarId: Int
   id: Int!
   name: String
   previewlyToken: String!
@@ -135,7 +135,6 @@ enum TimelineType {
 
 type User {
   accounts: [ShortAccount]!
-  avatar: String
   email: String!
   id: Int!
   isNew: Boolean!

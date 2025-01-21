@@ -21,14 +21,12 @@ const convertApiProfileToAccount = (
     ? {
         id: user.id,
         name: user.name || null,
-        avatar: user.avatar || null,
         accounts: user.accounts
           .filter(account => !!account)
           .map(
             (account): Account => ({
               id: account.id,
               name: account.name || undefined,
-              avatar: account.avatar || undefined,
               previewlyToken: account.previewlyToken,
               settings: account.settings.reduce(
                 (prev, cur) => ({

@@ -70,10 +70,6 @@ export class SettingsComponent {
     { initialValue: false }
   );
   protected readonly avatarUrl = computed(() => {
-    const account = this.activeAccount();
-    if (account) {
-      return account.avatar;
-    }
     return null;
   });
 
