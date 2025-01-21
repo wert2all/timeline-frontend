@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ThemeSwitchComponent } from '../../../feature/ui/theme/theme-switch.component';
-import { FeatureFlagComponent } from '../../../feature/user/features/feature-flag/feature-flag.component';
 import { ClickOutsideDirective } from '../../../libs/click-outside.directive';
 import { AuthService } from '../../../services/auth.service';
 import { accountFeature } from '../../../store/account/account.reducer';
@@ -29,7 +28,6 @@ import { LoginButtonComponent } from './login-button/login-button.component';
   imports: [
     CommonModule,
     LoginButtonComponent,
-    FeatureFlagComponent,
     ThemeSwitchComponent,
     CurrentAccountComponent,
     CollapsableMenuComponent,
