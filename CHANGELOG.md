@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.31](https://github.com/wert2all/timeline-frontend/compare/v0.0.30...v0.0.31) (2025-01-21)
+
+### Bug Fixes
+
+- event image shoud be centered ([c3d5bdf](https://github.com/wert2all/timeline-frontend/commit/c3d5bdf99b3dc2a4a6ddada35b9829b42bc74d7c))
+- fix event image again ([ea03d51](https://github.com/wert2all/timeline-frontend/commit/ea03d5160bcf68a7876e065df9428cf9c0ff592f))
+- fix margin on edit event form ([9be2fca](https://github.com/wert2all/timeline-frontend/commit/9be2fca364f8b4987e6c1d4227572538f475ac44))
+- fix remove image ([f2f6ea6](https://github.com/wert2all/timeline-frontend/commit/f2f6ea69ada80e51ea9a1dff52f0cd214f0385d5))
+- fix saving event form ([52180b4](https://github.com/wert2all/timeline-frontend/commit/52180b463be58f8ddc24b1b8de7b80aec5c73b63))
+
 ## [0.0.30](https://github.com/wert2all/timeline-frontend/compare/v0.0.29...v0.0.30) (2025-01-20)
 
 ### Features
