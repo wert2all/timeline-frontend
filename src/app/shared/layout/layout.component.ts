@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { NotificationsContainerComponent } from '../notifications/notifications-container.component';
+import { NotificationsContainerComponent } from '../../feature/ui/layout/notifications/notifications-container.component';
 
 import { Store } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
@@ -8,6 +8,8 @@ import { CookieConsentComponent } from '../../feature/ui/layout/cookie-consent/c
 import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
 import { ApplicationActions } from '../../store/application/application.actions';
+import { NotificationStore } from '../../store/notifications/notifications.store';
+import { NotificationMessage } from '../../store/notifications/notifications.types';
 import { tableOfYearFeature } from '../../store/table-of-contents/table-of-contents.reducer';
 
 @Component({
@@ -24,12 +26,18 @@ import { tableOfYearFeature } from '../../store/table-of-contents/table-of-conte
 })
 export class LayoutComponent {
   private readonly store = inject(Store);
+  private readonly notificationStore = inject(NotificationStore);
 
   protected readonly tableOfContents = this.store.selectSignal(
     tableOfYearFeature.selectState
   );
+  protected readonly unreadMessages = this.notificationStore.unRead;
 
   cookieConsent(cookie: CookieValue) {
     this.store.dispatch(ApplicationActions.dispatchCookieConsent({ cookie }));
+  }
+
+  markRead(message: NotificationMessage) {
+    this.notificationStore.markRead(message.uuid);
   }
 }

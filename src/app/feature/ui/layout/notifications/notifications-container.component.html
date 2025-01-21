@@ -3,11 +3,11 @@
     <div
       tabindex="0"
       class="toast {{ message.type }}"
-      (click)="closeMessage(message)"
-      (keyup.escape)="closeMessage(message)"
-      (keyup.enter)="closeMessage(message)">
+      (click)="markRead.emit(message)"
+      (keyup.escape)="markRead.emit(message)"
+      (keyup.enter)="markRead.emit(message)">
       <span>{{ message.message }} </span>
-      <span class="indicator" (animationend)="closeMessage(message)"></span>
+      <span class="indicator" (animationend)="markRead.emit(message)"></span>
     </div>
   }
 </div>
