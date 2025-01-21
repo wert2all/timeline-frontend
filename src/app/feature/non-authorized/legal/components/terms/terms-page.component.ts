@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TitleComponent } from '../../../../shared/layout/content/title/title.component';
-import { LayoutComponent } from '../../../../shared/layout/layout.component';
+import { TitleComponent } from '../../../../../shared/layout/content/title/title.component';
+import { LayoutComponent } from '../../../../../shared/layout/layout.component';
 
 @Component({
   standalone: true,
