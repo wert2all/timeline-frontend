@@ -18,7 +18,7 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../app.types';
-import { Tabs } from '../../share/tabs/tabs.types';
+import { Tabs } from '../../shared/tabs/tabs.types';
 import { accountFeature } from '../../store/account/account.reducer';
 import { EventActions } from '../../store/events/events.actions';
 import { eventsFeature } from '../../store/events/events.reducer';

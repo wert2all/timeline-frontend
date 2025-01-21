@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { Status } from '../../../../../app.types';
-import { LoaderComponent } from '../../../../../share/loader/loader.component';
+import { LoaderComponent } from '../../../../../shared/loader/loader.component';
 import { ViewEventImage } from '../../../../../store/timeline/timeline.types';
 
 @Component({

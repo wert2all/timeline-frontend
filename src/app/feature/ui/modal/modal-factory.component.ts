@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Undefined } from '../../../app.types';
-import { ModalComponent } from '../../../share/modal/modal.component';
+import { ModalComponent } from '../../../shared/modal/modal.component';
 import { ApplicationActions } from '../../../store/application/application.actions';
 import { applicationFeature } from '../../../store/application/application.reducers';
 import { ModalWindowType } from '../../../store/application/application.types';

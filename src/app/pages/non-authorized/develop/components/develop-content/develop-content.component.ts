@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HeroComponent } from '../../../../../share/hero/hero.component';
+import { HeroComponent } from '../../../../../shared/hero/hero.component';
 
 @Component({
   selector: 'app-develop-content',

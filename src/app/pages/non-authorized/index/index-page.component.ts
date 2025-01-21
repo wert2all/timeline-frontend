@@ -10,9 +10,9 @@ import { provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
-import { HeroComponent } from '../../../share/hero/hero.component';
-import { TitleComponent } from '../../../share/layout/content/title/title.component';
-import { LayoutComponent } from '../../../share/layout/layout.component';
+import { HeroComponent } from '../../../shared/hero/hero.component';
+import { TitleComponent } from '../../../shared/layout/content/title/title.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
@@ -156,7 +156,7 @@ export class IndexPageComponent {
       title: 'first commit to timelime was pushed',
       tags: ['party', 'selebrate', 'start', 'timeline', 'important'],
       description:
-        "We made our first commit to our new project. \n The first commit was a small one, but it represents a big step forward for us. It is a testament to the hard work and dedication of our team, who have been working tirelessly to make this project a reality. \n We are excited to continue working on 'timeline' and to share it with the world in the future. We believe that it has the potential to make a real difference in people's lives, and we are committed to making that happen.",
+        "We made our first commit to our new project. \n The first commit was a small one, but it represents a big step forward for us. It is a testament to the hard work and dedication of our team, who have been working tirelessly to make this project a reality. \n We are excited to continue working on 'timeline' and to shared it with the world in the future. We believe that it has the potential to make a real difference in people's lives, and we are committed to making that happen.",
       url: 'https://github.com/wert2all/timeline-frontend/commit/613b8c200ab167c594965751c6c1e6ee6c873dad',
       loading: false,
     },

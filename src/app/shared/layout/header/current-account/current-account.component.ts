@@ -1,5 +1,5 @@
 import { Component, input, output } from '@angular/core';
-import { CurrentAccountView } from '../../../../share/layout/header/header.types';
+import { CurrentAccountView } from '../../../layout/header/header.types';
 
 @Component({
   standalone: true,
