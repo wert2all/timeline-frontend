@@ -6,11 +6,12 @@ import {
   saxGhostOutline,
   saxVideoSquareOutline,
 } from '@ng-icons/iconsax/outline';
+import { FooterMenuComponent } from '../../../feature/non-authorized/legal/ui/footer-menu/footer-menu.component';
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule, NgIconComponent],
+  imports: [CommonModule, NgIconComponent, FooterMenuComponent],
   templateUrl: './footer.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [
