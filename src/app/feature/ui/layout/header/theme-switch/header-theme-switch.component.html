@@ -4,7 +4,7 @@
     id="toggle_theme"
     class="toggle--checkbox hidden"
     [checked]="isDark() ? 'checked' : null"
-    (change)="toggleTheme()" />
+    (change)="toggleTheme.emit()" />
 
   <label for="toggle_theme" class="toggle--label relative flex cursor-pointer">
     <span class="toggle--label-background"></span>
@@ -12,8 +12,8 @@
 </div>
 
 <div class="lg:hidden">
-  <button class="btn btn-circle btn-ghost" (click)="toggleTheme()">
-    @if (isDark() === true) {
+  <button class="btn btn-circle btn-ghost" (click)="toggleTheme.emit()">
+    @if (isDark()) {
       <ng-icon name="hugeSun03" size="24"></ng-icon>
     } @else {
       <ng-icon name="saxMoonBold" size="24"></ng-icon>

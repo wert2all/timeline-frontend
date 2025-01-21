@@ -3,7 +3,9 @@
     <a class="logo btn text-xl" href="/"> timeline </a>
   </div>
   <div class="flex-none gap-2">
-    <app-header-theme-switch />
+    <app-header-theme-switch
+      [isDark]="isDarkTheme()"
+      (toggleTheme)="toggleTheme()" />
 
     @if (isAuthorized() === false) {
       <app-header-login-button [isLoading]="isLoading()" (login)="login()" />
