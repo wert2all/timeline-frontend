@@ -14,10 +14,10 @@ import {
   saxSetting2Outline,
   saxTickCircleOutline,
 } from '@ng-icons/iconsax/outline';
-import { Unique } from '../../../../app.types';
-import { AccountFeaturesSettings } from '../../../../feature/features.service';
-import { FeatureFlagComponent } from '../../../../feature/user/features/feature-flag/feature-flag.component';
-import { AccountView } from '../../../layout/header/header.types';
+import { Unique } from '../../../../../app.types';
+import { AccountFeaturesSettings } from '../../../../features.service';
+import { FeatureFlagComponent } from '../../../../user/features/feature-flag/feature-flag.component';
+import { AccountView } from '../header.types';
 
 @Component({
   standalone: true,

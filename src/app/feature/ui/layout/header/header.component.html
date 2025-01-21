@@ -3,10 +3,10 @@
     <a class="logo btn text-xl" href="/"> timeline </a>
   </div>
   <div class="flex-none gap-2">
-    <app-theme-switch />
+    <app-header-theme-switch />
 
     @if (isAuthorized() === false) {
-      <app-login-button [isLoading]="isLoading()" (login)="login()" />
+      <app-header-login-button [isLoading]="isLoading()" (login)="login()" />
     }
 
     @if (currentAccountView(); as account) {
@@ -14,7 +14,7 @@
         <div
           class="w-full overflow-hidden rounded-xl bg-success text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20"
           (clickOutside)="closeMenu()">
-          <app-top-menu-current-account
+          <app-header-current-account
             (openMenu)="openMenu()"
             [account]="account"
             [isOpenMenu]="isOpenMenu()" />
