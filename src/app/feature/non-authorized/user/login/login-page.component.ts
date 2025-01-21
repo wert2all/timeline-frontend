@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { AuthService } from '../../../../services/auth.service';
 import { HeroComponent } from '../../../../shared/hero/hero.component';
-import { LayoutComponent } from '../../../../shared/layout/layout.component';
+import { LayoutComponent } from '../../../../shared/ui/layout/layout.component';
 import { accountFeature } from '../../../../store/account/account.reducer';
 import { applicationFeature } from '../../../../store/application/application.reducers';
 import { NavigationActions } from '../../../../store/navigation/navigation.actions';
