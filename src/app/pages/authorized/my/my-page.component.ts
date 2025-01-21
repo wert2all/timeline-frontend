@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LayoutComponent } from '../../../shared/layout/layout.component';
+import { LayoutComponent } from '../../../shared/ui/layout/layout.component';
 
 import { TimelineActions } from '../../../store/timeline/timeline.actions';
 import { timelineFeature } from '../../../store/timeline/timeline.reducer';

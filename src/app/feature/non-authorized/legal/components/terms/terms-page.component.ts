@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from '../../../../../shared/layout/layout.component';
 import { TitleComponent } from '../../../../../shared/ui/layout/content/title/title.component';
+import { LayoutComponent } from '../../../../../shared/ui/layout/layout.component';
 
 @Component({
   standalone: true,
