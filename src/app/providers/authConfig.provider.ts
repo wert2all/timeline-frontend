@@ -11,7 +11,7 @@ export const provideAuthConfig = () =>
         issuer: 'https://accounts.google.com',
 
         // URL of the SPA to redirect the user to after login
-        redirectUri: window.location.origin + '/user/login/redirect',
+        redirectUri: window.location.origin + '/user/redirect',
 
         // URL of the SPA to redirect the user after silent refresh
         // silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
