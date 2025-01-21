@@ -37,7 +37,7 @@ const FEATURE_FLAGS = {
     name: 'User settings',
     description: 'Change user profile settings',
     canShow: account => canShow(account, 'user_settings'),
-    stage: FeatureStage.started,
+    stage: FeatureStage.development,
   },
   user_feature_flag: {
     name: 'Features',
