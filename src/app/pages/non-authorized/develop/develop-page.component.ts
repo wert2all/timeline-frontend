@@ -6,8 +6,8 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { TitleComponent } from '../../../shared/ui/layout/content/title/title.component';
-import { LayoutComponent } from '../../../shared/ui/layout/layout.component';
+import { TitleComponent } from '../../../shared/layout/content/title/title.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 
 import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
 import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
