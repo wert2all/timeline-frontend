@@ -11,8 +11,8 @@ import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { TimelineComponent } from '../../../feature/timeline/timeline.component';
 import { HeroComponent } from '../../../shared/hero/hero.component';
-import { TitleComponent } from '../../../shared/layout/content/title/title.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
+import { TitleComponent } from '../../../shared/ui/layout/content/title/title.component';
 
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';

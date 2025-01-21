@@ -3,7 +3,7 @@ import { NgIconComponent } from '@ng-icons/core';
 
 @Component({
   standalone: true,
-  selector: 'app-loading-button',
+  selector: 'app-content-loading-button',
   imports: [NgIconComponent],
   templateUrl: './loading-button.component.html',
 })
