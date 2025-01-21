@@ -2,7 +2,6 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../../../../services/auth.service';
-import { ThemeService } from '../../../../services/theme.service';
 import { accountFeature } from '../../../../store/account/account.reducer';
 import { ApplicationActions } from '../../../../store/application/application.actions';
 import { applicationFeature } from '../../../../store/application/application.reducers';
@@ -12,6 +11,7 @@ import { NavigationActions } from '../../../../store/navigation/navigation.actio
 import { NotificationStore } from '../../../../store/notifications/notifications.store';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
+import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';

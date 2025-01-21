@@ -1,5 +1,5 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
-import { LocalStorageService } from './local-storage.service';
+import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
 
 export const storageKey = 'theme';
 enum Themes {
@@ -9,7 +9,7 @@ enum Themes {
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
-  private readonly localStorage = inject(LocalStorageService);
+  private readonly localStorage = inject(SharedLocalStorageService);
   private readonly themeSignal = signal<Themes>(Themes.dark);
 
   readonly #htmlElement = document.getElementById('html') as HTMLHtmlElement;
