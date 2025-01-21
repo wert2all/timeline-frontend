@@ -1,11 +1,11 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { applicationFeature } from '../store/application/application.reducers';
+import { applicationFeature } from '../../store/application/application.reducers';
 
 @Injectable({
   providedIn: 'root',
 })
-export class LocalStorageService {
+export class SharedLocalStorageService {
   private readonly canSave = inject(Store).selectSignal(
     applicationFeature.canUseNecessaryCookies
   );
