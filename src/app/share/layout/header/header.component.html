@@ -3,11 +3,7 @@
     <a class="logo btn text-xl" href="/"> timeline </a>
   </div>
   <div class="flex-none gap-2">
-    <app-feature-flag
-      feature="dark_light_mode"
-      [accountSettings]="activeAccountSettings()">
-      <app-theme-switch />
-    </app-feature-flag>
+    <app-theme-switch />
 
     @if (isAuthorized() === false) {
       <app-login-button [isLoading]="isLoading()" (login)="login()" />
