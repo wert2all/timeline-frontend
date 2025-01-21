@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { CookiePageComponent } from './feature/non-authorized/legal/components/cookie/cookie-page.component';
-import { PrivacyPageComponent } from './feature/non-authorized/legal/components/privacy/privacy-page.component';
-import { TermsPageComponent } from './feature/non-authorized/legal/components/terms/terms-page.component';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
 import { MyPageComponent } from './pages/authorized/my/my-page.component';
 import { DevelopPageComponent } from './pages/non-authorized/develop/develop-page.component';
@@ -13,11 +10,8 @@ export const routes: Routes = [
   { path: '', component: IndexPageComponent },
   {
     path: 'legal',
-    children: [
-      { path: 'privacy', component: PrivacyPageComponent },
-      { path: 'terms', component: TermsPageComponent },
-      { path: 'cookie-policy', component: CookiePageComponent },
-    ],
+    loadChildren: () =>
+      import('./feature/non-authorized/legal/legal.routes').then(m => m.routes),
   },
   {
     path: 'user/login',
