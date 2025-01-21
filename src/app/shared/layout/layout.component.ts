@@ -11,7 +11,7 @@ import { ApplicationActions } from '../../store/application/application.actions'
 import { tableOfYearFeature } from '../../store/table-of-contents/table-of-contents.reducer';
 
 @Component({
-  selector: 'app-layout',
+  selector: 'app-shared-layout',
   standalone: true,
   templateUrl: './layout.component.html',
   imports: [

@@ -3,7 +3,7 @@ import { CurrentAccountView } from '../../../../ui/layout/header/header.types';
 
 @Component({
   standalone: true,
-  selector: 'app-header-current-account',
+  selector: 'app-shared-header-current-account',
   templateUrl: './header-current-account.component.html',
 })
 export class HeaderCurrentAccountComponent {

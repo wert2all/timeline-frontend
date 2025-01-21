@@ -8,7 +8,9 @@
       (toggleTheme)="toggleTheme()" />
 
     @if (isAuthorized() === false) {
-      <app-header-login-button [isLoading]="isLoading()" (login)="login()" />
+      <app-shared-header-login-button
+        [isLoading]="isLoading()"
+        (login)="login()" />
     }
 
     @if (currentAccountView(); as account) {
@@ -16,7 +18,7 @@
         <div
           class="w-full overflow-hidden rounded-xl bg-success text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20"
           (clickOutside)="closeMenu()">
-          <app-header-current-account
+          <app-shared-header-current-account
             (openMenu)="openMenu()"
             [account]="account"
             [isOpenMenu]="isOpenMenu()" />
