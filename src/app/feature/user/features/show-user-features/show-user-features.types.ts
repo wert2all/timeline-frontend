@@ -1,4 +1,4 @@
-import { FeatureStage } from '../../../features.service';
+import { FeatureStage } from '../../../../shared/services/features.service';
 
 export interface UserFeature {
   name: string;

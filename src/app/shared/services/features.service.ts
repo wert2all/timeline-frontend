@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { PartialRecord } from '../app.types';
+import { PartialRecord } from '../../app.types';
 
 export type FeatureFlagName = keyof typeof FEATURE_FLAGS;
 

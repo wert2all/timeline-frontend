@@ -4,7 +4,7 @@ import { NotificationsContainerComponent } from '../../feature/ui/layout/compone
 import { Store } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
 import { CookieConsentComponent } from '../../feature/ui/layout/components/cookie-consent/cookie-consent.component';
-import { FooterComponent } from '../../feature/ui/layout/components/footer/footer.component';
+import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
 import { NotificationStore } from '../../feature/ui/layout/store/notification/notifications.store';
 import { NotificationMessage } from '../../feature/ui/layout/store/notification/notifications.types';
