@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.33](https://github.com/wert2all/timeline-frontend/compare/v0.0.32...v0.0.33) (2025-01-22)
+
+### Bug Fixes
+
+- fix index hero ([8c9a775](https://github.com/wert2all/timeline-frontend/commit/8c9a775d1fc028a939ed70954aaa7509f3255fd8))
+
 ## [0.0.32](https://github.com/wert2all/timeline-frontend/compare/v0.0.31...v0.0.32) (2025-01-22)
 
 ### Features
