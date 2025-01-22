@@ -21,7 +21,7 @@ import { Pending, Status } from '../../../../app.types';
 import { Tabs } from '../../../../shared/content/tabs/tabs.types';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
-import { accountFeature } from '../../../../store/account/account.reducer';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import { ViewTimelineEventIcon } from '../../../timeline/timeline.types';
@@ -67,7 +67,7 @@ export class EditEventComponent {
 
   protected readonly isUploadEnabled = toSignal(
     this.store
-      .select(accountFeature.selectActiveAccountFeaturesSettings)
+      .select(sharedFeature.selectActiveAccountFeatureSettings)
       //eslint-disable-next-line @ngrx/avoid-mapping-selectors
       .pipe(map(settings => !!settings['upload_images'])),
     { initialValue: false }

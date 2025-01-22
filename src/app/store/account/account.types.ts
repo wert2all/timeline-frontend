@@ -1,17 +1,14 @@
-import { Iterable, Loadable, Undefined } from '../../app.types';
-export type AccountSettings = Record<string, string>;
+import { Loadable, Undefined } from '../../app.types';
+import {
+  Account,
+  AccountSettings,
+} from '../../shared/store/shared/shared.types';
 
 export interface AccountUser {
   id: number;
   name: string | Undefined;
   accounts: Account[];
 }
-
-export type Account = Iterable & {
-  name?: string;
-  previewlyToken: string;
-  settings: AccountSettings;
-};
 
 export interface SavingAccountSettings {
   accountId: number;
@@ -20,7 +17,4 @@ export interface SavingAccountSettings {
   settings: AccountSettings;
 }
 
-export type AccountState = Loadable & {
-  activeUser: AccountUser | null;
-  activeAccount: Account | null;
-};
+export type AccountState = Loadable;

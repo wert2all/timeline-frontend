@@ -14,7 +14,7 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { createPolling } from '../../../../../libs/polling/polling.factory';
-import { accountFeature } from '../../../../../store/account/account.reducer';
+import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
 import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { PreviewPollingOptions } from './preview.polling.options';
@@ -29,7 +29,7 @@ const addUrl = (
     ofType(PreviewActions.addURL),
     concatLatestFrom(() =>
       store
-        .select(accountFeature.selectActiveAccount)
+        .select(sharedFeature.selectActiveAccount)
         .pipe(map(account => account?.previewlyToken))
     ),
     exhaustMap(([{ url }, token]) =>

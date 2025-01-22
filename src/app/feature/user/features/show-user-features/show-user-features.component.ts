@@ -11,8 +11,8 @@ import {
   FeatureFlagName,
   FeaturesService,
 } from '../../../../shared/services/features.service';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { AccountActions } from '../../../../store/account/account.actions';
-import { accountFeature } from '../../../../store/account/account.reducer';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 import { UserFeature } from './show-user-features.types';
 type ViewFeature = UserFeature & { key: FeatureFlagName };
@@ -28,7 +28,7 @@ export class ShowUserFeaturesComponent {
   private readonly featuresService = inject(FeaturesService);
 
   protected activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
+    sharedFeature.selectActiveAccount
   );
 
   protected readonly features = computed(() => {

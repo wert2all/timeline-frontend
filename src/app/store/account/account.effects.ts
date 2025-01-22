@@ -9,10 +9,13 @@ import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { NavigationActions } from '../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
+import {
+  mergeAccountSettings,
+  sharedFeature,
+} from '../../shared/store/shared/shared.reducers';
+import { Account } from '../../shared/store/shared/shared.types';
 import { AuthActions } from '../auth/auth.actions';
 import { AccountActions } from './account.actions';
-import { accountFeature, mergeAccountSettings } from './account.reducer';
-import { Account } from './account.types';
 import { ActiveAccountService } from './active-account.service';
 
 const setUser = (
@@ -51,7 +54,7 @@ const cleanEffect = (actions$ = inject(Actions)) =>
 const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
     ofType(AccountActions.updateOneSetting),
-    concatLatestFrom(() => store.select(accountFeature.selectActiveAccount)),
+    concatLatestFrom(() => store.select(sharedFeature.selectActiveAccount)),
     map(([{ key, value }, acc]) => mergeAccountSettings(acc, { key, value })),
     map(account =>
       account && account.settings

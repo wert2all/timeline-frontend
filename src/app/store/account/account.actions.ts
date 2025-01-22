@@ -2,9 +2,8 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   Account,
   AccountSettings,
-  AccountUser,
-  SavingAccountSettings,
-} from './account.types';
+} from '../../shared/store/shared/shared.types';
+import { AccountUser, SavingAccountSettings } from './account.types';
 
 export const AccountActions = createActionGroup({
   source: 'Account',

@@ -9,8 +9,9 @@ import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, User } from '../../api/internal/graphql';
 import { StoreDispatchEffect, Undefined } from '../../app.types';
 import { NavigationActions } from '../../shared/store/navigation/navigation.actions';
+import { Account } from '../../shared/store/shared/shared.types';
 import { AccountActions } from '../account/account.actions';
-import { Account, AccountUser } from '../account/account.types';
+import { AccountUser } from '../account/account.types';
 import { AuthActions } from './auth.actions';
 import { AuthService } from './auth.service';
 

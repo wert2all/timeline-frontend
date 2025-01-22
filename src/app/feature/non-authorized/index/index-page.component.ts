@@ -10,7 +10,7 @@ import { TimelineComponent } from '../../timeline/timeline.component';
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
-import { accountFeature } from '../../../store/account/account.reducer';
+import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { TaskActions } from '../../../store/task/task.actions';
 import { createViewTimelineEvent } from '../../authorized/dashboard/edit-event/editable-event-view.factory';
 import {
@@ -170,7 +170,7 @@ export class IndexPageComponent {
   });
 
   protected readonly isAuthorized = this.store.selectSignal(
-    accountFeature.isAuthorized
+    sharedFeature.isAuthorized
   );
 
   constructor() {

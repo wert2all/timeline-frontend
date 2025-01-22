@@ -18,7 +18,7 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { PollingOptions } from '../../../../../libs/polling/polling.types';
-import { accountFeature } from '../../../../../store/account/account.reducer';
+import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
 import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
@@ -56,7 +56,7 @@ export class PreviewPollingOptions
   ): Observable<Action<string>> {
     return flow$.pipe(
       concatLatestFrom(() =>
-        this.store.select(accountFeature.selectActiveAccount)
+        this.store.select(sharedFeature.selectActiveAccount)
       ),
       switchMap(([{ urls }, account]) =>
         account?.previewlyToken
