@@ -53,10 +53,23 @@ const redirectAfterLogout = (actions$ = inject(Actions)) =>
     ofType(SharedActions.logout),
     map(() => NavigationActions.toHome())
   );
+const errorMessageEmptyPreviewlyToken = (
+  actions$ = inject(Actions),
+  notificationStore = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(SharedActions.dispatchEmptyPreviewlyTokenError),
+    tap(() => notificationStore.addMessage('Previewly token is empty', 'error'))
+  );
 
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
   redirectAfterLogin: createEffect(redirectAfterLogin, StoreDispatchEffect),
   redirectAfterLogout: createEffect(redirectAfterLogout, StoreDispatchEffect),
+
+  errorMessageEmptyPreviewlyToken: createEffect(
+    errorMessageEmptyPreviewlyToken,
+    StoreUnDispatchEffect
+  ),
   sendNotification: createEffect(sendNotification, StoreUnDispatchEffect),
 };

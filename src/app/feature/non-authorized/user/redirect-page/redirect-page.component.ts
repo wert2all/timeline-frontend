@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
-import { AuthService } from '../../../../store/auth/auth.service';
+import { AuthService } from '../auth.service';
 import { CurrentAccountService } from '../shared/current-account.service';
 
 @Component({
