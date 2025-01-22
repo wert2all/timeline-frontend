@@ -12,11 +12,11 @@ import { Status, StatusWithPending } from '../../../app.types';
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
+import { createViewTimelineEvent } from '../../authorized/dashboard/edit-event/editable-event-view.factory';
 import {
   ExistTimelineEvent,
   TimelineEventType,
 } from '../../authorized/dashboard/store/events/events.types';
-import { createViewTimelineEvent } from '../../edit-event/editable-event-view.factory';
 import { ImagesTaskExecutorFactory } from '../../task/executors/images.factory';
 
 @Component({

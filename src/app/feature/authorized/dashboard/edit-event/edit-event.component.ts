@@ -8,8 +8,8 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
-import { timelineFeature } from '../authorized/dashboard/store/timeline/timeline.reducer';
-import { ViewTimelineEvent } from '../authorized/dashboard/store/timeline/timeline.types';
+import { timelineFeature } from '../store/timeline/timeline.reducer';
+import { ViewTimelineEvent } from '../store/timeline/timeline.types';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -17,19 +17,19 @@ import {
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
-import { Pending, Status } from '../../app.types';
-import { Tabs } from '../../shared/content/tabs/tabs.types';
-import { UploadActions } from '../../shared/store/images/images.actions';
-import { imagesFeature } from '../../shared/store/images/images.reducer';
-import { accountFeature } from '../../store/account/account.reducer';
-import { EventActions } from '../authorized/dashboard/store/events/events.actions';
-import { eventsFeature } from '../authorized/dashboard/store/events/events.reducer';
-import { TimelineEventType } from '../authorized/dashboard/store/events/events.types';
-import { PreviewActions } from '../authorized/dashboard/store/preview/preview.actions';
-import { previewFeature } from '../authorized/dashboard/store/preview/preview.reducers';
-import { EventMainContentComponent } from '../timeline/components/event/content/main-content.component';
-import { IconComponent } from '../timeline/components/event/icon/icon.component';
-import { ViewTimelineEventIcon } from '../timeline/timeline.types';
+import { Pending, Status } from '../../../../app.types';
+import { Tabs } from '../../../../shared/content/tabs/tabs.types';
+import { UploadActions } from '../../../../shared/store/images/images.actions';
+import { imagesFeature } from '../../../../shared/store/images/images.reducer';
+import { accountFeature } from '../../../../store/account/account.reducer';
+import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
+import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
+import { ViewTimelineEventIcon } from '../../../timeline/timeline.types';
+import { EventActions } from '../store/events/events.actions';
+import { eventsFeature } from '../store/events/events.reducer';
+import { TimelineEventType } from '../store/events/events.types';
+import { PreviewActions } from '../store/preview/preview.actions';
+import { previewFeature } from '../store/preview/preview.reducers';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from './edit-event-form/edit-event-form.types';
 import { EditEventFormChanges } from './edit-event.types';

@@ -2,8 +2,8 @@ import { Component, computed, effect, input, output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxCloseCircleOutline } from '@ng-icons/iconsax/outline';
-import { fromInputSignal } from '../../../../libs/signal.functions';
-import { ViewTimelineTag } from '../../../timeline/timeline.types';
+import { fromInputSignal } from '../../../../../../libs/signal.functions';
+import { ViewTimelineTag } from '../../../../../timeline/timeline.types';
 import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
