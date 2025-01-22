@@ -1,15 +1,15 @@
-import { Status } from '../../app.types';
+import { Status } from '../../../../app.types';
+import { createViewDatetime } from '../../../../libs/view/date.functions';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
-} from '../../feature/timeline/timeline.types';
-import { createViewDatetime } from '../../libs/view/date.functions';
+} from '../../../timeline/timeline.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../authorized/dashboard/store/events/events.types';
-import { ViewTimelineEvent } from '../authorized/dashboard/store/timeline/timeline.types';
+} from '../store/events/events.types';
+import { ViewTimelineEvent } from '../store/timeline/timeline.types';
 
 const prepareUrl = (url: string | undefined) => {
   try {

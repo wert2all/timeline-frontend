@@ -11,10 +11,10 @@ import {
   StatusWithPending,
   Undefined,
 } from '../../../app.types';
-import { EditEventComponent } from '../../edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../../timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
 import { TimelineComponent } from '../../timeline/timeline.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { accountFeature } from '../../../store/account/account.reducer';

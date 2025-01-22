@@ -2,7 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
-} from '../../../../edit-event/editable-event-view.factory';
+} from '../../edit-event/editable-event-view.factory';
 import { timelineFeature } from '../timeline/timeline.reducer';
 import { ExistViewTimelineEvent } from '../timeline/timeline.types';
 import { EventActions } from './events.actions';
