@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Undefined } from '../../../../app.types';
-import { PreviewHolder } from '../../../../store/preview/preview.types';
+import { PreviewHolder } from '../../../authorized/dashboard/store/preview/preview.types';
 import { EditEventForm } from '../edit-event-form.types';
 import { LinkPreviewComponent } from '../link-preview/link-preview.component';
 

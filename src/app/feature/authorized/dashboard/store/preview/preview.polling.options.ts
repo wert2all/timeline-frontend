@@ -11,12 +11,15 @@ import {
   switchMap,
   toArray,
 } from 'rxjs';
-import { previewlyApiClient } from '../../api/external/previewly/graphql';
-import { DataWrapper, Status } from '../../app.types';
-import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { PollingOptions } from '../../libs/polling/polling.types';
-import { accountFeature } from '../account/account.reducer';
-import { AuthActions } from '../auth/auth.actions';
+import { previewlyApiClient } from '../../../../../api/external/previewly/graphql';
+import { DataWrapper, Status } from '../../../../../app.types';
+import {
+  apiAssertNotNull,
+  extractApiData,
+} from '../../../../../libs/api.functions';
+import { PollingOptions } from '../../../../../libs/polling/polling.types';
+import { accountFeature } from '../../../../../store/account/account.reducer';
+import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
 import { PreviewItem, PreviewPollingActionsProps } from './preview.types';
