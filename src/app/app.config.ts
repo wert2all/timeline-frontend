@@ -13,6 +13,7 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
+import { modalWindowFeature } from './feature/ui/layout/store/modal-window/modal-window.reducers';
 import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.effects';
 import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.reducer';
 import { provideApollo } from './providers/apollo.provider';
@@ -44,6 +45,7 @@ export const appConfig: ApplicationConfig = {
       [accountFeature.name]: accountFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
       [taskFeature.name]: taskFeature.reducer,
+      [modalWindowFeature.name]: modalWindowFeature.reducer,
     }),
     provideEffects([
       sharedEffects,

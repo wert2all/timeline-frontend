@@ -6,6 +6,7 @@ import { CookieValue } from 'vanilla-cookieconsent';
 import { CookieConsentComponent } from '../../feature/ui/layout/components/cookie-consent/cookie-consent.component';
 import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
+import { ModalFactoryComponent } from '../../feature/ui/layout/modal-factory/modal-factory.component';
 import { NotificationStore } from '../../feature/ui/layout/store/notification/notifications.store';
 import { NotificationMessage } from '../../feature/ui/layout/store/notification/notifications.types';
 import { TableOfContentsContainerComponent } from '../../feature/ui/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
@@ -22,6 +23,7 @@ import { SharedActions } from '../store/shared/shared.actions';
     NotificationsContainerComponent,
     TableOfContentsContainerComponent,
     CookieConsentComponent,
+    ModalFactoryComponent,
   ],
 })
 export class LayoutComponent {

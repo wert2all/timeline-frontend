@@ -3,7 +3,6 @@ import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
 import { eventsEffects } from './feature/authorized/dashboard/store/events/events.effects';
 import { eventsFeature } from './feature/authorized/dashboard/store/events/events.reducer';
-import { modalWindowFeature } from './feature/authorized/dashboard/store/modal-window/modal-window.reducers';
 import { previewEffects } from './feature/authorized/dashboard/store/preview/preview.effects';
 import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
 import { timelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
@@ -40,7 +39,6 @@ export const routes: Routes = [
     providers: [
       provideState(timelineFeature),
       provideState(eventsFeature),
-      provideState(modalWindowFeature),
       provideState(previewFeature),
       provideEffects(timelineEffects, eventsEffects, previewEffects),
     ],
