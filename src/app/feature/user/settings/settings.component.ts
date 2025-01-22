@@ -21,7 +21,7 @@ import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { ModalWindowActions } from '../../authorized/dashboard/store/modal-window/modal-window.actions';
+import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 
 interface SettingForm {
   accountId: FormControl<number>;
