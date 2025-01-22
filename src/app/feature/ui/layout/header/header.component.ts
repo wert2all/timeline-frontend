@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { SharedAuthTokenService } from '../../../../shared/services/auth-token.service';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { accountFeature } from '../../../../store/account/account.reducer';
 import { AuthActions } from '../../../../store/auth/auth.actions';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
@@ -44,12 +43,12 @@ export class HeaderComponent {
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);
 
-  protected isAuthorized = this.store.selectSignal(accountFeature.isAuthorized);
+  protected isAuthorized = this.store.selectSignal(sharedFeature.isAuthorized);
   protected activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
+    sharedFeature.selectActiveAccount
   );
   protected activeAccountSettings = this.store.selectSignal(
-    accountFeature.selectActiveAccountFeaturesSettings
+    sharedFeature.selectActiveAccountFeatureSettings
   );
 
   protected readonly currentAccountView = computed(() => {

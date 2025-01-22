@@ -19,8 +19,10 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
+import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { FeatureFlagComponent } from '../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 
 interface SettingForm {
@@ -33,7 +35,12 @@ interface SettingForm {
   standalone: true,
   selector: 'app-change-user-settings',
   templateUrl: './settings.component.html',
-  imports: [ReactiveFormsModule, FormControlsComponent, NgIconComponent],
+  imports: [
+    ReactiveFormsModule,
+    FormControlsComponent,
+    NgIconComponent,
+    FeatureFlagComponent,
+  ],
   viewProviders: [
     provideIcons({
       saxPenAddOutline,
@@ -48,7 +55,7 @@ interface SettingForm {
 export class SettingsComponent {
   private readonly store = inject(Store);
   private readonly activeAccount = this.store.selectSignal(
-    accountFeature.selectActiveAccount
+    sharedFeature.selectActiveAccount
   );
   protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
 
@@ -75,6 +82,9 @@ export class SettingsComponent {
 
   protected icon = saxPenAddOutline;
   protected addAccountIcon = saxUserAddOutline;
+  protected accountSettings = this.store.selectSignal(
+    sharedFeature.selectActiveAccountFeatureSettings
+  );
 
   constructor() {
     effect(() => {

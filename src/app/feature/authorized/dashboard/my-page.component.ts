@@ -17,9 +17,8 @@ import { TimelineComponent } from '../../timeline/timeline.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
-import { accountFeature } from '../../../store/account/account.reducer';
+import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
-import { ModalFactoryComponent } from '../../ui/layout/modal-factory/modal-factory.component';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { EventActions } from './store/events/events.actions';
 import { eventsFeature } from './store/events/events.reducer';
@@ -35,7 +34,6 @@ import { LoadEventActionOptions } from './store/events/events.types';
     AddEventButtonComponent,
     ModalConfirmComponent,
     TimelineComponent,
-    ModalFactoryComponent,
   ],
 })
 export class MyPageComponent {
@@ -89,8 +87,11 @@ export class MyPageComponent {
       return event;
     });
   });
-  protected readonly activeAccountId = this.store.selectSignal(
-    accountFeature.selectActiveAccountId
+  private readonly activeAccount = this.store.selectSignal(
+    sharedFeature.selectActiveAccount
+  );
+  protected readonly activeAccountId = computed(
+    () => this.activeAccount()?.id || 0
   );
 
   protected readonly shouldDeleteEventId = signal<number>(0);

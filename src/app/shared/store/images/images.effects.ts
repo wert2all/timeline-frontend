@@ -12,11 +12,11 @@ import {
 
 import { EventActions } from '../../../feature/authorized/dashboard/store/events/events.actions';
 import { eventsFeature } from '../../../feature/authorized/dashboard/store/events/events.reducer';
-import { accountFeature } from '../../../store/account/account.reducer';
 import { AuthActions } from '../../../store/auth/auth.actions';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';
+import { sharedFeature } from '../shared/shared.reducers';
 import { ImagesActions, UploadActions } from './images.actions';
 import { imagesFeature } from './images.reducer';
 
@@ -38,7 +38,7 @@ const uploadImage = (
 ) =>
   actions$.pipe(
     ofType(UploadActions.uploadImage),
-    concatLatestFrom(() => store.select(accountFeature.selectActiveAccount)),
+    concatLatestFrom(() => store.select(sharedFeature.selectActiveAccount)),
     map(([{ image, uuid }, account]) => ({
       image: { image: image, extra: account?.id.toString() },
       uuid,
@@ -94,7 +94,7 @@ const createTaskForLoadImages = (
     map(([, images]) => images.map(image => image.id)),
     concatLatestFrom(() =>
       store
-        .select(accountFeature.selectActiveAccount)
+        .select(sharedFeature.selectActiveAccount)
         .pipe(map(account => account?.previewlyToken))
     ),
     map(([imageIds, token]) => {
