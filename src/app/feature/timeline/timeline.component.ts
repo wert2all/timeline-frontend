@@ -10,7 +10,7 @@ import { ExistViewTimelineEvent } from '../../store/timeline/timeline.types';
 
 import { provideIcons } from '@ng-icons/core';
 import { saxMoreSquareOutline } from '@ng-icons/iconsax/outline';
-import { LoadingButtonComponent } from '../../shared/layout/content/loading-button/loading-button.component';
+import { LoadingButtonComponent } from '../../shared/content/loading-button/loading-button.component';
 import { EventMainContentComponent } from './components/event/content/main-content.component';
 import { IconComponent } from './components/event/icon/icon.component';
 import { TimelineEventMenuComponent } from './components/event/menu/menu.component';

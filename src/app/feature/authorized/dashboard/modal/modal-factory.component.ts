@@ -1,7 +1,7 @@
 import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Undefined } from '../../../../app.types';
-import { ModalComponent } from '../../../../shared/modal/modal.component';
+import { ModalComponent } from '../../../../shared/content/modal/modal.component';
 import { ShowUserFeaturesComponent } from '../../../user/features/show-user-features/show-user-features.component';
 import { SettingsComponent } from '../../../user/settings/settings.component';
 import { ApplicationActions } from '../store/application/application.actions';

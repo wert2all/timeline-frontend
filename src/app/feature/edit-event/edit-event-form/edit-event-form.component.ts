@@ -30,9 +30,9 @@ import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
 import { fromInputSignal } from '../../../libs/signal.functions';
-import { FormControlsComponent } from '../../../shared/form/controls/controls.component';
-import { SharedTabsComponent } from '../../../shared/tabs/tabs.component';
-import { Tabs } from '../../../shared/tabs/tabs.types';
+import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
+import { SharedTabsComponent } from '../../../shared/content/tabs/tabs.component';
+import { Tabs } from '../../../shared/content/tabs/tabs.types';
 import { TimelineEvent } from '../../../store/events/events.types';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';

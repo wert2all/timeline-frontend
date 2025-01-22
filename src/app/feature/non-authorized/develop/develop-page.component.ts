@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { TitleComponent } from '../../../shared/layout/content/title/title.component';
+import { TitleComponent } from '../../../shared/content/title/title.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
 import { TableOfContentsContainerComponent } from '../../table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
@@ -8,7 +8,7 @@ import { TableOfContents } from '../../table-of-contents/components/table-of-con
 import { TimelineComponent } from '../../timeline/timeline.component';
 
 import { Store } from '@ngrx/store';
-import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { MarkdownHelpComponent } from '../../edit-event/edit-event-form/markdown-help/markdown-help.component';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
@@ -21,7 +21,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     TimelineComponent,
     DevelopContentComponent,
     TableOfContentsContainerComponent,
-    LoaderComponent,
+    SharedLoaderComponent,
     MarkdownHelpComponent,
   ],
   templateUrl: './develop-page.component.html',

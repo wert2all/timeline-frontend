@@ -16,7 +16,7 @@ import { DateTime, Info } from 'luxon';
 
 @Component({
   standalone: true,
-  selector: 'app-date-picker',
+  selector: 'app-shared-date-picker',
   imports: [NgIconComponent, FormsModule],
   templateUrl: './date-picker.component.html',
   viewProviders: [

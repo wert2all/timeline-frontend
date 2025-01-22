@@ -32,6 +32,9 @@
     [formControl]="form().controls.content"></textarea>
 </label>
 
-<app-modal title="Markdown" [show]="showHelp()" (closed)="showHelp.set(false)">
+<app-shared-modal
+  title="Markdown"
+  [show]="showHelp()"
+  (closed)="showHelp.set(false)">
   <app-static-markdown-help />
-</app-modal>
+</app-shared-modal>

@@ -6,11 +6,11 @@
   create timeline
 </button>
 
-<app-modal
+<app-shared-modal
   [show]="showAddTimelineWindow()"
   (closed)="showAddTimelineWindow.set(false)">
   <app-add-timeline
     [isAuthorized]="isAuthorized()"
     [isLoading]="isLoading()"
     (addTimeline)="addTimeline.emit($event)" />
-</app-modal>
+</app-shared-modal>

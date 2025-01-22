@@ -1,4 +1,4 @@
-<app-modal
+<app-shared-modal
   [show]="!!windowType()"
   [title]="windowTitle()"
   (closed)="closeWindow()">
@@ -8,4 +8,4 @@
   @if (windowType() === ModalWindowType.SETTINGS) {
     <app-change-user-settings />
   }
-</app-modal>
+</app-shared-modal>

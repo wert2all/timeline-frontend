@@ -1,6 +1,6 @@
 <div class="relative flex h-60 w-full items-center justify-center">
   @if (isLoading()) {
-    <app-loader />
+    <app-shared-loader />
   } @else {
     <img [src]="image().previewUrl" [alt]="image().title" />
   }

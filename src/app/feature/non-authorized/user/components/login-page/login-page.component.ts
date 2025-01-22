@@ -4,7 +4,7 @@ import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { AuthService } from '../../../../../services/auth.service';
-import { HeroComponent } from '../../../../../shared/layout/content/hero/hero.component';
+import { HeroComponent } from '../../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../../shared/layout/layout.component';
 import { sharedFeature } from '../../../../../shared/store/shared.reducers';
 import { accountFeature } from '../../../../../store/account/account.reducer';

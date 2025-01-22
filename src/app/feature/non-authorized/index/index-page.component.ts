@@ -2,8 +2,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { HeroComponent } from '../../../shared/layout/content/hero/hero.component';
-import { TitleComponent } from '../../../shared/layout/content/title/title.component';
+import { HeroComponent } from '../../../shared/content/hero/hero.component';
+import { TitleComponent } from '../../../shared/content/title/title.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { TimelineComponent } from '../../timeline/timeline.component';
 

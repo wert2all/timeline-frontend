@@ -1,13 +1,13 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { Pending, Status, Undefined } from '../../../../app.types';
-import { LoaderComponent } from '../../../../shared/loader/loader.component';
+import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { UploadQuequeImage } from '../../../../store/images/images.types';
 
 @Component({
   standalone: true,
   selector: 'app-edit-event-form-upload-input',
   templateUrl: './upload-input.component.html',
-  imports: [LoaderComponent],
+  imports: [SharedLoaderComponent],
 })
 export class EditEventFormUploadInputComponent {
   previewImage = input.required<Undefined | UploadQuequeImage>();
