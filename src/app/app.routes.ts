@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
+import { MyPageComponent } from './feature/authorized/dashboard/my-page.component';
+import { DevelopPageComponent } from './feature/non-authorized/develop/develop-page.component';
+import { IndexPageComponent } from './feature/non-authorized/index/index-page.component';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
-import { MyPageComponent } from './pages/authorized/my/my-page.component';
-import { DevelopPageComponent } from './pages/non-authorized/develop/develop-page.component';
-import { IndexPageComponent } from './pages/non-authorized/index/index-page.component';
 
 export const routes: Routes = [
   { path: '', component: IndexPageComponent },

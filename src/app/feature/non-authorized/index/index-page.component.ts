@@ -1,23 +1,14 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { TimelineComponent } from '../../../feature/timeline/timeline.component';
-import { HeroComponent } from '../../../shared/hero/hero.component';
+import { HeroComponent } from '../../../shared/layout/content/hero/hero.component';
 import { TitleComponent } from '../../../shared/layout/content/title/title.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
+import { TimelineComponent } from '../../timeline/timeline.component';
 
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
-import { createViewTimelineEvent } from '../../../feature/edit-event/editable-event-view.factory';
-import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { accountFeature } from '../../../store/account/account.reducer';
 import {
   ExistTimelineEvent,
@@ -25,20 +16,14 @@ import {
 } from '../../../store/events/events.types';
 import { imagesFeature } from '../../../store/images/images.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
+import { createViewTimelineEvent } from '../../edit-event/editable-event-view.factory';
+import { ImagesTaskExecutorFactory } from '../../task/executors/images.factory';
 
 @Component({
-  selector: 'app-index-page',
   standalone: true,
   templateUrl: './index-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
-  imports: [
-    CommonModule,
-    LayoutComponent,
-    TimelineComponent,
-    TitleComponent,
-    HeroComponent,
-  ],
+  imports: [LayoutComponent, TimelineComponent, TitleComponent, HeroComponent],
 })
 export class IndexPageComponent {
   private store = inject(Store);

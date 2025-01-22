@@ -1,30 +1,21 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  OnInit,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { TitleComponent } from '../../../shared/layout/content/title/title.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
-import { TableOfContentsContainerComponent } from '../../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
-import { TableOfContents } from '../../../feature/table-of-contents/components/table-of-contents/table-of-contents.types';
+import { TableOfContentsContainerComponent } from '../../table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
+import { TableOfContents } from '../../table-of-contents/components/table-of-contents/table-of-contents.types';
 
-import { TimelineComponent } from '../../../feature/timeline/timeline.component';
+import { TimelineComponent } from '../../timeline/timeline.component';
 
 import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
-import { MarkdownHelpComponent } from '../static/markdown-help/markdown-help.component';
+import { MarkdownHelpComponent } from '../../edit-event/edit-event-form/markdown-help/markdown-help.component';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
 @Component({
-  selector: 'app-develop-page',
   standalone: true,
   imports: [
-    CommonModule,
     LayoutComponent,
     TitleComponent,
     TimelineComponent,
@@ -34,7 +25,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     MarkdownHelpComponent,
   ],
   templateUrl: './develop-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);

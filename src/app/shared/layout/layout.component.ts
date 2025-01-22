@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { NotificationsContainerComponent } from '../../feature/ui/layout/notifications/notifications-container.component';
+import { NotificationsContainerComponent } from '../../feature/ui/layout/components/notifications/notifications-container.component';
 
 import { Store } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
 import { TableOfContentsContainerComponent } from '../../feature/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
-import { CookieConsentComponent } from '../../feature/ui/layout/cookie-consent/cookie-consent.component';
-import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
+import { CookieConsentComponent } from '../../feature/ui/layout/components/cookie-consent/cookie-consent.component';
+import { FooterComponent } from '../../feature/ui/layout/components/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
 import { NotificationStore } from '../../feature/ui/layout/store/notifications.store';
 import { NotificationMessage } from '../../feature/ui/layout/store/notifications.types';

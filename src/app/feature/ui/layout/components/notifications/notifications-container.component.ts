@@ -5,7 +5,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { NotificationMessage } from '../store/notifications.types';
+import { NotificationMessage } from '../../store/notifications.types';
 
 @Component({
   selector: 'app-notifications-container',
