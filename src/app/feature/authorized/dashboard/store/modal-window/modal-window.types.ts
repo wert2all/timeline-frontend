@@ -4,6 +4,6 @@ export enum ModalWindowType {
   FEATURES = 'features',
   SETTINGS = 'settings',
 }
-export type ApplicationState = Loadable & {
+export type ModalWindowState = Loadable & {
   windowType: ModalWindowType | Undefined;
 };

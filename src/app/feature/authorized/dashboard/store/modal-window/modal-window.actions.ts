@@ -1,8 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { ModalWindowType } from './application.types';
+import { ModalWindowType } from './modal-window.types';
 
-export const ApplicationActions = createActionGroup({
-  source: 'Application',
+export const ModalWindowActions = createActionGroup({
+  source: 'Modal',
   events: {
     'Opens modal window': props<{ windowType: ModalWindowType }>(),
     'Close modal window': emptyProps(),

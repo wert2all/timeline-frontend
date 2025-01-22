@@ -4,9 +4,9 @@ import { Undefined } from '../../../../app.types';
 import { ModalComponent } from '../../../../shared/content/modal/modal.component';
 import { ShowUserFeaturesComponent } from '../../../user/features/show-user-features/show-user-features.component';
 import { SettingsComponent } from '../../../user/settings/settings.component';
-import { ApplicationActions } from '../store/application/application.actions';
-import { applicationFeature } from '../store/application/application.reducers';
-import { ModalWindowType } from '../store/application/application.types';
+import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
+import { modalWindowFeature } from '../store/modal-window/modal-window.reducers';
+import { ModalWindowType } from '../store/modal-window/modal-window.types';
 
 @Component({
   standalone: true,
@@ -19,14 +19,14 @@ export class ModalFactoryComponent {
 
   protected ModalWindowType = ModalWindowType;
   protected readonly windowType = this.store.selectSignal(
-    applicationFeature.selectWindowType
+    modalWindowFeature.selectWindowType
   );
   protected readonly windowTitle = computed(() =>
     this.createTitle(this.windowType())
   );
 
   closeWindow() {
-    this.store.dispatch(ApplicationActions.closeModalWindow());
+    this.store.dispatch(ModalWindowActions.closeModalWindow());
   }
 
   private createTitle(type: ModalWindowType | Undefined): string {

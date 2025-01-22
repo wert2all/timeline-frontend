@@ -1,4 +1,6 @@
 import { Routes } from '@angular/router';
+import { provideState } from '@ngrx/store';
+import { modalWindowFeature } from './feature/authorized/dashboard/store/modal-window/modal-window.reducers';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
 
 export const routes: Routes = [
@@ -28,6 +30,12 @@ export const routes: Routes = [
   },
   {
     path: 'my',
+    providers: [
+      provideState({
+        name: modalWindowFeature.name,
+        reducer: modalWindowFeature.reducer,
+      }),
+    ],
     loadComponent: () =>
       import('./feature/authorized/dashboard/my-page.component').then(
         d => d.MyPageComponent

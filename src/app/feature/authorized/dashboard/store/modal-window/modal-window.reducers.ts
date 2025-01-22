@@ -1,35 +1,35 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AccountActions } from '../../../../../store/account/account.actions';
-import { ApplicationActions } from './application.actions';
-import { ApplicationState } from './application.types';
+import { ModalWindowActions } from './modal-window.actions';
+import { ModalWindowState } from './modal-window.types';
 
-const initialState: ApplicationState = {
+const initialState: ModalWindowState = {
   loading: false,
   windowType: null,
 };
 
-export const applicationFeature = createFeature({
+export const modalWindowFeature = createFeature({
   name: 'application',
   reducer: createReducer(
     initialState,
     on(
       AccountActions.successSaveAccount,
-      (state): ApplicationState => ({
+      (state): ModalWindowState => ({
         ...state,
         windowType: null,
       })
     ),
     on(
-      ApplicationActions.opensModalWindow,
-      (state, { windowType }): ApplicationState => ({
+      ModalWindowActions.opensModalWindow,
+      (state, { windowType }): ModalWindowState => ({
         ...state,
         windowType,
       })
     ),
 
     on(
-      ApplicationActions.closeModalWindow,
-      (state): ApplicationState => ({
+      ModalWindowActions.closeModalWindow,
+      (state): ModalWindowState => ({
         ...state,
         windowType: null,
       })
