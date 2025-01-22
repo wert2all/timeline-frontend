@@ -2,8 +2,8 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   ExistTimelineEventInput,
   TimelineEventInput,
-} from '../../api/internal/graphql';
-import { Undefined } from '../../app.types';
+} from '../../../../../api/internal/graphql';
+import { Undefined } from '../../../../../app.types';
 import {
   ExistTimelineEvent,
   LoadEventActionOptions,

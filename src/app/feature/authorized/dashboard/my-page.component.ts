@@ -2,8 +2,8 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
-import { TimelineActions } from '../../../store/timeline/timeline.actions';
-import { timelineFeature } from '../../../store/timeline/timeline.reducer';
+import { TimelineActions } from './store/timeline/timeline.actions';
+import { timelineFeature } from './store/timeline/timeline.reducer';
 
 import {
   Iterable,
@@ -16,14 +16,14 @@ import { AddEventButtonComponent } from '../../timeline/components/add-event-but
 import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
 import { TimelineComponent } from '../../timeline/timeline.component';
 
+import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { EventActions } from '../../../store/events/events.actions';
-import { eventsFeature } from '../../../store/events/events.reducer';
-import { LoadEventActionOptions } from '../../../store/events/events.types';
-import { imagesFeature } from '../../../store/images/images.reducer';
 import { ViewTimelineTag } from '../../timeline/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { ModalFactoryComponent } from './modal/modal-factory.component';
+import { EventActions } from './store/events/events.actions';
+import { eventsFeature } from './store/events/events.reducer';
+import { LoadEventActionOptions } from './store/events/events.types';
 
 @Component({
   standalone: true,

@@ -2,7 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SharedAuthTokenService } from '../../../../shared/services/auth-token.service';
-import { sharedFeature } from '../../../../shared/store/shared.reducers';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { accountFeature } from '../../../../store/account/account.reducer';
 import { AuthActions } from '../../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../../store/navigation/navigation.actions';

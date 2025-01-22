@@ -6,7 +6,7 @@ import {
 } from '../../../api/external/previewly/graphql';
 import { Pending, Status, StatusWithPending } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
-import { UploadedImage } from '../../../store/images/images.types';
+import { UploadedImage } from '../../../shared/store/images/images.types';
 import { TaskActionProps, TaskType } from '../../../store/task/task.types';
 import {
   ExecutorResult,

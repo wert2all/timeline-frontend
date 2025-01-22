@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { AuthActions } from '../auth/auth.actions';
+import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { TimelineActions } from './timeline.actions';
 import { TimelineState } from './timeline.types';
 

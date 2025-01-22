@@ -5,9 +5,9 @@ import {
   input,
   output,
 } from '@angular/core';
-import { TimelineEventType } from '../../../../../store/events/events.types';
-import { ViewTimelineEvent } from '../../../../../store/timeline/timeline.types';
 import { MarkdownContentComponent } from '../../../../authorized/dashboard/markdown-content/markdown-content.component';
+import { TimelineEventType } from '../../../../authorized/dashboard/store/events/events.types';
+import { ViewTimelineEvent } from '../../../../authorized/dashboard/store/timeline/timeline.types';
 import { ViewTimelineTag } from '../../../timeline.types';
 import { DateComponent } from '../date/date.component';
 import { EventImageComponent } from '../image/image.component';

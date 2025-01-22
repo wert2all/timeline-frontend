@@ -1,4 +1,4 @@
-import { Iterable, Loadable, Undefined } from '../../app.types';
+import { Iterable, Loadable, Undefined } from '../../../../../app.types';
 
 export enum TimelineEventType {
   default = 'default',

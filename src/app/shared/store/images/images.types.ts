@@ -6,7 +6,7 @@ import {
   UniqueType,
   WithError,
   WithPandingStatus,
-} from '../../app.types';
+} from '../../../app.types';
 
 export interface ImageData {
   resized_490x250: string;

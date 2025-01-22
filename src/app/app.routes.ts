@@ -1,6 +1,11 @@
 import { Routes } from '@angular/router';
+import { provideEffects } from '@ngrx/effects';
 import { provideState } from '@ngrx/store';
+import { eventsEffects } from './feature/authorized/dashboard/store/events/events.effects';
+import { eventsFeature } from './feature/authorized/dashboard/store/events/events.reducer';
 import { modalWindowFeature } from './feature/authorized/dashboard/store/modal-window/modal-window.reducers';
+import { timelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
+import { timelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
 
 export const routes: Routes = [
@@ -31,10 +36,10 @@ export const routes: Routes = [
   {
     path: 'my',
     providers: [
-      provideState({
-        name: modalWindowFeature.name,
-        reducer: modalWindowFeature.reducer,
-      }),
+      provideState(timelineFeature),
+      provideState(eventsFeature),
+      provideState(modalWindowFeature),
+      provideEffects(timelineEffects, eventsEffects),
     ],
     loadComponent: () =>
       import('./feature/authorized/dashboard/my-page.component').then(

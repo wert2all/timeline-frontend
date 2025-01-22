@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Status, Undefined, Unique } from '../../app.types';
-import { PollingActionProps } from '../../libs/polling/polling.types';
+import { Status, Undefined, Unique } from '../../../app.types';
+import { PollingActionProps } from '../../../libs/polling/polling.types';
 import { UploadedImage } from './images.types';
 
 export type ImagesPollingActionProps = PollingActionProps & {
