@@ -2,21 +2,13 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   Account,
   AccountSettings,
-} from '../../shared/store/shared/shared.types';
-import { AccountUser, SavingAccountSettings } from './account.types';
+} from '../../feature/authorized/account/account.types';
+import { SavingAccountSettings } from './account.types';
 
 export const AccountActions = createActionGroup({
   source: 'Account',
   events: {
-    'Set user': props<{ user: AccountUser }>(),
-    'Set user on redirect': props<{ user: AccountUser }>(),
-    'After set user on redirect': emptyProps(),
-
-    'Clean account': emptyProps(),
-    'Set account': props<{ account: Account }>(),
-
     'Update one setting': props<{ key: string; value: string }>(),
-
     'Empty account settings': emptyProps(),
 
     'Save account settings': props<{
