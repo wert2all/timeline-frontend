@@ -11,9 +11,10 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
-import { applicationFeature } from './feature/authorized/dashboard/store/application/application.reducers';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
+import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.effects';
+import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.reducer';
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
@@ -30,8 +31,6 @@ import { navigationEffects } from './store/navigation/navigation.effects';
 import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
-import { tableOfYearsEffects } from './store/table-of-contents/table-of-contents.effects';
-import { tableOfYearFeature } from './store/table-of-contents/table-of-contents.reducer';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
 import { timelineEffects } from './store/timeline/timeline.effects';
@@ -45,7 +44,6 @@ export const appConfig: ApplicationConfig = {
     provideSentry(),
     provideApollo(),
     provideStore({
-      [applicationFeature.name]: applicationFeature.reducer,
       [sharedFeature.name]: sharedFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
       [eventsFeature.name]: eventsFeature.reducer,

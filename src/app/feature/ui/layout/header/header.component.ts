@@ -6,8 +6,8 @@ import { sharedFeature } from '../../../../shared/store/shared.reducers';
 import { accountFeature } from '../../../../store/account/account.reducer';
 import { AuthActions } from '../../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../../store/navigation/navigation.actions';
-import { ApplicationActions } from '../../../authorized/dashboard/store/application/application.actions';
-import { ModalWindowType } from '../../../authorized/dashboard/store/application/application.types';
+import { ModalWindowActions } from '../../../authorized/dashboard/store/modal-window/modal-window.actions';
+import { ModalWindowType } from '../../../authorized/dashboard/store/modal-window/modal-window.types';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
 import { NotificationStore } from '../store/notification/notifications.store';
@@ -78,7 +78,7 @@ export class HeaderComponent {
 
   openUserFeatures() {
     this.store.dispatch(
-      ApplicationActions.opensModalWindow({
+      ModalWindowActions.opensModalWindow({
         windowType: ModalWindowType.FEATURES,
       })
     );
@@ -87,7 +87,7 @@ export class HeaderComponent {
 
   openUserSettings() {
     this.store.dispatch(
-      ApplicationActions.opensModalWindow({
+      ModalWindowActions.opensModalWindow({
         windowType: ModalWindowType.SETTINGS,
       })
     );

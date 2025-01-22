@@ -21,7 +21,7 @@ import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { ApplicationActions } from '../../authorized/dashboard/store/application/application.actions';
+import { ModalWindowActions } from '../../authorized/dashboard/store/modal-window/modal-window.actions';
 
 interface SettingForm {
   accountId: FormControl<number>;
@@ -117,6 +117,6 @@ export class SettingsComponent {
   }
 
   closeWindow() {
-    this.store.dispatch(ApplicationActions.closeModalWindow());
+    this.store.dispatch(ModalWindowActions.closeModalWindow());
   }
 }
