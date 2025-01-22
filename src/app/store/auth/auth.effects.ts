@@ -8,11 +8,11 @@ import {
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, User } from '../../api/internal/graphql';
 import { StoreDispatchEffect, Undefined } from '../../app.types';
-import { AuthService } from '../../services/auth.service';
 import { AccountActions } from '../account/account.actions';
 import { Account, AccountUser } from '../account/account.types';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { AuthActions } from './auth.actions';
+import { AuthService } from './auth.service';
 
 const convertApiProfileToAccount = (
   user: User | Undefined

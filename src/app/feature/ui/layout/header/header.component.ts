@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../../../services/auth.service';
+import { SharedAuthTokenService } from '../../../../shared/services/auth-token.service';
 import { sharedFeature } from '../../../../shared/store/shared.reducers';
 import { accountFeature } from '../../../../store/account/account.reducer';
 import { AuthActions } from '../../../../store/auth/auth.actions';
@@ -30,7 +30,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(SharedAuthTokenService);
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
@@ -39,9 +39,7 @@ export class HeaderComponent {
     sharedFeature.canUseNecessaryCookies
   );
 
-  protected token = this.authService.idToken
-    ? btoa(this.authService.idToken)
-    : null;
+  protected token = this.authService.token;
 
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);
