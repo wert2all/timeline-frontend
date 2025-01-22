@@ -59,8 +59,10 @@ export const sharedFeature = createFeature({
     on(
       SharedActions.cleanAccount,
       SharedActions.emptyActiveAccount,
-      SharedActions.errorOnInitAuth,
       SharedActions.logout,
+
+      SharedActions.errorOnInitAuth,
+      SharedActions.dispatchEmptyPreviewlyTokenError,
       (state): SharedState => ({
         ...state,
         activeAccount: null,

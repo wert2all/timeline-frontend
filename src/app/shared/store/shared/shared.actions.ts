@@ -16,5 +16,6 @@ export const SharedActions = createActionGroup({
     Logout: emptyProps(),
 
     'Error on Init Auth': props<{ error: Error }>(),
+    'dispatch empty Previewly token error': emptyProps(),
   },
 });

@@ -18,8 +18,8 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { PollingOptions } from '../../../../../libs/polling/polling.types';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
-import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
 import { PreviewItem, PreviewPollingActionsProps } from './preview.types';
@@ -107,7 +107,7 @@ export class PreviewPollingOptions
                 PreviewActions.successUpdatePreviews({ previews })
               )
             )
-          : of(AuthActions.dispatchEmptyPreviewlyTokenError())
+          : of(SharedActions.dispatchEmptyPreviewlyTokenError())
       )
     );
   }

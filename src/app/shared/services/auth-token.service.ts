@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 
-import { AuthService } from '../../store/auth/auth.service';
+import { AuthService } from '../../feature/non-authorized/user/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class SharedAuthTokenService {

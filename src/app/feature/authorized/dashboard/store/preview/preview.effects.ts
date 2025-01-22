@@ -14,8 +14,8 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { createPolling } from '../../../../../libs/polling/polling.factory';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
-import { AuthActions } from '../../../../../store/auth/auth.actions';
 import { PreviewActions } from './preview.actions';
 import { PreviewPollingOptions } from './preview.polling.options';
 import { PreviewItem } from './preview.types';
@@ -64,7 +64,7 @@ const addUrl = (
               });
             })
           )
-        : of(AuthActions.dispatchEmptyPreviewlyTokenError())
+        : of(SharedActions.dispatchEmptyPreviewlyTokenError())
     )
   );
 export const previewEffects = {

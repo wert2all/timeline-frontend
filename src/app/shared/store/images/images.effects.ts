@@ -12,7 +12,6 @@ import {
 
 import { EventActions } from '../../../feature/authorized/dashboard/store/events/events.actions';
 import { eventsFeature } from '../../../feature/authorized/dashboard/store/events/events.reducer';
-import { AuthActions } from '../../../store/auth/auth.actions';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';
@@ -65,7 +64,7 @@ const uploadImage = (
               of(UploadActions.failedUploadImage({ uuid, error }))
             )
           )
-        : of(AuthActions.dispatchEmptyPreviewlyTokenError())
+        : of(SharedActions.dispatchEmptyPreviewlyTokenError())
     )
   );
 
