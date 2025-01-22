@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Action, ActionCreator, Creator } from '@ngrx/store';
 import { map, tap } from 'rxjs';
-import { StoreDispatchEffect } from '../../app.types';
+import { StoreDispatchEffect } from '../../../app.types';
 import { NavigationActions } from './navigation.actions';
 
 const navEffect = (
