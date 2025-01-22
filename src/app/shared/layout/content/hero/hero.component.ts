@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-hero',
+  selector: 'app-shared-hero',
   standalone: true,
   templateUrl: './hero.component.html',
 })

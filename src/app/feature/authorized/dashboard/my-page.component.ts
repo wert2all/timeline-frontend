@@ -1,12 +1,4 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
@@ -19,27 +11,24 @@ import {
   StatusWithPending,
   Undefined,
 } from '../../../app.types';
-import { EditEventComponent } from '../../../feature/edit-event/edit-event.component';
-import { AddEventButtonComponent } from '../../../feature/timeline/components/add-event-button/add-event-button.component';
-import { CreateTimelineButtonComponent } from '../../../feature/timeline/components/create-timeline-button/create-timeline-button.component';
-import { TimelineComponent } from '../../../feature/timeline/timeline.component';
+import { EditEventComponent } from '../../edit-event/edit-event.component';
+import { AddEventButtonComponent } from '../../timeline/components/add-event-button/add-event-button.component';
+import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
+import { TimelineComponent } from '../../timeline/timeline.component';
 
-import { ViewTimelineTag } from '../../../feature/timeline/timeline.types';
-import { ModalFactoryComponent } from '../../../feature/ui/modal/modal-factory.component';
 import { ModalConfirmComponent } from '../../../shared/modal/confirm/modal-confirm.component';
 import { accountFeature } from '../../../store/account/account.reducer';
 import { EventActions } from '../../../store/events/events.actions';
 import { eventsFeature } from '../../../store/events/events.reducer';
 import { LoadEventActionOptions } from '../../../store/events/events.types';
 import { imagesFeature } from '../../../store/images/images.reducer';
+import { ViewTimelineTag } from '../../timeline/timeline.types';
+import { ModalFactoryComponent } from './modal/modal-factory.component';
 
 @Component({
-  selector: 'app-my-page',
   standalone: true,
   templateUrl: './my-page.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
-    CommonModule,
     LayoutComponent,
     CreateTimelineButtonComponent,
     EditEventComponent,
