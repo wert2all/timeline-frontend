@@ -1,11 +1,14 @@
 import { Routes } from '@angular/router';
-import { MyPageComponent } from './feature/authorized/dashboard/my-page.component';
-import { DevelopPageComponent } from './feature/non-authorized/develop/develop-page.component';
-import { IndexPageComponent } from './feature/non-authorized/index/index-page.component';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
 
 export const routes: Routes = [
-  { path: '', component: IndexPageComponent },
+  {
+    path: '',
+    loadComponent: () =>
+      import('./feature/non-authorized/index/index-page.component').then(
+        i => i.IndexPageComponent
+      ),
+  },
   {
     path: 'legal',
     loadChildren: () =>
@@ -18,11 +21,17 @@ export const routes: Routes = [
   },
   {
     path: 'develop',
-    component: DevelopPageComponent,
+    loadComponent: () =>
+      import('./feature/non-authorized/develop/develop-page.component').then(
+        d => d.DevelopPageComponent
+      ),
   },
   {
     path: 'my',
-    component: MyPageComponent,
+    loadComponent: () =>
+      import('./feature/authorized/dashboard/my-page.component').then(
+        d => d.MyPageComponent
+      ),
     canActivate: [maybeAuthGuard],
   },
 ];
