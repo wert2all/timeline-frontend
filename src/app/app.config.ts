@@ -16,6 +16,7 @@ import { taskRunnerFactory } from './feature/task/runner.factory';
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
+import { sharedEffects } from './shared/store/shared.effects';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { applicationFeature } from './store/application/application.reducers';
@@ -54,6 +55,7 @@ export const appConfig: ApplicationConfig = {
       [taskFeature.name]: taskFeature.reducer,
     }),
     provideEffects([
+      sharedEffects,
       authEffects,
       timelineEffects,
       eventsEffects,

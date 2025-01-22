@@ -2,9 +2,9 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../api/internal/graphql';
-import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { StoreDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { NotificationStore } from '../notifications/notifications.store';
+import { SharedActions } from '../../shared/store/shared.actions';
 import { TimelineActions } from '../timeline/timeline.actions';
 import { EventActions } from './events.actions';
 import {
@@ -65,13 +65,15 @@ const deleteEvent = (actions$ = inject(Actions), api = inject(ApiClient)) => {
   );
 };
 
-const failedDeleteEvent = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
+const failedDeleteEvent = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(EventActions.failedDeleteEvent),
-    tap(() => notification.addMessage('Could not delete event', 'error'))
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Could not delete event',
+        withType: 'error',
+      })
+    )
   );
 
 const saveEditableEvent = (actions$ = inject(Actions)) =>
@@ -90,8 +92,7 @@ const saveEditableEvent = (actions$ = inject(Actions)) =>
 
 const pushNewEventToApi = (
   actions$ = inject(Actions),
-  api = inject(ApiClient),
-  notification = inject(NotificationStore)
+  api = inject(ApiClient)
 ) =>
   actions$.pipe(
     ofType(EventActions.pushNewEventToAPI),
@@ -101,8 +102,12 @@ const pushNewEventToApi = (
         map(data => fromApiEventToState(data.event, event.timelineId)),
         map(event => EventActions.successPushNewEvent({ event })),
         catchError(error => {
-          notification.addMessage(error, 'error');
-          return of(EventActions.emptyEvent);
+          return of(
+            SharedActions.sendNotification({
+              message: error,
+              withType: 'error',
+            })
+          );
         })
       )
     )
@@ -110,8 +115,7 @@ const pushNewEventToApi = (
 
 const pushExistEventToApi = (
   actions$ = inject(Actions),
-  api = inject(ApiClient),
-  notification = inject(NotificationStore)
+  api = inject(ApiClient)
 ) =>
   actions$.pipe(
     ofType(EventActions.updateExistEventOnAPI),
@@ -120,27 +124,31 @@ const pushExistEventToApi = (
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
         map(data => fromApiEventToState(data.event, event.timelineId)),
         map(event => EventActions.successUpdateEvent({ event })),
-        catchError(error => {
-          notification.addMessage(error, 'error');
-          return of(EventActions.emptyEvent);
-        })
+        catchError(error =>
+          of(
+            SharedActions.sendNotification({
+              message: error,
+              withType: 'error',
+            })
+          )
+        )
       )
     )
   );
-const apiException = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
+const apiException = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(EventActions.apiException),
-    tap(() =>
-      notification.addMessage('Something went wrong. Try again later', 'error')
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Something went wrong. Try again later',
+        withType: 'error',
+      })
     )
   );
 
 export const eventsEffects = {
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
-  failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
+  failedDeleteEvent: createEffect(failedDeleteEvent, StoreDispatchEffect),
 
   loadActiveTimelineEvents: createEffect(loadEvents, StoreDispatchEffect),
 
@@ -152,5 +160,5 @@ export const eventsEffects = {
 
   pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
   pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
-  apiException: createEffect(apiException, StoreUnDispatchEffect),
+  apiException: createEffect(apiException, StoreDispatchEffect),
 };

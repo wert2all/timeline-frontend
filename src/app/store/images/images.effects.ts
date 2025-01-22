@@ -4,20 +4,17 @@ import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
-import {
-  Status,
-  StoreDispatchEffect,
-  StoreUnDispatchEffect,
-} from '../../app.types';
+import { Status, StoreDispatchEffect } from '../../app.types';
 import {
   ImagesTaskExecutorFactory,
   TaskResultImages,
 } from '../../feature/task/executors/images.factory';
+
+import { SharedActions } from '../../shared/store/shared.actions';
 import { accountFeature } from '../account/account.reducer';
 import { AuthActions } from '../auth/auth.actions';
 import { EventActions } from '../events/events.actions';
 import { eventsFeature } from '../events/events.reducer';
-import { NotificationStore } from '../notifications/notifications.store';
 import { TaskActions } from '../task/task.actions';
 import { TaskType } from '../task/task.types';
 import { ImagesActions, UploadActions } from './images.actions';
@@ -72,15 +69,15 @@ const uploadImage = (
     )
   );
 
-const notifyFailedUploadImage = (
-  actions$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
+const notifyFailedUploadImage = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(UploadActions.failedUploadImage),
-    tap(error => {
-      notification.addMessage('Could not upload image: ' + error, 'error');
-    })
+    map(error =>
+      SharedActions.sendNotification({
+        message: 'Could not upload image: ' + error,
+        withType: 'error',
+      })
+    )
   );
 
 const createTaskForLoadImages = (
@@ -163,10 +160,7 @@ const deleteImagesAfterDelete = (
 
 export const imageEffects = {
   uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
-  failedUploadImage: createEffect(
-    notifyFailedUploadImage,
-    StoreUnDispatchEffect
-  ),
+  failedUploadImage: createEffect(notifyFailedUploadImage, StoreDispatchEffect),
 
   createTaskForLoadImages: createEffect(
     createTaskForLoadImages,

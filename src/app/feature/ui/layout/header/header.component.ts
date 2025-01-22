@@ -8,9 +8,9 @@ import { applicationFeature } from '../../../../store/application/application.re
 import { ModalWindowType } from '../../../../store/application/application.types';
 import { AuthActions } from '../../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../../store/navigation/navigation.actions';
-import { NotificationStore } from '../../../../store/notifications/notifications.store';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
+import { NotificationStore } from '../store/notifications.store';
 import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
