@@ -2,11 +2,11 @@ import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Undefined } from '../../../../app.types';
 import { ModalComponent } from '../../../../shared/modal/modal.component';
-import { ApplicationActions } from '../../../../store/application/application.actions';
-import { applicationFeature } from '../../../../store/application/application.reducers';
-import { ModalWindowType } from '../../../../store/application/application.types';
 import { ShowUserFeaturesComponent } from '../../../user/features/show-user-features/show-user-features.component';
 import { SettingsComponent } from '../../../user/settings/settings.component';
+import { ApplicationActions } from '../store/application/application.actions';
+import { applicationFeature } from '../store/application/application.reducers';
+import { ModalWindowType } from '../store/application/application.types';
 
 @Component({
   standalone: true,

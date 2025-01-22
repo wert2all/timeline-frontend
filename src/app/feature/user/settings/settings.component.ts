@@ -21,7 +21,7 @@ import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/form/controls/controls.component';
 import { AccountActions } from '../../../store/account/account.actions';
 import { accountFeature } from '../../../store/account/account.reducer';
-import { ApplicationActions } from '../../../store/application/application.actions';
+import { ApplicationActions } from '../../authorized/dashboard/store/application/application.actions';
 
 interface SettingForm {
   accountId: FormControl<number>;
