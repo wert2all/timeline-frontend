@@ -27,8 +27,6 @@ import { sharedFeature } from './shared/store/shared/shared.reducers';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
-import { previewEffects } from './store/preview/preview.effects';
-import { previewFeature } from './store/preview/preview.reducers';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
 
@@ -43,7 +41,6 @@ export const appConfig: ApplicationConfig = {
       [sharedFeature.name]: sharedFeature.reducer,
       [imagesFeature.name]: imagesFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
-      [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
       [taskFeature.name]: taskFeature.reducer,
@@ -53,7 +50,6 @@ export const appConfig: ApplicationConfig = {
       imageEffects,
       authEffects,
       tableOfYearsEffects,
-      previewEffects,
       accountEffects,
       navigationEffects,
       taskEffects,
