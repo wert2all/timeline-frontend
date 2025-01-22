@@ -7,7 +7,7 @@ import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { SharedActions } from '../../shared/store/shared.actions';
+import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { AuthActions } from '../auth/auth.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { AccountActions } from './account.actions';

@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { HeroComponent } from '../../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../../shared/layout/layout.component';
-import { sharedFeature } from '../../../../../shared/store/shared.reducers';
+import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
 import { accountFeature } from '../../../../../store/account/account.reducer';
 import { AuthService } from '../../../../../store/auth/auth.service';
 import { NavigationActions } from '../../../../../store/navigation/navigation.actions';

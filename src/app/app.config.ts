@@ -18,23 +18,19 @@ import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-o
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
-import { sharedEffects } from './shared/store/shared.effects';
-import { sharedFeature } from './shared/store/shared.reducers';
+import { imageEffects } from './shared/store/images/images.effects';
+import { imagesFeature } from './shared/store/images/images.reducer';
+import { sharedEffects } from './shared/store/shared/shared.effects';
+import { sharedFeature } from './shared/store/shared/shared.reducers';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
 import { authEffects } from './store/auth/auth.effects';
-import { eventsEffects } from './store/events/events.effects';
-import { eventsFeature } from './store/events/events.reducer';
-import { imageEffects } from './store/images/images.effects';
-import { imagesFeature } from './store/images/images.reducer';
 import { navigationEffects } from './store/navigation/navigation.effects';
 import { navigationFeature } from './store/navigation/navigation.reducer';
 import { previewEffects } from './store/preview/preview.effects';
 import { previewFeature } from './store/preview/preview.reducers';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
-import { timelineEffects } from './store/timeline/timeline.effects';
-import { timelineFeature } from './store/timeline/timeline.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -45,24 +41,20 @@ export const appConfig: ApplicationConfig = {
     provideApollo(),
     provideStore({
       [sharedFeature.name]: sharedFeature.reducer,
-      [timelineFeature.name]: timelineFeature.reducer,
-      [eventsFeature.name]: eventsFeature.reducer,
+      [imagesFeature.name]: imagesFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,
       [previewFeature.name]: previewFeature.reducer,
       [accountFeature.name]: accountFeature.reducer,
-      [imagesFeature.name]: imagesFeature.reducer,
       [navigationFeature.name]: navigationFeature.reducer,
       [taskFeature.name]: taskFeature.reducer,
     }),
     provideEffects([
       sharedEffects,
+      imageEffects,
       authEffects,
-      timelineEffects,
-      eventsEffects,
       tableOfYearsEffects,
       previewEffects,
       accountEffects,
-      imageEffects,
       navigationEffects,
       taskEffects,
     ]),

@@ -1,10 +1,13 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-import { ApiClient } from '../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../app.types';
-import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { SharedActions } from '../../shared/store/shared.actions';
+import { ApiClient } from '../../../../../api/internal/graphql';
+import { StoreDispatchEffect } from '../../../../../app.types';
+import {
+  apiAssertNotNull,
+  extractApiData,
+} from '../../../../../libs/api.functions';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { TimelineActions } from './timeline.actions';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>

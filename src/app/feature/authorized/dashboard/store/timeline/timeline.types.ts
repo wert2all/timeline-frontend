@@ -1,10 +1,15 @@
-import { Iterable, Loadable, Status, Undefined } from '../../app.types';
+import {
+  Iterable,
+  Loadable,
+  Status,
+  Undefined,
+} from '../../../../../app.types';
+import { ViewDatetime } from '../../../../../libs/view/date.types';
 import {
   ViewTimelineEventIcon,
   ViewTimelineTag,
   ViewTimelineUrl,
-} from '../../feature/timeline/timeline.types';
-import { ViewDatetime } from '../../libs/view/date.types';
+} from '../../../../timeline/timeline.types';
 import { TimelineEvent } from '../events/events.types';
 
 export interface ViewEventImage {

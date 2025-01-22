@@ -9,13 +9,13 @@ import { TimelineComponent } from '../../timeline/timeline.component';
 
 import { environment } from '../../../../environments/environment';
 import { Status, StatusWithPending } from '../../../app.types';
+import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { accountFeature } from '../../../store/account/account.reducer';
+import { TaskActions } from '../../../store/task/task.actions';
 import {
   ExistTimelineEvent,
   TimelineEventType,
-} from '../../../store/events/events.types';
-import { imagesFeature } from '../../../store/images/images.reducer';
-import { TaskActions } from '../../../store/task/task.actions';
+} from '../../authorized/dashboard/store/events/events.types';
 import { createViewTimelineEvent } from '../../edit-event/editable-event-view.factory';
 import { ImagesTaskExecutorFactory } from '../../task/executors/images.factory';
 

@@ -9,7 +9,7 @@ const initialState: ModalWindowState = {
 };
 
 export const modalWindowFeature = createFeature({
-  name: 'application',
+  name: 'modal-window',
   reducer: createReducer(
     initialState,
     on(

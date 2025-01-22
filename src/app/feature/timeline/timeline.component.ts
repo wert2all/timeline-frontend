@@ -6,7 +6,7 @@ import {
   output,
 } from '@angular/core';
 import { Iterable } from '../../app.types';
-import { ExistViewTimelineEvent } from '../../store/timeline/timeline.types';
+import { ExistViewTimelineEvent } from '../authorized/dashboard/store/timeline/timeline.types';
 
 import { provideIcons } from '@ng-icons/core';
 import { saxMoreSquareOutline } from '@ng-icons/iconsax/outline';

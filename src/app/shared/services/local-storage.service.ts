@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { sharedFeature } from '../store/shared.reducers';
+import { sharedFeature } from '../store/shared/shared.reducers';
 
 @Injectable({
   providedIn: 'root',

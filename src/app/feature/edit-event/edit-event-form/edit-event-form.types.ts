@@ -1,6 +1,6 @@
 import { FormControl } from '@angular/forms';
 import { Undefined } from '../../../app.types';
-import { UploadQuequeImage } from '../../../store/images/images.types';
+import { UploadQuequeImage } from '../../../shared/store/images/images.types';
 import { PreviewHolder } from '../../../store/preview/preview.types';
 
 export interface EditEventForm {

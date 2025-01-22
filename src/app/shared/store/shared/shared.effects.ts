@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap } from 'rxjs';
-import { StoreUnDispatchEffect } from '../../app.types';
-import { NotificationStore } from '../../feature/ui/layout/store/notification/notifications.store';
+import { StoreUnDispatchEffect } from '../../../app.types';
+import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
 import { SharedActions } from './shared.actions';
 
 const sendNotification = (

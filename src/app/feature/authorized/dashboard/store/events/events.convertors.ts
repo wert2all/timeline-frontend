@@ -2,12 +2,12 @@ import {
   TimelineEvent as GQLTimelineEvent,
   TimelineEventInput as GQLTimelineEventInput,
   TimelineType as GQLTimelineType,
-} from '../../api/internal/graphql';
+} from '../../../../../api/internal/graphql';
 import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../events/events.types';
+} from './events.types';
 
 export const fromApiTypeToState = (
   type: GQLTimelineType

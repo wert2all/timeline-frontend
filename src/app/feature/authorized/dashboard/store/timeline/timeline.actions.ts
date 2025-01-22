@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Undefined } from '../../app.types';
+import { Undefined } from '../../../../../app.types';
 import { Timeline } from './timeline.types';
 
 export const TimelineActions = createActionGroup({

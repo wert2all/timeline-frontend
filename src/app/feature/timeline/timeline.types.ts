@@ -1,6 +1,6 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
-import { TimelineEventType } from '../../store/events/events.types';
+import { TimelineEventType } from '../authorized/dashboard/store/events/events.types';
 
 export class ViewTimelineTag {
   public readonly value: string;

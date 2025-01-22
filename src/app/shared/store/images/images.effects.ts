@@ -3,20 +3,20 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
-import { previewlyApiClient } from '../../api/external/previewly/graphql';
-import { Status, StoreDispatchEffect } from '../../app.types';
+import { previewlyApiClient } from '../../../api/external/previewly/graphql';
+import { Status, StoreDispatchEffect } from '../../../app.types';
 import {
   ImagesTaskExecutorFactory,
   TaskResultImages,
-} from '../../feature/task/executors/images.factory';
+} from '../../../feature/task/executors/images.factory';
 
-import { SharedActions } from '../../shared/store/shared.actions';
-import { accountFeature } from '../account/account.reducer';
-import { AuthActions } from '../auth/auth.actions';
-import { EventActions } from '../events/events.actions';
-import { eventsFeature } from '../events/events.reducer';
-import { TaskActions } from '../task/task.actions';
-import { TaskType } from '../task/task.types';
+import { EventActions } from '../../../feature/authorized/dashboard/store/events/events.actions';
+import { eventsFeature } from '../../../feature/authorized/dashboard/store/events/events.reducer';
+import { accountFeature } from '../../../store/account/account.reducer';
+import { AuthActions } from '../../../store/auth/auth.actions';
+import { TaskActions } from '../../../store/task/task.actions';
+import { TaskType } from '../../../store/task/task.types';
+import { SharedActions } from '../shared/shared.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { imagesFeature } from './images.reducer';
 
