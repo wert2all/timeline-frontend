@@ -15,8 +15,8 @@ import {
   saxTickCircleOutline,
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../../../app.types';
-import { AccountFeaturesSettings } from '../../../../features.service';
-import { FeatureFlagComponent } from '../../../../user/features/feature-flag/feature-flag.component';
+import { AccountFeaturesSettings } from '../../../../../shared/services/features.service';
+import { FeatureFlagComponent } from '../../../feature-flag/feature-flag.component';
 import { AccountView } from '../header.types';
 
 @Component({

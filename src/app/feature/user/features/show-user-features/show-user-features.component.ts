@@ -7,9 +7,12 @@ import {
 } from '@angular/core';
 
 import { Store } from '@ngrx/store';
+import {
+  FeatureFlagName,
+  FeaturesService,
+} from '../../../../shared/services/features.service';
 import { AccountActions } from '../../../../store/account/account.actions';
 import { accountFeature } from '../../../../store/account/account.reducer';
-import { FeatureFlagName, FeaturesService } from '../../../features.service';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 import { UserFeature } from './show-user-features.types';
 type ViewFeature = UserFeature & { key: FeatureFlagName };

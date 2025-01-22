@@ -5,7 +5,7 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { FeatureStage } from '../../../features.service';
+import { FeatureStage } from '../../../../shared/services/features.service';
 
 interface View {
   title: string;

@@ -1,25 +1,15 @@
-import { CommonModule } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Signal,
-  computed,
-  inject,
-  input,
-} from '@angular/core';
+import { Component, Signal, computed, inject, input } from '@angular/core';
 import {
   AccountFeaturesSettings,
   FeatureFlagName,
   FeaturesAccount,
   FeaturesService,
-} from '../../../features.service';
+} from '../../../shared/services/features.service';
 
 @Component({
   selector: 'app-feature-flag',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './feature-flag.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FeatureFlagComponent {
   private readonly featuresService = inject(FeaturesService);
