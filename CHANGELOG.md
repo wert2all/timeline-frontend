@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.32](https://github.com/wert2all/timeline-frontend/compare/v0.0.31...v0.0.32) (2025-01-22)
+
+### Features
+
+- lazy load components on routes ([b4b15c5](https://github.com/wert2all/timeline-frontend/commit/b4b15c56ddcbf5e3f060c1d9a96057ea024469e6))
+- show account avatar on account settings window ([8e221be](https://github.com/wert2all/timeline-frontend/commit/8e221be4a315feef496e360b215d6b9e217d31c7))
+
+### Bug Fixes
+
+- fic cookie manager ([9bfe01a](https://github.com/wert2all/timeline-frontend/commit/9bfe01acadadfd7fb9702f3d35a6eabee2635235))
+- fix submit form on enter press ([eb58e57](https://github.com/wert2all/timeline-frontend/commit/eb58e579c1f13c1705463b64d2d30ce43c3e3bcb))
+- remove avatar ([3b35cec](https://github.com/wert2all/timeline-frontend/commit/3b35cec9e253ccc97351f4beeb8ae5c2f462d6ab))
+- remove ligth feature ([5da85eb](https://github.com/wert2all/timeline-frontend/commit/5da85eb7e63c76a0fa1d9d516af39aa536b85c30))
+- remove useless code ([c972967](https://github.com/wert2all/timeline-frontend/commit/c97296750a41dee8b16cf1fdb7d3365062da9e24))
+- remove useless code ([0c7ca67](https://github.com/wert2all/timeline-frontend/commit/0c7ca67855b767534c2f50135bf5872b544b9052))
+- update settings feature ([145c499](https://github.com/wert2all/timeline-frontend/commit/145c4993a477ebd8af7ebe1322208cd4ed5c6558))
+
 ## [0.0.31](https://github.com/wert2all/timeline-frontend/compare/v0.0.30...v0.0.31) (2025-01-21)
 
 ### Bug Fixes
