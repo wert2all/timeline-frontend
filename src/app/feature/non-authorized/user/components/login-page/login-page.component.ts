@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 import { filter } from 'rxjs';
 import { HeroComponent } from '../../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../../shared/layout/layout.component';
+import { NavigationActions } from '../../../../../shared/store/navigation/navigation.actions';
 import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
 import { accountFeature } from '../../../../../store/account/account.reducer';
 import { AuthService } from '../../../../../store/auth/auth.service';
-import { NavigationActions } from '../../../../../store/navigation/navigation.actions';
 
 @Component({
   selector: 'app-login-page',
