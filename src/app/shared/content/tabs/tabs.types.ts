@@ -1,4 +1,4 @@
-import { Unique } from '../../app.types';
+import { Unique } from '../../../app.types';
 
 export type Tabs = Unique & {
   title: string;

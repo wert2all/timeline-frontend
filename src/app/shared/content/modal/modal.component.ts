@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-modal',
+  selector: 'app-shared-modal',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './modal.component.html',
