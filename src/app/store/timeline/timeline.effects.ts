@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, map, of } from 'rxjs';
 import { ApiClient } from '../../api/internal/graphql';
-import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+import { StoreDispatchEffect } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { NotificationStore } from '../notifications/notifications.store';
+import { SharedActions } from '../../shared/store/shared.actions';
 import { TimelineActions } from './timeline.actions';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
@@ -48,31 +48,29 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
     )
   );
 
-const emptyProfile = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
+const emptyProfile = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(TimelineActions.emptyTimeline),
-    tap(() => notification.addMessage('Cannot add timeline', 'error'))
-  );
-
-const apiException = (
-  action$ = inject(Actions),
-  notification = inject(NotificationStore)
-) =>
-  action$.pipe(
-    ofType(TimelineActions.apiException),
-    tap(() =>
-      notification.addMessage('Something went wrong. Try again later', 'error')
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Cannot add timeline',
+        withType: 'error',
+      })
     )
   );
 
-const loadTimelines = (
-  actions$ = inject(Actions),
-  api = inject(ApiClient),
-  notification = inject(NotificationStore)
-) =>
+const apiException = (action$ = inject(Actions)) =>
+  action$.pipe(
+    ofType(TimelineActions.apiException),
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Something went wrong. Try again later',
+        withType: 'error',
+      })
+    )
+  );
+
+const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
     ofType(TimelineActions.loadAccountTimelines),
     exhaustMap(({ accountId }) =>
@@ -86,10 +84,14 @@ const loadTimelines = (
         map(timelines =>
           TimelineActions.successLoadAccountTimelines({ timelines, accountId })
         ),
-        catchError(error => {
-          notification.addMessage(error, 'error');
-          return of(TimelineActions.emptyTimelines);
-        })
+        catchError(error =>
+          of(
+            SharedActions.sendNotification({
+              message: error,
+              withType: 'error',
+            })
+          )
+        )
       )
     )
   );
@@ -99,6 +101,6 @@ export const timelineEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
 
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
-  emptyProfile: createEffect(emptyProfile, StoreUnDispatchEffect),
-  apiException: createEffect(apiException, StoreUnDispatchEffect),
+  emptyProfile: createEffect(emptyProfile, StoreDispatchEffect),
+  apiException: createEffect(apiException, StoreDispatchEffect),
 };

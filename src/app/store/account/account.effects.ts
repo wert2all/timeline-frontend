@@ -5,11 +5,12 @@ import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
+
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { ActiveAccountService } from '../../services/active-account.service';
+import { SharedActions } from '../../shared/store/shared.actions';
 import { AuthActions } from '../auth/auth.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
-import { NotificationStore } from '../notifications/notifications.store';
 import { AccountActions } from './account.actions';
 import { accountFeature, mergeAccountSettings } from './account.reducer';
 import { Account } from './account.types';
@@ -94,37 +95,37 @@ const saveAccountSettings = (
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
-const successSaveAccountSettings = (
-  actions$ = inject(Actions),
-  notifier = inject(NotificationStore)
-) =>
+const successSaveAccountSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.successSaveAccountSettings),
-    map(() => {
-      notifier.addMessage('Account settings saved', 'success');
-    })
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Account settings saved',
+        withType: 'success',
+      })
+    )
   );
 
-const couldNotSaveAccountSettings = (
-  actions$ = inject(Actions),
-  notifier = inject(NotificationStore)
-) =>
+const couldNotSaveAccountSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.couldNotSaveAccountSettings),
-    map(() => {
-      notifier.addMessage('Could not save account settings', 'error');
-    })
+    map(() =>
+      SharedActions.sendNotification({
+        message: 'Could not save account settings',
+        withType: 'error',
+      })
+    )
   );
 
-const apiException = (
-  actions$ = inject(Actions),
-  notifier = inject(NotificationStore)
-) =>
+const apiException = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.apiException),
-    map(({ exception }) => {
-      notifier.addMessage(exception, 'error');
-    })
+    map(({ exception }) =>
+      SharedActions.sendNotification({
+        message: exception,
+        withType: 'error',
+      })
+    )
   );
 
 const dispatchLogoutOnEmptyAccount = (actions$ = inject(Actions)) =>
@@ -199,15 +200,15 @@ export const accountEffects = {
 
   successSaveAccountSettings: createEffect(
     successSaveAccountSettings,
-    StoreUnDispatchEffect
+    StoreDispatchEffect
   ),
 
   couldNotSaveAccountSettings: createEffect(
     couldNotSaveAccountSettings,
-    StoreUnDispatchEffect
+    StoreDispatchEffect
   ),
 
-  apiException: createEffect(apiException, StoreUnDispatchEffect),
+  apiException: createEffect(apiException, StoreDispatchEffect),
   onEmptyAccountError: createEffect(
     dispatchLogoutOnEmptyAccount,
     StoreDispatchEffect

@@ -7,9 +7,9 @@ import { TableOfContentsContainerComponent } from '../../feature/table-of-conten
 import { CookieConsentComponent } from '../../feature/ui/layout/cookie-consent/cookie-consent.component';
 import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
+import { NotificationStore } from '../../feature/ui/layout/store/notifications.store';
+import { NotificationMessage } from '../../feature/ui/layout/store/notifications.types';
 import { ApplicationActions } from '../../store/application/application.actions';
-import { NotificationStore } from '../../store/notifications/notifications.store';
-import { NotificationMessage } from '../../store/notifications/notifications.types';
 import { tableOfYearFeature } from '../../store/table-of-contents/table-of-contents.reducer';
 
 @Component({

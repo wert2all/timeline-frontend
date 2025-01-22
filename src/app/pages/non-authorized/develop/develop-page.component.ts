@@ -16,7 +16,6 @@ import { TimelineComponent } from '../../../feature/timeline/timeline.component'
 
 import { Store } from '@ngrx/store';
 import { LoaderComponent } from '../../../shared/loader/loader.component';
-import { NotificationStore } from '../../../store/notifications/notifications.store';
 import { TableOfContentsActions } from '../../../store/table-of-contents/table-of-contents.actions';
 import { MarkdownHelpComponent } from '../static/markdown-help/markdown-help.component';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
@@ -39,30 +38,6 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 })
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
-  private readonly notificationStore = inject(NotificationStore);
-  // private readonly dumpEventImage: ViewEventImage = {
-  //   imageId: 1,
-  //   title: dumpTitle,
-  //   status: Status.SUCCESS,
-  //   previewUrl: 'https://picsum.photos/500/300',
-  //   url: 'https://picsum.photos/800/600',
-  // };
-  // private readonly dumpEvent: TimelineEvent = {
-  //   ...dumpEvent,
-  //   id: 0,
-  //   url: dumpLink,
-  //   date: dumpEvent.date,
-  //   title: dumpTitle,
-  //   description: dumpContent,
-  //   showTime: true,
-  //   image: this.dumpEventImage,
-  // };
-  //
-  // dumpAddEvent = signal(this.dumpEvent);
-  // dumpTimelineEvents: WritableSignal<ExistViewTimelineEvent[]> = signal([
-  //   cthis.dumpEvent,
-  //   { ...this.dumpEvent, loading: true, changeDirection: true, image: null },
-  // ]);
 
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
