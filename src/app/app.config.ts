@@ -27,7 +27,6 @@ import { sharedEffects } from './shared/store/shared/shared.effects';
 import { sharedFeature } from './shared/store/shared/shared.reducers';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
-import { authEffects } from './store/auth/auth.effects';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
 
@@ -50,7 +49,6 @@ export const appConfig: ApplicationConfig = {
     provideEffects([
       sharedEffects,
       imageEffects,
-      authEffects,
       tableOfYearsEffects,
       accountEffects,
       navigationEffects,

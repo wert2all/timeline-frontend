@@ -1,9 +1,9 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Account, CookieCategory, SharedState } from './shared.types';
+import { CookieCategory, SharedState } from './shared.types';
 
 import { KeyValue } from '../../../app.types';
+import { Account } from '../../../feature/authorized/account/account.types';
 import { AccountActions } from '../../../store/account/account.actions';
-import { AuthActions } from '../../../store/auth/auth.actions';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { SharedActions } from './shared.actions';
 
@@ -49,6 +49,7 @@ export const sharedFeature = createFeature({
 
     on(
       SharedActions.setActiveAccount,
+      SharedActions.setActiveAccountOnRedirect,
       (state, { account }): SharedState => ({
         ...state,
         activeAccount: account,
@@ -56,23 +57,16 @@ export const sharedFeature = createFeature({
     ),
 
     on(
-      AuthActions.dispatchBackendApiAuthError,
-      AuthActions.dispatchLogout,
-      AuthActions.dispatchEmptyUserProfileOnInit,
-      AccountActions.cleanAccount,
+      SharedActions.cleanAccount,
+      SharedActions.emptyActiveAccount,
+      SharedActions.errorOnInitAuth,
+      SharedActions.logout,
       (state): SharedState => ({
         ...state,
         activeAccount: null,
       })
     ),
-    on(
-      AccountActions.setAccount,
-      AccountActions.successSaveAccount,
-      (state, { account }): SharedState => ({
-        ...state,
-        activeAccount: account,
-      })
-    ),
+
     on(
       AccountActions.updateOneSetting,
       (state, action): SharedState => ({

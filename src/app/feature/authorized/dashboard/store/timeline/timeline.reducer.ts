@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { AuthActions } from '../../../../../store/auth/auth.actions';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { TimelineActions } from './timeline.actions';
 import { TimelineState } from './timeline.types';
 
@@ -49,7 +49,7 @@ export const timelineFeature = createFeature({
       })
     ),
 
-    on(AuthActions.afterLogout, (): TimelineState => initialState),
+    on(SharedActions.logout, (): TimelineState => initialState),
 
     on(
       TimelineActions.successLoadAccountTimelines,

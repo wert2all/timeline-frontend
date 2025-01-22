@@ -3,8 +3,8 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SharedAuthTokenService } from '../../../../shared/services/auth-token.service';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { AuthActions } from '../../../../store/auth/auth.actions';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
@@ -102,7 +102,7 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.store.dispatch(AuthActions.dispatchLogout());
+    this.store.dispatch(SharedActions.logout());
   }
 
   goToDashboard() {
