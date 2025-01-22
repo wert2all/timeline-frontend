@@ -7,13 +7,13 @@ import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { ActiveAccountService } from '../../services/active-account.service';
 import { SharedActions } from '../../shared/store/shared.actions';
 import { AuthActions } from '../auth/auth.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { AccountActions } from './account.actions';
 import { accountFeature, mergeAccountSettings } from './account.reducer';
 import { Account } from './account.types';
+import { ActiveAccountService } from './active-account.service';
 
 const setUser = (
   actions$ = inject(Actions),

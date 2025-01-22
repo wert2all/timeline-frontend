@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Iterable, Undefined } from '../app.types';
-import { SharedLocalStorageService } from '../shared/services/local-storage.service';
+import { Iterable, Undefined } from '../../app.types';
+import { SharedLocalStorageService } from '../../shared/services/local-storage.service';
 
 const ACTIVE_ACCOUNT_KEY = 'active-Account';
 @Injectable({

@@ -32,9 +32,8 @@ export class AuthService {
   }
 
   logout() {
-    this.oAuthService.revokeTokenAndLogout();
-    this.oAuthService.logOut();
+    this.oAuthService.revokeTokenAndLogout().finally(() => {
+      this.oAuthService.logOut();
+    });
   }
-
-  getProfile = () => this.oAuthService.getIdentityClaims();
 }
