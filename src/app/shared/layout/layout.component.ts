@@ -7,10 +7,10 @@ import { TableOfContentsContainerComponent } from '../../feature/table-of-conten
 import { CookieConsentComponent } from '../../feature/ui/layout/components/cookie-consent/cookie-consent.component';
 import { FooterComponent } from '../../feature/ui/layout/components/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
-import { NotificationStore } from '../../feature/ui/layout/store/notifications.store';
-import { NotificationMessage } from '../../feature/ui/layout/store/notifications.types';
-import { ApplicationActions } from '../../store/application/application.actions';
+import { NotificationStore } from '../../feature/ui/layout/store/notification/notifications.store';
+import { NotificationMessage } from '../../feature/ui/layout/store/notification/notifications.types';
 import { tableOfYearFeature } from '../../store/table-of-contents/table-of-contents.reducer';
+import { SharedActions } from '../store/shared.actions';
 
 @Component({
   selector: 'app-shared-layout',
@@ -34,7 +34,7 @@ export class LayoutComponent {
   protected readonly unreadMessages = this.notificationStore.unRead;
 
   cookieConsent(cookie: CookieValue) {
-    this.store.dispatch(ApplicationActions.dispatchCookieConsent({ cookie }));
+    this.store.dispatch(SharedActions.dispatchCookieConsent({ cookie }));
   }
 
   markRead(message: NotificationMessage) {

@@ -11,15 +11,16 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
+import { applicationFeature } from './feature/authorized/dashboard/store/application/application.reducers';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
 import { sharedEffects } from './shared/store/shared.effects';
+import { sharedFeature } from './shared/store/shared.reducers';
 import { accountEffects } from './store/account/account.effects';
 import { accountFeature } from './store/account/account.reducer';
-import { applicationFeature } from './store/application/application.reducers';
 import { authEffects } from './store/auth/auth.effects';
 import { eventsEffects } from './store/events/events.effects';
 import { eventsFeature } from './store/events/events.reducer';
@@ -45,6 +46,7 @@ export const appConfig: ApplicationConfig = {
     provideApollo(),
     provideStore({
       [applicationFeature.name]: applicationFeature.reducer,
+      [sharedFeature.name]: sharedFeature.reducer,
       [timelineFeature.name]: timelineFeature.reducer,
       [eventsFeature.name]: eventsFeature.reducer,
       [tableOfYearFeature.name]: tableOfYearFeature.reducer,

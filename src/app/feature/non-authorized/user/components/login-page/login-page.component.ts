@@ -6,8 +6,8 @@ import { filter } from 'rxjs';
 import { AuthService } from '../../../../../services/auth.service';
 import { HeroComponent } from '../../../../../shared/layout/content/hero/hero.component';
 import { LayoutComponent } from '../../../../../shared/layout/layout.component';
+import { sharedFeature } from '../../../../../shared/store/shared.reducers';
 import { accountFeature } from '../../../../../store/account/account.reducer';
-import { applicationFeature } from '../../../../../store/application/application.reducers';
 import { NavigationActions } from '../../../../../store/navigation/navigation.actions';
 
 @Component({
@@ -26,7 +26,7 @@ export class LoginPageComponent {
 
   protected isLoading = signal(false);
   protected canUseCookies = this.store.selectSignal(
-    applicationFeature.canUseNecessaryCookies
+    sharedFeature.canUseNecessaryCookies
   );
 
   constructor() {

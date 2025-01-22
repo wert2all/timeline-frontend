@@ -2,15 +2,15 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from '../../../../services/auth.service';
+import { sharedFeature } from '../../../../shared/store/shared.reducers';
 import { accountFeature } from '../../../../store/account/account.reducer';
-import { ApplicationActions } from '../../../../store/application/application.actions';
-import { applicationFeature } from '../../../../store/application/application.reducers';
-import { ModalWindowType } from '../../../../store/application/application.types';
 import { AuthActions } from '../../../../store/auth/auth.actions';
 import { NavigationActions } from '../../../../store/navigation/navigation.actions';
+import { ApplicationActions } from '../../../authorized/dashboard/store/application/application.actions';
+import { ModalWindowType } from '../../../authorized/dashboard/store/application/application.types';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
-import { NotificationStore } from '../store/notifications.store';
+import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
@@ -36,7 +36,7 @@ export class HeaderComponent {
   private readonly notificationStore = inject(NotificationStore);
 
   private readonly canUseCookies = this.store.selectSignal(
-    applicationFeature.canUseNecessaryCookies
+    sharedFeature.canUseNecessaryCookies
   );
 
   protected token = this.authService.idToken
