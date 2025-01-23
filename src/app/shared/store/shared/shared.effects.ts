@@ -9,13 +9,13 @@ import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountService } from '../../../feature/non-authorized/user/shared/current-account.service';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
-import { SharedAuthTokenService } from '../../services/auth-token.service';
+import { SharedAuthTokenProvider } from '../../services/auth-token.provider';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
 const init = (
   actions$ = inject(Actions),
-  tokenService = inject(SharedAuthTokenService),
+  tokenService = inject(SharedAuthTokenProvider),
   currentAccountService = inject(CurrentAccountService)
 ) =>
   actions$.pipe(

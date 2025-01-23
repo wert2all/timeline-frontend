@@ -1,7 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SharedAuthTokenService } from '../../../../shared/services/auth-token.service';
+import { SharedAuthTokenProvider } from '../../../../shared/services/auth-token.provider';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
@@ -29,7 +29,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  private readonly authService = inject(SharedAuthTokenService);
+  private readonly authService = inject(SharedAuthTokenProvider);
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
@@ -55,10 +55,10 @@ export class HeaderComponent {
     const account = this.activeAccount();
     return account
       ? {
-          uuid: account.id.toString(),
-          name: account.name || 'John Doe',
-          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-        }
+        uuid: account.id.toString(),
+        name: account.name || 'John Doe',
+        firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+      }
       : null;
   });
 
