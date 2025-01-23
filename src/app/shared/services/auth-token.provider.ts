@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { AuthService } from '../../feature/non-authorized/user/auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class SharedAuthTokenService {
+export class SharedAuthTokenProvider {
   private authService = inject(AuthService);
 
   public get token(): string | null {

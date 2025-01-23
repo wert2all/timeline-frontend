@@ -1,17 +1,17 @@
 import { inject } from '@angular/core';
 import { ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { SharedAuthTokenService } from '../../shared/services/auth-token.service';
+import { SharedAuthTokenProvider } from '../../shared/services/auth-token.provider';
 
 export const handleAuthLink = (
-  authService = inject(SharedAuthTokenService)
+  tokenProvider = inject(SharedAuthTokenProvider)
 ): ApolloLink =>
   setContext(() => ({
     headers: {
       Accept: 'charset=utf-8',
-      ...(authService.token
+      ...(tokenProvider.token
         ? {
-            Authorization: `Bearer ` + authService.token,
+            Authorization: `Bearer ` + tokenProvider.token,
           }
         : {}),
     },
