@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
-import { Account } from '../../../feature/authorized/account/account.types';
+import { Account } from '../../../feature/auth/auth.types';
 import { MessageType } from '../../../feature/ui/layout/store/notification/notifications.types';
 
 export const SharedActions = createActionGroup({

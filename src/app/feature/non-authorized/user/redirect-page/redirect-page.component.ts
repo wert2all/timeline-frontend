@@ -16,10 +16,9 @@ import { CurrentAccountService } from '../shared/current-account.service';
 })
 export class LoginRedirectPageComponent {
   private readonly store = inject(Store);
-  private readonly onAuth = inject(AuthService).onAuth;
   private readonly currentAccount = inject(CurrentAccountService);
   private readonly resource = rxResource({
-    request: this.onAuth,
+    request: inject(AuthService).onAuth,
     loader: params => (params ? this.currentAccount.getAccount() : of(null)),
   });
 

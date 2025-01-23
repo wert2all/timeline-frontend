@@ -3,6 +3,7 @@ import { CookieCategory, SharedState } from './shared.types';
 
 import { KeyValue } from '../../../app.types';
 import { Account } from '../../../feature/authorized/account/account.types';
+
 import { AccountActions } from '../../../store/account/account.actions';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { SharedActions } from './shared.actions';
@@ -52,7 +53,10 @@ export const sharedFeature = createFeature({
       SharedActions.setActiveAccountOnRedirect,
       (state, { account }): SharedState => ({
         ...state,
-        activeAccount: account,
+        activeAccount: {
+          ...account,
+          settings: state.activeAccount?.settings || {},
+        },
       })
     ),
 

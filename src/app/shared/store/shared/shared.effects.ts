@@ -5,30 +5,17 @@ import {
   createEffect,
   ofType,
 } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
-import { CurrentAccountService } from '../../../feature/non-authorized/user/shared/current-account.service';
+import { AuthService } from '../../../feature/auth/auth.service';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
-import { SharedAuthTokenService } from '../../services/auth-token.service';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
-const init = (
-  actions$ = inject(Actions),
-  tokenService = inject(SharedAuthTokenService),
-  currentAccountService = inject(CurrentAccountService)
-) =>
+const init = (actions$ = inject(Actions), authService = inject(AuthService)) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    exhaustMap(() =>
-      tokenService.token ? currentAccountService.getAccount() : of(null)
-    ),
-    map(account =>
-      account
-        ? SharedActions.setActiveAccount({ account })
-        : SharedActions.emptyActiveAccount()
-    ),
-    catchError(err => of(SharedActions.errorOnInitAuth({ error: err })))
+    tap(() => authService.trySetActiveAccount())
   );
 
 const sendNotification = (
@@ -63,7 +50,7 @@ const errorMessageEmptyPreviewlyToken = (
   );
 
 export const sharedEffects = {
-  init: createEffect(init, StoreDispatchEffect),
+  init: createEffect(init, StoreUnDispatchEffect),
   redirectAfterLogin: createEffect(redirectAfterLogin, StoreDispatchEffect),
   redirectAfterLogout: createEffect(redirectAfterLogout, StoreDispatchEffect),
 

@@ -5,7 +5,11 @@ export enum CookieCategory {
   ANALYTICS = 'analytics',
 }
 
+export type AccountWithSettings = Account & {
+  settings: Record<string, string>;
+};
+
 export interface SharedState {
   cookie: CookieCategory[];
-  activeAccount: Account | null;
+  activeAccount: AccountWithSettings | null;
 }
