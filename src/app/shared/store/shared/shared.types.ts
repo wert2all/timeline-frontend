@@ -1,4 +1,4 @@
-import { Account } from '../../../feature/authorized/account/account.types';
+import { Account } from '../../../feature/account/account.types';
 
 export enum CookieCategory {
   NECESSARY = 'necessary',

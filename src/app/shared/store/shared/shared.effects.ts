@@ -7,22 +7,30 @@ import {
 } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
-import { CurrentAccountService } from '../../../feature/non-authorized/user/shared/current-account.service';
+import { CurrentAccountProvider } from '../../../feature/account/current.provider';
+import { CachedAccountsProvider } from '../../../feature/account/storage/cached-accounts.provider';
+import { AuthFacade } from '../../../feature/auth/auth.facade';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
-import { SharedAuthTokenProvider } from '../../services/auth-token.provider';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
 const init = (
   actions$ = inject(Actions),
-  tokenService = inject(SharedAuthTokenProvider),
-  currentAccountService = inject(CurrentAccountService)
+  tokenProvider = inject(AuthFacade),
+  accountStorage = inject(CachedAccountsProvider),
+  currentAccountIdProvider = inject(CurrentAccountProvider)
 ) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    exhaustMap(() =>
-      tokenService.token ? currentAccountService.getAccount() : of(null)
-    ),
+    exhaustMap(() => {
+      if (tokenProvider.getToken()) {
+        const currentAccountId = currentAccountIdProvider.getActiveAccountId();
+        if (currentAccountId) {
+          return accountStorage.getAccount(currentAccountId);
+        }
+      }
+      return of(null);
+    }),
     map(account =>
       account
         ? SharedActions.setActiveAccount({ account })
@@ -44,7 +52,7 @@ const sendNotification = (
 
 const redirectAfterLogin = (actions$ = inject(Actions)) =>
   actions$.pipe(
-    ofType(SharedActions.setActiveAccountOnRedirect),
+    ofType(SharedActions.setActiveAccountAndRedirect),
     map(() => NavigationActions.toUserDashboard())
   );
 
@@ -53,6 +61,7 @@ const redirectAfterLogout = (actions$ = inject(Actions)) =>
     ofType(SharedActions.logout),
     map(() => NavigationActions.toHome())
   );
+
 const errorMessageEmptyPreviewlyToken = (
   actions$ = inject(Actions),
   notificationStore = inject(NotificationStore)
@@ -62,8 +71,19 @@ const errorMessageEmptyPreviewlyToken = (
     tap(() => notificationStore.addMessage('Previewly token is empty', 'error'))
   );
 
+const doLogout = (
+  actions$ = inject(Actions),
+  authFacade = inject(AuthFacade)
+) =>
+  actions$.pipe(
+    ofType(SharedActions.logout),
+    tap(() => authFacade.logout())
+  );
+
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
+  logout: createEffect(doLogout, StoreUnDispatchEffect),
+
   redirectAfterLogin: createEffect(redirectAfterLogin, StoreDispatchEffect),
   redirectAfterLogout: createEffect(redirectAfterLogout, StoreDispatchEffect),
 
