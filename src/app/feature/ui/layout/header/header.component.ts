@@ -1,10 +1,10 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { SharedAuthTokenProvider } from '../../../../shared/services/auth-token.provider';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { AuthFacade } from '../../../auth/auth.facade';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
@@ -29,7 +29,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  private readonly authService = inject(SharedAuthTokenProvider);
+  private readonly tokenProvider = inject(AuthFacade);
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
@@ -38,7 +38,7 @@ export class HeaderComponent {
     sharedFeature.canUseNecessaryCookies
   );
 
-  protected token = this.authService.token;
+  protected token = this.tokenProvider.getToken();
 
   protected readonly isLoading = signal(false);
   protected readonly isOpenMenu = signal(false);
@@ -55,10 +55,10 @@ export class HeaderComponent {
     const account = this.activeAccount();
     return account
       ? {
-        uuid: account.id.toString(),
-        name: account.name || 'John Doe',
-        firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-      }
+          uuid: account.id.toString(),
+          name: account.name || 'John Doe',
+          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+        }
       : null;
   });
 

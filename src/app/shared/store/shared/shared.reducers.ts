@@ -2,7 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { CookieCategory, SharedState } from './shared.types';
 
 import { KeyValue } from '../../../app.types';
-import { Account } from '../../../feature/authorized/account/account.types';
+import { Account } from '../../../feature/account/account.types';
 import { AccountActions } from '../../../store/account/account.actions';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { SharedActions } from './shared.actions';
@@ -49,7 +49,7 @@ export const sharedFeature = createFeature({
 
     on(
       SharedActions.setActiveAccount,
-      SharedActions.setActiveAccountOnRedirect,
+      SharedActions.setActiveAccountAndRedirect,
       (state, { account }): SharedState => ({
         ...state,
         activeAccount: account,

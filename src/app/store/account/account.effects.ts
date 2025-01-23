@@ -6,7 +6,7 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
 import { StoreDispatchEffect } from '../../app.types';
 
-import { Account } from '../../feature/authorized/account/account.types';
+import { Account } from '../../feature/account/account.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import {

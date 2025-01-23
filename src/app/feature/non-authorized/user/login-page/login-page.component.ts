@@ -7,7 +7,7 @@ import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { AuthService } from '../auth.service';
+import { AuthFacade } from '../../../auth/auth.facade';
 
 @Component({
   selector: 'app-login-page',
@@ -18,7 +18,7 @@ import { AuthService } from '../auth.service';
 })
 export class LoginPageComponent {
   private readonly store = inject(Store);
-  private readonly authService = inject(AuthService);
+  private readonly authService = inject(AuthFacade);
   private onAuthorize = this.store
     .select(sharedFeature.isAuthorized)
     .pipe(filter(isAuth => isAuth));
