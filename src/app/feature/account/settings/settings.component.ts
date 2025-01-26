@@ -1,5 +1,9 @@
 import { Component, computed, effect, inject } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
+import {
+  rxResource,
+  takeUntilDestroyed,
+  toSignal,
+} from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
@@ -20,10 +24,12 @@ import { map } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
+import { AccountActions } from '../../account/store/account.actions';
+import { accountFeature } from '../../account/store/account.reducer';
 import { FeatureFlagComponent } from '../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
-import { AccountActions } from '../store/account.actions';
-import { accountFeature } from '../store/account.reducer';
+import { toFeaturesSettings } from '../account.functions';
+import { AccountsProvider } from '../storage/accounts.provider';
 
 interface SettingForm {
   accountId: FormControl<number>;
@@ -54,9 +60,14 @@ interface SettingForm {
 })
 export class SettingsComponent {
   private readonly store = inject(Store);
-  private readonly activeAccount = this.store.selectSignal(
-    sharedFeature.selectActiveAccount
+  private readonly accountProvider = inject(AccountsProvider);
+  private readonly activeAccountId = this.store.selectSignal(
+    sharedFeature.selectActiveAccoundId
   );
+  private readonly accountResource = rxResource({
+    request: this.activeAccountId,
+    loader: accountId => this.accountProvider.getAccount(accountId.request),
+  });
   protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
 
   protected form = new FormGroup<SettingForm>({
@@ -82,13 +93,13 @@ export class SettingsComponent {
 
   protected icon = saxPenAddOutline;
   protected addAccountIcon = saxUserAddOutline;
-  protected accountSettings = this.store.selectSignal(
-    sharedFeature.selectActiveAccountFeatureSettings
+  protected featureSettings = computed(() =>
+    toFeaturesSettings(this.accountResource.value())
   );
 
   constructor() {
     effect(() => {
-      const account = this.activeAccount();
+      const account = this.accountResource.value();
       if (account) {
         this.form.controls.accountId.setValue(account.id);
         this.form.controls.name.setValue(account.name || '');
@@ -119,7 +130,7 @@ export class SettingsComponent {
             accountId,
             name,
             avatarId: this.form.value.avatarId,
-            settings: this.activeAccount()?.settings || {},
+            settings: this.accountResource.value()?.settings || {},
           },
         })
       );

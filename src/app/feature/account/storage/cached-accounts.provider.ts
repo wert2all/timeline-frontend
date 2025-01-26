@@ -2,11 +2,8 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, of, tap } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
-import {
-  Account,
-  AccountsProvigerInterface,
-  isAccount,
-} from '../account.types';
+import { isAccount } from '../account.functions';
+import { Account, AccountsProvigerInterface } from '../account.types';
 import { AccountsProvider } from './accounts.provider';
 
 const ACCOUNTS_CACHE_KEY = 'account_cache';

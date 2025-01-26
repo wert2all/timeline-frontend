@@ -2,6 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { CookieCategory, SharedState } from './shared.types';
 
 import { KeyValue } from '../../../app.types';
+import { toFeaturesSettings } from '../../../feature/account/account.functions';
 import { Account } from '../../../feature/account/account.types';
 import { AccountActions } from '../../../feature/account/store/account.actions';
 import { AccountFeaturesSettings } from '../../services/features.service';
@@ -95,21 +96,13 @@ export const sharedFeature = createFeature({
     canUseNecessaryCookies: createSelector(selectCookie, cookie =>
       cookie.includes(CookieCategory.NECESSARY)
     ),
+    selectActiveAccoundId: createSelector(
+      selectActiveAccount,
+      account => account?.id
+    ),
     selectActiveAccountFeatureSettings: createSelector(
       selectActiveAccount,
-      (account): AccountFeaturesSettings => {
-        const settings: Record<string, string | boolean> = {};
-        if (account) {
-          Object.entries(account.settings).forEach(([key, value]) => {
-            if (value === 'true' || value === 'false') {
-              settings[key] = value === 'true';
-            } else {
-              settings[key] = value;
-            }
-          });
-        }
-        return settings;
-      }
+      (account): AccountFeaturesSettings => toFeaturesSettings(account)
     ),
   }),
 });
