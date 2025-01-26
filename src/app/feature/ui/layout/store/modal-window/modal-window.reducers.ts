@@ -1,5 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
-import { AccountActions } from '../../../../../store/account/account.actions';
+import { AccountActions } from '../../../../account/store/account.actions';
 import { ModalWindowActions } from './modal-window.actions';
 import { ModalWindowState } from './modal-window.types';
 

@@ -3,16 +3,16 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-import { AccountSettingInput, ApiClient } from '../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../app.types';
+import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
+import { StoreDispatchEffect } from '../../../app.types';
 
-import { Account } from '../../feature/account/account.types';
-import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';
-import { SharedActions } from '../../shared/store/shared/shared.actions';
+import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
+import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import {
   mergeAccountSettings,
   sharedFeature,
-} from '../../shared/store/shared/shared.reducers';
+} from '../../../shared/store/shared/shared.reducers';
+import { Account } from '../account.types';
 import { AccountActions } from './account.actions';
 
 const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>

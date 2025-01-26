@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Account, AccountSettings } from '../../feature/account/account.types';
+import { Account, AccountSettings } from '../account.types';
 import { SavingAccountSettings } from './account.types';
 
 export const AccountActions = createActionGroup({

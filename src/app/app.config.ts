@@ -11,6 +11,8 @@ import { provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
+import { accountEffects } from './feature/account/store/account.effects';
+import { accountFeature } from './feature/account/store/account.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { modalWindowFeature } from './feature/ui/layout/store/modal-window/modal-window.reducers';
@@ -25,8 +27,6 @@ import { navigationEffects } from './shared/store/navigation/navigation.effects'
 import { navigationFeature } from './shared/store/navigation/navigation.reducer';
 import { sharedEffects } from './shared/store/shared/shared.effects';
 import { sharedFeature } from './shared/store/shared/shared.reducers';
-import { accountEffects } from './store/account/account.effects';
-import { accountFeature } from './store/account/account.reducer';
 import { taskEffects } from './store/task/task.effects';
 import { taskFeature } from './store/task/task.reducer';
 
