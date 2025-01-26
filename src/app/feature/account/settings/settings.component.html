@@ -44,7 +44,7 @@
         [formControl]="form.controls.name" />
       <app-feature-flag
         [feature]="'show_user_accounts'"
-        [accountSettings]="accountSettings()">
+        [accountSettings]="featureSettings()">
         <button
           class="btn join-item btn-neutral w-auto"
           (click)="addAccount()"

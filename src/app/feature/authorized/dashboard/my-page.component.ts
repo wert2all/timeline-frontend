@@ -137,9 +137,10 @@ export class MyPageComponent {
       }
     });
   }
+
   // ngAfterViewInit(): void {
   //   this.store.dispatch(
-  //     ApplicationActions.opensModalWindow({
+  //     ModalWindowActions.opensModalWindow({
   //       windowType: ModalWindowType.SETTINGS,
   //     })
   //   );
