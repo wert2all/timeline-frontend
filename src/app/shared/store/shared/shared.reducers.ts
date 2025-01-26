@@ -3,7 +3,7 @@ import { CookieCategory, SharedState } from './shared.types';
 
 import { KeyValue } from '../../../app.types';
 import { Account } from '../../../feature/account/account.types';
-import { AccountActions } from '../../../store/account/account.actions';
+import { AccountActions } from '../../../feature/account/store/account.actions';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { SharedActions } from './shared.actions';
 
@@ -77,6 +77,16 @@ export const sharedFeature = createFeature({
           key: action.key,
           value: action.value,
         }),
+      })
+    ),
+    on(
+      AccountActions.successSaveAccount,
+      (state, { account }): SharedState => ({
+        ...state,
+        activeAccount:
+          account.id === state.activeAccount?.id
+            ? account
+            : state.activeAccount,
       })
     )
   ),
