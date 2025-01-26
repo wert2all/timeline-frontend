@@ -1,0 +1,21 @@
+<div class="lg:flex-auto">
+  <h3 class="text-lg lg:mb-2">name</h3>
+  <label class="join w-full">
+    <input
+      type="text"
+      name="name"
+      [class.input-error]="
+        form.controls.name.invalid && form.controls.name.touched
+      "
+      class="input join-item input-bordered w-full grow"
+      [formControl]="form.controls.name" />
+  </label>
+</div>
+
+<app-shared-form-controls
+  [isDisabled]="isDisabled()"
+  [isLoading]="isLoading()"
+  [acceptButtonIcon]="icon"
+  acceptButtonTitle="add"
+  (acceptAction)="save()"
+  (dismissAction)="closeWindow()" />

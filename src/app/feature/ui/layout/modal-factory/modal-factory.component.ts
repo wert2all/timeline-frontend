@@ -2,6 +2,7 @@ import { Component, computed, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Undefined } from '../../../../app.types';
 import { ModalComponent } from '../../../../shared/content/modal/modal.component';
+import { AddAccountComponent } from '../../../account/features/add/add.component';
 import { ShowUserFeaturesComponent } from '../../../account/features/show-user-features/show-user-features.component';
 import { SettingsComponent } from '../../../account/settings/settings.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
@@ -12,7 +13,12 @@ import { ModalWindowType } from '../store/modal-window/modal-window.types';
   standalone: true,
   selector: 'app-modal-factory',
   templateUrl: './modal-factory.component.html',
-  imports: [ModalComponent, ShowUserFeaturesComponent, SettingsComponent],
+  imports: [
+    ModalComponent,
+    AddAccountComponent,
+    ShowUserFeaturesComponent,
+    SettingsComponent,
+  ],
 })
 export class ModalFactoryComponent {
   private readonly store = inject(Store);
@@ -35,6 +41,8 @@ export class ModalFactoryComponent {
         return 'Features';
       case ModalWindowType.SETTINGS:
         return 'Settings';
+      case ModalWindowType.ADD_ACCOUNT:
+        return 'Add New Account';
       default:
         return '';
     }

@@ -137,6 +137,9 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
+// const addNewAccount = (actions$ = inject(Actions)) =>
+//   actions$.pipe(ofType(AccountActions.dispatchAddNewAcoount));
+
 export const accountEffects = {
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
   saveAccountSettings: createEffect(saveAccountSettings, StoreDispatchEffect),
@@ -157,4 +160,5 @@ export const accountEffects = {
     StoreDispatchEffect
   ),
   saveAccount: createEffect(saveAccount, StoreDispatchEffect),
+  // addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
 };
