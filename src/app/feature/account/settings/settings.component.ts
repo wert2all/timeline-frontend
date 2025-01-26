@@ -20,10 +20,10 @@ import { map } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
-import { AccountActions } from '../../account/store/account.actions';
-import { accountFeature } from '../../account/store/account.reducer';
 import { FeatureFlagComponent } from '../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
+import { AccountActions } from '../store/account.actions';
+import { accountFeature } from '../store/account.reducer';
 
 interface SettingForm {
   accountId: FormControl<number>;

@@ -12,7 +12,7 @@ import {
   FeaturesService,
 } from '../../../../shared/services/features.service';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { AccountActions } from '../../../account/store/account.actions';
+import { AccountActions } from '../../store/account.actions';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 import { UserFeature } from './show-user-features.types';
 type ViewFeature = UserFeature & { key: FeatureFlagName };
