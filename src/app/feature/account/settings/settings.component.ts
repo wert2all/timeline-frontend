@@ -28,6 +28,7 @@ import { AccountActions } from '../../account/store/account.actions';
 import { accountFeature } from '../../account/store/account.reducer';
 import { FeatureFlagComponent } from '../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
+import { ModalWindowType } from '../../ui/layout/store/modal-window/modal-window.types';
 import { toFeaturesSettings } from '../account.functions';
 import { AccountsProvider } from '../storage/accounts.provider';
 
@@ -117,7 +118,11 @@ export class SettingsComponent {
   }
 
   addAccount() {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(
+      ModalWindowActions.opensModalWindow({
+        windowType: ModalWindowType.ADD_ACCOUNT,
+      })
+    );
   }
 
   save() {

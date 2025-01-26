@@ -19,6 +19,10 @@ export const AccountActions = createActionGroup({
     }>(),
     'Success save account': props<{ account: Account }>(),
 
+    'Dispatch add new acoount': props<{ name: string }>(),
+    'Success add new account': props<{ account: Account }>(),
+
+    'Could not add account': emptyProps(),
     'Could not save account settings': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
     'Dispatch empty account error': emptyProps(),

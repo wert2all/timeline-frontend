@@ -13,6 +13,7 @@ export const accountFeature = createFeature({
 
     on(
       AccountActions.dispatchSaveAccountSettings,
+      AccountActions.dispatchAddNewAcoount,
       (state): AccountState => ({
         ...state,
         loading: true,
@@ -20,6 +21,15 @@ export const accountFeature = createFeature({
     ),
     on(
       AccountActions.successSaveAccount,
+      AccountActions.successAddNewAccount,
+      (state): AccountState => ({
+        ...state,
+        loading: false,
+      })
+    ),
+
+    on(
+      AccountActions.couldNotAddAccount,
       (state): AccountState => ({
         ...state,
         loading: false,
