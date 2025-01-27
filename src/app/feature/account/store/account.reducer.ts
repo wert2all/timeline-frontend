@@ -4,12 +4,21 @@ import { AccountState } from './account.types';
 
 const initialState: AccountState = {
   loading: false,
+  accounts: [],
 };
 
 export const accountFeature = createFeature({
   name: 'account',
   reducer: createReducer(
     initialState,
+
+    on(
+      AccountActions.setUserAccounts,
+      (state, { accounts }): AccountState => ({
+        ...state,
+        accounts: accounts,
+      })
+    ),
 
     on(
       AccountActions.dispatchSaveAccountSettings,
@@ -33,6 +42,17 @@ export const accountFeature = createFeature({
       (state): AccountState => ({
         ...state,
         loading: false,
+      })
+    ),
+
+    on(
+      AccountActions.successSaveAccount,
+      AccountActions.successAddNewAccount,
+      (state, { account }): AccountState => ({
+        ...state,
+        accounts: state.accounts.map(acc =>
+          acc.id === account.id ? account : acc
+        ),
       })
     )
   ),
