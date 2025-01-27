@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   standalone: true,
   selector: 'app-static-markdown-help',
   templateUrl: './markdown-help.component.html',
-  styleUrls: ['./markdown-help.component.scss'],
+  styleUrls: ['../../static-content.scss'],
 })
 export class MarkdownHelpComponent {}
