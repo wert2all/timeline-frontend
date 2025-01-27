@@ -5,6 +5,7 @@ import { KeyValue } from '../../../app.types';
 import { toFeaturesSettings } from '../../../feature/account/account.functions';
 import { Account } from '../../../feature/account/account.types';
 import { AccountActions } from '../../../feature/account/store/account.actions';
+import { accountFeature } from '../../../feature/account/store/account.reducer';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { SharedActions } from './shared.actions';
 
@@ -104,6 +105,15 @@ export const sharedFeature = createFeature({
     selectActiveAccountFeatureSettings: createSelector(
       selectActiveAccount,
       (account): AccountFeaturesSettings => toFeaturesSettings(account)
+    ),
+    selectUserAccountViews: createSelector(
+      accountFeature.selectAccounts,
+      accounts =>
+        accounts.map(account => ({
+          uuid: account.id.toString(),
+          name: account.name || 'John Doe',
+          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+        }))
     ),
   }),
 });
