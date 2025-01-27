@@ -9,7 +9,7 @@ import { TimelineComponent } from '../../timeline/timeline.component';
 
 import { Store } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
-import { MarkdownHelpComponent } from '../../authorized/dashboard/edit-event/edit-event-form/markdown-help/markdown-help.component';
+import { MarkdownHelpComponent } from '../../static-content/share/markdown-help/markdown-help.component';
 import { TableOfContentsActions } from '../../ui/table-of-contents/store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 
