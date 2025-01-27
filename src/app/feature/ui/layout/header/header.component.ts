@@ -1,9 +1,12 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
+import { map } from 'rxjs';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { CachedAccountsProvider } from '../../../account/storage/cached-accounts.provider';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
@@ -13,6 +16,7 @@ import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
+import { AccountView } from './header.types';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
 
 @Component({
@@ -33,7 +37,7 @@ export class HeaderComponent {
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
-
+  private readonly accountsProvider = inject(CachedAccountsProvider);
   private readonly canUseCookies = this.store.selectSignal(
     sharedFeature.canUseNecessaryCookies
   );
@@ -63,6 +67,20 @@ export class HeaderComponent {
   });
 
   protected readonly isDarkTheme = this.themeService.isDark;
+  protected readonly userAccounts = toSignal(
+    this.accountsProvider.getAccounts().pipe(
+      map(accounts =>
+        accounts.map(
+          (account): AccountView => ({
+            uuid: account.id.toString(),
+            name: account.name || 'John Doe',
+            firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+          })
+        )
+      )
+    ),
+    { initialValue: [] }
+  );
 
   openMenu() {
     this.isOpenMenu.set(!this.isOpenMenu());
