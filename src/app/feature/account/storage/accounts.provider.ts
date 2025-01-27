@@ -22,14 +22,14 @@ export class AccountsProvider implements AccountsProvigerInterface {
           .map(account =>
             account
               ? {
-                id: account.id,
-                name: account.name ? account.name : undefined,
-                previewlyToken: account.previewlyToken,
-                settings: account.settings.reduce(
-                  (acc, v) => ({ ...acc, [v.key]: v.value }),
-                  {}
-                ),
-              }
+                  id: account.id,
+                  name: account.name ? account.name : undefined,
+                  previewlyToken: account.previewlyToken,
+                  settings: account.settings.reduce(
+                    (acc, v) => ({ ...acc, [v.key]: v.value }),
+                    {}
+                  ),
+                }
               : null
           )
           .filter(account => !!account)

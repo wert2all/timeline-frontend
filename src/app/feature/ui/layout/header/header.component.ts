@@ -1,8 +1,6 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
@@ -16,7 +14,6 @@ import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
-import { AccountView } from './header.types';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
 
 @Component({
@@ -67,19 +64,8 @@ export class HeaderComponent {
   });
 
   protected readonly isDarkTheme = this.themeService.isDark;
-  protected readonly userAccounts = toSignal(
-    this.accountsProvider.getAccounts().pipe(
-      map(accounts =>
-        accounts.map(
-          (account): AccountView => ({
-            uuid: account.id.toString(),
-            name: account.name || 'John Doe',
-            firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-          })
-        )
-      )
-    ),
-    { initialValue: [] }
+  protected readonly userAccounts = this.store.selectSignal(
+    sharedFeature.selectUserAccountViews
   );
 
   openMenu() {
