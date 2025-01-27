@@ -2,9 +2,9 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../../app.types';
+import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
@@ -13,6 +13,8 @@ import {
   sharedFeature,
 } from '../../../shared/store/shared/shared.reducers';
 import { Account } from '../account.types';
+import { CurrentAccountProvider } from '../current.provider';
+import { CachedAccountsProvider } from '../storage/cached-accounts.provider';
 import { AccountActions } from './account.actions';
 
 const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>
@@ -137,8 +139,63 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
-// const addNewAccount = (actions$ = inject(Actions)) =>
-//   actions$.pipe(ofType(AccountActions.dispatchAddNewAcoount));
+const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
+  actions$.pipe(
+    ofType(AccountActions.dispatchAddNewAcoount),
+    exhaustMap(({ name }) =>
+      api
+        .addAccount({ name })
+        .pipe(
+          map(result =>
+            apiAssertNotNull(
+              extractApiData(result)?.account,
+              'Could not add account'
+            )
+          )
+        )
+    ),
+    map(
+      (account): Account => ({
+        id: account.id,
+        name: account.name || undefined,
+        previewlyToken: account.previewlyToken,
+        settings: account.settings.reduce(
+          (acc, setting) => ({
+            ...acc,
+            [setting.key]: setting.value,
+          }),
+          {}
+        ),
+      })
+    ),
+    map(account => AccountActions.successAddNewAccount({ account: account })),
+    catchError(() => of(AccountActions.couldNotAddAccount()))
+  );
+
+const addNewAccountToCache = (
+  actions$ = inject(Actions),
+  cachedAccountProvider = inject(CachedAccountsProvider)
+) =>
+  actions$.pipe(
+    ofType(AccountActions.successAddNewAccount),
+    tap(({ account }) => {
+      cachedAccountProvider.addAccount(account);
+    })
+  );
+
+const switchAccountAfterAdding = (
+  actions$ = inject(Actions),
+  currentAccountProvider = inject(CurrentAccountProvider)
+) =>
+  actions$.pipe(
+    ofType(AccountActions.successAddNewAccount),
+    tap(({ account }) => {
+      currentAccountProvider.setActiveAccountId(account);
+    }),
+    map(({ account }) =>
+      SharedActions.setActiveAccountAfterAdding({ account: account })
+    )
+  );
 
 export const accountEffects = {
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
@@ -160,5 +217,14 @@ export const accountEffects = {
     StoreDispatchEffect
   ),
   saveAccount: createEffect(saveAccount, StoreDispatchEffect),
-  // addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
+
+  addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
+  addNewAccountToCache: createEffect(
+    addNewAccountToCache,
+    StoreUnDispatchEffect
+  ),
+  switchAccountAfterAdding: createEffect(
+    switchAccountAfterAdding,
+    StoreDispatchEffect
+  ),
 };

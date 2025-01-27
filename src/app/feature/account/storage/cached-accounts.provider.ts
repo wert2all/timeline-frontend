@@ -25,10 +25,7 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
     return this.provider.getAccounts().pipe(
       tap(accounts => {
         this.cache = this.convertToRecord(accounts);
-        this.localStorage.setItem(
-          ACCOUNTS_CACHE_KEY,
-          JSON.stringify(this.cache)
-        );
+        this.saveCache();
       })
     );
   }
@@ -39,6 +36,15 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
       return of(account);
     }
     return this.provider.getAccount(accountId);
+  }
+
+  addAccount(account: Account) {
+    this.cache[account.id] = account;
+    this.saveCache();
+  }
+
+  private saveCache() {
+    this.localStorage.setItem(ACCOUNTS_CACHE_KEY, JSON.stringify(this.cache));
   }
 
   private initCache() {
