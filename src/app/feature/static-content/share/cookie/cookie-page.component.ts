@@ -5,7 +5,7 @@ import { LayoutComponent } from '../../../../shared/layout/layout.component';
 @Component({
   standalone: true,
   templateUrl: './cookie-page.component.html',
-  styleUrls: ['./cookie-page.component.scss'],
+  styleUrls: ['../../static-content.scss'],
   imports: [LayoutComponent, TitleComponent],
 })
 export class CookiePageComponent {}
