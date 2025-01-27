@@ -4,7 +4,7 @@ import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
-import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
+import { StoreDispatchEffect } from '../../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
@@ -12,6 +12,7 @@ import {
   mergeAccountSettings,
   sharedFeature,
 } from '../../../shared/store/shared/shared.reducers';
+import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { Account } from '../account.types';
 import { CurrentAccountProvider } from '../current.provider';
 import { CachedAccountsProvider } from '../storage/cached-accounts.provider';
@@ -180,7 +181,8 @@ const addNewAccountToCache = (
     ofType(AccountActions.successAddNewAccount),
     tap(({ account }) => {
       cachedAccountProvider.addAccount(account);
-    })
+    }),
+    map(() => ModalWindowActions.closeModalWindow())
   );
 
 const switchAccountAfterAdding = (
@@ -219,10 +221,7 @@ export const accountEffects = {
   saveAccount: createEffect(saveAccount, StoreDispatchEffect),
 
   addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
-  addNewAccountToCache: createEffect(
-    addNewAccountToCache,
-    StoreUnDispatchEffect
-  ),
+  addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
   switchAccountAfterAdding: createEffect(
     switchAccountAfterAdding,
     StoreDispatchEffect
