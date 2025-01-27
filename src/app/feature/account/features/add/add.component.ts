@@ -12,6 +12,7 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';
 import { ModalWindowActions } from '../../../ui/layout/store/modal-window/modal-window.actions';
+import { AccountActions } from '../../store/account.actions';
 import { accountFeature } from '../../store/account.reducer';
 
 interface AddAccountForm {
@@ -43,7 +44,13 @@ export class AddAccountComponent {
   );
 
   save() {
-    throw new Error('Method not implemented.');
+    if (this.form.valid) {
+      this.store.dispatch(
+        AccountActions.dispatchAddNewAcoount({
+          name: this.form.controls.name.value,
+        })
+      );
+    }
   }
 
   closeWindow() {
