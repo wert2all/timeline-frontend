@@ -38,7 +38,7 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
     return this.provider.getAccount(accountId);
   }
 
-  addAccount(account: Account) {
+  upsetAccount(account: Account) {
     this.cache[account.id] = account;
     this.saveCache();
   }
