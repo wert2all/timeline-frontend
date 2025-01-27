@@ -1,5 +1,5 @@
 import { Loadable, Undefined } from '../../../app.types';
-import { AccountSettings } from '../account.types';
+import { Account, AccountSettings } from '../account.types';
 
 export interface SavingAccountSettings {
   accountId: number;
@@ -8,4 +8,6 @@ export interface SavingAccountSettings {
   settings: AccountSettings;
 }
 
-export type AccountState = Loadable;
+export type AccountState = Loadable & {
+  accounts: Account[];
+};
