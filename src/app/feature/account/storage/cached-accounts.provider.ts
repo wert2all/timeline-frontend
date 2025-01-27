@@ -3,7 +3,11 @@ import { Observable, of, tap } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
 import { isAccount } from '../account.functions';
-import { Account, AccountsProvigerInterface } from '../account.types';
+import {
+  Account,
+  AccountSettings,
+  AccountsProvigerInterface,
+} from '../account.types';
 import { AccountsProvider } from './accounts.provider';
 
 const ACCOUNTS_CACHE_KEY = 'account_cache';
@@ -41,6 +45,16 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
   upsetAccount(account: Account) {
     this.cache[account.id] = account;
     this.saveCache();
+  }
+
+  updateAccountSettings(accountId: number, settings: AccountSettings) {
+    if (this.cache[accountId]) {
+      const account = {
+        ...this.cache[accountId],
+        settings: settings,
+      };
+      this.upsetAccount(account);
+    }
   }
 
   private saveCache() {
