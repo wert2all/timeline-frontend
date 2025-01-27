@@ -46,9 +46,10 @@ const saveAccountSettings = (
       return {
         accountId: action.accountId,
         settings: settings,
+        actionSetting: action.settings,
       };
     }),
-    exhaustMap(({ accountId, settings }) =>
+    exhaustMap(({ accountId, settings, actionSetting }) =>
       api
         .saveAccountSettings({
           accountId: accountId,
@@ -57,7 +58,10 @@ const saveAccountSettings = (
         .pipe(
           map(result =>
             result.data?.saveSettings == 'success'
-              ? AccountActions.successSaveAccountSettings()
+              ? AccountActions.successSaveAccountSettings({
+                  accountId,
+                  settings: actionSetting,
+                })
               : AccountActions.couldNotSaveAccountSettings()
           )
         )
@@ -65,9 +69,15 @@ const saveAccountSettings = (
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
-const successSaveAccountSettings = (actions$ = inject(Actions)) =>
+const successSaveAccountSettings = (
+  actions$ = inject(Actions),
+  cachedAccountProvider = inject(CachedAccountsProvider)
+) =>
   actions$.pipe(
     ofType(AccountActions.successSaveAccountSettings),
+    tap(({ accountId, settings }) => {
+      cachedAccountProvider.updateAccountSettings(accountId, settings);
+    }),
     map(() =>
       SharedActions.sendNotification({
         message: 'Account settings saved',

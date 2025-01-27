@@ -12,7 +12,10 @@ export const AccountActions = createActionGroup({
       accountId: number;
       settings: AccountSettings;
     }>(),
-    'Success save account settings': emptyProps(),
+    'Success save account settings': props<{
+      accountId: number;
+      settings: AccountSettings;
+    }>(),
 
     'Dispatch save account settings': props<{
       settings: SavingAccountSettings;
