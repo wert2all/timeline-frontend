@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { CookiePageComponent } from './components/cookie/cookie-page.component';
-import { PrivacyPageComponent } from './components/privacy/privacy-page.component';
-import { TermsPageComponent } from './components/terms/terms-page.component';
+import { CookiePageComponent } from '../../static-content/share/cookie/cookie-page.component';
+import { PrivacyPageComponent } from '../../static-content/share/privacy/privacy-page.component';
+import { TermsPageComponent } from '../../static-content/share/terms/terms-page.component';
 
 export const routes: Routes = [
   { path: 'privacy', component: PrivacyPageComponent },
