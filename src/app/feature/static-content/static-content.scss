@@ -1,14 +1,20 @@
 h2 {
-  @apply pt-4 text-2xl font-semibold;
+  padding-top: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
 
 p {
-  @apply py-2;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 ul {
-  @apply list-disc ps-5;
+  list-style-type: disc;
+  padding-inline-start: 1.25rem;
+
   li {
-    @apply pb-2;
+    padding-bottom: 0.5rem;
   }
 }

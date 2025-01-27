@@ -57,14 +57,15 @@ html.light .hero {
 }
 
 .collapsable {
-  @apply invisible opacity-0;
-
+  visibility: hidden;
+  opacity: 0;
   height: 0;
   overflow: hidden;
   transition: all 0.2s linear;
 
   &.open {
-    @apply visible opacity-100;
+    visibility: visible;
+    opacity: 1;
     height: calc-size(auto, size);
   }
 

@@ -8,11 +8,11 @@
         </div>
 
         <div
-          class="timeline-start w-full rounded-xl bg-base-100 p-2 text-end"
+          class="timeline-start w-full self-start rounded-xl bg-base-100 p-2 text-end"
           [class.opacity-20]="loading() === true">
           <app-shared-timeline-event-content [event]="preview" />
         </div>
-        <div class="timeline-end w-full">
+        <div class="timeline-end w-full self-start">
           <app-edit-event-form
             [editEvent]="event"
             [viewHelper]="formViewHelper()"

@@ -42,7 +42,6 @@ import { EditEventFormChanges } from './edit-event.types';
   standalone: true,
   imports: [SharedEventContentComponent, IconComponent, EditEventFormComponent],
   templateUrl: './edit-event.component.html',
-  styleUrls: ['./edit-event.component.scss'],
 })
 export class EditEventComponent {
   private readonly store = inject(Store);

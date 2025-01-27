@@ -6,10 +6,10 @@
     opacity: 1;
 
     a {
-      @apply font-medium;
+      font-weight: 500;
     }
   }
   a {
-    @apply font-light;
+    font-weight: 300;
   }
 }
