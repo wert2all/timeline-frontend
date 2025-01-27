@@ -47,6 +47,7 @@ input Limit {
 }
 
 type Mutation {
+  addAccount(name: String!): ShortAccount!
   addEvent(event: TimelineEventInput!): TimelineEvent!
   addTimeline(timeline: AddTimeline): ShortTimeline!
   authorize: User
