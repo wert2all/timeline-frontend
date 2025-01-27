@@ -171,6 +171,12 @@ export type SaveAccountVariables = Exact<{
 
 export type SaveAccount = { account: ShortAccount };
 
+export type AddAccountVariables = Exact<{
+  name: Scalars['String']['input'];
+}>;
+
+export type AddAccount = { account: ShortAccount };
+
 export type GetEventsVariables = Exact<{
   timelineId: Scalars['Int']['input'];
   accountId: Scalars['Int']['input'];
@@ -403,6 +409,28 @@ export class SaveAccountMutation extends Apollo.Mutation<
     super(apollo);
   }
 }
+export const AddAccountDocument = gql`
+  mutation AddAccount($name: String!) {
+    account: addAccount(name: $name) {
+      ...ShortAccount
+    }
+  }
+  ${ShortAccount}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AddAccountMutation extends Apollo.Mutation<
+  AddAccount,
+  AddAccountVariables
+> {
+  override document = AddAccountDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 export const GetEventsDocument = gql`
   query GetEvents($timelineId: Int!, $accountId: Int!, $cursor: String) {
     events: timelineCursorEvents(
@@ -474,6 +502,7 @@ export class ApiClient {
     private deleteEventMutation: DeleteEventMutation,
     private saveAccountSettingsMutation: SaveAccountSettingsMutation,
     private saveAccountMutation: SaveAccountMutation,
+    private addAccountMutation: AddAccountMutation,
     private getEventsQuery: GetEventsQuery,
     private getAccountTimelinesQuery: GetAccountTimelinesQuery
   ) {}
@@ -534,6 +563,13 @@ export class ApiClient {
     options?: MutationOptionsAlone<SaveAccount, SaveAccountVariables>
   ) {
     return this.saveAccountMutation.mutate(variables, options);
+  }
+
+  addAccount(
+    variables: AddAccountVariables,
+    options?: MutationOptionsAlone<AddAccount, AddAccountVariables>
+  ) {
+    return this.addAccountMutation.mutate(variables, options);
   }
 
   getEvents(

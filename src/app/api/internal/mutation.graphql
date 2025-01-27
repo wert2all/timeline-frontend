@@ -38,3 +38,9 @@ mutation SaveAccount($accountId: Int!, $account: SaveAccountInput!) {
     ...ShortAccount
   }
 }
+
+mutation AddAccount($name: String!) {
+  account: addAccount(name: $name) {
+    ...ShortAccount
+  }
+}
