@@ -4,7 +4,7 @@ import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../../app.types';
+import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
@@ -140,6 +140,17 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
+const updateAccountCacheAfterSaveAccount = (
+  actions$ = inject(Actions),
+  cachedAccountProvider = inject(CachedAccountsProvider)
+) =>
+  actions$.pipe(
+    ofType(AccountActions.successSaveAccount),
+    tap(({ account }) => {
+      cachedAccountProvider.upsetAccount(account);
+    })
+  );
+
 const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
     ofType(AccountActions.dispatchAddNewAcoount),
@@ -180,7 +191,7 @@ const addNewAccountToCache = (
   actions$.pipe(
     ofType(AccountActions.successAddNewAccount),
     tap(({ account }) => {
-      cachedAccountProvider.addAccount(account);
+      cachedAccountProvider.upsetAccount(account);
     }),
     map(() => ModalWindowActions.closeModalWindow())
   );
@@ -206,6 +217,11 @@ export const accountEffects = {
   successSaveAccountSettings: createEffect(
     successSaveAccountSettings,
     StoreDispatchEffect
+  ),
+
+  updateAccountCacheAfterSaveAccount: createEffect(
+    updateAccountCacheAfterSaveAccount,
+    StoreUnDispatchEffect
   ),
 
   couldNotSaveAccountSettings: createEffect(
