@@ -32,6 +32,7 @@ const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>
         : AccountActions.emptyAccountSettings()
     )
   );
+
 const saveAccountSettings = (
   actions$ = inject(Actions),
   api = inject(ApiClient)
@@ -220,6 +221,22 @@ const switchAccountAfterAdding = (
     )
   );
 
+const setUserAccountsAfterInit = (
+  actions$ = inject(Actions),
+  accountsProvider = inject(CachedAccountsProvider)
+) =>
+  actions$.pipe(
+    ofType(
+      SharedActions.setActiveAccountAfterInit,
+      SharedActions.setActiveAccountAndRedirect
+    ),
+    exhaustMap(() => accountsProvider.getAccounts()),
+    map(accounts => AccountActions.setUserAccounts({ accounts })),
+    catchError(err =>
+      of(SharedActions.sendNotification({ message: err, withType: 'error' }))
+    )
+  );
+
 export const accountEffects = {
   updateOneSettings: createEffect(updateOneSettings, StoreDispatchEffect),
   saveAccountSettings: createEffect(saveAccountSettings, StoreDispatchEffect),
@@ -250,6 +267,11 @@ export const accountEffects = {
   addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
   switchAccountAfterAdding: createEffect(
     switchAccountAfterAdding,
+    StoreDispatchEffect
+  ),
+
+  setUserAccountsAfterInit: createEffect(
+    setUserAccountsAfterInit,
     StoreDispatchEffect
   ),
 };

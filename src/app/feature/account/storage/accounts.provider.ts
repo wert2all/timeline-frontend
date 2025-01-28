@@ -1,16 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable, map, tap } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
 import { Undefined } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { Account, AccountsProvigerInterface } from '../account.types';
-import { AccountActions } from '../store/account.actions';
 
 @Injectable({ providedIn: 'root' })
 export class AccountsProvider implements AccountsProvigerInterface {
   private readonly api = inject(ApiClient);
-  private readonly store = inject(Store);
 
   getAccounts(): Observable<Account[]> {
     return this.api.authorize().pipe(
@@ -33,9 +30,6 @@ export class AccountsProvider implements AccountsProvigerInterface {
               : null
           )
           .filter(account => !!account)
-      ),
-      tap(accounts =>
-        this.store.dispatch(AccountActions.setUserAccounts({ accounts }))
       )
     );
   }

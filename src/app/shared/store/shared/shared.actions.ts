@@ -9,7 +9,7 @@ export const SharedActions = createActionGroup({
     'Send notification': props<{ message: string; withType: MessageType }>(),
     'Dispatch cookie consent': props<{ cookie: CookieValue }>(),
 
-    'Set active account': props<{ account: Account }>(),
+    'Set active account after init': props<{ account: Account }>(),
     'Set active account and redirect': props<{ account: Account }>(),
     'Set active account after adding': props<{ account: Account }>(),
 
