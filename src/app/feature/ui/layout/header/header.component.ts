@@ -1,10 +1,11 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Unique } from '../../../../app.types';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { CachedAccountsProvider } from '../../../account/storage/cached-accounts.provider';
+import { Account } from '../../../account/account.types';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
@@ -14,6 +15,7 @@ import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
 import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
+import { AccountView } from './header.types';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
 
 @Component({
@@ -34,7 +36,6 @@ export class HeaderComponent {
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
-  private readonly accountsProvider = inject(CachedAccountsProvider);
   private readonly canUseCookies = this.store.selectSignal(
     sharedFeature.canUseNecessaryCookies
   );
@@ -53,19 +54,15 @@ export class HeaderComponent {
   );
 
   protected readonly currentAccountView = computed(() => {
-    const account = this.activeAccount();
-    return account
-      ? {
-          uuid: account.id.toString(),
-          name: account.name || 'John Doe',
-          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-        }
-      : null;
+    return this.toAccountView(this.activeAccount());
   });
 
   protected readonly isDarkTheme = this.themeService.isDark;
   protected readonly userAccounts = this.store.selectSignal(
-    sharedFeature.selectUserAccountViews
+    sharedFeature.selectUserAccounts
+  );
+  protected readonly userAccountsViews = computed(() =>
+    this.userAccounts().map(account => this.toAccountView(account))
   );
 
   openMenu() {
@@ -121,5 +118,27 @@ export class HeaderComponent {
       );
     }
     this.themeService.toggleTheme();
+  }
+
+  changeAccount(switchToAccount: Unique) {
+    const selectedAccount = this.userAccounts().find(
+      account => account.id.toString() === switchToAccount.uuid
+    );
+
+    if (selectedAccount) {
+      this.store.dispatch(
+        SharedActions.switchActiveAccount({ account: selectedAccount })
+      );
+    }
+  }
+
+  private toAccountView(account: Account | null): AccountView | null {
+    return account
+      ? {
+          uuid: account.id.toString(),
+          name: account.name || 'John Doe',
+          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+        }
+      : null;
   }
 }

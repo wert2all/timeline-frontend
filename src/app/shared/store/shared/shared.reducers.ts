@@ -53,6 +53,7 @@ export const sharedFeature = createFeature({
       SharedActions.setActiveAccountAndRedirect,
       SharedActions.setActiveAccountAfterAdding,
       SharedActions.setActiveAccountAfterInit,
+      SharedActions.switchActiveAccount,
       (state, { account }): SharedState => ({
         ...state,
         activeAccount: account,
@@ -106,14 +107,9 @@ export const sharedFeature = createFeature({
       selectActiveAccount,
       (account): AccountFeaturesSettings => toFeaturesSettings(account)
     ),
-    selectUserAccountViews: createSelector(
+    selectUserAccounts: createSelector(
       accountFeature.selectAccounts,
-      accounts =>
-        accounts.map(account => ({
-          uuid: account.id.toString(),
-          name: account.name || 'John Doe',
-          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-        }))
+      accounts => accounts
     ),
   }),
 });

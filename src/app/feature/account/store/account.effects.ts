@@ -212,7 +212,13 @@ const switchAccountAfterAdding = (
   currentAccountProvider = inject(CurrentAccountProvider)
 ) =>
   actions$.pipe(
-    ofType(AccountActions.successAddNewAccount),
+    ofType(
+      AccountActions.successAddNewAccount,
+      SharedActions.setActiveAccountAndRedirect,
+      SharedActions.setActiveAccountAfterInit,
+      SharedActions.switchActiveAccount
+    ),
+
     tap(({ account }) => {
       currentAccountProvider.setActiveAccountId(account);
     }),

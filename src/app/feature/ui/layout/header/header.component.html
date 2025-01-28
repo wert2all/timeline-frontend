@@ -26,12 +26,13 @@
             class="hidden lg:block"
             [isOpenMenu]="isOpenMenu()"
             [accountSettings]="activeAccountSettings()"
-            [accounts]="userAccounts()"
+            [accounts]="userAccountsViews()"
             [currentAccountUUID]="account.uuid"
             (copyToken)="copyTokenToClipboard()"
             (closeMenu)="closeMenu()"
             (openUserFeatures)="openUserFeatures()"
             (openUserSettings)="openUserSettings()"
+            (changeAccount)="changeAccount($event)"
             (logout)="logout()" />
         </div>
       </div>
@@ -44,12 +45,13 @@
     <app-top-menu-collapsable-menu
       [isOpenMenu]="isOpenMenu()"
       [accountSettings]="activeAccountSettings()"
-      [accounts]="userAccounts()"
+      [accounts]="userAccountsViews()"
       [currentAccountUUID]="account.uuid"
       (copyToken)="copyTokenToClipboard()"
       (closeMenu)="closeMenu()"
       (openUserFeatures)="openUserFeatures()"
       (openUserSettings)="openUserSettings()"
+      (changeAccount)="changeAccount($event)"
       (logout)="logout()" />
   </div>
 }

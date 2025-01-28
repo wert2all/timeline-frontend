@@ -13,6 +13,8 @@ export const SharedActions = createActionGroup({
     'Set active account and redirect': props<{ account: Account }>(),
     'Set active account after adding': props<{ account: Account }>(),
 
+    'Switch active account': props<{ account: Account }>(),
+
     'Empty active account': emptyProps(),
     'Clean account': emptyProps(),
     Logout: emptyProps(),
