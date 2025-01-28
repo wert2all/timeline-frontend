@@ -33,7 +33,7 @@ const init = (
     }),
     map(account =>
       account
-        ? SharedActions.setActiveAccount({ account })
+        ? SharedActions.setActiveAccountAfterInit({ account })
         : SharedActions.emptyActiveAccount()
     ),
     catchError(err => of(SharedActions.errorOnInitAuth({ error: err })))
