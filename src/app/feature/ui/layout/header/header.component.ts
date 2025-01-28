@@ -62,7 +62,9 @@ export class HeaderComponent {
     sharedFeature.selectUserAccounts
   );
   protected readonly userAccountsViews = computed(() =>
-    this.userAccounts().map(account => this.toAccountView(account))
+    this.userAccounts()
+      .map(account => this.toAccountView(account))
+      .filter(account => !!account)
   );
 
   openMenu() {
