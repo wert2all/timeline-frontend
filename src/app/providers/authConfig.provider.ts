@@ -1,5 +1,5 @@
 import { makeEnvironmentProviders } from '@angular/core';
-import { AuthConfig } from 'angular-oauth2-oidc';
+import { AuthConfig, OAuthStorage } from 'angular-oauth2-oidc';
 import { environment } from '../../environments/environment';
 
 export const provideAuthConfig = () =>
@@ -14,7 +14,11 @@ export const provideAuthConfig = () =>
         redirectUri: window.location.origin + '/user/redirect',
 
         // URL of the SPA to redirect the user after silent refresh
-        // silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
+        silentRefreshRedirectUri:
+          window.location.origin + '/silent-refresh.html',
+        useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
+        silentRefreshTimeout: 5000, // For faster testing
+
         // The SPA's id. The SPA is registerd with this id at the auth-server
         clientId: environment.services.google.clientId,
         strictDiscoveryDocumentValidation: false,
@@ -25,4 +29,5 @@ export const provideAuthConfig = () =>
         sessionChecksEnabled: true,
       },
     },
+    { provide: OAuthStorage, useFactory: (): OAuthStorage => localStorage },
   ]);

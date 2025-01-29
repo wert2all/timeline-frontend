@@ -1,8 +1,10 @@
 import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
+  inject,
   isDevMode,
   makeEnvironmentProviders,
+  provideAppInitializer,
   provideExperimentalZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -19,6 +21,7 @@ import { timelineEffects as legacyTimelineEffects } from './feature/authorized/d
 import { timelineFeature as legacyTimelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
 import { eventOperationsEffects } from './feature/events/store/operations/operations.effects';
 import { eventOperationsFeature } from './feature/events/store/operations/operations.reducer';
+import { NewAuthService } from './feature/auth/auth.service';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { timelineEffects } from './feature/timeline/store/timeline.effects';
@@ -27,6 +30,7 @@ import { modalWindowFeature } from './feature/ui/layout/store/modal-window/modal
 import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.effects';
 import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.reducer';
 import { provideApollo } from './providers/apollo.provider';
+import { authAppInitializerFactory } from './providers/app-auth.factory';
 import { provideAuthConfig } from './providers/authConfig.provider';
 import { provideSentry } from './providers/sentry.provider';
 import { imageEffects } from './shared/store/images/images.effects';
@@ -79,6 +83,10 @@ export const appConfig: ApplicationConfig = {
       connectInZone: true, // If set to true, the connection is established within the Angular zone
     }),
     provideExperimentalZonelessChangeDetection(),
+    provideAppInitializer(() => {
+      const initializerFn = authAppInitializerFactory(inject(NewAuthService));
+      return initializerFn();
+    }),
     provideAuthConfig(),
     makeEnvironmentProviders([
       {

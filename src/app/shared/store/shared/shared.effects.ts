@@ -96,6 +96,12 @@ const dispatchTaskForLoadingImages = (actions$ = inject(Actions)) =>
     )
   );
 
+const shouldLogin = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(SharedActions.shouldLogin),
+    map(() => NavigationActions.toLogin())
+  );
+
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
@@ -113,4 +119,6 @@ export const sharedEffects = {
     dispatchTaskForLoadingImages,
     StoreDispatchEffect
   ),
+
+  shouldLogin: createEffect(shouldLogin, StoreDispatchEffect),
 };
