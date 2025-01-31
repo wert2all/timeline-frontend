@@ -66,12 +66,11 @@ type PageInfo {
 type Query {
   myAccountTimelines(accountId: Int!): [ShortTimeline!]!
   timelineCursorEvents(
-    accountId: Int!
+    accountId: Int
     cursor: String
     limit: Limit
     timelineId: Int!
   ): TimelineEvents!
-  timelineEvents(limit: Limit, timelineId: Int!): [TimelineEvent!]!
 }
 
 input SaveAccountInput {
