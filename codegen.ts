@@ -24,7 +24,6 @@ const operationsConfig = (serviceName: string) => ({
   scalars: {
     Upload: 'File',
     Time: 'string',
-    Upload: 'File',
   },
 });
 
