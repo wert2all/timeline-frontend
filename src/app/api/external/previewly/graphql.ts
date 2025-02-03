@@ -55,7 +55,6 @@ export enum Status {
 export interface UploadInput {
   extra?: InputMaybe<Scalars['String']['input']>;
   image: Scalars['Upload']['input'];
-  name?: InputMaybe<Scalars['String']['input']>;
 }
 
 export type UploadImageStatus = {
