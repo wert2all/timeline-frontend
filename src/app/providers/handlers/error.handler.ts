@@ -23,4 +23,7 @@ export const handleError = (store = inject(Store)): ApolloLink => {
 
 const checkAuthorizationError = (
   extension: GraphQLFormattedErrorExtensions | undefined
-) => (extension?.['code'] as string).startsWith('auth/');
+) => {
+  const code = extension?.['code'] as string;
+  return code ? code.startsWith('auth/') : undefined;
+};
