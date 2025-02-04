@@ -1,6 +1,30 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
-import { TimelineEventType } from '../authorized/dashboard/store/events/events.types';
+import { Iterable, Loadable } from '../../app.types';
+
+export interface TimelineRequired {
+  date: Date;
+  type: TimelineEventType;
+  timelineId: number;
+}
+
+export enum TimelineEventType {
+  default = 'default',
+  celebrate = 'celebrate',
+}
+
+export type TimelineEvent = TimelineRequired &
+  Loadable & {
+    id?: number;
+    title?: string;
+    description?: string;
+    showTime?: boolean;
+    url?: string;
+    tags?: string[];
+    imageId?: number;
+  };
+
+export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 
 export class ViewTimelineTag {
   public readonly value: string;

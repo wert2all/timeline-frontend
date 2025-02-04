@@ -24,10 +24,12 @@ import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
-import { ViewTimelineEventIcon } from '../../../timeline/timeline.types';
+import {
+  TimelineEventType,
+  ViewTimelineEventIcon,
+} from '../../../timeline/timeline.types';
 import { EventActions } from '../store/events/events.actions';
 import { eventsFeature } from '../store/events/events.reducer';
-import { TimelineEventType } from '../store/events/events.types';
 import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';

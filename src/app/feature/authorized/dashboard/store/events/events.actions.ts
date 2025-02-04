@@ -6,9 +6,9 @@ import {
 import { Undefined } from '../../../../../app.types';
 import {
   ExistTimelineEvent,
-  LoadEventActionOptions,
   TimelineEvent,
-} from './events.types';
+} from '../../../../timeline/timeline.types';
+import { LoadEventActionOptions } from './events.types';
 
 export const EventActions = createActionGroup({
   source: 'Event',
