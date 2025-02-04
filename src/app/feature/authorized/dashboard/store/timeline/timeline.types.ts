@@ -1,38 +1,5 @@
-import {
-  Iterable,
-  Loadable,
-  Status,
-  Undefined,
-} from '../../../../../app.types';
-import { ViewDatetime } from '../../../../../libs/view/date.types';
-import {
-  TimelineEvent,
-  ViewTimelineEventIcon,
-  ViewTimelineTag,
-  ViewTimelineUrl,
-} from '../../../../timeline/timeline.types';
-
-export interface ViewEventImage {
-  imageId: number;
-  status: Status;
-  title?: string;
-  previewUrl?: string;
-  url?: string;
-}
-
-export type ViewTimelineEvent = Omit<
-  TimelineEvent,
-  'date' | 'url' | 'tags' | 'description'
-> & {
-  description: string;
-  icon?: ViewTimelineEventIcon;
-  date: ViewDatetime;
-  url: ViewTimelineUrl | null;
-  tags: ViewTimelineTag[];
-  image: Undefined | ViewEventImage;
-};
-
-export type ExistViewTimelineEvent = Iterable & Omit<ViewTimelineEvent, 'id'>;
+import { Iterable, Loadable, Undefined } from '../../../../../app.types';
+import { TimelineEvent } from '../../../../timeline/timeline.types';
 
 export type Timeline = Iterable & { name: string | null };
 export type ActiveTimeline = Iterable & { name: string };

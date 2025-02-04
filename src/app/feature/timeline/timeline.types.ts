@@ -1,6 +1,7 @@
 import { IconType } from '@ng-icons/core';
 import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
-import { Iterable, Loadable } from '../../app.types';
+import { Iterable, Loadable, Status, Undefined } from '../../app.types';
+import { ViewDatetime } from '../../libs/view/date.types';
 
 export interface TimelineRequired {
   date: Date;
@@ -24,7 +25,28 @@ export type TimelineEvent = TimelineRequired &
     imageId?: number;
   };
 
+export interface ViewEventImage {
+  imageId: number;
+  status: Status;
+  title?: string;
+  previewUrl?: string;
+  url?: string;
+}
+
+export type ViewTimelineEvent = Omit<
+  TimelineEvent,
+  'date' | 'url' | 'tags' | 'description'
+> & {
+  description: string;
+  icon?: ViewTimelineEventIcon;
+  date: ViewDatetime;
+  url: ViewTimelineUrl | null;
+  tags: ViewTimelineTag[];
+  image: Undefined | ViewEventImage;
+};
+
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
+export type ExistViewTimelineEvent = Iterable & Omit<ViewTimelineEvent, 'id'>;
 
 export class ViewTimelineTag {
   public readonly value: string;

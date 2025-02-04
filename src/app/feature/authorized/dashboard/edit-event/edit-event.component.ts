@@ -9,7 +9,6 @@ import {
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 import { timelineFeature } from '../store/timeline/timeline.reducer';
-import { ViewTimelineEvent } from '../store/timeline/timeline.types';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -26,6 +25,7 @@ import { EventMainContentComponent } from '../../../timeline/components/event/co
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
   TimelineEventType,
+  ViewTimelineEvent,
   ViewTimelineEventIcon,
 } from '../../../timeline/timeline.types';
 import { EventActions } from '../store/events/events.actions';
