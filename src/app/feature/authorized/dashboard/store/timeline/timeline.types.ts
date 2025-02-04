@@ -6,11 +6,11 @@ import {
 } from '../../../../../app.types';
 import { ViewDatetime } from '../../../../../libs/view/date.types';
 import {
+  TimelineEvent,
   ViewTimelineEventIcon,
   ViewTimelineTag,
   ViewTimelineUrl,
 } from '../../../../timeline/timeline.types';
-import { TimelineEvent } from '../events/events.types';
 
 export interface ViewEventImage {
   imageId: number;

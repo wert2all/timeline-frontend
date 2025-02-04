@@ -13,11 +13,11 @@ import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { TaskActions } from '../../../store/task/task.actions';
 import { createViewTimelineEvent } from '../../authorized/dashboard/edit-event/editable-event-view.factory';
+import { ImagesTaskExecutorFactory } from '../../task/executors/images.factory';
 import {
   ExistTimelineEvent,
   TimelineEventType,
-} from '../../authorized/dashboard/store/events/events.types';
-import { ImagesTaskExecutorFactory } from '../../task/executors/images.factory';
+} from '../../timeline/timeline.types';
 
 @Component({
   standalone: true,

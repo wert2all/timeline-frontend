@@ -1,14 +1,12 @@
 import { Status } from '../../../../app.types';
 import { createViewDatetime } from '../../../../libs/view/date.functions';
 import {
-  ViewTimelineEventIcon,
-  ViewTimelineTag,
-} from '../../../timeline/timeline.types';
-import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../store/events/events.types';
+  ViewTimelineEventIcon,
+  ViewTimelineTag,
+} from '../../../timeline/timeline.types';
 import { ViewTimelineEvent } from '../store/timeline/timeline.types';
 
 const prepareUrl = (url: string | undefined) => {
