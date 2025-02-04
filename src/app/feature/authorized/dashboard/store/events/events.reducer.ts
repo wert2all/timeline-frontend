@@ -1,10 +1,10 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { ExistViewTimelineEvent } from '../../../../timeline/timeline.types';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
 } from '../../edit-event/editable-event-view.factory';
 import { timelineFeature } from '../timeline/timeline.reducer';
-import { ExistViewTimelineEvent } from '../timeline/timeline.types';
 import { EventActions } from './events.actions';
 import { EventsState } from './events.types';
 

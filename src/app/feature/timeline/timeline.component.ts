@@ -6,7 +6,6 @@ import {
   output,
 } from '@angular/core';
 import { Iterable } from '../../app.types';
-import { ExistViewTimelineEvent } from '../authorized/dashboard/store/timeline/timeline.types';
 
 import { provideIcons } from '@ng-icons/core';
 import { saxMoreSquareOutline } from '@ng-icons/iconsax/outline';
@@ -14,7 +13,7 @@ import { LoadingButtonComponent } from '../../shared/content/loading-button/load
 import { EventMainContentComponent } from './components/event/content/main-content.component';
 import { IconComponent } from './components/event/icon/icon.component';
 import { TimelineEventMenuComponent } from './components/event/menu/menu.component';
-import { ViewTimelineTag } from './timeline.types';
+import { ExistViewTimelineEvent, ViewTimelineTag } from './timeline.types';
 
 @Component({
   selector: 'app-timeline',

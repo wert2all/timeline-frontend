@@ -18,7 +18,10 @@ import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
-import { ViewTimelineTag } from '../../timeline/timeline.types';
+import {
+  ExistViewTimelineEvent,
+  ViewTimelineTag,
+} from '../../timeline/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { EventActions } from './store/events/events.actions';
 import { eventsFeature } from './store/events/events.reducer';
@@ -69,7 +72,7 @@ export class MyPageComponent {
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
   protected readonly timeline = computed(() => {
     const images = this.rawImages();
-    return this.rawTimelineEvents().map(event => {
+    return this.rawTimelineEvents().map((event: ExistViewTimelineEvent) => {
       if (event.image) {
         const image = images.find(i => i.id === event.image?.imageId);
         if (image) {
