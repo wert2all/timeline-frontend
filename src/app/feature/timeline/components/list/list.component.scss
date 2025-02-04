@@ -1,0 +1,26 @@
+@use '../../../../../assets/css/global' as g;
+
+.timeline-item {
+  .item-content {
+    animation-duration: g.$animation-duration;
+  }
+
+  &.to-left {
+    .item-content {
+      @apply timeline-end lg:timeline-start lg:text-right;
+      animation-name: backInLeft;
+    }
+    .item-menu {
+      @apply lg:timeline-end lg:text-left;
+    }
+  }
+  &.to-right {
+    .item-content {
+      @apply timeline-end lg:text-left;
+      animation-name: backInRight;
+    }
+    .item-menu {
+      @apply lg:timeline-start lg:text-right;
+    }
+  }
+}

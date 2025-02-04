@@ -1,0 +1,31 @@
+@if (isLoading()) {
+  <div class="relative h-52">
+    <app-shared-loader></app-shared-loader>
+  </div>
+}
+
+@if (error()) {
+  <div role="alert" class="alert alert-error">
+    <ng-icon name="saxInformationOutline" size="32" />
+    <span>{{ error() }}</span>
+  </div>
+}
+
+@if (events(); as events) {
+  <app-timeline-events-list [events]="events">
+    <ng-content />
+  </app-timeline-events-list>
+}
+
+@if (hasLoadMore()) {
+  <div class="mt-8 flex justify-center">
+    <app-shared-content-loading-button
+      class="w-full"
+      [isLoading]="isLoading()"
+      [icon]="moreIcon"
+      [style]="'neutral w-full'"
+      (clickEvent)="loadMore()">
+      load more
+    </app-shared-content-loading-button>
+  </div>
+}

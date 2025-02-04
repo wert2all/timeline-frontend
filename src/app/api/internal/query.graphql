@@ -1,4 +1,4 @@
-query GetEvents($timelineId: Int!, $accountId: Int!, $cursor: String) {
+query GetEvents($timelineId: Int!, $accountId: Int, $cursor: String) {
   events: timelineCursorEvents(
     timelineId: $timelineId
     accountId: $accountId

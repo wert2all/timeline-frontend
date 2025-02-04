@@ -1,0 +1,28 @@
+<ul
+  class="timeline timeline-vertical timeline-snap-icon overflow-hidden max-md:timeline-compact">
+  @for (event of events(); track $index; let odd = $odd) {
+    <li
+      class="timeline-item mt-4"
+      [class.skeleton]="event.loading"
+      [class.to-left]="!odd"
+      [class.to-right]="odd">
+      <div class="timeline-middle" [class.opacity-20]="event.loading">
+        <app-timeline-event-icon [icon]="event.icon" />
+      </div>
+
+      <div
+        class="item-content w-full place-items-start overflow-hidden rounded-xl bg-base-100"
+        [class.opacity-20]="event.loading">
+        content
+        <app-timeline-event-main-content [event]="event" />
+
+        <ng-content />
+      </div>
+      <div class="item-menu hidden h-full w-full lg:block">
+        <ng-content />
+      </div>
+
+      <hr [class.opacity-20]="event.loading" />
+    </li>
+  }
+</ul>

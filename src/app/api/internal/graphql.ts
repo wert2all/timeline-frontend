@@ -179,7 +179,7 @@ export type AddAccount = { account: ShortAccount };
 
 export type GetEventsVariables = Exact<{
   timelineId: Scalars['Int']['input'];
-  accountId: Scalars['Int']['input'];
+  accountId?: InputMaybe<Scalars['Int']['input']>;
   cursor?: InputMaybe<Scalars['String']['input']>;
 }>;
 
@@ -432,7 +432,7 @@ export class AddAccountMutation extends Apollo.Mutation<
   }
 }
 export const GetEventsDocument = gql`
-  query GetEvents($timelineId: Int!, $accountId: Int!, $cursor: String) {
+  query GetEvents($timelineId: Int!, $accountId: Int, $cursor: String) {
     events: timelineCursorEvents(
       timelineId: $timelineId
       accountId: $accountId
