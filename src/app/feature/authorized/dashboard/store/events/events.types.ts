@@ -9,7 +9,7 @@ export type EventsState = Loadable & {
 };
 
 export interface LoadEventActionOptions {
-  accountId: number;
+  accountId: number | null;
   timelineId: number;
   cursor: string | Undefined;
 }
