@@ -12,9 +12,16 @@
 }
 
 @if (events(); as events) {
-  <app-timeline-events-list [events]="events">
-    <ng-content />
-  </app-timeline-events-list>
+  @if (events.length > 0) {
+    <app-timeline-events-list [events]="events">
+      <ng-content />
+    </app-timeline-events-list>
+  } @else {
+    <div role="alert" class="alert alert-info">
+      <ng-icon name="saxInformationOutline" size="32" />
+      <span>There are no events.</span>
+    </div>
+  }
 }
 
 @if (hasLoadMore()) {
