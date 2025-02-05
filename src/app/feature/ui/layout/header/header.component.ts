@@ -1,6 +1,7 @@
 import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { ClickOutside } from 'ngxtension/click-outside';
 import { Unique } from '../../../../app.types';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
@@ -13,7 +14,6 @@ import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../store/modal-window/modal-window.types';
 import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
-import { ClickOutsideDirective } from './click-outside.directive';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
 import { AccountView } from './header.types';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
@@ -27,7 +27,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
     HeaderThemeSwitchComponent,
     HeaderCurrentAccountComponent,
     CollapsableMenuComponent,
-    ClickOutsideDirective,
+    ClickOutside,
   ],
 })
 export class HeaderComponent {
