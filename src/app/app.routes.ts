@@ -48,4 +48,11 @@ export const routes: Routes = [
       ),
     canActivate: [maybeAuthGuard],
   },
+  {
+    path: '**',
+    loadComponent: () =>
+      import('./feature/non-authorized/404/404-page.component').then(
+        p => p.PageNotFoundComponent
+      ),
+  },
 ];
