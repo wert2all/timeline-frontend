@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.34](https://github.com/wert2all/timeline-frontend/compare/v0.0.33...v0.0.34) (2025-02-05)
+
+### Features
+
+- add 404 page ([e8fbcdf](https://github.com/wert2all/timeline-frontend/commit/e8fbcdf129ba1d941b43a0c729ab3e35104ffb51))
+- add account form ([c63fb29](https://github.com/wert2all/timeline-frontend/commit/c63fb299c842e7eedf6443553741b901526b6259))
+- add user account to account store ([28652cf](https://github.com/wert2all/timeline-frontend/commit/28652cf8278594b4fdc76272cd621db423c58da5))
+- expose timeline by one component ([0280348](https://github.com/wert2all/timeline-frontend/commit/0280348531002c196913c242104c74f7b62abc5c))
+- switch account ([ce1fe72](https://github.com/wert2all/timeline-frontend/commit/ce1fe72336927eeb55c8562d08fa77e5e14dc1b4))
+- switch account after adding new account ([afd28be](https://github.com/wert2all/timeline-frontend/commit/afd28be61e43dc4797f953ce5cde0b8c7efb7852))
+
+### Bug Fixes
+
+- add lazy loading images to timeline ([1ea725d](https://github.com/wert2all/timeline-frontend/commit/1ea725d7dca7095eac2c889f26135eb8dc8d1b82))
+- fix adding images to queque ([aa03b8f](https://github.com/wert2all/timeline-frontend/commit/aa03b8fb5efa14f509d802609167197e36425545))
+- fix auth error checking ([fef9b59](https://github.com/wert2all/timeline-frontend/commit/fef9b5910cb9013ae863cb4a92ff01bb0a3d821b))
+- fix setting accounts ([acb96fb](https://github.com/wert2all/timeline-frontend/commit/acb96fb90d698444416fb3c13da7415aca23b4c0))
+- fix showing user accounts ([10a2082](https://github.com/wert2all/timeline-frontend/commit/10a2082a2efd20a96d9343cd5949ac5f0a4d2f09))
+- fix some issues ([72c2f5a](https://github.com/wert2all/timeline-frontend/commit/72c2f5a52198db7e5f63392daa1ad788aeeb7f34))
+- fix switch account ([e279c77](https://github.com/wert2all/timeline-frontend/commit/e279c77236c771bc98df162d4d32460a45e73d80))
+- fix update account after save ([7e11677](https://github.com/wert2all/timeline-frontend/commit/7e1167743258c14367c241053219b388ec1bcca5))
+- logout for invalid auth token ([3703279](https://github.com/wert2all/timeline-frontend/commit/370327939c4bd8d4ffbf327835fc997538eaedf2))
+- replace custom click outside directive by ngxtension ([a4c9e78](https://github.com/wert2all/timeline-frontend/commit/a4c9e783f263690a9a6ab7b5725c5f51c6004184))
+- show notice for empty timeline ([c07d91d](https://github.com/wert2all/timeline-frontend/commit/c07d91da2bc5be383768e35261edc7879d19fb3a))
+- update account cache data after update account ([940bd77](https://github.com/wert2all/timeline-frontend/commit/940bd77f39b4970cf3bd600b2160fa4e10652e44))
+- update setting on cached accounts ([0b4a87f](https://github.com/wert2all/timeline-frontend/commit/0b4a87f56244128747d5e6e7092370254c8f5960))
+
 ## [0.0.33](https://github.com/wert2all/timeline-frontend/compare/v0.0.32...v0.0.33) (2025-01-22)
 
 ### Bug Fixes
