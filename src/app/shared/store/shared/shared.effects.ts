@@ -6,11 +6,14 @@ import {
   ofType,
 } from '@ngrx/effects';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
 import { CachedAccountsProvider } from '../../../feature/account/storage/cached-accounts.provider';
 import { AuthFacade } from '../../../feature/auth/auth.facade';
+import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
+import { TaskActions } from '../../../store/task/task.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
@@ -80,6 +83,19 @@ const doLogout = (
     tap(() => authFacade.logout())
   );
 
+const dispatchTaskForLoadingImages = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(SharedActions.dispatchLoadingImages),
+    map(({ ids }) =>
+      TaskActions.createTask({
+        task: ImagesTaskExecutorFactory.createTaskProps(
+          ids,
+          environment.services.previewly.token
+        ),
+      })
+    )
+  );
+
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
@@ -92,4 +108,9 @@ export const sharedEffects = {
     StoreUnDispatchEffect
   ),
   sendNotification: createEffect(sendNotification, StoreUnDispatchEffect),
+
+  dispatchTaskForLoadingImages: createEffect(
+    dispatchTaskForLoadingImages,
+    StoreDispatchEffect
+  ),
 };

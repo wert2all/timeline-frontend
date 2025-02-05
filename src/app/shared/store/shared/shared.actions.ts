@@ -19,6 +19,8 @@ export const SharedActions = createActionGroup({
     'Clean account': emptyProps(),
     Logout: emptyProps(),
 
+    'Dispatch loading images': props<{ ids: number[] }>(),
+
     'Error on Init Auth': props<{ error: Error }>(),
     'dispatch empty Previewly token error': emptyProps(),
   },
