@@ -31,6 +31,7 @@ import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.
 import { LoadingButtonComponent } from '../../../../shared/content/loading-button/loading-button.component';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { UploadedImage } from '../../../../shared/store/images/images.types';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { Timeline } from '../../../authorized/dashboard/store/timeline/timeline.types';
 import { ListComponent } from '../../components/list/list.component';
@@ -101,6 +102,17 @@ export class SharedTimelineComponent {
       ? this.eventsResource.value() || null
       : null
   );
+  private readonly viewEventsWithoutImages = computed(() => {
+    return this.successResponse()
+      ?.events.map(event => this.fromApiToExistEvent(event, this.timeline().id))
+      .map(event => this.createViewTimelineEvent(event));
+  });
+  private readonly allEventsImageIds = computed(() => {
+    return this.viewEventsWithoutImages()
+      ?.map(event => event.imageId)
+      .filter(id => !!id)
+      .map(id => id!);
+  });
   private readonly pageData = computed(() => this.successResponse()?.page);
 
   protected readonly isLoading = computed(
@@ -108,13 +120,10 @@ export class SharedTimelineComponent {
   );
   protected readonly events = computed(() => {
     const images = this.images();
-    return this.successResponse()
-      ?.events.map(event => this.fromApiToExistEvent(event, this.timeline().id))
-      .map(event => this.createViewTimelineEvent(event))
-      .map(event => ({
-        ...event,
-        image: this.updateEventImage(event.image, images),
-      }));
+    return this.viewEventsWithoutImages()?.map(event => ({
+      ...event,
+      image: this.updateEventImage(event.image, images),
+    }));
   });
 
   protected readonly error = computed(() =>
@@ -129,6 +138,15 @@ export class SharedTimelineComponent {
   constructor() {
     effect(() => {
       this.cursor.set(this.pageData()?.endCursor || null);
+    });
+
+    effect(() => {
+      const images = this.allEventsImageIds();
+      if (images) {
+        this.store.dispatch(
+          SharedActions.dispatchLoadingImages({ ids: images })
+        );
+      }
     });
   }
 
