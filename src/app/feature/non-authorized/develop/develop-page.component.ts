@@ -29,7 +29,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
 
-  protected indexTimeline: Timeline = { id: 21, name: 'timeline' };
+  protected indexTimeline: Timeline = { id: 1, name: 'timeline' };
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
       {
