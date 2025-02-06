@@ -1,5 +1,11 @@
 import { Observable } from 'rxjs';
-import { Iterable, Undefined } from '../../app.types';
+import { Iterable, Undefined, Unique } from '../../app.types';
+
+export type AccountView = Unique & {
+  name: string;
+  firstLetter: string;
+  avatar?: string;
+};
 
 export type AccountSettings = Record<string, string>;
 export type Account = Iterable & {
@@ -10,5 +16,6 @@ export type Account = Iterable & {
 
 export interface AccountsProvigerInterface {
   getAccounts(): Observable<Account[]>;
+
   getAccount(accountId: number): Observable<Account | Undefined>;
 }

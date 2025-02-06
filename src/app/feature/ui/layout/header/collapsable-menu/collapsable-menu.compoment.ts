@@ -16,8 +16,8 @@ import {
 } from '@ng-icons/iconsax/outline';
 import { Unique } from '../../../../../app.types';
 import { AccountFeaturesSettings } from '../../../../../shared/services/features.service';
+import { AccountView } from '../../../../account/account.types';
 import { FeatureFlagComponent } from '../../../feature-flag/feature-flag.component';
-import { AccountView } from '../header.types';
 
 @Component({
   standalone: true,
