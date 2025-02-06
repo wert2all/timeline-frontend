@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.35](https://github.com/wert2all/timeline-frontend/compare/v0.0.34...v0.0.35) (2025-02-06)
+
+### Bug Fixes
+
+- fix format of dates ([85e6271](https://github.com/wert2all/timeline-frontend/commit/85e62718095199da5980ada654245356695701c0))
+- remove useless code ([706f8d6](https://github.com/wert2all/timeline-frontend/commit/706f8d6e096b1b20ca4f1bda50b0e77471cdf0d2))
+- set timeline id as 1 on develop page ([0bcbc4f](https://github.com/wert2all/timeline-frontend/commit/0bcbc4f56a81da5e41babe36b6f44710fe665421))
+
 ## [0.0.34](https://github.com/wert2all/timeline-frontend/compare/v0.0.33...v0.0.34) (2025-02-05)
 
 ### Features
