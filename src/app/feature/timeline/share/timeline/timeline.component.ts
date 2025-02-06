@@ -58,6 +58,7 @@ import {
 })
 export class SharedTimelineComponent {
   timeline = input.required<Timeline>();
+  limit = input<number | null>(null);
 
   private readonly store = inject(Store);
   private readonly api = inject(ApiClient);
@@ -103,9 +104,10 @@ export class SharedTimelineComponent {
       : null
   );
   private readonly viewEventsWithoutImages = computed(() => {
-    return this.successResponse()
+    const events = this.successResponse()
       ?.events.map(event => this.fromApiToExistEvent(event, this.timeline().id))
       .map(event => this.createViewTimelineEvent(event));
+    return this.limit() ? events?.slice(0, this.limit() || 0) : events;
   });
   private readonly allEventsImageIds = computed(() => {
     return this.viewEventsWithoutImages()
