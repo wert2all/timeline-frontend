@@ -1,0 +1,10 @@
+<app-shared-layout>
+  <div class="flex">
+    <div class="flex-auto">02</div>
+    <div class="w-72 flex-none border border-warning">
+      @if (timelineAccount(); as account) {
+        <app-shared-account-view [account]="account" />
+      }
+    </div>
+  </div>
+</app-shared-layout>

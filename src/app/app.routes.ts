@@ -49,6 +49,13 @@ export const routes: Routes = [
     canActivate: [maybeAuthGuard],
   },
   {
+    path: 'timeline/:timelineId',
+    loadComponent: () =>
+      import('./feature/non-authorized/timeline/timeline-page.component').then(
+        t => t.TimelinePageComponent
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./feature/non-authorized/404/404-page.component').then(
