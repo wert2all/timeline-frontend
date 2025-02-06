@@ -1,0 +1,20 @@
+<div
+  class="flex cursor-pointer place-items-center justify-start gap-2 overflow-hidden rounded-xl bg-success text-success-content transition-all duration-300 ease-linear"
+  [class.bg-warning]="isSelected()"
+  (click)="accountClick.emit()"
+  (keydown.enter)="accountClick.emit()"
+  tabindex="0">
+  <div class="avatar placeholder bg-primary text-primary-content">
+    <div
+      class="w-12 bg-cover bg-no-repeat"
+      [class.with-avatar]="account().avatar"
+      [style.background]="avatar()">
+      <span class="text-2xl text-neutral-content">
+        {{ account().firstLetter }}
+      </span>
+    </div>
+  </div>
+  <div class="hidden pe-2 lg:block">
+    {{ account().name }}
+  </div>
+</div>

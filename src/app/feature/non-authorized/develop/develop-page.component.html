@@ -2,6 +2,20 @@
   <div class="p-4">
     <app-shared-content-title title="UI components" />
 
+    <div class="py-4" id="SharedAccountViewComponent">
+      <h2 class="text-2xl">SharedAccountViewComponent</h2>
+      <div class="mt-4 grid w-full grid-cols-4 gap-4">
+        <app-shared-account-view [account]="withoutAvatar()" />
+        <app-shared-account-view
+          [account]="withoutAvatar()"
+          [isSelected]="true" />
+        <app-shared-account-view [account]="withoutAvatarWithAvatar()" />
+        <app-shared-account-view
+          [account]="withoutAvatarWithAvatar()"
+          [isSelected]="true" />
+      </div>
+    </div>
+
     <div class="py-4" id="TimelineComponent">
       <h2 class="text-2xl">TimelineComponent</h2>
       <div class="mt-4 grid w-full grid-cols-1 gap-4">

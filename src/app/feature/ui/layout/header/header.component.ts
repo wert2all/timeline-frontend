@@ -7,15 +7,14 @@ import { NavigationActions } from '../../../../shared/store/navigation/navigatio
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { Account } from '../../../account/account.types';
+import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { AuthFacade } from '../../../auth/auth.facade';
-import { HeaderCurrentAccountComponent } from '../../../non-authorized/user/shared/header-current-account/header-current-account.component';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../store/modal-window/modal-window.types';
 import { NotificationStore } from '../store/notification/notifications.store';
 import { ThemeService } from '../theme.service';
 import { CollapsableMenuComponent } from './collapsable-menu/collapsable-menu.compoment';
-import { AccountView } from './header.types';
 import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.component';
 
 @Component({
@@ -25,7 +24,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
   imports: [
     HeaderLoginButtonComponent,
     HeaderThemeSwitchComponent,
-    HeaderCurrentAccountComponent,
+    SharedAccountViewComponent,
     CollapsableMenuComponent,
     ClickOutside,
   ],
@@ -134,7 +133,7 @@ export class HeaderComponent {
     }
   }
 
-  private toAccountView(account: Account | null): AccountView | null {
+  private toAccountView(account: Account | null) {
     return account
       ? {
           uuid: account.id.toString(),

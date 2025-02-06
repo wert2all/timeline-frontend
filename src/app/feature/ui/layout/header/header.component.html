@@ -16,12 +16,12 @@
     @if (currentAccountView(); as account) {
       <div class="relative lg:w-56">
         <div
-          class="w-full overflow-hidden rounded-xl bg-success text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20"
+          class="w-full rounded-xl text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20 lg:bg-success"
           (clickOutside)="closeMenu()">
-          <app-shared-header-current-account
-            (openMenu)="openMenu()"
+          <app-shared-account-view
+            (accountClick)="openMenu()"
             [account]="account"
-            [isOpenMenu]="isOpenMenu()" />
+            [isSelected]="isOpenMenu()" />
           <app-top-menu-collapsable-menu
             class="hidden lg:block"
             [isOpenMenu]="isOpenMenu()"
