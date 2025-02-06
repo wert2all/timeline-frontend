@@ -9,10 +9,8 @@ export const createViewDatetime = (
 
   return {
     originalDate: date,
-    relative: showTime ? dateTime.toRelative() : dateTime.toRelativeCalendar(),
-    date:
-      dateTime.toLocaleString(DateTime.DATE_SHORT) +
-      (showTime ? ' ' + dateTime.toLocaleString(DateTime.TIME_24_SIMPLE) : ''),
+    relative: dateTime.toRelative(),
+    date: dateTime.toFormat('dd LLL yyyy' + (showTime ? ', HH:mm' : '')),
     time: dateTime.toLocaleString(DateTime.TIME_24_SIMPLE),
   };
 };
