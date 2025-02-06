@@ -65,6 +65,7 @@ type PageInfo {
 
 type Query {
   myAccountTimelines(accountId: Int!): [ShortTimeline!]!
+  timeline(timelineId: Int!): Timeline
   timelineCursorEvents(
     accountId: Int
     cursor: String
@@ -97,6 +98,12 @@ enum Status {
 }
 
 scalar Time
+
+type Timeline {
+  account: ShortAccount!
+  id: Int!
+  name: String
+}
 
 type TimelineEvent {
   date: Time!

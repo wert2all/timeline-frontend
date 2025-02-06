@@ -110,6 +110,12 @@ export type ShortTimeline = { id: number; name?: string | null };
 
 export type TimelineEvents = { events: Array<TimelineEvent>; page: PageInfo };
 
+export type Timeline = {
+  id: number;
+  name?: string | null;
+  account: { id: number; name?: string | null };
+};
+
 export type User = {
   id: number;
   name?: string | null;
@@ -191,6 +197,12 @@ export type GetAccountTimelinesVariables = Exact<{
 
 export type GetAccountTimelines = { timelines: Array<ShortTimeline> };
 
+export type GetTimelineVariables = Exact<{
+  timelineId: Scalars['Int']['input'];
+}>;
+
+export type GetTimeline = { timeline?: Timeline | null };
+
 export const ShortTimeline = gql`
   fragment ShortTimeline on ShortTimeline {
     id
@@ -228,6 +240,16 @@ export const TimelineEvents = gql`
   }
   ${TimelineEvent}
   ${PageInfo}
+`;
+export const Timeline = gql`
+  fragment Timeline on Timeline {
+    id
+    name
+    account {
+      id
+      name
+    }
+  }
 `;
 export const Settings = gql`
   fragment Settings on AccountSettings {
@@ -480,6 +502,28 @@ export class GetAccountTimelinesQuery extends Apollo.Query<
     super(apollo);
   }
 }
+export const GetTimelineDocument = gql`
+  query GetTimeline($timelineId: Int!) {
+    timeline: timeline(timelineId: $timelineId) {
+      ...Timeline
+    }
+  }
+  ${Timeline}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetTimelineQuery extends Apollo.Query<
+  GetTimeline,
+  GetTimelineVariables
+> {
+  override document = GetTimelineDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -504,7 +548,8 @@ export class ApiClient {
     private saveAccountMutation: SaveAccountMutation,
     private addAccountMutation: AddAccountMutation,
     private getEventsQuery: GetEventsQuery,
-    private getAccountTimelinesQuery: GetAccountTimelinesQuery
+    private getAccountTimelinesQuery: GetAccountTimelinesQuery,
+    private getTimelineQuery: GetTimelineQuery
   ) {}
 
   authorize(
@@ -598,5 +643,19 @@ export class ApiClient {
     options?: WatchQueryOptionsAlone<GetAccountTimelinesVariables>
   ) {
     return this.getAccountTimelinesQuery.watch(variables, options);
+  }
+
+  getTimeline(
+    variables: GetTimelineVariables,
+    options?: QueryOptionsAlone<GetTimelineVariables>
+  ) {
+    return this.getTimelineQuery.fetch(variables, options);
+  }
+
+  getTimelineWatch(
+    variables: GetTimelineVariables,
+    options?: WatchQueryOptionsAlone<GetTimelineVariables>
+  ) {
+    return this.getTimelineQuery.watch(variables, options);
   }
 }

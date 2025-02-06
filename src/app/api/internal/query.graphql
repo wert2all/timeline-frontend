@@ -14,3 +14,9 @@ query GetAccountTimelines($accountId: Int!) {
     ...ShortTimeline
   }
 }
+
+query GetTimeline($timelineId: Int!) {
+  timeline: timeline(timelineId: $timelineId) {
+    ...Timeline
+  }
+}
