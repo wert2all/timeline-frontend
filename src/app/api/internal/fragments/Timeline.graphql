@@ -23,3 +23,12 @@ fragment TimelineEvents on TimelineEvents {
     ...PageInfo
   }
 }
+
+fragment Timeline on Timeline {
+  id
+  name
+  account {
+    id
+    name
+  }
+}
