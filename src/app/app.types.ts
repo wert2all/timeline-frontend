@@ -31,7 +31,7 @@ export enum Pending {
 }
 export type StatusWithPending = Status | Pending;
 
-export interface WithError {
+export interface MaybeWithError {
   error?: Error | Undefined;
 }
 export interface WithStatus {
@@ -41,7 +41,7 @@ export interface WithPandingStatus {
   status: Status | Pending;
 }
 
-export type DataWrapper<T> = WithError & WithStatus & { data?: T };
+export type DataWrapper<T> = MaybeWithError & WithStatus & { data?: T };
 
 export const StoreDispatchEffect: EffectConfig & {
   functional: true;

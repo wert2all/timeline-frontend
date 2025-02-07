@@ -1,10 +1,10 @@
 import {
   Iterable,
+  MaybeWithError,
   StatusWithPending,
   Undefined,
   Unique,
   UniqueType,
-  WithError,
   WithPandingStatus,
 } from '../../../app.types';
 
@@ -18,7 +18,7 @@ export type UploadedImage = Iterable & {
   error: string | Undefined;
 };
 export type UploadQuequeImage = Unique &
-  WithError &
+  MaybeWithError &
   WithPandingStatus & { id?: number };
 
 export interface ImagesState {
