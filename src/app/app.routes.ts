@@ -7,11 +7,16 @@ import { previewEffects } from './feature/authorized/dashboard/store/preview/pre
 import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
 import { timelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
 import { timelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
+import { timelineEffects as newTimelineEffects } from './feature/timeline/store/timeline.effects';
+import { timelineFeature as newTimelineFeature } from './feature/timeline/store/timeline.reducers';
 import { maybeAuthGuard } from './libs/maybe-auth.guard';
-
 export const routes: Routes = [
   {
     path: '',
+    providers: [
+      provideState(newTimelineFeature),
+      provideEffects(newTimelineEffects),
+    ],
     loadComponent: () =>
       import('./feature/non-authorized/index/index-page.component').then(
         i => i.IndexPageComponent
@@ -40,7 +45,13 @@ export const routes: Routes = [
       provideState(timelineFeature),
       provideState(eventsFeature),
       provideState(previewFeature),
-      provideEffects(timelineEffects, eventsEffects, previewEffects),
+      provideState(newTimelineFeature),
+      provideEffects(
+        timelineEffects,
+        eventsEffects,
+        previewEffects,
+        newTimelineEffects
+      ),
     ],
     loadComponent: () =>
       import('./feature/authorized/dashboard/my-page.component').then(
@@ -50,6 +61,10 @@ export const routes: Routes = [
   },
   {
     path: 'timeline/:timelineId',
+    providers: [
+      provideState(newTimelineFeature),
+      provideEffects(newTimelineEffects),
+    ],
     loadComponent: () =>
       import('./feature/non-authorized/timeline/timeline-page.component').then(
         t => t.TimelinePageComponent
