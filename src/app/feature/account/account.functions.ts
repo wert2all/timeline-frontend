@@ -28,9 +28,12 @@ export const toFeaturesSettings = (
 };
 
 export const toAccountView = (
-  account: Iterable & { name?: string | Undefined }
-): AccountView => ({
-  uuid: account.id.toString(),
-  name: account.name || 'John Doe',
-  firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-});
+  account: Undefined | (Iterable & { name?: string | Undefined })
+): AccountView | null =>
+  account
+    ? {
+        uuid: account.id.toString(),
+        name: account.name || 'John Doe',
+        firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+      }
+    : null;
