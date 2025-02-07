@@ -1,12 +1,14 @@
 <app-shared-layout>
-  <div class="flex gap-4 p-4">
+  <div class="flex flex-col-reverse gap-4 p-4 lg:flex-row">
     <div class="flex-auto">
       <app-shared-timeline [timelineId]="1" />
     </div>
-    <div class="w-72 flex-none">
+    <div class="lg:w-72 lg:flex-none">
       @if (timelineAccount(); as account) {
-        <div class="rounded-xl bg-base-300 pb-8 shadow-xl">
-          <app-shared-account-view [account]="account" />
+        <div class="rounded-xl bg-base-300 shadow-xl lg:pb-8">
+          <app-shared-account-view
+            [account]="account"
+            extraContainerClasses="bg-warning lg:rounded-b-none" />
         </div>
       }
     </div>

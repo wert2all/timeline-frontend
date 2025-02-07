@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, computed, input, output } from '@angular/core';
 import { AccountView } from '../../account.types';
 
@@ -6,10 +7,11 @@ import { AccountView } from '../../account.types';
   selector: 'app-shared-account-view',
   templateUrl: './account-view.component.html',
   styleUrl: './account-view.component.scss',
+  imports: [NgClass],
 })
 export class SharedAccountViewComponent {
   account = input.required<AccountView>();
-  isSelected = input(false);
+  extraContainerClasses = input<string>('');
 
   accountClick = output();
 

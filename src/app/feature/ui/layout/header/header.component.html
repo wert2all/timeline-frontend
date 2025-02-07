@@ -14,14 +14,14 @@
     }
 
     @if (currentAccountView(); as account) {
-      <div class="relative lg:w-56">
+      <div class="relative w-12 lg:w-56">
         <div
           class="w-full rounded-xl text-success-content lg:absolute lg:-top-6 lg:left-0 lg:z-20 lg:bg-success"
           (clickOutside)="closeMenu()">
           <app-shared-account-view
             (accountClick)="openMenu()"
             [account]="account"
-            [isSelected]="isOpenMenu()" />
+            [extraContainerClasses]="isOpenMenu() ? 'bg-warning' : ''" />
           <app-top-menu-collapsable-menu
             class="hidden lg:block"
             [isOpenMenu]="isOpenMenu()"

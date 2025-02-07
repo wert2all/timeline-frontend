@@ -6,7 +6,7 @@ import { Unique } from '../../../../app.types';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { Account } from '../../../account/account.types';
+import { Account, AccountView } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
@@ -60,7 +60,7 @@ export class HeaderComponent {
   protected readonly userAccounts = this.store.selectSignal(
     sharedFeature.selectUserAccounts
   );
-  protected readonly userAccountsViews = computed(() =>
+  protected readonly userAccountsViews = computed((): AccountView[] =>
     this.userAccounts()
       .map(account => this.toAccountView(account))
       .filter(account => !!account)

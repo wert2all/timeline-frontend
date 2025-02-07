@@ -1,6 +1,6 @@
 <div
   class="flex cursor-pointer place-items-center justify-start gap-2 overflow-hidden rounded-xl bg-success text-success-content transition-all duration-300 ease-linear"
-  [class.bg-warning]="isSelected()"
+  [ngClass]="extraContainerClasses()"
   (click)="accountClick.emit()"
   (keydown.enter)="accountClick.emit()"
   tabindex="0">
@@ -14,7 +14,5 @@
       </span>
     </div>
   </div>
-  <div class="hidden pe-2 lg:block">
-    {{ account().name }}
-  </div>
+  <div class="pe-2">{{ account().name }}</div>
 </div>
