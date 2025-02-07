@@ -7,7 +7,7 @@ import { NavigationActions } from '../../../../shared/store/navigation/navigatio
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../../account/account.functions';
-import { Account, AccountView } from '../../../account/account.types';
+import { AccountView } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { AuthFacade } from '../../../auth/auth.facade';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
@@ -53,9 +53,9 @@ export class HeaderComponent {
     sharedFeature.selectActiveAccountFeatureSettings
   );
 
-  protected readonly currentAccountView = computed(() => {
-    return this.toAccountView(this.activeAccount());
-  });
+  protected readonly currentAccountView = computed(() =>
+    toAccountView(this.activeAccount())
+  );
 
   protected readonly isDarkTheme = this.themeService.isDark;
   protected readonly userAccounts = this.store.selectSignal(
@@ -63,7 +63,7 @@ export class HeaderComponent {
   );
   protected readonly userAccountsViews = computed((): AccountView[] =>
     this.userAccounts()
-      .map(account => this.toAccountView(account))
+      .map(account => toAccountView(account))
       .filter(account => !!account)
   );
 
@@ -132,9 +132,5 @@ export class HeaderComponent {
         SharedActions.switchActiveAccount({ account: selectedAccount })
       );
     }
-  }
-
-  private toAccountView(account: Account | null) {
-    return account ? toAccountView(account) : null;
   }
 }

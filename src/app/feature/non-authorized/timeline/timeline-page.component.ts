@@ -1,10 +1,10 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ResourceStatus,
   computed,
   inject,
   input,
-  ResourceStatus,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -67,8 +67,7 @@ export class TimelinePageComponent {
       : null;
   });
 
-  protected readonly timelineAccount = computed((): AccountView | null => {
-    const account = this.successResponse()?.account;
-    return account ? toAccountView(account) : null;
-  });
+  protected readonly timelineAccount = computed((): AccountView | null =>
+    toAccountView(this.successResponse()?.account)
+  );
 }
