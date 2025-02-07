@@ -33,7 +33,6 @@ import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { UploadedImage } from '../../../../shared/store/images/images.types';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { Timeline } from '../../../authorized/dashboard/store/timeline/timeline.types';
 import { ListComponent } from '../../components/list/list.component';
 import {
   ExistTimelineEvent,
@@ -57,7 +56,7 @@ import {
   viewProviders: [provideIcons({ saxInformationOutline })],
 })
 export class SharedTimelineComponent {
-  timeline = input.required<Timeline>();
+  timelineId = input.required<number>();
   limit = input<number | null>(null);
 
   private readonly store = inject(Store);
@@ -77,7 +76,7 @@ export class SharedTimelineComponent {
   private readonly query = computed(() => {
     return {
       cursor: this.cursor(),
-      timelineId: this.timeline().id,
+      timelineId: this.timelineId(),
       accountId: this.activeAccountId() || null,
     };
   });
@@ -105,7 +104,7 @@ export class SharedTimelineComponent {
   );
   private readonly viewEventsWithoutImages = computed(() => {
     const events = this.successResponse()
-      ?.events.map(event => this.fromApiToExistEvent(event, this.timeline().id))
+      ?.events.map(event => this.fromApiToExistEvent(event, this.timelineId()))
       .map(event => this.createViewTimelineEvent(event));
     return this.limit() ? events?.slice(0, this.limit() || 0) : events;
   });
