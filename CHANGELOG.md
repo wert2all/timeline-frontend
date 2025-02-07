@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.36](https://github.com/wert2all/timeline-frontend/compare/v0.0.35...v0.0.36) (2025-02-07)
+
+### Features
+
+- add route params binding ([20d0651](https://github.com/wert2all/timeline-frontend/commit/20d06517a5d489042ff5f24a0ad6ca8ff60a01db))
+- add timeline events limit for develop page ([733a61b](https://github.com/wert2all/timeline-frontend/commit/733a61b775ae22050a64cc4f14b3086a92439f40))
+- create timeline page ([3e39798](https://github.com/wert2all/timeline-frontend/commit/3e397981239abc15bd6e0f7d6739d08b8a6bcf58))
+- expose timeline on timelien page ([c49f0e1](https://github.com/wert2all/timeline-frontend/commit/c49f0e11fecba7878720abdb895e38964a82d519))
+- switch timeline component on index page ([f8b6b2a](https://github.com/wert2all/timeline-frontend/commit/f8b6b2a0d74eea308d1e3c9d3b018b7f2a442e19))
+
+### Bug Fixes
+
+- fix mobile view of timeline page ([5498d13](https://github.com/wert2all/timeline-frontend/commit/5498d137e4579cfd9559b4c5d9392f5a8856403a))
+- update timeline page ([8a21f2b](https://github.com/wert2all/timeline-frontend/commit/8a21f2bc1373c85012ba15b361762f922af57637))
+- update toAccountView function ([a4ebe9f](https://github.com/wert2all/timeline-frontend/commit/a4ebe9fc4a7234c3223ef0173c2cc57055ef0b16))
+
 ## [0.0.35](https://github.com/wert2all/timeline-frontend/compare/v0.0.34...v0.0.35) (2025-02-06)
 
 ### Bug Fixes
