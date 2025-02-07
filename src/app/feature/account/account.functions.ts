@@ -1,6 +1,6 @@
-import { Undefined } from '../../app.types';
+import { Iterable, Undefined } from '../../app.types';
 import { AccountFeaturesSettings } from '../../shared/services/features.service';
-import { Account } from './account.types';
+import { Account, AccountView } from './account.types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isAccount = (maybeAccount: any): maybeAccount is Account => {
@@ -26,3 +26,11 @@ export const toFeaturesSettings = (
   }
   return settings;
 };
+
+export const toAccountView = (
+  account: Iterable & { name?: string | Undefined }
+): AccountView => ({
+  uuid: account.id.toString(),
+  name: account.name || 'John Doe',
+  firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
+});

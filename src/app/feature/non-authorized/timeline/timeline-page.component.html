@@ -1,16 +1,27 @@
 <app-shared-layout>
   <div class="flex flex-col-reverse gap-4 p-4 lg:flex-row">
     <div class="flex-auto">
-      <app-shared-timeline [timelineId]="1" />
+      <app-shared-timeline [timelineId]="timelineId()" />
     </div>
     <div class="lg:w-72 lg:flex-none">
-      @if (timelineAccount(); as account) {
-        <div class="rounded-xl bg-base-300 shadow-xl lg:pb-8">
-          <app-shared-account-view
-            [account]="account"
-            extraContainerClasses="bg-warning lg:rounded-b-none" />
-        </div>
-      }
+      <div class="relative rounded-xl bg-base-300 shadow-xl">
+        @if (loading()) {
+          <div class="min-h-32"><app-shared-loader /></div>
+        }
+        @if (error()) {
+          <div role="alert" class="alert alert-error">
+            <ng-icon name="saxInformationOutline" size="32" />
+            <span>{{ error() }}</span>
+          </div>
+        }
+        @if (timelineAccount(); as account) {
+          <div class="pb-8">
+            <app-shared-account-view
+              [account]="account"
+              extraContainerClasses="bg-warning lg:rounded-b-none" />
+          </div>
+        }
+      </div>
     </div>
   </div>
 </app-shared-layout>

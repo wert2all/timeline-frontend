@@ -2,9 +2,19 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
+  ResourceStatus,
 } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { saxInformationOutline } from '@ng-icons/iconsax/outline';
+import { map } from 'rxjs';
+import { ApiClient } from '../../../api/internal/graphql';
+import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
+import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
+import { toAccountView } from '../../account/account.functions';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
@@ -18,25 +28,47 @@ import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.
     LayoutComponent,
     SharedAccountViewComponent,
     SharedTimelineComponent,
+    SharedLoaderComponent,
+    NgIconComponent,
   ],
+  viewProviders: [provideIcons({ saxInformationOutline })],
 })
 export class TimelinePageComponent {
-  timelineId = input<number>();
+  timelineId = input<number>(0);
 
-  // private readonly api = inject(ApiClient);
-  // private timelineResource = rxResource({
-  //   request: this.timelineId,
-  //   loader: ({ request }) => {
-  //     // return this.api
-  //     return of({ request });
-  //   },
-  // });
+  private readonly api = inject(ApiClient);
+  private timelineResource = rxResource({
+    request: this.timelineId,
+    loader: ({ request }) =>
+      this.api
+        .getTimeline({ timelineId: request })
+        .pipe(
+          map(result =>
+            apiAssertNotNull(
+              extractApiData(result)?.timeline,
+              'Cannot load timeline'
+            )
+          )
+        ),
+  });
 
-  timelineAccount = computed((): AccountView | null => {
-    return {
-      uuid: 'fake',
-      name: 'John Doe',
-      firstLetter: 'J',
-    };
+  private readonly successResponse = computed(() =>
+    this.timelineResource.status() === ResourceStatus.Resolved
+      ? this.timelineResource.value() || null
+      : null
+  );
+
+  protected readonly loading = computed(() => {
+    return this.timelineResource.status() === ResourceStatus.Loading;
+  });
+  protected readonly error = computed(() => {
+    return this.timelineResource.status() === ResourceStatus.Error
+      ? this.timelineResource.error() || 'Could not load timeline'
+      : null;
+  });
+
+  protected readonly timelineAccount = computed((): AccountView | null => {
+    const account = this.successResponse()?.account;
+    return account ? toAccountView(account) : null;
   });
 }
