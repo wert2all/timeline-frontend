@@ -34,6 +34,8 @@ import { UploadedImage } from '../../../../shared/store/images/images.types';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { ListComponent } from '../../components/list/list.component';
+import { TimelineActions } from '../../store/timeline.actions';
+import { timelineFeature } from '../../store/timeline.reducers';
 import {
   ExistTimelineEvent,
   ExistViewTimelineEvent,
@@ -116,8 +118,8 @@ export class SharedTimelineComponent {
   });
   private readonly pageData = computed(() => this.successResponse()?.page);
 
-  protected readonly isLoading = computed(
-    () => this.eventsResource.status() === ResourceStatus.Loading
+  protected readonly isLoading = this.store.selectSignal(
+    timelineFeature.selectLoading
   );
   protected readonly events = computed(() => {
     const images = this.images();
@@ -127,16 +129,18 @@ export class SharedTimelineComponent {
     }));
   });
 
-  protected readonly error = computed(() =>
-    this.eventsResource.status() === ResourceStatus.Error
-      ? this.eventsResource.error() || 'Could not load timeline'
-      : null
+  protected readonly error = this.store.selectSignal(
+    timelineFeature.selectError
   );
   protected readonly hasLoadMore = computed(
     () => this.pageData()?.hasNextPage || false
   );
 
   constructor() {
+    effect(() => {
+      this.store.dispatch(TimelineActions.loadTimelineEvents(this.query()));
+    });
+
     effect(() => {
       this.cursor.set(this.pageData()?.endCursor || null);
     });

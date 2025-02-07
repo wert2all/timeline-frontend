@@ -1,4 +1,5 @@
-import { createFeature, createReducer } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
+import { TimelineActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
@@ -8,5 +9,25 @@ const initialState: NewTimelineState = {
 };
 export const timelineFeature = createFeature({
   name: 'new-timeline',
-  reducer: createReducer(initialState),
+  reducer: createReducer(
+    initialState,
+
+    on(
+      TimelineActions.loadTimelineEvents,
+      (state): NewTimelineState => ({ ...state, loading: true })
+    ),
+    on(
+      TimelineActions.successLoadTimeline,
+      (state): NewTimelineState => ({ ...state, loading: false })
+    ),
+
+    on(
+      TimelineActions.errorLoadingTimelineEvent,
+      (state, { error }): NewTimelineState => ({
+        ...state,
+        loading: false,
+        error: error,
+      })
+    )
+  ),
 });
