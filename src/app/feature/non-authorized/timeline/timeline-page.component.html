@@ -5,7 +5,9 @@
     </div>
     <div class="w-72 flex-none">
       @if (timelineAccount(); as account) {
-        <app-shared-account-view [account]="account" />
+        <div class="rounded-xl bg-base-300 pb-8 shadow-xl">
+          <app-shared-account-view [account]="account" />
+        </div>
       }
     </div>
   </div>
