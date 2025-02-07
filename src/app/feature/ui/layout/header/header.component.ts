@@ -6,6 +6,7 @@ import { Unique } from '../../../../app.types';
 import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { toAccountView } from '../../../account/account.functions';
 import { Account, AccountView } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { AuthFacade } from '../../../auth/auth.facade';
@@ -134,12 +135,6 @@ export class HeaderComponent {
   }
 
   private toAccountView(account: Account | null) {
-    return account
-      ? {
-          uuid: account.id.toString(),
-          name: account.name || 'John Doe',
-          firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-        }
-      : null;
+    return account ? toAccountView(account) : null;
   }
 }
