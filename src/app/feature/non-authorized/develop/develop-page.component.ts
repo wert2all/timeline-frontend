@@ -9,7 +9,6 @@ import { Store } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
-import { Timeline } from '../../authorized/dashboard/store/timeline/timeline.types';
 import { MarkdownHelpComponent } from '../../static-content/share/markdown-help/markdown-help.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import { TableOfContentsActions } from '../../ui/table-of-contents/store/table-of-contents/table-of-contents.actions';
@@ -32,7 +31,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
 export class DevelopPageComponent implements OnInit {
   private readonly store = inject(Store);
 
-  protected indexTimeline: Timeline = { id: 1, name: 'timeline' };
+  protected indexTimeline = 1;
   protected readonly tableOfContent = signal<TableOfContents>({
     items: [
       {
