@@ -2,25 +2,16 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   ExistTimelineEventInput,
   TimelineEventInput,
-} from '../../../../../api/internal/graphql';
-import { Undefined } from '../../../../../app.types';
+} from '../../../../api/internal/graphql';
+import { Undefined } from '../../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../../timeline/store/timeline.types';
-import { LoadEventActionOptions } from './events.types';
+} from '../../../timeline/store/timeline.types';
 
 export const EventActions = createActionGroup({
   source: 'Event',
   events: {
-    'Load timeline events': props<LoadEventActionOptions>(),
-    'Load more events': props<LoadEventActionOptions>(),
-    'Success load timeline events': props<{
-      events: ExistTimelineEvent[];
-      cursor: string | Undefined;
-      hasNextPage: boolean;
-    }>(),
-
     'Dispatch edit event': props<{ eventId: number | Undefined }>(),
     'Stop editing event': emptyProps(),
 

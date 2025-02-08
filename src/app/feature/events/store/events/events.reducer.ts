@@ -2,35 +2,26 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
-} from '../../edit-event/editable-event-view.factory';
-import { timelineFeature } from '../timeline/timeline.reducer';
+} from '../../../authorized/dashboard/edit-event/editable-event-view.factory';
+import { timelineFeature } from '../../../authorized/dashboard/store/timeline/timeline.reducer';
 import { EventActions } from './events.actions';
 import { EventsState } from './events.types';
 
 const initialState: EventsState = {
   events: [],
   loading: false,
-  hasNextPage: false,
-  nextCursor: undefined,
   showEditEventId: null,
 };
 export const eventsFeature = createFeature({
   name: 'events',
   reducer: createReducer(
     initialState,
-    on(
-      EventActions.loadTimelineEvents,
-      EventActions.loadMoreEvents,
-      (state): EventsState => ({ ...state, loading: true })
-    ),
 
     on(
       EventActions.emptyEvent,
       EventActions.apiException,
-      EventActions.successLoadTimelineEvents,
       EventActions.successUpdateEvent,
       EventActions.successPushNewEvent,
-      EventActions.successLoadTimelineEvents,
       (state): EventsState => ({
         ...state,
         loading: false,
@@ -50,16 +41,6 @@ export const eventsFeature = createFeature({
       (state, { event }): EventsState => ({
         ...state,
         events: state.events.map(e => (event.id === e.id ? event : e)),
-      })
-    ),
-
-    on(
-      EventActions.successLoadTimelineEvents,
-      (state, { events, cursor, hasNextPage }): EventsState => ({
-        ...state,
-        events: [...state.events, ...events],
-        nextCursor: cursor,
-        hasNextPage: hasNextPage,
       })
     ),
 

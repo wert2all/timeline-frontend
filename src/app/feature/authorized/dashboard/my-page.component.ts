@@ -5,28 +5,16 @@ import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { TimelineActions } from './store/timeline/timeline.actions';
 import { timelineFeature } from './store/timeline/timeline.reducer';
 
-import {
-  Iterable,
-  Status,
-  StatusWithPending,
-  Undefined,
-} from '../../../app.types';
+import { Iterable, Undefined } from '../../../app.types';
 import { AddEventButtonComponent } from '../../timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
-import { TimelineComponent } from '../../timeline/timeline.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
 
-import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
+import { EventActions } from '../../events/store/events/events.actions';
+import { eventsFeature } from '../../events/store/events/events.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
-import {
-  ExistViewTimelineEvent,
-  ViewTimelineTag,
-} from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
-import { EventActions } from './store/events/events.actions';
-import { eventsFeature } from './store/events/events.reducer';
-import { LoadEventActionOptions } from './store/events/events.types';
 
 @Component({
   standalone: true,
@@ -37,7 +25,6 @@ import { LoadEventActionOptions } from './store/events/events.types';
     EditEventComponent,
     AddEventButtonComponent,
     ModalConfirmComponent,
-    TimelineComponent,
     SharedTimelineComponent,
   ],
 })
@@ -47,13 +34,6 @@ export class MyPageComponent {
   private readonly isEditingEvent = this.store.selectSignal(
     eventsFeature.isEditingEvent
   );
-  private readonly rawTimelineEvents = this.store.selectSignal(
-    eventsFeature.selectActiveTimelineViewEvents
-  );
-  private readonly rawImages = this.store.selectSignal(
-    imagesFeature.selectLoadedImages
-  );
-
   protected readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
   );
@@ -64,34 +44,11 @@ export class MyPageComponent {
   protected readonly isLoading = computed(() => {
     return !this.activeAccountId() || this.isTimelineLoading();
   });
-  protected readonly isEventsLoading = this.store.selectSignal(
-    eventsFeature.selectLoading
-  );
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
     timelineFeature.selectNewTimelineAdded
   );
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
-  protected readonly timeline = computed(() => {
-    const images = this.rawImages();
-    return this.rawTimelineEvents().map((event: ExistViewTimelineEvent) => {
-      if (event.image) {
-        const image = images.find(i => i.id === event.image?.imageId);
-        if (image) {
-          return {
-            ...event,
-            image: {
-              ...event.image,
-              previewUrl: image.data?.resized_490x250,
-              status: this.convertImageStatus(image.status),
-            },
-          };
-        }
-      }
-
-      return event;
-    });
-  });
   private readonly activeAccount = this.store.selectSignal(
     sharedFeature.selectActiveAccount
   );
@@ -101,9 +58,7 @@ export class MyPageComponent {
 
   protected readonly shouldDeleteEventId = signal<number>(0);
   private readonly shouldDeleteImageId = computed(() => {
-    return this.rawTimelineEvents().find(
-      event => (event.id = this.shouldDeleteEventId())
-    )?.imageId;
+    return this.shouldDeleteEventId();
   });
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEventId() > 0
@@ -116,21 +71,6 @@ export class MyPageComponent {
   protected shouldAddTimeline = computed(() => {
     return this.listTimelines().length === 0;
   });
-  protected readonly lastEventCursor = this.store.selectSignal(
-    eventsFeature.selectNextCursor
-  );
-  protected readonly hasMoreEvents = this.store.selectSignal(
-    eventsFeature.selectHasNextPage
-  );
-
-  protected readonly loadEventsOptions = computed(
-    (): LoadEventActionOptions | null => {
-      const accountId = this.activeAccountId();
-      const timelineId = this.activeTimeline()?.id || null;
-      const cursor = this.lastEventCursor();
-      return accountId && timelineId ? { accountId, timelineId, cursor } : null;
-    }
-  );
 
   constructor() {
     effect(() => {
@@ -150,10 +90,6 @@ export class MyPageComponent {
   //     })
   //   );
   // }
-
-  filterByTag(tag: ViewTimelineTag) {
-    throw new Error('Method not implemented.' + tag);
-  }
 
   deleteEvent(event: Iterable) {
     this.shouldDeleteEventId.set(event.id);
@@ -185,25 +121,8 @@ export class MyPageComponent {
   editEvent(event: Iterable) {
     this.store.dispatch(EventActions.dispatchEditEvent({ eventId: event.id }));
   }
+
   dispatchNewEventCreation() {
     this.store.dispatch(EventActions.dispatchEditEvent({ eventId: 0 }));
-  }
-
-  loadMoreEvents() {
-    const loadOptions = this.loadEventsOptions();
-    if (loadOptions) {
-      this.store.dispatch(EventActions.loadMoreEvents(loadOptions));
-    }
-  }
-
-  private convertImageStatus(status: StatusWithPending): Status {
-    switch (status) {
-      case Status.ERROR:
-        return Status.ERROR;
-      case Status.SUCCESS:
-        return Status.SUCCESS;
-      default:
-        return Status.LOADING;
-    }
   }
 }

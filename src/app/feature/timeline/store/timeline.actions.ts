@@ -2,7 +2,7 @@ import { createActionGroup, props } from '@ngrx/store';
 import { ExistTimelineEvent } from './timeline.types';
 
 export const TimelineActions = createActionGroup({
-  source: 'New Timeline',
+  source: 'Timeline Events',
   events: {
     'Load timeline events': props<{
       timelineId: number;

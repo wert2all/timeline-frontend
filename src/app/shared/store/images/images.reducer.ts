@@ -1,6 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Iterable, Pending, Status, UniqueType } from '../../../app.types';
-import { EventActions } from '../../../feature/authorized/dashboard/store/events/events.actions';
+import { EventActions } from '../../../feature/events/store/events/events.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
 
@@ -65,29 +65,6 @@ export const imagesFeature = createFeature({
     on(
       EventActions.stopEditingEvent,
       (state): ImagesState => ({ ...state, queue: {} })
-    ),
-    on(
-      EventActions.successLoadTimelineEvents,
-      (state, { events }): ImagesState => ({
-        ...state,
-        images: updateImagesState(
-          state.images,
-          events
-            .map(event =>
-              event.imageId &&
-              (!state.images[event.imageId] ||
-                !state.images[event.imageId].data)
-                ? {
-                    id: event.imageId,
-                    status: Pending.PENDING,
-                    error: null,
-                    data: null,
-                  }
-                : null
-            )
-            .filter(image => !!image)
-        ),
-      })
     ),
 
     on(

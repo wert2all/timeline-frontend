@@ -10,8 +10,8 @@ import {
   TaskResultImages,
 } from '../../../feature/task/executors/images.factory';
 
-import { EventActions } from '../../../feature/authorized/dashboard/store/events/events.actions';
-import { eventsFeature } from '../../../feature/authorized/dashboard/store/events/events.reducer';
+import { EventActions } from '../../../feature/events/store/events/events.actions';
+import { eventsFeature } from '../../../feature/events/store/events/events.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';
@@ -84,11 +84,7 @@ const createTaskForLoadImages = (
   store = inject(Store)
 ) =>
   actions$.pipe(
-    ofType(
-      EventActions.successUpdateEvent,
-      UploadActions.successUploadImage,
-      EventActions.successLoadTimelineEvents
-    ),
+    ofType(EventActions.successUpdateEvent, UploadActions.successUploadImage),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
     map(([, images]) => images.map(image => image.id)),
     concatLatestFrom(() =>

@@ -21,6 +21,8 @@ import { Tabs } from '../../../../shared/content/tabs/tabs.types';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { EventActions } from '../../../events/store/events/events.actions';
+import { eventsFeature } from '../../../events/store/events/events.reducer';
 import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
@@ -28,8 +30,6 @@ import {
   ViewTimelineEvent,
   ViewTimelineEventIcon,
 } from '../../../timeline/store/timeline.types';
-import { EventActions } from '../store/events/events.actions';
-import { eventsFeature } from '../store/events/events.reducer';
 import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
@@ -126,6 +126,7 @@ export class EditEventComponent {
       }
     });
   }
+
   protected closeEditForm() {
     this.store.dispatch(EventActions.stopEditingEvent());
   }
