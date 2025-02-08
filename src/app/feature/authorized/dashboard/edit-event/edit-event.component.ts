@@ -17,7 +17,6 @@ import {
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../../../app.types';
-import { Tabs } from '../../../../shared/content/tabs/tabs.types';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
@@ -112,7 +111,7 @@ export class EditEventComponent {
       image: this.currentUpload(),
     };
   });
-  protected readonly openTab = signal<Tabs | null>(null);
+
   protected readonly loading = signal(false);
 
   protected readonly icon = new ViewTimelineEventIcon(
