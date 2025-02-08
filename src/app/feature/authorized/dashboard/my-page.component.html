@@ -24,7 +24,7 @@
 
           <app-shared-timeline
             [timelineId]="activeTimeline()!.id"
-            [canEditEvent]="true"
+            [isEditable]="true"
             (delete)="deleteEvent($event)"
             (edit)="editEvent($event)" />
 
