@@ -1,5 +1,4 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { ExistViewTimelineEvent } from '../../../../timeline/timeline.types';
 import {
   createDefaultTimelineEvent,
   createViewTimelineEvent,
@@ -142,12 +141,10 @@ export const eventsFeature = createFeature({
       selectActiveTimelineViewEvents: createSelector(
         selectActiveTimelineEventsSelector,
         events =>
-          events.map(
-            (event): ExistViewTimelineEvent => ({
-              ...createViewTimelineEvent(event),
-              id: event.id,
-            })
-          )
+          events.map(event => ({
+            ...createViewTimelineEvent(event),
+            id: event.id,
+          }))
       ),
       isEditingEvent: createSelector(
         selectShouldEditEventSelector,

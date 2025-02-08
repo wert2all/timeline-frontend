@@ -1,13 +1,13 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
+import { TimelineActions } from './timeline.actions';
 import {
   ExistViewTimelineEvent,
+  NewTimelineState,
   ViewTimelineEventIcon,
   ViewTimelineTag,
-} from '../timeline.types';
-import { TimelineActions } from './timeline.actions';
-import { NewTimelineState } from './timeline.types';
+} from './timeline.types';
 
 const initialState: NewTimelineState = {
   loading: false,

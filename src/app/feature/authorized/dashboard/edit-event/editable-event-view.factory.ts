@@ -4,12 +4,10 @@ import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../../../timeline/store/timeline.types';
-import {
   ViewTimelineEvent,
   ViewTimelineEventIcon,
   ViewTimelineTag,
-} from '../../../timeline/timeline.types';
+} from '../../../timeline/store/timeline.types';
 
 const prepareUrl = (url: string | undefined) => {
   try {
