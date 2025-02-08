@@ -34,6 +34,10 @@ export type StatusWithPending = Status | Pending;
 export interface MaybeWithError {
   error?: Error | Undefined;
 }
+export interface WithError {
+  error: Error | Undefined;
+}
+
 export interface WithStatus {
   status: Status;
 }
@@ -43,6 +47,7 @@ export interface WithPandingStatus {
 
 export type DataWrapper<T> = MaybeWithError & WithStatus & { data?: T };
 
+export type StoreState = Loadable & WithError;
 export const StoreDispatchEffect: EffectConfig & {
   functional: true;
   dispatch?: true;
