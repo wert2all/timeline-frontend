@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Iterable } from '../../../../app.types';
+import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
 import { ExistViewTimelineEvent } from '../../store/timeline.types';
-import { EventMainContentComponent } from '../event/content/main-content.component';
 import { IconComponent } from '../event/icon/icon.component';
 import { TimelineEventMenuComponent } from '../event/menu/menu.component';
 
@@ -12,7 +12,7 @@ import { TimelineEventMenuComponent } from '../event/menu/menu.component';
   styleUrls: ['./list.component.scss'],
   imports: [
     IconComponent,
-    EventMainContentComponent,
+    SharedEventContentComponent,
     TimelineEventMenuComponent,
   ],
 })

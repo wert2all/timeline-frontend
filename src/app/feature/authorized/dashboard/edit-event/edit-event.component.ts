@@ -18,9 +18,9 @@ import { createViewDatetime } from '../../../../libs/view/date.functions';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
 import { EventActions } from '../../../events/store/events/events.actions';
 import { eventsFeature } from '../../../events/store/events/events.reducer';
-import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
   ExistTimelineEvent,
@@ -39,7 +39,7 @@ import { EditEventFormChanges } from './edit-event.types';
 @Component({
   selector: 'app-edit-event',
   standalone: true,
-  imports: [EventMainContentComponent, IconComponent, EditEventFormComponent],
+  imports: [SharedEventContentComponent, IconComponent, EditEventFormComponent],
   templateUrl: './edit-event.component.html',
   styleUrls: ['./edit-event.component.scss'],
 })

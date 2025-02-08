@@ -10,7 +10,7 @@
         <div
           class="timeline-start w-full rounded-xl bg-base-100 p-2 text-end"
           [class.opacity-20]="loading() === true">
-          <app-timeline-event-main-content [event]="preview" />
+          <app-shared-timeline-event-content [event]="preview" />
         </div>
         <div class="timeline-end w-full">
           <app-edit-event-form

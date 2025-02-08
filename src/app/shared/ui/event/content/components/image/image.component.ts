@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
-import { Status } from '../../../../../app.types';
-import { SharedLoaderComponent } from '../../../../../shared/content/loader/loader.component';
-import { ViewEventImage } from '../../../store/timeline.types';
+import { Status } from '../../../../../../app.types';
+import { ViewEventImage } from '../../../../../../feature/timeline/store/timeline.types';
+import { SharedLoaderComponent } from '../../../../../content/loader/loader.component';
 
 @Component({
   standalone: true,
@@ -9,7 +9,7 @@ import { ViewEventImage } from '../../../store/timeline.types';
   templateUrl: './image.component.html',
   imports: [SharedLoaderComponent],
 })
-export class EventImageComponent {
+export class ImageComponent {
   image = input.required<ViewEventImage>();
 
   isLoading = computed(
