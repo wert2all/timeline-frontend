@@ -17,10 +17,12 @@
       <ng-content />
     </app-timeline-events-list>
   } @else {
-    <div role="alert" class="alert alert-info">
-      <ng-icon name="saxInformationOutline" size="32" />
-      <span>There are no events.</span>
-    </div>
+    @if (!error()) {
+      <div role="alert" class="alert alert-info">
+        <ng-icon name="saxInformationOutline" size="32" />
+        <span>There are no events.</span>
+      </div>
+    }
   }
 }
 
