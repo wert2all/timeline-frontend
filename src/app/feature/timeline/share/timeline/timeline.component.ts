@@ -1,11 +1,23 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  output,
+} from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxInformationOutline,
   saxMoreSquareOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { Status, StatusWithPending, Undefined } from '../../../../app.types';
+import {
+  Iterable,
+  Status,
+  StatusWithPending,
+  Undefined,
+} from '../../../../app.types';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { LoadingButtonComponent } from '../../../../shared/content/loading-button/loading-button.component';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
@@ -31,6 +43,11 @@ import { ViewEventImage } from '../../store/timeline.types';
 export class SharedTimelineComponent {
   timelineId = input.required<number>();
   limit = input<number | null>(null);
+
+  canEditEvent = input<boolean>(false);
+
+  delete = output<Iterable>();
+  edit = output<Iterable>();
 
   private readonly store = inject(Store);
 
