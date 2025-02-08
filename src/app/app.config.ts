@@ -13,8 +13,16 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { accountEffects } from './feature/account/store/account.effects';
 import { accountFeature } from './feature/account/store/account.reducer';
+import { eventsEffects } from './feature/authorized/dashboard/store/events/events.effects';
+import { eventsFeature } from './feature/authorized/dashboard/store/events/events.reducer';
+import { previewEffects } from './feature/authorized/dashboard/store/preview/preview.effects';
+import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
+import { timelineEffects as legacyTimelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
+import { timelineFeature as legacyTimelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
+import { timelineEffects } from './feature/timeline/store/timeline.effects';
+import { timelineFeature } from './feature/timeline/store/timeline.reducers';
 import { modalWindowFeature } from './feature/ui/layout/store/modal-window/modal-window.reducers';
 import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.effects';
 import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.reducer';
@@ -45,6 +53,10 @@ export const appConfig: ApplicationConfig = {
       [navigationFeature.name]: navigationFeature.reducer,
       [taskFeature.name]: taskFeature.reducer,
       [modalWindowFeature.name]: modalWindowFeature.reducer,
+      [timelineFeature.name]: timelineFeature.reducer,
+      [eventsFeature.name]: eventsFeature.reducer,
+      [previewFeature.name]: previewFeature.reducer,
+      [legacyTimelineFeature.name]: legacyTimelineFeature.reducer,
     }),
     provideEffects([
       sharedEffects,
@@ -53,6 +65,10 @@ export const appConfig: ApplicationConfig = {
       accountEffects,
       navigationEffects,
       taskEffects,
+      timelineEffects,
+      eventsEffects,
+      previewEffects,
+      legacyTimelineEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
