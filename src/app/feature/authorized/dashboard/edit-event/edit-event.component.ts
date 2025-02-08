@@ -19,16 +19,17 @@ import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
+import {
+  EventContent,
+  EventContentIcon,
+  EventContentTag,
+} from '../../../../shared/ui/event/content/content.types';
 import { EventActions } from '../../../events/store/events/events.actions';
 import { eventsFeature } from '../../../events/store/events/events.reducer';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
-  ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-  ViewTimelineEvent,
-  ViewTimelineEventIcon,
-  ViewTimelineTag,
 } from '../../../timeline/store/timeline.types';
 import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
@@ -79,7 +80,7 @@ export class EditEventComponent {
 
   private updatedEvent = signal(createDefaultTimelineEvent(this.timelineId()));
 
-  protected readonly previewEvent: Signal<ViewTimelineEvent | null> = computed(
+  protected readonly previewEvent: Signal<EventContent | null> = computed(
     () => {
       const preview = this.createViewTimelineEvent(this.updatedEvent());
 
@@ -115,9 +116,7 @@ export class EditEventComponent {
 
   protected readonly loading = signal(false);
 
-  protected readonly icon = new ViewTimelineEventIcon(
-    TimelineEventType.default
-  );
+  protected readonly icon = new EventContentIcon(TimelineEventType.default);
 
   constructor() {
     effect(() => {
@@ -177,13 +176,11 @@ export class EditEventComponent {
     );
   }
 
-  private createViewTimelineEvent(
-    event: TimelineEvent | ExistTimelineEvent
-  ): ViewTimelineEvent {
+  private createViewTimelineEvent(event: TimelineEvent): EventContent {
     return {
       ...event,
       description: event.description || '',
-      icon: new ViewTimelineEventIcon(event.type),
+      icon: new EventContentIcon(event.type),
       url: this.prepareUrl(event.url),
       date: createViewDatetime(event.date, event.showTime || false),
       tags: this.createTags(event.tags),
@@ -202,6 +199,6 @@ export class EditEventComponent {
   }
 
   private createTags(tags: string[] | undefined) {
-    return tags?.map(tag => new ViewTimelineTag(tag)) || [];
+    return tags?.map(tag => new EventContentTag(tag)) || [];
   }
 }

@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLinkOutline } from '@ng-icons/iconsax/outline';
-import { ViewTimelineUrl } from '../../../../../../feature/timeline/store/timeline.types';
+import { EventContentUrl } from '../../content.types';
 
 @Component({
   selector: 'app-timeline-event-url',
@@ -11,5 +11,5 @@ import { ViewTimelineUrl } from '../../../../../../feature/timeline/store/timeli
   viewProviders: [provideIcons({ saxLinkOutline })],
 })
 export class UrlComponent {
-  url = input.required<ViewTimelineUrl | null>();
+  url = input.required<EventContentUrl | null>();
 }

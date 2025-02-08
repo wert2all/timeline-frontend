@@ -5,15 +5,12 @@ import {
   input,
   output,
 } from '@angular/core';
-import {
-  ViewTimelineEvent,
-  ViewTimelineTag,
-} from '../../../../feature/timeline/store/timeline.types';
 import { DateComponent } from './components/date/date.component';
 import { ImageComponent } from './components/image/image.component';
 import { MarkdownContentComponent } from './components/markdown-content/markdown-content.component';
 import { TagsComponent } from './components/tags/tags.component';
 import { UrlComponent } from './components/url/url.component';
+import { EventContent, EventContentTag } from './content.types';
 
 @Component({
   standalone: true,
@@ -30,6 +27,6 @@ import { UrlComponent } from './components/url/url.component';
   ],
 })
 export class SharedEventContentComponent {
-  event = input.required<ViewTimelineEvent>();
-  filterByTag = output<ViewTimelineTag>();
+  event = input.required<EventContent>();
+  filterByTag = output<EventContentTag>();
 }

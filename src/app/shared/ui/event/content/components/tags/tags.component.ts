@@ -4,7 +4,7 @@ import {
   input,
   output,
 } from '@angular/core';
-import { ViewTimelineTag } from '../../../../../../feature/timeline/store/timeline.types';
+import { EventContentTag } from '../../content.types';
 
 @Component({
   standalone: true,
@@ -13,6 +13,6 @@ import { ViewTimelineTag } from '../../../../../../feature/timeline/store/timeli
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsComponent {
-  tags = input.required<ViewTimelineTag[]>();
-  clickToTag = output<ViewTimelineTag>();
+  tags = input.required<EventContentTag[]>();
+  clickToTag = output<EventContentTag>();
 }

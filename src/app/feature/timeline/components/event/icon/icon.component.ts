@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent } from '@ng-icons/core';
-import { ViewTimelineEventIcon } from '../../../store/timeline.types';
+import { EventContentIcon } from '../../../../../shared/ui/event/content/content.types';
 
 @Component({
   selector: 'app-timeline-event-icon',
@@ -11,6 +11,6 @@ import { ViewTimelineEventIcon } from '../../../store/timeline.types';
   }`,
 })
 export class IconComponent {
-  icon = input<ViewTimelineEventIcon>();
+  icon = input<EventContentIcon>();
   shouldAccentLine = input<boolean>();
 }

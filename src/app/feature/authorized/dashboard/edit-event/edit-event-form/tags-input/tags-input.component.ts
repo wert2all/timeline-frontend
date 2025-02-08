@@ -3,7 +3,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxCloseCircleOutline } from '@ng-icons/iconsax/outline';
 import { fromInputSignal } from '../../../../../../libs/signal.functions';
-import { ViewTimelineTag } from '../../../../../timeline/store/timeline.types';
+import { EventContentTag } from '../../../../../../shared/ui/event/content/content.types';
 import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
@@ -23,7 +23,7 @@ export class EditFormTagsInputComponent {
   private readonly tags = fromInputSignal<string[]>(this.inputTags);
 
   protected readonly viewTags = computed(() =>
-    this.tags().map(tag => new ViewTimelineTag(tag))
+    this.tags().map(tag => new EventContentTag(tag))
   );
 
   constructor() {
@@ -43,7 +43,7 @@ export class EditFormTagsInputComponent {
     }
   }
 
-  removeTag(tag: ViewTimelineTag) {
+  removeTag(tag: EventContentTag) {
     this.tags.update(existTags =>
       existTags.filter(existTag => existTag !== tag.value)
     );

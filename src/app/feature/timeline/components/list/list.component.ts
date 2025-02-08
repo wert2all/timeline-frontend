@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
 import { Iterable } from '../../../../app.types';
 import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
-import { ExistViewTimelineEvent } from '../../store/timeline.types';
+import { ExistEventContent } from '../../../../shared/ui/event/content/content.types';
 import { IconComponent } from '../event/icon/icon.component';
 import { TimelineEventMenuComponent } from '../event/menu/menu.component';
 
@@ -17,7 +17,7 @@ import { TimelineEventMenuComponent } from '../event/menu/menu.component';
   ],
 })
 export class ListComponent {
-  events = input.required<ExistViewTimelineEvent[]>();
+  events = input.required<ExistEventContent[]>();
   canEditEvent = input<boolean>(false);
 
   delete = output<Iterable>();
