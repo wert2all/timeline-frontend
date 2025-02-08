@@ -9,14 +9,12 @@ import {
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 import { timelineFeature } from '../store/timeline/timeline.reducer';
-import {
-  createDefaultTimelineEvent,
-  createViewTimelineEvent,
-} from './editable-event-view.factory';
+import { createDefaultTimelineEvent } from './editable-event-view.factory';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
 import { Pending, Status } from '../../../../app.types';
+import { createViewDatetime } from '../../../../libs/view/date.functions';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
@@ -25,9 +23,12 @@ import { eventsFeature } from '../../../events/store/events/events.reducer';
 import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
+  ExistTimelineEvent,
+  TimelineEvent,
   TimelineEventType,
   ViewTimelineEvent,
   ViewTimelineEventIcon,
+  ViewTimelineTag,
 } from '../../../timeline/store/timeline.types';
 import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
@@ -80,7 +81,7 @@ export class EditEventComponent {
 
   protected readonly previewEvent: Signal<ViewTimelineEvent | null> = computed(
     () => {
-      const preview = createViewTimelineEvent(this.updatedEvent());
+      const preview = this.createViewTimelineEvent(this.updatedEvent());
 
       if (preview && preview.image?.status === Status.LOADING) {
         const image = this.images().find(
@@ -174,5 +175,33 @@ export class EditEventComponent {
         uuid: URL.createObjectURL(image),
       })
     );
+  }
+
+  private createViewTimelineEvent(
+    event: TimelineEvent | ExistTimelineEvent
+  ): ViewTimelineEvent {
+    return {
+      ...event,
+      description: event.description || '',
+      icon: new ViewTimelineEventIcon(event.type),
+      url: this.prepareUrl(event.url),
+      date: createViewDatetime(event.date, event.showTime || false),
+      tags: this.createTags(event.tags),
+      image: event.imageId
+        ? { imageId: event.imageId, status: Status.LOADING }
+        : undefined,
+    };
+  }
+
+  private prepareUrl(url: string | undefined) {
+    try {
+      return url ? { title: new URL(url).host, link: url } : null;
+    } catch {
+      return null;
+    }
+  }
+
+  private createTags(tags: string[] | undefined) {
+    return tags?.map(tag => new ViewTimelineTag(tag)) || [];
   }
 }
