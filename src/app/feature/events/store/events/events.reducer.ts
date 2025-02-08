@@ -1,8 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import {
-  createDefaultTimelineEvent,
-  createViewTimelineEvent,
-} from '../../../authorized/dashboard/edit-event/editable-event-view.factory';
+import { createDefaultTimelineEvent } from '../../../authorized/dashboard/edit-event/editable-event-view.factory';
 import { timelineFeature } from '../../../authorized/dashboard/store/timeline/timeline.reducer';
 import { EventActions } from './events.actions';
 import { EventsState } from './events.types';
@@ -119,23 +116,11 @@ export const eventsFeature = createFeature({
 
     return {
       selectActiveTimelineEvents: selectActiveTimelineEventsSelector,
-      selectActiveTimelineViewEvents: createSelector(
-        selectActiveTimelineEventsSelector,
-        events =>
-          events.map(event => ({
-            ...createViewTimelineEvent(event),
-            id: event.id,
-          }))
-      ),
       isEditingEvent: createSelector(
         selectShouldEditEventSelector,
         event => !!event
       ),
       selectShouldEditEvent: selectShouldEditEventSelector,
-      selectUploadedImageId: createSelector(
-        selectShouldEditEventSelector,
-        event => event?.imageId
-      ),
     };
   },
 });
