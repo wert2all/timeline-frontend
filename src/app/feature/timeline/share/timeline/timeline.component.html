@@ -17,7 +17,7 @@
       <ng-content />
     </app-timeline-events-list>
   } @else {
-    @if (!error()) {
+    @if (!error() && !isLoading()) {
       <div role="alert" class="alert alert-info">
         <ng-icon name="saxInformationOutline" size="32" />
         <span>There are no events.</span>
