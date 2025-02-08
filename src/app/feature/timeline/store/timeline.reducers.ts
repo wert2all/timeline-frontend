@@ -40,7 +40,7 @@ export const timelineFeature = createFeature({
 
     on(
       TimelineActions.successLoadTimeline,
-      (state, { events, lastCursor, hasMore }) => ({
+      (state, { events, lastCursor, hasMore }): NewTimelineState => ({
         ...state,
         events: [...state.events, ...events],
         lastCursor,
