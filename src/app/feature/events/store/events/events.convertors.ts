@@ -1,13 +1,12 @@
 import {
-  TimelineEvent as GQLTimelineEvent,
   TimelineEventInput as GQLTimelineEventInput,
   TimelineType as GQLTimelineType,
-} from '../../../../../api/internal/graphql';
+} from '../../../../api/internal/graphql';
 import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../../../../timeline/store/timeline.types';
+} from '../../../timeline/store/timeline.types';
 
 export const fromApiTypeToState = (
   type: GQLTimelineType
@@ -21,23 +20,6 @@ export const fromApiTypeToState = (
       return TimelineEventType.default;
   }
 };
-
-export const fromApiEventToState = (
-  event: GQLTimelineEvent,
-  timelineId: number
-): ExistTimelineEvent => ({
-  id: event.id,
-  timelineId: timelineId,
-  date: new Date(event.date),
-  type: fromApiTypeToState(event.type),
-  title: event.title || undefined,
-  description: event.description || undefined,
-  showTime: event.showTime === true,
-  url: event.url || undefined,
-  loading: false,
-  tags: event.tags || [],
-  imageId: event.previewlyImageId || undefined,
-});
 
 export const fromEventTypeStateToApiType = (
   type: TimelineEventType

@@ -22,23 +22,11 @@
 
           <app-edit-event />
 
-          <div class="hidden">
-            <app-shared-timeline
-              [timelineId]="activeTimeline()!.id"
-              [canEditEvent]="true"
-              (delete)="deleteEvent($event)"
-              (edit)="editEvent($event)" />
-          </div>
-
-          <app-timeline
-            [timeline]="timeline()"
-            (filterByTag)="filterByTag($event)"
+          <app-shared-timeline
+            [timelineId]="activeTimeline()!.id"
+            [canEditEvent]="true"
             (delete)="deleteEvent($event)"
-            (edit)="editEvent($event)"
-            (loadMore)="loadMoreEvents()"
-            [canEdit]="true"
-            [isLoading]="isEventsLoading()"
-            [hasMore]="hasMoreEvents()" />
+            (edit)="editEvent($event)" />
 
           <app-modal-confirm
             [show]="showConfirmWindow()"
