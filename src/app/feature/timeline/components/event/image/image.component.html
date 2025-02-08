@@ -2,10 +2,6 @@
   @if (isLoading()) {
     <app-shared-loader />
   } @else {
-    <img
-      [src]="image().previewUrl"
-      [alt]="image().title"
-      class="min-h-60 min-w-60"
-      loading="lazy" />
+    <img [src]="image().previewUrl" [alt]="image().title" loading="lazy" />
   }
 </div>
