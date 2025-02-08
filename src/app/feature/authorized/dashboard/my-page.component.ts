@@ -21,7 +21,7 @@ import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import {
   ExistViewTimelineEvent,
   ViewTimelineTag,
-} from '../../timeline/timeline.types';
+} from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { EventActions } from './store/events/events.actions';
 import { eventsFeature } from './store/events/events.reducer';

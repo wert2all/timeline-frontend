@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { ExistViewTimelineEvent } from '../../timeline.types';
+import { ExistViewTimelineEvent } from '../../store/timeline.types';
 import { EventMainContentComponent } from '../event/content/main-content.component';
 import { IconComponent } from '../event/icon/icon.component';
 

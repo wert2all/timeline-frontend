@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { Status } from '../../../../../app.types';
 import { SharedLoaderComponent } from '../../../../../shared/content/loader/loader.component';
-import { ViewEventImage } from '../../../timeline.types';
+import { ViewEventImage } from '../../../store/timeline.types';
 
 @Component({
   standalone: true,

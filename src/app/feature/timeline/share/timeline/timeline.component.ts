@@ -15,7 +15,7 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { ListComponent } from '../../components/list/list.component';
 import { TimelineActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
-import { ViewEventImage } from '../../timeline.types';
+import { ViewEventImage } from '../../store/timeline.types';
 
 @Component({
   standalone: true,

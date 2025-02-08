@@ -13,7 +13,10 @@ import { LoadingButtonComponent } from '../../shared/content/loading-button/load
 import { EventMainContentComponent } from './components/event/content/main-content.component';
 import { IconComponent } from './components/event/icon/icon.component';
 import { TimelineEventMenuComponent } from './components/event/menu/menu.component';
-import { ExistViewTimelineEvent, ViewTimelineTag } from './timeline.types';
+import {
+  ExistViewTimelineEvent,
+  ViewTimelineTag,
+} from './store/timeline.types';
 
 @Component({
   selector: 'app-timeline',
