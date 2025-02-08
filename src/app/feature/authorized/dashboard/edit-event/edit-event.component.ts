@@ -23,8 +23,8 @@ import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventMainContentComponent } from '../../../timeline/components/event/content/main-content.component';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
+import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import {
-  TimelineEventType,
   ViewTimelineEvent,
   ViewTimelineEventIcon,
 } from '../../../timeline/timeline.types';

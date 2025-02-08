@@ -38,8 +38,10 @@ import { TimelineActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
 import {
   ExistTimelineEvent,
-  ExistViewTimelineEvent,
   TimelineEventType,
+} from '../../store/timeline.types';
+import {
+  ExistViewTimelineEvent,
   ViewEventImage,
   ViewTimelineEventIcon,
   ViewTimelineTag,

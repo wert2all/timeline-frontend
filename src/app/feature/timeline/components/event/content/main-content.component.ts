@@ -6,11 +6,8 @@ import {
   output,
 } from '@angular/core';
 import { MarkdownContentComponent } from '../../../../authorized/dashboard/markdown-content/markdown-content.component';
-import {
-  TimelineEventType,
-  ViewTimelineEvent,
-  ViewTimelineTag,
-} from '../../../timeline.types';
+import { TimelineEventType } from '../../../store/timeline.types';
+import { ViewTimelineEvent, ViewTimelineTag } from '../../../timeline.types';
 import { DateComponent } from '../date/date.component';
 import { EventImageComponent } from '../image/image.component';
 import { TagsComponent } from '../tags/tags.component';

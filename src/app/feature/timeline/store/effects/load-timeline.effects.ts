@@ -11,8 +11,8 @@ import { TimelineActions } from '../timeline.actions';
 
 export const loadTimelineEffects = {
   loadTimelineEvents: createEffect(
-    (actions$ = inject(Actions), api = inject(ApiClient)) =>
-      actions$.pipe(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
         ofType(TimelineActions.loadTimelineEvents),
         exhaustMap(options =>
           api
@@ -30,7 +30,8 @@ export const loadTimelineEffects = {
         catchError(error =>
           of(TimelineActions.errorLoadingTimelineEvent({ error }))
         )
-      ),
+      );
+    },
     StoreDispatchEffect
   ),
 };
