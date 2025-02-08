@@ -111,6 +111,11 @@ export class MyPageComponent {
   }
 
   dismissDelete() {
+    this.store.dispatch(
+      EventOperationsActions.dismissDeleteEvent({
+        eventId: this.shouldDeleteEventId(),
+      })
+    );
     this.shouldDeleteEventId.set(0);
   }
 

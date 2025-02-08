@@ -6,6 +6,7 @@ import {
   EventContentTag,
   ExistEventContent,
 } from '../../../shared/ui/event/content/content.types';
+import { EventOperationsActions } from '../../events/store/operations/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
 
@@ -47,6 +48,31 @@ export const timelineFeature = createFeature({
         hasMore,
       })
     ),
+
+    on(EventOperationsActions.confirmToDeleteEvent, (state, { eventId }) => ({
+      ...state,
+      events: state.events.map(event => ({
+        ...event,
+        loading: event.id === eventId ? true : event.loading,
+      })),
+    })),
+    on(
+      EventOperationsActions.dismissDeleteEvent,
+      EventOperationsActions.successDeleteEvent,
+      EventOperationsActions.failedDeleteEvent,
+      (state, { eventId }) => ({
+        ...state,
+        events: state.events.map(event => ({
+          ...event,
+          loading: event.id === eventId ? false : event.loading,
+        })),
+      })
+    ),
+
+    on(EventOperationsActions.successDeleteEvent, (state, { eventId }) => ({
+      ...state,
+      events: state.events.filter(event => event.id !== eventId),
+    })),
 
     on(
       ListEventsActions.errorLoadingTimelineEvents,
