@@ -5,7 +5,6 @@ import {
   effect,
   inject,
   input,
-  signal,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -75,7 +74,9 @@ export class SharedTimelineComponent {
     imagesFeature.selectLoadedImages
   );
 
-  private readonly cursor = signal<string | null>(null);
+  private readonly cursor = this.store.selectSignal(
+    timelineFeature.selectLastCursor
+  );
 
   private readonly query = computed(() => {
     return {
@@ -118,7 +119,6 @@ export class SharedTimelineComponent {
       .filter(id => !!id)
       .map(id => id!);
   });
-  private readonly pageData = computed(() => this.successResponse()?.page);
 
   protected readonly isLoading = this.store.selectSignal(
     timelineFeature.selectLoading
@@ -134,17 +134,13 @@ export class SharedTimelineComponent {
   protected readonly error = this.store.selectSignal(
     timelineFeature.selectError
   );
-  protected readonly hasLoadMore = computed(
-    () => this.pageData()?.hasNextPage || false
+  protected readonly hasLoadMore = this.store.selectSignal(
+    timelineFeature.selectHasMore
   );
 
   constructor() {
     effect(() => {
       this.store.dispatch(TimelineActions.loadTimelineEvents(this.query()));
-    });
-
-    effect(() => {
-      this.cursor.set(this.pageData()?.endCursor || null);
     });
 
     effect(() => {
