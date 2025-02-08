@@ -15,6 +15,9 @@ export const ListEventsActions = createActionGroup({
       hasMore: boolean;
     }>(),
 
+    'Mark as loadable event on delete': props<{ eventId: number }>(),
+    'Mark as non loadable event on delete': props<{ eventId: number }>(),
+
     'Error loading timeline events': props<{ error: Error }>(),
   },
 });

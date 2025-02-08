@@ -48,6 +48,24 @@ export const timelineFeature = createFeature({
       })
     ),
 
+    on(ListEventsActions.markAsLoadableEventOnDelete, (state, { eventId }) => ({
+      ...state,
+      events: state.events.map(event => ({
+        ...event,
+        loading: event.id === eventId ? true : event.loading,
+      })),
+    })),
+    on(
+      ListEventsActions.markAsNonLoadableEventOnDelete,
+      (state, { eventId }) => ({
+        ...state,
+        events: state.events.map(event => ({
+          ...event,
+          loading: event.id === eventId ? false : event.loading,
+        })),
+      })
+    ),
+
     on(
       ListEventsActions.errorLoadingTimelineEvents,
       (state, { error }): NewTimelineState => ({

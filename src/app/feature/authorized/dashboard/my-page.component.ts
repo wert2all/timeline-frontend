@@ -14,6 +14,7 @@ import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { EventActions } from '../../events/store/events/events.actions';
 import { eventsFeature } from '../../events/store/events/events.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
+import { ListEventsActions } from '../../timeline/store/timeline.actions';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 
 @Component({
@@ -94,7 +95,7 @@ export class MyPageComponent {
   deleteEvent(event: Iterable) {
     this.shouldDeleteEventId.set(event.id);
     this.store.dispatch(
-      EventActions.confirmToDeleteEvent({ eventId: event.id })
+      ListEventsActions.markAsLoadableEventOnDelete({ eventId: event.id })
     );
   }
 
@@ -111,6 +112,11 @@ export class MyPageComponent {
   }
 
   dismissDelete() {
+    this.store.dispatch(
+      ListEventsActions.markAsNonLoadableEventOnDelete({
+        eventId: this.shouldDeleteEventId(),
+      })
+    );
     this.shouldDeleteEventId.set(0);
   }
 
