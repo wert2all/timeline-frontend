@@ -1,13 +1,13 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
-import { TimelineActions } from './timeline.actions';
 import {
-  ExistViewTimelineEvent,
-  NewTimelineState,
-  ViewTimelineEventIcon,
-  ViewTimelineTag,
-} from './timeline.types';
+  EventContentIcon,
+  EventContentTag,
+  ExistEventContent,
+} from '../../../shared/ui/event/content/content.types';
+import { TimelineActions } from './timeline.actions';
+import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
   loading: false,
@@ -60,14 +60,14 @@ export const timelineFeature = createFeature({
   extraSelectors: ({ selectEvents }) => ({
     selectViewEvents: createSelector(
       selectEvents,
-      (events): ExistViewTimelineEvent[] =>
+      (events): ExistEventContent[] =>
         events.map(event => ({
           ...event,
           description: event.description || '',
-          icon: new ViewTimelineEventIcon(event.type),
+          icon: new EventContentIcon(event.type),
           url: prepareUrl(event.url),
           date: createViewDatetime(event.date, event.showTime || false),
-          tags: event.tags?.map(tag => new ViewTimelineTag(tag)) || [],
+          tags: event.tags?.map(tag => new EventContentTag(tag)) || [],
           image: event.imageId
             ? { imageId: event.imageId, status: Status.LOADING }
             : undefined,

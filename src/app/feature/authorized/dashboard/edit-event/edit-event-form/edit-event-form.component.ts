@@ -33,10 +33,8 @@ import { fromInputSignal } from '../../../../../libs/signal.functions';
 import { FormControlsComponent } from '../../../../../shared/content/form-controls/controls.component';
 import { SharedTabsComponent } from '../../../../../shared/content/tabs/tabs.component';
 import { Tabs } from '../../../../../shared/content/tabs/tabs.types';
-import {
-  TimelineEvent,
-  ViewTimelineTag,
-} from '../../../../timeline/store/timeline.types';
+import { EventContentTag } from '../../../../../shared/ui/event/content/content.types';
+import { TimelineEvent } from '../../../../timeline/store/timeline.types';
 import { EditEventFormChanges } from '../edit-event.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
 import {
@@ -160,7 +158,7 @@ export class EditEventFormComponent {
   });
   protected readonly activeTab = fromInputSignal(this.openTab);
 
-  protected readonly tags = signal<ViewTimelineTag[]>([]);
+  protected readonly tags = signal<EventContentTag[]>([]);
 
   protected readonly submitButton = computed(() =>
     this.isNew()

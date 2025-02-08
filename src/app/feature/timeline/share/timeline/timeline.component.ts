@@ -23,10 +23,10 @@ import { LoadingButtonComponent } from '../../../../shared/content/loading-butto
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { UploadedImage } from '../../../../shared/store/images/images.types';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
 import { ListComponent } from '../../components/list/list.component';
 import { TimelineActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
-import { ViewEventImage } from '../../store/timeline.types';
 
 @Component({
   standalone: true,
@@ -118,7 +118,7 @@ export class SharedTimelineComponent {
   }
 
   private updateEventImage(
-    eventImage: ViewEventImage | Undefined,
+    eventImage: EventContentImage | Undefined,
     images: UploadedImage[]
   ) {
     const image = images.find(i => i.id === eventImage?.imageId);
