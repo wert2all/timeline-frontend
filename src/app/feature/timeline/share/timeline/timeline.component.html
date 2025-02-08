@@ -15,7 +15,7 @@
   @if (events.length > 0) {
     <app-timeline-events-list
       [events]="events"
-      [canEditEvent]="canEditEvent()"
+      [isEditable]="isEditable()"
       (delete)="delete.emit($event)"
       (edit)="edit.emit($event)" />
   } @else {

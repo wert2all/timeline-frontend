@@ -18,7 +18,7 @@ import { TimelineEventMenuComponent } from '../event/menu/menu.component';
 })
 export class ListComponent {
   events = input.required<ExistEventContent[]>();
-  canEditEvent = input<boolean>(false);
+  isEditable = input<boolean>(false);
 
   delete = output<Iterable>();
   edit = output<Iterable>();
