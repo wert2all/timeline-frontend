@@ -25,7 +25,7 @@ import { UploadedImage } from '../../../../shared/store/images/images.types';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
 import { ListComponent } from '../../components/list/list.component';
-import { TimelineActions } from '../../store/timeline.actions';
+import { ListEventsActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
 
 @Component({
@@ -98,7 +98,7 @@ export class SharedTimelineComponent {
 
   constructor() {
     effect(() => {
-      this.store.dispatch(TimelineActions.loadTimelineEvents(this.query()));
+      this.store.dispatch(ListEventsActions.loadTimelineEvents(this.query()));
     });
   }
 

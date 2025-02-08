@@ -6,7 +6,7 @@ import {
   EventContentTag,
   ExistEventContent,
 } from '../../../shared/ui/event/content/content.types';
-import { TimelineActions } from './timeline.actions';
+import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
@@ -30,16 +30,16 @@ export const timelineFeature = createFeature({
     initialState,
 
     on(
-      TimelineActions.loadTimelineEvents,
+      ListEventsActions.loadTimelineEvents,
       (state): NewTimelineState => ({ ...state, loading: true })
     ),
     on(
-      TimelineActions.successLoadTimeline,
+      ListEventsActions.successLoadTimelineEvents,
       (state): NewTimelineState => ({ ...state, loading: false })
     ),
 
     on(
-      TimelineActions.successLoadTimeline,
+      ListEventsActions.successLoadTimelineEvents,
       (state, { events, lastCursor, hasMore }): NewTimelineState => ({
         ...state,
         events: [...state.events, ...events],
@@ -49,7 +49,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      TimelineActions.errorLoadingTimelineEvent,
+      ListEventsActions.errorLoadingTimelineEvents,
       (state, { error }): NewTimelineState => ({
         ...state,
         loading: false,

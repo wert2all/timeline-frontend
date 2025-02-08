@@ -12,7 +12,7 @@ import {
   extractApiData,
 } from '../../../../libs/api.functions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
-import { TimelineActions } from '../timeline.actions';
+import { ListEventsActions } from '../timeline.actions';
 import { ExistTimelineEvent, TimelineEventType } from '../timeline.types';
 
 const fromApiTypeToEventType = (type: GQLTimelineType): TimelineEventType => {
@@ -47,7 +47,7 @@ export const loadTimelineEffects = {
   loadTimelineEvents: createEffect(
     (actions$ = inject(Actions), api = inject(ApiClient)) => {
       return actions$.pipe(
-        ofType(TimelineActions.loadTimelineEvents),
+        ofType(ListEventsActions.loadTimelineEvents),
         exhaustMap(options =>
           api.getEvents(options).pipe(
             map(result =>
@@ -65,14 +65,14 @@ export const loadTimelineEffects = {
           )
         ),
         map(({ events, lastCursor, hasMore }) =>
-          TimelineActions.successLoadTimeline({
+          ListEventsActions.successLoadTimelineEvents({
             events,
             lastCursor: lastCursor,
             hasMore,
           })
         ),
         catchError(error =>
-          of(TimelineActions.errorLoadingTimelineEvent({ error }))
+          of(ListEventsActions.errorLoadingTimelineEvents({ error }))
         )
       );
     },
@@ -82,7 +82,7 @@ export const loadTimelineEffects = {
   loadImagesAfterSuccesLoadEvents: createEffect(
     (actions$ = inject(Actions)) => {
       return actions$.pipe(
-        ofType(TimelineActions.successLoadTimeline),
+        ofType(ListEventsActions.successLoadTimelineEvents),
         map(({ events }): number[] =>
           events
             .map(event => event.imageId)
