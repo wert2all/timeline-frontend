@@ -9,8 +9,8 @@ import {
   TimelineEvent,
 } from '../../../timeline/store/timeline.types';
 
-export const EventActions = createActionGroup({
-  source: 'Event',
+export const EventOperationsActions = createActionGroup({
+  source: 'Event Operations',
   events: {
     'Dispatch edit event': props<{ eventId: number | Undefined }>(),
     'Stop editing event': emptyProps(),

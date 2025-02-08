@@ -1,24 +1,24 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { createDefaultTimelineEvent } from '../../../authorized/dashboard/edit-event/editable-event-view.factory';
 import { timelineFeature } from '../../../authorized/dashboard/store/timeline/timeline.reducer';
-import { EventActions } from './events.actions';
-import { EventsState } from './events.types';
+import { EventOperationsActions } from './operations.actions';
+import { EventsState } from './operations.types';
 
 const initialState: EventsState = {
   events: [],
   loading: false,
   showEditEventId: null,
 };
-export const eventsFeature = createFeature({
+export const eventOperationsFeature = createFeature({
   name: 'events',
   reducer: createReducer(
     initialState,
 
     on(
-      EventActions.emptyEvent,
-      EventActions.apiException,
-      EventActions.successUpdateEvent,
-      EventActions.successPushNewEvent,
+      EventOperationsActions.emptyEvent,
+      EventOperationsActions.apiException,
+      EventOperationsActions.successUpdateEvent,
+      EventOperationsActions.successPushNewEvent,
       (state): EventsState => ({
         ...state,
         loading: false,
@@ -26,7 +26,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.successPushNewEvent,
+      EventOperationsActions.successPushNewEvent,
       (state, { event }): EventsState => ({
         ...state,
         events: [event, ...state.events],
@@ -34,7 +34,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.successUpdateEvent,
+      EventOperationsActions.successUpdateEvent,
       (state, { event }): EventsState => ({
         ...state,
         events: state.events.map(e => (event.id === e.id ? event : e)),
@@ -42,14 +42,14 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.stopEditingEvent,
-      EventActions.successPushNewEvent,
-      EventActions.successUpdateEvent,
+      EventOperationsActions.stopEditingEvent,
+      EventOperationsActions.successPushNewEvent,
+      EventOperationsActions.successUpdateEvent,
       (state): EventsState => ({ ...state, showEditEventId: null })
     ),
 
     on(
-      EventActions.dispatchEditEvent,
+      EventOperationsActions.dispatchEditEvent,
       (state, { eventId }): EventsState => ({
         ...state,
         showEditEventId: eventId,
@@ -57,8 +57,8 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.emptyEvent,
-      EventActions.apiException,
+      EventOperationsActions.emptyEvent,
+      EventOperationsActions.apiException,
       (state): EventsState => ({
         ...state,
         events: state.events.filter(event => event.loading),
@@ -66,7 +66,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.deleteEvent,
+      EventOperationsActions.deleteEvent,
       (state, { eventId }): EventsState => ({
         ...state,
         events: state.events.map(event => ({
@@ -77,7 +77,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.successDeleteEvent,
+      EventOperationsActions.successDeleteEvent,
       (state, { eventId }): EventsState => ({
         ...state,
         events: state.events.filter(event => event.id !== eventId),
@@ -85,7 +85,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventActions.failedDeleteEvent,
+      EventOperationsActions.failedDeleteEvent,
       (state, { eventId }): EventsState => ({
         ...state,
         events: state.events.map(event => ({
