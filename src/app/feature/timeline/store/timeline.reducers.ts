@@ -1,4 +1,11 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { Status } from '../../../app.types';
+import { createViewDatetime } from '../../../libs/view/date.functions';
+import {
+  ExistViewTimelineEvent,
+  ViewTimelineEventIcon,
+  ViewTimelineTag,
+} from '../timeline.types';
 import { TimelineActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
 
@@ -9,6 +16,14 @@ const initialState: NewTimelineState = {
   lastCursor: null,
   hasMore: false,
 };
+const prepareUrl = (url: string | undefined) => {
+  try {
+    return url ? { title: new URL(url).host, link: url } : null;
+  } catch {
+    return null;
+  }
+};
+
 export const timelineFeature = createFeature({
   name: 'new-timeline',
   reducer: createReducer(
@@ -42,4 +57,21 @@ export const timelineFeature = createFeature({
       })
     )
   ),
+  extraSelectors: ({ selectEvents }) => ({
+    selectViewEvents: createSelector(
+      selectEvents,
+      (events): ExistViewTimelineEvent[] =>
+        events.map(event => ({
+          ...event,
+          description: event.description || '',
+          icon: new ViewTimelineEventIcon(event.type),
+          url: prepareUrl(event.url),
+          date: createViewDatetime(event.date, event.showTime || false),
+          tags: event.tags?.map(tag => new ViewTimelineTag(tag)) || [],
+          image: event.imageId
+            ? { imageId: event.imageId, status: Status.LOADING }
+            : undefined,
+        }))
+    ),
+  }),
 });
