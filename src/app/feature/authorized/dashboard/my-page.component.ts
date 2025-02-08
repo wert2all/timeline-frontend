@@ -11,8 +11,8 @@ import { CreateTimelineButtonComponent } from '../../timeline/components/create-
 import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
-import { EventActions } from '../../events/store/events/events.actions';
-import { eventsFeature } from '../../events/store/events/events.reducer';
+import { EventOperationsActions } from '../../events/store/operations/operations.actions';
+import { eventOperationsFeature } from '../../events/store/operations/operations.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 
@@ -32,7 +32,7 @@ export class MyPageComponent {
   private readonly store = inject(Store);
 
   private readonly isEditingEvent = this.store.selectSignal(
-    eventsFeature.isEditingEvent
+    eventOperationsFeature.isEditingEvent
   );
   protected readonly activeTimeline = this.store.selectSignal(
     timelineFeature.selectActiveTimeline
@@ -94,14 +94,14 @@ export class MyPageComponent {
   deleteEvent(event: Iterable) {
     this.shouldDeleteEventId.set(event.id);
     this.store.dispatch(
-      EventActions.confirmToDeleteEvent({ eventId: event.id })
+      EventOperationsActions.confirmToDeleteEvent({ eventId: event.id })
     );
   }
 
   confirmDelete() {
     if (this.shouldDeleteEventId() > 0) {
       this.store.dispatch(
-        EventActions.deleteEvent({
+        EventOperationsActions.deleteEvent({
           eventId: this.shouldDeleteEventId(),
           imageId: this.shouldDeleteImageId(),
         })
@@ -119,10 +119,14 @@ export class MyPageComponent {
   }
 
   editEvent(event: Iterable) {
-    this.store.dispatch(EventActions.dispatchEditEvent({ eventId: event.id }));
+    this.store.dispatch(
+      EventOperationsActions.dispatchEditEvent({ eventId: event.id })
+    );
   }
 
   dispatchNewEventCreation() {
-    this.store.dispatch(EventActions.dispatchEditEvent({ eventId: 0 }));
+    this.store.dispatch(
+      EventOperationsActions.dispatchEditEvent({ eventId: 0 })
+    );
   }
 }

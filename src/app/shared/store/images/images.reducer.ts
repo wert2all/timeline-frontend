@@ -1,6 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Iterable, Pending, Status, UniqueType } from '../../../app.types';
-import { EventActions } from '../../../feature/events/store/events/events.actions';
+import { EventOperationsActions } from '../../../feature/events/store/operations/operations.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
 
@@ -63,7 +63,7 @@ export const imagesFeature = createFeature({
     ),
 
     on(
-      EventActions.stopEditingEvent,
+      EventOperationsActions.stopEditingEvent,
       (state): ImagesState => ({ ...state, queue: {} })
     ),
 
@@ -80,14 +80,14 @@ export const imagesFeature = createFeature({
       (state, { imageId }): ImagesState =>
         imageId
           ? {
-              ...state,
-              shouldDelete: [...state.shouldDelete, { id: imageId }],
-            }
+            ...state,
+            shouldDelete: [...state.shouldDelete, { id: imageId }],
+          }
           : state
     ),
 
     on(
-      EventActions.deleteEvent,
+      EventOperationsActions.deleteEvent,
       (state, { imageId }): ImagesState => ({
         ...state,
         shouldDelete: imageId ? [{ id: imageId }] : [],
@@ -95,7 +95,7 @@ export const imagesFeature = createFeature({
     ),
 
     on(
-      EventActions.failedDeleteEvent,
+      EventOperationsActions.failedDeleteEvent,
       (state): ImagesState => ({
         ...state,
         shouldDelete: [],

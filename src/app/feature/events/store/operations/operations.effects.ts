@@ -5,6 +5,7 @@ import {
   ApiClient,
   TimelineEvent as GQLTimelineEvent,
   Status,
+  TimelineEventInput,
 } from '../../../../api/internal/graphql';
 import { StoreDispatchEffect } from '../../../../app.types';
 import {
@@ -12,12 +13,50 @@ import {
   extractApiData,
 } from '../../../../libs/api.functions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
-import { ExistTimelineEvent } from '../../../timeline/store/timeline.types';
-import { EventActions } from './events.actions';
 import {
-  fromApiTypeToState,
-  fromEditableEventStateToApiInput,
-} from './events.convertors';
+  ExistTimelineEvent,
+  TimelineEvent,
+  TimelineEventType,
+} from '../../../timeline/store/timeline.types';
+import { EventOperationsActions } from './operations.actions';
+
+import { TimelineType as GQLTimelineType } from '../../../../api/internal/graphql';
+
+const fromApiTypeToState = (type: GQLTimelineType): TimelineEventType => {
+  switch (type) {
+    case GQLTimelineType.default:
+      return TimelineEventType.default;
+    case GQLTimelineType.selebrate:
+      return TimelineEventType.celebrate;
+    default:
+      return TimelineEventType.default;
+  }
+};
+const fromEventTypeStateToApiType = (
+  type: TimelineEventType
+): GQLTimelineType | null => {
+  // eslint-disable-next-line  sonarjs/no-small-switch
+  switch (type) {
+    case TimelineEventType.celebrate:
+      return GQLTimelineType.selebrate;
+    default:
+      return null;
+  }
+};
+const fromEditableEventStateToApiInput = (
+  event: TimelineEvent | ExistTimelineEvent
+): TimelineEventInput => ({
+  id: event.id,
+  date: event.date.toISOString(),
+  timelineId: event.timelineId,
+  type: fromEventTypeStateToApiType(event.type),
+  title: event.title,
+  description: event.description,
+  showTime: event.showTime,
+  url: event.url,
+  tags: event.tags,
+  previewlyImageId: event.imageId,
+});
 
 export const fromApiEventToState = (
   event: GQLTimelineEvent,
@@ -38,17 +77,17 @@ export const fromApiEventToState = (
 
 const deleteEvent = (actions$ = inject(Actions), api = inject(ApiClient)) => {
   return actions$.pipe(
-    ofType(EventActions.deleteEvent),
+    ofType(EventOperationsActions.deleteEvent),
     exhaustMap(({ eventId }) =>
       api.deleteEvent({ eventId: eventId }).pipe(
         map(result => result.data?.deleteEvent || null),
         map(result =>
           result === Status.success
-            ? EventActions.successDeleteEvent({ eventId: eventId })
-            : EventActions.failedDeleteEvent({ eventId: eventId })
+            ? EventOperationsActions.successDeleteEvent({ eventId: eventId })
+            : EventOperationsActions.failedDeleteEvent({ eventId: eventId })
         ),
         catchError(() =>
-          of(EventActions.failedDeleteEvent({ eventId: eventId }))
+          of(EventOperationsActions.failedDeleteEvent({ eventId: eventId }))
         )
       )
     )
@@ -57,7 +96,7 @@ const deleteEvent = (actions$ = inject(Actions), api = inject(ApiClient)) => {
 
 const failedDeleteEvent = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(EventActions.failedDeleteEvent),
+    ofType(EventOperationsActions.failedDeleteEvent),
     map(() =>
       SharedActions.sendNotification({
         message: 'Could not delete event',
@@ -68,14 +107,14 @@ const failedDeleteEvent = (action$ = inject(Actions)) =>
 
 const saveEditableEvent = (actions$ = inject(Actions)) =>
   actions$.pipe(
-    ofType(EventActions.saveEditableEvent),
+    ofType(EventOperationsActions.saveEditableEvent),
     map(({ event }) => fromEditableEventStateToApiInput(event)),
     map(event =>
       event.id
-        ? EventActions.updateExistEventOnAPI({
-            event: { ...event, id: event.id },
-          })
-        : EventActions.pushNewEventToAPI({ event: event })
+        ? EventOperationsActions.updateExistEventOnAPI({
+          event: { ...event, id: event.id },
+        })
+        : EventOperationsActions.pushNewEventToAPI({ event: event })
     )
   );
 const pushNewEventToApi = (
@@ -83,12 +122,12 @@ const pushNewEventToApi = (
   api = inject(ApiClient)
 ) =>
   actions$.pipe(
-    ofType(EventActions.pushNewEventToAPI),
+    ofType(EventOperationsActions.pushNewEventToAPI),
     exhaustMap(({ event }) =>
       api.addTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
         map(data => fromApiEventToState(data.event, event.timelineId)),
-        map(event => EventActions.successPushNewEvent({ event })),
+        map(event => EventOperationsActions.successPushNewEvent({ event })),
         catchError(error => {
           return of(
             SharedActions.sendNotification({
@@ -106,12 +145,12 @@ const pushExistEventToApi = (
   api = inject(ApiClient)
 ) =>
   actions$.pipe(
-    ofType(EventActions.updateExistEventOnAPI),
+    ofType(EventOperationsActions.updateExistEventOnAPI),
     exhaustMap(({ event }) =>
       api.saveExistTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
         map(data => fromApiEventToState(data.event, event.timelineId)),
-        map(event => EventActions.successUpdateEvent({ event })),
+        map(event => EventOperationsActions.successUpdateEvent({ event })),
         catchError(error =>
           of(
             SharedActions.sendNotification({
@@ -125,7 +164,7 @@ const pushExistEventToApi = (
   );
 const apiException = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(EventActions.apiException),
+    ofType(EventOperationsActions.apiException),
     map(() =>
       SharedActions.sendNotification({
         message: 'Something went wrong. Try again later',
@@ -134,7 +173,7 @@ const apiException = (action$ = inject(Actions)) =>
     )
   );
 
-export const eventsEffects = {
+export const eventOperationsEffects = {
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
   failedDeleteEvent: createEffect(failedDeleteEvent, StoreDispatchEffect),
 

@@ -24,8 +24,8 @@ import {
   EventContentIcon,
   EventContentTag,
 } from '../../../../shared/ui/event/content/content.types';
-import { EventActions } from '../../../events/store/events/events.actions';
-import { eventsFeature } from '../../../events/store/events/events.reducer';
+import { EventOperationsActions } from '../../../events/store/operations/operations.actions';
+import { eventOperationsFeature } from '../../../events/store/operations/operations.reducer';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
   TimelineEvent,
@@ -47,10 +47,10 @@ import { EditEventFormChanges } from './edit-event.types';
 export class EditEventComponent {
   private readonly store = inject(Store);
   private readonly isEdit = this.store.selectSignal(
-    eventsFeature.isEditingEvent
+    eventOperationsFeature.isEditingEvent
   );
   protected readonly editEvent = this.store.selectSignal(
-    eventsFeature.selectShouldEditEvent
+    eventOperationsFeature.selectShouldEditEvent
   );
 
   private readonly timelineId = toSignal(
@@ -127,7 +127,7 @@ export class EditEventComponent {
   }
 
   protected closeEditForm() {
-    this.store.dispatch(EventActions.stopEditingEvent());
+    this.store.dispatch(EventOperationsActions.stopEditingEvent());
   }
 
   protected updatePreviewEvent(value: EditEventFormChanges) {
@@ -159,7 +159,7 @@ export class EditEventComponent {
   protected saveEvent() {
     this.loading.set(true);
     this.store.dispatch(
-      EventActions.saveEditableEvent({ event: this.updatedEvent() })
+      EventOperationsActions.saveEditableEvent({ event: this.updatedEvent() })
     );
   }
 

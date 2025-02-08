@@ -10,8 +10,8 @@ import {
   TaskResultImages,
 } from '../../../feature/task/executors/images.factory';
 
-import { EventActions } from '../../../feature/events/store/events/events.actions';
-import { eventsFeature } from '../../../feature/events/store/events/events.reducer';
+import { EventOperationsActions } from '../../../feature/events/store/operations/operations.actions';
+import { eventOperationsFeature } from '../../../feature/events/store/operations/operations.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';
@@ -46,24 +46,24 @@ const uploadImage = (
     exhaustMap(({ image, uuid, token }) =>
       token
         ? apiClient.uploadImages({ images: [image], token }).pipe(
-            map(result => result.data?.upload),
-            map(data =>
-              data && data[0]
-                ? UploadActions.successUploadImage({
-                    uuid,
-                    id: data[0].id,
-                    status: convertStatus(data[0].status),
-                    error: data[0].error,
-                  })
-                : UploadActions.failedUploadImage({
-                    uuid,
-                    error: 'Failed to load uploaded image',
-                  })
-            ),
-            catchError(error =>
-              of(UploadActions.failedUploadImage({ uuid, error }))
-            )
+          map(result => result.data?.upload),
+          map(data =>
+            data && data[0]
+              ? UploadActions.successUploadImage({
+                uuid,
+                id: data[0].id,
+                status: convertStatus(data[0].status),
+                error: data[0].error,
+              })
+              : UploadActions.failedUploadImage({
+                uuid,
+                error: 'Failed to load uploaded image',
+              })
+          ),
+          catchError(error =>
+            of(UploadActions.failedUploadImage({ uuid, error }))
           )
+        )
         : of(SharedActions.dispatchEmptyPreviewlyTokenError())
     )
   );
@@ -84,7 +84,10 @@ const createTaskForLoadImages = (
   store = inject(Store)
 ) =>
   actions$.pipe(
-    ofType(EventActions.successUpdateEvent, UploadActions.successUploadImage),
+    ofType(
+      EventOperationsActions.successUpdateEvent,
+      UploadActions.successUploadImage
+    ),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
     map(([, images]) => images.map(image => image.id)),
     concatLatestFrom(() =>
@@ -97,8 +100,8 @@ const createTaskForLoadImages = (
         return imageIds.length === 0
           ? ImagesActions.shouldNotLoadEmptyImageList()
           : TaskActions.createTask({
-              task: ImagesTaskExecutorFactory.createTaskProps(imageIds, token),
-            });
+            task: ImagesTaskExecutorFactory.createTaskProps(imageIds, token),
+          });
       }
       throw new Error('No token');
     })
@@ -115,9 +118,9 @@ const successLoadingImagesTask = (actions$ = inject(Actions)) =>
 
 const addImageOnEdit = (actions$ = inject(Actions), store = inject(Store)) =>
   actions$.pipe(
-    ofType(EventActions.dispatchEditEvent),
+    ofType(EventOperationsActions.dispatchEditEvent),
     concatLatestFrom(() =>
-      store.select(eventsFeature.selectActiveTimelineEvents)
+      store.select(eventOperationsFeature.selectActiveTimelineEvents)
     ),
     map(
       ([{ eventId }, events]) =>
@@ -130,7 +133,10 @@ const deleteImagesAfterSave = (
   store = inject(Store)
 ) =>
   actions$.pipe(
-    ofType(EventActions.successUpdateEvent, EventActions.successPushNewEvent),
+    ofType(
+      EventOperationsActions.successUpdateEvent,
+      EventOperationsActions.successPushNewEvent
+    ),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
     map(([{ event }, shouldDelete]) =>
       shouldDelete
@@ -146,7 +152,7 @@ const deleteImagesAfterDelete = (
   store = inject(Store)
 ) =>
   actions$.pipe(
-    ofType(EventActions.successDeleteEvent),
+    ofType(EventOperationsActions.successDeleteEvent),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
     map(([, imageIds]) => imageIds.map(imageId => imageId.id)),
     tap(images => console.log('deleted images: ', images)),
