@@ -10,7 +10,6 @@ import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.
 import { LoadingButtonComponent } from '../../../../shared/content/loading-button/loading-button.component';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { UploadedImage } from '../../../../shared/store/images/images.types';
-import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { ListComponent } from '../../components/list/list.component';
 import { TimelineActions } from '../../store/timeline.actions';
@@ -61,13 +60,6 @@ export class SharedTimelineComponent {
     const events = this.viewEvents();
     return this.limit() ? events?.slice(0, this.limit() || 0) : events;
   });
-  private readonly allEventsImageIds = computed(() => {
-    return this.viewEventsWithoutImages()
-      ?.map(event => event.imageId)
-      .filter(id => !!id)
-      .map(id => id!);
-  });
-
   protected readonly isLoading = this.store.selectSignal(
     timelineFeature.selectLoading
   );
@@ -89,15 +81,6 @@ export class SharedTimelineComponent {
   constructor() {
     effect(() => {
       this.store.dispatch(TimelineActions.loadTimelineEvents(this.query()));
-    });
-
-    effect(() => {
-      const images = this.allEventsImageIds();
-      if (images) {
-        this.store.dispatch(
-          SharedActions.dispatchLoadingImages({ ids: images })
-        );
-      }
     });
   }
 

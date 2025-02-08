@@ -11,6 +11,7 @@ import {
   apiAssertNotNull,
   extractApiData,
 } from '../../../../libs/api.functions';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { TimelineActions } from '../timeline.actions';
 import { ExistTimelineEvent, TimelineEventType } from '../timeline.types';
 
@@ -73,6 +74,21 @@ export const loadTimelineEffects = {
         catchError(error =>
           of(TimelineActions.errorLoadingTimelineEvent({ error }))
         )
+      ),
+    StoreDispatchEffect
+  ),
+
+  loadImagesAfterSuccesLoadEvents: createEffect(
+    (actions$ = inject(Actions)) =>
+      actions$.pipe(
+        ofType(TimelineActions.successLoadTimeline),
+        map(({ events }): number[] =>
+          events
+            .map(event => event.imageId)
+            .filter(Boolean)
+            .map(id => id!)
+        ),
+        map(ids => SharedActions.dispatchLoadingImages({ ids }))
       ),
     StoreDispatchEffect
   ),
