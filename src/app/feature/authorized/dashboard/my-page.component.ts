@@ -18,6 +18,7 @@ import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
+import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import {
   ExistViewTimelineEvent,
   ViewTimelineTag,
@@ -37,6 +38,7 @@ import { LoadEventActionOptions } from './store/events/events.types';
     AddEventButtonComponent,
     ModalConfirmComponent,
     TimelineComponent,
+    SharedTimelineComponent,
   ],
 })
 export class MyPageComponent {

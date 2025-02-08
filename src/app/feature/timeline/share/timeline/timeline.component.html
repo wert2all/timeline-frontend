@@ -13,9 +13,11 @@
 
 @if (events(); as events) {
   @if (events.length > 0) {
-    <app-timeline-events-list [events]="events">
-      <ng-content />
-    </app-timeline-events-list>
+    <app-timeline-events-list
+      [events]="events"
+      [canEditEvent]="canEditEvent()"
+      (delete)="delete.emit($event)"
+      (edit)="edit.emit($event)" />
   } @else {
     @if (!error() && !isLoading()) {
       <div role="alert" class="alert alert-info">

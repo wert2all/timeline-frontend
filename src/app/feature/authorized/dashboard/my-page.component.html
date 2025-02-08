@@ -22,6 +22,14 @@
 
           <app-edit-event />
 
+          <div class="hidden">
+            <app-shared-timeline
+              [timelineId]="activeTimeline()!.id"
+              [canEditEvent]="true"
+              (delete)="deleteEvent($event)"
+              (edit)="editEvent($event)" />
+          </div>
+
           <app-timeline
             [timeline]="timeline()"
             (filterByTag)="filterByTag($event)"

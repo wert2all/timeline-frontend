@@ -14,13 +14,26 @@
         class="item-content w-full place-items-start overflow-hidden rounded-xl bg-base-100"
         [class.opacity-20]="event.loading">
         <app-timeline-event-main-content [event]="event" />
-
-        <ng-content />
+        @if (canEditEvent()) {
+          <app-timeline-event-menu
+            class="absolute -bottom-2 right-2 lg:hidden"
+            [timelineEvent]="{ id: event.id }"
+            (delete)="delete.emit($event)"
+            (edit)="edit.emit($event)" />
+        }
       </div>
-      <div class="item-menu hidden h-full w-full lg:block">
-        <ng-content />
-      </div>
-
+      @if (canEditEvent()) {
+        <div class="item-menu hidden h-full w-full lg:block">
+          <div
+            class="mt-10 h-full w-full duration-100 hover:opacity-100 lg:opacity-0">
+            <app-timeline-event-menu
+              class="h-full w-full"
+              [timelineEvent]="{ id: event.id }"
+              (delete)="delete.emit($event)"
+              (edit)="edit.emit($event)" />
+          </div>
+        </div>
+      }
       <hr [class.opacity-20]="event.loading" />
     </li>
   }
