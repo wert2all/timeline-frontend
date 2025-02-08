@@ -6,6 +6,8 @@ const initialState: NewTimelineState = {
   loading: false,
   events: [],
   error: null,
+  lastCursor: null,
+  hasMore: false,
 };
 export const timelineFeature = createFeature({
   name: 'new-timeline',
@@ -19,6 +21,16 @@ export const timelineFeature = createFeature({
     on(
       TimelineActions.successLoadTimeline,
       (state): NewTimelineState => ({ ...state, loading: false })
+    ),
+
+    on(
+      TimelineActions.successLoadTimeline,
+      (state, { events, lastCursor, hasMore }) => ({
+        ...state,
+        events: [...state.events, ...events],
+        lastCursor,
+        hasMore,
+      })
     ),
 
     on(

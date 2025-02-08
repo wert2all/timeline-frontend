@@ -1,4 +1,5 @@
-import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { createActionGroup, props } from '@ngrx/store';
+import { ExistTimelineEvent } from './timeline.types';
 
 export const TimelineActions = createActionGroup({
   source: 'New Timeline',
@@ -8,7 +9,11 @@ export const TimelineActions = createActionGroup({
       accountId: number | null;
       cursor: string | null;
     }>(),
-    'Success load timeline': emptyProps(),
+    'Success load timeline': props<{
+      events: ExistTimelineEvent[];
+      lastCursor: string | null;
+      hasMore: boolean;
+    }>(),
 
     'Error loading timeline event': props<{ error: Error }>(),
   },
