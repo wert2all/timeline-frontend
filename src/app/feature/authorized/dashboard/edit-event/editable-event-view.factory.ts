@@ -4,6 +4,8 @@ import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
+} from '../../../timeline/store/timeline.types';
+import {
   ViewTimelineEvent,
   ViewTimelineEventIcon,
   ViewTimelineTag,
