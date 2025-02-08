@@ -36,11 +36,11 @@ export class SharedTimelineComponent {
 
   protected readonly moreIcon = saxMoreSquareOutline;
 
-  private readonly activeAccountId = this.store.selectSignal(
-    sharedFeature.selectActiveAccoundId
-  );
   private readonly images = this.store.selectSignal(
     imagesFeature.selectLoadedImages
+  );
+  private readonly activeAccountId = this.store.selectSignal(
+    sharedFeature.selectActiveAccoundId
   );
   private readonly cursor = this.store.selectSignal(
     timelineFeature.selectLastCursor
@@ -60,6 +60,7 @@ export class SharedTimelineComponent {
     const events = this.viewEvents();
     return this.limit() ? events?.slice(0, this.limit() || 0) : events;
   });
+
   protected readonly isLoading = this.store.selectSignal(
     timelineFeature.selectLoading
   );

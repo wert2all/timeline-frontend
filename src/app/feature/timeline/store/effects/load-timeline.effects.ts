@@ -45,8 +45,8 @@ const createEvents = (
 
 export const loadTimelineEffects = {
   loadTimelineEvents: createEffect(
-    (actions$ = inject(Actions), api = inject(ApiClient)) =>
-      actions$.pipe(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
         ofType(TimelineActions.loadTimelineEvents),
         exhaustMap(options =>
           api.getEvents(options).pipe(
@@ -74,13 +74,14 @@ export const loadTimelineEffects = {
         catchError(error =>
           of(TimelineActions.errorLoadingTimelineEvent({ error }))
         )
-      ),
+      );
+    },
     StoreDispatchEffect
   ),
 
   loadImagesAfterSuccesLoadEvents: createEffect(
-    (actions$ = inject(Actions)) =>
-      actions$.pipe(
+    (actions$ = inject(Actions)) => {
+      return actions$.pipe(
         ofType(TimelineActions.successLoadTimeline),
         map(({ events }): number[] =>
           events
@@ -89,7 +90,8 @@ export const loadTimelineEffects = {
             .map(id => id!)
         ),
         map(ids => SharedActions.dispatchLoadingImages({ ids }))
-      ),
+      );
+    },
     StoreDispatchEffect
   ),
 };
