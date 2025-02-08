@@ -112,8 +112,8 @@ const saveEditableEvent = (actions$ = inject(Actions)) =>
     map(event =>
       event.id
         ? EventOperationsActions.updateExistEventOnAPI({
-          event: { ...event, id: event.id },
-        })
+            event: { ...event, id: event.id },
+          })
         : EventOperationsActions.pushNewEventToAPI({ event: event })
     )
   );

@@ -46,24 +46,24 @@ const uploadImage = (
     exhaustMap(({ image, uuid, token }) =>
       token
         ? apiClient.uploadImages({ images: [image], token }).pipe(
-          map(result => result.data?.upload),
-          map(data =>
-            data && data[0]
-              ? UploadActions.successUploadImage({
-                uuid,
-                id: data[0].id,
-                status: convertStatus(data[0].status),
-                error: data[0].error,
-              })
-              : UploadActions.failedUploadImage({
-                uuid,
-                error: 'Failed to load uploaded image',
-              })
-          ),
-          catchError(error =>
-            of(UploadActions.failedUploadImage({ uuid, error }))
+            map(result => result.data?.upload),
+            map(data =>
+              data && data[0]
+                ? UploadActions.successUploadImage({
+                    uuid,
+                    id: data[0].id,
+                    status: convertStatus(data[0].status),
+                    error: data[0].error,
+                  })
+                : UploadActions.failedUploadImage({
+                    uuid,
+                    error: 'Failed to load uploaded image',
+                  })
+            ),
+            catchError(error =>
+              of(UploadActions.failedUploadImage({ uuid, error }))
+            )
           )
-        )
         : of(SharedActions.dispatchEmptyPreviewlyTokenError())
     )
   );
@@ -100,8 +100,8 @@ const createTaskForLoadImages = (
         return imageIds.length === 0
           ? ImagesActions.shouldNotLoadEmptyImageList()
           : TaskActions.createTask({
-            task: ImagesTaskExecutorFactory.createTaskProps(imageIds, token),
-          });
+              task: ImagesTaskExecutorFactory.createTaskProps(imageIds, token),
+            });
       }
       throw new Error('No token');
     })

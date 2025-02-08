@@ -80,9 +80,9 @@ export const imagesFeature = createFeature({
       (state, { imageId }): ImagesState =>
         imageId
           ? {
-            ...state,
-            shouldDelete: [...state.shouldDelete, { id: imageId }],
-          }
+              ...state,
+              shouldDelete: [...state.shouldDelete, { id: imageId }],
+            }
           : state
     ),
 

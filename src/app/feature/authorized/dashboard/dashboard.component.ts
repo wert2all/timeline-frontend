@@ -18,7 +18,7 @@ import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 
 @Component({
   standalone: true,
-  templateUrl: './my-page.component.html',
+  templateUrl: './dashboard.component.html',
   imports: [
     LayoutComponent,
     CreateTimelineButtonComponent,
