@@ -13,7 +13,7 @@
       <div
         class="item-content w-full place-items-start overflow-hidden rounded-xl bg-base-100"
         [class.opacity-20]="event.loading">
-        <app-timeline-event-main-content [event]="event" />
+        <app-shared-timeline-event-content [event]="event" />
         @if (canEditEvent()) {
           <app-timeline-event-menu
             class="absolute -bottom-2 right-2 lg:hidden"
