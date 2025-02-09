@@ -1,15 +1,15 @@
 import {
   Component,
-  Signal,
   computed,
   effect,
   inject,
+  Signal,
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
-import { timelineFeature } from '../store/timeline/timeline.reducer';
-import { createDefaultTimelineEvent } from './editable-event-view.factory';
+import { timelineFeature } from '../../../authorized/dashboard/store/timeline/timeline.reducer';
+import { createDefaultTimelineEvent } from '../editable-event-view.factory';
 
 import { toSignal } from '@angular/core/rxjs-interop';
 import { map } from 'rxjs';
@@ -24,17 +24,17 @@ import {
   EventContentIcon,
   EventContentTag,
 } from '../../../../shared/ui/event/content/content.types';
-import { EventOperationsActions } from '../../../events/store/operations/operations.actions';
-import { eventOperationsFeature } from '../../../events/store/operations/operations.reducer';
+import { PreviewActions } from '../../../authorized/dashboard/store/preview/preview.actions';
+import { previewFeature } from '../../../authorized/dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import {
   TimelineEvent,
   TimelineEventType,
 } from '../../../timeline/store/timeline.types';
-import { PreviewActions } from '../store/preview/preview.actions';
-import { previewFeature } from '../store/preview/preview.reducers';
-import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
-import { EditEventFormViewHelper } from './edit-event-form/edit-event-form.types';
+import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
+import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
+import { EventOperationsActions } from '../../store/operations/operations.actions';
+import { eventOperationsFeature } from '../../store/operations/operations.reducer';
 import { EditEventFormChanges } from './edit-event.types';
 
 @Component({

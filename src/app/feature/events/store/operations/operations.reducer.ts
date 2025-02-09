@@ -1,5 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { createDefaultTimelineEvent } from '../../../authorized/dashboard/edit-event/editable-event-view.factory';
+import { createDefaultTimelineEvent } from '../../share/editable-event-view.factory';
 import { EventOperationsActions } from './operations.actions';
 import { EventsState } from './operations.types';
 

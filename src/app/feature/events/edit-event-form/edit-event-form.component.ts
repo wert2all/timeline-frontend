@@ -29,13 +29,13 @@ import {
 import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
-import { fromInputSignal } from '../../../../../libs/signal.functions';
-import { FormControlsComponent } from '../../../../../shared/content/form-controls/controls.component';
-import { SharedTabsComponent } from '../../../../../shared/content/tabs/tabs.component';
-import { Tabs } from '../../../../../shared/content/tabs/tabs.types';
-import { EventContentTag } from '../../../../../shared/ui/event/content/content.types';
-import { TimelineEvent } from '../../../../timeline/store/timeline.types';
-import { EditEventFormChanges } from '../edit-event.types';
+import { fromInputSignal } from '../../../libs/signal.functions';
+import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
+import { SharedTabsComponent } from '../../../shared/content/tabs/tabs.component';
+import { Tabs } from '../../../shared/content/tabs/tabs.types';
+import { EventContentTag } from '../../../shared/ui/event/content/content.types';
+import { TimelineEvent } from '../../timeline/store/timeline.types';
+import { EditEventFormChanges } from '../share/edit-event/edit-event.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
 import {
   EditEventForm,
