@@ -27,6 +27,7 @@ import { EventContentImage } from '../../../../shared/ui/event/content/content.t
 import { ListComponent } from '../../components/list/list.component';
 import { ListEventsActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
+import { ExistTimelineEvent } from '../../store/timeline.types';
 
 @Component({
   standalone: true,
@@ -47,7 +48,7 @@ export class SharedTimelineComponent {
   isEditable = input<boolean>(false);
 
   delete = output<Iterable>();
-  edit = output<Iterable>();
+  edit = output<ExistTimelineEvent>();
 
   private readonly store = inject(Store);
 
@@ -70,6 +71,9 @@ export class SharedTimelineComponent {
     };
   });
 
+  private readonly rawEvents = this.store.selectSignal(
+    timelineFeature.selectEvents
+  );
   private readonly viewEvents = this.store.selectSignal(
     timelineFeature.selectViewEvents
   );
@@ -129,5 +133,12 @@ export class SharedTimelineComponent {
           status: this.convertImageStatus(image.status),
         }
       : eventImage;
+  }
+
+  editEvent(event: Iterable) {
+    const editableEvent = this.rawEvents()?.find(e => e.id === event.id);
+    if (editableEvent) {
+      this.edit.emit(editableEvent);
+    }
   }
 }

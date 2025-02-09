@@ -71,9 +71,13 @@ export const timelineFeature = createFeature({
     )
   ),
 
-  extraSelectors: ({ selectLoading }) => {
+  extraSelectors: ({ selectLoading, selectActiveTimeline }) => {
     return {
       isLoading: createSelector(selectLoading, loading => loading),
+      selectActiveTimelineId: createSelector(
+        selectActiveTimeline,
+        timeline => timeline?.id
+      ),
     };
   },
 });

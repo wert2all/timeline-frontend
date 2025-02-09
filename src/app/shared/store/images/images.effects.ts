@@ -2,7 +2,7 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
-import { catchError, exhaustMap, filter, map, of, tap } from 'rxjs';
+import { catchError, exhaustMap, filter, map, of } from 'rxjs';
 import { previewlyApiClient } from '../../../api/external/previewly/graphql';
 import { Status, StoreDispatchEffect } from '../../../app.types';
 import {
@@ -11,7 +11,6 @@ import {
 } from '../../../feature/task/executors/images.factory';
 
 import { EventOperationsActions } from '../../../feature/events/store/operations/operations.actions';
-import { eventOperationsFeature } from '../../../feature/events/store/operations/operations.reducer';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';
@@ -116,49 +115,6 @@ const successLoadingImagesTask = (actions$ = inject(Actions)) =>
     map(images => ImagesActions.successUpdateImages({ images: images || [] }))
   );
 
-const addImageOnEdit = (actions$ = inject(Actions), store = inject(Store)) =>
-  actions$.pipe(
-    ofType(EventOperationsActions.dispatchEditEvent),
-    concatLatestFrom(() =>
-      store.select(eventOperationsFeature.selectActiveTimelineEvents)
-    ),
-    map(
-      ([{ eventId }, events]) =>
-        events.find(event => event.id === eventId)?.imageId
-    ),
-    map(imageId => ImagesActions.maybeShouldDeleteImage({ imageId }))
-  );
-const deleteImagesAfterSave = (
-  actions$ = inject(Actions),
-  store = inject(Store)
-) =>
-  actions$.pipe(
-    ofType(
-      EventOperationsActions.successUpdateEvent,
-      EventOperationsActions.successPushNewEvent
-    ),
-    concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
-    map(([{ event }, shouldDelete]) =>
-      shouldDelete
-        .filter(imageId => event.imageId != imageId.id)
-        .map(imageId => imageId.id)
-    ),
-    tap(images => console.log('deleted images: ', images)),
-    map(images => ImagesActions.successDeletingImages({ images }))
-  );
-
-const deleteImagesAfterDelete = (
-  actions$ = inject(Actions),
-  store = inject(Store)
-) =>
-  actions$.pipe(
-    ofType(EventOperationsActions.successDeleteEvent),
-    concatLatestFrom(() => store.select(imagesFeature.selectShouldDelete)),
-    map(([, imageIds]) => imageIds.map(imageId => imageId.id)),
-    tap(images => console.log('deleted images: ', images)),
-    map(images => ImagesActions.successDeletingImages({ images }))
-  );
-
 export const imageEffects = {
   uploadEventInmage: createEffect(uploadImage, StoreDispatchEffect),
   failedUploadImage: createEffect(notifyFailedUploadImage, StoreDispatchEffect),
@@ -169,17 +125,6 @@ export const imageEffects = {
   ),
   successTaskOfLoadingImages: createEffect(
     successLoadingImagesTask,
-    StoreDispatchEffect
-  ),
-
-  addImageOnEdit: createEffect(addImageOnEdit, StoreDispatchEffect),
-  deleteImagesAfterSave: createEffect(
-    deleteImagesAfterSave,
-    StoreDispatchEffect
-  ),
-
-  deleteImagesAfterDelete: createEffect(
-    deleteImagesAfterDelete,
     StoreDispatchEffect
   ),
 };

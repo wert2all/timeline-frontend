@@ -76,17 +76,6 @@ export const imagesFeature = createFeature({
     ),
 
     on(
-      ImagesActions.maybeShouldDeleteImage,
-      (state, { imageId }): ImagesState =>
-        imageId
-          ? {
-              ...state,
-              shouldDelete: [...state.shouldDelete, { id: imageId }],
-            }
-          : state
-    ),
-
-    on(
       EventOperationsActions.deleteEvent,
       (state, { imageId }): ImagesState => ({
         ...state,
@@ -96,14 +85,6 @@ export const imagesFeature = createFeature({
 
     on(
       EventOperationsActions.failedDeleteEvent,
-      (state): ImagesState => ({
-        ...state,
-        shouldDelete: [],
-      })
-    ),
-
-    on(
-      ImagesActions.successDeletingImages,
       (state): ImagesState => ({
         ...state,
         shouldDelete: [],
