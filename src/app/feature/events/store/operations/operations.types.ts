@@ -1,7 +1,6 @@
-import { Loadable, Undefined } from '../../../../app.types';
-import { ExistTimelineEvent } from '../../../timeline/store/timeline.types';
+import { Loadable } from '../../../../app.types';
+import { TimelineEvent } from '../../../timeline/store/timeline.types';
 
 export type EventsState = Loadable & {
-  events: ExistTimelineEvent[];
-  showEditEventId: number | Undefined;
+  editedEvent: TimelineEvent | null;
 };

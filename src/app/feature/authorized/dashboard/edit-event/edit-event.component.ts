@@ -49,8 +49,8 @@ export class EditEventComponent {
   private readonly isEdit = this.store.selectSignal(
     eventOperationsFeature.isEditingEvent
   );
-  protected readonly editEvent = this.store.selectSignal(
-    eventOperationsFeature.selectShouldEditEvent
+  protected readonly editedEvent = this.store.selectSignal(
+    eventOperationsFeature.selectEditedEvent
   );
 
   private readonly timelineId = toSignal(
@@ -76,7 +76,7 @@ export class EditEventComponent {
     { initialValue: false }
   );
 
-  protected readonly isNew = computed(() => !this.editEvent()?.id);
+  protected readonly isNew = computed(() => !this.editedEvent()?.id);
 
   private updatedEvent = signal(createDefaultTimelineEvent(this.timelineId()));
 

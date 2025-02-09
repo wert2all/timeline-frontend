@@ -13,7 +13,7 @@
             (addTimeline)="addTimeline($event, accountId)" />
         }
       } @else {
-        @if (activeTimeline()) {
+        @if (activeTimelineId(); as timelineId) {
           <app-add-event-button
             (addEvent)="dispatchNewEventCreation()"
             [disabled]="canAddNewEvent() !== true"
@@ -23,7 +23,7 @@
           <app-edit-event />
 
           <app-shared-timeline
-            [timelineId]="activeTimeline()!.id"
+            [timelineId]="timelineId"
             [isEditable]="true"
             (delete)="deleteEvent($event)"
             (edit)="editEvent($event)" />

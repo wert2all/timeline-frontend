@@ -28,9 +28,6 @@ export const ImagesActions = createActionGroup({
     'Dispatch polling': emptyProps(),
     'Success update images': props<{ images: UploadedImage[] }>(),
 
-    'Maybe should delete image': props<{ imageId: number | Undefined }>(),
-    'Success deleting images': props<{ images: number[] }>(),
-
     'Should not load empty image list': emptyProps(),
   },
 });

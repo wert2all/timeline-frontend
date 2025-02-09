@@ -12,7 +12,8 @@ import {
 export const EventOperationsActions = createActionGroup({
   source: 'Event Operations',
   events: {
-    'Dispatch edit event': props<{ eventId: number | Undefined }>(),
+    'Dispatch edit event': props<{ event: TimelineEvent }>(),
+    'Dispatch add new event': props<{ timelineId: number }>(),
     'Stop editing event': emptyProps(),
 
     'Save editable event': props<{ event: TimelineEvent }>(),

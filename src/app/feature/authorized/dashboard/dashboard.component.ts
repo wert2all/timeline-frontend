@@ -14,6 +14,7 @@ import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { EventOperationsActions } from '../../events/store/operations/operations.actions';
 import { eventOperationsFeature } from '../../events/store/operations/operations.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
+import { ExistTimelineEvent } from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 
 @Component({
@@ -34,8 +35,14 @@ export class MyPageComponent {
   private readonly isEditingEvent = this.store.selectSignal(
     eventOperationsFeature.isEditingEvent
   );
-  protected readonly activeTimeline = this.store.selectSignal(
-    timelineFeature.selectActiveTimeline
+  protected readonly activeTimelineId = this.store.selectSignal(
+    timelineFeature.selectActiveTimelineId
+  );
+  private readonly activeAccount = this.store.selectSignal(
+    sharedFeature.selectActiveAccount
+  );
+  protected readonly activeAccountId = computed(
+    () => this.activeAccount()?.id || 0
   );
 
   protected readonly isTimelineLoading = this.store.selectSignal(
@@ -49,12 +56,6 @@ export class MyPageComponent {
     timelineFeature.selectNewTimelineAdded
   );
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
-  private readonly activeAccount = this.store.selectSignal(
-    sharedFeature.selectActiveAccount
-  );
-  protected readonly activeAccountId = computed(
-    () => this.activeAccount()?.id || 0
-  );
 
   protected readonly shouldDeleteEventId = signal<number>(0);
   private readonly shouldDeleteImageId = computed(() => {
@@ -123,15 +124,18 @@ export class MyPageComponent {
     this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
   }
 
-  editEvent(event: Iterable) {
+  editEvent(event: ExistTimelineEvent) {
     this.store.dispatch(
-      EventOperationsActions.dispatchEditEvent({ eventId: event.id })
+      EventOperationsActions.dispatchEditEvent({ event: event })
     );
   }
 
   dispatchNewEventCreation() {
-    this.store.dispatch(
-      EventOperationsActions.dispatchEditEvent({ eventId: 0 })
-    );
+    const timelineId = this.activeTimelineId();
+    if (timelineId) {
+      this.store.dispatch(
+        EventOperationsActions.dispatchAddNewEvent({ timelineId })
+      );
+    }
   }
 }
