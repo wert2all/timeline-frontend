@@ -6,9 +6,9 @@ import { TimelineActions } from './store/timeline/timeline.actions';
 import { timelineFeature } from './store/timeline/timeline.reducer';
 
 import { Iterable, Undefined } from '../../../app.types';
+import { EditEventComponent } from '../../events/share/edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../../timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
-import { EditEventComponent } from './edit-event/edit-event.component';
 
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { EventOperationsActions } from '../../events/store/operations/operations.actions';

@@ -1,7 +1,7 @@
 import {
   TimelineEvent,
   TimelineEventType,
-} from '../../../timeline/store/timeline.types';
+} from '../../timeline/store/timeline.types';
 
 export const createDefaultTimelineEvent = (
   timelineId: number
