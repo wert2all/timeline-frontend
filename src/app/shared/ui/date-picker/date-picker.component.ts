@@ -23,7 +23,7 @@ import { DateTime, Info } from 'luxon';
     provideIcons({ saxArrowLeft2Outline, saxArrowRight3Outline }),
   ],
 })
-export class DatePickerComponent {
+export class SharedDatePickerComponent {
   fromDate = input<string | null>(null);
   selectDate = output<Date>();
 

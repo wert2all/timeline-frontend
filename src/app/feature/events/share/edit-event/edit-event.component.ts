@@ -1,9 +1,9 @@
 import {
   Component,
+  Signal,
   computed,
   effect,
   inject,
-  Signal,
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
