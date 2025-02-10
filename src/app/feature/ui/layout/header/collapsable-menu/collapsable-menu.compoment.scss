@@ -1,5 +1,8 @@
 .divider {
-  @apply m-0 mx-2 p-0;
+  margin: 0;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  padding: 0;
 
   &:before,
   &:after {
@@ -8,10 +11,20 @@
 }
 
 a {
-  @apply mx-1 flex cursor-pointer place-content-center justify-start rounded-lg px-2 py-2 hover:bg-secondary;
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  display: flex;
+  cursor: pointer;
+  place-content: center;
+  justify-content: flex-start;
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 
   ng-icon {
-    @apply me-2;
+    margin-inline-end: 0.5rem;
   }
 
   &:active:hover,
@@ -25,11 +38,12 @@ a {
   .accounts_title {
     .back_title,
     &.open .change_title {
-      @apply hidden;
+      display: none;
     }
+
     .change_title,
     &.open .back_title {
-      @apply flex;
+      display: flex;
     }
 
     ng-icon {

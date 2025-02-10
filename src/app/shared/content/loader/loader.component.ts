@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   selector: 'app-shared-loader',
   template: `
     <div class="loader border-4 border-secondary bg-primary">
-      <span class="sub-loader"></span>
+      <span class="sub-loader border-2 border-neutral-content"></span>
     </div>
   `,
   styleUrls: ['./loader.component.scss'],

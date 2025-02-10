@@ -1,18 +1,14 @@
 .stage {
-  span {
-    @apply h-2 flex-grow rounded-box bg-base-300;
-  }
-
   &.stage-started {
     span:nth-child(1) {
-      @apply bg-red-500;
+      background-color: #ef4444;
     }
   }
 
   &.stage-development {
     span:nth-child(1),
     span:nth-child(2) {
-      @apply bg-orange-500;
+      background-color: #f97316;
     }
   }
 
@@ -20,13 +16,13 @@
     span:nth-child(1),
     span:nth-child(2),
     span:nth-child(3) {
-      @apply bg-yellow-500;
+      background-color: #eab308;
     }
   }
 
   &.stage-done {
     span {
-      @apply bg-green-500;
+      background-color: #22c55e;
     }
   }
 }

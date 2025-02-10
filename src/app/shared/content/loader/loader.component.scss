@@ -15,7 +15,6 @@ $loader-center-animation-duration: 1s;
   animation-iteration-count: infinite;
 
   .sub-loader {
-    @apply border-2 border-neutral-content;
     top: 25%;
     left: 25%;
     width: 48px;
@@ -27,7 +26,12 @@ $loader-center-animation-duration: 1s;
     animation: rotation $loader-center-animation-duration linear infinite;
   }
   .sub-loader::after {
-    @apply border-4 border-transparent border-b-accent;
+    border-width: 4px;
+    border-bottom-color: #d55d0e;
+    border-top-color: transparent;
+    border-left-color: transparent;
+    border-right-color: transparent;
+
     content: '';
     box-sizing: border-box;
     position: absolute;

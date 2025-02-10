@@ -1,16 +1,14 @@
 .form-tabs {
   a {
-    @apply rounded-none;
+    border-radius: 0;
 
     &:first-child {
-      @apply rounded-es-lg rounded-ss-lg;
+      border-start-start-radius: 0.5rem;
+      border-end-start-radius: 0.5rem;
     }
     &:last-child {
-      @apply rounded-ee-lg rounded-se-lg;
-    }
-
-    &.active {
-      @apply btn-info border-b-4 border-b-success;
+      border-end-end-radius: 0.5rem;
+      border-start-end-radius: 0.5rem;
     }
   }
 }
