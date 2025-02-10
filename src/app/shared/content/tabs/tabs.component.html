@@ -10,7 +10,9 @@
       <a
         tabindex="0"
         class="tab-{{ tab.uuid }} btn"
-        [class.active]="activeTab().uuid === tab.uuid"
+        [class.btn-info]="activeTab().uuid === tab.uuid"
+        [class.border-b-4]="activeTab().uuid === tab.uuid"
+        [class.border-b-success]="activeTab().uuid === tab.uuid"
         [title]="tab.title"
         (click)="switchTab.emit(tab)"
         (keyup)="switchTab.emit(tab)">

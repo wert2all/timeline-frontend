@@ -7,20 +7,29 @@
 
   &.to-left {
     .item-content {
-      @apply timeline-end lg:timeline-start lg:text-right;
       animation-name: backInLeft;
-    }
-    .item-menu {
-      @apply lg:timeline-end lg:text-left;
     }
   }
   &.to-right {
     .item-content {
-      @apply timeline-end lg:text-left;
       animation-name: backInRight;
     }
-    .item-menu {
-      @apply lg:timeline-start lg:text-right;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline-item {
+    &.to-left .item-content {
+      text-align: right;
+    }
+    &.to-left .item-menu {
+      text-align: left;
+    }
+    &.to-right .item-content {
+      text-align: left;
+    }
+    &.to-right .item-menu {
+      text-align: right;
     }
   }
 }

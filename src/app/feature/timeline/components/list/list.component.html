@@ -11,7 +11,8 @@
       </div>
 
       <div
-        class="item-content w-full place-items-start overflow-hidden rounded-xl bg-base-100"
+        class="item-content timeline-end w-full place-items-start overflow-hidden rounded-xl bg-base-100"
+        [class.lg:timeline-start]="!odd"
         [class.opacity-20]="event.loading">
         <app-shared-timeline-event-content [event]="event" />
         @if (isEditable() && !event.loading) {
@@ -23,7 +24,10 @@
         }
       </div>
       @if (isEditable() && !event.loading) {
-        <div class="item-menu hidden h-full w-full lg:block">
+        <div
+          class="item-menu hidden h-full w-full lg:block"
+          [class.lg:timeline-end]="!odd"
+          [class.lg:timeline-start]="odd">
           <div
             class="mt-10 h-full w-full duration-100 hover:opacity-100 lg:opacity-0">
             <app-timeline-event-menu

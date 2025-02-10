@@ -1,11 +1,10 @@
 @use '../../../../../../assets/css/global' as g;
 
 .notification-container {
-  @apply fixed right-10 top-0 z-30 w-96 pe-4 pt-2;
-
   .toast {
-    @apply mt-2 rounded-t-lg bg-base-300;
-
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    margin-top: 0.5rem;
     position: relative;
     animation-name: backInRight;
     animation-duration: g.$animation-duration;
@@ -23,8 +22,11 @@
     }
 
     .indicator {
-      @apply absolute bottom-0 left-0 h-1 w-full;
-
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 0.25rem;
+      width: 100%;
       animation: timeOut 5s linear 1 forwards;
     }
     &.success .indicator {

@@ -2,6 +2,8 @@
   @for (item of state().items; track $index) {
     <li
       [class.active]="selected() === item.uuid"
+      [class.border-primary]="selected() === item.uuid"
+      [class.border-r-4]="selected() === item.uuid"
       [class.default]="selected() !== item.uuid"
       class="item overflow-hidden border-r-4 border-accent p-2 ps-4">
       <a
