@@ -35,6 +35,7 @@ import { accountFeature } from '../../store/account.reducer';
 interface SettingForm {
   accountId: FormControl<number>;
   name: FormControl<string>;
+  about: FormControl<string>;
   avatarId: FormControl<number | Undefined>;
 }
 
@@ -80,6 +81,7 @@ export class SettingsComponent {
       validators: [Validators.required],
       nonNullable: true,
     }),
+    about: new FormControl(),
     avatarId: new FormControl(),
   });
   protected valueChanges$ = this.form.valueChanges.pipe(takeUntilDestroyed());
@@ -104,6 +106,7 @@ export class SettingsComponent {
       if (account) {
         this.form.controls.accountId.setValue(account.id);
         this.form.controls.name.setValue(account.name || '');
+        this.form.controls.about.setValue(account.about || '');
         this.form.controls.avatarId.setValue(null);
       }
     });
@@ -135,6 +138,7 @@ export class SettingsComponent {
             accountId,
             name,
             avatarId: this.form.value.avatarId,
+            about: this.form.value.about,
             settings: this.accountResource.value()?.settings || {},
           },
         })

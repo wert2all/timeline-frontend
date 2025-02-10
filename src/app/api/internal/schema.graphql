@@ -6,13 +6,6 @@ directive @defer(
   label: String
 ) on FRAGMENT_SPREAD | INLINE_FRAGMENT
 
-type Account {
-  avatarId: Int
-  id: Int!
-  name: String
-  settings: [AccountSettings!]!
-}
-
 input AccountSettingInput {
   key: String!
   value: String
@@ -75,11 +68,13 @@ type Query {
 }
 
 input SaveAccountInput {
+  about: String
   avatarID: Int
   name: String!
 }
 
 type ShortAccount {
+  about: String
   avatarId: Int
   id: Int!
   name: String

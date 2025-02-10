@@ -68,13 +68,14 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
       if (cachedValues) {
         this.cache = this.convertToRecord(
           Object.values(cachedValues)
-            .map(maybeAccount => {
+            .map((maybeAccount): Account | null => {
               if (isAccount(maybeAccount)) {
                 const id = Number(maybeAccount.id);
                 if (isFinite(id)) {
                   return {
                     id: maybeAccount.id,
                     name: maybeAccount.name,
+                    about: maybeAccount.about,
                     previewlyToken: maybeAccount.previewlyToken,
                     settings: maybeAccount.settings,
                   };

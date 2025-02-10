@@ -10,6 +10,7 @@ fragment User on User {
 fragment ShortAccount on ShortAccount {
   id
   name
+  about
   previewlyToken
   avatarId
   settings {

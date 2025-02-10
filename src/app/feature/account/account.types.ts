@@ -10,6 +10,7 @@ export type AccountView = Unique & {
 export type AccountSettings = Record<string, string>;
 export type Account = Iterable & {
   name?: string;
+  about?: string;
   previewlyToken: string;
   settings: AccountSettings;
 };

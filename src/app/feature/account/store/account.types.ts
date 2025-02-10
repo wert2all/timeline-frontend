@@ -5,6 +5,7 @@ export interface SavingAccountSettings {
   accountId: number;
   name: string;
   avatarId: number | Undefined;
+  about: string | Undefined;
   settings: AccountSettings;
 }
 

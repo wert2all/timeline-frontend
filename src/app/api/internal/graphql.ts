@@ -61,6 +61,7 @@ export interface Limit {
 }
 
 export interface SaveAccountInput {
+  about?: InputMaybe<Scalars['String']['input']>;
   avatarID?: InputMaybe<Scalars['Int']['input']>;
   name: Scalars['String']['input'];
 }
@@ -113,7 +114,7 @@ export type TimelineEvents = { events: Array<TimelineEvent>; page: PageInfo };
 export type Timeline = {
   id: number;
   name?: string | null;
-  account: { id: number; name?: string | null };
+  account: { id: number; name?: string | null; about?: string | null };
 };
 
 export type User = {
@@ -126,6 +127,7 @@ export type User = {
 export type ShortAccount = {
   id: number;
   name?: string | null;
+  about?: string | null;
   previewlyToken: string;
   avatarId?: number | null;
   settings: Array<Settings>;
@@ -248,6 +250,7 @@ export const Timeline = gql`
     account {
       id
       name
+      about
     }
   }
 `;
@@ -261,6 +264,7 @@ export const ShortAccount = gql`
   fragment ShortAccount on ShortAccount {
     id
     name
+    about
     previewlyToken
     avatarId
     settings {

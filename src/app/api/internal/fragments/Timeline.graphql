@@ -30,5 +30,6 @@ fragment Timeline on Timeline {
   account {
     id
     name
+    about
   }
 }
