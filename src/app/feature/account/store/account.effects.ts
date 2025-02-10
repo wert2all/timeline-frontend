@@ -124,6 +124,7 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
           accountId: settings.accountId,
           account: {
             name: settings.name,
+            about: settings.about,
             avatarID: settings.avatarId,
           },
         })

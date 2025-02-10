@@ -15,10 +15,13 @@
           </div>
         }
         @if (timelineAccount(); as account) {
-          <div class="pb-8">
+          <div>
             <app-shared-account-view
               [account]="account"
               extraContainerClasses="bg-warning lg:rounded-b-none" />
+            @if (account.about) {
+              <div class="about p-4">{{ account.about }}</div>
+            }
           </div>
         }
       </div>

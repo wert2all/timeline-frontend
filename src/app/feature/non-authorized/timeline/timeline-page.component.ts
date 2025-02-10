@@ -11,6 +11,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxInformationOutline } from '@ng-icons/iconsax/outline';
 import { map } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
+import { Undefined } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
@@ -19,6 +20,7 @@ import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 
+type AccountSibebar = AccountView & { about: string | Undefined };
 @Component({
   standalone: true,
   selector: 'app-timeline-page',
@@ -67,7 +69,10 @@ export class TimelinePageComponent {
       : null;
   });
 
-  protected readonly timelineAccount = computed((): AccountView | null =>
-    toAccountView(this.successResponse()?.account)
-  );
+  protected readonly timelineAccount = computed((): AccountSibebar | null => {
+    const account = this.successResponse()?.account;
+    return account
+      ? { ...toAccountView(account)!, about: account.about }
+      : null;
+  });
 }

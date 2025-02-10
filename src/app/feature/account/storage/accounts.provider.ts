@@ -21,6 +21,7 @@ export class AccountsProvider implements AccountsProvigerInterface {
               ? {
                   id: account.id,
                   name: account.name ? account.name : undefined,
+                  about: account.about ? account.about : undefined,
                   previewlyToken: account.previewlyToken,
                   settings: account.settings.reduce(
                     (acc, v) => ({ ...acc, [v.key]: v.value }),

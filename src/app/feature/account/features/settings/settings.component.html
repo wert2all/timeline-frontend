@@ -56,6 +56,17 @@
         </div>
       </app-feature-flag>
     </label>
+    <h3 class="mt-4 text-lg lg:mb-2 lg:text-2xl">about</h3>
+    <label class="w-full">
+      <textarea
+        name="about"
+        [class.input-error]="form.controls.about.invalid"
+        class="textarea textarea-bordered w-full grow"
+        [formControl]="form.controls.about"
+        placeholder="about"
+        >{{ form.controls.about.value }}</textarea
+      >
+    </label>
   </div>
 </div>
 
