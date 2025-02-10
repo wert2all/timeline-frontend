@@ -11,7 +11,7 @@ import {
   saxInformationOutline,
   saxMoreSquareOutline,
 } from '@ng-icons/iconsax/outline';
-import { Store } from '@ngrx/store';
+import { Store, createSelector } from '@ngrx/store';
 import {
   Iterable,
   Status,
@@ -74,9 +74,14 @@ export class SharedTimelineComponent {
   private readonly rawEvents = this.store.selectSignal(
     timelineFeature.selectEvents
   );
-  private readonly viewEvents = this.store.selectSignal(
-    timelineFeature.selectViewEvents
+  private readonly filterEventsByTimelineSelector = computed(() =>
+    createSelector(timelineFeature.selectViewEvents, events =>
+      events.filter(event => event.timelineId == this.timelineId())
+    )
   );
+  private readonly viewEvents = computed(() => {
+    return this.store.selectSignal(this.filterEventsByTimelineSelector())();
+  });
   private readonly viewEventsWithoutImages = computed(() => {
     const events = this.viewEvents();
     return this.limit() ? events?.slice(0, this.limit() || 0) : events;
