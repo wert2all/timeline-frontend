@@ -81,6 +81,46 @@ export const timelineFeature = createFeature({
         loading: false,
         error: error,
       })
+    ),
+
+    on(
+      EventOperationsActions.saveEditableEvent,
+      (state, { event }): NewTimelineState => ({
+        ...state,
+        events: state.events.map(existingEvent =>
+          existingEvent.id === event.id
+            ? { ...existingEvent, loading: true }
+            : existingEvent
+        ),
+      })
+    ),
+    on(
+      EventOperationsActions.successUpdateEvent,
+      EventOperationsActions.successPushNewEvent,
+      (state, { event }): NewTimelineState => ({
+        ...state,
+        events: state.events.map(existingEvent =>
+          existingEvent.id === event.id
+            ? { ...existingEvent, loading: false }
+            : existingEvent
+        ),
+      })
+    ),
+    on(
+      EventOperationsActions.successPushNewEvent,
+      (state, { event }): NewTimelineState => ({
+        ...state,
+        events: [event, ...state.events],
+      })
+    ),
+    on(
+      EventOperationsActions.successUpdateEvent,
+      (state, { event }): NewTimelineState => ({
+        ...state,
+        events: state.events.map(existingEvent =>
+          existingEvent.id === event.id ? event : existingEvent
+        ),
+      })
     )
   ),
   extraSelectors: ({ selectEvents }) => ({
