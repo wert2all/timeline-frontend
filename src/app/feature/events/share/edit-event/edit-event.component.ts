@@ -123,9 +123,8 @@ export class EditEventComponent {
     const time = value.time?.match('^\\d:') ? '0' + value.time : value.time;
     const date = DateTime.fromISO(value.date + (time ? 'T' + time : ''));
 
-    this.updatedEvent.update(e => {
-      console.log(e);
-      return e
+    this.updatedEvent.update(e =>
+      e
         ? {
             ...e,
             date: (date.isValid ? date : DateTime.now()).toJSDate(),
@@ -137,8 +136,8 @@ export class EditEventComponent {
             url: value.link || undefined,
             imageId: value.imageId || undefined,
           }
-        : null;
-    });
+        : null
+    );
   }
 
   protected saveEvent() {

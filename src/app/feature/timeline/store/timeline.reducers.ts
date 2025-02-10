@@ -1,13 +1,11 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Status } from '../../../app.types';
 import { createViewDatetime } from '../../../libs/view/date.functions';
-import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import {
   EventContentIcon,
   EventContentTag,
   ExistEventContent,
 } from '../../../shared/ui/event/content/content.types';
-import { AccountActions } from '../../account/store/account.actions';
 import { EventOperationsActions } from '../../events/store/operations/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
@@ -32,11 +30,6 @@ export const timelineFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    on(
-      AccountActions.successAddNewAccount,
-      SharedActions.switchActiveAccount,
-      (state): NewTimelineState => ({ ...state, events: [] })
-    ),
     on(
       ListEventsActions.loadTimelineEvents,
       (state): NewTimelineState => ({ ...state, loading: true })
