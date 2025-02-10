@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.37](https://github.com/wert2all/timeline-frontend/compare/v0.0.36...v0.0.37) (2025-02-10)
+
+### Features
+
+- add more types for store ([961a151](https://github.com/wert2all/timeline-frontend/commit/961a151ca6987a6539c30127178119bcff3d1ee8))
+- create new timeline store ([52b830c](https://github.com/wert2all/timeline-frontend/commit/52b830c5f5c57467dc6ca6437eb696f6ee32d0a9))
+- load events on new timeline effects ([fbfa9c9](https://github.com/wert2all/timeline-frontend/commit/fbfa9c9ddeb5f1e32608db2ab5e4ef0aabd15db9))
+
+### Bug Fixes
+
+- clear events list on change account ([e564e52](https://github.com/wert2all/timeline-frontend/commit/e564e52181e58f0c4c768fafc1ed6f228f6e23ec))
+- donot show message about empty events if api returns an error ([ea5961c](https://github.com/wert2all/timeline-frontend/commit/ea5961c4e34e45eff85665ff1fee453e8f7556bc))
+- donot show message about empty events if events is loading ([9bb0485](https://github.com/wert2all/timeline-frontend/commit/9bb0485b931397b8f4fdbd55498a3623f0a76461))
+- fix edit event ([5920716](https://github.com/wert2all/timeline-frontend/commit/5920716095437ef0ae1ca915efc419b419476535))
+- fix eslint fails ([8a9634e](https://github.com/wert2all/timeline-frontend/commit/8a9634e47aac8cc0daa641505bf1fefd809d058d))
+- fix remove events ([6031ec4](https://github.com/wert2all/timeline-frontend/commit/6031ec42806cfc2c873c4ad1ba1d028f507d422b))
+- fix saveing event ([5b3ceb4](https://github.com/wert2all/timeline-frontend/commit/5b3ceb4da78992d31c11cf9a363b6115e8736ebd))
+- fix showing edit menu ([9d66a76](https://github.com/wert2all/timeline-frontend/commit/9d66a76ea012e736708de1d298f4ba277855f8c3))
+- fix timeline event list actions ([a9e0aa3](https://github.com/wert2all/timeline-frontend/commit/a9e0aa3753a09cd823b2cd294387ebedfdcba4e1))
+- fix updating events list after adding or updating event ([af97ccd](https://github.com/wert2all/timeline-frontend/commit/af97ccdfc7162fba42c2863c2684257dd5915175))
+- remove image request with zero id ([6f45c7d](https://github.com/wert2all/timeline-frontend/commit/6f45c7d0581b0be68d39d6aa1fb0152aecad9443))
+- remove loading images by dispatch action on effect ([b981dda](https://github.com/wert2all/timeline-frontend/commit/b981ddab1fe499f4837ffab9ce906516c4d5a4a8))
+- remove useless selector ([bbf4d1f](https://github.com/wert2all/timeline-frontend/commit/bbf4d1f40c4fe1fc65e67b82e998025020f52260))
+- remove width and height from event image ([0bcd2a3](https://github.com/wert2all/timeline-frontend/commit/0bcd2a3ec475a0fb40099747f8ee9ca126909ff7))
+- update cursor and hasMore from store ([6a00c2a](https://github.com/wert2all/timeline-frontend/commit/6a00c2a116193975b5df822eb7c77bc3f86b3a6d))
+
 ## [0.0.36](https://github.com/wert2all/timeline-frontend/compare/v0.0.35...v0.0.36) (2025-02-07)
 
 ### Features
