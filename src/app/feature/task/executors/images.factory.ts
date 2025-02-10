@@ -102,7 +102,7 @@ export class ImagesTaskExecutorFactory
       .find(option => option.name === IDS_OPTION_NAME)
       ?.value.split(OPTION_SEPARATOR)
       .map(i => Number(i))
-      .filter(i => isFinite(i)) || [];
+      .filter(i => isFinite(i) && i) || [];
 
   private extractTokenFromOptions(options: TaskOption[]): string | undefined {
     return options.find(option => option.name === TOKEN_OPTION_NAME)?.value;
