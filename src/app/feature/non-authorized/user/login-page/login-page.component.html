@@ -2,12 +2,15 @@
   <app-shared-hero>
     <div class="my-16 max-w-lg">
       <h1 class="text-5xl font-bold">Login with Google</h1>
-      <p class="pb-14 pt-6">
+      <p class="pt-6">
         You must be signed in to your Google account to use Timeline
       </p>
-      @if (canUseCookies() === false) {
-        <p class="mb-4">Please accept the cookies for continue authorization</p>
-      }
+      <div class="h-20 pt-6">
+        @if (canUseCookies() === false) {
+          Before sign in, please accept the cookies for continue authorization
+        }
+      </div>
+
       <button
         class="btn btn-primary"
         (click)="login()"
@@ -19,7 +22,7 @@
         } @else {
           <ng-icon name="saxLogin1Outline" size="24"></ng-icon>
         }
-        Authorize
+        authorize
       </button>
     </div>
   </app-shared-hero>
