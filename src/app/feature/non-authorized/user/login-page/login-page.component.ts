@@ -2,12 +2,10 @@ import { Component, inject, signal } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxLogin1Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { filter } from 'rxjs';
+import { OAuthService } from 'angular-oauth2-oidc';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
-import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { AuthFacade } from '../../../auth/auth.facade';
 
 @Component({
   selector: 'app-login-page',
@@ -18,24 +16,23 @@ import { AuthFacade } from '../../../auth/auth.facade';
 })
 export class LoginPageComponent {
   private readonly store = inject(Store);
-  private readonly authService = inject(AuthFacade);
-  private onAuthorize = this.store
-    .select(sharedFeature.isAuthorized)
-    .pipe(filter(isAuth => isAuth));
+  private readonly authService = inject(OAuthService);
+  // private onAuthorize = this.store
+  //   .select(sharedFeature.isAuthorized)
+  //   .pipe(filter(isAuth => isAuth));
 
   protected isLoading = signal(false);
   protected canUseCookies = this.store.selectSignal(
     sharedFeature.canUseNecessaryCookies
   );
-
-  constructor() {
-    this.onAuthorize.subscribe(() =>
-      this.store.dispatch(NavigationActions.toUserDashboard())
-    );
-  }
+  // constructor() {
+  //   this.onAuthorize.subscribe(() =>
+  //     this.store.dispatch(NavigationActions.toUserDashboard())
+  //   );
+  // }
 
   login() {
     this.isLoading.set(true);
-    this.authService.login();
+    this.authService.initLoginFlow();
   }
 }

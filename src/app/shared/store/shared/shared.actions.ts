@@ -15,6 +15,8 @@ export const SharedActions = createActionGroup({
 
     'Switch active account': props<{ account: Account }>(),
 
+    'Should login': emptyProps(),
+
     'Empty active account': emptyProps(),
     'Clean account': emptyProps(),
     Logout: emptyProps(),

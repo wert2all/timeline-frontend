@@ -10,7 +10,8 @@ import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
 import { CachedAccountsProvider } from '../../../feature/account/storage/cached-accounts.provider';
-import { AuthFacade } from '../../../feature/auth/auth.facade';
+import { NewAuthService } from '../../../feature/auth/shared/auth.service';
+import { TokenProvider } from '../../../feature/auth/shared/token.provider';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
 import { TaskActions } from '../../../store/task/task.actions';
@@ -19,7 +20,7 @@ import { SharedActions } from './shared.actions';
 
 const init = (
   actions$ = inject(Actions),
-  tokenProvider = inject(AuthFacade),
+  tokenProvider = inject(TokenProvider),
   accountStorage = inject(CachedAccountsProvider),
   currentAccountIdProvider = inject(CurrentAccountProvider)
 ) =>
@@ -76,11 +77,11 @@ const errorMessageEmptyPreviewlyToken = (
 
 const doLogout = (
   actions$ = inject(Actions),
-  authFacade = inject(AuthFacade)
+  authService = inject(NewAuthService)
 ) =>
   actions$.pipe(
     ofType(SharedActions.logout),
-    tap(() => authFacade.logout())
+    tap(() => authService.logout())
   );
 
 const dispatchTaskForLoadingImages = (actions$ = inject(Actions)) =>
@@ -96,8 +97,15 @@ const dispatchTaskForLoadingImages = (actions$ = inject(Actions)) =>
     )
   );
 
+const shouldLoginRedirect = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(SharedActions.shouldLogin),
+    map(() => NavigationActions.toLogin())
+  );
+
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
+  shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
 
   redirectAfterLogin: createEffect(redirectAfterLogin, StoreDispatchEffect),
