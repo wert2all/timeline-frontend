@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/assets/favicon/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/assets/favicon/favicon-32x32.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/assets/favicon/favicon-16x16.png" />
+    <link rel="manifest" href="/assets/favicon/site.webmanifest" />
+    <link
+      rel="mask-icon"
+      href="/assets/favicon/safari-pinned-tab.svg"
+      color="#5bbad5" />
+    <meta name="msapplication-TileColor" content="#ebdbb2" />
+    <meta name="theme-color" content="#ebdbb2" />
+  </head>
+  <body>
+    <script>
+      // Based on: https://manfredsteyer.github.io/angular-oauth2-oidc/docs/additional-documentation/silent-refresh.html
+
+      const checks = [
+        /[\?|&|#]code=/,
+        /[\?|&|#]error=/,
+        /[\?|&|#]token=/,
+        /[\?|&|#]id_token=/,
+      ];
+
+      function isResponse(str) {
+        let count = 0;
+
+        if (!str) {
+          return false;
+        }
+
+        for (let i = 0; i < checks.length; i++) {
+          if (str.match(checks[i])) return true;
+        }
+
+        return false;
+      }
+
+      let message = isResponse(location.hash)
+        ? location.hash
+        : '#' + location.search;
+
+      console.log(
+        'Silent refresh iframe is posting to the parent application, message:',
+        message
+      );
+
+      (window.opener || window.parent).postMessage(message, location.origin);
+    </script>
+  </body>
+</html>
