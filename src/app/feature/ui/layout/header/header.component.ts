@@ -9,7 +9,7 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../../account/account.functions';
 import { AccountView } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
-import { AuthFacade } from '../../../auth/auth.facade';
+import { TokenProvider } from '../../../auth/shared/token.provider';
 import { HeaderLoginButtonComponent } from '../../../non-authorized/user/shared/header-login-button/header-login-button.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../store/modal-window/modal-window.types';
@@ -32,7 +32,7 @@ import { HeaderThemeSwitchComponent } from './theme-switch/header-theme-switch.c
 })
 export class HeaderComponent {
   private readonly store = inject(Store);
-  private readonly tokenProvider = inject(AuthFacade);
+  private readonly tokenProvider = inject(TokenProvider);
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);

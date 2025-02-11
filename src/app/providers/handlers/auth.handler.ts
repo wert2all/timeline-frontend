@@ -1,10 +1,10 @@
 import { inject } from '@angular/core';
 import { ApolloLink } from '@apollo/client/core';
 import { setContext } from '@apollo/client/link/context';
-import { AuthFacade } from '../../feature/auth/auth.facade';
+import { TokenProvider } from '../../feature/auth/shared/token.provider';
 
 export const handleAuthLink = (
-  tokenProvider = inject(AuthFacade)
+  tokenProvider = inject(TokenProvider)
 ): ApolloLink =>
   setContext(() => ({
     headers: {

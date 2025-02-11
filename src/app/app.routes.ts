@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { maybeAuthGuard } from './libs/maybe-auth.guard';
+import { canAuth } from './feature/auth/shared/auth.guard';
+
 export const routes: Routes = [
   {
     path: '',
@@ -31,7 +32,7 @@ export const routes: Routes = [
       import('./feature/authorized/dashboard/dashboard.component').then(
         d => d.MyPageComponent
       ),
-    canActivate: [maybeAuthGuard],
+    canActivate: [canAuth],
   },
   {
     path: 'timeline/:timelineId',
