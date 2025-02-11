@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { AccountActions } from './account.actions';
 import { AccountState } from './account.types';
 
@@ -53,6 +54,14 @@ export const accountFeature = createFeature({
         accounts: state.accounts.map(acc =>
           acc.id === account.id ? account : acc
         ),
+      })
+    ),
+
+    on(
+      SharedActions.logout,
+      (state): AccountState => ({
+        ...state,
+        accounts: [],
       })
     )
   ),
