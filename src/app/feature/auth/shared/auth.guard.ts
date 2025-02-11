@@ -10,6 +10,6 @@ export const canAuth = (
 ): Observable<boolean> =>
   authService.isDoneLoading$.pipe(
     filter(isDone => isDone),
-    switchMap(_ => authService.isAuthenticated$),
+    switchMap(() => authService.isAuthenticated$),
     tap(isAuthenticated => isAuthenticated || authService.login(state.url))
   );

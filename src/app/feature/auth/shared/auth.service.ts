@@ -68,7 +68,7 @@ export class NewAuthService {
       }
     });
 
-    this.oauthService.events.subscribe(_ => {
+    this.oauthService.events.subscribe(() => {
       this.isAuthenticatedSubject$.next(
         this.oauthService.hasValidAccessToken()
       );
@@ -93,7 +93,7 @@ export class NewAuthService {
       console.log('Encountered hash fragment, plotting as table...');
       console.table(
         location.hash
-          .substr(1)
+          .slice(1)
           .split('&')
           .map(kvp => kvp.split('='))
       );
