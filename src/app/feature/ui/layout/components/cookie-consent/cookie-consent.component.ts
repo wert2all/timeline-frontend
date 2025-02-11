@@ -1,6 +1,7 @@
-import { AfterViewInit, Component, output } from '@angular/core';
+import { AfterViewInit, Component, inject } from '@angular/core';
+import { Store } from '@ngrx/store';
 import * as CookieConsent from 'vanilla-cookieconsent';
-import { CookieValue } from 'vanilla-cookieconsent';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 
 @Component({
   standalone: true,
@@ -8,9 +9,9 @@ import { CookieValue } from 'vanilla-cookieconsent';
   template: ``,
 })
 export class CookieConsentComponent implements AfterViewInit {
-  consent = output<CookieValue>();
+  private readonly store = inject(Store);
 
-  #config = {
+  private readonly config = {
     categories: {
       necessary: { enabled: true, readOnly: true },
       analytics: {},
@@ -95,8 +96,10 @@ export class CookieConsentComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     CookieConsent.run({
-      onConsent: ({ cookie }) => this.consent.emit(cookie),
-      ...this.#config,
+      onConsent: ({ cookie }) => {
+        this.store.dispatch(SharedActions.dispatchCookieConsent({ cookie }));
+      },
+      ...this.config,
     });
   }
 }

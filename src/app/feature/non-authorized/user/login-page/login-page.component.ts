@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
+import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 
 @Component({
@@ -17,19 +18,17 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 export class LoginPageComponent {
   private readonly store = inject(Store);
   private readonly authService = inject(OAuthService);
-  // private onAuthorize = this.store
-  //   .select(sharedFeature.isAuthorized)
-  //   .pipe(filter(isAuth => isAuth));
 
   protected isLoading = signal(false);
   protected canUseCookies = this.store.selectSignal(
     sharedFeature.canUseNecessaryCookies
   );
-  // constructor() {
-  //   this.onAuthorize.subscribe(() =>
-  //     this.store.dispatch(NavigationActions.toUserDashboard())
-  //   );
-  // }
+
+  constructor() {
+    if (this.authService.hasValidIdToken()) {
+      this.store.dispatch(NavigationActions.toUserDashboard());
+    }
+  }
 
   login() {
     this.isLoading.set(true);
