@@ -2,13 +2,28 @@
   <app-shared-hero>
     <div class="my-16 max-w-lg">
       <h1 class="text-5xl font-bold">Finalize authorization</h1>
-      <p class="pb-14 pt-6">
-        we will check your authorization and redirect you
-      </p>
-      <button class="btn btn-primary" disabled>
-        redirect...
-        <span class="loading loading-spinner"></span>
-      </button>
+      <p class="py-6">we will check your authorization and redirect you</p>
+      <div class="h-20">
+        @if (error(); as error) {
+          <div role="alert" class="alert alert-error">
+            <ng-icon name="saxInformationOutline" size="32" />
+            <span>{{ error }}</span>
+          </div>
+        }
+      </div>
+      <div class="controls">
+        @if (!error()) {
+          <button class="btn btn-primary" disabled>
+            authenticating...
+            <span class="loading loading-spinner"></span>
+          </button>
+        } @else {
+          <button class="btn btn-primary" (click)="login()">
+            <ng-icon name="saxLoginOutline" size="24" />
+            login again
+          </button>
+        }
+      </div>
     </div>
   </app-shared-hero>
 </app-shared-layout>
