@@ -81,7 +81,13 @@ export class NewAuthService {
 
     this.oauthService.events
       .pipe(
-        filter(e => ['session_terminated', 'session_error'].includes(e.type))
+        filter(e =>
+          [
+            'session_terminated',
+            'session_error',
+            'token_validation_error',
+          ].includes(e.type)
+        )
       )
       .subscribe(() => this.navigateToLoginPage());
 
