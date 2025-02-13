@@ -5,7 +5,12 @@ import { SavingAccountSettings } from './account.types';
 export const AccountActions = createActionGroup({
   source: 'Account',
   events: {
-    'Update one setting': props<{ key: string; value: string }>(),
+    'Update one setting': props<{
+      key: string;
+      value: string;
+      accountId: number;
+      settings: AccountSettings;
+    }>(),
     'Empty account settings': emptyProps(),
 
     'Save account settings': props<{
@@ -25,6 +30,12 @@ export const AccountActions = createActionGroup({
     'Dispatch add new acoount': props<{ name: string }>(),
     'Success add new account': props<{ account: Account }>(),
 
+    'Set active account after init': props<{ account: Account }>(),
+    'Set active account after auth': props<{ account: Account }>(),
+
+    'Empty active account': emptyProps(),
+    'Error on Init Auth': props<{ error: Error }>(),
+    'Empty current account': emptyProps(),
     'Could not add account': emptyProps(),
     'Could not save account settings': emptyProps(),
     'Api Exception': props<{ exception: string }>(),

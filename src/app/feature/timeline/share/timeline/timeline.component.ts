@@ -58,7 +58,7 @@ export class SharedTimelineComponent {
     imagesFeature.selectLoadedImages
   );
   private readonly activeAccountId = this.store.selectSignal(
-    sharedFeature.selectActiveAccoundId
+    sharedFeature.selectActiveAccountId
   );
   private readonly cursor = this.store.selectSignal(
     timelineFeature.selectLastCursor
