@@ -6,6 +6,7 @@ import {
   EventContentTag,
   ExistEventContent,
 } from '../../../shared/ui/event/content/content.types';
+import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
 import { EventOperationsActions } from '../../events/store/operations/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
@@ -29,6 +30,16 @@ export const timelineFeature = createFeature({
   name: 'new-timeline',
   reducer: createReducer(
     initialState,
+
+    on(
+      TimelineActions.setActiveTimeline,
+      (state): NewTimelineState => ({
+        ...state,
+        events: [],
+        hasMore: false,
+        lastCursor: null,
+      })
+    ),
 
     on(
       ListEventsActions.loadTimelineEvents,
