@@ -5,8 +5,6 @@ import { SavingAccountSettings } from './account.types';
 export const AccountActions = createActionGroup({
   source: 'Account',
   events: {
-    'Set user accounts': props<{ accounts: Account[] }>(),
-
     'Update one setting': props<{ key: string; value: string }>(),
     'Empty account settings': emptyProps(),
 

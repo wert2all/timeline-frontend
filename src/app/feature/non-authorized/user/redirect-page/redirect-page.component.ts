@@ -1,20 +1,15 @@
-import { Component, computed, effect, inject } from '@angular/core';
-import { rxResource, toSignal } from '@angular/core/rxjs-interop';
+import { Component, computed, effect, inject, signal } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   saxInformationOutline,
   saxLoginOutline,
 } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
-import { map, of } from 'rxjs';
-import { ApiClient } from '../../../../api/internal/graphql';
-import {
-  apiAssertNotNull,
-  extractApiData,
-} from '../../../../libs/api.functions';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { AccountsService } from '../../../account/share/accounts.service';
 import { NewAuthService } from '../../../auth/shared/auth.service';
 
 @Component({
@@ -26,36 +21,22 @@ import { NewAuthService } from '../../../auth/shared/auth.service';
 })
 export class LoginRedirectPageComponent {
   private readonly authService = inject(NewAuthService);
-  private readonly api = inject(ApiClient);
   private readonly store = inject(Store);
+  private readonly accountsProvider = inject(AccountsService);
 
-  private readonly isAuthenticated = toSignal(
-    of(this.authService.hasValidToken())
-  );
-
+  private readonly isAuthenticated = signal(this.authService.hasValidToken());
   private readonly apiAuth = rxResource({
     request: this.isAuthenticated,
     loader: ({ request }) => {
       if (request) {
-        return this.api
-          .authorize()
-          .pipe(
-            map(result =>
-              apiAssertNotNull(
-                extractApiData(result)?.profile?.accounts,
-                'Could not authorize'
-              )
-            )
-          );
+        return this.accountsProvider.getAccounts();
       }
       throw new Error('Not authenticated');
     },
   });
 
   protected readonly error = computed(() => this.apiAuth.error());
-  protected readonly accounts = computed(() =>
-    this.apiAuth.value()?.filter(account => !!account)
-  );
+  protected readonly accounts = computed(() => this.apiAuth.value());
 
   constructor() {
     effect(() => {

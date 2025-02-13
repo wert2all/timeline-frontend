@@ -9,17 +9,9 @@ const initialState: AccountState = {
 };
 
 export const accountFeature = createFeature({
-  name: 'account',
+  name: 'accounts',
   reducer: createReducer(
     initialState,
-
-    on(
-      AccountActions.setUserAccounts,
-      (state, { accounts }): AccountState => ({
-        ...state,
-        accounts: accounts,
-      })
-    ),
 
     on(
       AccountActions.dispatchSaveAccountSettings,
@@ -54,6 +46,14 @@ export const accountFeature = createFeature({
         accounts: state.accounts.map(acc =>
           acc.id === account.id ? account : acc
         ),
+      })
+    ),
+
+    on(
+      SharedActions.successAuthenticated,
+      (state, { accounts }): AccountState => ({
+        ...state,
+        accounts,
       })
     ),
 

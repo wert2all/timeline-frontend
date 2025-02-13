@@ -5,11 +5,11 @@ import {
   createEffect,
   ofType,
 } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of, tap } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
-import { CachedAccountsProvider } from '../../../feature/account/storage/cached-accounts.provider';
+import { CachedAccountsProvider } from '../../../feature/account/share/cached-accounts.provider';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { TokenProvider } from '../../../feature/auth/shared/token.provider';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
@@ -26,14 +26,14 @@ const init = (
 ) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    exhaustMap(() => {
+    map(() => {
       if (tokenProvider.getToken()) {
         const currentAccountId = currentAccountIdProvider.getActiveAccountId();
         if (currentAccountId) {
           return accountStorage.getAccount(currentAccountId);
         }
       }
-      return of(null);
+      return null;
     }),
     map(account =>
       account
@@ -52,12 +52,6 @@ const sendNotification = (
     tap(({ message, withType }) => {
       notificationStore.addMessage(message, withType);
     })
-  );
-
-const redirectAfterLogin = (actions$ = inject(Actions)) =>
-  actions$.pipe(
-    ofType(SharedActions.setActiveAccountAndRedirect),
-    map(() => NavigationActions.toUserDashboard())
   );
 
 const redirectAfterLogout = (actions$ = inject(Actions)) =>
@@ -108,7 +102,6 @@ export const sharedEffects = {
   shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
 
-  redirectAfterLogin: createEffect(redirectAfterLogin, StoreDispatchEffect),
   redirectAfterLogout: createEffect(redirectAfterLogout, StoreDispatchEffect),
 
   errorMessageEmptyPreviewlyToken: createEffect(

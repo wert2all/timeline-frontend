@@ -28,7 +28,7 @@ import { FeatureFlagComponent } from '../../../ui/feature-flag/feature-flag.comp
 import { ModalWindowActions } from '../../../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../../../ui/layout/store/modal-window/modal-window.types';
 import { toFeaturesSettings } from '../../account.functions';
-import { AccountsProvider } from '../../storage/accounts.provider';
+import { AccountsService } from '../../share/accounts.service';
 import { AccountActions } from '../../store/account.actions';
 import { accountFeature } from '../../store/account.reducer';
 
@@ -62,13 +62,17 @@ interface SettingForm {
 })
 export class SettingsComponent {
   private readonly store = inject(Store);
-  private readonly accountProvider = inject(AccountsProvider);
+  private readonly accountsService = inject(AccountsService);
+
   private readonly activeAccountId = this.store.selectSignal(
     sharedFeature.selectActiveAccoundId
   );
   private readonly accountResource = rxResource({
     request: this.activeAccountId,
-    loader: accountId => this.accountProvider.getAccount(accountId.request),
+    loader: ({ request }) =>
+      this.accountsService
+        .getAccounts()
+        .pipe(map(accounts => accounts.find(account => account.id == request))),
   });
   protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
 

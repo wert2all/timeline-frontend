@@ -1,6 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
-import { ShortAccount } from '../../../api/internal/graphql';
 import { Account } from '../../../feature/account/account.types';
 import { MessageType } from '../../../feature/ui/layout/store/notification/notifications.types';
 
@@ -10,12 +9,9 @@ export const SharedActions = createActionGroup({
     'Send notification': props<{ message: string; withType: MessageType }>(),
     'Dispatch cookie consent': props<{ cookie: CookieValue }>(),
 
-    'Success authenticated': props<{ accounts: ShortAccount[] }>(),
+    'Success authenticated': props<{ accounts: Account[] }>(),
 
     'Set active account after init': props<{ account: Account }>(),
-    'Set active account and redirect': props<{ account: Account }>(),
-    'Set active account after adding': props<{ account: Account }>(),
-
     'Switch active account': props<{ account: Account }>(),
 
     'Should login': emptyProps(),

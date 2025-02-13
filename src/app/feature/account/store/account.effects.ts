@@ -15,7 +15,7 @@ import {
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { Account } from '../account.types';
 import { CurrentAccountProvider } from '../current.provider';
-import { CachedAccountsProvider } from '../storage/cached-accounts.provider';
+import { CachedAccountsProvider } from '../share/cached-accounts.provider';
 import { AccountActions } from './account.actions';
 
 const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>
@@ -215,33 +215,23 @@ const switchAccountAfterAdding = (
   actions$.pipe(
     ofType(
       AccountActions.successAddNewAccount,
-      SharedActions.setActiveAccountAndRedirect,
       SharedActions.setActiveAccountAfterInit,
       SharedActions.switchActiveAccount
     ),
-
     tap(({ account }) => {
       currentAccountProvider.setActiveAccountId(account);
-    }),
-    map(({ account }) =>
-      SharedActions.setActiveAccountAfterAdding({ account: account })
-    )
+    })
   );
 
-const setUserAccountsAfterInit = (
+const updateAccounstsCacheAfterAuthorization = (
   actions$ = inject(Actions),
-  accountsProvider = inject(CachedAccountsProvider)
+  cachedAccounts = inject(CachedAccountsProvider)
 ) =>
   actions$.pipe(
-    ofType(
-      SharedActions.setActiveAccountAfterInit,
-      SharedActions.setActiveAccountAndRedirect
-    ),
-    exhaustMap(() => accountsProvider.getAccounts()),
-    map(accounts => AccountActions.setUserAccounts({ accounts })),
-    catchError(err =>
-      of(SharedActions.sendNotification({ message: err, withType: 'error' }))
-    )
+    ofType(SharedActions.successAuthenticated),
+    tap(({ accounts }) => {
+      cachedAccounts.setAccounts(accounts);
+    })
   );
 
 export const accountEffects = {
@@ -274,11 +264,11 @@ export const accountEffects = {
   addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
   switchAccountAfterAdding: createEffect(
     switchAccountAfterAdding,
-    StoreDispatchEffect
+    StoreUnDispatchEffect
   ),
 
-  setUserAccountsAfterInit: createEffect(
-    setUserAccountsAfterInit,
-    StoreDispatchEffect
+  updateAccounstsCacheAfterAuthorization: createEffect(
+    updateAccounstsCacheAfterAuthorization,
+    StoreUnDispatchEffect
   ),
 };

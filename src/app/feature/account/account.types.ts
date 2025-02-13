@@ -1,5 +1,4 @@
-import { Observable } from 'rxjs';
-import { Iterable, Undefined, Unique } from '../../app.types';
+import { Iterable, Unique } from '../../app.types';
 
 export type AccountView = Unique & {
   name: string;
@@ -14,9 +13,3 @@ export type Account = Iterable & {
   previewlyToken: string;
   settings: AccountSettings;
 };
-
-export interface AccountsProvigerInterface {
-  getAccounts(): Observable<Account[]>;
-
-  getAccount(accountId: number): Observable<Account | Undefined>;
-}
