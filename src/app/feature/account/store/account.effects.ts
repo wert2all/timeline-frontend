@@ -18,12 +18,16 @@ const updateOneSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.updateOneSetting),
     map(({ accountId, settings, key, value }) => {
-      settings[key] = value;
-      return AccountActions.saveAccountSettings({
+      const updatedsettings = { ...settings };
+      updatedsettings[key] = value;
+      return { accountId, settings: updatedsettings };
+    }),
+    map(({ accountId, settings }) =>
+      AccountActions.saveAccountSettings({
         accountId,
         settings,
-      });
-    })
+      })
+    )
   );
 
 const saveAccountSettings = (
