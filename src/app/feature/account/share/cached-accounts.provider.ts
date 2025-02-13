@@ -1,45 +1,26 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable, of, tap } from 'rxjs';
 import { Undefined } from '../../../app.types';
 import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
 import { isAccount } from '../account.functions';
-import {
-  Account,
-  AccountSettings,
-  AccountsProvigerInterface,
-} from '../account.types';
-import { AccountsProvider } from './accounts.provider';
+import { Account, AccountSettings } from '../account.types';
 
 const ACCOUNTS_CACHE_KEY = 'account_cache';
 
 @Injectable({ providedIn: 'root' })
-export class CachedAccountsProvider implements AccountsProvigerInterface {
+export class CachedAccountsProvider {
   private readonly localStorage = inject(SharedLocalStorageService);
-  private readonly provider = inject(AccountsProvider);
   private cache: Record<number, Account> = {};
 
   constructor() {
     this.initCache();
   }
 
-  getAccounts(): Observable<Account[]> {
-    if (Object.keys(this.cache).length > 0) {
-      return of(Object.values(this.cache));
-    }
-    return this.provider.getAccounts().pipe(
-      tap(accounts => {
-        this.cache = this.convertToRecord(accounts);
-        this.saveCache();
-      })
-    );
+  getAccounts(): Account[] {
+    return Object.values(this.cache);
   }
 
-  getAccount(accountId: number): Observable<Account | Undefined> {
-    const account = this.cache[accountId];
-    if (account) {
-      return of(account);
-    }
-    return this.provider.getAccount(accountId);
+  getAccount(accountId: number): Account | Undefined {
+    return this.cache[accountId];
   }
 
   upsetAccount(account: Account) {
@@ -55,6 +36,14 @@ export class CachedAccountsProvider implements AccountsProvigerInterface {
       };
       this.upsetAccount(account);
     }
+  }
+
+  setAccounts(accounts: Account[]) {
+    this.cache = {};
+    accounts.forEach(account => {
+      this.cache[account.id] = account;
+    });
+    this.saveCache();
   }
 
   private saveCache() {
