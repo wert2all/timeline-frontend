@@ -65,7 +65,7 @@ export class SettingsComponent {
   private readonly accountsService = inject(AccountsService);
 
   private readonly activeAccountId = this.store.selectSignal(
-    sharedFeature.selectActiveAccoundId
+    sharedFeature.selectActiveAccountId
   );
   private readonly accountResource = rxResource({
     request: this.activeAccountId,

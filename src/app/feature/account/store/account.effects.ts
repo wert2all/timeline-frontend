@@ -1,36 +1,29 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
+import { NavigationActions } from '../../../shared/store/navigation/navigation.actions';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
-import {
-  mergeAccountSettings,
-  sharedFeature,
-} from '../../../shared/store/shared/shared.reducers';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
+import { NotificationStore } from '../../ui/layout/store/notification/notifications.store';
 import { Account } from '../account.types';
 import { CurrentAccountProvider } from '../current.provider';
 import { CachedAccountsProvider } from '../share/cached-accounts.provider';
 import { AccountActions } from './account.actions';
 
-const updateOneSettings = (actions$ = inject(Actions), store = inject(Store)) =>
+const updateOneSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.updateOneSetting),
-    concatLatestFrom(() => store.select(sharedFeature.selectActiveAccount)),
-    map(([{ key, value }, acc]) => mergeAccountSettings(acc, { key, value })),
-    map(account =>
-      account && account.settings
-        ? AccountActions.saveAccountSettings({
-            accountId: account.id,
-            settings: account.settings,
-          })
-        : AccountActions.emptyAccountSettings()
-    )
+    map(({ accountId, settings, key, value }) => {
+      settings[key] = value;
+      return AccountActions.saveAccountSettings({
+        accountId,
+        settings,
+      });
+    })
   );
 
 const saveAccountSettings = (
@@ -215,8 +208,8 @@ const saveActiveAccountIdToCache = (
   actions$.pipe(
     ofType(
       AccountActions.successAddNewAccount,
-      SharedActions.setActiveAccountAfterInit,
-      SharedActions.setActiveAccountAfterAuth,
+      AccountActions.setActiveAccountAfterInit,
+      AccountActions.setActiveAccountAfterAuth,
       SharedActions.switchActiveAccount
     ),
     tap(({ account }) => {
@@ -233,6 +226,23 @@ const updateAccounstsCacheAfterAuthorization = (
     tap(({ accounts }) => {
       cachedAccounts.setAccounts(accounts);
     })
+  );
+
+const notifyEmptyAccount = (
+  actions$ = inject(Actions),
+  notificationStore = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(AccountActions.emptyCurrentAccount),
+    tap(() => {
+      notificationStore.addMessage('Cannot set empty account', 'error');
+    })
+  );
+
+const redirectAfterAuth = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(AccountActions.setActiveAccountAfterAuth),
+    map(() => NavigationActions.toUserDashboard())
   );
 
 export const accountEffects = {
@@ -272,4 +282,7 @@ export const accountEffects = {
     updateAccounstsCacheAfterAuthorization,
     StoreUnDispatchEffect
   ),
+
+  redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
+  notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
 };

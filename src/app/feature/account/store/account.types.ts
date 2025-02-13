@@ -11,4 +11,5 @@ export interface SavingAccountSettings {
 
 export type AccountState = Loadable & {
   accounts: Account[];
+  activeAccount: Account | null;
 };

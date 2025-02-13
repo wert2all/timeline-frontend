@@ -38,11 +38,8 @@ export class MyPageComponent {
   protected readonly activeTimelineId = this.store.selectSignal(
     timelineFeature.selectActiveTimelineId
   );
-  private readonly activeAccount = this.store.selectSignal(
-    sharedFeature.selectActiveAccount
-  );
-  protected readonly activeAccountId = computed(
-    () => this.activeAccount()?.id || 0
+  protected readonly activeAccountId = this.store.selectSignal(
+    sharedFeature.selectActiveAccountId
   );
 
   protected readonly isTimelineLoading = this.store.selectSignal(

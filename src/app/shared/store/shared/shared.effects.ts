@@ -10,6 +10,7 @@ import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
 import { CachedAccountsProvider } from '../../../feature/account/share/cached-accounts.provider';
+import { AccountActions } from '../../../feature/account/store/account.actions';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { TokenProvider } from '../../../feature/auth/shared/token.provider';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
@@ -37,10 +38,10 @@ const init = (
     }),
     map(account =>
       account
-        ? SharedActions.setActiveAccountAfterInit({ account })
-        : SharedActions.emptyActiveAccount()
+        ? AccountActions.setActiveAccountAfterInit({ account })
+        : AccountActions.emptyActiveAccount()
     ),
-    catchError(err => of(SharedActions.errorOnInitAuth({ error: err })))
+    catchError(err => of(AccountActions.errorOnInitAuth({ error: err })))
   );
 
 const sendNotification = (
@@ -116,26 +117,9 @@ const setActiveAccountAfterAuth = (
     ),
     map(current =>
       current
-        ? SharedActions.setActiveAccountAfterAuth({ account: current })
-        : SharedActions.emptyCurrentAccount()
+        ? AccountActions.setActiveAccountAfterAuth({ account: current })
+        : AccountActions.emptyCurrentAccount()
     )
-  );
-
-const notifyEmptyAccount = (
-  actions$ = inject(Actions),
-  notificationStore = inject(NotificationStore)
-) =>
-  actions$.pipe(
-    ofType(SharedActions.emptyCurrentAccount),
-    tap(() => {
-      notificationStore.addMessage('Cannot set empty account', 'error');
-    })
-  );
-
-const redirectAfterAuth = (actions$ = inject(Actions)) =>
-  actions$.pipe(
-    ofType(SharedActions.setActiveAccountAfterAuth),
-    map(() => NavigationActions.toUserDashboard())
   );
 
 export const sharedEffects = {
@@ -160,7 +144,4 @@ export const sharedEffects = {
     setActiveAccountAfterAuth,
     StoreDispatchEffect
   ),
-  redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
-
-  notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
 };

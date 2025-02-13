@@ -11,20 +11,15 @@ export const SharedActions = createActionGroup({
 
     'Success authenticated': props<{ accounts: Account[] }>(),
 
-    'Set active account after init': props<{ account: Account }>(),
-    'Set active account after auth': props<{ account: Account }>(),
     'Switch active account': props<{ account: Account }>(),
 
     'Should login': emptyProps(),
 
-    'Empty active account': emptyProps(),
     'Clean account': emptyProps(),
     Logout: emptyProps(),
 
     'Dispatch loading images': props<{ ids: number[] }>(),
 
-    'Error on Init Auth': props<{ error: Error }>(),
-    'dispatch empty Previewly token error': emptyProps(),
-    'Empty current account': emptyProps(),
+    'Dispatch empty Previewly token error': emptyProps(),
   },
 });

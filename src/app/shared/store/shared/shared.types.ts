@@ -1,5 +1,3 @@
-import { Account } from '../../../feature/account/account.types';
-
 export enum CookieCategory {
   NECESSARY = 'necessary',
   ANALYTICS = 'analytics',
@@ -7,5 +5,4 @@ export enum CookieCategory {
 
 export interface SharedState {
   cookie: CookieCategory[];
-  activeAccount: Account | null;
 }

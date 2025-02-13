@@ -55,12 +55,18 @@ export class ShowUserFeaturesComponent {
 
   changeFeature(feature: ViewFeature, event: Event) {
     const input = event.currentTarget as HTMLInputElement;
+    const accountId = this.activeAccount()?.id;
+    const settings = this.activeAccount()?.settings;
 
-    this.store.dispatch(
-      AccountActions.updateOneSetting({
-        key: feature.key,
-        value: input.checked ? 'true' : 'false',
-      })
-    );
+    if (accountId && settings) {
+      this.store.dispatch(
+        AccountActions.updateOneSetting({
+          key: feature.key,
+          value: input.checked ? 'true' : 'false',
+          accountId: accountId,
+          settings: settings,
+        })
+      );
+    }
   }
 }
