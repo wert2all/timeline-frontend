@@ -31,6 +31,7 @@ import { toFeaturesSettings } from '../../account.functions';
 import { AccountsService } from '../../share/accounts.service';
 import { AccountActions } from '../../store/account.actions';
 import { accountFeature } from '../../store/account.reducer';
+import { SettingsAvatarContainerComponent } from './avatar/avatar-container.component';
 
 interface SettingForm {
   accountId: FormControl<number>;
@@ -48,6 +49,7 @@ interface SettingForm {
     FormControlsComponent,
     NgIconComponent,
     FeatureFlagComponent,
+    SettingsAvatarContainerComponent,
   ],
   viewProviders: [
     provideIcons({

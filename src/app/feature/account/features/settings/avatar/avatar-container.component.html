@@ -1,0 +1,31 @@
+<div class="avatar-container relative lg:w-64 lg:flex-none">
+  <div class="avatar h-full w-full justify-center">
+    @if (avatar(); as avatar) {
+      <div
+        class="h-full w-full rounded-xl ring ring-accent ring-offset-2 ring-offset-base-100">
+        <img [src]="avatar" class="h-full w-full" [alt]="title()" />
+      </div>
+    } @else {
+      <ng-icon name="saxUserSquareBulk" size="242" />
+    }
+  </div>
+
+  <div class="join absolute -bottom-2 right-0 hidden">
+    @if (avatar()) {
+      <a
+        class="btn btn-warning join-item btn-sm"
+        (click)="remove.emit()"
+        (keyup.enter)="remove.emit()"
+        tabindex="0">
+        <ng-icon name="saxCloseSquareOutline" size="24" />
+      </a>
+    }
+    <a
+      class="btn btn-primary join-item btn-sm"
+      (click)="changeAvatar.emit()"
+      (keyup.enter)="changeAvatar.emit()"
+      tabindex="0">
+      <ng-icon name="saxCameraOutline" size="24" />
+    </a>
+  </div>
+</div>
