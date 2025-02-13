@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.39](https://github.com/wert2all/timeline-frontend/compare/v0.0.38...v0.0.39) (2025-02-13)
+
+### Features
+
+- add about to account ([ebadd8e](https://github.com/wert2all/timeline-frontend/commit/ebadd8e776f3c2c318976d265c5f3842ed258e0c))
+- add silent-refresh.html for auth ([2fe8923](https://github.com/wert2all/timeline-frontend/commit/2fe8923792ef19d5051b685b4a4a62f494c668f3))
+- expose accounts by service and remove accounts provider ([ef3f97d](https://github.com/wert2all/timeline-frontend/commit/ef3f97d0522247990ed142837bf9764a5f680fdd))
+
+### Bug Fixes
+
+- clean accounts from account state after logout ([e4a81ca](https://github.com/wert2all/timeline-frontend/commit/e4a81cab54d2164414f5f45138bf19bf61aef637))
+- clean timeline events after update timeline ([6778c88](https://github.com/wert2all/timeline-frontend/commit/6778c8879da36a1eb2ea2bdbe419dc2706ed76a1))
+- enable production mode for app ([3bc0364](https://github.com/wert2all/timeline-frontend/commit/3bc0364cdd95edbfb21086fcf7e3e16e7130f9fe))
+- fix eslint fails ([c21fc72](https://github.com/wert2all/timeline-frontend/commit/c21fc72cc8c40647ddd4a9becfe5864fe8be4d74))
+- fix login page ([c5cd187](https://github.com/wert2all/timeline-frontend/commit/c5cd187292b04fdac931523780762b315333939f))
+- fix redirect page ([e8d7168](https://github.com/wert2all/timeline-frontend/commit/e8d7168da9cbf71404a797ded7a6595a173e4653))
+- fix saving active account after auth ([c4457b4](https://github.com/wert2all/timeline-frontend/commit/c4457b41984a637d8dc4d10ac98198a451fa2ab7))
+- fix saving settings ([354ba86](https://github.com/wert2all/timeline-frontend/commit/354ba86c0faf8116aaad0ab74ca5ceb15b9f632b))
+- fix update accounts state after init store ([c5b08db](https://github.com/wert2all/timeline-frontend/commit/c5b08db387247f6e8c77b55f6cd90d9c77fa5141))
+- remove [@apply](https://github.com/apply) from scss ([8c3ff26](https://github.com/wert2all/timeline-frontend/commit/8c3ff26b3de21e3056410e2b39bed31ed0a6e3c6))
+
 ## [0.0.38](https://github.com/wert2all/timeline-frontend/compare/v0.0.37...v0.0.38) (2025-02-10)
 
 ### Bug Fixes
