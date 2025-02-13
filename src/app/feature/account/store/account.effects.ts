@@ -208,7 +208,7 @@ const addNewAccountToCache = (
     map(() => ModalWindowActions.closeModalWindow())
   );
 
-const switchAccountAfterAdding = (
+const saveActiveAccountIdToCache = (
   actions$ = inject(Actions),
   currentAccountProvider = inject(CurrentAccountProvider)
 ) =>
@@ -216,6 +216,7 @@ const switchAccountAfterAdding = (
     ofType(
       AccountActions.successAddNewAccount,
       SharedActions.setActiveAccountAfterInit,
+      SharedActions.setActiveAccountAfterAuth,
       SharedActions.switchActiveAccount
     ),
     tap(({ account }) => {
@@ -263,7 +264,7 @@ export const accountEffects = {
   addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
   addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
   switchAccountAfterAdding: createEffect(
-    switchAccountAfterAdding,
+    saveActiveAccountIdToCache,
     StoreUnDispatchEffect
   ),
 

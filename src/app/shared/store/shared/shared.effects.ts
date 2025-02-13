@@ -97,6 +97,47 @@ const shouldLoginRedirect = (actions$ = inject(Actions)) =>
     map(() => NavigationActions.toLogin())
   );
 
+const setActiveAccountAfterAuth = (
+  actions$ = inject(Actions),
+  currentAccountProvider = inject(CurrentAccountProvider)
+) =>
+  actions$.pipe(
+    ofType(SharedActions.successAuthenticated),
+    map(({ accounts }) => ({
+      currentId: currentAccountProvider.getActiveAccountId(),
+      accounts,
+    })),
+    map(({ currentId, accounts }) => ({
+      currentId: currentId ? currentId : accounts.slice(0, 1)[0],
+      accounts,
+    })),
+    map(({ currentId, accounts }) =>
+      accounts.find(account => account.id === currentId)
+    ),
+    map(current =>
+      current
+        ? SharedActions.setActiveAccountAfterAuth({ account: current })
+        : SharedActions.emptyCurrentAccount()
+    )
+  );
+
+const notifyEmptyAccount = (
+  actions$ = inject(Actions),
+  notificationStore = inject(NotificationStore)
+) =>
+  actions$.pipe(
+    ofType(SharedActions.emptyCurrentAccount),
+    tap(() => {
+      notificationStore.addMessage('Cannot set empty account', 'error');
+    })
+  );
+
+const redirectAfterAuth = (actions$ = inject(Actions)) =>
+  actions$.pipe(
+    ofType(SharedActions.setActiveAccountAfterAuth),
+    map(() => NavigationActions.toUserDashboard())
+  );
+
 export const sharedEffects = {
   init: createEffect(init, StoreDispatchEffect),
   shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
@@ -114,4 +155,12 @@ export const sharedEffects = {
     dispatchTaskForLoadingImages,
     StoreDispatchEffect
   ),
+
+  setActiveAccountAfterAuth: createEffect(
+    setActiveAccountAfterAuth,
+    StoreDispatchEffect
+  ),
+  redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
+
+  notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
 };
