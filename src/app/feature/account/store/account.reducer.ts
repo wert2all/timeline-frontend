@@ -74,6 +74,7 @@ export const accountFeature = createFeature({
 
     on(
       SharedActions.successAuthenticated,
+      AccountActions.setActiveAccountAfterInit,
       (state, { accounts }): AccountState => ({
         ...state,
         accounts,

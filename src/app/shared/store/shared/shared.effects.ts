@@ -27,18 +27,22 @@ const init = (
 ) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
-    map(() => {
-      if (tokenProvider.getToken()) {
-        const currentAccountId = currentAccountIdProvider.getActiveAccountId();
-        if (currentAccountId) {
-          return accountStorage.getAccount(currentAccountId);
-        }
-      }
-      return null;
+    map(() => tokenProvider.getToken()),
+    map(token => {
+      const accounts = accountStorage.getAccounts();
+      const currentAccountId = currentAccountIdProvider.getActiveAccountId();
+
+      return {
+        account:
+          token && currentAccountId
+            ? accounts.find(a => a.id === currentAccountId)
+            : null,
+        accounts: token ? accounts : [],
+      };
     }),
-    map(account =>
-      account
-        ? AccountActions.setActiveAccountAfterInit({ account })
+    map(({ account, accounts }) =>
+      account && accounts.length > 0
+        ? AccountActions.setActiveAccountAfterInit({ account, accounts })
         : AccountActions.emptyActiveAccount()
     ),
     catchError(err => of(AccountActions.errorOnInitAuth({ error: err })))
