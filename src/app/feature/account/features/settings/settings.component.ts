@@ -126,7 +126,7 @@ export class SettingsComponent {
         this.form.controls.accountId.setValue(account.id);
         this.form.controls.name.setValue(account.name || '');
         this.form.controls.about.setValue(account.about || '');
-        this.form.controls.avatarId.setValue(account.avatarId);
+        this.form.controls.avatarId.setValue(account.avatar?.id);
       }
     });
     effect(() => {

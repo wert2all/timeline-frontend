@@ -2,15 +2,6 @@ import { Iterable, Undefined } from '../../app.types';
 import { AccountFeaturesSettings } from '../../shared/services/features.service';
 import { Account, AccountView } from './account.types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const isAccount = (maybeAccount: any): maybeAccount is Account => {
-  return (
-    'id' in maybeAccount &&
-    'previewlyToken' in maybeAccount &&
-    'settings' in maybeAccount
-  );
-};
-
 export const toFeaturesSettings = (
   account: Account | Undefined
 ): AccountFeaturesSettings => {

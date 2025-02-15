@@ -24,7 +24,7 @@ export class AccountsService {
             name: account.name ? account.name : undefined,
             about: account.about ? account.about : undefined,
             previewlyToken: account.previewlyToken,
-            avatarId: account.avatarId,
+            avatar: { id: account.avatarId },
             settings: account.settings.reduce(
               (acc, v) => ({ ...acc, [v.key]: v.value }),
               {}
