@@ -1,16 +1,27 @@
-<div class="avatar-container relative lg:w-64 lg:flex-none">
-  <div class="avatar h-full w-full justify-center">
-    @if (avatar(); as avatar) {
-      <div
-        class="h-full w-full rounded-xl ring ring-accent ring-offset-2 ring-offset-base-100">
-        <img [src]="avatar" class="h-full w-full" [alt]="title()" />
-      </div>
-    } @else {
-      <ng-icon name="saxUserSquareBulk" size="242" />
-    }
-  </div>
-
-  <div class="join absolute -bottom-2 right-0 hidden">
+<div
+  class="avatar-container relative h-full min-h-64 rounded-xl bg-base-300 lg:w-64 lg:flex-none">
+  @if (loading() && !avatar()) {
+    <app-shared-loader />
+  } @else {
+    <div class="avatar h-full w-full justify-center">
+      @if (avatar(); as avatar) {
+        <div
+          class="h-full w-full rounded-xl ring ring-accent ring-offset-2 ring-offset-base-100">
+          <img [src]="avatar" class="h-full w-full" [alt]="title()" />
+        </div>
+      } @else {
+        <ng-icon name="saxUserSquareBulk" size="242" />
+      }
+    </div>
+  }
+  <div class="join absolute -bottom-2 right-0">
+    <a
+      class="btn btn-primary join-item btn-sm"
+      (click)="avatarInput.click()"
+      (keyup.enter)="avatarInput.click()"
+      tabindex="0">
+      <ng-icon name="saxCameraOutline" size="24" />
+    </a>
     @if (avatar()) {
       <a
         class="btn btn-warning join-item btn-sm"
@@ -20,12 +31,12 @@
         <ng-icon name="saxCloseSquareOutline" size="24" />
       </a>
     }
-    <a
-      class="btn btn-primary join-item btn-sm"
-      (click)="changeAvatar.emit()"
-      (keyup.enter)="changeAvatar.emit()"
-      tabindex="0">
-      <ng-icon name="saxCameraOutline" size="24" />
-    </a>
   </div>
+  <input
+    #avatarInput
+    type="file"
+    class="hidden"
+    name="image"
+    accept="image/*"
+    (change)="handleFileSelect($event)" />
 </div>

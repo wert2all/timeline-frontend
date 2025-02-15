@@ -36,6 +36,14 @@ export const AccountActions = createActionGroup({
     }>(),
     'Set active account after auth': props<{ account: Account }>(),
 
+    'Upload avatar': props<{
+      avatar: { file: File; url: string };
+      account: Account;
+    }>(),
+    'Success upload avatar': props<{ imageId: number }>(),
+    'Remove avatar': emptyProps(),
+
+    'Failed upload avatar': emptyProps(),
     'Empty active account': emptyProps(),
     'Error on Init Auth': props<{ error: Error }>(),
     'Empty current account': emptyProps(),

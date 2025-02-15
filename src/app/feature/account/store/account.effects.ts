@@ -13,6 +13,7 @@ import { Account } from '../account.types';
 import { CurrentAccountProvider } from '../current.provider';
 import { CachedAccountsProvider } from '../share/cached-accounts.provider';
 import { AccountActions } from './account.actions';
+import { uploadAvatarEffects } from './effects/upload-avatar.effect';
 
 const updateOneSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
@@ -291,4 +292,6 @@ export const accountEffects = {
 
   redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
   notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
+
+  ...uploadAvatarEffects,
 };

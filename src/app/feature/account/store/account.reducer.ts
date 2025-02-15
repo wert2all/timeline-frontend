@@ -1,6 +1,7 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { KeyValue } from '../../../app.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
+import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { Account } from '../account.types';
 import { AccountActions } from './account.actions';
 import { AccountState } from './account.types';
@@ -24,6 +25,7 @@ const initialState: AccountState = {
   loading: false,
   accounts: [],
   activeAccount: null,
+  currentAvatarUpload: null,
 };
 
 export const accountFeature = createFeature({
@@ -132,6 +134,64 @@ export const accountFeature = createFeature({
             ? account
             : state.activeAccount,
       })
+    ),
+
+    on(
+      ModalWindowActions.closeModalWindow,
+      (state): AccountState => ({
+        ...state,
+        currentAvatarUpload: null,
+      })
+    ),
+
+    on(
+      AccountActions.removeAvatar,
+      (state): AccountState => ({
+        ...state,
+        currentAvatarUpload: null,
+      })
+    ),
+    on(
+      AccountActions.uploadAvatar,
+      (state, { avatar }): AccountState => ({
+        ...state,
+        currentAvatarUpload: {
+          loading: true,
+          previewUrl: avatar.url,
+        },
+      })
+    ),
+    on(
+      AccountActions.successUploadAvatar,
+      (state, { imageId }): AccountState => ({
+        ...state,
+        currentAvatarUpload: {
+          ...state.currentAvatarUpload,
+          loading: false,
+          imageId: imageId,
+        },
+      })
+    ),
+    on(
+      AccountActions.failedUploadAvatar,
+      (state): AccountState => ({
+        ...state,
+        currentAvatarUpload: {
+          ...state.currentAvatarUpload,
+          loading: false,
+          error: new Error('Failder to upload avatar'),
+        },
+      })
     )
   ),
+  extraSelectors: ({ selectCurrentAvatarUpload }) => ({
+    selectIsUploading: createSelector(
+      selectCurrentAvatarUpload,
+      upload => upload?.loading === true
+    ),
+    selectCurrentAvatarUploadId: createSelector(
+      selectCurrentAvatarUpload,
+      upload => upload?.imageId
+    ),
+  }),
 });

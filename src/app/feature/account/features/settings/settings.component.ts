@@ -23,7 +23,6 @@ import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { Undefined } from '../../../../app.types';
 import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';
-import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { FeatureFlagComponent } from '../../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../../../ui/layout/store/modal-window/modal-window.types';
@@ -66,9 +65,13 @@ export class SettingsComponent {
   private readonly store = inject(Store);
   private readonly accountsService = inject(AccountsService);
 
-  private readonly activeAccountId = this.store.selectSignal(
-    sharedFeature.selectActiveAccountId
+  private readonly activeAccount = this.store.selectSignal(
+    accountFeature.selectActiveAccount
   );
+  private readonly activeAccountId = computed(
+    () => this.activeAccount()?.id || 0
+  );
+
   private readonly accountResource = rxResource({
     request: this.activeAccountId,
     loader: ({ request }) =>
@@ -96,14 +99,24 @@ export class SettingsComponent {
     this.valueChanges$.pipe(map(() => this.form.invalid)),
     { initialValue: false }
   );
+
+  private readonly currentUpload = this.store.selectSignal(
+    accountFeature.selectCurrentAvatarUpload
+  );
   protected readonly avatarUrl = computed(() => {
-    return null;
+    return this.currentUpload()?.previewUrl;
   });
+  private readonly uploadedAvatarId = this.store.selectSignal(
+    accountFeature.selectCurrentAvatarUploadId
+  );
 
   protected icon = saxPenAddOutline;
   protected addAccountIcon = saxUserAddOutline;
   protected featureSettings = computed(() =>
     toFeaturesSettings(this.accountResource.value())
+  );
+  protected isUploading = this.store.selectSignal(
+    accountFeature.selectIsUploading
   );
 
   constructor() {
@@ -113,17 +126,25 @@ export class SettingsComponent {
         this.form.controls.accountId.setValue(account.id);
         this.form.controls.name.setValue(account.name || '');
         this.form.controls.about.setValue(account.about || '');
-        this.form.controls.avatarId.setValue(null);
+        this.form.controls.avatarId.setValue(account.avatarId);
       }
+    });
+    effect(() => {
+      const avatarId = this.uploadedAvatarId();
+      this.form.controls.avatarId.setValue(avatarId);
     });
   }
 
-  changeAvatar() {
-    throw new Error('Method not implemented.');
+  changeAvatar(avatar: { file: File; url: string }) {
+    const account = this.activeAccount();
+    if (account) {
+      this.store.dispatch(AccountActions.uploadAvatar({ avatar, account }));
+    }
   }
 
   removeAvatar() {
-    throw new Error('Method not implemented.');
+    this.store.dispatch(AccountActions.removeAvatar());
+    this.form.controls.avatarId.setValue(null);
   }
 
   addAccount() {
