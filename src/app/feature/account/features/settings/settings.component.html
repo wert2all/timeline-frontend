@@ -1,9 +1,10 @@
 <div class="mt-4 lg:flex lg:gap-4">
   <app-settings-avatar-container
-    (delete)="removeAvatar()"
-    (changeAvatar)="changeAvatar()"
+    (remove)="removeAvatar()"
+    (changeAvatar)="changeAvatar($event)"
     [avatar]="avatarUrl()"
-    [title]="form.controls.name.value" />
+    [title]="form.controls.name.value"
+    [loading]="isUploading()" />
 
   <div class="lg:flex-auto">
     <h3 class="text-lg lg:mb-2 lg:text-2xl">name</h3>
