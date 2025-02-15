@@ -7,10 +7,14 @@ export type AccountView = Unique & {
 };
 
 export type AccountSettings = Record<string, string>;
+export interface Avatar {
+  id: number | Undefined;
+  url?: string;
+}
 export type Account = Iterable & {
   name?: string;
   about?: string;
   previewlyToken: string;
-  avatarId: number | Undefined;
+  avatar: Avatar;
   settings: AccountSettings;
 };
