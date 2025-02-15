@@ -134,6 +134,7 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
               id: acc.id,
               name: acc.name || undefined,
               previewlyToken: acc.previewlyToken,
+              avatarId: acc.avatarId,
               settings: acc.settings.reduce(
                 (acc, setting) => ({
                   ...acc,
@@ -179,6 +180,7 @@ const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
       (account): Account => ({
         id: account.id,
         name: account.name || undefined,
+        avatarId: account.avatarId,
         previewlyToken: account.previewlyToken,
         settings: account.settings.reduce(
           (acc, setting) => ({

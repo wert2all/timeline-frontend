@@ -65,6 +65,7 @@ export class CachedAccountsProvider {
                     id: maybeAccount.id,
                     name: maybeAccount.name,
                     about: maybeAccount.about,
+                    avatarId: maybeAccount.avatarId,
                     previewlyToken: maybeAccount.previewlyToken,
                     settings: maybeAccount.settings,
                   };

@@ -1,4 +1,4 @@
-import { Iterable, Unique } from '../../app.types';
+import { Iterable, Undefined, Unique } from '../../app.types';
 
 export type AccountView = Unique & {
   name: string;
@@ -11,5 +11,6 @@ export type Account = Iterable & {
   name?: string;
   about?: string;
   previewlyToken: string;
+  avatarId: number | Undefined;
   settings: AccountSettings;
 };
