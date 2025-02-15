@@ -40,13 +40,11 @@ const init = (
         accounts: token ? accounts : [],
       };
     }),
-    map(({ account, accounts }) => {
-      console.log(account);
-      console.log(accounts);
-      return account && accounts.length > 0
+    map(({ account, accounts }) =>
+      account && accounts.length > 0
         ? AccountActions.setActiveAccountAfterInit({ account, accounts })
-        : AccountActions.emptyActiveAccount();
-    }),
+        : AccountActions.emptyActiveAccount()
+    ),
     catchError(err => of(AccountActions.errorOnInitAuth({ error: err })))
   );
 
