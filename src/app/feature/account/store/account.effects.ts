@@ -11,7 +11,6 @@ import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-win
 import { NotificationStore } from '../../ui/layout/store/notification/notifications.store';
 import { Account } from '../account.types';
 import { CurrentAccountProvider } from '../current.provider';
-import { CachedAccountsProvider } from '../share/cached-accounts.provider';
 import { AccountActions } from './account.actions';
 import { uploadAvatarEffects } from './effects/upload-avatar.effect';
 
@@ -68,15 +67,9 @@ const saveAccountSettings = (
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
-const successSaveAccountSettings = (
-  actions$ = inject(Actions),
-  cachedAccountProvider = inject(CachedAccountsProvider)
-) =>
+const successSaveAccountSettings = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.successSaveAccountSettings),
-    tap(({ accountId, settings }) => {
-      cachedAccountProvider.updateAccountSettings(accountId, settings);
-    }),
     map(() =>
       SharedActions.sendNotification({
         message: 'Account settings saved',
@@ -151,17 +144,6 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(err => of(AccountActions.apiException({ exception: err })))
   );
 
-const updateAccountCacheAfterSaveAccount = (
-  actions$ = inject(Actions),
-  cachedAccountProvider = inject(CachedAccountsProvider)
-) =>
-  actions$.pipe(
-    ofType(AccountActions.successSaveAccount),
-    tap(({ account }) => {
-      cachedAccountProvider.upsetAccount(account);
-    })
-  );
-
 const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
     ofType(AccountActions.dispatchAddNewAcoount),
@@ -196,15 +178,9 @@ const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(() => of(AccountActions.couldNotAddAccount()))
   );
 
-const addNewAccountToCache = (
-  actions$ = inject(Actions),
-  cachedAccountProvider = inject(CachedAccountsProvider)
-) =>
+const addNewAccountToCache = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.successAddNewAccount),
-    tap(({ account }) => {
-      cachedAccountProvider.upsetAccount(account);
-    }),
     map(() => ModalWindowActions.closeModalWindow())
   );
 
@@ -221,17 +197,6 @@ const saveActiveAccountIdToCache = (
     ),
     tap(({ account }) => {
       currentAccountProvider.setActiveAccountId(account);
-    })
-  );
-
-const updateAccounstsCacheAfterAuthorization = (
-  actions$ = inject(Actions),
-  cachedAccounts = inject(CachedAccountsProvider)
-) =>
-  actions$.pipe(
-    ofType(SharedActions.successAuthenticated),
-    tap(({ accounts }) => {
-      cachedAccounts.setAccounts(accounts);
     })
   );
 
@@ -261,11 +226,6 @@ export const accountEffects = {
     StoreDispatchEffect
   ),
 
-  updateAccountCacheAfterSaveAccount: createEffect(
-    updateAccountCacheAfterSaveAccount,
-    StoreUnDispatchEffect
-  ),
-
   couldNotSaveAccountSettings: createEffect(
     couldNotSaveAccountSettings,
     StoreDispatchEffect
@@ -282,11 +242,6 @@ export const accountEffects = {
   addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
   switchAccountAfterAdding: createEffect(
     saveActiveAccountIdToCache,
-    StoreUnDispatchEffect
-  ),
-
-  updateAccounstsCacheAfterAuthorization: createEffect(
-    updateAccounstsCacheAfterAuthorization,
     StoreUnDispatchEffect
   ),
 
