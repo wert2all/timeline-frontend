@@ -28,6 +28,7 @@ import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-
 import { tableOfYearFeature } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.reducer';
 import { provideApollo } from './providers/apollo.provider';
 import { provideAuthConfig } from './providers/authConfig.provider';
+import { metaReducers } from './providers/meta.reducers';
 import { provideSentry } from './providers/sentry.provider';
 import { imageEffects } from './shared/store/images/images.effects';
 import { imagesFeature } from './shared/store/images/images.reducer';
@@ -45,19 +46,22 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
     provideSentry(),
     provideApollo(),
-    provideStore({
-      [sharedFeature.name]: sharedFeature.reducer,
-      [imagesFeature.name]: imagesFeature.reducer,
-      [tableOfYearFeature.name]: tableOfYearFeature.reducer,
-      [accountFeature.name]: accountFeature.reducer,
-      [navigationFeature.name]: navigationFeature.reducer,
-      [taskFeature.name]: taskFeature.reducer,
-      [modalWindowFeature.name]: modalWindowFeature.reducer,
-      [timelineFeature.name]: timelineFeature.reducer,
-      [eventOperationsFeature.name]: eventOperationsFeature.reducer,
-      [previewFeature.name]: previewFeature.reducer,
-      [legacyTimelineFeature.name]: legacyTimelineFeature.reducer,
-    }),
+    provideStore(
+      {
+        [sharedFeature.name]: sharedFeature.reducer,
+        [imagesFeature.name]: imagesFeature.reducer,
+        [tableOfYearFeature.name]: tableOfYearFeature.reducer,
+        [accountFeature.name]: accountFeature.reducer,
+        [navigationFeature.name]: navigationFeature.reducer,
+        [taskFeature.name]: taskFeature.reducer,
+        [modalWindowFeature.name]: modalWindowFeature.reducer,
+        [timelineFeature.name]: timelineFeature.reducer,
+        [eventOperationsFeature.name]: eventOperationsFeature.reducer,
+        [previewFeature.name]: previewFeature.reducer,
+        [legacyTimelineFeature.name]: legacyTimelineFeature.reducer,
+      },
+      { metaReducers }
+    ),
     provideEffects([
       sharedEffects,
       imageEffects,

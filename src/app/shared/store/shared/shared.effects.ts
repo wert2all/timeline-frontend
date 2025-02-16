@@ -5,12 +5,14 @@ import {
   createEffect,
   ofType,
 } from '@ngrx/effects';
+import { concatLatestFrom } from '@ngrx/operators';
+import { Store } from '@ngrx/store';
 import { catchError, map, of, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
-import { CachedAccountsProvider } from '../../../feature/account/share/cached-accounts.provider';
 import { AccountActions } from '../../../feature/account/store/account.actions';
+import { accountFeature } from '../../../feature/account/store/account.reducer';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { TokenProvider } from '../../../feature/auth/shared/token.provider';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
@@ -22,14 +24,14 @@ import { SharedActions } from './shared.actions';
 const init = (
   actions$ = inject(Actions),
   tokenProvider = inject(TokenProvider),
-  accountStorage = inject(CachedAccountsProvider),
-  currentAccountIdProvider = inject(CurrentAccountProvider)
+  currentAccountIdProvider = inject(CurrentAccountProvider),
+  store = inject(Store)
 ) =>
   actions$.pipe(
     ofType(ROOT_EFFECTS_INIT),
     map(() => tokenProvider.getToken()),
-    map(token => {
-      const accounts = accountStorage.getAccounts();
+    concatLatestFrom(() => store.select(accountFeature.selectAccounts)),
+    map(([token, accounts]) => {
       const currentAccountId = currentAccountIdProvider.getActiveAccountId();
 
       return {
