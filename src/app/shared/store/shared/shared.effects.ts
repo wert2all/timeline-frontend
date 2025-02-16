@@ -42,6 +42,10 @@ const init = (
         accounts: token ? accounts : [],
       };
     }),
+    map(({ account, accounts }) => ({
+      account: account ? account : accounts.slice(0, 1)[0],
+      accounts,
+    })),
     map(({ account, accounts }) =>
       account && accounts.length > 0
         ? AccountActions.setActiveAccountAfterInit({ account, accounts })
@@ -115,7 +119,7 @@ const setActiveAccountAfterAuth = (
       accounts,
     })),
     map(({ currentId, accounts }) => ({
-      currentId: currentId ? currentId : accounts.slice(0, 1)[0],
+      currentId: currentId ? currentId : accounts.slice(0, 1)[0].id,
       accounts,
     })),
     map(({ currentId, accounts }) =>
