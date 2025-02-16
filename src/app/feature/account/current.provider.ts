@@ -10,7 +10,11 @@ export class CurrentAccountProvider {
 
   getActiveAccountId(): number | Undefined {
     const storageValue = this.storage.getItem(ACCOUNT_ID_KEY);
-    return isFinite(Number(storageValue)) ? Number(storageValue) : null;
+    if (storageValue) {
+      return isFinite(Number(storageValue)) ? Number(storageValue) : null;
+    } else {
+      return null;
+    }
   }
 
   setActiveAccountId(currentAccount: Account) {
