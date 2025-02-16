@@ -1,7 +1,6 @@
 import { Injectable, inject } from '@angular/core';
-import { Undefined } from '../../app.types';
+import { Iterable, Undefined } from '../../app.types';
 import { SharedLocalStorageService } from '../../shared/services/local-storage.service';
-import { Account } from './account.types';
 
 const ACCOUNT_ID_KEY = 'account_id';
 @Injectable({ providedIn: 'root' })
@@ -17,7 +16,7 @@ export class CurrentAccountProvider {
     }
   }
 
-  setActiveAccountId(currentAccount: Account) {
+  setActiveAccountId(currentAccount: Iterable) {
     this.storage.setItem(ACCOUNT_ID_KEY, String(currentAccount.id));
   }
 }

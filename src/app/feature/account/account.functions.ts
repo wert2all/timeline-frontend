@@ -1,3 +1,4 @@
+import { ShortAccount } from '../../api/internal/graphql';
 import { Iterable, Undefined } from '../../app.types';
 import { AccountFeaturesSettings } from '../../shared/services/features.service';
 import { Account, AccountView } from './account.types';
@@ -28,3 +29,19 @@ export const toAccountView = (
         firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
       }
     : null;
+
+export const toAccount = (account: ShortAccount): Account => {
+  return {
+    id: account.id,
+    name: account.name || undefined,
+    previewlyToken: account.previewlyToken,
+    avatar: { id: account.avatarId },
+    settings: account.settings.reduce(
+      (acc, setting) => ({
+        ...acc,
+        [setting.key]: setting.value,
+      }),
+      {}
+    ),
+  };
+};
