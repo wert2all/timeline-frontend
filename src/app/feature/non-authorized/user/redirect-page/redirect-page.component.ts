@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { defaultAccountName } from '../../../account/account.functions';
 import { AccountsService } from '../../../account/share/accounts.service';
 import { NewAuthService } from '../../../auth/shared/auth.service';
 
@@ -36,7 +37,12 @@ export class LoginRedirectPageComponent {
   });
 
   protected readonly error = computed(() => this.apiAuth.error());
-  protected readonly accounts = computed(() => this.apiAuth.value());
+  protected readonly accounts = computed(() =>
+    this.apiAuth.value()?.map(account => ({
+      ...account,
+      name: account.name || defaultAccountName,
+    }))
+  );
 
   constructor() {
     effect(() => {
