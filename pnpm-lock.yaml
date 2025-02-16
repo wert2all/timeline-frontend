@@ -89,6 +89,9 @@ importers:
       luxon:
         specifier: ^3.5.0
         version: 3.5.0
+      ngrx-store-localstorage:
+        specifier: ^19.0.0
+        version: 19.0.0(@angular/common@19.1.6(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(@ngrx/store@19.0.1(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))
       ngxtension:
         specifier: ^4.3.2
         version: 4.3.2(@angular/common@19.1.6(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(@swc/core@1.5.24)(rxjs@7.8.1)
@@ -6582,6 +6585,13 @@ packages:
 
   neo-async@2.6.2:
     resolution: {integrity: sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==}
+
+  ngrx-store-localstorage@19.0.0:
+    resolution: {integrity: sha512-aONkwb2oW8BI9p6Hqyc6UvB8N51LgPSPg6ogg/ypYCQqRP/p8CDgDuYfkXyQktO1WS+2wKV4lPvGdjfb8dJwEw==}
+    peerDependencies:
+      '@angular/common': ^19.0.5
+      '@angular/core': ^19.0.5
+      '@ngrx/store': ^19.0.0
 
   ngxtension@4.3.2:
     resolution: {integrity: sha512-pddBYYCiPbQMi05Wc/BkXPfdsmTkOpEy7NZmAmZm7VQDm7yufa1FqCdgkr8TatT520rRJ+aGibVDMbUtgFgD7g==}
@@ -13800,8 +13810,7 @@ snapshots:
 
   deep-is@0.1.4: {}
 
-  deepmerge@4.3.1:
-    optional: true
+  deepmerge@4.3.1: {}
 
   default-browser-id@5.0.0: {}
 
@@ -16654,6 +16663,14 @@ snapshots:
   negotiator@1.0.0: {}
 
   neo-async@2.6.2: {}
+
+  ngrx-store-localstorage@19.0.0(@angular/common@19.1.6(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(@ngrx/store@19.0.1(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)):
+    dependencies:
+      '@angular/common': 19.1.6(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
+      '@angular/core': 19.1.6(rxjs@7.8.1)(zone.js@0.15.0)
+      '@ngrx/store': 19.0.1(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
+      deepmerge: 4.3.1
+      tslib: 2.8.1
 
   ngxtension@4.3.2(@angular/common@19.1.6(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.6(rxjs@7.8.1)(zone.js@0.15.0))(@swc/core@1.5.24)(rxjs@7.8.1):
     dependencies:
