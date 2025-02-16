@@ -3,6 +3,7 @@ import { Iterable, Undefined } from '../../app.types';
 import { AccountFeaturesSettings } from '../../shared/services/features.service';
 import { Account, AccountView } from './account.types';
 
+export const defaultAccountName = 'John Doe';
 export const toFeaturesSettings = (
   account: Account | Undefined
 ): AccountFeaturesSettings => {
@@ -25,7 +26,7 @@ export const toAccountView = (
   account
     ? {
         uuid: account.id.toString(),
-        name: account.name || 'John Doe',
+        name: account.name || defaultAccountName,
         firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
       }
     : null;

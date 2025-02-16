@@ -3,8 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
-import { CurrentAccountProvider } from '../../../feature/account/current.provider';
-import { AccountActions } from '../../../feature/account/store/account.actions';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
@@ -66,30 +64,6 @@ const shouldLoginRedirect = (actions$ = inject(Actions)) =>
     map(() => NavigationActions.toLogin())
   );
 
-const setActiveAccountAfterAuth = (
-  actions$ = inject(Actions),
-  currentAccountProvider = inject(CurrentAccountProvider)
-) =>
-  actions$.pipe(
-    ofType(SharedActions.successAuthenticated),
-    map(({ accounts }) => ({
-      currentId: currentAccountProvider.getActiveAccountId(),
-      accounts,
-    })),
-    map(({ currentId, accounts }) => ({
-      currentId: currentId ? currentId : accounts.slice(0, 1)[0].id,
-      accounts,
-    })),
-    map(({ currentId, accounts }) =>
-      accounts.find(account => account.id === currentId)
-    ),
-    map(current =>
-      current
-        ? AccountActions.setActiveAccountAfterAuth({ account: current })
-        : AccountActions.emptyCurrentAccount()
-    )
-  );
-
 export const sharedEffects = {
   shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
@@ -104,11 +78,6 @@ export const sharedEffects = {
 
   dispatchTaskForLoadingImages: createEffect(
     dispatchTaskForLoadingImages,
-    StoreDispatchEffect
-  ),
-
-  setActiveAccountAfterAuth: createEffect(
-    setActiveAccountAfterAuth,
     StoreDispatchEffect
   ),
 };

@@ -2,6 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { KeyValue } from '../../../app.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
+import { defaultAccountName } from '../account.functions';
 import { Account } from '../account.types';
 import { AccountActions } from './account.actions';
 import { AccountState } from './account.types';
@@ -69,7 +70,9 @@ export const accountFeature = createFeature({
       (state, { account }): AccountState => ({
         ...state,
         accounts: state.accounts.map(acc =>
-          acc.id === account.id ? account : acc
+          acc.id === account.id
+            ? { ...account, name: account.name || defaultAccountName }
+            : acc
         ),
       })
     ),
