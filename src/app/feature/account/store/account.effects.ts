@@ -9,9 +9,10 @@ import { NavigationActions } from '../../../shared/store/navigation/navigation.a
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { NotificationStore } from '../../ui/layout/store/notification/notifications.store';
-import { Account } from '../account.types';
+import { toAccount } from '../account.functions';
 import { CurrentAccountProvider } from '../current.provider';
 import { AccountActions } from './account.actions';
+import { initStateEffects } from './effects/init.effect';
 import { uploadAvatarEffects } from './effects/upload-avatar.effect';
 
 const updateOneSettings = (actions$ = inject(Actions)) =>
@@ -123,21 +124,7 @@ const saveAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
           map(result =>
             apiAssertNotNull(extractApiData(result)?.account, 'Empty account')
           ),
-          map(
-            (acc): Account => ({
-              id: acc.id,
-              name: acc.name || undefined,
-              previewlyToken: acc.previewlyToken,
-              avatar: { id: acc.avatarId },
-              settings: acc.settings.reduce(
-                (acc, setting) => ({
-                  ...acc,
-                  [setting.key]: setting.value,
-                }),
-                {}
-              ),
-            })
-          )
+          map(acc => toAccount(acc))
         )
     ),
     map(account => AccountActions.successSaveAccount({ account: account })),
@@ -159,21 +146,7 @@ const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
           )
         )
     ),
-    map(
-      (account): Account => ({
-        id: account.id,
-        name: account.name || undefined,
-        avatar: { id: account.avatarId },
-        previewlyToken: account.previewlyToken,
-        settings: account.settings.reduce(
-          (acc, setting) => ({
-            ...acc,
-            [setting.key]: setting.value,
-          }),
-          {}
-        ),
-      })
-    ),
+    map(account => toAccount(account)),
     map(account => AccountActions.successAddNewAccount({ account: account })),
     catchError(() => of(AccountActions.couldNotAddAccount()))
   );
@@ -248,5 +221,6 @@ export const accountEffects = {
   redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
   notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
 
+  ...initStateEffects,
   ...uploadAvatarEffects,
 };

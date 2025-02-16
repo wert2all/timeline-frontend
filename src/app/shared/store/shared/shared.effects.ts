@@ -1,58 +1,16 @@
 import { inject } from '@angular/core';
-import {
-  Actions,
-  ROOT_EFFECTS_INIT,
-  createEffect,
-  ofType,
-} from '@ngrx/effects';
-import { concatLatestFrom } from '@ngrx/operators';
-import { Store } from '@ngrx/store';
-import { catchError, map, of, tap } from 'rxjs';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { CurrentAccountProvider } from '../../../feature/account/current.provider';
 import { AccountActions } from '../../../feature/account/store/account.actions';
-import { accountFeature } from '../../../feature/account/store/account.reducer';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
-import { TokenProvider } from '../../../feature/auth/shared/token.provider';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
 import { TaskActions } from '../../../store/task/task.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
-
-const init = (
-  actions$ = inject(Actions),
-  tokenProvider = inject(TokenProvider),
-  currentAccountIdProvider = inject(CurrentAccountProvider),
-  store = inject(Store)
-) =>
-  actions$.pipe(
-    ofType(ROOT_EFFECTS_INIT),
-    map(() => tokenProvider.getToken()),
-    concatLatestFrom(() => store.select(accountFeature.selectAccounts)),
-    map(([token, accounts]) => {
-      const currentAccountId = currentAccountIdProvider.getActiveAccountId();
-
-      return {
-        account:
-          token && currentAccountId
-            ? accounts.find(a => a.id === currentAccountId)
-            : null,
-        accounts: token ? accounts : [],
-      };
-    }),
-    map(({ account, accounts }) => ({
-      account: account ? account : accounts.slice(0, 1)[0],
-      accounts,
-    })),
-    map(({ account, accounts }) =>
-      account && accounts.length > 0
-        ? AccountActions.setActiveAccountAfterInit({ account, accounts })
-        : AccountActions.emptyActiveAccount()
-    ),
-    catchError(err => of(AccountActions.errorOnInitAuth({ error: err })))
-  );
 
 const sendNotification = (
   actions$ = inject(Actions),
@@ -133,7 +91,6 @@ const setActiveAccountAfterAuth = (
   );
 
 export const sharedEffects = {
-  init: createEffect(init, StoreDispatchEffect),
   shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
 

@@ -30,10 +30,7 @@ export const AccountActions = createActionGroup({
     'Dispatch add new acoount': props<{ name: string }>(),
     'Success add new account': props<{ account: Account }>(),
 
-    'Set active account after init': props<{
-      account: Account;
-      accounts: Account[];
-    }>(),
+    'Set active account after init': props<{ account: Account }>(),
     'Set active account after auth': props<{ account: Account }>(),
 
     'Upload avatar': props<{

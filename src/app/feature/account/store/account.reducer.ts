@@ -75,15 +75,6 @@ export const accountFeature = createFeature({
     ),
 
     on(
-      SharedActions.successAuthenticated,
-      AccountActions.setActiveAccountAfterInit,
-      (state, { accounts }): AccountState => ({
-        ...state,
-        accounts,
-      })
-    ),
-
-    on(
       SharedActions.logout,
       (state): AccountState => ({
         ...state,
@@ -95,10 +86,18 @@ export const accountFeature = createFeature({
       AccountActions.successAddNewAccount,
       AccountActions.setActiveAccountAfterInit,
       AccountActions.setActiveAccountAfterAuth,
-      SharedActions.switchActiveAccount,
+      // SharedActions.switchActiveAccount,
       (state, { account }): AccountState => ({
         ...state,
         activeAccount: account,
+      })
+    ),
+
+    on(
+      SharedActions.successAuthenticated,
+      (state, { accounts }): AccountState => ({
+        ...state,
+        accounts: accounts,
       })
     ),
 
