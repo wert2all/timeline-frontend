@@ -26,7 +26,7 @@ export const avatarEffects = {
           AccountActions.setActiveAccountAfterAuth
         ),
         concatLatestFrom(() => store.select(accountFeature.selectAccounts)),
-        map(([_, accounts]) =>
+        map(([, accounts]) =>
           SharedActions.dispatchLoadingImages({
             ids: accounts
               .map(account => account.avatar.id)

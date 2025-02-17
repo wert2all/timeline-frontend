@@ -1,5 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { KeyValue } from '../../../app.types';
+import { ImagesActions } from '../../../shared/store/images/images.actions';
+import { UploadedImage } from '../../../shared/store/images/images.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { defaultAccountName } from '../account.functions';
@@ -20,6 +22,50 @@ const mergeAccountSettings = (
   } else {
     return null;
   }
+};
+
+const updateAvatars = (
+  state: AccountState,
+  images: UploadedImage[]
+): AccountState => {
+  const avatarIds = state.accounts
+    .map(account => account.avatar.id)
+    .filter(id => !!id)
+    .map(id => id!);
+  if (avatarIds) {
+    const accountImages = images
+      .filter(image => image.data?.resized_490x250)
+      .filter(image => avatarIds.includes(image.id));
+    if (accountImages.length > 0) {
+      const updatedState: AccountState = {
+        ...state,
+        accounts: state.accounts.map(account => ({
+          ...account,
+          avatar: {
+            ...account.avatar,
+            url: accountImages.find(image => image.id === account.avatar.id)
+              ?.data?.resized_490x250,
+          },
+        })),
+      };
+      const activeAccount = updatedState.activeAccount;
+      const activeAccountImage = activeAccount
+        ? accountImages.find(image => image.id === activeAccount.avatar.id)
+        : null;
+      if (activeAccountImage && updatedState.activeAccount) {
+        updatedState.activeAccount = {
+          ...updatedState.activeAccount,
+          avatar: {
+            ...updatedState.activeAccount?.avatar,
+            url: activeAccountImage.data?.resized_490x250,
+          },
+        };
+      }
+
+      return updatedState;
+    }
+  }
+  return state;
 };
 
 const initialState: AccountState = {
@@ -184,6 +230,10 @@ export const accountFeature = createFeature({
           error: new Error('Failder to upload avatar'),
         },
       })
+    ),
+    on(
+      ImagesActions.successUpdateImages,
+      (state, { images }): AccountState => updateAvatars(state, images)
     )
   ),
   extraSelectors: ({ selectCurrentAvatarUpload }) => ({
