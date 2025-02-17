@@ -16,7 +16,9 @@ export class SharedAccountViewComponent {
   accountClick = output();
 
   protected avatar = computed(() => {
-    const avatar = this.account().avatar;
-    return avatar ? 'url(' + avatar + ') no-repeat center' : '';
+    // after update images data shoud be uncommented
+    // const avatar = this.account().avatar;
+    // return avatar ? 'url(' + avatar + ') no-repeat center' : '';
+    return '';
   });
 }
