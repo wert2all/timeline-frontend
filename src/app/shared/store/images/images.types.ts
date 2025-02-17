@@ -10,6 +10,7 @@ import {
 
 export interface ImageData {
   resized_490x250: string;
+  avatar: string;
 }
 
 export type UploadedImage = Iterable & {

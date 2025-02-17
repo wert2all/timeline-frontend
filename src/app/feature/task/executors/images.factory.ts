@@ -1,10 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable, catchError, concat, map, of, toArray } from 'rxjs';
-import {
-  Status as ApiStatus,
-  previewlyApiClient,
-} from '../../../api/external/previewly/graphql';
-import { Pending, Status, StatusWithPending } from '../../../app.types';
+import { previewlyApiClient } from '../../../api/external/previewly/graphql';
+import { Status } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { UploadedImage } from '../../../shared/store/images/images.types';
 import { TaskActionProps, TaskType } from '../../../store/task/task.types';
@@ -42,20 +39,21 @@ export class ImagesTaskExecutorFactory
         ...this.extractIdFromOptions(options).map(imageId =>
           this.api.getResizedImage({ imageId, token }).pipe(
             map(result =>
-              apiAssertNotNull(
-                extractApiData(result)?.resizedImage,
-                'Empty resized image'
-              )
+              apiAssertNotNull(extractApiData(result), 'Empty resized image')
             ),
             map((image): UploadedImage => {
-              if (image.image?.url) {
+              if (
+                image.resized_490x250?.image?.url &&
+                image.resized_50x50?.image?.url
+              ) {
                 return {
                   id: imageId,
                   data: {
-                    resized_490x250: image.image.url,
+                    resized_490x250: image.resized_490x250.image.url,
+                    avatar: image.resized_50x50.image.url,
                   },
-                  status: this.getImageStatus(image.status),
-                  error: image.error,
+                  status: Status.SUCCESS,
+                  error: null,
                 };
               }
 
@@ -107,16 +105,4 @@ export class ImagesTaskExecutorFactory
   private extractTokenFromOptions(options: TaskOption[]): string | undefined {
     return options.find(option => option.name === TOKEN_OPTION_NAME)?.value;
   }
-
-  //eslint-disable-next-line sonarjs/function-return-type
-  private getImageStatus = (status: ApiStatus): StatusWithPending => {
-    switch (status) {
-      case 'success':
-        return Status.SUCCESS;
-      case 'error':
-        return Status.ERROR;
-      default:
-        return Pending.PENDING;
-    }
-  };
 }

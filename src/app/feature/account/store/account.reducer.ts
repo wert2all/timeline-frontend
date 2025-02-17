@@ -34,7 +34,7 @@ const updateAvatars = (
     .map(id => id!);
   if (avatarIds) {
     const accountImages = images
-      .filter(image => image.data?.resized_490x250)
+      .filter(image => image.data?.avatar)
       .filter(image => avatarIds.includes(image.id));
     if (accountImages.length > 0) {
       const updatedState: AccountState = {
@@ -44,7 +44,7 @@ const updateAvatars = (
           avatar: {
             ...account.avatar,
             url: accountImages.find(image => image.id === account.avatar.id)
-              ?.data?.resized_490x250,
+              ?.data?.avatar,
           },
         })),
       };
@@ -57,7 +57,7 @@ const updateAvatars = (
           ...updatedState.activeAccount,
           avatar: {
             ...updatedState.activeAccount?.avatar,
-            url: activeAccountImage.data?.resized_490x250,
+            url: activeAccountImage.data?.avatar,
           },
         };
       }
