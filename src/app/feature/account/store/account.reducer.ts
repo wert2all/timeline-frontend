@@ -135,7 +135,7 @@ export const accountFeature = createFeature({
       AccountActions.successAddNewAccount,
       AccountActions.setActiveAccountAfterInit,
       AccountActions.setActiveAccountAfterAuth,
-      // SharedActions.switchActiveAccount,
+      AccountActions.setActiveAccountByUser,
       (state, { account }): AccountState => ({
         ...state,
         activeAccount: account,

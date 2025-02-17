@@ -32,6 +32,7 @@ export const AccountActions = createActionGroup({
 
     'Set active account after init': props<{ account: Account }>(),
     'Set active account after auth': props<{ account: Account }>(),
+    'Set active account by user': props<{ account: Account }>(),
 
     'Upload avatar': props<{
       avatar: { file: File; url: string };

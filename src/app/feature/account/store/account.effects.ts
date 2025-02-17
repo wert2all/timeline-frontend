@@ -10,10 +10,10 @@ import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { NotificationStore } from '../../ui/layout/store/notification/notifications.store';
 import { toAccount } from '../account.functions';
-import { CurrentAccountProvider } from '../current.provider';
 import { AccountActions } from './account.actions';
 import { avatarEffects } from './effects/images.effects';
 import { initStateEffects } from './effects/init.effect';
+import { setActiveAccount } from './effects/switch-account.effects';
 import { uploadAvatarEffects } from './effects/upload-avatar.effect';
 
 const updateOneSettings = (actions$ = inject(Actions)) =>
@@ -152,26 +152,10 @@ const addNewAccount = (actions$ = inject(Actions), api = inject(ApiClient)) =>
     catchError(() => of(AccountActions.couldNotAddAccount()))
   );
 
-const addNewAccountToCache = (actions$ = inject(Actions)) =>
+const closeWindowAfterAddAccount = (actions$ = inject(Actions)) =>
   actions$.pipe(
     ofType(AccountActions.successAddNewAccount),
     map(() => ModalWindowActions.closeModalWindow())
-  );
-
-const saveActiveAccountIdToCache = (
-  actions$ = inject(Actions),
-  currentAccountProvider = inject(CurrentAccountProvider)
-) =>
-  actions$.pipe(
-    ofType(
-      AccountActions.successAddNewAccount,
-      AccountActions.setActiveAccountAfterInit,
-      AccountActions.setActiveAccountAfterAuth,
-      SharedActions.switchActiveAccount
-    ),
-    tap(({ account }) => {
-      currentAccountProvider.setActiveAccountId(account);
-    })
   );
 
 const notifyEmptyAccount = (
@@ -213,10 +197,9 @@ export const accountEffects = {
   saveAccount: createEffect(saveAccount, StoreDispatchEffect),
 
   addNewAccount: createEffect(addNewAccount, StoreDispatchEffect),
-  addNewAccountToCache: createEffect(addNewAccountToCache, StoreDispatchEffect),
-  switchAccountAfterAdding: createEffect(
-    saveActiveAccountIdToCache,
-    StoreUnDispatchEffect
+  addNewAccountToCache: createEffect(
+    closeWindowAfterAddAccount,
+    StoreDispatchEffect
   ),
 
   redirectAfterAuth: createEffect(redirectAfterAuth, StoreDispatchEffect),
@@ -224,5 +207,6 @@ export const accountEffects = {
 
   ...initStateEffects,
   ...avatarEffects,
+  ...setActiveAccount,
   ...uploadAvatarEffects,
 };
