@@ -53,9 +53,12 @@ export class HeaderComponent {
     sharedFeature.selectActiveAccountFeatureSettings
   );
 
-  protected readonly currentAccountView = computed(() =>
-    toAccountView(this.activeAccount())
-  );
+  protected readonly currentAccountView = computed(() => {
+    const account = this.activeAccount();
+    return account
+      ? toAccountView({ ...account, avatarUrl: account.avatar.url })
+      : null;
+  });
 
   protected readonly isDarkTheme = this.themeService.isDark;
   protected readonly userAccounts = this.store.selectSignal(
@@ -63,7 +66,9 @@ export class HeaderComponent {
   );
   protected readonly userAccountsViews = computed((): AccountView[] =>
     this.userAccounts()
-      .map(account => toAccountView(account))
+      .map(account =>
+        toAccountView({ ...account, avatarUrl: account.avatar.url })
+      )
       .filter(account => !!account)
   );
 

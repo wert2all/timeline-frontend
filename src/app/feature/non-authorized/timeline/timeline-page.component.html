@@ -14,7 +14,7 @@
             <span>{{ error() }}</span>
           </div>
         }
-        @if (timelineAccount(); as account) {
+        @if (timelineAccountView(); as account) {
           <div>
             <app-shared-account-view
               [account]="account"

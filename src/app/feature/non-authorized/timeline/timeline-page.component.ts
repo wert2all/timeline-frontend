@@ -3,24 +3,28 @@ import {
   Component,
   ResourceStatus,
   computed,
+  effect,
   inject,
   input,
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { saxInformationOutline } from '@ng-icons/iconsax/outline';
+import { Store, createSelector } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
 import { Undefined } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
+import { imagesFeature } from '../../../shared/store/images/images.reducer';
+import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { toAccountView } from '../../account/account.functions';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 
-type AccountSibebar = AccountView & { about: string | Undefined };
+type AccountSidebar = AccountView & { about: string | Undefined };
 @Component({
   standalone: true,
   selector: 'app-timeline-page',
@@ -39,6 +43,8 @@ export class TimelinePageComponent {
   timelineId = input<number>(0);
 
   private readonly api = inject(ApiClient);
+  private readonly store = inject(Store);
+
   private timelineResource = rxResource({
     request: this.timelineId,
     loader: ({ request }) =>
@@ -60,6 +66,21 @@ export class TimelinePageComponent {
       : null
   );
 
+  private readonly timelineAccount = computed(
+    () => this.successResponse()?.account
+  );
+  private readonly timelineAccountAvatar = computed(() => {
+    const accountAvatarId = this.timelineAccount()?.avatarId;
+    return accountAvatarId
+      ? this.store.selectSignal(
+          createSelector(
+            imagesFeature.selectLoadedImages,
+            images => images[accountAvatarId]
+          )
+        )().data?.resized_490x250
+      : null;
+  });
+
   protected readonly loading = computed(() => {
     return this.timelineResource.status() === ResourceStatus.Loading;
   });
@@ -69,10 +90,27 @@ export class TimelinePageComponent {
       : null;
   });
 
-  protected readonly timelineAccount = computed((): AccountSibebar | null => {
-    const account = this.successResponse()?.account;
-    return account
-      ? { ...toAccountView(account)!, about: account.about }
-      : null;
-  });
+  protected readonly timelineAccountView = computed(
+    (): AccountSidebar | null => {
+      const account = this.timelineAccount();
+      const avatarUrl = this.timelineAccountAvatar();
+      return account
+        ? {
+            ...toAccountView({ ...account, avatarUrl })!,
+            about: account.about,
+          }
+        : null;
+    }
+  );
+
+  constructor() {
+    effect(() => {
+      const account = this.successResponse()?.account;
+      if (account?.avatarId) {
+        this.store.dispatch(
+          SharedActions.dispatchLoadingImages({ ids: [account.avatarId] })
+        );
+      }
+    });
+  }
 }
