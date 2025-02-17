@@ -12,6 +12,7 @@ import { NotificationStore } from '../../ui/layout/store/notification/notificati
 import { toAccount } from '../account.functions';
 import { CurrentAccountProvider } from '../current.provider';
 import { AccountActions } from './account.actions';
+import { avatarEffects } from './effects/images.effects';
 import { initStateEffects } from './effects/init.effect';
 import { uploadAvatarEffects } from './effects/upload-avatar.effect';
 
@@ -222,5 +223,6 @@ export const accountEffects = {
   notifyEmptyAccount: createEffect(notifyEmptyAccount, StoreUnDispatchEffect),
 
   ...initStateEffects,
+  ...avatarEffects,
   ...uploadAvatarEffects,
 };
