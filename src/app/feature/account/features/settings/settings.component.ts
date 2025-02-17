@@ -1,4 +1,10 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  linkedSignal,
+} from '@angular/core';
 import {
   rxResource,
   takeUntilDestroyed,
@@ -19,10 +25,12 @@ import {
   saxPenAddOutline,
   saxUserAddOutline,
 } from '@ng-icons/iconsax/outline';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
+import { Store, createSelector } from '@ngrx/store';
+import { map, tap } from 'rxjs';
 import { Undefined } from '../../../../app.types';
 import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';
+import { imagesFeature } from '../../../../shared/store/images/images.reducer';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { FeatureFlagComponent } from '../../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../../../ui/layout/store/modal-window/modal-window.types';
@@ -75,9 +83,16 @@ export class SettingsComponent {
   private readonly accountResource = rxResource({
     request: this.activeAccountId,
     loader: ({ request }) =>
-      this.accountsService
-        .getAccounts()
-        .pipe(map(accounts => accounts.find(account => account.id == request))),
+      this.accountsService.getAccounts().pipe(
+        map(accounts => accounts.find(account => account.id == request)),
+        tap(account => {
+          if (account?.avatar.id) {
+            this.store.dispatch(
+              SharedActions.dispatchLoadingImages({ ids: [account.avatar.id] })
+            );
+          }
+        })
+      ),
   });
   protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
 
@@ -103,8 +118,20 @@ export class SettingsComponent {
   private readonly currentUpload = this.store.selectSignal(
     accountFeature.selectCurrentAvatarUpload
   );
+  private currentAvatarId = linkedSignal({
+    source: this.accountResource.value,
+    computation: param => param?.avatar.id,
+  });
   protected readonly avatarUrl = computed(() => {
-    return this.currentUpload()?.previewUrl;
+    const currentUploadAvatar = this.currentUpload()?.previewUrl;
+    const currentAvatarId = this.currentAvatarId();
+    const selectAvatar = createSelector(
+      imagesFeature.selectLoadedImages,
+      images => images.find(image => image.id == currentAvatarId)
+    );
+    const currentAccountAvatar =
+      this.store.selectSignal(selectAvatar)()?.data?.avatar;
+    return currentUploadAvatar || currentAccountAvatar;
   });
   private readonly uploadedAvatarId = this.store.selectSignal(
     accountFeature.selectCurrentAvatarUploadId
@@ -130,8 +157,10 @@ export class SettingsComponent {
       }
     });
     effect(() => {
-      const avatarId = this.uploadedAvatarId();
-      this.form.controls.avatarId.setValue(avatarId);
+      this.currentAvatarId.set(this.uploadedAvatarId());
+    });
+    effect(() => {
+      this.form.controls.avatarId.setValue(this.currentAvatarId());
     });
   }
 
@@ -144,7 +173,7 @@ export class SettingsComponent {
 
   removeAvatar() {
     this.store.dispatch(AccountActions.removeAvatar());
-    this.form.controls.avatarId.setValue(null);
+    this.currentAvatarId.set(null);
   }
 
   addAccount() {
