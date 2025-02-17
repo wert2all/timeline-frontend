@@ -114,7 +114,12 @@ export type TimelineEvents = { events: Array<TimelineEvent>; page: PageInfo };
 export type Timeline = {
   id: number;
   name?: string | null;
-  account: { id: number; name?: string | null; about?: string | null };
+  account: {
+    id: number;
+    name?: string | null;
+    about?: string | null;
+    avatarId?: number | null;
+  };
 };
 
 export type User = {
@@ -251,6 +256,7 @@ export const Timeline = gql`
       id
       name
       about
+      avatarId
     }
   }
 `;
