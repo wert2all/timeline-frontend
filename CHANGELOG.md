@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.40](https://github.com/wert2all/timeline-frontend/compare/v0.0.39...v0.0.40) (2025-02-17)
+
+### Features
+
+- add avatarId to account type ([0a89375](https://github.com/wert2all/timeline-frontend/commit/0a89375ffcaee01ed9f2a4c346818f0b250ed246))
+- load account avatar after init application ([55c9521](https://github.com/wert2all/timeline-frontend/commit/55c952161af2cae3546b2c0966c8852d5ef4298d))
+- resize images to avatar sizes to ([b21d910](https://github.com/wert2all/timeline-frontend/commit/b21d910712c4ab47c26f6c245c574af91c0f4a4e))
+- show avatar ([b8f6294](https://github.com/wert2all/timeline-frontend/commit/b8f62944537b3783ffd8455ca2fd406f52addf7a))
+- sync accounts with localstorage ([6274aa1](https://github.com/wert2all/timeline-frontend/commit/6274aa10e71b88ffc9ef4b73d28e5e8dd54f97af))
+- update account avatars by images ([8f71ea5](https://github.com/wert2all/timeline-frontend/commit/8f71ea526ed8a2bc204d1fa73fabf6d1f30f6693))
+- upload avatar fot account ([0fa4ea7](https://github.com/wert2all/timeline-frontend/commit/0fa4ea7b9a69da6fc4eae2cd2c0b880168c90118))
+
+### Bug Fixes
+
+- fix account switch ([2d1b1e2](https://github.com/wert2all/timeline-frontend/commit/2d1b1e2cb31d26c11e537c1adf779b261d036467))
+- fix auth guard ([2fd52ee](https://github.com/wert2all/timeline-frontend/commit/2fd52eef80cc79293e6e317ef300354ef7c68866))
+- fix select active account after authorize ([3f778ca](https://github.com/wert2all/timeline-frontend/commit/3f778cae14712399c016d3e8c24412f250fdf66a))
+- fix showing avatar on settings window ([9d8cab6](https://github.com/wert2all/timeline-frontend/commit/9d8cab641f4e8fd741f81c803f99e4d41b4dfa67))
+- remove console.log ([b34bc00](https://github.com/wert2all/timeline-frontend/commit/b34bc00ca4bcb418b66eb132456d76e3f97006b9))
+- remove redirect on login page ([af2c184](https://github.com/wert2all/timeline-frontend/commit/af2c18492584c5e59324ba3a67256834cb4fbc3e))
+
 ## [0.0.39](https://github.com/wert2all/timeline-frontend/compare/v0.0.38...v0.0.39) (2025-02-13)
 
 ### Features
