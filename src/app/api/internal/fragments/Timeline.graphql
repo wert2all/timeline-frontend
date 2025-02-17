@@ -31,5 +31,6 @@ fragment Timeline on Timeline {
     id
     name
     about
+    avatarId
   }
 }
