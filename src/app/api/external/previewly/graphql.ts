@@ -101,7 +101,10 @@ export type GetResizedImageVariables = Exact<{
   imageId: Scalars['Int']['input'];
 }>;
 
-export type GetResizedImage = { resizedImage?: ResizedImage | null };
+export type GetResizedImage = {
+  resized_490x250?: ResizedImage | null;
+  resized_50x50?: ResizedImage | null;
+};
 
 export type GetPreviewVariables = Exact<{
   token: Scalars['String']['input'];
@@ -188,13 +191,28 @@ export class UploadImagesMutation extends Apollo.Mutation<
 }
 export const GetResizedImageDocument = gql`
   mutation GetResizedImage($token: String!, $imageId: Int!) {
-    resizedImage: processImage(
+    resized_490x250: processImage(
       imageId: $imageId
       processes: [
         {
           options: [
             { key: "width", value: "490" }
             { key: "height", value: "250" }
+          ]
+          type: resize
+        }
+      ]
+      token: $token
+    ) {
+      ...ResizedImage
+    }
+    resized_50x50: processImage(
+      imageId: $imageId
+      processes: [
+        {
+          options: [
+            { key: "width", value: "50" }
+            { key: "height", value: "50" }
           ]
           type: resize
         }

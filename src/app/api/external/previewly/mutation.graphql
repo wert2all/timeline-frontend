@@ -14,7 +14,7 @@ mutation UploadImages($token: String!, $images: [UploadInput!]!)
 
 mutation GetResizedImage($token: String!, $imageId: Int!)
 @namedClient(name: "previewly") {
-  resizedImage: processImage(
+  resized_490x250: processImage(
     imageId: $imageId
     processes: [
       {
@@ -22,6 +22,18 @@ mutation GetResizedImage($token: String!, $imageId: Int!)
           { key: "width", value: "490" }
           { key: "height", value: "250" }
         ]
+        type: resize
+      }
+    ]
+    token: $token
+  ) {
+    ...ResizedImage
+  }
+  resized_50x50: processImage(
+    imageId: $imageId
+    processes: [
+      {
+        options: [{ key: "width", value: "50" }, { key: "height", value: "50" }]
         type: resize
       }
     ]

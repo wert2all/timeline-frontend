@@ -77,7 +77,7 @@ export class TimelinePageComponent {
             imagesFeature.selectLoadedImages,
             images => images[accountAvatarId]
           )
-        )().data?.resized_490x250
+        )().data?.avatar
       : null;
   });
 
