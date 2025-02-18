@@ -3,6 +3,8 @@ import ngrx from '@ngrx/eslint-plugin/v9';
 import angular from 'angular-eslint';
 import eslintConfigPrettier from 'eslint-config-prettier';
 import sonarjs from 'eslint-plugin-sonarjs';
+import eslintPluginUnicorn from 'eslint-plugin-unicorn';
+import unusedImports from 'eslint-plugin-unused-imports';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
@@ -16,7 +18,11 @@ export default tseslint.config(
       ...angular.configs.tsRecommended,
       ...ngrx.configs.all,
     ],
-    plugins: { sonarjs },
+    plugins: {
+      sonarjs,
+      'unused-imports': unusedImports,
+      unicorn: eslintPluginUnicorn,
+    },
     processor: angular.processInlineTemplates,
     rules: {
       ...sonarjs.configs.recommended.rules,
