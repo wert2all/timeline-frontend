@@ -2,6 +2,7 @@ fragment Preview on PreviewData {
   id
   url
   image
+  imageId
   status
   title
   error
