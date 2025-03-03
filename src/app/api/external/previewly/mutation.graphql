@@ -33,8 +33,11 @@ mutation GetResizedImage($token: String!, $imageId: Int!)
     imageId: $imageId
     processes: [
       {
-        options: [{ key: "width", value: "50" }, { key: "height", value: "50" }]
-        type: resize
+        options: [
+          { key: "width", value: "260" }
+          { key: "height", value: "260" }
+        ]
+        type: crop
       }
     ]
     token: $token

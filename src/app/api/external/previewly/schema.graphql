@@ -29,6 +29,7 @@ input ImageProcessOptionInput {
 }
 
 enum ImageProcessType {
+  crop
   resize
 }
 
