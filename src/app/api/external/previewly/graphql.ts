@@ -38,6 +38,7 @@ export interface ImageProcessOptionInput {
 }
 
 export enum ImageProcessType {
+  crop = 'crop',
   resize = 'resize',
 }
 
@@ -213,10 +214,10 @@ export const GetResizedImageDocument = gql`
       processes: [
         {
           options: [
-            { key: "width", value: "50" }
-            { key: "height", value: "50" }
+            { key: "width", value: "260" }
+            { key: "height", value: "260" }
           ]
-          type: resize
+          type: crop
         }
       ]
       token: $token
