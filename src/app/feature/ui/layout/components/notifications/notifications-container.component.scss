@@ -10,15 +10,15 @@
     animation-duration: g.$animation-duration;
 
     &.success {
-      @apply border-success;
+      // @apply border-success;
     }
 
     &.warning {
-      @apply border-warning;
+      // @apply border-warning;
     }
 
     &.error {
-      @apply border-error;
+      // @apply border-error;
     }
 
     .indicator {
@@ -30,15 +30,15 @@
       animation: timeOut 5s linear 1 forwards;
     }
     &.success .indicator {
-      @apply bg-success;
+      // @apply bg-success;
     }
 
     &.warning .indicator {
-      @apply bg-warning;
+      // @apply bg-warning;
     }
 
     &.error .indicator {
-      @apply bg-error;
+      // @apply bg-error;
     }
 
     &:hover .indicator {
