@@ -1,12 +1,12 @@
 <div
-  class="avatar-container relative h-full min-h-64 rounded-xl bg-base-300 lg:w-64 lg:flex-none">
+  class="avatar-container bg-base-300 relative h-full min-h-64 rounded-xl lg:w-64 lg:flex-none">
   @if (loading() && !avatar()) {
     <app-shared-loader />
   } @else {
     <div class="avatar h-full w-full justify-center">
       @if (avatar(); as avatar) {
         <div
-          class="h-full w-full rounded-xl ring ring-accent ring-offset-2 ring-offset-base-100">
+          class="ring-accent ring-offset-base-100 h-full w-full rounded-xl ring ring-offset-2">
           <img [src]="avatar" class="h-full w-full" [alt]="title()" />
         </div>
       } @else {
@@ -14,7 +14,7 @@
       }
     </div>
   }
-  <div class="join absolute -bottom-2 right-0">
+  <div class="join absolute right-0 -bottom-2">
     <a
       class="btn btn-primary join-item btn-sm"
       (click)="avatarInput.click()"

@@ -1,6 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
+
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: 'gruvbox';
+  default: true;
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(0.24 0.01 96);
+  --color-primary: oklch(0.64 0.08 206);
+  --color-secondary: oklch(0.69 0.11 148);
+  --color-accent: oklch(0.64 0.16 47);
+  --color-neutral: oklch(0.19 0.01 92);
+  --color-info: oklch(0.87 0.07 95);
+  --color-success: oklch(0.75 0.09 141);
+  --color-warning: oklch(0.81 0.17 85);
+  --color-error: oklch(0.6 0.22 29);
+
+  --depth: 1;
+  --noise: 1;
+}
 
 @import url('animate.css');
 @import url('./assets/css/global.scss');
