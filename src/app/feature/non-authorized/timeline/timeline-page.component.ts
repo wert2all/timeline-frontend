@@ -17,8 +17,8 @@ import { Undefined } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
-import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
+import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../account/account.functions';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
@@ -73,11 +73,10 @@ export class TimelinePageComponent {
     const accountAvatarId = this.timelineAccount()?.avatarId;
     return accountAvatarId
       ? this.store.selectSignal(
-          createSelector(
-            imagesFeature.selectLoadedImages,
-            images => images[accountAvatarId]
+          createSelector(sharedFeature.selectLoadedImages, images =>
+            images.find(image => image.id === accountAvatarId)
           )
-        )().data?.avatar
+        )()?.data?.avatar
       : null;
   });
 
@@ -93,10 +92,10 @@ export class TimelinePageComponent {
   protected readonly timelineAccountView = computed(
     (): AccountSidebar | null => {
       const account = this.timelineAccount();
-      const avatarUrl = this.timelineAccountAvatar();
+      const avatar = this.timelineAccountAvatar();
       return account
         ? {
-            ...toAccountView({ ...account, avatarUrl })!,
+            ...toAccountView({ ...account, avatar })!,
             about: account.about,
           }
         : null;

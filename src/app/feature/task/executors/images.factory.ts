@@ -44,13 +44,17 @@ export class ImagesTaskExecutorFactory
             map((image): UploadedImage => {
               if (
                 image.resized_490x250?.image?.url &&
-                image.resized_50x50?.image?.url
+                image.cropped_50x50?.image?.url &&
+                image.cropped_260x260?.image?.url
               ) {
                 return {
                   id: imageId,
                   data: {
                     resized_490x250: image.resized_490x250.image.url,
-                    avatar: image.resized_50x50.image.url,
+                    avatar: {
+                      small: image.cropped_50x50.image.url,
+                      full: image.cropped_260x260.image.url,
+                    },
                   },
                   status: Status.SUCCESS,
                   error: null,

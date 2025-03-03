@@ -69,7 +69,10 @@ export class DevelopPageComponent implements OnInit {
   });
   protected withoutAvatarWithAvatar = computed(() => ({
     ...this.withoutAvatar(),
-    avatar: 'https://picsum.photos/200/200',
+    avatar: {
+      small: 'https://picsum.photos/50/50',
+      full: 'https://picsum.photos/260/260',
+    },
   }));
 
   ngOnInit(): void {

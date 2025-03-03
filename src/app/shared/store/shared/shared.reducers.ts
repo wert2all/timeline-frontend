@@ -4,6 +4,7 @@ import { CookieCategory, SharedState } from './shared.types';
 import { toFeaturesSettings } from '../../../feature/account/account.functions';
 import { accountFeature } from '../../../feature/account/store/account.reducer';
 import { AccountFeaturesSettings } from '../../services/features.service';
+import { imagesFeature } from '../images/images.reducer';
 import { SharedActions } from './shared.actions';
 
 const initialState: SharedState = { cookie: [] };
@@ -51,6 +52,10 @@ export const sharedFeature = createFeature({
     selectUserAccounts: createSelector(
       accountFeature.selectAccounts,
       accounts => accounts
+    ),
+    selectLoadedImages: createSelector(
+      imagesFeature.selectLoadedImages,
+      images => images
     ),
   }),
 });
