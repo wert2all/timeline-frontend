@@ -78,7 +78,7 @@ html.dark .hero {
 }
 
 html.light .hero {
-  // @apply bg-base-300;
+  background-color: var(--color-base-300);
 }
 
 .collapsable {

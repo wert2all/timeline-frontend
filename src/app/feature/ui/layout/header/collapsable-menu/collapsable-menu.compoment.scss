@@ -6,7 +6,7 @@
 
   &:before,
   &:after {
-    // @apply bg-base-content;
+    background-color: var(--color-base-content);
   }
 }
 
