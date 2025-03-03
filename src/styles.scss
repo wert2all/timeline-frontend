@@ -4,10 +4,15 @@
 @plugin "daisyui" {
   themes: pastel;
 }
+
+@plugin "daisyui/theme" {
+  name: 'pastel';
+  --color-base-200: oklch(0.92 0.001 240);
+}
+
 @plugin "daisyui/theme" {
   name: 'gruvbox';
   default: true;
-  prefersdark: true;
   color-scheme: dark;
 
   --color-base-100: oklch(0.24 0.01 96);
