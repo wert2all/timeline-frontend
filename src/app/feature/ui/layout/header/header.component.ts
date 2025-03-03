@@ -56,7 +56,13 @@ export class HeaderComponent {
   protected readonly currentAccountView = computed(() => {
     const account = this.activeAccount();
     return account
-      ? toAccountView({ ...account, avatarUrl: account.avatar.url })
+      ? toAccountView({
+          ...account,
+          avatar:
+            account.avatar.full && account.avatar.small
+              ? { small: account.avatar.small, full: account.avatar.full }
+              : undefined,
+        })
       : null;
   });
 
@@ -67,7 +73,13 @@ export class HeaderComponent {
   protected readonly userAccountsViews = computed((): AccountView[] =>
     this.userAccounts()
       .map(account =>
-        toAccountView({ ...account, avatarUrl: account.avatar.url })
+        toAccountView({
+          ...account,
+          avatar:
+            account.avatar.full && account.avatar.small
+              ? { small: account.avatar.small, full: account.avatar.full }
+              : undefined,
+        })
       )
       .filter(account => !!account)
   );

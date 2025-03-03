@@ -105,7 +105,8 @@ export type GetResizedImageVariables = Exact<{
 
 export type GetResizedImage = {
   resized_490x250?: ResizedImage | null;
-  resized_50x50?: ResizedImage | null;
+  cropped_50x50?: ResizedImage | null;
+  cropped_260x260?: ResizedImage | null;
 };
 
 export type GetPreviewVariables = Exact<{
@@ -209,7 +210,22 @@ export const GetResizedImageDocument = gql`
     ) {
       ...ResizedImage
     }
-    resized_50x50: processImage(
+    cropped_50x50: processImage(
+      imageId: $imageId
+      processes: [
+        {
+          options: [
+            { key: "width", value: "50" }
+            { key: "height", value: "50" }
+          ]
+          type: crop
+        }
+      ]
+      token: $token
+    ) {
+      ...ResizedImage
+    }
+    cropped_260x260: processImage(
       imageId: $imageId
       processes: [
         {

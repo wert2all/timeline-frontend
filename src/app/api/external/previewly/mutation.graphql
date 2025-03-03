@@ -29,7 +29,19 @@ mutation GetResizedImage($token: String!, $imageId: Int!)
   ) {
     ...ResizedImage
   }
-  resized_50x50: processImage(
+  cropped_50x50: processImage(
+    imageId: $imageId
+    processes: [
+      {
+        options: [{ key: "width", value: "50" }, { key: "height", value: "50" }]
+        type: crop
+      }
+    ]
+    token: $token
+  ) {
+    ...ResizedImage
+  }
+  cropped_260x260: processImage(
     imageId: $imageId
     processes: [
       {

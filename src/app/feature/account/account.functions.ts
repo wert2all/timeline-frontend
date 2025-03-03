@@ -23,14 +23,19 @@ export const toFeaturesSettings = (
 export const toAccountView = (
   account:
     | Undefined
-    | (Iterable & { name?: string | Undefined; avatarUrl: string | Undefined })
+    | (Iterable & {
+        name?: string | Undefined;
+        avatar: { small: string; full: string } | Undefined;
+      })
 ): AccountView | null =>
   account
     ? {
         uuid: account.id.toString(),
         name: account.name || defaultAccountName,
         firstLetter: account.name?.charAt(0).toUpperCase() || 'J',
-        avatar: account.avatarUrl || undefined,
+        avatar: account.avatar
+          ? { small: account.avatar.small, full: account.avatar.full }
+          : undefined,
       }
     : null;
 

@@ -57,7 +57,8 @@ const updateAvatars = (
           ...updatedState.activeAccount,
           avatar: {
             ...updatedState.activeAccount?.avatar,
-            url: activeAccountImage.data?.avatar,
+            small: activeAccountImage.data?.avatar.small,
+            full: activeAccountImage.data?.avatar.full,
           },
         };
       }

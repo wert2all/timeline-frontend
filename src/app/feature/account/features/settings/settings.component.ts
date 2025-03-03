@@ -130,7 +130,7 @@ export class SettingsComponent {
       images => images.find(image => image.id == currentAvatarId)
     );
     const currentAccountAvatar =
-      this.store.selectSignal(selectAvatar)()?.data?.avatar;
+      this.store.selectSignal(selectAvatar)()?.data?.avatar.full;
     return currentUploadAvatar || currentAccountAvatar;
   });
   private readonly uploadedAvatarId = this.store.selectSignal(
