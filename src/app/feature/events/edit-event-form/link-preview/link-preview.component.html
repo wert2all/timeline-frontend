@@ -2,7 +2,7 @@
   @if (previewHolder.data.status === Status.ERROR) {
     <div class="flex h-32 gap-4">
       <span
-        class="flex h-32 w-48 place-content-center items-center rounded-lg border-2 border-error text-warning">
+        class="border-error text-warning flex h-32 w-48 place-content-center items-center rounded-lg border-2">
         <ng-icon name="saxWarning2Bulk" size="48" />
       </span>
       <span class="flex-1">
@@ -29,7 +29,7 @@
   @if (previewHolder.data.status === Status.SUCCESS) {
     <div class="flex h-32 gap-4">
       <span
-        class="flex w-48 place-content-center items-center rounded-lg border-2 border-success">
+        class="border-success flex w-48 place-content-center items-center rounded-lg border-2">
         <img
           src="{{ previewHolder.data.data?.image }}"
           [alt]="previewHolder.data.data?.title || previewHolder.url" />
