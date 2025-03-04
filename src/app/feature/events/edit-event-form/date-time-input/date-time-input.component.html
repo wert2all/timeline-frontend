@@ -9,24 +9,21 @@
   [formControl]="form().controls.date"
   readonly />
 
-<div>
-  <label class="label cursor-pointer">
-    <span>Time</span>
-    <input
-      name="time"
-      type="text"
-      class="input w-20"
-      [class.input-error]="!form().controls.time.valid"
-      [formControl]="form().controls.time" />
-  </label>
+<div class="mt-4 flex place-content-center gap-2">
+  <label class="flex-auto">Time</label>
+  <input
+    name="time"
+    type="text"
+    class="input w-20 flex-none"
+    [class.input-error]="!form().controls.time.valid"
+    [formControl]="form().controls.time" />
 </div>
-<div>
-  <label class="label cursor-pointer">
-    <span>Show time on timeline</span>
-    <input
-      name="show-time"
-      type="checkbox"
-      class="toggle"
-      [formControl]="form().controls.showTime" />
-  </label>
+
+<div class="mt-4 flex place-content-center gap-2">
+  <label class="flex-auto">Show time on timeline</label>
+  <input
+    name="show-time"
+    type="checkbox"
+    class="toggle flex-none"
+    [formControl]="form().controls.showTime" />
 </div>
