@@ -7,7 +7,8 @@
 
 @plugin "daisyui/theme" {
   name: 'pastel';
-  --color-base-200: oklch(0.92 0.001 240);
+  --color-base-200: oklch(92% 0.001 240);
+  --color-base-300: oklch(87% 0.009339 258.338227);
 }
 
 @plugin "daisyui/theme" {
