@@ -1,7 +1,10 @@
 @use '../../../../../../assets/css/global' as g;
 
 .notification-container {
-  .toast {
+  .message {
+    gap: 1rem;
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
     border-top-left-radius: 0.5rem;
     border-top-right-radius: 0.5rem;
     margin-top: 0.5rem;
