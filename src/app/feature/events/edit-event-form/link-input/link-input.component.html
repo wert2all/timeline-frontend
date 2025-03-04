@@ -1,6 +1,6 @@
-<label class="form-control">
+<label>
   <div class="label">
-    <span class="label-text">link</span>
+    <span>link</span>
   </div>
   <label class="input flex w-full max-w-xs items-center gap-2">
     <input
@@ -11,7 +11,7 @@
       [formControl]="form().controls.link" />
   </label>
   <div class="label" [class.hidden]="!form().controls.link.errors">
-    <span class="label-text-alt text-error">Wrong URL</span>
+    <span class="text-error">Wrong URL</span>
   </div>
   @if (preview(); as preview) {
     <app-link-preview [preview]="preview" class="mt-4" />
