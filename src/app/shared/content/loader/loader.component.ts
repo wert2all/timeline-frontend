@@ -4,8 +4,8 @@ import { Component } from '@angular/core';
   standalone: true,
   selector: 'app-shared-loader',
   template: `
-    <div class="loader border-4 border-secondary bg-primary">
-      <span class="sub-loader border-2 border-neutral-content"></span>
+    <div class="loader border-secondary bg-primary border-4">
+      <span class="sub-loader border-neutral-content border-2"></span>
     </div>
   `,
   styleUrls: ['./loader.component.scss'],
