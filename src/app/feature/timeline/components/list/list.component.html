@@ -11,13 +11,14 @@
       </div>
 
       <div
-        class="item-content timeline-end bg-base-100 w-full place-items-start overflow-hidden rounded-xl"
-        [class.lg:timeline-start]="!odd"
+        class="item-content bg-base-100 w-full place-items-start overflow-hidden rounded-xl"
+        [class.timeline-start]="!odd"
+        [class.timeline-end]="odd"
         [class.opacity-20]="event.loading">
         <app-shared-timeline-event-content [event]="event" />
         @if (isEditable() && !event.loading) {
           <app-timeline-event-menu
-            class="absolute -bottom-2 right-2 lg:hidden"
+            class="absolute right-2 -bottom-2 lg:hidden"
             [timelineEvent]="{ id: event.id }"
             (delete)="delete.emit($event)"
             (edit)="edit.emit($event)" />
@@ -26,8 +27,8 @@
       @if (isEditable() && !event.loading) {
         <div
           class="item-menu hidden h-full w-full lg:block"
-          [class.lg:timeline-end]="!odd"
-          [class.lg:timeline-start]="odd">
+          [class.timeline-end]="!odd"
+          [class.timeline-start]="odd">
           <div
             class="mt-10 h-full w-full duration-100 hover:opacity-100 lg:opacity-0">
             <app-timeline-event-menu
