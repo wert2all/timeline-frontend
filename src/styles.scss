@@ -92,7 +92,8 @@ body {
   }
 }
 
-// remove font size from timeline-box
+// remove font size from timeline-box, .fieldset
+.fieldset,
 .timeline-box {
   font-size: inherit;
 }
