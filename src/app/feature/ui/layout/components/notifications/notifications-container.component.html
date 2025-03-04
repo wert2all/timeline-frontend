@@ -2,7 +2,7 @@
   @for (message of messages(); track $index) {
     <div
       tabindex="0"
-      class="toast bg-base-300 {{ message.type }}"
+      class="message bg-base-300 {{ message.type }}"
       (click)="markRead.emit(message)"
       (keyup.escape)="markRead.emit(message)"
       (keyup.enter)="markRead.emit(message)">
