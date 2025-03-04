@@ -92,6 +92,11 @@ body {
   }
 }
 
+// remove font size from timeline-box
+.timeline-box {
+  font-size: inherit;
+}
+
 //fix disabled button
 .btn:is(:disabled, [disabled], .btn-disabled):not(.btn-link, .btn-ghost) {
   color: color-mix(in oklab, var(--color-base-content) 10%, transparent);
