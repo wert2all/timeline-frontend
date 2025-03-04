@@ -17,7 +17,7 @@
         <app-shared-timeline-event-content [event]="event" />
         @if (isEditable() && !event.loading) {
           <app-timeline-event-menu
-            class="absolute right-2 -bottom-2 lg:hidden"
+            class="absolute -bottom-2 right-2 lg:hidden"
             [timelineEvent]="{ id: event.id }"
             (delete)="delete.emit($event)"
             (edit)="edit.emit($event)" />
