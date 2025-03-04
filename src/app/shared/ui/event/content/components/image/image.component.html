@@ -2,6 +2,15 @@
   @if (isLoading()) {
     <app-shared-loader />
   } @else {
-    <img [src]="image().previewUrl" [alt]="image().title" loading="lazy" />
+    @if (isError()) {
+      <div class="tooltip tooltip-error" data-tip="could not load image">
+        <ng-icon
+          name="hugeImageDelete02"
+          size="200"
+          class="text-warning"></ng-icon>
+      </div>
+    } @else {
+      <img [src]="image().previewUrl" [alt]="image().title" loading="lazy" />
+    }
   }
 </div>
