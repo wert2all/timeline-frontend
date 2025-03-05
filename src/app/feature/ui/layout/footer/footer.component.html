@@ -1,19 +1,28 @@
 <footer class="footer rounded-t-lg bg-neutral p-4 text-neutral-content">
-  <aside class="grid grid-flow-col gap-4">
+  <aside class="grid grid-flow-col gap-4 lg:grid-flow-row">
     <span class="logo block px-2">timeline</span>
-    <p class="hidden lg:block">Copyright © 2024 - All right reserved</p>
-
-    <nav class="grid grid-flow-col gap-4 lg:hidden">
-      <a class="link-hover link" href="/legal/terms">Terms of Service</a>
-      <a class="link-hover link" href="/legal/privacy">Privacy Policy</a>
-    </nav>
+    <div
+      class="tooltip tooltip-right"
+      data-tip="Copyright © 2025 - All right reserved">
+      <ng-icon name="hugeCopyright" size="24"></ng-icon>
+    </div>
   </aside>
 
-  <app-shared-legal-footer-menu />
+  <nav>
+    <h6 class="footer-title">Legal</h6>
+    <a class="link-hover link" href="/legal/terms">Terms of Service</a>
+    <a class="link-hover link" href="/legal/privacy">Privacy Policy</a>
+    <a class="link-hover link" href="/legal/cookie-policy">Cookie Policy</a>
+  </nav>
+  <nav>
+    <h6 class="footer-title">Resources</h6>
+    <a class="link-hover link" href="/press-kit">Press kit</a>
+  </nav>
+
   <nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
     <div
       class="tooltip tooltip-right tooltip-primary lg:tooltip-left lg:tooltip-open"
-      data-tip="Add an issue">
+      data-tip="Open an issue">
       <a
         href="https://github.com/wert2all/timeline-frontend/issues/new"
         target="_blank">
