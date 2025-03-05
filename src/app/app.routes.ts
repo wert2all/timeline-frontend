@@ -12,7 +12,14 @@ export const routes: Routes = [
   {
     path: 'legal',
     loadChildren: () =>
-      import('./feature/non-authorized/legal/legal.routes').then(l => l.routes),
+      import('./feature/non-authorized/legal.routes').then(l => l.routes),
+  },
+  {
+    path: 'press-kit',
+    loadComponent: () =>
+      import(
+        './feature/static-content/share/press-kit/press-kit-page.component'
+      ).then(p => p.PressKitPageComponent),
   },
   {
     path: 'user',
