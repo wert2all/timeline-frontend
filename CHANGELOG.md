@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.41](https://github.com/wert2all/timeline-frontend/compare/v0.0.40...v0.0.41) (2025-03-05)
+
+### Features
+
+- add press-kit page ([72b2caa](https://github.com/wert2all/timeline-frontend/commit/72b2caa0d3c66a73c8730696ea94886436c1ec98))
+- add small avatar image ([6bcbfe8](https://github.com/wert2all/timeline-frontend/commit/6bcbfe88ecf3fd7a8eeea0a2fa67083a3feb4650))
+- add small logo ([eafe3a6](https://github.com/wert2all/timeline-frontend/commit/eafe3a64fcecd3d57e321719be7877d0b2bd234d))
+
+### Bug Fixes
+
+- fix logo svg ([3976df3](https://github.com/wert2all/timeline-frontend/commit/3976df30fb701f3aacca5511d9aad19d6c579c82))
+- show error icon if could not load image ([7c2327a](https://github.com/wert2all/timeline-frontend/commit/7c2327a02fc0b71f86bdef6b30c1732bb5a24662))
+- update eslint ([21fab14](https://github.com/wert2all/timeline-frontend/commit/21fab14c300e93cd24f8da4f89c1958dce894543))
+- update favicon ([60ecd4c](https://github.com/wert2all/timeline-frontend/commit/60ecd4c82afc81263e80249f19ff705f06f41443))
+
 ## [0.0.40](https://github.com/wert2all/timeline-frontend/compare/v0.0.39...v0.0.40) (2025-02-17)
 
 ### Features
