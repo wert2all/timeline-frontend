@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.42](https://github.com/wert2all/timeline-frontend/compare/v0.0.41...v0.0.42) (2025-03-14)
+
+### Bug Fixes
+
+- update G key ([0578faa](https://github.com/wert2all/timeline-frontend/commit/0578faabc5faef230dc4f8fb77b4fcb1cb9d9e8e))
+- update press kit ([6575f6e](https://github.com/wert2all/timeline-frontend/commit/6575f6e8edee7c63a59d1fd7f53aa0b906be0f88))
+
 ## [0.0.41](https://github.com/wert2all/timeline-frontend/compare/v0.0.40...v0.0.41) (2025-03-05)
 
 ### Features
