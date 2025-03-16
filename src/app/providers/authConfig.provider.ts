@@ -34,6 +34,7 @@ export const provideAuthConfig = () =>
         showDebugInformation: false,
         sessionChecksEnabled: true,
         useSilentRefresh: true, // Needed for Code Flow to suggest using iframe-based refreshes
+        silentRefreshTimeout: 1000,
         clearHashAfterLogin: false, // https://github.com/manfredsteyer/angular-oauth2-oidc/issues/457#issuecomment-431807040,
       },
     },
