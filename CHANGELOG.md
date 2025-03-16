@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.43](https://github.com/wert2all/timeline-frontend/compare/v0.0.42...v0.0.43) (2025-03-16)
+
+### Bug Fixes
+
+- fix silent refresh ([a672421](https://github.com/wert2all/timeline-frontend/commit/a6724218338b679cac2b84bfba577d2c910aafa8))
+
 ## [0.0.42](https://github.com/wert2all/timeline-frontend/compare/v0.0.41...v0.0.42) (2025-03-14)
 
 ### Bug Fixes
