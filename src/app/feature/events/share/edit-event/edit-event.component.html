@@ -1,14 +1,14 @@
 @if (editedEvent(); as event) {
   @if (previewEvent(); as preview) {
     <ul
-      class="timeline timeline-vertical timeline-snap-icon mb-8 max-md:timeline-compact">
+      class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact mb-8">
       <li class="timeline-item" [class.skeleton]="loading() === true">
         <div class="timeline-middle" [class.opacity-20]="loading() === true">
           <app-timeline-event-icon [icon]="icon" [shouldAccentLine]="true" />
         </div>
 
         <div
-          class="timeline-start w-full rounded-xl bg-base-100 p-2 text-end"
+          class="timeline-start bg-base-100 w-full rounded-xl p-2 text-end"
           [class.opacity-20]="loading() === true">
           <app-shared-timeline-event-content [event]="preview" />
         </div>
@@ -27,7 +27,7 @@
         </div>
 
         <button
-          class="close btn btn-circle btn-error btn-sm absolute -right-4 -top-4 hidden lg:flex"
+          class="close btn btn-circle btn-error btn-sm absolute -top-4 -right-4 hidden lg:flex"
           [attr.disabled]="loading() === true ? true : null"
           (click)="closeEditForm()">
           ✕

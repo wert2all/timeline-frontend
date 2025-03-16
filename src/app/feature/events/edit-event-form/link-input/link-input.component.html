@@ -1,19 +1,19 @@
-<label class="form-control">
-  <div class="label">
-    <span class="label-text">link</span>
-  </div>
-  <label class="input input-bordered flex items-center gap-2">
-    <input
-      name="url"
-      type="text"
-      class="grow"
-      placeholder="Url"
-      [formControl]="form().controls.link" />
-  </label>
-  <div class="label" [class.hidden]="!form().controls.link.errors">
-    <span class="label-text-alt text-error">Wrong URL</span>
-  </div>
+<fieldset class="fieldset">
+  <label class="fieldset-label">Link</label>
+
+  <input
+    name="url"
+    type="text"
+    class="input w-full min-w-xs"
+    placeholder="Url"
+    [formControl]="form().controls.link" />
+
+  <p
+    class="fieldset-label text-error"
+    [class.hidden]="!form().controls.link.errors">
+    Wrong URL
+  </p>
   @if (preview(); as preview) {
     <app-link-preview [preview]="preview" class="mt-4" />
   }
-</label>
+</fieldset>
