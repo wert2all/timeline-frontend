@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.44](https://github.com/wert2all/timeline-frontend/compare/v0.0.43...v0.0.44) (2025-04-04)
+
+### Features
+
+- add custom theme gruvbox ([f303f3e](https://github.com/wert2all/timeline-frontend/commit/f303f3e87317645ea390e7e17f1821ad0e6ee413))
+- update tailwind to v4 ([dface57](https://github.com/wert2all/timeline-frontend/commit/dface57a33e785f930d97188cf04750f230c12ff))
+
+### Bug Fixes
+
+- add pastel theme ([6aecf35](https://github.com/wert2all/timeline-frontend/commit/6aecf35a60018c60599b2505d68ed47c916ee4a9))
+- change `flex-grow` to `grow` ([31d9ce3](https://github.com/wert2all/timeline-frontend/commit/31d9ce318939ba70766b56b3af08aa4ca6cbc988))
+- fix --color-base-300 ([0861955](https://github.com/wert2all/timeline-frontend/commit/0861955c5c0451a8b03184394b7f798bd64b2529))
+- fix [@apply](https://github.com/apply) ([d7002f2](https://github.com/wert2all/timeline-frontend/commit/d7002f2db5ee4e26a067a17b6e43b7654ec8010e))
+- fix avatar placeholder ([13c41a8](https://github.com/wert2all/timeline-frontend/commit/13c41a896041939ff9a05a8f1cf950de4135a479))
+- fix disabled buttons ([dacced7](https://github.com/wert2all/timeline-frontend/commit/dacced7ae569ba59af7813987430860370f864fc))
+- fix font-size of timeline-box ([4401d2f](https://github.com/wert2all/timeline-frontend/commit/4401d2f6c699e0bcb4ba0bb25b33002978604fb7))
+- fix footer ([5dabfa7](https://github.com/wert2all/timeline-frontend/commit/5dabfa7f38b9d6cad2c91f42661687f56c9eae58))
+- fix notifications ([89e992f](https://github.com/wert2all/timeline-frontend/commit/89e992f929497631c147487f347d7327a65e8ee4))
+- fix pastel theme ([67383f9](https://github.com/wert2all/timeline-frontend/commit/67383f94bb92a0ed2ad1fff14cc7feddd2ad88ab))
+- fix some inouts issues ([61caf52](https://github.com/wert2all/timeline-frontend/commit/61caf52206ac3bbfd77cbafdc596816b1b0e1c37))
+- fix static tests ([9cdf4e5](https://github.com/wert2all/timeline-frontend/commit/9cdf4e5f35f94eff99795f7ec37c360c357396e4))
+- fix tests ([aab1f65](https://github.com/wert2all/timeline-frontend/commit/aab1f6548a6474166e4ae70d51025943bf3f22a6))
+- fix timeline ([c15b87a](https://github.com/wert2all/timeline-frontend/commit/c15b87a4d782fdd696d8a71cbb0d5872b89c6ccc))
+- fix top navbar ([c621199](https://github.com/wert2all/timeline-frontend/commit/c6211992da733b00be0d2f03388527166689ec29))
+- fix version ([6524cb6](https://github.com/wert2all/timeline-frontend/commit/6524cb69be21926ef3aac70e0de0fa0ed3d94483))
+- remove noise effect from css ([c9c6461](https://github.com/wert2all/timeline-frontend/commit/c9c6461cc2b0091010be57c199c407a2f2871f03))
+- remove textarea-bordered ([0a33b05](https://github.com/wert2all/timeline-frontend/commit/0a33b056a6025d959c8502357754461d779e8366))
+- remove useless classes ([1fec47a](https://github.com/wert2all/timeline-frontend/commit/1fec47a8e22ead617b9b9c093339a98056d07310))
+- update gruvbox theme ([b1c0248](https://github.com/wert2all/timeline-frontend/commit/b1c02484e46ffc121245301bbd24f3d8dabe3d73))
+
 ## [0.0.43](https://github.com/wert2all/timeline-frontend/compare/v0.0.42...v0.0.43) (2025-03-16)
 
 ### Bug Fixes
