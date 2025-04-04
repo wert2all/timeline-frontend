@@ -1,14 +1,15 @@
 <fieldset class="fieldset">
   <input type="hidden" name="id" [formControl]="form().controls.id" readonly />
 
-  <label class="fieldset-label">Title</label>
+  <label class="fieldset-label" for="title">Title</label>
   <input
+    id="title"
     type="text"
     class="input w-full min-w-xs"
     name="title"
     [formControl]="form().controls.title" />
 
-  <label class="fieldset-label">
+  <label class="fieldset-label" for="content">
     Mardown content
     <a
       class="link"
@@ -19,6 +20,7 @@
     </a>
   </label>
   <textarea
+    id="content"
     class="textarea h-52 w-full"
     name="content"
     [formControl]="form().controls.content"></textarea>
