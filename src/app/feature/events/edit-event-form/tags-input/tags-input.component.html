@@ -1,5 +1,5 @@
 <fieldset class="fieldset">
-  <label class="fieldset-label">Tags</label>
+  <label class="fieldset-label" for="tag">Tags</label>
 
   <input
     #tag
@@ -8,7 +8,7 @@
     (keyup.enter)="addTag(tag)"
     [attr.disabled]="isDisabled() === true ? true : null" />
 
-  <label class="fieldset-label">
+  <label class="fieldset-label" for="none">
     Pressing Enter will add a tag. You can add multiple tags, separated by
     commas.
   </label>
