@@ -1,9 +1,32 @@
 @if (timelineEvent().id) {
   <ul class="join">
+    <!-- <li> -->
+    <!--   <a -->
+    <!--     tabindex="0" -->
+    <!--     title="copy link" -->
+    <!--     class="btn join-item btn-sm btn-neutral" -->
+    <!--     [class.done]="copied()" -->
+    <!--     (click)="copyClick(timelineEvent())" -->
+    <!--     (keyup)="copyClick(timelineEvent())"> -->
+    <!--     <ng-icon name="phosphorLinkSimpleHorizontal" size="20" /> -->
+    <!--   </a> -->
+    <!-- </li> -->
+    <!-- <li> -->
+    <!--   <a -->
+    <!--     tabindex="0" -->
+    <!--     title="like" -->
+    <!--     class="btn join-item btn-sm btn-neutral" -->
+    <!--     [class.done]="liked()" -->
+    <!--     (click)="likeClick(timelineEvent())" -->
+    <!--     (keyup)="likeClick(timelineEvent())"> -->
+    <!--     <ng-icon name="phosphorHeartDuotone" size="20" /> -->
+    <!--   </a> -->
+    <!-- </li> -->
     <li>
       <a
         tabindex="0"
-        class="btn join-item btn-sm btn-secondary lg:btn-neutral"
+        title="edit event"
+        class="btn join-item btn-sm btn-neutral"
         (click)="edit.emit(timelineEvent())"
         (keyup)="edit.emit(timelineEvent())">
         <ng-icon name="phosphorPencilLine" size="20" />
@@ -12,7 +35,8 @@
     <li>
       <a
         tabindex="0"
-        class="hover:text-warning-content btn btn-secondary lg:btn-neutral join-item btn-sm hover:bg-warning"
+        title="delete event"
+        class="hover:text-warning-content btn btn-neutral join-item btn-sm hover:bg-warning"
         (click)="delete.emit(timelineEvent())"
         (keyup)="delete.emit(timelineEvent())">
         <ng-icon name="phosphorTrash" size="20" />
