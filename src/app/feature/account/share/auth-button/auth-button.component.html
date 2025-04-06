@@ -1,0 +1,11 @@
+<button
+  class="btn btn-primary"
+  (click)="login()"
+  [attr.disabled]="isLoading() || canUseCookies() === false ? true : null">
+  @if (isLoading() === true) {
+    <span class="loading loading-spinner"></span>
+  } @else {
+    <ng-icon name="phosphorSignIn" size="24"></ng-icon>
+  }
+  authorize
+</button>
