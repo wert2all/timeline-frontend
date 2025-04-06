@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxInformationOutline } from '@ng-icons/iconsax/outline';
+import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
@@ -37,7 +37,7 @@ type AccountSidebar = AccountView & { about: string | Undefined };
     SharedLoaderComponent,
     NgIconComponent,
   ],
-  viewProviders: [provideIcons({ saxInformationOutline })],
+  viewProviders: [provideIcons({ phosphorInfo })],
 })
 export class TimelinePageComponent {
   timelineId = input<number>(0);

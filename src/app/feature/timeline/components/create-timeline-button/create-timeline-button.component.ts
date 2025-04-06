@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
+import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { AddTimelineComponent } from '../../../../feature/timeline/components/add-timeline/add-timeline.component';
 import { ModalComponent } from '../../../../shared/content/modal/modal.component';
 
@@ -16,7 +16,7 @@ import { ModalComponent } from '../../../../shared/content/modal/modal.component
   selector: 'app-create-timeline-button',
   standalone: true,
   templateUrl: './create-timeline-button.component.html',
-  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
+  viewProviders: [provideIcons({ phosphorTreeView })],
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,

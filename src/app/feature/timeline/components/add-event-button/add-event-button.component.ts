@@ -6,7 +6,10 @@ import {
   output,
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxAddOutline, saxEditOutline } from '@ng-icons/iconsax/outline';
+import {
+  phosphorPencilSimpleLine,
+  phosphorPlus,
+} from '@ng-icons/phosphor-icons/regular';
 
 @Component({
   selector: 'app-add-event-button',
@@ -15,7 +18,7 @@ import { saxAddOutline, saxEditOutline } from '@ng-icons/iconsax/outline';
   templateUrl: './add-event-button.component.html',
   styleUrls: ['./add-event-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ saxAddOutline, saxEditOutline })],
+  viewProviders: [provideIcons({ phosphorPlus, phosphorPencilSimpleLine })],
 })
 export class AddEventButtonComponent {
   disabled = input<boolean>(false);

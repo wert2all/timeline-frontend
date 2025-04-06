@@ -1,5 +1,9 @@
 import { IconType } from '@ng-icons/core';
-import { saxCakeBulk, saxTickCircleBulk } from '@ng-icons/iconsax/bulk';
+import {
+  phosphorCakeDuotone,
+  phosphorCheckCircleDuotone,
+} from '@ng-icons/phosphor-icons/duotone';
+
 import { Iterable, Status, Undefined } from '../../../../app.types';
 import {
   TimelineEvent,
@@ -39,10 +43,10 @@ export class EventContentIcon {
     // eslint-disable-next-line sonarjs/no-small-switch
     switch (type) {
       case TimelineEventType.celebrate:
-        this.icon = saxCakeBulk;
+        this.icon = phosphorCakeDuotone;
         break;
       default:
-        this.icon = saxTickCircleBulk;
+        this.icon = phosphorCheckCircleDuotone;
     }
   }
 }

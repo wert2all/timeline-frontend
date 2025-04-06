@@ -1,10 +1,7 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import {
-  saxInformationOutline,
-  saxLoginOutline,
-} from '@ng-icons/iconsax/outline';
+import { phosphorInfo, phosphorSignIn } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { HeroComponent } from '../../../../shared/content/hero/hero.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
@@ -18,7 +15,7 @@ import { NewAuthService } from '../../../auth/shared/auth.service';
   selector: 'app-redirect',
   templateUrl: './redirect-page.component.html',
   imports: [LayoutComponent, HeroComponent, NgIconComponent],
-  viewProviders: [provideIcons({ saxInformationOutline, saxLoginOutline })],
+  viewProviders: [provideIcons({ phosphorInfo, phosphorSignIn })],
 })
 export class LoginRedirectPageComponent {
   private readonly authService = inject(NewAuthService);

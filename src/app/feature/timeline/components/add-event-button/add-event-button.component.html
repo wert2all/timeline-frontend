@@ -12,11 +12,11 @@
     [attr.disabled]="disabled() ? 'true' : null"
     [class.hidden]="disabled()">
     @if (disabled() === true) {
-      <ng-icon name="saxEditOutline" size="32"></ng-icon>
+      <ng-icon name="phosphorPencilSimpleLine" size="32"></ng-icon>
       submit new event
     } @else {
-      <ng-icon name="saxAddOutline" size="32" class="plus"></ng-icon>
-      <ng-icon name="saxEditOutline" size="32" class="edit"></ng-icon>
+      <ng-icon name="phosphorPlus" size="32" class="plus"></ng-icon>
+      <ng-icon name="phosphorPencilSimpleLine" size="32" class="edit"></ng-icon>
     }
   </a>
 </div>

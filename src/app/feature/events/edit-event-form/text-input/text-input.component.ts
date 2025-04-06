@@ -1,7 +1,7 @@
 import { Component, input, signal } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxMessageQuestionBulk } from '@ng-icons/iconsax/bulk';
+import { phosphorSealQuestionDuotone } from '@ng-icons/phosphor-icons/duotone';
 import { ModalComponent } from '../../../../shared/content/modal/modal.component';
 import { MarkdownHelpComponent } from '../../../static-content/share/markdown-help/markdown-help.component';
 import { EditEventForm } from '../edit-event-form.types';
@@ -16,7 +16,7 @@ import { EditEventForm } from '../edit-event-form.types';
     ModalComponent,
     MarkdownHelpComponent,
   ],
-  viewProviders: [provideIcons({ saxMessageQuestionBulk })],
+  viewProviders: [provideIcons({ phosphorSealQuestionDuotone })],
 })
 export class EditFormTextInputComponent {
   form = input.required<FormGroup<EditEventForm>>();

@@ -9,9 +9,9 @@ import {
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
-  saxAddSquareOutline,
-  saxLogin1Outline,
-} from '@ng-icons/iconsax/outline';
+  phosphorPlusSquare,
+  phosphorSignIn,
+} from '@ng-icons/phosphor-icons/regular';
 
 @Component({
   selector: 'app-add-timeline',
@@ -19,7 +19,7 @@ import {
   imports: [CommonModule, NgIconComponent, ReactiveFormsModule],
   templateUrl: './add-timeline.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [provideIcons({ saxLogin1Outline, saxAddSquareOutline })],
+  viewProviders: [provideIcons({ phosphorSignIn, phosphorPlusSquare })],
 })
 export class AddTimelineComponent {
   isAuthorized = input.required<boolean>();

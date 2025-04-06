@@ -1,5 +1,10 @@
 import { Component, input, output } from '@angular/core';
-import { NgIconComponent } from '@ng-icons/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { phosphorUserSquareDuotone } from '@ng-icons/phosphor-icons/duotone';
+import {
+  phosphorBackspace,
+  phosphorCamera,
+} from '@ng-icons/phosphor-icons/regular';
 import { Undefined } from '../../../../../app.types';
 import { SharedLoaderComponent } from '../../../../../shared/content/loader/loader.component';
 
@@ -8,6 +13,13 @@ import { SharedLoaderComponent } from '../../../../../shared/content/loader/load
   selector: 'app-settings-avatar-container',
   templateUrl: './avatar-container.component.html',
   imports: [NgIconComponent, SharedLoaderComponent],
+  viewProviders: [
+    provideIcons({
+      phosphorUserSquareDuotone,
+      phosphorBackspace,
+      phosphorCamera,
+    }),
+  ],
 })
 export class SettingsAvatarContainerComponent {
   avatar = input.required<string | Undefined>();

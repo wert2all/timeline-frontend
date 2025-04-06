@@ -10,7 +10,7 @@
             tabindex="0"
             (click)="changeAccountClick()"
             (keyup.enter)="changeAccountClick()">
-            <ng-icon name="saxArrowRight2Outline" size="22" />
+            <ng-icon name="phosphorUserSwitch" size="22" />
 
             <span class="change_title">change account</span>
             <span class="back_title">accounts:</span>
@@ -23,7 +23,7 @@
             (click)="selectAccountClick(account)"
             (keyup.enter)="selectAccountClick(account)">
             @if (currentAccountUUID() === account.uuid) {
-            <ng-icon name="saxTickCircleOutline" size="22"></ng-icon>
+            <ng-icon name="phosphorCheckCircle" size="22"></ng-icon>
             } @else {
             <ng-icon size="22"></ng-icon>
             } {{ account.name }}
@@ -43,7 +43,7 @@
         tabindex="0"
         (click)="openUserSettings.emit()"
         (keyup.enter)="openUserSettings.emit()">
-        <ng-icon name="saxSetting2Outline" size="22"></ng-icon>
+        <ng-icon name="phosphorGearSix" size="22"></ng-icon>
         Settings
       </a>
     </app-feature-flag>
@@ -55,7 +55,7 @@
         tabindex="0"
         (click)="openUserFeatures.emit()"
         (keyup.enter)="openUserFeatures.emit()">
-        <ng-icon name="saxFlag2Outline" size="22"></ng-icon>
+        <ng-icon name="phosphorFlagBanner" size="22"></ng-icon>
         Features
       </a>
     </app-feature-flag>
@@ -76,14 +76,14 @@
       target="_blank"
       (click)="closeMenu.emit()"
       (keyup.enter)="closeMenu.emit()">
-      <ng-icon name="saxGhostOutline" size="22"></ng-icon>
+      <ng-icon name="phosphorBug" size="22"></ng-icon>
       Send issue
     </a>
 
     <div class="divider"></div>
 
     <a tabindex="0" (click)="logout.emit()" (keyup.enter)="logout.emit()">
-      <ng-icon name="saxLogout1Outline" size="22"></ng-icon>
+      <ng-icon name="phosphorSignOut" size="22"></ng-icon>
       Log out
     </a>
   </div>
