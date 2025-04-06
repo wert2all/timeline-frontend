@@ -16,6 +16,7 @@
     <app-timeline-events-list
       [events]="events"
       [isEditable]="isEditable()"
+      [isAuthorized]="isAuthorized()"
       (delete)="delete.emit($event)"
       (edit)="editEvent($event)" />
   } @else {

@@ -102,6 +102,7 @@ export class TimelinePageComponent {
     }
   );
 
+  protected isAuthorized = this.store.selectSignal(sharedFeature.isAuthorized);
   constructor() {
     effect(() => {
       const account = this.successResponse()?.account;

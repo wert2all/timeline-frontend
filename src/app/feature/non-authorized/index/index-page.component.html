@@ -25,7 +25,11 @@
     <app-shared-content-title title="Our timeline" class="text-success" />
   </div>
   <div>
-    <app-shared-timeline [timelineId]="1" [limit]="3" />
+    <app-shared-timeline
+      [timelineId]="1"
+      [limit]="3"
+      [isEditable]="false"
+      [isAuthorized]="isAuthorized()" />
     <p class="bg-base-300 my-4 rounded-b-xl p-4 text-center">
       <a class="link" href="/timeline/1">show more</a>
     </p>

@@ -25,6 +25,7 @@
           <app-shared-timeline
             [timelineId]="timelineId"
             [isEditable]="true"
+            [isAuthorized]="true"
             (delete)="deleteEvent($event)"
             (edit)="editEvent($event)" />
 

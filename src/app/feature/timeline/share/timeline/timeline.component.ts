@@ -46,6 +46,7 @@ export class SharedTimelineComponent {
   limit = input<number | null>(null);
 
   isEditable = input<boolean>(false);
+  isAuthorized = input<boolean>(false);
 
   delete = output<Iterable>();
   edit = output<ExistTimelineEvent>();
