@@ -1,6 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { provideIcons } from '@ng-icons/core';
-import { saxHierarchySquare3Outline } from '@ng-icons/iconsax/outline';
 import { Store } from '@ngrx/store';
 import { HeroComponent } from '../../../shared/content/hero/hero.component';
 import { TitleComponent } from '../../../shared/content/title/title.component';
@@ -12,7 +10,6 @@ import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.
 @Component({
   standalone: true,
   templateUrl: './index-page.component.html',
-  viewProviders: [provideIcons({ saxHierarchySquare3Outline })],
   imports: [
     LayoutComponent,
     TitleComponent,
