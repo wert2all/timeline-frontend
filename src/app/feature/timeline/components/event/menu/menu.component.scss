@@ -1,0 +1,7 @@
+.btn * {
+  transition: all 1s;
+}
+
+.btn.done * {
+  color: var(--color-success);
+}
