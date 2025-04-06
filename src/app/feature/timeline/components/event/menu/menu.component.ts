@@ -25,6 +25,8 @@ import { Iterable } from '../../../../../app.types';
 })
 export class TimelineEventMenuComponent {
   timelineEvent = input.required<Iterable>();
+  isEditable = input.required<boolean>();
+  isAuthorized = input.required<boolean>();
 
   delete = output<Iterable>();
   edit = output<Iterable>();

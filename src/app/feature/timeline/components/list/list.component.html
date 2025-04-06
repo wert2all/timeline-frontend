@@ -16,15 +16,17 @@
         [class.timeline-end]="odd"
         [class.opacity-20]="event.loading">
         <app-shared-timeline-event-content [event]="event" />
-        @if (isEditable() && !event.loading) {
+        @if (!event.loading) {
           <app-timeline-event-menu
             class="absolute right-2 -bottom-2 lg:hidden"
             [timelineEvent]="{ id: event.id }"
+            [isEditable]="isEditable()"
+            [isAuthorized]="isAuthorized()"
             (delete)="delete.emit($event)"
             (edit)="edit.emit($event)" />
         }
       </div>
-      @if (isEditable() && !event.loading) {
+      @if (!event.loading) {
         <div
           class="item-menu hidden h-full w-full lg:block"
           [class.timeline-end]="!odd"
@@ -34,6 +36,8 @@
             <app-timeline-event-menu
               class="h-full w-full"
               [timelineEvent]="{ id: event.id }"
+              [isEditable]="isEditable()"
+              [isAuthorized]="isAuthorized()"
               (delete)="delete.emit($event)"
               (edit)="edit.emit($event)" />
           </div>

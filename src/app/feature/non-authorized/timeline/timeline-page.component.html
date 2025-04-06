@@ -1,7 +1,9 @@
 <app-shared-layout>
   <div class="flex flex-col-reverse gap-4 p-4 lg:flex-row">
     <div class="flex-auto">
-      <app-shared-timeline [timelineId]="timelineId()" />
+      <app-shared-timeline
+        [timelineId]="timelineId()"
+        [isAuthorized]="isAuthorized()" />
     </div>
     <div class="lg:w-72 lg:flex-none">
       <div class="bg-base-300 relative rounded-xl shadow-xl">
