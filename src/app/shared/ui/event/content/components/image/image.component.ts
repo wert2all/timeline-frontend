@@ -1,6 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { hugeImageDelete02 } from '@ng-icons/huge-icons';
+import { phosphorImageBroken } from '@ng-icons/phosphor-icons/regular';
 import { Status } from '../../../../../../app.types';
 import { SharedLoaderComponent } from '../../../../../content/loader/loader.component';
 import { EventContentImage } from '../../content.types';
@@ -10,7 +10,7 @@ import { EventContentImage } from '../../content.types';
   selector: 'app-timeline-event-image',
   templateUrl: './image.component.html',
   imports: [SharedLoaderComponent, NgIconComponent],
-  viewProviders: [provideIcons({ hugeImageDelete02 })],
+  viewProviders: [provideIcons({ phosphorImageBroken })],
 })
 export class ImageComponent {
   image = input.required<EventContentImage>();

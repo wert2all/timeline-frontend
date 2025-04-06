@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { hugeCopyright, hugeGithub01 } from '@ng-icons/huge-icons';
 import {
-  saxGhostOutline,
-  saxVideoSquareOutline,
-} from '@ng-icons/iconsax/outline';
+  phosphorBug,
+  phosphorCopyright,
+  phosphorGithubLogo,
+  phosphorYoutubeLogo,
+} from '@ng-icons/phosphor-icons/regular';
 
 @Component({
   selector: 'app-footer',
@@ -13,10 +14,10 @@ import {
   templateUrl: './footer.component.html',
   viewProviders: [
     provideIcons({
-      saxVideoSquareOutline,
-      saxGhostOutline,
-      hugeGithub01,
-      hugeCopyright,
+      phosphorBug,
+      phosphorGithubLogo,
+      phosphorYoutubeLogo,
+      phosphorCopyright,
     }),
   ],
 })
