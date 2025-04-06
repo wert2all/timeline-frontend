@@ -1,57 +1,58 @@
-<div class="navbar bg-secondary lg:rounded-b-lg">
-  <div class="flex-1">
-    <a class="logo btn text-xl" href="/"> timeline </a>
-  </div>
-  <div class="inline-flex flex-none items-center gap-2">
-    <app-header-theme-switch
-      [isDark]="isDarkTheme()"
-      (toggleTheme)="toggleTheme()" />
+<div (clickOutside)="closeMenu()">
+  <div class="navbar bg-secondary lg:rounded-b-lg">
+    <div class="flex-1">
+      <a class="logo btn text-xl" href="/"> timeline </a>
+    </div>
+    <div class="inline-flex flex-none items-center gap-2">
+      <app-header-theme-switch
+        [isDark]="isDarkTheme()"
+        (toggleTheme)="toggleTheme()" />
 
-    @if (isAuthorized() === false) {
-      <app-shared-header-login-button
-        [isLoading]="isLoading()"
-        (login)="login()" />
-    }
+      @if (isAuthorized() === false) {
+        <app-shared-header-login-button
+          [isLoading]="isLoading()"
+          (login)="login()" />
+      }
 
-    @if (currentAccountView(); as account) {
-      <div class="relative w-12 lg:w-56">
-        <div
-          class="text-success-content lg:bg-success w-full rounded-xl lg:absolute lg:-top-6 lg:left-0 lg:z-20"
-          (clickOutside)="closeMenu()">
-          <app-shared-account-view
-            (accountClick)="openMenu()"
-            [account]="account"
-            [extraContainerClasses]="isOpenMenu() ? 'bg-warning' : ''" />
-          <app-top-menu-collapsable-menu
-            class="hidden lg:block"
-            [isOpenMenu]="isOpenMenu()"
-            [accountSettings]="activeAccountSettings()"
-            [accounts]="userAccountsViews()"
-            [currentAccountUUID]="account.uuid"
-            (copyToken)="copyTokenToClipboard()"
-            (closeMenu)="closeMenu()"
-            (openUserFeatures)="openUserFeatures()"
-            (openUserSettings)="openUserSettings()"
-            (changeAccount)="changeAccount($event)"
-            (logout)="logout()" />
+      @if (currentAccountView(); as account) {
+        <div class="relative w-12 lg:w-56">
+          <div
+            class="text-success-content lg:bg-success w-full rounded-xl lg:absolute lg:-top-6 lg:left-0 lg:z-20">
+            <app-shared-account-view
+              (accountClick)="openMenu()"
+              [account]="account"
+              [extraContainerClasses]="isOpenMenu() ? 'bg-warning' : ''" />
+            <app-top-menu-collapsable-menu
+              class="hidden lg:block"
+              [isOpenMenu]="isOpenMenu()"
+              [accountSettings]="activeAccountSettings()"
+              [accounts]="userAccountsViews()"
+              [currentAccountUUID]="account.uuid"
+              (copyToken)="copyTokenToClipboard()"
+              (closeMenu)="closeMenu()"
+              (openUserFeatures)="openUserFeatures()"
+              (openUserSettings)="openUserSettings()"
+              (changeAccount)="changeAccount($event)"
+              (logout)="logout()" />
+          </div>
         </div>
-      </div>
-    }
+      }
+    </div>
   </div>
-</div>
 
-@if (currentAccountView(); as account) {
-  <div class="bg-success text-success-content rounded-b-xl lg:hidden">
-    <app-top-menu-collapsable-menu
-      [isOpenMenu]="isOpenMenu()"
-      [accountSettings]="activeAccountSettings()"
-      [accounts]="userAccountsViews()"
-      [currentAccountUUID]="account.uuid"
-      (copyToken)="copyTokenToClipboard()"
-      (closeMenu)="closeMenu()"
-      (openUserFeatures)="openUserFeatures()"
-      (openUserSettings)="openUserSettings()"
-      (changeAccount)="changeAccount($event)"
-      (logout)="logout()" />
-  </div>
-}
+  @if (currentAccountView(); as account) {
+    <div class="bg-success text-success-content rounded-b-xl lg:hidden">
+      <app-top-menu-collapsable-menu
+        [isOpenMenu]="isOpenMenu()"
+        [accountSettings]="activeAccountSettings()"
+        [accounts]="userAccountsViews()"
+        [currentAccountUUID]="account.uuid"
+        (copyToken)="copyTokenToClipboard()"
+        (closeMenu)="closeMenu()"
+        (openUserFeatures)="openUserFeatures()"
+        (openUserSettings)="openUserSettings()"
+        (changeAccount)="changeAccount($event)"
+        (logout)="logout()" />
+    </div>
+  }
+</div>
