@@ -10,9 +10,9 @@
   "printWidth": 80,
   "endOfLine": "lf",
   "plugins": [
-    "prettier-plugin-tailwindcss",
     "@ianvs/prettier-plugin-sort-imports",
-    "prettier-plugin-organize-imports"
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
   ],
   "importOrder": [
     "<BUILTIN_MODULES>",
