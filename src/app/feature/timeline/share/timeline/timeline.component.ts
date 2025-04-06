@@ -8,9 +8,9 @@ import {
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
-  saxInformationOutline,
-  saxMoreSquareOutline,
-} from '@ng-icons/iconsax/outline';
+  phosphorDotsThree,
+  phosphorInfo,
+} from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
 import {
   Iterable,
@@ -39,7 +39,7 @@ import { ExistTimelineEvent } from '../../store/timeline.types';
     ListComponent,
     LoadingButtonComponent,
   ],
-  viewProviders: [provideIcons({ saxInformationOutline })],
+  viewProviders: [provideIcons({ phosphorInfo })],
 })
 export class SharedTimelineComponent {
   timelineId = input.required<number>();
@@ -52,7 +52,7 @@ export class SharedTimelineComponent {
 
   private readonly store = inject(Store);
 
-  protected readonly moreIcon = saxMoreSquareOutline;
+  protected readonly moreIcon = phosphorDotsThree;
 
   private readonly images = this.store.selectSignal(
     imagesFeature.selectLoadedImages

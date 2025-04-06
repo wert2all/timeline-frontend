@@ -16,15 +16,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxCloseSquareBold } from '@ng-icons/iconsax/bold';
-import { saxUserSquareBulk } from '@ng-icons/iconsax/bulk';
+import { NgIconComponent } from '@ng-icons/core';
 import {
-  saxCameraOutline,
-  saxCloseSquareOutline,
-  saxPenAddOutline,
-  saxUserAddOutline,
-} from '@ng-icons/iconsax/outline';
+  phosphorPencilSimpleLine,
+  phosphorUserPlus,
+} from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
 import { map, tap } from 'rxjs';
 import { Undefined } from '../../../../app.types';
@@ -57,16 +53,6 @@ interface SettingForm {
     NgIconComponent,
     FeatureFlagComponent,
     SettingsAvatarContainerComponent,
-  ],
-  viewProviders: [
-    provideIcons({
-      saxPenAddOutline,
-      saxCameraOutline,
-      saxCloseSquareBold,
-      saxCloseSquareOutline,
-      saxUserAddOutline,
-      saxUserSquareBulk,
-    }),
   ],
 })
 export class SettingsComponent {
@@ -137,8 +123,8 @@ export class SettingsComponent {
     accountFeature.selectCurrentAvatarUploadId
   );
 
-  protected icon = saxPenAddOutline;
-  protected addAccountIcon = saxUserAddOutline;
+  protected icon = phosphorPencilSimpleLine;
+  protected addAccountIcon = phosphorUserPlus;
   protected featureSettings = computed(() =>
     toFeaturesSettings(this.accountResource.value())
   );

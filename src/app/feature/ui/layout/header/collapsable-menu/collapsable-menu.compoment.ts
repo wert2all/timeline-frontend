@@ -1,19 +1,14 @@
 import { Component, computed, input, output, signal } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
-  saxArrowLeft3Outline,
-  saxArrowLeftOutline,
-  saxArrowRight2Outline,
-  saxArrowRightOutline,
-  saxCopyOutline,
-  saxCopySuccessOutline,
-  saxFlag2Outline,
-  saxGhostOutline,
-  saxLogout1Outline,
-  saxProfile2userOutline,
-  saxSetting2Outline,
-  saxTickCircleOutline,
-} from '@ng-icons/iconsax/outline';
+  phosphorBug,
+  phosphorCheckCircle,
+  phosphorCopy,
+  phosphorFlagBanner,
+  phosphorGearSix,
+  phosphorSignOut,
+  phosphorUserSwitch,
+} from '@ng-icons/phosphor-icons/regular';
 import { Unique } from '../../../../../app.types';
 import { AccountFeaturesSettings } from '../../../../../shared/services/features.service';
 import { AccountView } from '../../../../account/account.types';
@@ -27,18 +22,13 @@ import { FeatureFlagComponent } from '../../../feature-flag/feature-flag.compone
   imports: [FeatureFlagComponent, NgIconComponent],
   viewProviders: [
     provideIcons({
-      saxFlag2Outline,
-      saxLogout1Outline,
-      saxSetting2Outline,
-      saxCopyOutline,
-      saxGhostOutline,
-      saxArrowRightOutline,
-      saxArrowLeftOutline,
-      saxCopySuccessOutline,
-      saxProfile2userOutline,
-      saxTickCircleOutline,
-      saxArrowLeft3Outline,
-      saxArrowRight2Outline,
+      phosphorSignOut,
+      phosphorCheckCircle,
+      phosphorBug,
+      phosphorUserSwitch,
+      phosphorCopy,
+      phosphorFlagBanner,
+      phosphorGearSix,
     }),
   ],
 })
@@ -60,7 +50,7 @@ export class CollapsableMenuComponent {
   protected readonly isCopied = signal(false);
   protected readonly isAccountChange = signal(false);
   protected readonly copyIcon = computed(() =>
-    this.isCopied() ? 'saxCopySuccessOutline' : 'saxCopyOutline'
+    this.isCopied() ? 'phosphorCheckCircle' : 'phosphorCopy'
   );
 
   changeAccountClick() {

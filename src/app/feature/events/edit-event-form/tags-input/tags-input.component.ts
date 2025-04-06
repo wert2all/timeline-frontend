@@ -1,7 +1,7 @@
 import { Component, computed, effect, input, output } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxCloseCircleOutline } from '@ng-icons/iconsax/outline';
+import { phosphorBackspace } from '@ng-icons/phosphor-icons/regular';
 import { fromInputSignal } from '../../../../libs/signal.functions';
 import { EventContentTag } from '../../../../shared/ui/event/content/content.types';
 import { EditEventForm } from '../edit-event-form.types';
@@ -11,7 +11,7 @@ import { EditEventForm } from '../edit-event-form.types';
   selector: 'app-edit-event-form-tags-input',
   templateUrl: './tags-input.component.html',
   imports: [ReactiveFormsModule, NgIconComponent],
-  viewProviders: [provideIcons({ saxCloseCircleOutline })],
+  viewProviders: [provideIcons({ phosphorBackspace })],
 })
 export class EditFormTagsInputComponent {
   form = input.required<FormGroup<EditEventForm>>();

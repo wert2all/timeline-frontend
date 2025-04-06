@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxLinkOutline } from '@ng-icons/iconsax/outline';
+import { phosphorLinkSimpleHorizontal } from '@ng-icons/phosphor-icons/regular';
 import { EventContentUrl } from '../../content.types';
 
 @Component({
@@ -8,7 +8,7 @@ import { EventContentUrl } from '../../content.types';
   standalone: true,
   imports: [NgIconComponent],
   templateUrl: './url.component.html',
-  viewProviders: [provideIcons({ saxLinkOutline })],
+  viewProviders: [provideIcons({ phosphorLinkSimpleHorizontal })],
 })
 export class UrlComponent {
   url = input.required<EventContentUrl | null>();

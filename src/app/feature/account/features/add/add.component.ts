@@ -6,8 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import { saxPenAddOutline } from '@ng-icons/iconsax/outline';
+import { phosphorPencil } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';
@@ -24,12 +23,11 @@ interface AddAccountForm {
   selector: 'app-add-account',
   templateUrl: './add.component.html',
   imports: [FormControlsComponent, ReactiveFormsModule],
-  viewProviders: [provideIcons({ saxPenAddOutline })],
 })
 export class AddAccountComponent {
   private readonly store = inject(Store);
 
-  protected icon = saxPenAddOutline;
+  protected icon = phosphorPencil;
   protected isLoading = this.store.selectSignal(accountFeature.selectLoading);
   protected form = new FormGroup<AddAccountForm>({
     name: new FormControl('', {

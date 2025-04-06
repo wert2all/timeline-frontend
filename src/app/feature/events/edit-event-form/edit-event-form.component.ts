@@ -15,20 +15,18 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { provideIcons } from '@ng-icons/core';
-import {
-  saxAddOutline,
-  saxCalendar1Outline,
-  saxCalendarAddOutline,
-  saxCalendarTickOutline,
-  saxImageOutline,
-  saxLinkSquareOutline,
-  saxTagOutline,
-  saxTextBlockOutline,
-} from '@ng-icons/iconsax/outline';
 import { DateTime } from 'luxon';
 import { catchError, debounceTime, distinctUntilChanged, map, of } from 'rxjs';
 
+import {
+  phosphorCalendar,
+  phosphorCalendarCheck,
+  phosphorCalendarPlus,
+  phosphorImage,
+  phosphorLinkSimple,
+  phosphorTag,
+  phosphorTextAa,
+} from '@ng-icons/phosphor-icons/regular';
 import { fromInputSignal } from '../../../libs/signal.functions';
 import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
 import { SharedTabsComponent } from '../../../shared/content/tabs/tabs.component';
@@ -58,18 +56,6 @@ const TIME_REGEXP = /^([01]?\d|2[0-3]):[0-5]\d$/;
   templateUrl: './edit-event-form.component.html',
   styleUrls: ['./edit-event-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  viewProviders: [
-    provideIcons({
-      saxAddOutline,
-      saxCalendarAddOutline,
-      saxCalendar1Outline,
-      saxCalendarTickOutline,
-      saxTextBlockOutline,
-      saxTagOutline,
-      saxLinkSquareOutline,
-      saxImageOutline,
-    }),
-  ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -124,31 +110,31 @@ export class EditEventFormComponent {
     {
       uuid: 'text',
       title: 'text something',
-      icon: saxTextBlockOutline,
+      icon: phosphorTextAa,
       isEnabled: true,
     },
     {
       uuid: 'upload',
       title: 'add image',
-      icon: saxImageOutline,
+      icon: phosphorImage,
       isEnabled: this.enableUpload(),
     },
     {
       uuid: 'date',
       title: 'set date and time',
-      icon: saxCalendar1Outline,
+      icon: phosphorCalendar,
       isEnabled: true,
     },
     {
       uuid: 'tags',
       title: 'add tags',
-      icon: saxTagOutline,
+      icon: phosphorTag,
       isEnabled: true,
     },
     {
       uuid: 'link',
       title: 'add link',
-      icon: saxLinkSquareOutline,
+      icon: phosphorLinkSimple,
       isEnabled: true,
     },
   ]);
@@ -162,8 +148,8 @@ export class EditEventFormComponent {
 
   protected readonly submitButton = computed(() =>
     this.isNew()
-      ? { title: 'Add', icon: saxCalendarAddOutline }
-      : { title: 'Save', icon: saxCalendarTickOutline }
+      ? { title: 'Add', icon: phosphorCalendarPlus }
+      : { title: 'Save', icon: phosphorCalendarCheck }
   );
 
   protected readonly previewLink = toSignal(

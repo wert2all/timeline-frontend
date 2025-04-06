@@ -6,7 +6,7 @@
         class="btn join-item btn-sm btn-secondary lg:btn-neutral"
         (click)="edit.emit(timelineEvent())"
         (keyup)="edit.emit(timelineEvent())">
-        <ng-icon name="saxEditOutline" size="20" />
+        <ng-icon name="phosphorPencilLine" size="20" />
       </a>
     </li>
     <li>
@@ -15,7 +15,7 @@
         class="hover:text-warning-content btn btn-secondary lg:btn-neutral join-item btn-sm hover:bg-warning"
         (click)="delete.emit(timelineEvent())"
         (keyup)="delete.emit(timelineEvent())">
-        <ng-icon name="saxTrashOutline" size="20" />
+        <ng-icon name="phosphorTrash" size="20" />
       </a>
     </li>
   </ul>

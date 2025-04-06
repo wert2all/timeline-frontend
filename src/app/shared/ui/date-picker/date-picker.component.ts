@@ -9,9 +9,9 @@ import {
 import { FormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
-  saxArrowLeft2Outline,
-  saxArrowRight3Outline,
-} from '@ng-icons/iconsax/outline';
+  phosphorArrowLeft,
+  phosphorArrowRight,
+} from '@ng-icons/phosphor-icons/regular';
 import { DateTime, Info } from 'luxon';
 
 @Component({
@@ -19,9 +19,7 @@ import { DateTime, Info } from 'luxon';
   selector: 'app-shared-date-picker',
   imports: [NgIconComponent, FormsModule],
   templateUrl: './date-picker.component.html',
-  viewProviders: [
-    provideIcons({ saxArrowLeft2Outline, saxArrowRight3Outline }),
-  ],
+  viewProviders: [provideIcons({ phosphorArrowRight, phosphorArrowLeft })],
 })
 export class SharedDatePickerComponent {
   fromDate = input<string | null>(null);

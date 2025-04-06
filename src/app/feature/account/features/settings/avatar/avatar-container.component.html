@@ -10,7 +10,7 @@
           <img [src]="avatar" class="h-full w-full" [alt]="title()" />
         </div>
       } @else {
-        <ng-icon name="saxUserSquareBulk" size="242" />
+        <ng-icon name="phosphorUserSquareDuotone" size="242" />
       }
     </div>
   }
@@ -20,7 +20,7 @@
       (click)="avatarInput.click()"
       (keyup.enter)="avatarInput.click()"
       tabindex="0">
-      <ng-icon name="saxCameraOutline" size="24" />
+      <ng-icon name="phosphorCamera" size="24" />
     </a>
     @if (avatar()) {
       <a
@@ -28,7 +28,7 @@
         (click)="remove.emit()"
         (keyup.enter)="remove.emit()"
         tabindex="0">
-        <ng-icon name="saxCloseSquareOutline" size="24" />
+        <ng-icon name="phosphorBackspace" size="24" />
       </a>
     }
   </div>

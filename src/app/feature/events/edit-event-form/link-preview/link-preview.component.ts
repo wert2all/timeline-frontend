@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { saxWarning2Bulk } from '@ng-icons/iconsax/bulk';
+import { phosphorWarningCircleDuotone } from '@ng-icons/phosphor-icons/duotone';
 import { Status } from '../../../../app.types';
 import { PreviewHolder } from '../../../authorized/dashboard/store/preview/preview.types';
 
@@ -9,7 +9,7 @@ import { PreviewHolder } from '../../../authorized/dashboard/store/preview/previ
   standalone: true,
   templateUrl: './link-preview.component.html',
   imports: [NgIconComponent],
-  viewProviders: [provideIcons({ saxWarning2Bulk })],
+  viewProviders: [provideIcons({ phosphorWarningCircleDuotone })],
 })
 export class LinkPreviewComponent {
   Status = Status;
