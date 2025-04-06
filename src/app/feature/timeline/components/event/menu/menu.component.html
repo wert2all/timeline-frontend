@@ -1,9 +1,9 @@
 @if (timelineEvent().id) {
-  <ul class="join bg-secondary lg:bg-base-300">
+  <ul class="join">
     <li>
       <a
         tabindex="0"
-        class="btn btn-ghost join-item btn-sm"
+        class="btn join-item btn-sm btn-secondary lg:btn-neutral"
         (click)="edit.emit(timelineEvent())"
         (keyup)="edit.emit(timelineEvent())">
         <ng-icon name="saxEditOutline" size="20" />
@@ -12,7 +12,7 @@
     <li>
       <a
         tabindex="0"
-        class="hover:text-warning-contenti btn btn-ghost join-item btn-sm hover:bg-warning"
+        class="hover:text-warning-content btn btn-secondary lg:btn-neutral join-item btn-sm hover:bg-warning"
         (click)="delete.emit(timelineEvent())"
         (keyup)="delete.emit(timelineEvent())">
         <ng-icon name="saxTrashOutline" size="20" />
