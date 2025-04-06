@@ -16,7 +16,7 @@
       </p>
       <div class="flex w-full flex-col items-center lg:flex-row">
         @if (!this.isAuthorized()) {
-          <a class="btn btn-primary" href="/user/login">authorize</a>
+          <app-shared-auth-button />
         } @else {
           <a class="btn btn-primary" href="/my">go to timeline</a>
         }
