@@ -6,21 +6,21 @@ import {
   TimelineEvent as GQLTimelineEvent,
   Status,
   TimelineEventInput,
-} from '../../../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../../../app.types';
+} from '../../../../../api/internal/graphql';
+import { StoreDispatchEffect } from '../../../../../app.types';
 import {
   apiAssertNotNull,
   extractApiData,
-} from '../../../../libs/api.functions';
-import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+} from '../../../../../libs/api.functions';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import {
   ExistTimelineEvent,
   TimelineEvent,
   TimelineEventType,
-} from '../../../timeline/store/timeline.types';
-import { EventOperationsActions } from './operations.actions';
+} from '../../../../timeline/store/timeline.types';
+import { EventOperationsActions } from '../actions/operations.actions';
 
-import { TimelineType as GQLTimelineType } from '../../../../api/internal/graphql';
+import { TimelineType as GQLTimelineType } from '../../../../../api/internal/graphql';
 
 const fromApiTypeToState = (type: GQLTimelineType): TimelineEventType => {
   switch (type) {
