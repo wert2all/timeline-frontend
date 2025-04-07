@@ -20,7 +20,7 @@ export const modalWindowFeature = createFeature({
       })
     ),
     on(
-      ModalWindowActions.opensModalWindow,
+      ModalWindowActions.openModalWindow,
       (state, { windowType }): ModalWindowState => ({
         ...state,
         windowType,
