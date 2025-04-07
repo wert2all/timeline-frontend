@@ -7,10 +7,11 @@ import {
   phosphorTrash,
 } from '@ng-icons/phosphor-icons/regular';
 import { Iterable } from '../../../../../app.types';
+import { FeatureFlagComponent } from '../../../../ui/feature-flag/feature-flag.component';
 
 @Component({
   standalone: true,
-  imports: [NgIconComponent],
+  imports: [NgIconComponent, FeatureFlagComponent],
   selector: 'app-timeline-event-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.scss'],
