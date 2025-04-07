@@ -1,61 +1,48 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
 
-export const storageKey = 'theme';
-enum Themes {
-  dark = 'gruvbox',
-  light = 'pastel',
+const THEME_STORAGE_KEY = 'theme';
+enum Theme {
+  DARK = 'gruvbox',
+  LIGHT = 'pastel',
 }
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
   private readonly localStorage = inject(SharedLocalStorageService);
-  private readonly themeSignal = signal<Themes>(Themes.dark);
+  private readonly theme = signal<Theme>(this.getInitialTheme());
 
-  readonly #htmlElement = document.getElementById('html') as HTMLHtmlElement;
-  isDark = computed(() => {
-    return this.themeSignal() === Themes.dark;
-  });
+  readonly #htmlElement = document.documentElement;
+  readonly isDark = computed(() => this.theme() === Theme.DARK);
 
   constructor() {
-    this.initializeThemeFromPreferences();
-
-    effect(() => {
-      if (
-        this.#htmlElement.attributes.getNamedItem('data-theme')?.value !==
-        this.themeSignal()
-      ) {
-        this.#htmlElement.classList.remove(this.isDark() ? 'light' : 'dark');
-        this.#htmlElement.classList.add(this.isDark() ? 'dark' : 'light');
-
-        this.#htmlElement.setAttribute('data-theme', this.themeSignal());
-      }
-      this.localStorage.setItem(storageKey, this.themeSignal());
-    });
+    effect(() => this.applyTheme(this.theme()));
   }
 
   toggleTheme(): void {
-    this.themeSignal.update(prev =>
-      prev === Themes.dark ? Themes.light : Themes.dark
+    this.theme.update(current =>
+      current === Theme.DARK ? Theme.LIGHT : Theme.DARK
     );
   }
 
-  private initializeThemeFromPreferences() {
-    const storedTheme = this.localStorage.getItem(storageKey);
-
-    if (storedTheme) {
-      this.themeSignal.update(() => this.themeFrom(storedTheme));
-    }
+  private getInitialTheme(): Theme {
+    const storedTheme = this.localStorage.getItem(THEME_STORAGE_KEY);
+    return this.isValidTheme(storedTheme) ? (storedTheme as Theme) : Theme.DARK;
   }
 
-  private themeFrom(theme: string): Themes {
-    switch (theme) {
-      case Themes.dark:
-        return Themes.dark;
-      case Themes.light:
-        return Themes.light;
-      default:
-        return Themes.dark;
-    }
+  private isValidTheme(theme: string | null): boolean {
+    return theme === Theme.DARK || theme === Theme.LIGHT;
+  }
+
+  private applyTheme(theme: Theme): void {
+    // Update data-theme attribute
+    this.#htmlElement.setAttribute('data-theme', theme);
+
+    // Update class for CSS styling
+    this.#htmlElement.classList.remove(theme === Theme.DARK ? 'light' : 'dark');
+    this.#htmlElement.classList.add(theme === Theme.DARK ? 'dark' : 'light');
+
+    // Save to local storage
+    this.localStorage.setItem(THEME_STORAGE_KEY, theme);
   }
 }
