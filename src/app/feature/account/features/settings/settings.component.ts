@@ -30,7 +30,6 @@ import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { FeatureFlagComponent } from '../../../ui/feature-flag/feature-flag.component';
 import { ModalWindowActions } from '../../../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../../../ui/layout/store/modal-window/modal-window.types';
-import { toFeaturesSettings } from '../../account.functions';
 import { AccountsService } from '../../share/accounts.service';
 import { AccountActions } from '../../store/account.actions';
 import { accountFeature } from '../../store/account.reducer';
@@ -125,9 +124,6 @@ export class SettingsComponent {
 
   protected icon = phosphorPencilSimpleLine;
   protected addAccountIcon = phosphorUserPlus;
-  protected featureSettings = computed(() =>
-    toFeaturesSettings(this.accountResource.value())
-  );
   protected isUploading = this.store.selectSignal(
     accountFeature.selectIsUploading
   );

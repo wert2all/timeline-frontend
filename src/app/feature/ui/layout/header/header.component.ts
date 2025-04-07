@@ -49,9 +49,6 @@ export class HeaderComponent {
   protected activeAccount = this.store.selectSignal(
     sharedFeature.selectActiveAccount
   );
-  protected activeAccountSettings = this.store.selectSignal(
-    sharedFeature.selectActiveAccountFeatureSettings
-  );
 
   protected readonly currentAccountView = computed(() => {
     const account = this.activeAccount();

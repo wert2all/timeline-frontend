@@ -1,8 +1,6 @@
 <div class="collapsable" [class.open]="isOpenMenu()">
   <div class="my-2">
-    <app-feature-flag
-      feature="show_user_accounts"
-      [accountSettings]="accountSettings()">
+    <app-feature-flag feature="show_user_accounts">
       @if (accounts().length > 1) {
       <div class="accounts_switcher relative">
         <div class="accounts_title relative" [class.open]="isAccountChange()">
@@ -36,9 +34,7 @@
       }
     </app-feature-flag>
 
-    <app-feature-flag
-      feature="user_settings"
-      [accountSettings]="accountSettings()">
+    <app-feature-flag feature="user_settings">
       <a
         tabindex="0"
         (click)="openUserSettings.emit()"
