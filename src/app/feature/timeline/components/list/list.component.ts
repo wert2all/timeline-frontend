@@ -23,4 +23,6 @@ export class ListComponent {
 
   delete = output<Iterable>();
   edit = output<Iterable>();
+  copyLink = output<Iterable>();
+  like = output<Iterable>();
 }

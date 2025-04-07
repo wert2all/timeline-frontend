@@ -23,7 +23,9 @@
             [isEditable]="isEditable()"
             [isAuthorized]="isAuthorized()"
             (delete)="delete.emit($event)"
-            (edit)="edit.emit($event)" />
+            (edit)="edit.emit($event)"
+            (copyLink)="copyLink.emit($event)"
+            (like)="like.emit($event)" />
         }
       </div>
       @if (!event.loading) {
@@ -39,7 +41,9 @@
               [isEditable]="isEditable()"
               [isAuthorized]="isAuthorized()"
               (delete)="delete.emit($event)"
-              (edit)="edit.emit($event)" />
+              (edit)="edit.emit($event)"
+              (copyLink)="copyLink.emit($event)"
+              (like)="like.emit($event)" />
           </div>
         </div>
       }
