@@ -92,7 +92,7 @@ export class HeaderComponent {
 
   openUserFeatures() {
     this.store.dispatch(
-      ModalWindowActions.opensModalWindow({
+      ModalWindowActions.openModalWindow({
         windowType: ModalWindowType.FEATURES,
       })
     );
@@ -101,7 +101,7 @@ export class HeaderComponent {
 
   openUserSettings() {
     this.store.dispatch(
-      ModalWindowActions.opensModalWindow({
+      ModalWindowActions.openModalWindow({
         windowType: ModalWindowType.SETTINGS,
       })
     );

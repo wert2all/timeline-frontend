@@ -160,7 +160,7 @@ export class SettingsComponent {
 
   addAccount() {
     this.store.dispatch(
-      ModalWindowActions.opensModalWindow({
+      ModalWindowActions.openModalWindow({
         windowType: ModalWindowType.ADD_ACCOUNT,
       })
     );

@@ -4,7 +4,7 @@ import { ModalWindowType } from './modal-window.types';
 export const ModalWindowActions = createActionGroup({
   source: 'Modal',
   events: {
-    'Opens modal window': props<{ windowType: ModalWindowType }>(),
+    'Open modal window': props<{ windowType: ModalWindowType }>(),
     'Close modal window': emptyProps(),
   },
 });
