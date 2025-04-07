@@ -31,7 +31,7 @@ export class TimelineEventMenuComponent {
 
   delete = output<Iterable>();
   edit = output<Iterable>();
-  link = output<Iterable>();
+  copyLink = output<Iterable>();
   like = output<Iterable>();
 
   protected copied = signal(false);
@@ -45,7 +45,7 @@ export class TimelineEventMenuComponent {
 
   protected copyClick(item: Iterable) {
     this.copied.set(true);
-    this.link.emit(item);
+    this.copyLink.emit(item);
     setTimeout(() => this.copied.set(false), 3000);
   }
 }
