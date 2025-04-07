@@ -6,6 +6,8 @@ import {
   inject,
 } from '@angular/core';
 
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { phosphorArrowSquareOut } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import {
   FeatureFlagName,
@@ -19,8 +21,9 @@ type ViewFeature = UserFeature & { key: FeatureFlagName };
 @Component({
   selector: 'app-show-user-features',
   standalone: true,
-  imports: [CommonModule, FeatureStageComponent],
+  imports: [CommonModule, FeatureStageComponent, NgIconComponent],
   templateUrl: './show-user-features.component.html',
+  viewProviders: [provideIcons({ phosphorArrowSquareOut })],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ShowUserFeaturesComponent {
@@ -49,6 +52,7 @@ export class ShowUserFeaturesComponent {
       key: feature.key,
       description: feature.description,
       stage: feature.stage,
+      link: feature.link,
       isActive: feature.canShow(featureAccount),
     }));
   });

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Url } from 'url';
 import { PartialRecord } from '../../app.types';
 
 export type FeatureFlagName = keyof typeof FEATURE_FLAGS;
@@ -19,7 +18,7 @@ export interface FeaturesAccount {
 export interface Feature {
   name: string;
   description: string;
-  link: Url | null;
+  link: URL | null;
   stage: FeatureStage;
   canShow(account: FeaturesAccount): boolean;
 }
@@ -45,6 +44,13 @@ const FEATURE_FLAGS = {
     stage: FeatureStage.started,
     link: null,
     canShow: account => canShow(account, 'show_user_accounts'),
+  },
+  event_links: {
+    name: 'Link to event',
+    description: 'Event could have links to itself',
+    stage: FeatureStage.started,
+    link: URL.parse('https://github.com/wert2all/timeline-frontend/pull/526'),
+    canShow: account => canShow(account, 'event_links'),
   },
   event_likes: {
     name: 'Event likes',
