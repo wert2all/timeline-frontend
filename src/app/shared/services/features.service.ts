@@ -33,12 +33,6 @@ const FEATURE_FLAGS = {
     canShow: account => canShow(account, 'user_settings'),
     stage: FeatureStage.development,
   },
-  user_feature_flag: {
-    name: 'Features',
-    description: 'Change some features of application.',
-    canShow: account => canShow(account, 'user_feature_flag'),
-    stage: FeatureStage.done,
-  },
   show_user_accounts: {
     name: 'Accounts',
     description: 'Show user accounts',
@@ -49,7 +43,13 @@ const FEATURE_FLAGS = {
     name: 'Upload images',
     description: 'Upload images and assign to events',
     canShow: account => canShow(account, 'upload_images'),
-    stage: FeatureStage.testing,
+    stage: FeatureStage.done,
+  },
+  event_likes: {
+    name: 'Event likes',
+    description: 'Every event could have likes from other users',
+    canShow: account => canShow(account, 'event_likes'),
+    stage: FeatureStage.started,
   },
 } as const satisfies Record<string, Feature>;
 
