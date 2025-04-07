@@ -1,29 +1,33 @@
 @if (timelineEvent().id) {
   <ul class="join">
-    <li>
-      <a
-        tabindex="0"
-        title="copy link"
-        class="btn join-item btn-sm btn-neutral"
-        [class.done]="copied()"
-        (click)="copyClick(timelineEvent())"
-        (keyup)="copyClick(timelineEvent())">
-        <ng-icon name="phosphorLinkSimpleHorizontal" size="20" />
-      </a>
-    </li>
-    @if (isAuthorized()) {
+    <app-feature-flag feature="event_links">
       <li>
         <a
           tabindex="0"
-          title="like"
+          title="copy link"
           class="btn join-item btn-sm btn-neutral"
-          [class.done]="liked()"
-          (click)="likeClick(timelineEvent())"
-          (keyup)="likeClick(timelineEvent())">
-          <ng-icon name="phosphorHeartDuotone" size="20" />
+          [class.done]="copied()"
+          (click)="copyClick(timelineEvent())"
+          (keyup)="copyClick(timelineEvent())">
+          <ng-icon name="phosphorLinkSimpleHorizontal" size="20" />
         </a>
       </li>
-    }
+    </app-feature-flag>
+    <app-feature-flag feature="event_likes">
+      @if (isAuthorized()) {
+        <li>
+          <a
+            tabindex="0"
+            title="like"
+            class="btn join-item btn-sm btn-neutral"
+            [class.done]="liked()"
+            (click)="likeClick(timelineEvent())"
+            (keyup)="likeClick(timelineEvent())">
+            <ng-icon name="phosphorHeartDuotone" size="20" />
+          </a>
+        </li>
+      }
+    </app-feature-flag>
     @if (isEditable()) {
       <li>
         <a
