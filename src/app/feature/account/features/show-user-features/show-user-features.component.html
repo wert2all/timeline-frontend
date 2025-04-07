@@ -2,7 +2,18 @@
   <div class="mt-4 flex">
     <div class="order flex-auto">
       <p class="text-xl">{{ feature.name }}</p>
-      <p>{{ feature.description }}</p>
+      <p>
+        {{ feature.description }}
+        @if (feature.link) {
+          <a
+            [href]="feature.link"
+            target="_blank"
+            class="btn btn-xs btn-square btn-neutral"
+            title="open documentation on new window">
+            <ng-icon name="phosphorArrowSquareOut"></ng-icon>
+          </a>
+        }
+      </p>
     </div>
 
     <div class="w-36 flex-none place-content-center text-center">
