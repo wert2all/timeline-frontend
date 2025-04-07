@@ -10,7 +10,6 @@ import {
   phosphorUserSwitch,
 } from '@ng-icons/phosphor-icons/regular';
 import { Unique } from '../../../../../app.types';
-import { AccountFeaturesSettings } from '../../../../../shared/services/features.service';
 import { AccountView } from '../../../../account/account.types';
 import { FeatureFlagComponent } from '../../../feature-flag/feature-flag.component';
 
@@ -34,7 +33,6 @@ import { FeatureFlagComponent } from '../../../feature-flag/feature-flag.compone
 })
 export class CollapsableMenuComponent {
   currentAccountUUID = input.required<string>();
-  accountSettings = input.required<AccountFeaturesSettings>();
   accounts = input.required<AccountView[]>();
   isOpenMenu = input(false);
 

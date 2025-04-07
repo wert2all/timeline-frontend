@@ -25,7 +25,6 @@
             <app-top-menu-collapsable-menu
               class="hidden lg:block"
               [isOpenMenu]="isOpenMenu()"
-              [accountSettings]="activeAccountSettings()"
               [accounts]="userAccountsViews()"
               [currentAccountUUID]="account.uuid"
               (copyToken)="copyTokenToClipboard()"
@@ -44,7 +43,6 @@
     <div class="bg-success text-success-content rounded-b-xl lg:hidden">
       <app-top-menu-collapsable-menu
         [isOpenMenu]="isOpenMenu()"
-        [accountSettings]="activeAccountSettings()"
         [accounts]="userAccountsViews()"
         [currentAccountUUID]="account.uuid"
         (copyToken)="copyTokenToClipboard()"
