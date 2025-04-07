@@ -48,17 +48,13 @@
       </a>
     </app-feature-flag>
 
-    <app-feature-flag
-      feature="user_feature_flag"
-      [accountSettings]="accountSettings()">
-      <a
-        tabindex="0"
-        (click)="openUserFeatures.emit()"
-        (keyup.enter)="openUserFeatures.emit()">
-        <ng-icon name="phosphorFlagBanner" size="22"></ng-icon>
-        Features
-      </a>
-    </app-feature-flag>
+    <a
+      tabindex="0"
+      (click)="openUserFeatures.emit()"
+      (keyup.enter)="openUserFeatures.emit()">
+      <ng-icon name="phosphorFlagBanner" size="22"></ng-icon>
+      Features
+    </a>
 
     <div class="divider"></div>
 
