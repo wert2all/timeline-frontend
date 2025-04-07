@@ -18,7 +18,6 @@
             [viewHelper]="formViewHelper()"
             [loading]="loading()"
             [isNew]="isNew()"
-            [enableUpload]="isUploadEnabled()"
             (valuesChanged)="updatePreviewEvent($event)"
             (urlChanged)="dispatchUpdateUrlPreview($event)"
             (fileSelected)="handleFileSelected($event)"

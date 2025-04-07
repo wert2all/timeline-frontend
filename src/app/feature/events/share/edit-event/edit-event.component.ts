@@ -8,13 +8,10 @@ import {
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 
-import { toSignal } from '@angular/core/rxjs-interop';
-import { map } from 'rxjs';
 import { Pending, Status } from '../../../../app.types';
 import { createViewDatetime } from '../../../../libs/view/date.functions';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
-import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
 import {
   EventContent,
@@ -60,14 +57,6 @@ export class EditEventComponent {
   );
   private readonly currentUpload = this.store.selectSignal(
     imagesFeature.selectCurrentUploadImage
-  );
-
-  protected readonly isUploadEnabled = toSignal(
-    this.store
-      .select(sharedFeature.selectActiveAccountFeatureSettings)
-      //eslint-disable-next-line @ngrx/avoid-mapping-selectors
-      .pipe(map(settings => !!settings['upload_images'])),
-    { initialValue: false }
   );
 
   protected readonly isNew = computed(() => !this.editedEvent()?.id);
