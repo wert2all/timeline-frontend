@@ -17,8 +17,8 @@ import { previewEffects } from './feature/authorized/dashboard/store/preview/pre
 import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
 import { timelineEffects as legacyTimelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
 import { timelineFeature as legacyTimelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
-import { eventOperationsEffects } from './feature/events/store/operations/operations.effects';
-import { eventOperationsFeature } from './feature/events/store/operations/operations.reducer';
+import { eventOperationsEffects } from './feature/events/store/events/effects/operations.effects';
+import { eventsFeature } from './feature/events/store/events/events.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { timelineEffects } from './feature/timeline/store/timeline.effects';
@@ -56,7 +56,7 @@ export const appConfig: ApplicationConfig = {
         [taskFeature.name]: taskFeature.reducer,
         [modalWindowFeature.name]: modalWindowFeature.reducer,
         [timelineFeature.name]: timelineFeature.reducer,
-        [eventOperationsFeature.name]: eventOperationsFeature.reducer,
+        [eventsFeature.name]: eventsFeature.reducer,
         [previewFeature.name]: previewFeature.reducer,
         [legacyTimelineFeature.name]: legacyTimelineFeature.reducer,
       },

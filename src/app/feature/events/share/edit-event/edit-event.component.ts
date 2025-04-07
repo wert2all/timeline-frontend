@@ -27,8 +27,8 @@ import {
 } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
-import { EventOperationsActions } from '../../store/operations/operations.actions';
-import { eventOperationsFeature } from '../../store/operations/operations.reducer';
+import { EventOperationsActions } from '../../store/events/actions/operations.actions';
+import { eventsFeature } from '../../store/events/events.reducer';
 import { EditEventFormChanges } from './edit-event.types';
 
 @Component({
@@ -42,7 +42,7 @@ export class EditEventComponent {
   private readonly store = inject(Store);
 
   protected readonly editedEvent = this.store.selectSignal(
-    eventOperationsFeature.selectEditedEvent
+    eventsFeature.selectEditedEvent
   );
   private readonly updatedEvent = linkedSignal({
     source: this.editedEvent,
@@ -50,7 +50,7 @@ export class EditEventComponent {
   });
 
   protected readonly loading = this.store.selectSignal(
-    eventOperationsFeature.selectLoading
+    eventsFeature.selectLoading
   );
   private readonly images = this.store.selectSignal(
     imagesFeature.selectLoadedImages

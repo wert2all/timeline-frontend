@@ -10,7 +10,7 @@ import {
   TaskResultImages,
 } from '../../../feature/task/executors/images.factory';
 
-import { EventOperationsActions } from '../../../feature/events/store/operations/operations.actions';
+import { EventOperationsActions } from '../../../feature/events/store/events/actions/operations.actions';
 import { TaskActions } from '../../../store/task/task.actions';
 import { TaskType } from '../../../store/task/task.types';
 import { SharedActions } from '../shared/shared.actions';

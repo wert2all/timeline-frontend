@@ -2,12 +2,12 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   ExistTimelineEventInput,
   TimelineEventInput,
-} from '../../../../api/internal/graphql';
-import { Undefined } from '../../../../app.types';
+} from '../../../../../api/internal/graphql';
+import { Undefined } from '../../../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../timeline/store/timeline.types';
+} from '../../../../timeline/store/timeline.types';
 
 export const EventOperationsActions = createActionGroup({
   source: 'Event Operations',

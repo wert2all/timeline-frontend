@@ -1,13 +1,13 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { createDefaultTimelineEvent } from '../../share/editable-event-view.factory';
-import { EventOperationsActions } from './operations.actions';
-import { EventsState } from './operations.types';
+import { EventOperationsActions } from './actions/operations.actions';
+import { EventsState } from './types/operations.types';
 
 const initialState: EventsState = {
   loading: false,
   editedEvent: null,
 };
-export const eventOperationsFeature = createFeature({
+export const eventsFeature = createFeature({
   name: 'events',
   reducer: createReducer(
     initialState,

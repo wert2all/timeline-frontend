@@ -7,7 +7,7 @@ import {
   ExistEventContent,
 } from '../../../shared/ui/event/content/content.types';
 import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
-import { EventOperationsActions } from '../../events/store/operations/operations.actions';
+import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
 
