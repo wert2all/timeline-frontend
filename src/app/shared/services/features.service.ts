@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Url } from 'url';
 import { PartialRecord } from '../../app.types';
 
 export type FeatureFlagName = keyof typeof FEATURE_FLAGS;
@@ -18,6 +19,7 @@ export interface FeaturesAccount {
 export interface Feature {
   name: string;
   description: string;
+  link: Url | null;
   stage: FeatureStage;
   canShow(account: FeaturesAccount): boolean;
 }
@@ -33,20 +35,23 @@ const FEATURE_FLAGS = {
   user_settings: {
     name: 'User settings',
     description: 'Change user profile settings',
-    canShow: account => canShow(account, 'user_settings'),
     stage: FeatureStage.development,
+    link: null,
+    canShow: account => canShow(account, 'user_settings'),
   },
   show_user_accounts: {
     name: 'Accounts',
     description: 'Show user accounts',
-    canShow: account => canShow(account, 'show_user_accounts'),
     stage: FeatureStage.started,
+    link: null,
+    canShow: account => canShow(account, 'show_user_accounts'),
   },
   event_likes: {
     name: 'Event likes',
     description: 'Every event could have likes from other users',
-    canShow: account => canShow(account, 'event_likes'),
     stage: FeatureStage.started,
+    link: null,
+    canShow: account => canShow(account, 'event_likes'),
   },
 } as const satisfies Record<string, Feature>;
 
