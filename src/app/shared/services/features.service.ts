@@ -22,8 +22,11 @@ export interface Feature {
   canShow(account: FeaturesAccount): boolean;
 }
 
+const getStage = (flag: string): FeatureStage =>
+  FEATURE_FLAGS[flag as FeatureFlagName].stage;
+
 const canShow = (account: FeaturesAccount, flag: string): boolean =>
-  FEATURE_FLAGS[flag as FeatureFlagName].stage === FeatureStage.done ||
+  getStage(flag) === FeatureStage.done ||
   account.settings[flag as FeatureFlagName] === true;
 
 const FEATURE_FLAGS = {
@@ -38,12 +41,6 @@ const FEATURE_FLAGS = {
     description: 'Show user accounts',
     canShow: account => canShow(account, 'show_user_accounts'),
     stage: FeatureStage.started,
-  },
-  upload_images: {
-    name: 'Upload images',
-    description: 'Upload images and assign to events',
-    canShow: account => canShow(account, 'upload_images'),
-    stage: FeatureStage.done,
   },
   event_likes: {
     name: 'Event likes',

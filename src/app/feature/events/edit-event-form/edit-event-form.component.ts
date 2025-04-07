@@ -81,7 +81,6 @@ export class EditEventFormComponent {
 
   isNew = input(false);
   loading = input(false);
-  enableUpload = input(false);
 
   protected readonly editForm = new FormGroup<EditEventForm>({
     id: new FormControl(null),
@@ -117,7 +116,7 @@ export class EditEventFormComponent {
       uuid: 'upload',
       title: 'add image',
       icon: phosphorImage,
-      isEnabled: this.enableUpload(),
+      isEnabled: true,
     },
     {
       uuid: 'date',
