@@ -12,7 +12,9 @@
       </div>
     }
     @if (eventView(); as event) {
-      <app-shared-timeline-event-content [event]="event" />
+      <div class="bg-base-100 w-2/3 rounded-xl">
+        <app-shared-timeline-event-content [event]="event" />
+      </div>
     }
   </div>
 </app-shared-layout>
