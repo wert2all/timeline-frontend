@@ -13,13 +13,6 @@ const initialState: NewTimelineState = {
   lastCursor: null,
   hasMore: false,
 };
-const prepareUrl = (url: string | undefined) => {
-  try {
-    return url ? { title: new URL(url).host, link: url } : null;
-  } catch {
-    return null;
-  }
-};
 
 export const timelineFeature = createFeature({
   name: 'new-timeline',
