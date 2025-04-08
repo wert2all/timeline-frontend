@@ -49,6 +49,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'event/:eventId',
+    loadComponent: () =>
+      import('./feature/events/show/show-event-page.component').then(
+        t => t.ShowEventPageComponent
+      ),
+  },
+  {
     path: '**',
     loadComponent: () =>
       import('./feature/non-authorized/404/404-page.component').then(

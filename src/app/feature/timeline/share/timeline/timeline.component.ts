@@ -26,7 +26,7 @@ import { UploadedImage } from '../../../../shared/store/images/images.types';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
-import { EventUrlProvider } from '../../../event/share/event-url.provider';
+import { EventUrlProvider } from '../../../events/share/event-url.provider';
 import { ListComponent } from '../../components/list/list.component';
 import { ListEventsActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';

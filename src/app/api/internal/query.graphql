@@ -20,3 +20,9 @@ query GetTimeline($timelineId: Int!) {
     ...Timeline
   }
 }
+
+query GetEvent($eventId: Int!, $accountId: Int) {
+  event(eventId: $eventId, accountId: $accountId) {
+    ...TimelineEvent
+  }
+}

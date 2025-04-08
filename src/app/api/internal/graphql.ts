@@ -210,6 +210,13 @@ export type GetTimelineVariables = Exact<{
 
 export type GetTimeline = { timeline?: Timeline | null };
 
+export type GetEventVariables = Exact<{
+  eventId: Scalars['Int']['input'];
+  accountId?: InputMaybe<Scalars['Int']['input']>;
+}>;
+
+export type GetEvent = { event?: TimelineEvent | null };
+
 export const ShortTimeline = gql`
   fragment ShortTimeline on ShortTimeline {
     id
@@ -534,6 +541,25 @@ export class GetTimelineQuery extends Apollo.Query<
     super(apollo);
   }
 }
+export const GetEventDocument = gql`
+  query GetEvent($eventId: Int!, $accountId: Int) {
+    event(eventId: $eventId, accountId: $accountId) {
+      ...TimelineEvent
+    }
+  }
+  ${TimelineEvent}
+`;
+
+@Injectable({
+  providedIn: 'root',
+})
+export class GetEventQuery extends Apollo.Query<GetEvent, GetEventVariables> {
+  override document = GetEventDocument;
+  override client = 'default';
+  constructor(apollo: Apollo.Apollo) {
+    super(apollo);
+  }
+}
 
 type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 
@@ -559,7 +585,8 @@ export class ApiClient {
     private addAccountMutation: AddAccountMutation,
     private getEventsQuery: GetEventsQuery,
     private getAccountTimelinesQuery: GetAccountTimelinesQuery,
-    private getTimelineQuery: GetTimelineQuery
+    private getTimelineQuery: GetTimelineQuery,
+    private getEventQuery: GetEventQuery
   ) {}
 
   authorize(
@@ -667,5 +694,19 @@ export class ApiClient {
     options?: WatchQueryOptionsAlone<GetTimelineVariables>
   ) {
     return this.getTimelineQuery.watch(variables, options);
+  }
+
+  getEvent(
+    variables: GetEventVariables,
+    options?: QueryOptionsAlone<GetEventVariables>
+  ) {
+    return this.getEventQuery.fetch(variables, options);
+  }
+
+  getEventWatch(
+    variables: GetEventVariables,
+    options?: WatchQueryOptionsAlone<GetEventVariables>
+  ) {
+    return this.getEventQuery.watch(variables, options);
   }
 }
