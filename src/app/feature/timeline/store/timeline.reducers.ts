@@ -1,12 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Status } from '../../../app.types';
-import { createViewDatetime } from '../../../libs/view/date.functions';
-import {
-  EventContentIcon,
-  EventContentTag,
-  ExistEventContent,
-} from '../../../shared/ui/event/content/content.types';
+import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
+import { toEventView } from '../../events/share/event.functions';
 import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
@@ -137,18 +132,7 @@ export const timelineFeature = createFeature({
   extraSelectors: ({ selectEvents }) => ({
     selectViewEvents: createSelector(
       selectEvents,
-      (events): ExistEventContent[] =>
-        events.map(event => ({
-          ...event,
-          description: event.description || '',
-          icon: new EventContentIcon(event.type),
-          url: prepareUrl(event.url),
-          date: createViewDatetime(event.date, event.showTime || false),
-          tags: event.tags?.map(tag => new EventContentTag(tag)) || [],
-          image: event.imageId
-            ? { imageId: event.imageId, status: Status.LOADING }
-            : undefined,
-        }))
+      (events): ExistEventContent[] => events.map(event => toEventView(event))
     ),
   }),
 });
