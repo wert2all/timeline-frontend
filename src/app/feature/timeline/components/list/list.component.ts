@@ -19,7 +19,10 @@ import { TimelineEventMenuComponent } from '../event/menu/menu.component';
 export class ListComponent {
   events = input.required<ExistEventContent[]>();
   isEditable = input<boolean>(false);
+  isAuthorized = input<boolean>(false);
 
   delete = output<Iterable>();
   edit = output<Iterable>();
+  copyLink = output<Iterable>();
+  like = output<Iterable>();
 }

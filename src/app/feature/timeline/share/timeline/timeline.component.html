@@ -16,8 +16,11 @@
     <app-timeline-events-list
       [events]="events"
       [isEditable]="isEditable()"
+      [isAuthorized]="isAuthorized()"
       (delete)="delete.emit($event)"
-      (edit)="editEvent($event)" />
+      (edit)="editEvent($event)"
+      (copyLink)="linkEvent($event)"
+      (like)="likeEvent($event)" />
   } @else {
     @if (!error() && !isLoading()) {
       <div role="alert" class="alert alert-info">

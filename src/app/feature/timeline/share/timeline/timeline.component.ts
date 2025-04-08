@@ -1,3 +1,4 @@
+import { Clipboard } from '@angular/cdk/clipboard';
 import {
   Component,
   computed,
@@ -22,8 +23,10 @@ import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.
 import { LoadingButtonComponent } from '../../../../shared/content/loading-button/loading-button.component';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
 import { UploadedImage } from '../../../../shared/store/images/images.types';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
+import { EventUrlProvider } from '../../../events/share/event-url.provider';
 import { ListComponent } from '../../components/list/list.component';
 import { ListEventsActions } from '../../store/timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
@@ -46,11 +49,14 @@ export class SharedTimelineComponent {
   limit = input<number | null>(null);
 
   isEditable = input<boolean>(false);
+  isAuthorized = input<boolean>(false);
 
   delete = output<Iterable>();
   edit = output<ExistTimelineEvent>();
 
   private readonly store = inject(Store);
+  private readonly clipboard = inject(Clipboard);
+  private readonly eventUrlProvider = inject(EventUrlProvider);
 
   protected readonly moreIcon = phosphorDotsThree;
 
@@ -111,10 +117,6 @@ export class SharedTimelineComponent {
     });
   }
 
-  loadMore() {
-    throw new Error('Method not implemented.');
-  }
-
   private convertImageStatus(status: StatusWithPending): Status {
     switch (status) {
       case Status.ERROR:
@@ -140,10 +142,29 @@ export class SharedTimelineComponent {
       : eventImage;
   }
 
+  loadMore() {
+    throw new Error('Method not implemented.');
+  }
+
   editEvent(event: Iterable) {
     const editableEvent = this.rawEvents()?.find(e => e.id === event.id);
     if (editableEvent) {
       this.edit.emit(editableEvent);
     }
+  }
+
+  linkEvent(event: Iterable) {
+    const url = this.eventUrlProvider.provideAbsolute(event);
+    this.clipboard.copy(url);
+    this.store.dispatch(
+      SharedActions.sendNotification({
+        message: 'Copied event url: ' + url,
+        withType: 'success',
+      })
+    );
+  }
+
+  likeEvent(event: Iterable) {
+    throw new Error('Method not implemented: likeEvent ' + event);
   }
 }
