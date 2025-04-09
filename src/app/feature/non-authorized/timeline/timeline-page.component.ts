@@ -10,7 +10,7 @@ import {
 import { rxResource } from '@angular/core/rxjs-interop';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { Store, createSelector } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
 import { Undefined } from '../../../app.types';
@@ -18,6 +18,7 @@ import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
+import { filterLoadedImage } from '../../../shared/store/shared/shared.functions';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../account/account.functions';
 import { AccountView } from '../../account/account.types';
@@ -72,11 +73,7 @@ export class TimelinePageComponent {
   private readonly timelineAccountAvatar = computed(() => {
     const accountAvatarId = this.timelineAccount()?.avatarId;
     return accountAvatarId
-      ? this.store.selectSignal(
-          createSelector(sharedFeature.selectLoadedImages, images =>
-            images.find(image => image.id === accountAvatarId)
-          )
-        )()?.data?.avatar
+      ? filterLoadedImage(accountAvatarId, this.store)?.data?.avatar
       : null;
   });
 
