@@ -1,7 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
-import { toEventView } from '../../events/share/event.functions';
 import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
 import { ListEventsActions } from './timeline.actions';
 import { NewTimelineState } from './timeline.types';
@@ -125,7 +125,10 @@ export const timelineFeature = createFeature({
   extraSelectors: ({ selectEvents }) => ({
     selectViewEvents: createSelector(
       selectEvents,
-      (events): ExistEventContent[] => events.map(event => toEventView(event))
+      (events): ExistEventContent[] => {
+        const eventConvertor = new EventContentConvertor();
+        return events.map(event => eventConvertor.fromExistEvent(event, null));
+      }
     ),
   }),
 });
