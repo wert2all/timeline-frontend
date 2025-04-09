@@ -18,7 +18,7 @@ import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
-import { filterLoadedImage } from '../../../shared/store/shared/shared.functions';
+import { selectLoadedImage } from '../../../shared/store/shared/shared.functions';
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../account/account.functions';
 import { AccountView } from '../../account/account.types';
@@ -73,7 +73,7 @@ export class TimelinePageComponent {
   private readonly timelineAccountAvatar = computed(() => {
     const accountAvatarId = this.timelineAccount()?.avatarId;
     return accountAvatarId
-      ? filterLoadedImage(accountAvatarId, this.store)?.data?.avatar
+      ? selectLoadedImage(accountAvatarId, this.store)?.data?.avatar
       : null;
   });
 
@@ -92,9 +92,9 @@ export class TimelinePageComponent {
       const avatar = this.timelineAccountAvatar();
       return account
         ? {
-            ...toAccountView({ ...account, avatar })!,
-            about: account.about,
-          }
+          ...toAccountView({ ...account, avatar })!,
+          about: account.about,
+        }
         : null;
     }
   );
