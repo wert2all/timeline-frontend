@@ -1,5 +1,5 @@
 import { Component, input, signal } from '@angular/core';
-import { ViewDatetime } from '../../../../../../libs/view/date.types';
+import { ViewDatetime } from '../../content.types';
 
 @Component({
   standalone: true,

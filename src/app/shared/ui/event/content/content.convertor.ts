@@ -1,29 +1,44 @@
 import { Injectable } from '@angular/core';
+import { DateTime } from 'luxon';
 import { Status, Undefined } from '../../../../app.types';
-import { ExistTimelineEvent } from '../../../../feature/timeline/store/timeline.types';
-import { createViewDatetime } from '../../../../libs/view/date.functions';
+import {
+  ExistTimelineEvent,
+  TimelineEvent,
+} from '../../../../feature/timeline/store/timeline.types';
 import { UploadedImage } from '../../../store/images/images.types';
 import {
+  EventContent,
   EventContentIcon,
   EventContentImage,
   EventContentTag,
   ExistEventContent,
+  ViewDatetime,
 } from './content.types';
 
 @Injectable({ providedIn: 'root' })
 export class EventContentConvertor {
-  fromExistEvent(
-    event: ExistTimelineEvent,
+  fromEvent(
+    event: TimelineEvent,
     image: UploadedImage | Undefined
-  ): ExistEventContent {
+  ): EventContent {
     return {
       ...event,
       description: event.description || '',
       icon: new EventContentIcon(event.type),
       url: this.prepareUrl(event.url),
-      date: createViewDatetime(event.date, event.showTime || false),
+      date: this.createViewDatetime(event.date, event.showTime || false),
       tags: event.tags?.map(tag => new EventContentTag(tag)) || [],
       image: event.imageId ? this.extractImage(event.imageId, image) : null,
+    };
+  }
+
+  fromExistEvent(
+    event: ExistTimelineEvent,
+    image: UploadedImage | Undefined
+  ): ExistEventContent {
+    return {
+      ...this.fromEvent(event, image),
+      id: event.id,
     };
   }
 
@@ -54,5 +69,16 @@ export class EventContentConvertor {
     } catch {
       return null;
     }
+  }
+
+  private createViewDatetime(date: Date, showTime: boolean): ViewDatetime {
+    const dateTime = DateTime.fromISO(date.toISOString());
+
+    return {
+      originalDate: date,
+      relative: dateTime.toRelative(),
+      date: dateTime.toFormat('dd LLL yyyy' + (showTime ? ', HH:mm' : '')),
+      time: dateTime.toLocaleString(DateTime.TIME_24_SIMPLE),
+    };
   }
 }

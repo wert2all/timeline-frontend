@@ -9,7 +9,13 @@ import {
   TimelineEvent,
   TimelineEventType,
 } from '../../../../feature/timeline/store/timeline.types';
-import { ViewDatetime } from '../../../../libs/view/date.types';
+
+export interface ViewDatetime {
+  originalDate: Date;
+  date: string;
+  time: string;
+  relative: string | null;
+}
 
 export class EventContentTag {
   public readonly value: string;

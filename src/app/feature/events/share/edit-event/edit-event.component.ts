@@ -8,23 +8,19 @@ import {
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
 
-import { Pending, Status } from '../../../../app.types';
-import { createViewDatetime } from '../../../../libs/view/date.functions';
 import { UploadActions } from '../../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../../shared/store/images/images.reducer';
+import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
 import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
+import { EventContentConvertor } from '../../../../shared/ui/event/content/content.convertor';
 import {
   EventContent,
   EventContentIcon,
-  EventContentTag,
 } from '../../../../shared/ui/event/content/content.types';
 import { PreviewActions } from '../../../authorized/dashboard/store/preview/preview.actions';
 import { previewFeature } from '../../../authorized/dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
-import {
-  TimelineEvent,
-  TimelineEventType,
-} from '../../../timeline/store/timeline.types';
+import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
 import { EventOperationsActions } from '../../store/events/actions/operations.actions';
@@ -40,6 +36,7 @@ import { EditEventFormChanges } from './edit-event.types';
 })
 export class EditEventComponent {
   private readonly store = inject(Store);
+  private readonly eventConvertor = inject(EventContentConvertor);
 
   protected readonly editedEvent = this.store.selectSignal(
     eventsFeature.selectEditedEvent
@@ -52,9 +49,14 @@ export class EditEventComponent {
   protected readonly loading = this.store.selectSignal(
     eventsFeature.selectLoading
   );
-  private readonly images = this.store.selectSignal(
-    imagesFeature.selectLoadedImages
-  );
+
+  private readonly previewImage = computed(() => {
+    const updatedEvent = this.updatedEvent();
+    return updatedEvent?.imageId
+      ? selectLoadedImage(updatedEvent.imageId, this.store)
+      : null;
+  });
+
   private readonly currentUpload = this.store.selectSignal(
     imagesFeature.selectCurrentUploadImage
   );
@@ -64,26 +66,9 @@ export class EditEventComponent {
   protected readonly previewEvent: Signal<EventContent | null> = computed(
     () => {
       const updatedEvent = this.updatedEvent();
-      if (updatedEvent) {
-        const preview = this.createViewTimelineEvent(updatedEvent);
-
-        if (preview && preview.image?.status === Status.LOADING) {
-          const image = this.images().find(
-            image =>
-              image.id === preview.image?.imageId &&
-              image.status !== Pending.PENDING
-          );
-          if (image) {
-            preview.image.imageId = image.id;
-            preview.image.previewUrl = image.data?.resized_490x250;
-            preview.image.status =
-              image.status === Status.SUCCESS ? Status.SUCCESS : Status.ERROR;
-          }
-        }
-        return preview;
-      } else {
-        return null;
-      }
+      return updatedEvent
+        ? this.eventConvertor.fromEvent(updatedEvent, this.previewImage())
+        : null;
     }
   );
 
@@ -147,31 +132,5 @@ export class EditEventComponent {
         uuid: URL.createObjectURL(image),
       })
     );
-  }
-
-  private createViewTimelineEvent(event: TimelineEvent): EventContent {
-    return {
-      ...event,
-      description: event.description || '',
-      icon: new EventContentIcon(event.type),
-      url: this.prepareUrl(event.url),
-      date: createViewDatetime(event.date, event.showTime || false),
-      tags: this.createTags(event.tags),
-      image: event.imageId
-        ? { imageId: event.imageId, status: Status.LOADING }
-        : undefined,
-    };
-  }
-
-  private prepareUrl(url: string | undefined) {
-    try {
-      return url ? { title: new URL(url).host, link: url } : null;
-    } catch {
-      return null;
-    }
-  }
-
-  private createTags(tags: string[] | undefined) {
-    return tags?.map(tag => new EventContentTag(tag)) || [];
   }
 }
