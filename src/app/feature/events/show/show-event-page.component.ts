@@ -3,7 +3,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
-import { filterLoadedImage } from '../../../shared/store/shared/shared.functions';
+import { selectLoadedImage } from '../../../shared/store/shared/shared.functions';
 import { SharedEventContentComponent } from '../../../shared/ui/event/content/content.component';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
@@ -30,7 +30,7 @@ export class ShowEventPageComponent {
 
   private readonly image = computed(() => {
     const imageId = this.event()?.imageId;
-    return imageId ? filterLoadedImage(imageId, this.store) : null;
+    return imageId ? selectLoadedImage(imageId, this.store) : null;
   });
   protected readonly eventView = computed((): ExistEventContent | null => {
     const event = this.event();
