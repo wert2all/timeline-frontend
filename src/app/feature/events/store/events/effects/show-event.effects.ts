@@ -9,6 +9,7 @@ import {
   apiAssertNotNull,
   extractApiData,
 } from '../../../../../libs/api.functions';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
 import { ShowEventActions } from '../actions/show.actions';
 import { fromApiEventToState } from './operations.effects';
@@ -37,4 +38,14 @@ export const showEventEffects = {
     },
     StoreDispatchEffect
   ),
+  dispatchLoadImagesAfterSuccess: createEffect((actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(ShowEventActions.successLoadEvent),
+      map(({ event }) =>
+        SharedActions.dispatchLoadingImages({
+          ids: event.imageId ? [event.imageId] : [],
+        })
+      )
+    );
+  }, StoreDispatchEffect),
 };
