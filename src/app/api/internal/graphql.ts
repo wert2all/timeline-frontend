@@ -100,6 +100,7 @@ export type TimelineEvent = {
   date: string;
   type: TimelineType;
   title?: string | null;
+  timelineId: number;
   description?: string | null;
   showTime?: boolean | null;
   url?: string | null;
@@ -229,6 +230,7 @@ export const TimelineEvent = gql`
     date
     type
     title
+    timelineId
     description
     showTime
     url

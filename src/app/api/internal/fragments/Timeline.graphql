@@ -3,6 +3,7 @@ fragment TimelineEvent on TimelineEvent {
   date
   type
   title
+  timelineId
   description
   showTime
   url
