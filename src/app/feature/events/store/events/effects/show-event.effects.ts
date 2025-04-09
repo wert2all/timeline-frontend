@@ -28,7 +28,7 @@ export const showEventEffects = {
             map(result =>
               apiAssertNotNull(extractApiData(result)?.event, 'Event not found')
             ),
-            map(event => fromApiEventToState(event, 0)),
+            map(event => fromApiEventToState(event)),
             map(event => ShowEventActions.successLoadEvent({ event }))
           )
         ),

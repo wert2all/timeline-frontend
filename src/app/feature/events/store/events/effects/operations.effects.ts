@@ -59,13 +59,12 @@ const fromEditableEventStateToApiInput = (
 });
 
 export const fromApiEventToState = (
-  event: GQLTimelineEvent,
-  timelineId: number
+  event: GQLTimelineEvent
 ): ExistTimelineEvent => ({
   id: event.id,
-  timelineId: timelineId,
   date: new Date(event.date),
   type: fromApiTypeToState(event.type),
+  timelineId: event.timelineId,
   title: event.title || undefined,
   description: event.description || undefined,
   showTime: event.showTime === true,
@@ -126,7 +125,7 @@ const pushNewEventToApi = (
     exhaustMap(({ event }) =>
       api.addTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
-        map(data => fromApiEventToState(data.event, event.timelineId)),
+        map(data => fromApiEventToState(data.event)),
         map(event => EventOperationsActions.successPushNewEvent({ event })),
         catchError(error => {
           return of(
@@ -149,7 +148,7 @@ const pushExistEventToApi = (
     exhaustMap(({ event }) =>
       api.saveExistTimelineEvent({ event: event }).pipe(
         map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
-        map(data => fromApiEventToState(data.event, event.timelineId)),
+        map(data => fromApiEventToState(data.event)),
         map(event => EventOperationsActions.successUpdateEvent({ event })),
         catchError(error =>
           of(
