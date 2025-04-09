@@ -115,6 +115,7 @@ type TimelineEvent {
   previewlyImageId: Int
   showTime: Boolean
   tags: [String!]!
+  timelineId: Int!
   title: String
   type: TimelineType!
   url: String
