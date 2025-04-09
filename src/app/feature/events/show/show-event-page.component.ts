@@ -5,8 +5,8 @@ import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { filterLoadedImage } from '../../../shared/store/shared/shared.functions';
 import { SharedEventContentComponent } from '../../../shared/ui/event/content/content.component';
+import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
-import { toEventView } from '../share/event.functions';
 import { ShowEventActions } from '../store/events/actions/show.actions';
 import { eventsFeature } from '../store/events/events.reducer';
 
@@ -20,6 +20,8 @@ export class ShowEventPageComponent {
   eventId = input<number>(0);
 
   private readonly store = inject(Store);
+  private readonly convertor = inject(EventContentConvertor);
+
   protected isLoading = this.store.selectSignal(eventsFeature.selectLoading);
   protected error = this.store.selectSignal(eventsFeature.selectError);
   private readonly event = this.store.selectSignal(
@@ -32,7 +34,7 @@ export class ShowEventPageComponent {
   });
   protected readonly eventView = computed((): ExistEventContent | null => {
     const event = this.event();
-    return event ? toEventView(event) : null;
+    return event ? this.convertor.fromExistEvent(event, this.image()) : null;
   });
 
   constructor() {

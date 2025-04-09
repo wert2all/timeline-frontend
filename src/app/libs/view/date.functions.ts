@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 import { ViewDatetime } from './date.types';
 
+//todo remove it
 export const createViewDatetime = (
   date: Date,
   showTime: boolean
