@@ -16,6 +16,7 @@ import { ApiClient } from '../../../api/internal/graphql';
 import { Undefined } from '../../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
+import { SharedThowColumnsComponent } from '../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { selectLoadedImage } from '../../../shared/store/shared/shared.functions';
@@ -37,6 +38,7 @@ type AccountSidebar = AccountView & { about: string | Undefined };
     SharedTimelineComponent,
     SharedLoaderComponent,
     NgIconComponent,
+    SharedThowColumnsComponent,
   ],
   viewProviders: [provideIcons({ phosphorInfo })],
 })
