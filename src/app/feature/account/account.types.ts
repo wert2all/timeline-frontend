@@ -30,3 +30,5 @@ export type ShortAccount = Iterable & {
   about: string;
   avatar: Avatar;
 };
+
+export type AccountSidebar = AccountView & { about: string | Undefined };

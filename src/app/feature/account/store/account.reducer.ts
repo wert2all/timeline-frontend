@@ -3,6 +3,7 @@ import { KeyValue } from '../../../app.types';
 import { ImagesActions } from '../../../shared/store/images/images.actions';
 import { UploadedImage } from '../../../shared/store/images/images.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
+import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { TimelinePropsActions } from '../../timeline/store/actions/timeline-props.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { defaultAccountName } from '../account.functions';
@@ -250,16 +251,34 @@ export const accountFeature = createFeature({
 
     on(
       TimelinePropsActions.successLoadTimeline,
-      (state, { timeline }): AccountState => {
-        const accounts = { ...state.accounts };
-        accounts[timeline.account.id] = {
-          id: timeline.account.id,
-          name: timeline.account.name || '',
-          about: timeline.account.about || '',
-          avatar: { id: timeline.account.avatarId },
-        };
-        return { ...state, accounts };
-      }
+      (state, { timeline }): AccountState => ({
+        ...state,
+        accounts: {
+          ...state.accounts,
+          [timeline.account.id]: {
+            id: timeline.account.id,
+            name: timeline.account.name || '',
+            about: timeline.account.about || '',
+            avatar: { id: timeline.account.avatarId },
+          },
+        },
+      })
+    ),
+
+    on(
+      ShowEventActions.successLoadEvent,
+      (state, { event }): AccountState => ({
+        ...state,
+        accounts: {
+          ...state.accounts,
+          [event.timeline.account.id]: {
+            id: event.timeline.account.id,
+            name: event.timeline.account.name || '',
+            about: event.timeline.account.about || '',
+            avatar: { id: event.timeline.account.avatarId },
+          },
+        },
+      })
     )
   ),
   extraSelectors: ({ selectCurrentAvatarUpload }) => ({

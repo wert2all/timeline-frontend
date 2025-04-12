@@ -23,8 +23,8 @@ import { IconComponent } from '../../../timeline/components/event/icon/icon.comp
 import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
-import { EventOperationsActions } from '../../store/events/actions/operations.actions';
-import { eventsFeature } from '../../store/events/events.reducer';
+import { EventOperationsActions } from '../../store/actions/operations.actions';
+import { eventsFeature } from '../../store/events.reducer';
 import { EditEventFormChanges } from './edit-event.types';
 
 @Component({

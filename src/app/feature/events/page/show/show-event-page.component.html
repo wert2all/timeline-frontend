@@ -1,0 +1,37 @@
+<app-shared-layout>
+  <app-shared-two-columns>
+    <div class="first">
+      @if (isLoading()) {
+        <div class="mb-4 flex justify-center">
+          <progress class="progress"></progress>
+        </div>
+      }
+      @if (error()) {
+        <div role="alert" class="alert alert-error">
+          <ng-icon name="phosphorInfo" size="32" />
+          <span>{{ error() }}</span>
+        </div>
+      }
+      @if (eventView(); as event) {
+        <div class="bg-base-100 rounded-xl">
+          <app-shared-timeline-event-content [event]="event" />
+        </div>
+      }
+    </div>
+    <div class="second">
+      @if (isLoading()) {
+        <div class="min-h-32"><app-shared-loader /></div>
+      }
+      @if (timelineAccountView(); as account) {
+        <div>
+          <app-shared-account-view
+            [account]="account"
+            extraContainerClasses="bg-warning lg:rounded-b-none" />
+          @if (account.about) {
+            <div class="about p-4">{{ account.about }}</div>
+          }
+        </div>
+      }
+    </div>
+  </app-shared-two-columns>
+</app-shared-layout>

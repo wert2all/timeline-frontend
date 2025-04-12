@@ -51,7 +51,7 @@ export const routes: Routes = [
   {
     path: 'event/:eventId',
     loadComponent: () =>
-      import('./feature/events/show/show-event-page.component').then(
+      import('./feature/events/page/show/show-event-page.component').then(
         t => t.ShowEventPageComponent
       ),
   },
