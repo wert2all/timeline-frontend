@@ -1,11 +1,10 @@
 <app-shared-layout>
-  <div class="flex flex-col-reverse gap-4 p-4 lg:flex-row">
-    <div class="flex-auto">
-      <app-shared-timeline
-        [timelineId]="timelineId()"
-        [isAuthorized]="isAuthorized()" />
-    </div>
-    <div class="lg:w-72 lg:flex-none">
+  <app-shared-two-columns>
+    <app-shared-timeline
+      class="first"
+      [timelineId]="timelineId()"
+      [isAuthorized]="isAuthorized()" />
+    <div class="second">
       <div class="bg-base-300 relative rounded-xl shadow-xl">
         @if (loading()) {
           <div class="min-h-32"><app-shared-loader /></div>
@@ -28,5 +27,5 @@
         }
       </div>
     </div>
-  </div>
+  </app-shared-two-columns>
 </app-shared-layout>
