@@ -3,6 +3,7 @@ import { CookieCategory, SharedState } from './shared.types';
 
 import { toFeaturesSettings } from '../../../feature/account/account.functions';
 import { accountFeature } from '../../../feature/account/store/account.reducer';
+import { timelineFeature } from '../../../feature/timeline/store/timeline.reducers';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { imagesFeature } from '../images/images.reducer';
 import { SharedActions } from './shared.actions';
@@ -61,6 +62,11 @@ export const sharedFeature = createFeature({
       accountFeature.selectAccounts,
       accounts => accounts
     ),
+    selectTimelines: createSelector(
+      timelineFeature.selectTimelines,
+      timelines => timelines
+    ),
+
     selectLoadedImages: createSelector(
       imagesFeature.selectLoadedImages,
       images => images

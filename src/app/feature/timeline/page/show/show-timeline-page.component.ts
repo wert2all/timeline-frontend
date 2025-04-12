@@ -9,21 +9,19 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
-import { Undefined } from '../../../../app.types';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
-import { SharedThowColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
+import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../../account/account.functions';
-import { AccountView } from '../../../account/account.types';
+import { AccountSidebar } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../share/timeline/timeline.component';
 import { TimelinePropsActions } from '../../store/actions/timeline-props.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
 
-type AccountSidebar = AccountView & { about: string | Undefined };
 @Component({
   standalone: true,
   selector: 'app-show-timeline-page',
@@ -34,7 +32,7 @@ type AccountSidebar = AccountView & { about: string | Undefined };
     SharedAccountViewComponent,
     SharedTimelineComponent,
     SharedLoaderComponent,
-    SharedThowColumnsComponent,
+    SharedTwoColumnsComponent,
   ],
   viewProviders: [provideIcons({ phosphorInfo })],
 })

@@ -17,9 +17,9 @@ import { previewEffects } from './feature/authorized/dashboard/store/preview/pre
 import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
 import { timelineEffects as legacyTimelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
 import { timelineFeature as legacyTimelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
-import { eventOperationsEffects } from './feature/events/store/events/effects/operations.effects';
-import { showEventEffects } from './feature/events/store/events/effects/show-event.effects';
-import { eventsFeature } from './feature/events/store/events/events.reducer';
+import { eventOperationsEffects } from './feature/events/store/effects/operations.effects';
+import { showEventEffects } from './feature/events/store/effects/show-event.effects';
+import { eventsFeature } from './feature/events/store/events.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { timelineEffects } from './feature/timeline/store/effects/list-timeline-events.effects';

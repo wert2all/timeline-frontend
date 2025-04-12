@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   selector: 'app-shared-two-columns',
   templateUrl: './two-columns.component.html',
 })
-export class SharedThowColumnsComponent {}
+export class SharedTwoColumnsComponent {}

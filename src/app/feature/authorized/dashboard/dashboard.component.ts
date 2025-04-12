@@ -11,8 +11,8 @@ import { AddEventButtonComponent } from '../../timeline/components/add-event-but
 import { CreateTimelineButtonComponent } from '../../timeline/components/create-timeline-button/create-timeline-button.component';
 
 import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
-import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
-import { eventsFeature } from '../../events/store/events/events.reducer';
+import { EventOperationsActions } from '../../events/store/actions/operations.actions';
+import { eventsFeature } from '../../events/store/events.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import { ExistTimelineEvent } from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';

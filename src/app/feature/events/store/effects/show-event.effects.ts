@@ -3,16 +3,15 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-import { ApiClient } from '../../../../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../../../../app.types';
+import { ApiClient } from '../../../../api/internal/graphql';
+import { StoreDispatchEffect } from '../../../../app.types';
 import {
   apiAssertNotNull,
   extractApiData,
-} from '../../../../../libs/api.functions';
-import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
+} from '../../../../libs/api.functions';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { ShowEventActions } from '../actions/show.actions';
-import { fromApiEventToState } from './operations.effects';
 
 export const showEventEffects = {
   loadEvent: createEffect(
@@ -29,7 +28,6 @@ export const showEventEffects = {
             map(result =>
               apiAssertNotNull(extractApiData(result)?.event, 'Event not found')
             ),
-            map(event => fromApiEventToState(event)),
             map(event => ShowEventActions.successLoadEvent({ event }))
           )
         ),
@@ -43,7 +41,7 @@ export const showEventEffects = {
       ofType(ShowEventActions.successLoadEvent),
       map(({ event }) =>
         SharedActions.dispatchLoadingImages({
-          ids: event.imageId ? [event.imageId] : [],
+          ids: event.previewlyImageId ? [event.previewlyImageId] : [],
         })
       )
     );

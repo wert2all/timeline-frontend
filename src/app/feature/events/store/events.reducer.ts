@@ -1,7 +1,8 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { createDefaultTimelineEvent } from '../../share/editable-event-view.factory';
+import { createDefaultTimelineEvent } from '../share/editable-event-view.factory';
 import { EventOperationsActions } from './actions/operations.actions';
 import { ShowEventActions } from './actions/show.actions';
+import { fromApiEventToState } from './effects/operations.effects';
 import { EventsState } from './events.types';
 
 const initialState: EventsState = {
@@ -43,7 +44,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(ShowEventActions.successLoadEvent, (state, { event }): EventsState => {
-      return { ...state, showEvent: event };
+      return { ...state, showEvent: fromApiEventToState(event) };
     }),
     on(
       EventOperationsActions.dispatchAddNewEvent,

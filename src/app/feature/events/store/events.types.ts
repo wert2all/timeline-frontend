@@ -1,8 +1,8 @@
-import { StoreState } from '../../../../app.types';
+import { StoreState } from '../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../timeline/store/timeline.types';
+} from '../../timeline/store/timeline.types';
 
 export type EditableEvent = TimelineEvent & { timelineId: number };
 
