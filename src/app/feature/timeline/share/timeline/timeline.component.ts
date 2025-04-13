@@ -28,8 +28,8 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
 import { EventUrlProvider } from '../../../events/share/event-url.provider';
 import { ListComponent } from '../../components/list/list.component';
-import { ListEventsActions } from '../../store/timeline.actions';
-import { timelineFeature } from '../../store/timeline.reducers';
+import { ListEventsActions } from '../../store/actions/list-timeline-events.actions';
+import { timelineFeature } from '../../store/reducers/list-timeline-events.reducers';
 import { ExistTimelineEvent } from '../../store/timeline.types';
 
 @Component({
