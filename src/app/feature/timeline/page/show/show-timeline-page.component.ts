@@ -12,25 +12,28 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { map } from 'rxjs';
-import { ApiClient } from '../../../api/internal/graphql';
-import { Undefined } from '../../../app.types';
-import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
-import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
-import { SharedThowColumnsComponent } from '../../../shared/content/two-columns/two-columns.component';
-import { LayoutComponent } from '../../../shared/layout/layout.component';
-import { SharedActions } from '../../../shared/store/shared/shared.actions';
-import { selectLoadedImage } from '../../../shared/store/shared/shared.functions';
-import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
-import { toAccountView } from '../../account/account.functions';
-import { AccountView } from '../../account/account.types';
-import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
-import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
+import { ApiClient } from '../../../../api/internal/graphql';
+import { Undefined } from '../../../../app.types';
+import {
+  apiAssertNotNull,
+  extractApiData,
+} from '../../../../libs/api.functions';
+import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
+import { SharedThowColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
+import { LayoutComponent } from '../../../../shared/layout/layout.component';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
+import { toAccountView } from '../../../account/account.functions';
+import { AccountView } from '../../../account/account.types';
+import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
+import { SharedTimelineComponent } from '../../share/timeline/timeline.component';
 
 type AccountSidebar = AccountView & { about: string | Undefined };
 @Component({
   standalone: true,
-  selector: 'app-timeline-page',
-  templateUrl: './timeline-page.component.html',
+  selector: 'app-show-timeline-page',
+  templateUrl: './show-timeline-page.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     LayoutComponent,
@@ -42,7 +45,7 @@ type AccountSidebar = AccountView & { about: string | Undefined };
   ],
   viewProviders: [provideIcons({ phosphorInfo })],
 })
-export class TimelinePageComponent {
+export class ShowTimelinePageComponent {
   timelineId = input<number>(0);
 
   private readonly api = inject(ApiClient);

@@ -44,8 +44,8 @@ export const routes: Routes = [
   {
     path: 'timeline/:timelineId',
     loadComponent: () =>
-      import('./feature/non-authorized/timeline/timeline-page.component').then(
-        t => t.TimelinePageComponent
+      import('./feature/timeline/page/show/show-timeline-page.component').then(
+        t => t.ShowTimelinePageComponent
       ),
   },
   {
