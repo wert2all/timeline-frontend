@@ -1,10 +1,10 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
-import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
-import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
-import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
-import { ListEventsActions } from './timeline.actions';
-import { NewTimelineState } from './timeline.types';
+import { EventContentConvertor } from '../../../../shared/ui/event/content/content.convertor';
+import { ExistEventContent } from '../../../../shared/ui/event/content/content.types';
+import { TimelineActions } from '../../../authorized/dashboard/store/timeline/timeline.actions';
+import { EventOperationsActions } from '../../../events/store/events/actions/operations.actions';
+import { ListEventsActions } from '../actions/list-timeline-events.actions';
+import { NewTimelineState } from '../timeline.types';
 
 const initialState: NewTimelineState = {
   loading: false,

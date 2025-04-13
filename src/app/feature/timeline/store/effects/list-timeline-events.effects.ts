@@ -12,7 +12,7 @@ import {
   extractApiData,
 } from '../../../../libs/api.functions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
-import { ListEventsActions } from '../timeline.actions';
+import { ListEventsActions } from '../actions/list-timeline-events.actions';
 import { ExistTimelineEvent, TimelineEventType } from '../timeline.types';
 
 const fromApiTypeToEventType = (type: GQLTimelineType): TimelineEventType => {
@@ -42,8 +42,7 @@ const createEvents = (
     tags: event.tags || [],
     imageId: event.previewlyImageId || undefined,
   }));
-
-export const loadTimelineEffects = {
+export const timelineEffects = {
   loadTimelineEvents: createEffect(
     (actions$ = inject(Actions), api = inject(ApiClient)) => {
       return actions$.pipe(
