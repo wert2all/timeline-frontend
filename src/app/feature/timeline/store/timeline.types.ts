@@ -22,8 +22,11 @@ export type TimelineEvent = TimelineRequired &
 
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 
+export type Timeline = Iterable & { name: string; accountId: number };
+
 export type NewTimelineState = StoreState & {
   events: ExistTimelineEvent[];
+  timelines: Record<number, Timeline>;
   lastCursor: string | null;
   hasMore: boolean;
 };

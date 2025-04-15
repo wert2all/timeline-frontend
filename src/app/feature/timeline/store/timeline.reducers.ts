@@ -1,14 +1,16 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { EventContentConvertor } from '../../../../shared/ui/event/content/content.convertor';
-import { ExistEventContent } from '../../../../shared/ui/event/content/content.types';
-import { TimelineActions } from '../../../authorized/dashboard/store/timeline/timeline.actions';
-import { EventOperationsActions } from '../../../events/store/events/actions/operations.actions';
-import { ListEventsActions } from '../actions/list-timeline-events.actions';
-import { NewTimelineState } from '../timeline.types';
+import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
+import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
+import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
+import { EventOperationsActions } from '../../events/store/events/actions/operations.actions';
+import { ListEventsActions } from './actions/list-timeline-events.actions';
+import { TimelinePropsActions } from './actions/timeline-props.actions';
+import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
   loading: false,
   events: [],
+  timelines: {},
   error: null,
   lastCursor: null,
   hasMore: false,
@@ -31,10 +33,12 @@ export const timelineFeature = createFeature({
 
     on(
       ListEventsActions.loadTimelineEvents,
+      TimelinePropsActions.loadTimeline,
       (state): NewTimelineState => ({ ...state, loading: true })
     ),
     on(
       ListEventsActions.successLoadTimelineEvents,
+      TimelinePropsActions.successLoadTimeline,
       (state): NewTimelineState => ({ ...state, loading: false })
     ),
 
@@ -55,6 +59,7 @@ export const timelineFeature = createFeature({
         loading: event.id === eventId ? true : event.loading,
       })),
     })),
+
     on(
       EventOperationsActions.dismissDeleteEvent,
       EventOperationsActions.successDeleteEvent,
@@ -75,6 +80,7 @@ export const timelineFeature = createFeature({
 
     on(
       ListEventsActions.errorLoadingTimelineEvents,
+      TimelinePropsActions.errorLoadTimeline,
       (state, { error }): NewTimelineState => ({
         ...state,
         loading: false,
@@ -93,6 +99,7 @@ export const timelineFeature = createFeature({
         ),
       })
     ),
+
     on(
       EventOperationsActions.successUpdateEvent,
       EventOperationsActions.successPushNewEvent,
@@ -105,6 +112,7 @@ export const timelineFeature = createFeature({
         ),
       })
     ),
+
     on(
       EventOperationsActions.successPushNewEvent,
       (state, { event }): NewTimelineState => ({
@@ -112,6 +120,7 @@ export const timelineFeature = createFeature({
         events: [event, ...state.events],
       })
     ),
+
     on(
       EventOperationsActions.successUpdateEvent,
       (state, { event }): NewTimelineState => ({
@@ -120,6 +129,20 @@ export const timelineFeature = createFeature({
           existingEvent.id === event.id ? event : existingEvent
         ),
       })
+    ),
+
+    on(
+      TimelinePropsActions.successLoadTimeline,
+      (state, { timeline }): NewTimelineState => {
+        const timelines = { ...state.timelines };
+        timelines[timeline.id] = {
+          id: timeline.id,
+          name: timeline.name || '',
+          accountId: timeline.account.id,
+        };
+
+        return { ...state, timelines: timelines };
+      }
     )
   ),
   extraSelectors: ({ selectEvents }) => ({
