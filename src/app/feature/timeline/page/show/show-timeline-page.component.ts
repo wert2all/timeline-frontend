@@ -1,23 +1,15 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  ResourceStatus,
   computed,
   effect,
   inject,
   input,
 } from '@angular/core';
-import { rxResource } from '@angular/core/rxjs-interop';
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { Store } from '@ngrx/store';
-import { map } from 'rxjs';
-import { ApiClient } from '../../../../api/internal/graphql';
+import { Store, createSelector } from '@ngrx/store';
 import { Undefined } from '../../../../app.types';
-import {
-  apiAssertNotNull,
-  extractApiData,
-} from '../../../../libs/api.functions';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { SharedThowColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
@@ -28,6 +20,8 @@ import { toAccountView } from '../../../account/account.functions';
 import { AccountView } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../share/timeline/timeline.component';
+import { TimelinePropsActions } from '../../store/actions/timeline-props.actions';
+import { timelineFeature } from '../../store/timeline.reducers';
 
 type AccountSidebar = AccountView & { about: string | Undefined };
 @Component({
@@ -40,7 +34,6 @@ type AccountSidebar = AccountView & { about: string | Undefined };
     SharedAccountViewComponent,
     SharedTimelineComponent,
     SharedLoaderComponent,
-    NgIconComponent,
     SharedThowColumnsComponent,
   ],
   viewProviders: [provideIcons({ phosphorInfo })],
@@ -48,46 +41,38 @@ type AccountSidebar = AccountView & { about: string | Undefined };
 export class ShowTimelinePageComponent {
   timelineId = input<number>(0);
 
-  private readonly api = inject(ApiClient);
   private readonly store = inject(Store);
 
-  private timelineResource = rxResource({
-    request: this.timelineId,
-    loader: ({ request }) =>
-      this.api
-        .getTimeline({ timelineId: request })
-        .pipe(
-          map(result =>
-            apiAssertNotNull(
-              extractApiData(result)?.timeline,
-              'Cannot load timeline'
-            )
-          )
-        ),
+  protected readonly loading = this.store.selectSignal(
+    sharedFeature.selectLoadingAccounts
+  );
+
+  protected isAuthorized = this.store.selectSignal(sharedFeature.isAuthorized);
+
+  private timeline = computed(() => {
+    const timelineId = this.timelineId();
+    return this.store.selectSignal(
+      createSelector(
+        timelineFeature.selectTimelines,
+        timelines => timelines[timelineId]
+      )
+    )();
   });
 
-  private readonly successResponse = computed(() =>
-    this.timelineResource.status() === ResourceStatus.Resolved
-      ? this.timelineResource.value() || null
-      : null
-  );
+  private timelineAccount = computed(() => {
+    const accountId = this.timeline().accountId;
+    return this.store.selectSignal(
+      createSelector(
+        sharedFeature.selectAccounts,
+        accounts => accounts[accountId]
+      )
+    )();
+  });
 
-  private readonly timelineAccount = computed(
-    () => this.successResponse()?.account
-  );
   private readonly timelineAccountAvatar = computed(() => {
-    const accountAvatarId = this.timelineAccount()?.avatarId;
+    const accountAvatarId = this.timelineAccount()?.avatar.id;
     return accountAvatarId
       ? selectLoadedImage(accountAvatarId, this.store)?.data?.avatar
-      : null;
-  });
-
-  protected readonly loading = computed(() => {
-    return this.timelineResource.status() === ResourceStatus.Loading;
-  });
-  protected readonly error = computed(() => {
-    return this.timelineResource.status() === ResourceStatus.Error
-      ? this.timelineResource.error() || 'Could not load timeline'
       : null;
   });
 
@@ -104,13 +89,17 @@ export class ShowTimelinePageComponent {
     }
   );
 
-  protected isAuthorized = this.store.selectSignal(sharedFeature.isAuthorized);
   constructor() {
     effect(() => {
-      const account = this.successResponse()?.account;
-      if (account?.avatarId) {
+      this.store.dispatch(
+        TimelinePropsActions.loadTimeline({ timelineId: this.timelineId() })
+      );
+    });
+    effect(() => {
+      const avatarId = this.timelineAccount().avatar.id;
+      if (avatarId) {
         this.store.dispatch(
-          SharedActions.dispatchLoadingImages({ ids: [account.avatarId] })
+          SharedActions.dispatchLoadingImages({ ids: [avatarId] })
         );
       }
     });

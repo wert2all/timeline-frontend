@@ -23,6 +23,7 @@ import { eventsFeature } from './feature/events/store/events/events.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
 import { timelineEffects } from './feature/timeline/store/effects/list-timeline-events.effects';
+import { timelinePropsEffects } from './feature/timeline/store/effects/timeline-props.effects';
 import { timelineFeature } from './feature/timeline/store/timeline.reducers';
 import { modalWindowFeature } from './feature/ui/layout/store/modal-window/modal-window.reducers';
 import { tableOfYearsEffects } from './feature/ui/table-of-contents/store/table-of-contents/table-of-contents.effects';
@@ -71,6 +72,7 @@ export const appConfig: ApplicationConfig = {
       navigationEffects,
       taskEffects,
       timelineEffects,
+      timelinePropsEffects,
       eventOperationsEffects,
       showEventEffects,
       previewEffects,

@@ -53,6 +53,14 @@ export const sharedFeature = createFeature({
       accountFeature.selectUserAccounts,
       accounts => accounts
     ),
+    selectLoadingAccounts: createSelector(
+      accountFeature.selectLoading,
+      loading => loading
+    ),
+    selectAccounts: createSelector(
+      accountFeature.selectAccounts,
+      accounts => accounts
+    ),
     selectLoadedImages: createSelector(
       imagesFeature.selectLoadedImages,
       images => images
