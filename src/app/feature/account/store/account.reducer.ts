@@ -3,6 +3,7 @@ import { KeyValue } from '../../../app.types';
 import { ImagesActions } from '../../../shared/store/images/images.actions';
 import { UploadedImage } from '../../../shared/store/images/images.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
+import { TimelinePropsActions } from '../../timeline/store/actions/timeline-props.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { defaultAccountName } from '../account.functions';
 import { Account } from '../account.types';
@@ -74,6 +75,7 @@ const initialState: AccountState = {
   userAccounts: [],
   activeAccount: null,
   currentAvatarUpload: null,
+  accounts: {},
 };
 
 export const accountFeature = createFeature({
@@ -89,6 +91,7 @@ export const accountFeature = createFeature({
         loading: true,
       })
     ),
+
     on(
       AccountActions.successSaveAccount,
       AccountActions.successAddNewAccount,
@@ -178,6 +181,7 @@ export const accountFeature = createFeature({
         }),
       })
     ),
+
     on(
       AccountActions.successSaveAccount,
       (state, { account }): AccountState => ({
@@ -214,6 +218,7 @@ export const accountFeature = createFeature({
         },
       })
     ),
+
     on(
       AccountActions.successUploadAvatar,
       (state, { imageId }): AccountState => ({
@@ -225,6 +230,7 @@ export const accountFeature = createFeature({
         },
       })
     ),
+
     on(
       AccountActions.failedUploadAvatar,
       (state): AccountState => ({
@@ -236,9 +242,24 @@ export const accountFeature = createFeature({
         },
       })
     ),
+
     on(
       ImagesActions.successUpdateImages,
       (state, { images }): AccountState => updateAvatars(state, images)
+    ),
+
+    on(
+      TimelinePropsActions.successLoadTimeline,
+      (state, { timeline }): AccountState => {
+        const accounts = { ...state.accounts };
+        accounts[timeline.account.id] = {
+          id: timeline.account.id,
+          name: timeline.account.name || '',
+          about: timeline.account.about || '',
+          avatar: { id: timeline.account.avatarId },
+        };
+        return { ...state, accounts };
+      }
     )
   ),
   extraSelectors: ({ selectCurrentAvatarUpload }) => ({
