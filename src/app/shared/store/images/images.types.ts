@@ -8,6 +8,7 @@ import {
   WithPandingStatus,
 } from '../../../app.types';
 
+export const ImagesKey = 'images';
 export interface ImageData {
   resized_490x250: string;
   avatar: {
@@ -27,6 +28,6 @@ export type UploadQuequeImage = Unique &
 
 export interface ImagesState {
   queue: Record<UniqueType, UploadQuequeImage>;
-  images: Record<number, UploadedImage>;
+  [ImagesKey]: Record<number, UploadedImage>;
   shouldDelete: Iterable[];
 }
