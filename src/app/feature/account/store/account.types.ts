@@ -13,7 +13,7 @@ export type CurrentAvatarUpload = Loadable &
   MaybeWithError & { previewUrl?: string; imageId?: number };
 
 export type AccountState = Loadable & {
-  accounts: PosibleAccount[];
+  userAccounts: PosibleAccount[];
   activeAccount: Account | null;
   currentAvatarUpload: Undefined | CurrentAvatarUpload;
 };

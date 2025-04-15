@@ -62,7 +62,7 @@ export const initStateEffects = {
     ) => {
       return actions$.pipe(
         ofType(ROOT_EFFECTS_INIT),
-        concatLatestFrom(() => store.select(accountFeature.selectAccounts)),
+        concatLatestFrom(() => store.select(accountFeature.selectUserAccounts)),
         map(([, accounts]) =>
           getCurentAccountId(accounts, tokenProvider, currentAccountIdProvider)
         ),

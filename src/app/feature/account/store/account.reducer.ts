@@ -28,7 +28,7 @@ const updateAvatars = (
   state: AccountState,
   images: UploadedImage[]
 ): AccountState => {
-  const avatarIds = state.accounts
+  const avatarIds = state.userAccounts
     .map(account => account.avatar.id)
     .filter(id => !!id)
     .map(id => id!);
@@ -39,7 +39,7 @@ const updateAvatars = (
     if (accountImages.length > 0) {
       const updatedState: AccountState = {
         ...state,
-        accounts: state.accounts.map(account => ({
+        userAccounts: state.userAccounts.map(account => ({
           ...account,
           avatar: {
             ...account.avatar,
@@ -71,7 +71,7 @@ const updateAvatars = (
 
 const initialState: AccountState = {
   loading: false,
-  accounts: [],
+  userAccounts: [],
   activeAccount: null,
   currentAvatarUpload: null,
 };
@@ -116,7 +116,7 @@ export const accountFeature = createFeature({
       AccountActions.successAddNewAccount,
       (state, { account }): AccountState => ({
         ...state,
-        accounts: state.accounts.map(acc =>
+        userAccounts: state.userAccounts.map(acc =>
           acc.id === account.id
             ? { ...account, name: account.name || defaultAccountName }
             : acc
@@ -128,7 +128,7 @@ export const accountFeature = createFeature({
       SharedActions.logout,
       (state): AccountState => ({
         ...state,
-        accounts: [],
+        userAccounts: [],
       })
     ),
 
@@ -147,7 +147,7 @@ export const accountFeature = createFeature({
       SharedActions.successAuthenticated,
       (state, { accounts }): AccountState => ({
         ...state,
-        accounts: accounts,
+        userAccounts: accounts,
       })
     ),
 

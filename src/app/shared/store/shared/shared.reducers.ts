@@ -50,7 +50,7 @@ export const sharedFeature = createFeature({
       (account): AccountFeaturesSettings => toFeaturesSettings(account)
     ),
     selectUserAccounts: createSelector(
-      accountFeature.selectAccounts,
+      accountFeature.selectUserAccounts,
       accounts => accounts
     ),
     selectLoadedImages: createSelector(

@@ -25,7 +25,7 @@ export const avatarEffects = {
           AccountActions.setActiveAccountAfterInit,
           AccountActions.setActiveAccountAfterAuth
         ),
-        concatLatestFrom(() => store.select(accountFeature.selectAccounts)),
+        concatLatestFrom(() => store.select(accountFeature.selectUserAccounts)),
         map(([, accounts]) =>
           SharedActions.dispatchLoadingImages({
             ids: accounts
