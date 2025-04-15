@@ -25,4 +25,8 @@ export type Account = Iterable & {
   settings: AccountSettings;
 };
 
-export type PosibleAccount = Iterable & { name: string; avatar: Avatar };
+export type ShortAccount = Iterable & {
+  name: string;
+  about: string;
+  avatar: Avatar;
+};

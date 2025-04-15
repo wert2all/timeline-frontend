@@ -118,7 +118,11 @@ export const accountFeature = createFeature({
         ...state,
         userAccounts: state.userAccounts.map(acc =>
           acc.id === account.id
-            ? { ...account, name: account.name || defaultAccountName }
+            ? {
+                ...account,
+                name: account.name || defaultAccountName,
+                about: acc.about,
+              }
             : acc
         ),
       })

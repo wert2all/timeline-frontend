@@ -1,5 +1,5 @@
 import { Loadable, MaybeWithError, Undefined } from '../../../app.types';
-import { Account, AccountSettings, PosibleAccount } from '../account.types';
+import { Account, AccountSettings, ShortAccount } from '../account.types';
 
 export interface SavingAccountSettings {
   accountId: number;
@@ -13,7 +13,7 @@ export type CurrentAvatarUpload = Loadable &
   MaybeWithError & { previewUrl?: string; imageId?: number };
 
 export type AccountState = Loadable & {
-  userAccounts: PosibleAccount[];
+  userAccounts: ShortAccount[];
   activeAccount: Account | null;
   currentAvatarUpload: Undefined | CurrentAvatarUpload;
 };
