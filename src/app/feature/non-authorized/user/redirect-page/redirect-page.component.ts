@@ -38,6 +38,7 @@ export class LoginRedirectPageComponent {
     this.apiAuth.value()?.map(account => ({
       ...account,
       name: account.name || defaultAccountName,
+      about: account.about || '',
     }))
   );
 

@@ -1,6 +1,6 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
-import { PosibleAccount } from '../../../feature/account/account.types';
+import { ShortAccount } from '../../../feature/account/account.types';
 import { MessageType } from '../../../feature/ui/layout/store/notification/notifications.types';
 
 export const SharedActions = createActionGroup({
@@ -8,8 +8,8 @@ export const SharedActions = createActionGroup({
   events: {
     'Send notification': props<{ message: string; withType: MessageType }>(),
     'Dispatch cookie consent': props<{ cookie: CookieValue }>(),
-    'Success authenticated': props<{ accounts: PosibleAccount[] }>(),
-    'Switch active account': props<{ account: PosibleAccount }>(),
+    'Success authenticated': props<{ accounts: ShortAccount[] }>(),
+    'Switch active account': props<{ account: ShortAccount }>(),
     'Should login': emptyProps(),
     'Clean account': emptyProps(),
     Logout: emptyProps(),

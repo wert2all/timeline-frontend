@@ -11,14 +11,14 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import { StoreDispatchEffect } from '../../../../app.types';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { TokenProvider } from '../../../auth/shared/token.provider';
-import { PosibleAccount } from '../../account.types';
+import { ShortAccount } from '../../account.types';
 import { CurrentAccountProvider } from '../../current.provider';
 import { AccountsService } from '../../share/accounts.service';
 import { AccountActions } from '../account.actions';
 import { accountFeature } from '../account.reducer';
 
 const getCurentAccountId = (
-  accounts: PosibleAccount[],
+  accounts: ShortAccount[],
   tokenProvider: TokenProvider,
   currentAccountIdProvider: CurrentAccountProvider
 ) => {
