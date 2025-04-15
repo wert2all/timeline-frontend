@@ -15,5 +15,6 @@ export type CurrentAvatarUpload = Loadable &
 export type AccountState = Loadable & {
   userAccounts: ShortAccount[];
   activeAccount: Account | null;
+  accounts: Record<number, ShortAccount>;
   currentAvatarUpload: Undefined | CurrentAvatarUpload;
 };
