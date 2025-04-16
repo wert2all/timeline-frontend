@@ -24,7 +24,6 @@ const getCurentAccountId = (
 ) => {
   if (tokenProvider.getToken()) {
     const currentAccountId = currentAccountIdProvider.getActiveAccountId();
-    console.log(currentAccountId, accounts);
     const firstAccount = accounts.slice(0, 1)[0];
     if (currentAccountId) {
       return accounts.find(a => a.id === currentAccountId)
