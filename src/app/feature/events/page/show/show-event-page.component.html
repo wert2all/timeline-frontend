@@ -1,6 +1,6 @@
 <app-shared-layout>
   <app-shared-two-columns>
-    <div class="first">
+    <div class="first py-12">
       @if (isLoading()) {
         <div class="mb-4 flex justify-center">
           <progress class="progress"></progress>
@@ -18,7 +18,7 @@
         </div>
       }
     </div>
-    <div class="second">
+    <div class="second pt-12">
       @if (isLoading()) {
         <div class="min-h-32"><app-shared-loader /></div>
       }
@@ -34,4 +34,17 @@
       }
     </div>
   </app-shared-two-columns>
+  @if (eventView(); as event) {
+    <div class="mt-24 p-4">
+      <app-shared-content-title title="Other events" class="text-success" />
+      <app-shared-timeline
+        [timelineId]="event.timelineId"
+        [limit]="3"
+        [isEditable]="false"
+        [isAuthorized]="false" />
+    </div>
+    <p class="bg-base-300 my-4 rounded-b-xl p-4 text-center">
+      <a class="link" href="/timeline/{{ event.timelineId }}">show more</a>
+    </p>
+  }
 </app-shared-layout>
