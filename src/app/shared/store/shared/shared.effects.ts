@@ -6,7 +6,7 @@ import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
-import { TaskActions } from '../../../store/task/task.actions';
+import { TaskActions } from '../../task/task.actions';
 import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
