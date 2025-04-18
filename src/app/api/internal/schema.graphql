@@ -104,6 +104,7 @@ scalar Time
 
 type Timeline {
   account: ShortAccount!
+  accountId: Int!
   id: Int!
   name: String
 }
@@ -115,6 +116,7 @@ type TimelineEvent {
   previewlyImageId: Int
   showTime: Boolean
   tags: [String!]!
+  timeline: Timeline!
   timelineId: Int!
   title: String
   type: TimelineType!

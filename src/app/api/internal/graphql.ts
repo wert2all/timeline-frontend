@@ -216,7 +216,11 @@ export type GetEventVariables = Exact<{
   accountId?: InputMaybe<Scalars['Int']['input']>;
 }>;
 
-export type GetEvent = { event?: TimelineEvent | null };
+export type GetEvent = {
+  event?:
+    | ({ timeline: { account: ShortAccount } & Timeline } & TimelineEvent)
+    | null;
+};
 
 export const ShortTimeline = gql`
   fragment ShortTimeline on ShortTimeline {
@@ -547,9 +551,17 @@ export const GetEventDocument = gql`
   query GetEvent($eventId: Int!, $accountId: Int) {
     event(eventId: $eventId, accountId: $accountId) {
       ...TimelineEvent
+      timeline {
+        ...Timeline
+        account {
+          ...ShortAccount
+        }
+      }
     }
   }
   ${TimelineEvent}
+  ${Timeline}
+  ${ShortAccount}
 `;
 
 @Injectable({

@@ -24,5 +24,11 @@ query GetTimeline($timelineId: Int!) {
 query GetEvent($eventId: Int!, $accountId: Int) {
   event(eventId: $eventId, accountId: $accountId) {
     ...TimelineEvent
+    timeline {
+      ...Timeline
+      account {
+        ...ShortAccount
+      }
+    }
   }
 }
