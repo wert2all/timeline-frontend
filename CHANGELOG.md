@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.45](https://github.com/wert2all/timeline-frontend/compare/v0.0.44...v0.0.45) (2025-04-18)
+
+### Features
+
+- **account:** add accounts to state from timeline data ([6c01dd7](https://github.com/wert2all/timeline-frontend/commit/6c01dd72bf8a7244a4f0e7579dc55a9302aa6549))
+- add event feature which creates a link to event ([ecffe34](https://github.com/wert2all/timeline-frontend/commit/ecffe341d02637776612e8c359753f3564da5ad5))
+- add link to document or PR for every features ([47f34a5](https://github.com/wert2all/timeline-frontend/commit/47f34a5c472cbd89ce5dc118ea7042cc13bdee9b))
+- add menu action for copy event url ([777922a](https://github.com/wert2all/timeline-frontend/commit/777922a8b2eeb5743a15a115c9c7cd1332b532ea))
+- **api:** add timelineId to TimelineEvent fragment and type definition ([68889d2](https://github.com/wert2all/timeline-frontend/commit/68889d260b1e85515d61c5bfe20f7041b4cda6b6))
+- dispatch load timeline action on show timeline page ([bc16859](https://github.com/wert2all/timeline-frontend/commit/bc168590cc0df21d6656592b3b50fea143c0150b))
+- event url could be copied to clipboard ([fdc113a](https://github.com/wert2all/timeline-frontend/commit/fdc113a703c954adf28507ccd4e158287b4b80c0))
+- **events:** add related events section to event page ([69f0bce](https://github.com/wert2all/timeline-frontend/commit/69f0bce6ab29b4cc9c6bae906cf34d67116f17db))
+- load timeline to store ([a30680c](https://github.com/wert2all/timeline-frontend/commit/a30680c6f2bf03e64e98d15e49dffdf47f58d1b3))
+- show event ([5f92467](https://github.com/wert2all/timeline-frontend/commit/5f9246797f78f996654ca85796af2c0890dbe9cc))
+- show event menu for all items ([846bc34](https://github.com/wert2all/timeline-frontend/commit/846bc34b42c6ba8ccbe082dd67a17b2be8568d33))
+- **timeline:** introduce two-column component ([697fcd5](https://github.com/wert2all/timeline-frontend/commit/697fcd5024f6ad567ace843af6400b02b57c4541))
+- wrap menu links by feature flag component ([a59e443](https://github.com/wert2all/timeline-frontend/commit/a59e443347dffd6234bb3b8b00c1fcd64d19fd5d))
+
+### Bug Fixes
+
+- **account:** remove debug log ([a68c178](https://github.com/wert2all/timeline-frontend/commit/a68c178be4ccd12666af659b39a3d8490baa89f5))
+- **events/store:** dispatch load images after success load event ([f42db9c](https://github.com/wert2all/timeline-frontend/commit/f42db9c4729a7658159adf1cb3f2d1928ac22955))
+- **events:** add two-column layout to event page ([3cde25c](https://github.com/wert2all/timeline-frontend/commit/3cde25c779eb8505ca2873d6ff2ca962f492142c))
+- fix auth ([54a3db3](https://github.com/wert2all/timeline-frontend/commit/54a3db349d4e1b5a12d2faa58ed540647db1e42b))
+- fix collapsing menu after switch account on mobile version ([ed0b463](https://github.com/wert2all/timeline-frontend/commit/ed0b463266e80e04e20a2f0d1a97ae2d173ae2ca))
+- fix popup edit menu ([e4aa9da](https://github.com/wert2all/timeline-frontend/commit/e4aa9da642ab996471475732a6f7e582d9e06d53))
+- fix typo of modal window action ([9e8efcc](https://github.com/wert2all/timeline-frontend/commit/9e8efcc7d6711e79bbddc2fdeda1df1009c19b3e))
+- fix view of event ([4e10525](https://github.com/wert2all/timeline-frontend/commit/4e10525e25694658f668d84bc947da341d1090a9))
+- format code ([a1a6371](https://github.com/wert2all/timeline-frontend/commit/a1a6371c6e06c3ec77f13e04728d844627922432))
+- make upload feature greate again ([0caec7c](https://github.com/wert2all/timeline-frontend/commit/0caec7c49aba8ce75a9bdb08c079d1bfe395a0ed))
+- remove useless function ([d8bbaf6](https://github.com/wert2all/timeline-frontend/commit/d8bbaf6bc417cfcf5faa801f0c10765d9b9c110e))
+- remove useless icon imports from index page ([d73a773](https://github.com/wert2all/timeline-frontend/commit/d73a773b12991fe308c4f686d47f555498810f70))
+- remove useless icon imports from tabs component ([9ec2593](https://github.com/wert2all/timeline-frontend/commit/9ec2593a4ff7c6afe07dee16bef1dd17461e0e3f))
+- **shared/store:** use `selectLoadedImage` instead of `filterLoadedImage` ([78e8eaa](https://github.com/wert2all/timeline-frontend/commit/78e8eaaf62a66b7aa92ba40306a06c9123bd48a6))
+- update app features ([533d887](https://github.com/wert2all/timeline-frontend/commit/533d887f93f35af2efbef20c2767a2ddfa5dfe6b))
+- update scheme and expose timeline and account on expose event ([4ca1f24](https://github.com/wert2all/timeline-frontend/commit/4ca1f24a78d97c0d428c2cd02a708a22b1534612))
+- use event.timelineId instead of timelineId argument ([c6b372b](https://github.com/wert2all/timeline-frontend/commit/c6b372b1fb265743615d7e6a59b7e1d4afb0a84d))
+
 ## [0.0.44](https://github.com/wert2all/timeline-frontend/compare/v0.0.43...v0.0.44) (2025-04-04)
 
 ### Features
