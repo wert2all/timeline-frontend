@@ -54,6 +54,14 @@
                 }
               ],
               "outputHashing": "all",
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                },
+                "fonts": true
+              },
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -62,7 +70,14 @@
               ]
             },
             "development": {
-              "optimization": false,
+              "optimization": {
+                "scripts": false,
+                "styles": {
+                  "minify": false,
+                  "inlineCritical": true
+                },
+                "fonts": false
+              },
               "extractLicenses": false,
               "sourceMap": true
             }
