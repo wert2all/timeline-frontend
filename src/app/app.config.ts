@@ -38,8 +38,8 @@ import { navigationEffects } from './shared/store/navigation/navigation.effects'
 import { navigationFeature } from './shared/store/navigation/navigation.reducer';
 import { sharedEffects } from './shared/store/shared/shared.effects';
 import { sharedFeature } from './shared/store/shared/shared.reducers';
-import { taskEffects } from './store/task/task.effects';
-import { taskFeature } from './store/task/task.reducer';
+import { taskEffects } from './shared/task/task.effects';
+import { taskFeature } from './shared/task/task.reducer';
 
 export const appConfig: ApplicationConfig = {
   providers: [

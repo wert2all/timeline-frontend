@@ -11,8 +11,8 @@ import {
 } from '../../../feature/task/executors/images.factory';
 
 import { EventOperationsActions } from '../../../feature/events/store/actions/operations.actions';
-import { TaskActions } from '../../../store/task/task.actions';
-import { TaskType } from '../../../store/task/task.types';
+import { TaskActions } from '../../task/task.actions';
+import { TaskType } from '../../task/task.types';
 import { SharedActions } from '../shared/shared.actions';
 import { sharedFeature } from '../shared/shared.reducers';
 import { ImagesActions, UploadActions } from './images.actions';

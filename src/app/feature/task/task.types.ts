@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { TaskType } from '../../store/task/task.types';
+import { TaskType } from '../../shared/task/task.types';
 
 export interface ExecutorResult<T> {
   status: 'done' | 'pending';

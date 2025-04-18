@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { TaskActionProps, TaskType } from '../../store/task/task.types';
+import { TaskActionProps, TaskType } from '../../shared/task/task.types';
 import {
   ExecutorResult,
   TaskExecutor,
