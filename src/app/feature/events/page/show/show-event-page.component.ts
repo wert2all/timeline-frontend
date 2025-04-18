@@ -3,6 +3,7 @@ import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
+import { TitleComponent } from '../../../../shared/content/title/title.component';
 import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
 import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
@@ -13,6 +14,7 @@ import { ExistEventContent } from '../../../../shared/ui/event/content/content.t
 import { toAccountView } from '../../../account/account.functions';
 import { AccountSidebar } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
+import { SharedTimelineComponent } from '../../../timeline/share/timeline/timeline.component';
 import { ShowEventActions } from '../../store/actions/show.actions';
 import { eventsFeature } from '../../store/events.reducer';
 
@@ -26,6 +28,8 @@ import { eventsFeature } from '../../store/events.reducer';
     SharedTwoColumnsComponent,
     SharedLoaderComponent,
     SharedAccountViewComponent,
+    TitleComponent,
+    SharedTimelineComponent,
   ],
   viewProviders: [provideIcons({ phosphorInfo })],
 })
