@@ -1,6 +1,8 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { TimelineActions } from './timeline.actions';
+import { AddTimelineActions } from '../../../../timeline/store/actions/add-timeline.actions';
+import { LoadTimelinesActions } from '../../../../timeline/store/actions/load-timelines.actions';
+import { SetActiveTimelineActions } from '../../../../timeline/store/actions/set-active.actions';
 import { TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
@@ -15,26 +17,25 @@ export const timelineFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(
-      TimelineActions.addTimeline,
-      TimelineActions.loadAccountTimelines,
+      AddTimelineActions.addTimeline,
+      LoadTimelinesActions.loadAccountTimelines,
       (state): TimelineState => ({ ...state, loading: true })
     ),
 
     on(
-      TimelineActions.successAddTimeline,
-      TimelineActions.successLoadAccountTimelines,
+      AddTimelineActions.successAddTimeline,
+      LoadTimelinesActions.successLoadAccountTimelines,
       (state): TimelineState => ({ ...state, loading: false })
     ),
 
     on(
-      TimelineActions.emptyTimeline,
-      TimelineActions.emptyTimelines,
-      TimelineActions.apiException,
+      AddTimelineActions.emptyTimeline,
+      AddTimelineActions.apiException,
       (state): TimelineState => ({ ...state, loading: false })
     ),
 
     on(
-      TimelineActions.successAddTimeline,
+      AddTimelineActions.successAddTimeline,
       (state, { timelines }): TimelineState => ({
         ...state,
         timelines: [...timelines, ...state.timelines],
@@ -42,7 +43,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      TimelineActions.successAddTimeline,
+      AddTimelineActions.successAddTimeline,
       (state): TimelineState => ({
         ...state,
         newTimelineAdded: true,
@@ -52,15 +53,18 @@ export const timelineFeature = createFeature({
     on(SharedActions.logout, (): TimelineState => initialState),
 
     on(
-      TimelineActions.successLoadAccountTimelines,
+      LoadTimelinesActions.successLoadAccountTimelines,
       (state, { timelines }): TimelineState => ({
         ...state,
-        timelines,
+        timelines: timelines.map(timeline => ({
+          ...timeline,
+          name: timeline.name || '',
+        })),
       })
     ),
 
     on(
-      TimelineActions.setActiveTimeline,
+      SetActiveTimelineActions.setActiveTimeline,
       (state, { timeline }): TimelineState => ({
         ...state,
         activeTimeline: {
