@@ -80,9 +80,9 @@ export class ShowTimelinePageComponent {
       const avatar = this.timelineAccountAvatar();
       return account
         ? {
-          ...toAccountView({ ...account, avatar })!,
-          about: account.about,
-        }
+            ...toAccountView({ ...account, avatar })!,
+            about: account.about,
+          }
         : null;
     }
   );
