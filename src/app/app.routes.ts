@@ -10,6 +10,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'about',
+    loadComponent: () =>
+      import('./feature/non-authorized/about/about.component').then(
+        a => a.AboutPageComponent
+      ),
+  },
+  {
     path: 'legal',
     loadChildren: () =>
       import('./feature/non-authorized/legal.routes').then(l => l.routes),
