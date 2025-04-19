@@ -22,6 +22,7 @@ import { showEventEffects } from './feature/events/store/effects/show-event.effe
 import { eventsFeature } from './feature/events/store/events.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
+import { addTimelineEffects } from './feature/timeline/store/effects/add-timeline.effects';
 import { timelineEffects } from './feature/timeline/store/effects/list-timeline-events.effects';
 import { loadTimelinesEffects } from './feature/timeline/store/effects/load-timelines.effects';
 import { timelineFeature } from './feature/timeline/store/timeline.reducers';
@@ -72,6 +73,7 @@ export const appConfig: ApplicationConfig = {
       navigationEffects,
       taskEffects,
       timelineEffects,
+      addTimelineEffects,
       loadTimelinesEffects,
       eventOperationsEffects,
       showEventEffects,
