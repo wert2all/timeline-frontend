@@ -13,9 +13,9 @@ import { eventsFeature } from '../../events/store/events.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import { AddTimelineActions } from '../../timeline/store/actions/add-timeline.actions';
 import { LoadTimelinesActions } from '../../timeline/store/actions/load-timelines.actions';
+import { timelineFeature } from '../../timeline/store/timeline.reducers';
 import { ExistTimelineEvent } from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
-import { timelineFeature } from './store/timeline/timeline.reducer';
 
 @Component({
   standalone: true,
@@ -46,12 +46,7 @@ export class MyPageComponent {
     sharedFeature.selectActiveAccountId
   );
 
-  //FIXME
-  protected readonly isTimelineLoading = signal(false);
-
-  protected readonly isLoading = computed(() => {
-    return !this.activeAccountId() || this.isTimelineLoading();
-  });
+  protected readonly isLoading = computed(() => !this.activeAccountId());
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
     timelineFeature.selectNewTimelineAdded
@@ -67,7 +62,7 @@ export class MyPageComponent {
   );
 
   private listTimelines = this.store.selectSignal(
-    timelineFeature.selectTimelines
+    timelineFeature.selectActiveAcccountTimelines
   );
 
   protected shouldAddTimeline = computed(() => {

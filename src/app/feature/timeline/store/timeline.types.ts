@@ -22,6 +22,7 @@ export type TimelineEvent = TimelineRequired &
 
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
 
+export type ActiveTimeline = Iterable & { name: string };
 export type Timeline = Iterable & { name: string; accountId: number };
 
 export type NewTimelineState = StoreState & {
@@ -29,4 +30,7 @@ export type NewTimelineState = StoreState & {
   timelines: Record<number, Timeline>;
   lastCursor: string | null;
   hasMore: boolean;
+  activeTimeline: ActiveTimeline | null;
+  newTimelineAdded: boolean;
+  activeAcccountTimelines: Timeline[];
 };

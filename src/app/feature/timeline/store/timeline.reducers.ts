@@ -1,4 +1,5 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
@@ -16,10 +17,13 @@ const initialState: NewTimelineState = {
   error: null,
   lastCursor: null,
   hasMore: false,
+  activeTimeline: null,
+  newTimelineAdded: false,
+  activeAcccountTimelines: [],
 };
 
 export const timelineFeature = createFeature({
-  name: 'new-timeline',
+  name: 'timeline',
   reducer: createReducer(
     initialState,
 
@@ -163,6 +167,49 @@ export const timelineFeature = createFeature({
         };
         return { ...state, timelines };
       }
+    ),
+
+    on(
+      SetActiveTimelineActions.setActiveTimeline,
+      (state, { timeline }): NewTimelineState => ({
+        ...state,
+        activeTimeline: {
+          name: timeline.name || '',
+          id: timeline.id,
+        },
+      })
+    ),
+
+    on(
+      AddTimelineActions.successAddTimeline,
+      (state): NewTimelineState => ({
+        ...state,
+        newTimelineAdded: true,
+      })
+    ),
+
+    on(
+      AddTimelineActions.successAddTimeline,
+      (state, { timelines }): NewTimelineState => ({
+        ...state,
+        activeAcccountTimelines: [
+          ...timelines,
+          ...state.activeAcccountTimelines,
+        ],
+      })
+    ),
+
+    on(SharedActions.logout, (): NewTimelineState => initialState),
+
+    on(
+      LoadTimelinesActions.successLoadAccountTimelines,
+      (state, { timelines }): NewTimelineState => ({
+        ...state,
+        activeAcccountTimelines: timelines.map(timeline => ({
+          ...timeline,
+          name: timeline.name || '',
+        })),
+      })
     )
   ),
   extraSelectors: ({ selectEvents }) => ({
