@@ -15,7 +15,6 @@ import { accountEffects } from './feature/account/store/account.effects';
 import { accountFeature } from './feature/account/store/account.reducer';
 import { previewEffects } from './feature/authorized/dashboard/store/preview/preview.effects';
 import { previewFeature } from './feature/authorized/dashboard/store/preview/preview.reducers';
-import { timelineEffects as legacyTimelineEffects } from './feature/authorized/dashboard/store/timeline/timeline.effects';
 import { timelineFeature as legacyTimelineFeature } from './feature/authorized/dashboard/store/timeline/timeline.reducer';
 import { eventOperationsEffects } from './feature/events/store/effects/operations.effects';
 import { showEventEffects } from './feature/events/store/effects/show-event.effects';
@@ -78,7 +77,6 @@ export const appConfig: ApplicationConfig = {
       eventOperationsEffects,
       showEventEffects,
       previewEffects,
-      legacyTimelineEffects,
     ]),
     provideStoreDevtools({
       maxAge: 25, // Retains last 25 states
