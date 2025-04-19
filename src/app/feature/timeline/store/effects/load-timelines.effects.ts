@@ -47,4 +47,37 @@ export const loadTimelinesEffects = {
       )
     );
   }, StoreDispatchEffect),
+
+  loadTimelines: createEffect(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
+        ofType(LoadTimelinesActions.loadAccountTimelines),
+        exhaustMap(({ accountId }) =>
+          api.getAccountTimelines({ accountId }).pipe(
+            map(result =>
+              apiAssertNotNull(
+                extractApiData(result)?.timelines,
+                'Empty timelines'
+              ).map(timeline => ({ ...timeline, accountId }))
+            ),
+            map(timelines =>
+              LoadTimelinesActions.successLoadAccountTimelines({
+                timelines,
+                accountId,
+              })
+            ),
+            catchError(error =>
+              of(
+                SharedActions.sendNotification({
+                  message: error,
+                  withType: 'error',
+                })
+              )
+            )
+          )
+        )
+      );
+    },
+    StoreDispatchEffect
+  ),
 };
