@@ -1,4 +1,4 @@
-import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import { AddTimelineActions } from '../../../../timeline/store/actions/add-timeline.actions';
 import { LoadTimelinesActions } from '../../../../timeline/store/actions/load-timelines.actions';
@@ -6,7 +6,6 @@ import { SetActiveTimelineActions } from '../../../../timeline/store/actions/set
 import { TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
-  loading: false,
   timelines: [],
   activeTimeline: null,
   newTimelineAdded: false,
@@ -16,23 +15,6 @@ export const timelineFeature = createFeature({
   name: 'timeline',
   reducer: createReducer(
     initialState,
-    on(
-      AddTimelineActions.addTimeline,
-      LoadTimelinesActions.loadAccountTimelines,
-      (state): TimelineState => ({ ...state, loading: true })
-    ),
-
-    on(
-      AddTimelineActions.successAddTimeline,
-      LoadTimelinesActions.successLoadAccountTimelines,
-      (state): TimelineState => ({ ...state, loading: false })
-    ),
-
-    on(
-      AddTimelineActions.emptyTimeline,
-      AddTimelineActions.apiException,
-      (state): TimelineState => ({ ...state, loading: false })
-    ),
 
     on(
       AddTimelineActions.successAddTimeline,
@@ -74,14 +56,4 @@ export const timelineFeature = createFeature({
       })
     )
   ),
-
-  extraSelectors: ({ selectLoading, selectActiveTimeline }) => {
-    return {
-      isLoading: createSelector(selectLoading, loading => loading),
-      selectActiveTimelineId: createSelector(
-        selectActiveTimeline,
-        timeline => timeline?.id
-      ),
-    };
-  },
 });

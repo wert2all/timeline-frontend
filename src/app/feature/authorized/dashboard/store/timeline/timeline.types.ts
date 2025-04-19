@@ -10,7 +10,7 @@ export type EditEvent = Loadable & {
 };
 
 // state
-export type TimelineState = Loadable & {
+export type TimelineState = {
   timelines: Timeline[];
   activeTimeline: ActiveTimeline | null;
   newTimelineAdded: boolean;

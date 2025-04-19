@@ -2,8 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
-import { timelineFeature } from './store/timeline/timeline.reducer';
-
 import { Iterable, Undefined } from '../../../app.types';
 import { EditEventComponent } from '../../events/share/edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../../timeline/components/add-event-button/add-event-button.component';
@@ -17,6 +15,7 @@ import { AddTimelineActions } from '../../timeline/store/actions/add-timeline.ac
 import { LoadTimelinesActions } from '../../timeline/store/actions/load-timelines.actions';
 import { ExistTimelineEvent } from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
+import { timelineFeature } from './store/timeline/timeline.reducer';
 
 @Component({
   standalone: true,
@@ -36,16 +35,20 @@ export class MyPageComponent {
   private readonly isEditingEvent = this.store.selectSignal(
     eventsFeature.isEditingEvent
   );
-  protected readonly activeTimelineId = this.store.selectSignal(
-    timelineFeature.selectActiveTimelineId
+  private readonly activeTimeline = this.store.selectSignal(
+    timelineFeature.selectActiveTimeline
   );
+  protected readonly activeTimelineId = computed(
+    () => this.activeTimeline()?.id
+  );
+
   protected readonly activeAccountId = this.store.selectSignal(
     sharedFeature.selectActiveAccountId
   );
 
-  protected readonly isTimelineLoading = this.store.selectSignal(
-    timelineFeature.isLoading
-  );
+  //FIXME
+  protected readonly isTimelineLoading = signal(false);
+
   protected readonly isLoading = computed(() => {
     return !this.activeAccountId() || this.isTimelineLoading();
   });
@@ -63,7 +66,7 @@ export class MyPageComponent {
     () => this.shouldDeleteEventId() > 0
   );
 
-  protected listTimelines = this.store.selectSignal(
+  private listTimelines = this.store.selectSignal(
     timelineFeature.selectTimelines
   );
 

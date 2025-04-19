@@ -3,6 +3,7 @@ import { EventContentConvertor } from '../../../shared/ui/event/content/content.
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
+import { AddTimelineActions } from './actions/add-timeline.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
 import { SetActiveTimelineActions } from './actions/set-active.actions';
@@ -35,11 +36,17 @@ export const timelineFeature = createFeature({
     on(
       ListEventsActions.loadTimelineEvents,
       LoadTimelinesActions.loadTimeline,
+      AddTimelineActions.addTimeline,
+      LoadTimelinesActions.loadAccountTimelines,
       (state): NewTimelineState => ({ ...state, loading: true })
     ),
     on(
       ListEventsActions.successLoadTimelineEvents,
       LoadTimelinesActions.successLoadTimeline,
+      AddTimelineActions.successAddTimeline,
+      LoadTimelinesActions.successLoadAccountTimelines,
+      AddTimelineActions.emptyTimeline,
+      AddTimelineActions.apiException,
       (state): NewTimelineState => ({ ...state, loading: false })
     ),
 
