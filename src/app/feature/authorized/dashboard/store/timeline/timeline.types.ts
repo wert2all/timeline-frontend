@@ -1,7 +1,7 @@
 import { Iterable, Loadable, Undefined } from '../../../../../app.types';
 import { TimelineEvent } from '../../../../timeline/store/timeline.types';
 
-export type Timeline = Iterable & { name: string | null };
+export type Timeline = Iterable & { name: string | Undefined };
 export type ActiveTimeline = Iterable & { name: string };
 
 // editing event

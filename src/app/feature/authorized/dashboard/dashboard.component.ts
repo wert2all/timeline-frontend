@@ -2,7 +2,6 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../../shared/layout/layout.component';
 
-import { TimelineActions } from './store/timeline/timeline.actions';
 import { timelineFeature } from './store/timeline/timeline.reducer';
 
 import { Iterable, Undefined } from '../../../app.types';
@@ -14,6 +13,8 @@ import { sharedFeature } from '../../../shared/store/shared/shared.reducers';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { eventsFeature } from '../../events/store/events.reducer';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
+import { AddTimelineActions } from '../../timeline/store/actions/add-timeline.actions';
+import { LoadTimelinesActions } from '../../timeline/store/actions/load-timelines.actions';
 import { ExistTimelineEvent } from '../../timeline/store/timeline.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 
@@ -75,7 +76,7 @@ export class MyPageComponent {
       const accountId = this.activeAccountId();
       if (accountId) {
         this.store.dispatch(
-          TimelineActions.loadAccountTimelines({ accountId })
+          LoadTimelinesActions.loadAccountTimelines({ accountId })
         );
       }
     });
@@ -118,7 +119,7 @@ export class MyPageComponent {
   }
 
   addTimeline(name: string | Undefined, accountId: number) {
-    this.store.dispatch(TimelineActions.addTimeline({ name, accountId }));
+    this.store.dispatch(AddTimelineActions.addTimeline({ name, accountId }));
   }
 
   editEvent(event: ExistTimelineEvent) {

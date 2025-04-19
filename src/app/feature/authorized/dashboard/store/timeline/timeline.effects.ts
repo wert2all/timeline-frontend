@@ -8,13 +8,15 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { TimelineActions } from './timeline.actions';
+import { AddTimelineActions } from '../../../../timeline/store/actions/add-timeline.actions';
+import { LoadTimelinesActions } from '../../../../timeline/store/actions/load-timelines.actions';
+import { SetActiveTimelineActions } from '../../../../timeline/store/actions/set-active.actions';
 
 const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
     ofType(
-      TimelineActions.successAddTimeline,
-      TimelineActions.successLoadAccountTimelines
+      AddTimelineActions.successAddTimeline,
+      LoadTimelinesActions.successLoadAccountTimelines
     ),
     map(({ timelines, accountId }) => ({
       timeline: timelines.length > 0 ? timelines[0] || null : null,
@@ -22,30 +24,36 @@ const setActiveTimeline = (action$ = inject(Actions)) =>
     })),
     map(options =>
       options.timeline
-        ? TimelineActions.setActiveTimeline({
-            timeline: options.timeline,
+        ? SetActiveTimelineActions.setActiveTimeline({
+          timeline: {
+            ...options.timeline,
+            name: options.timeline.name || '',
             accountId: options.accountId,
-          })
-        : TimelineActions.shouldNotSetActiveTimeline()
+          },
+          accountId: options.accountId,
+        })
+        : SetActiveTimelineActions.shouldNotSetActiveTimeline()
     )
   );
 
 const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
   action$.pipe(
-    ofType(TimelineActions.addTimeline),
+    ofType(AddTimelineActions.addTimeline),
     exhaustMap(({ name, accountId }) =>
       api.addTimelineMutation({ timeline: { name, accountId } }).pipe(
         map(result => result.data?.timeline || null),
         map(timeline =>
           timeline
-            ? TimelineActions.successAddTimeline({
-                accountId,
-                timelines: [{ id: timeline.id, name: timeline.name || '' }],
-              })
-            : TimelineActions.emptyTimeline()
+            ? AddTimelineActions.successAddTimeline({
+              accountId,
+              timelines: [
+                { id: timeline.id, name: timeline.name || '', accountId },
+              ],
+            })
+            : AddTimelineActions.emptyTimeline()
         ),
         catchError(exception =>
-          of(TimelineActions.apiException({ exception: exception }))
+          of(AddTimelineActions.apiException({ exception: exception }))
         )
       )
     )
@@ -53,7 +61,7 @@ const addTimeline = (action$ = inject(Actions), api = inject(ApiClient)) =>
 
 const emptyProfile = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(TimelineActions.emptyTimeline),
+    ofType(AddTimelineActions.emptyTimeline),
     map(() =>
       SharedActions.sendNotification({
         message: 'Cannot add timeline',
@@ -64,7 +72,7 @@ const emptyProfile = (action$ = inject(Actions)) =>
 
 const apiException = (action$ = inject(Actions)) =>
   action$.pipe(
-    ofType(TimelineActions.apiException),
+    ofType(AddTimelineActions.apiException),
     map(() =>
       SharedActions.sendNotification({
         message: 'Something went wrong. Try again later',
@@ -75,17 +83,20 @@ const apiException = (action$ = inject(Actions)) =>
 
 const loadTimelines = (actions$ = inject(Actions), api = inject(ApiClient)) =>
   actions$.pipe(
-    ofType(TimelineActions.loadAccountTimelines),
+    ofType(LoadTimelinesActions.loadAccountTimelines),
     exhaustMap(({ accountId }) =>
       api.getAccountTimelines({ accountId }).pipe(
         map(result =>
           apiAssertNotNull(
             extractApiData(result)?.timelines,
             'Empty timelines'
-          ).map(timeline => ({ id: timeline.id, name: timeline.name || '' }))
+          ).map(timeline => ({ ...timeline, accountId }))
         ),
         map(timelines =>
-          TimelineActions.successLoadAccountTimelines({ timelines, accountId })
+          LoadTimelinesActions.successLoadAccountTimelines({
+            timelines,
+            accountId,
+          })
         ),
         catchError(error =>
           of(

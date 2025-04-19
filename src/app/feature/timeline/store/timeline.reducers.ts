@@ -1,11 +1,11 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
-import { TimelineActions } from '../../authorized/dashboard/store/timeline/timeline.actions';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
+import { SetActiveTimelineActions } from './actions/set-active.actions';
 import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
@@ -23,7 +23,7 @@ export const timelineFeature = createFeature({
     initialState,
 
     on(
-      TimelineActions.setActiveTimeline,
+      SetActiveTimelineActions.setActiveTimeline,
       (state): NewTimelineState => ({
         ...state,
         events: [],
