@@ -8,13 +8,13 @@ import {
   extractApiData,
 } from '../../../../libs/api.functions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
-import { TimelinePropsActions } from '../actions/timeline-props.actions';
+import { LoadTimelinesActions } from '../actions/load-timelines.actions';
 
-export const timelinePropsEffects = {
+export const loadTimelinesEffects = {
   loadTimelineProps: createEffect(
     (actions$ = inject(Actions), api = inject(ApiClient)) => {
       return actions$.pipe(
-        ofType(TimelinePropsActions.loadTimeline),
+        ofType(LoadTimelinesActions.loadTimeline),
         exhaustMap(({ timelineId }) => {
           return api
             .getTimeline({ timelineId: timelineId })
@@ -27,9 +27,9 @@ export const timelinePropsEffects = {
               )
             );
         }),
-        map(timeline => TimelinePropsActions.successLoadTimeline({ timeline })),
+        map(timeline => LoadTimelinesActions.successLoadTimeline({ timeline })),
         catchError(error =>
-          of(TimelinePropsActions.errorLoadTimeline({ error }))
+          of(LoadTimelinesActions.errorLoadTimeline({ error }))
         )
       );
     },
@@ -38,7 +38,7 @@ export const timelinePropsEffects = {
 
   errorLoadingTimeline: createEffect((actions$ = inject(Actions)) => {
     return actions$.pipe(
-      ofType(TimelinePropsActions.errorLoadTimeline),
+      ofType(LoadTimelinesActions.errorLoadTimeline),
       map(({ error }) =>
         SharedActions.sendNotification({
           message: error.message,

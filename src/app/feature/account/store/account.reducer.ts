@@ -4,7 +4,7 @@ import { ImagesActions } from '../../../shared/store/images/images.actions';
 import { UploadedImage } from '../../../shared/store/images/images.types';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
-import { TimelinePropsActions } from '../../timeline/store/actions/timeline-props.actions';
+import { LoadTimelinesActions } from '../../timeline/store/actions/load-timelines.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { defaultAccountName } from '../account.functions';
 import { Account } from '../account.types';
@@ -123,10 +123,10 @@ export const accountFeature = createFeature({
         userAccounts: state.userAccounts.map(acc =>
           acc.id === account.id
             ? {
-                ...account,
-                name: account.name || defaultAccountName,
-                about: acc.about,
-              }
+              ...account,
+              name: account.name || defaultAccountName,
+              about: acc.about,
+            }
             : acc
         ),
       })
@@ -250,7 +250,7 @@ export const accountFeature = createFeature({
     ),
 
     on(
-      TimelinePropsActions.successLoadTimeline,
+      LoadTimelinesActions.successLoadTimeline,
       (state, { timeline }): AccountState => ({
         ...state,
         accounts: {
