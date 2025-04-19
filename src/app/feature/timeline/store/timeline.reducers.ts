@@ -5,7 +5,7 @@ import { TimelineActions } from '../../authorized/dashboard/store/timeline/timel
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
-import { TimelinePropsActions } from './actions/timeline-props.actions';
+import { LoadTimelinesActions } from './actions/load-timelines.actions';
 import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
@@ -34,12 +34,12 @@ export const timelineFeature = createFeature({
 
     on(
       ListEventsActions.loadTimelineEvents,
-      TimelinePropsActions.loadTimeline,
+      LoadTimelinesActions.loadTimeline,
       (state): NewTimelineState => ({ ...state, loading: true })
     ),
     on(
       ListEventsActions.successLoadTimelineEvents,
-      TimelinePropsActions.successLoadTimeline,
+      LoadTimelinesActions.successLoadTimeline,
       (state): NewTimelineState => ({ ...state, loading: false })
     ),
 
@@ -81,7 +81,7 @@ export const timelineFeature = createFeature({
 
     on(
       ListEventsActions.errorLoadingTimelineEvents,
-      TimelinePropsActions.errorLoadTimeline,
+      LoadTimelinesActions.errorLoadTimeline,
       (state, { error }): NewTimelineState => ({
         ...state,
         loading: false,
@@ -133,7 +133,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      TimelinePropsActions.successLoadTimeline,
+      LoadTimelinesActions.successLoadTimeline,
       (state, { timeline }): NewTimelineState => {
         const timelines = { ...state.timelines };
         timelines[timeline.id] = {

@@ -19,7 +19,7 @@ import { toAccountView } from '../../../account/account.functions';
 import { AccountSidebar } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../share/timeline/timeline.component';
-import { TimelinePropsActions } from '../../store/actions/timeline-props.actions';
+import { LoadTimelinesActions } from '../../store/actions/load-timelines.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
 
 @Component({
@@ -80,9 +80,9 @@ export class ShowTimelinePageComponent {
       const avatar = this.timelineAccountAvatar();
       return account
         ? {
-            ...toAccountView({ ...account, avatar })!,
-            about: account.about,
-          }
+          ...toAccountView({ ...account, avatar })!,
+          about: account.about,
+        }
         : null;
     }
   );
@@ -90,7 +90,7 @@ export class ShowTimelinePageComponent {
   constructor() {
     effect(() => {
       this.store.dispatch(
-        TimelinePropsActions.loadTimeline({ timelineId: this.timelineId() })
+        LoadTimelinesActions.loadTimeline({ timelineId: this.timelineId() })
       );
     });
     effect(() => {

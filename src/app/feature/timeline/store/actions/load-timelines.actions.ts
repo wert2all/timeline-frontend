@@ -1,7 +1,7 @@
 import { createActionGroup, props } from '@ngrx/store';
 import { Timeline } from '../../../../api/internal/graphql';
 
-export const TimelinePropsActions = createActionGroup({
+export const LoadTimelinesActions = createActionGroup({
   source: 'Timeline',
   events: {
     'Load timeline': props<{ timelineId: number }>(),
