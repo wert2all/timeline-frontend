@@ -44,7 +44,7 @@
         [isAuthorized]="false" />
     </div>
     <p class="bg-base-300 my-4 rounded-b-xl p-4 text-center">
-      <a class="link" href="/timeline/{{ event.timelineId }}">show more</a>
+      <a class="link" [href]="timelineUrl(event.timelineId)">show more</a>
     </p>
   }
 </app-shared-layout>

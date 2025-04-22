@@ -6,6 +6,7 @@ import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.
 import { TitleComponent } from '../../../../shared/content/title/title.component';
 import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
+import { NavigationBuilder } from '../../../../shared/services/navigation/navigation.builder';
 import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { SharedEventContentComponent } from '../../../../shared/ui/event/content/content.component';
@@ -38,6 +39,7 @@ export class ShowEventPageComponent {
 
   private readonly store = inject(Store);
   private readonly convertor = inject(EventContentConvertor);
+  private readonly navigationBuilder = inject(NavigationBuilder);
 
   protected isLoading = this.store.selectSignal(eventsFeature.selectLoading);
   protected error = this.store.selectSignal(eventsFeature.selectError);
@@ -104,5 +106,9 @@ export class ShowEventPageComponent {
         ShowEventActions.loadEvent({ eventId: this.eventId() })
       );
     });
+  }
+
+  timelineUrl(timelineId: number) {
+    return this.navigationBuilder.forTimeline(timelineId).show();
   }
 }
