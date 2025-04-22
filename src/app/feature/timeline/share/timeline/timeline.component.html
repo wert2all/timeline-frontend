@@ -23,9 +23,16 @@
       (like)="likeEvent($event)" />
   } @else {
     @if (!error() && !isLoading()) {
-      <div role="alert" class="alert alert-info mt-4">
-        <ng-icon name="phosphorInfo" size="32" />
-        <span>No events found. Why not add one?</span>
+      <div class="my-12 text-center">
+        <h1 class="mb-4 text-5xl">No events found.</h1>
+        @if (isEditable()) {
+          <p>
+            Why not
+            <a href="/timeline/{{ timelineId() }}/add-event" class="link">
+              add one?
+            </a>
+          </p>
+        }
       </div>
     }
   }
