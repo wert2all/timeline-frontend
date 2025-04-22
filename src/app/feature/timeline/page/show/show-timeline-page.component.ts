@@ -9,6 +9,7 @@ import {
 import { provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
 import { Store, createSelector } from '@ngrx/store';
+import { Undefined } from '../../../../app.types';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';
 import { LayoutComponent } from '../../../../shared/layout/layout.component';
@@ -16,11 +17,12 @@ import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { selectLoadedImage } from '../../../../shared/store/shared/shared.functions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../../account/account.functions';
-import { AccountSidebar } from '../../../account/account.types';
+import { AccountSidebar, ShortAccount } from '../../../account/account.types';
 import { SharedAccountViewComponent } from '../../../account/share/view/account-view.component';
 import { SharedTimelineComponent } from '../../share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../../store/actions/load-timelines.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
+import { Timeline } from '../../store/timeline.types';
 
 @Component({
   standalone: true,
@@ -47,7 +49,7 @@ export class ShowTimelinePageComponent {
 
   protected isAuthorized = this.store.selectSignal(sharedFeature.isAuthorized);
 
-  private timeline = computed(() => {
+  private timeline = computed((): Timeline | Undefined => {
     const timelineId = this.timelineId();
     return this.store.selectSignal(
       createSelector(
@@ -57,14 +59,16 @@ export class ShowTimelinePageComponent {
     )();
   });
 
-  private timelineAccount = computed(() => {
-    const accountId = this.timeline().accountId;
-    return this.store.selectSignal(
-      createSelector(
-        sharedFeature.selectAccounts,
-        accounts => accounts[accountId]
-      )
-    )();
+  private timelineAccount = computed((): ShortAccount | Undefined => {
+    const accountId = this.timeline()?.accountId;
+    return accountId
+      ? this.store.selectSignal(
+          createSelector(
+            sharedFeature.selectAccounts,
+            accounts => accounts[accountId]
+          )
+        )()
+      : undefined;
   });
 
   private readonly timelineAccountAvatar = computed(() => {
@@ -94,7 +98,7 @@ export class ShowTimelinePageComponent {
       );
     });
     effect(() => {
-      const avatarId = this.timelineAccount().avatar.id;
+      const avatarId = this.timelineAccount()?.avatar.id;
       if (avatarId) {
         this.store.dispatch(
           SharedActions.dispatchLoadingImages({ ids: [avatarId] })
