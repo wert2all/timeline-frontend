@@ -20,7 +20,13 @@
       </p>
       <div class="flex w-full flex-col items-center lg:flex-row">
         @if (!this.isAuthorized()) {
-          <app-shared-auth-button />
+          <button
+            class="btn btn-primary"
+            (click)="toMainPage()"
+            (keypress.enter)="toMainPage()">
+            <img src="/assets/small-logo.svg" class="w-6" alt="timeline logo" />
+            to main page
+          </button>
         } @else {
           <a class="btn btn-primary" href="/my">go to timeline</a>
         }
