@@ -1,4 +1,5 @@
 import { inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, tap } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -6,8 +7,8 @@ import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 import { NewAuthService } from '../../../feature/auth/shared/auth.service';
 import { ImagesTaskExecutorFactory } from '../../../feature/task/executors/images.factory';
 import { NotificationStore } from '../../../feature/ui/layout/store/notification/notifications.store';
+import { NavigationBuilder } from '../../services/navigation/navigation.builder';
 import { TaskActions } from '../../task/task.actions';
-import { NavigationActions } from '../navigation/navigation.actions';
 import { SharedActions } from './shared.actions';
 
 const sendNotification = (
@@ -21,10 +22,17 @@ const sendNotification = (
     })
   );
 
-const redirectAfterLogout = (actions$ = inject(Actions)) =>
+const redirectAfterLogout = (
+  actions$ = inject(Actions),
+  navigationBulder = inject(NavigationBuilder)
+) =>
   actions$.pipe(
     ofType(SharedActions.logout),
-    map(() => NavigationActions.toHome())
+    map(() =>
+      SharedActions.navigate({
+        destination: navigationBulder.forUser().home(),
+      })
+    )
   );
 
 const errorMessageEmptyPreviewlyToken = (
@@ -58,10 +66,25 @@ const dispatchTaskForLoadingImages = (actions$ = inject(Actions)) =>
     )
   );
 
-const shouldLoginRedirect = (actions$ = inject(Actions)) =>
+const shouldLoginRedirect = (
+  actions$ = inject(Actions),
+  navigationBulder = inject(NavigationBuilder)
+) =>
   actions$.pipe(
     ofType(SharedActions.shouldLogin),
-    map(() => NavigationActions.toLogin())
+    map(() =>
+      SharedActions.navigate({
+        destination: navigationBulder.forUser().login(),
+      })
+    )
+  );
+
+const navigate = (actions$ = inject(Actions), router = inject(Router)) =>
+  actions$.pipe(
+    ofType(SharedActions.navigate),
+    tap(({ destination }) => {
+      router.navigate([destination.toString()]);
+    })
   );
 
 export const sharedEffects = {
@@ -80,4 +103,5 @@ export const sharedEffects = {
     dispatchTaskForLoadingImages,
     StoreDispatchEffect
   ),
+  navigate: createEffect(navigate, StoreUnDispatchEffect),
 };

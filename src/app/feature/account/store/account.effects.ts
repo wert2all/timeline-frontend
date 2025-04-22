@@ -5,7 +5,7 @@ import { AccountSettingInput, ApiClient } from '../../../api/internal/graphql';
 import { StoreDispatchEffect, StoreUnDispatchEffect } from '../../../app.types';
 
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
-import { NavigationActions } from '../../../shared/store/navigation/navigation.actions';
+import { NavigationBuilder } from '../../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { ModalWindowActions } from '../../ui/layout/store/modal-window/modal-window.actions';
 import { NotificationStore } from '../../ui/layout/store/notification/notifications.store';
@@ -169,10 +169,17 @@ const notifyEmptyAccount = (
     })
   );
 
-const redirectAfterAuth = (actions$ = inject(Actions)) =>
+const redirectAfterAuth = (
+  actions$ = inject(Actions),
+  navigationBuilder = inject(NavigationBuilder)
+) =>
   actions$.pipe(
     ofType(AccountActions.setActiveAccountAfterAuth),
-    map(() => NavigationActions.toUserDashboard())
+    map(() =>
+      SharedActions.navigate({
+        destination: navigationBuilder.forUser().dashboard(),
+      })
+    )
   );
 
 export const accountEffects = {

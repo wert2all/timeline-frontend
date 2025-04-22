@@ -3,7 +3,7 @@ import { Component, computed, inject, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { ClickOutside } from 'ngxtension/click-outside';
 import { Unique } from '../../../../app.types';
-import { NavigationActions } from '../../../../shared/store/navigation/navigation.actions';
+import { NavigationBuilder } from '../../../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { toAccountView } from '../../../account/account.functions';
@@ -36,6 +36,8 @@ export class HeaderComponent {
   private readonly clipboard = inject(Clipboard);
   private readonly themeService = inject(ThemeService);
   private readonly notificationStore = inject(NotificationStore);
+  private readonly navigationBuilder = inject(NavigationBuilder);
+
   private readonly canUseCookies = this.store.selectSignal(
     sharedFeature.canUseNecessaryCookies
   );
@@ -115,7 +117,11 @@ export class HeaderComponent {
   }
 
   login() {
-    this.store.dispatch(NavigationActions.toLogin());
+    this.store.dispatch(
+      SharedActions.navigate({
+        destination: this.navigationBuilder.forUser().login(),
+      })
+    );
   }
 
   logout() {
@@ -123,7 +129,11 @@ export class HeaderComponent {
   }
 
   goToDashboard() {
-    this.store.dispatch(NavigationActions.toUserDashboard());
+    this.store.dispatch(
+      SharedActions.navigate({
+        destination: this.navigationBuilder.forUser().dashboard(),
+      })
+    );
   }
 
   toggleTheme() {

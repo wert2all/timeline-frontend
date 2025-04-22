@@ -33,8 +33,6 @@ import { metaReducers } from './providers/meta.reducers';
 import { provideSentry } from './providers/sentry.provider';
 import { imageEffects } from './shared/store/images/images.effects';
 import { imagesFeature } from './shared/store/images/images.reducer';
-import { navigationEffects } from './shared/store/navigation/navigation.effects';
-import { navigationFeature } from './shared/store/navigation/navigation.reducer';
 import { sharedEffects } from './shared/store/shared/shared.effects';
 import { sharedFeature } from './shared/store/shared/shared.reducers';
 import { taskEffects } from './shared/task/task.effects';
@@ -53,7 +51,6 @@ export const appConfig: ApplicationConfig = {
         [imagesFeature.name]: imagesFeature.reducer,
         [tableOfYearFeature.name]: tableOfYearFeature.reducer,
         [accountFeature.name]: accountFeature.reducer,
-        [navigationFeature.name]: navigationFeature.reducer,
         [taskFeature.name]: taskFeature.reducer,
         [modalWindowFeature.name]: modalWindowFeature.reducer,
         [timelineFeature.name]: timelineFeature.reducer,
@@ -67,7 +64,6 @@ export const appConfig: ApplicationConfig = {
       imageEffects,
       tableOfYearsEffects,
       accountEffects,
-      navigationEffects,
       taskEffects,
       timelineEffects,
       addTimelineEffects,
