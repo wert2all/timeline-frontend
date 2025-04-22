@@ -42,11 +42,9 @@ export const routes: Routes = [
     canActivate: [canAuth],
   },
   {
-    path: 'timeline/:timelineId',
-    loadComponent: () =>
-      import('./feature/timeline/page/show/show-timeline-page.component').then(
-        t => t.ShowTimelinePageComponent
-      ),
+    path: 'timeline',
+    loadChildren: () =>
+      import('./feature/timeline/timeline.routes').then(r => r.routes),
   },
   {
     path: 'event/:eventId',
