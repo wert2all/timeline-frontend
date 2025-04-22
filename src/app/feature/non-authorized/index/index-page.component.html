@@ -13,9 +13,9 @@
       </p>
       <div class="flex w-full flex-col items-center lg:flex-row">
         @if (!this.isAuthorized()) {
-          <a class="btn btn-primary" href="/user/login">authorize</a>
+          <a class="btn btn-primary" [href]="loginUrl()">authorize</a>
         } @else {
-          <a class="btn btn-primary" href="/my">go to timeline</a>
+          <a class="btn btn-primary" [href]="dashboardUrl()">go to timeline</a>
         }
       </div>
     </div>
