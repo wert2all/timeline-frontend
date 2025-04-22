@@ -135,10 +135,10 @@ export class SharedTimelineComponent {
     const image = images.find(i => i.id === eventImage?.imageId);
     return image && eventImage
       ? {
-        ...eventImage,
-        previewUrl: image.data?.resized_490x250,
-        status: this.convertImageStatus(image.status),
-      }
+          ...eventImage,
+          previewUrl: image.data?.resized_490x250,
+          status: this.convertImageStatus(image.status),
+        }
       : eventImage;
   }
 
