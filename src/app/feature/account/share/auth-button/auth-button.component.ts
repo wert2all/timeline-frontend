@@ -1,5 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { NgIconComponent } from '@ng-icons/core';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { phosphorSignIn } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
@@ -9,6 +10,7 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
   selector: 'app-shared-auth-button',
   templateUrl: './auth-button.component.html',
   imports: [NgIconComponent],
+  viewProviders: [provideIcons({ phosphorSignIn })],
 })
 export class SharedAuthButtonComponent {
   private readonly store = inject(Store);
