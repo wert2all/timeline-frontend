@@ -1,4 +1,4 @@
-import { DataWrapper } from '../../../../../app.types';
+import { DataWrapper } from '../../../../app.types';
 
 export interface PreviewPollingActionsProps {
   urls: URL[];

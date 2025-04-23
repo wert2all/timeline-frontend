@@ -11,15 +11,15 @@ import {
   switchMap,
   toArray,
 } from 'rxjs';
-import { previewlyApiClient } from '../../../../../api/external/previewly/graphql';
-import { DataWrapper, Status } from '../../../../../app.types';
+import { previewlyApiClient } from '../../../../api/external/previewly/graphql';
+import { DataWrapper, Status } from '../../../../app.types';
 import {
   apiAssertNotNull,
   extractApiData,
-} from '../../../../../libs/api.functions';
-import { PollingOptions } from '../../../../../libs/polling/polling.types';
-import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
+} from '../../../../libs/api.functions';
+import { PollingOptions } from '../../../../libs/polling/polling.types';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { PreviewActions } from './preview.actions';
 import { previewFeature } from './preview.reducers';
 import { PreviewItem, PreviewPollingActionsProps } from './preview.types';

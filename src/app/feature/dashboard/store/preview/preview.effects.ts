@@ -3,19 +3,19 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-import { previewlyApiClient } from '../../../../../api/external/previewly/graphql';
+import { previewlyApiClient } from '../../../../api/external/previewly/graphql';
 import {
   DataWrapper,
   Status,
   StoreDispatchEffect,
-} from '../../../../../app.types';
+} from '../../../../app.types';
 import {
   apiAssertNotNull,
   extractApiData,
-} from '../../../../../libs/api.functions';
-import { createPolling } from '../../../../../libs/polling/polling.factory';
-import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { sharedFeature } from '../../../../../shared/store/shared/shared.reducers';
+} from '../../../../libs/api.functions';
+import { createPolling } from '../../../../libs/polling/polling.factory';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { PreviewActions } from './preview.actions';
 import { PreviewPollingOptions } from './preview.polling.options';
 import { PreviewItem } from './preview.types';

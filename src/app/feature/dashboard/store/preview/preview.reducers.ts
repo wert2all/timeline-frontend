@@ -1,6 +1,6 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { Status } from '../../../../../app.types';
-import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
+import { Status } from '../../../../app.types';
+import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { PreviewActions } from './preview.actions';
 import { PreviewState } from './preview.types';
 
