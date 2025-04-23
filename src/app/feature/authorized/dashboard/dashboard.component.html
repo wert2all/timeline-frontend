@@ -6,12 +6,10 @@
       </div>
     } @else {
       @if (shouldAddTimeline()) {
-        @if (activeAccountId(); as accountId) {
-          <app-create-timeline-button
-            [isAuthorized]="true"
-            [isLoading]="isLoading()"
-            (addTimeline)="addTimeline($event, accountId)" />
-        }
+        <app-create-timeline-button
+          [isAuthorized]="true"
+          [isLoading]="isLoading()"
+          (addTimeline)="addTimeline($event)" />
       } @else {
         @if (activeTimelineId(); as timelineId) {
           <app-add-event-button
