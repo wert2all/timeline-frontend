@@ -12,7 +12,7 @@ class User {
     return new Url('');
   }
   dashboard(): Destination {
-    return new Url('my');
+    return new Url('dashboard');
   }
   login(): Destination {
     return new Url('user/login');

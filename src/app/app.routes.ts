@@ -34,7 +34,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'my',
+    path: 'dashboard',
     loadComponent: () =>
       import('./feature/authorized/dashboard/dashboard.component').then(
         d => d.MyPageComponent
