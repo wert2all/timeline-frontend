@@ -3,6 +3,10 @@ import { Destination } from './navigation-builder.types';
 
 class Url implements Destination {
   constructor(private readonly url: string) {}
+
+  append(url: string): Destination {
+    return new Url([this.url, url].join('/'));
+  }
   toString() {
     return this.url;
   }
@@ -26,10 +30,22 @@ class Timeline {
     return new Url('timeline/' + this.timelineId);
   }
 }
+
+class Dashboard {
+  private index = new Url('dashboard');
+
+  addTimeline(): Destination {
+    return this.index.append('add-timeline');
+  }
+}
+
 @Injectable({
   providedIn: 'root',
 })
 export class NavigationBuilder {
+  forDashboard() {
+    return new Dashboard();
+  }
   forTimeline(timelineId: number) {
     return new Timeline(timelineId);
   }

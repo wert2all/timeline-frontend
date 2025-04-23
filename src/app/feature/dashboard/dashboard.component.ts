@@ -1,4 +1,11 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import {
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
@@ -7,6 +14,10 @@ import { EditEventComponent } from '../events/share/edit-event/edit-event.compon
 import { AddEventButtonComponent } from '../timeline/components/add-event-button/add-event-button.component';
 import { CreateTimelineButtonComponent } from '../timeline/components/create-timeline-button/create-timeline-button.component';
 
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
+import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
+import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
 import { EventOperationsActions } from '../events/store/actions/operations.actions';
 import { eventsFeature } from '../events/store/events.reducer';
@@ -20,6 +31,7 @@ import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 @Component({
   standalone: true,
   templateUrl: './dashboard.component.html',
+  viewProviders: [provideIcons({ phosphorTreeView })],
   imports: [
     LayoutComponent,
     CreateTimelineButtonComponent,
@@ -27,10 +39,14 @@ import { ModalConfirmComponent } from './confirm/modal-confirm.component';
     AddEventButtonComponent,
     ModalConfirmComponent,
     SharedTimelineComponent,
+    NgIconComponent,
   ],
 })
 export class DashboardPageComponent {
+  action = input<string | null>(null);
+
   private readonly store = inject(Store);
+  private readonly navigationBuilder = inject(NavigationBuilder);
 
   private readonly isEditingEvent = this.store.selectSignal(
     eventsFeature.isEditingEvent
@@ -70,6 +86,12 @@ export class DashboardPageComponent {
   });
 
   constructor() {
+    effect(() => {
+      if (this.action() == 'add-timeline') {
+        this.showAddTimelineWindow();
+      }
+    });
+
     effect(() => {
       const accountId = this.activeAccountId();
       if (accountId) {
@@ -133,5 +155,17 @@ export class DashboardPageComponent {
         EventOperationsActions.dispatchAddNewEvent({ timelineId })
       );
     }
+  }
+
+  showAddTimelineWindow() {
+    console.log('show add timeline window');
+  }
+
+  navigateToAddTimeline() {
+    this.store.dispatch(
+      SharedActions.navigate({
+        destination: this.navigationBuilder.forDashboard().addTimeline(),
+      })
+    );
   }
 }
