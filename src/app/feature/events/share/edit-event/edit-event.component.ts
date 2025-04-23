@@ -17,8 +17,8 @@ import {
   EventContent,
   EventContentIcon,
 } from '../../../../shared/ui/event/content/content.types';
-import { PreviewActions } from '../../../authorized/dashboard/store/preview/preview.actions';
-import { previewFeature } from '../../../authorized/dashboard/store/preview/preview.reducers';
+import { PreviewActions } from '../../../dashboard/store/preview/preview.actions';
+import { previewFeature } from '../../../dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';

@@ -36,7 +36,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./feature/authorized/dashboard/dashboard.component').then(
+      import('./feature/dashboard/dashboard.component').then(
         d => d.MyPageComponent
       ),
     canActivate: [canAuth],

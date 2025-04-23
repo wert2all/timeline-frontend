@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { DataWrapper } from '../../../../../app.types';
+import { DataWrapper } from '../../../../app.types';
 import { PreviewItem, PreviewPollingActionsProps } from './preview.types';
 
 export const PreviewActions = createActionGroup({

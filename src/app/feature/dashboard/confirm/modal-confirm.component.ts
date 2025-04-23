@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
-import { ModalComponent } from '../../../../shared/content/modal/modal.component';
+import { ModalComponent } from '../../../shared/content/modal/modal.component';
 
 @Component({
   selector: 'app-modal-confirm',
