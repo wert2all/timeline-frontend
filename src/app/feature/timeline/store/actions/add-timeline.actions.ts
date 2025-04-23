@@ -5,7 +5,7 @@ import { Timeline } from '../timeline.types';
 export const AddTimelineActions = createActionGroup({
   source: 'Add timeline',
   events: {
-    'Add timeline': props<{ name: string | Undefined; accountId: number }>(),
+    'Add timeline': props<{ name: string | Undefined }>(),
     'Success add timeline': props<{
       timelines: Timeline[];
       accountId: number;

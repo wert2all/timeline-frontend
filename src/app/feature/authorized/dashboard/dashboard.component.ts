@@ -116,8 +116,8 @@ export class MyPageComponent {
     this.shouldDeleteEventId.set(0);
   }
 
-  addTimeline(name: string | Undefined, accountId: number) {
-    this.store.dispatch(AddTimelineActions.addTimeline({ name, accountId }));
+  addTimeline(name: string | Undefined) {
+    this.store.dispatch(AddTimelineActions.addTimeline({ name }));
   }
 
   editEvent(event: ExistTimelineEvent) {
