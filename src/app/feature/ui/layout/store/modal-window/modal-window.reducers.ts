@@ -1,5 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AccountActions } from '../../../../account/store/account.actions';
+import { AddTimelineActions } from '../../../../timeline/store/actions/add-timeline.actions';
 import { ModalWindowActions } from './modal-window.actions';
 import { ModalWindowState } from './modal-window.types';
 
@@ -14,6 +15,7 @@ export const modalWindowFeature = createFeature({
     initialState,
     on(
       AccountActions.successSaveAccount,
+      AddTimelineActions.successAddTimeline,
       (state): ModalWindowState => ({
         ...state,
         windowType: null,

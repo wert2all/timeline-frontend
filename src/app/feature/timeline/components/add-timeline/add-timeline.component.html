@@ -1,28 +1,21 @@
 @if (!isAuthorized()) {
   <p>You must be signed in to your Google account to add your timeline</p>
-}
-
-<input
-  class="input input-lg mt-4 mb-8 w-full"
-  placeholder="add a name of timeline"
-  name="timelineName"
-  [attr.disabled]="isLoading() ? true : null"
-  [formControl]="form.controls.timelineName" />
-<div class="modal-action">
-  <button
-    class="btn btn-primary btn-lg"
+} @else {
+  <input
+    class="input input-lg mt-4 mb-8 w-full"
+    placeholder="add a name of timeline"
     [attr.disabled]="isLoading() ? true : null"
-    (click)="addTimeline.emit(form.controls.timelineName.value)">
+    [class.input-error]="error()"
+    name="timelineName"
+    [formControl]="form.controls.timelineName" />
+  <div class="modal-action">
     @if (isLoading() === true) {
       <span class="loading loading-spinner"></span>
     } @else {
-      @if (isAuthorized()) {
+      <button class="btn btn-primary btn-lg" (click)="addTimeline()">
         <ng-icon name="phosphorPlusSquare" size="24"></ng-icon>
         add
-      } @else {
-        <ng-icon name="phosphorSignIn" size="24"></ng-icon>
-        sign-in and add
-      }
+      </button>
     }
-  </button>
-</div>
+  </div>
+}

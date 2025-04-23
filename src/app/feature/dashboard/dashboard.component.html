@@ -6,16 +6,12 @@
       </div>
     } @else {
       @if (shouldAddTimeline()) {
-        <!-- <button -->
-        <!--   class="btn btn-accent text-base-content" -->
-        <!--   (click)="navigateToAddTimeline()"> -->
-        <!--   <ng-icon name="phosphorTreeView" size="28"></ng-icon> -->
-        <!--   create timeline -->
-        <!-- </button> -->
-        <app-create-timeline-button
-          [isAuthorized]="true"
-          [isLoading]="isLoading()"
-          (addTimeline)="addTimeline($event)" />
+        <button
+          class="btn btn-accent text-base-content"
+          (click)="navigateToAddTimeline()">
+          <ng-icon name="phosphorTreeView" size="28"></ng-icon>
+          create timeline
+        </button>
       } @else {
         @if (activeTimelineId(); as timelineId) {
           <app-add-event-button
