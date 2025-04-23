@@ -2,13 +2,18 @@
   [show]="!!windowType()"
   [title]="windowTitle()"
   (closed)="closeWindow()">
-  @if (windowType() === ModalWindowType.FEATURES) {
-    <app-show-user-features />
-  }
-  @if (windowType() === ModalWindowType.SETTINGS) {
-    <app-change-user-settings />
-  }
-  @if (windowType() === ModalWindowType.ADD_ACCOUNT) {
-    <app-add-account />
+  @switch (windowType()) {
+    @case (ModalWindowType.FEATURES) {
+      <app-show-user-features />
+    }
+    @case (ModalWindowType.SETTINGS) {
+      <app-change-user-settings />
+    }
+    @case (ModalWindowType.ADD_ACCOUNT) {
+      <app-add-account />
+    }
+    @case (ModalWindowType.ADD_TIMELINE) {
+      <app-add-timeline />
+    }
   }
 </app-shared-modal>

@@ -5,6 +5,7 @@ import { ModalComponent } from '../../../../shared/content/modal/modal.component
 import { AddAccountComponent } from '../../../account/features/add/add.component';
 import { SettingsComponent } from '../../../account/features/settings/settings.component';
 import { ShowUserFeaturesComponent } from '../../../account/features/show-user-features/show-user-features.component';
+import { AddTimelineComponent } from '../../../timeline/components/add-timeline/add-timeline.component';
 import { ModalWindowActions } from '../store/modal-window/modal-window.actions';
 import { modalWindowFeature } from '../store/modal-window/modal-window.reducers';
 import { ModalWindowType } from '../store/modal-window/modal-window.types';
@@ -18,6 +19,7 @@ import { ModalWindowType } from '../store/modal-window/modal-window.types';
     AddAccountComponent,
     ShowUserFeaturesComponent,
     SettingsComponent,
+    AddTimelineComponent,
   ],
 })
 export class ModalFactoryComponent {
@@ -38,11 +40,13 @@ export class ModalFactoryComponent {
   private createTitle(type: ModalWindowType | Undefined): string {
     switch (type) {
       case ModalWindowType.FEATURES:
-        return 'Features';
+        return 'features';
       case ModalWindowType.SETTINGS:
-        return 'Settings';
+        return 'settings';
       case ModalWindowType.ADD_ACCOUNT:
-        return 'Add New Account';
+        return 'add new account';
+      case ModalWindowType.ADD_TIMELINE:
+        return 'add timeline';
       default:
         return '';
     }

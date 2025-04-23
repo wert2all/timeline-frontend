@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of } from 'rxjs';
 import { ApiClient } from '../../../../api/internal/graphql';
 import { StoreDispatchEffect } from '../../../../app.types';
+import { NavigationBuilder } from '../../../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { AddTimelineActions } from '../actions/add-timeline.actions';
@@ -105,4 +106,21 @@ export const addTimelineEffects = {
       )
     );
   }, StoreDispatchEffect),
+
+  redirectOnSuccess: createEffect(
+    (
+      action$ = inject(Actions),
+      navigationBuilder = inject(NavigationBuilder)
+    ) => {
+      return action$.pipe(
+        ofType(AddTimelineActions.successAddTimeline),
+        map(() =>
+          SharedActions.navigate({
+            destination: navigationBuilder.forUser().dashboard(),
+          })
+        )
+      );
+    },
+    StoreDispatchEffect
+  ),
 };

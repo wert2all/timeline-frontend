@@ -32,7 +32,14 @@ export class ModalComponent implements AfterViewInit {
       }
     });
   }
+
   ngAfterViewInit(): void {
+    if (this.show()) {
+      this.modal?.nativeElement.showModal();
+    } else {
+      this.modal?.nativeElement.close();
+    }
+
     this.modal?.nativeElement.addEventListener('close', () => {
       this.closed.emit(true);
     });
