@@ -29,7 +29,7 @@ import { ModalConfirmComponent } from './confirm/modal-confirm.component';
     SharedTimelineComponent,
   ],
 })
-export class MyPageComponent {
+export class DashboardPageComponent {
   private readonly store = inject(Store);
 
   private readonly isEditingEvent = this.store.selectSignal(
