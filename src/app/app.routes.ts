@@ -35,11 +35,9 @@ export const routes: Routes = [
   },
   {
     path: 'dashboard',
-    loadComponent: () =>
-      import('./feature/dashboard/dashboard.component').then(
-        d => d.MyPageComponent
-      ),
-    canActivate: [canAuth],
+    loadChildren: () =>
+      import('./feature/dashboard/dashboard.routes').then(d => d.routes),
+    canActivateChild: [canAuth],
   },
   {
     path: 'timeline',
