@@ -6,7 +6,9 @@ mutation Authorize {
 
 mutation AddTimelineMutation($timeline: AddTimeline) {
   timeline: addTimeline(timeline: $timeline) {
-    ...ShortTimeline
+    id
+    name
+    accountId
   }
 }
 

@@ -149,7 +149,9 @@ export type AddTimelineMutationVariables = Exact<{
   timeline?: InputMaybe<AddTimeline>;
 }>;
 
-export type AddTimelineMutation = { timeline: ShortTimeline };
+export type AddTimelineMutation = {
+  timeline: { id: number; name?: string | null; accountId: number };
+};
 
 export type AddTimelineEventVariables = Exact<{
   event: TimelineEventInput;
@@ -328,10 +330,11 @@ export class AuthorizeMutation extends Apollo.Mutation<
 export const AddTimelineMutationDocument = gql`
   mutation AddTimelineMutation($timeline: AddTimeline) {
     timeline: addTimeline(timeline: $timeline) {
-      ...ShortTimeline
+      id
+      name
+      accountId
     }
   }
-  ${ShortTimeline}
 `;
 
 @Injectable({
