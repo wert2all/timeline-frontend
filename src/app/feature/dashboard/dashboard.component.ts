@@ -43,9 +43,15 @@ import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 })
 export class DashboardPageComponent {
   action = input<string | null>(null);
+  idParam = input<string | null>(null);
 
   private readonly store = inject(Store);
   private readonly navigationBuilder = inject(NavigationBuilder);
+
+  protected actionId = computed(() => {
+    const actionId = Number(this.idParam());
+    return actionId && !isNaN(actionId) ? actionId : null;
+  });
 
   private readonly isEditingEvent = this.store.selectSignal(
     eventsFeature.isEditingEvent
@@ -178,6 +184,14 @@ export class DashboardPageComponent {
     this.store.dispatch(
       SharedActions.navigate({
         destination: this.navigationBuilder.forDashboard().addEvent(),
+      })
+    );
+  }
+
+  navigateToEditEvent(eventId: number) {
+    this.store.dispatch(
+      SharedActions.navigate({
+        destination: this.navigationBuilder.forDashboard().editEvent(eventId),
       })
     );
   }

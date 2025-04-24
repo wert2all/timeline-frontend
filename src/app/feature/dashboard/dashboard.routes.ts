@@ -1,15 +1,28 @@
 import { Routes, UrlSegment } from '@angular/router';
+import { Undefined } from '../../app.types';
 
-const actions = ['add-timeline', 'add-event'];
-const createComponentAction = (action: string, url: UrlSegment[]) => {
-  return { consumed: url, posParams: { action: new UrlSegment(action, {}) } };
+const actions = ['add-timeline', 'add-event', 'edit-event'];
+const createComponentAction = (
+  action: string,
+  id: string | Undefined,
+  consumed: UrlSegment[]
+) => {
+  const posParams: Record<string, UrlSegment> = {
+    action: new UrlSegment(action, {}),
+  };
+  if (id) {
+    posParams['id'] = new UrlSegment(id, {});
+  }
+  return { consumed, posParams };
 };
+
 export const routes: Routes = [
   {
     matcher: url => {
       if (url[0]) {
         const action = actions.find(action => action == url[0].path);
-        return action ? createComponentAction(action, url) : null;
+        const id = url[1] ? url[1].path : null;
+        return action ? createComponentAction(action, id, url) : null;
       }
       return null;
     },

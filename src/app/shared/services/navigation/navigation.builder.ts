@@ -40,6 +40,9 @@ class Dashboard {
   addEvent(): Destination {
     return this.indexUrl.append('add-event');
   }
+  editEvent(eventId: number): Destination {
+    return this.indexUrl.append('edit-event').append(eventId.toString());
+  }
 }
 
 @Injectable({
