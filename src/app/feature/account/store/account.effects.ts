@@ -59,9 +59,9 @@ const saveAccountSettings = (
           map(result =>
             result.data?.saveSettings == 'success'
               ? AccountActions.successSaveAccountSettings({
-                accountId,
-                settings: actionSetting,
-              })
+                  accountId,
+                  settings: actionSetting,
+                })
               : AccountActions.couldNotSaveAccountSettings()
           )
         )
@@ -179,14 +179,14 @@ const redirectAfterAuth = (
       if (!redirect) {
         return null;
       }
-      return URL.canParse(redirect) ? new URL(redirect) : null;
+      return redirect.startsWith('/') ? redirect : null;
     }),
     map(url =>
       url
         ? SharedActions.navigateToURL({ url })
         : SharedActions.navigate({
-          destination: navigationBuilder.forUser().dashboard(),
-        })
+            destination: navigationBuilder.forUser().dashboard(),
+          })
     )
   );
 

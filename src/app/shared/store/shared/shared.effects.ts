@@ -87,6 +87,14 @@ const navigate = (actions$ = inject(Actions), router = inject(Router)) =>
     })
   );
 
+const navigateToUrl = (actions$ = inject(Actions), router = inject(Router)) =>
+  actions$.pipe(
+    ofType(SharedActions.navigateToURL),
+    tap(({ url }) => {
+      router.navigate([url]);
+    })
+  );
+
 export const sharedEffects = {
   shouldLoginRedirect: createEffect(shouldLoginRedirect, StoreDispatchEffect),
   logout: createEffect(doLogout, StoreUnDispatchEffect),
@@ -104,4 +112,5 @@ export const sharedEffects = {
     StoreDispatchEffect
   ),
   navigate: createEffect(navigate, StoreUnDispatchEffect),
+  navigateToUrl: createEffect(navigateToUrl, StoreUnDispatchEffect),
 };

@@ -9,7 +9,7 @@ export const SharedActions = createActionGroup({
   source: 'shared',
   events: {
     Navigate: props<{ destination: Destination }>(),
-    'Navigate to URL': props<{ url: URL }>(),
+    'Navigate to URL': props<{ url: string }>(),
     'Send notification': props<{ message: string; withType: MessageType }>(),
     'Dispatch cookie consent': props<{ cookie: CookieValue }>(),
     'Success authenticated': props<{
