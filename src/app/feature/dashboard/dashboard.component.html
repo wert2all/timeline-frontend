@@ -15,7 +15,7 @@
       } @else {
         @if (activeTimelineId(); as timelineId) {
           <app-add-event-button
-            (addEvent)="dispatchNewEventCreation()"
+            (addEvent)="navigateToAddEvent()"
             [disabled]="canAddNewEvent() !== true"
             [withTooltip]="canAddNewEvent() === true"
             [showTooltip]="showTipForAddEvent()" />

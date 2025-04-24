@@ -86,8 +86,14 @@ export class DashboardPageComponent {
 
   constructor() {
     effect(() => {
-      if (this.action() == 'add-timeline') {
-        this.showAddTimelineWindow();
+      const action = this.action();
+      switch (action) {
+        case 'add-timeline':
+          this.showAddTimelineWindow();
+          break;
+        case 'add-event':
+          this.showAddEventForm();
+          break;
       }
     });
 
@@ -143,7 +149,7 @@ export class DashboardPageComponent {
     );
   }
 
-  dispatchNewEventCreation() {
+  showAddEventForm() {
     const timelineId = this.activeTimelineId();
     if (timelineId) {
       this.store.dispatch(
@@ -164,6 +170,14 @@ export class DashboardPageComponent {
     this.store.dispatch(
       SharedActions.navigate({
         destination: this.navigationBuilder.forDashboard().addTimeline(),
+      })
+    );
+  }
+
+  navigateToAddEvent() {
+    this.store.dispatch(
+      SharedActions.navigate({
+        destination: this.navigationBuilder.forDashboard().addEvent(),
       })
     );
   }

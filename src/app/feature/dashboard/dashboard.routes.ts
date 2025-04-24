@@ -1,14 +1,18 @@
 import { Routes, UrlSegment } from '@angular/router';
 
+const actions = ['add-timeline', 'add-event'];
 const createComponentAction = (action: string, url: UrlSegment[]) => {
   return { consumed: url, posParams: { action: new UrlSegment(action, {}) } };
 };
 export const routes: Routes = [
   {
-    matcher: url =>
-      url[0] && url[0].path == 'add-timeline'
-        ? createComponentAction('add-timeline', url)
-        : null,
+    matcher: url => {
+      if (url[0]) {
+        const action = actions.find(action => action == url[0].path);
+        return action ? createComponentAction(action, url) : null;
+      }
+      return null;
+    },
     loadComponent: () =>
       import('./dashboard.component').then(d => d.DashboardPageComponent),
   },

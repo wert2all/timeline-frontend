@@ -37,6 +37,9 @@ class Dashboard {
   addTimeline(): Destination {
     return this.indexUrl.append('add-timeline');
   }
+  addEvent(): Destination {
+    return this.indexUrl.append('add-event');
+  }
 }
 
 @Injectable({
