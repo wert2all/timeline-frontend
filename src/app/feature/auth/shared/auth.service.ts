@@ -1,6 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
 import { filter } from 'rxjs/operators';
@@ -10,13 +9,13 @@ import { SharedActions } from '../../../shared/store/shared/shared.actions';
 export class NewAuthService {
   private readonly store = inject(Store);
   private readonly oauthService = inject(OAuthService);
-  private readonly router = inject(Router);
 
   private readonly isAuthenticatedSignal = signal(false);
   private readonly isDoneLoadingSignal = signal(false);
 
   public isAuthenticated$ = toObservable(this.isAuthenticatedSignal);
   public isDoneLoading$ = toObservable(this.isDoneLoadingSignal);
+  public readonly redirectUrl = signal<string | null>(null);
 
   constructor() {
     // Useful for debugging:
@@ -164,10 +163,7 @@ export class NewAuthService {
             if (stateUrl.startsWith('/') === false) {
               stateUrl = decodeURIComponent(stateUrl);
             }
-            console.log(
-              `There was state of ${this.oauthService.state}, so we are sending you to: ${stateUrl}`
-            );
-            this.router.navigateByUrl(stateUrl);
+            this.redirectUrl.set(stateUrl);
           }
         })
         .catch(() => this.isDoneLoadingSignal.set(true))
@@ -175,7 +171,7 @@ export class NewAuthService {
   }
 
   public login(targetUrl?: string) {
-    this.oauthService.initLoginFlow(targetUrl || this.router.url);
+    this.oauthService.initLoginFlow(targetUrl);
   }
 
   public logout() {

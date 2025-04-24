@@ -1,4 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { Undefined } from '../../../app.types';
 import { Account, AccountSettings } from '../account.types';
 import { SavingAccountSettings } from './account.types';
 
@@ -31,7 +32,10 @@ export const AccountActions = createActionGroup({
     'Success add new account': props<{ account: Account }>(),
 
     'Set active account after init': props<{ account: Account }>(),
-    'Set active account after auth': props<{ account: Account }>(),
+    'Set active account after auth': props<{
+      account: Account;
+      redirect: string | Undefined;
+    }>(),
     'Set active account by user': props<{ account: Account }>(),
 
     'Upload avatar': props<{
