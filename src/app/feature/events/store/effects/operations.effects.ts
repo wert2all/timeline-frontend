@@ -21,6 +21,7 @@ import {
 import { EventOperationsActions } from '../actions/operations.actions';
 
 import { TimelineType as GQLTimelineType } from '../../../../api/internal/graphql';
+import { NavigationBuilder } from '../../../../shared/services/navigation/navigation.builder';
 
 const fromApiTypeToState = (type: GQLTimelineType): TimelineEventType => {
   switch (type) {
@@ -74,111 +75,132 @@ export const fromApiEventToState = (
   imageId: event.previewlyImageId || undefined,
 });
 
-const deleteEvent = (actions$ = inject(Actions), api = inject(ApiClient)) => {
-  return actions$.pipe(
-    ofType(EventOperationsActions.deleteEvent),
-    exhaustMap(({ eventId }) =>
-      api.deleteEvent({ eventId: eventId }).pipe(
-        map(result => result.data?.deleteEvent || null),
-        map(result =>
-          result === Status.success
-            ? EventOperationsActions.successDeleteEvent({ eventId: eventId })
-            : EventOperationsActions.failedDeleteEvent({ eventId: eventId })
-        ),
-        catchError(() =>
-          of(EventOperationsActions.failedDeleteEvent({ eventId: eventId }))
+export const eventOperationsEffects = {
+  deleteEvent: createEffect(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
+        ofType(EventOperationsActions.deleteEvent),
+        exhaustMap(({ eventId }) =>
+          api.deleteEvent({ eventId: eventId }).pipe(
+            map(result => result.data?.deleteEvent || null),
+            map(result =>
+              result === Status.success
+                ? EventOperationsActions.successDeleteEvent({
+                    eventId: eventId,
+                  })
+                : EventOperationsActions.failedDeleteEvent({ eventId: eventId })
+            ),
+            catchError(() =>
+              of(EventOperationsActions.failedDeleteEvent({ eventId: eventId }))
+            )
+          )
         )
-      )
-    )
-  );
-};
-
-const failedDeleteEvent = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(EventOperationsActions.failedDeleteEvent),
-    map(() =>
-      SharedActions.sendNotification({
-        message: 'Could not delete event',
-        withType: 'error',
-      })
-    )
-  );
-
-const saveEditableEvent = (actions$ = inject(Actions)) =>
-  actions$.pipe(
-    ofType(EventOperationsActions.saveEditableEvent),
-    map(({ event }) => fromEditableEventStateToApiInput(event)),
-    map(event =>
-      event.id
-        ? EventOperationsActions.updateExistEventOnAPI({
-            event: { ...event, id: event.id },
-          })
-        : EventOperationsActions.pushNewEventToAPI({ event: event })
-    )
-  );
-const pushNewEventToApi = (
-  actions$ = inject(Actions),
-  api = inject(ApiClient)
-) =>
-  actions$.pipe(
-    ofType(EventOperationsActions.pushNewEventToAPI),
-    exhaustMap(({ event }) =>
-      api.addTimelineEvent({ event: event }).pipe(
-        map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
-        map(data => fromApiEventToState(data.event)),
-        map(event => EventOperationsActions.successPushNewEvent({ event })),
-        catchError(error => {
-          return of(
-            SharedActions.sendNotification({
-              message: error,
-              withType: 'error',
-            })
-          );
+      );
+    },
+    StoreDispatchEffect
+  ),
+  failedDeleteEvent: createEffect((action$ = inject(Actions)) => {
+    return action$.pipe(
+      ofType(EventOperationsActions.failedDeleteEvent),
+      map(() =>
+        SharedActions.sendNotification({
+          message: 'Could not delete event',
+          withType: 'error',
         })
       )
-    )
-  );
+    );
+  }, StoreDispatchEffect),
 
-const pushExistEventToApi = (
-  actions$ = inject(Actions),
-  api = inject(ApiClient)
-) =>
-  actions$.pipe(
-    ofType(EventOperationsActions.updateExistEventOnAPI),
-    exhaustMap(({ event }) =>
-      api.saveExistTimelineEvent({ event: event }).pipe(
-        map(result => apiAssertNotNull(extractApiData(result), 'Empty event')),
-        map(data => fromApiEventToState(data.event)),
-        map(event => EventOperationsActions.successUpdateEvent({ event })),
-        catchError(error =>
-          of(
-            SharedActions.sendNotification({
-              message: error,
-              withType: 'error',
+  pushNewEventToApi: createEffect(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
+        ofType(EventOperationsActions.pushNewEventToAPI),
+        exhaustMap(({ event }) =>
+          api.addTimelineEvent({ event: event }).pipe(
+            map(result =>
+              apiAssertNotNull(extractApiData(result), 'Empty event')
+            ),
+            map(data => fromApiEventToState(data.event)),
+            map(event => EventOperationsActions.successPushNewEvent({ event })),
+            catchError(error => {
+              return of(
+                SharedActions.sendNotification({
+                  message: error,
+                  withType: 'error',
+                })
+              );
             })
           )
         )
+      );
+    },
+    StoreDispatchEffect
+  ),
+  pushExistEventToApi: createEffect(
+    (actions$ = inject(Actions), api = inject(ApiClient)) => {
+      return actions$.pipe(
+        ofType(EventOperationsActions.updateExistEventOnAPI),
+        exhaustMap(({ event }) =>
+          api.saveExistTimelineEvent({ event: event }).pipe(
+            map(result =>
+              apiAssertNotNull(extractApiData(result), 'Empty event')
+            ),
+            map(data => fromApiEventToState(data.event)),
+            map(event => EventOperationsActions.successUpdateEvent({ event })),
+            catchError(error =>
+              of(
+                SharedActions.sendNotification({
+                  message: error,
+                  withType: 'error',
+                })
+              )
+            )
+          )
+        )
+      );
+    },
+    StoreDispatchEffect
+  ),
+  saveEditableEvent: createEffect((actions$ = inject(Actions)) => {
+    return actions$.pipe(
+      ofType(EventOperationsActions.saveEditableEvent),
+      map(({ event }) => fromEditableEventStateToApiInput(event)),
+      map(event =>
+        event.id
+          ? EventOperationsActions.updateExistEventOnAPI({
+              event: { ...event, id: event.id },
+            })
+          : EventOperationsActions.pushNewEventToAPI({ event: event })
       )
-    )
-  );
-const apiException = (action$ = inject(Actions)) =>
-  action$.pipe(
-    ofType(EventOperationsActions.apiException),
-    map(() =>
-      SharedActions.sendNotification({
-        message: 'Something went wrong. Try again later',
-        withType: 'error',
-      })
-    )
-  );
+    );
+  }, StoreDispatchEffect),
 
-export const eventOperationsEffects = {
-  deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
-  failedDeleteEvent: createEffect(failedDeleteEvent, StoreDispatchEffect),
+  apiException: createEffect((action$ = inject(Actions)) => {
+    return action$.pipe(
+      ofType(EventOperationsActions.apiException),
+      map(() =>
+        SharedActions.sendNotification({
+          message: 'Something went wrong. Try again later',
+          withType: 'error',
+        })
+      )
+    );
+  }, StoreDispatchEffect),
 
-  pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
-  pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
-  saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
-
-  apiException: createEffect(apiException, StoreDispatchEffect),
+  redirectOnCloseEditEvent: createEffect(
+    (
+      action$ = inject(Actions),
+      navigationBulder = inject(NavigationBuilder)
+    ) => {
+      return action$.pipe(
+        ofType(EventOperationsActions.stopEditingEvent),
+        map(() =>
+          SharedActions.navigate({
+            destination: navigationBulder.forDashboard().index(),
+          })
+        )
+      );
+    },
+    StoreDispatchEffect
+  ),
 };
