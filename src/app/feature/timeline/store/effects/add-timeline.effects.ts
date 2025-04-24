@@ -26,13 +26,13 @@ export const addTimelineEffects = {
       map(options =>
         options.timeline
           ? SetActiveTimelineActions.setActiveTimeline({
-            timeline: {
-              ...options.timeline,
-              name: options.timeline.name || '',
+              timeline: {
+                ...options.timeline,
+                name: options.timeline.name || '',
+                accountId: options.accountId,
+              },
               accountId: options.accountId,
-            },
-            accountId: options.accountId,
-          })
+            })
           : SetActiveTimelineActions.shouldNotSetActiveTimeline()
       )
     );
@@ -62,15 +62,15 @@ export const addTimelineEffects = {
             map(timeline =>
               timeline
                 ? AddTimelineActions.successAddTimeline({
-                  accountId: timeline.accountId,
-                  timelines: [
-                    {
-                      id: timeline.id,
-                      name: timeline.name || '',
-                      accountId: timeline.accountId,
-                    },
-                  ],
-                })
+                    accountId: timeline.accountId,
+                    timelines: [
+                      {
+                        id: timeline.id,
+                        name: timeline.name || '',
+                        accountId: timeline.accountId,
+                      },
+                    ],
+                  })
                 : AddTimelineActions.emptyTimeline()
             ),
             catchError(exception =>
