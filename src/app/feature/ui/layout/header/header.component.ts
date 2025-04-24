@@ -56,12 +56,12 @@ export class HeaderComponent {
     const account = this.activeAccount();
     return account
       ? toAccountView({
-        ...account,
-        avatar:
-          account.avatar.full && account.avatar.small
-            ? { small: account.avatar.small, full: account.avatar.full }
-            : undefined,
-      })
+          ...account,
+          avatar:
+            account.avatar.full && account.avatar.small
+              ? { small: account.avatar.small, full: account.avatar.full }
+              : undefined,
+        })
       : null;
   });
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Destination } from './navigation-builder.types';
 
 class Url implements Destination {
-  constructor(private readonly url: string) { }
+  constructor(private readonly url: string) {}
 
   append(url: string): Destination {
     return new Url([this.url, url].join('/'));
@@ -21,7 +21,7 @@ class User {
 }
 
 class Timeline {
-  constructor(private readonly timelineId: number) { }
+  constructor(private readonly timelineId: number) {}
 
   show(): Destination {
     return new Url('timeline/' + this.timelineId);
