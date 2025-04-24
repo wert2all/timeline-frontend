@@ -1,9 +1,9 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
+import { toObservable } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { OAuthErrorEvent, OAuthService } from 'angular-oauth2-oidc';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 
 @Injectable({ providedIn: 'root' })
@@ -12,26 +12,11 @@ export class NewAuthService {
   private readonly oauthService = inject(OAuthService);
   private readonly router = inject(Router);
 
-  private isAuthenticatedSubject$ = new BehaviorSubject<boolean>(false);
-  public isAuthenticated$ = this.isAuthenticatedSubject$.asObservable();
+  private readonly isAuthenticatedSignal = signal(false);
+  private readonly isDoneLoadingSignal = signal(false);
 
-  private isDoneLoadingSubject$ = new BehaviorSubject<boolean>(false);
-  public isDoneLoading$ = this.isDoneLoadingSubject$.asObservable();
-
-  /**
-   * Publishes `true` if and only if (a) all the asynchronous initial
-   * login calls have completed or errorred, and (b) the user ended up
-   * being authenticated.
-   *
-   * In essence, it combines:
-   *
-   * - the latest known state of whether the user is authorized
-   * - whether the ajax calls for initial log in have all been done
-   */
-  public canActivateProtectedRoutes$: Observable<boolean> = combineLatest([
-    this.isAuthenticated$,
-    this.isDoneLoading$,
-  ]).pipe(map(values => values.every(b => b)));
+  public isAuthenticated$ = toObservable(this.isAuthenticatedSignal);
+  public isDoneLoading$ = toObservable(this.isDoneLoadingSignal);
 
   constructor() {
     // Useful for debugging:
@@ -43,7 +28,7 @@ export class NewAuthService {
       }
     });
 
-    // THe following cross-tab communication of fresh access tokens works usually in practice,
+    // The following cross-tab communication of fresh access tokens works usually in practice,
     // but if you need more robust handling the community has come up with ways to extend logic
     // in the library which may give you better mileage.
     //
@@ -59,9 +44,8 @@ export class NewAuthService {
       console.warn(
         'Noticed changes to access_token (most likely from another tab), updating isAuthenticated'
       );
-      this.isAuthenticatedSubject$.next(
-        this.oauthService.hasValidAccessToken()
-      );
+
+      this.isAuthenticatedSignal.set(this.oauthService.hasValidAccessToken());
 
       if (!this.oauthService.hasValidAccessToken()) {
         this.navigateToLoginPage();
@@ -69,11 +53,9 @@ export class NewAuthService {
     });
 
     this.oauthService.events.subscribe(() => {
-      this.isAuthenticatedSubject$.next(
-        this.oauthService.hasValidAccessToken()
-      );
+      this.isAuthenticatedSignal.set(this.oauthService.hasValidAccessToken());
     });
-    this.isAuthenticatedSubject$.next(this.oauthService.hasValidAccessToken());
+    this.isAuthenticatedSignal.set(this.oauthService.hasValidAccessToken());
 
     this.oauthService.events
       .pipe(filter(e => ['token_received'].includes(e.type)))
@@ -168,7 +150,7 @@ export class NewAuthService {
         })
 
         .then(() => {
-          this.isDoneLoadingSubject$.next(true);
+          this.isDoneLoadingSignal.set(true);
 
           // Check for the strings 'undefined' and 'null' just to be sure. Our current
           // login(...) should never have this, but in case someone ever calls
@@ -188,7 +170,7 @@ export class NewAuthService {
             this.router.navigateByUrl(stateUrl);
           }
         })
-        .catch(() => this.isDoneLoadingSubject$.next(true))
+        .catch(() => this.isDoneLoadingSignal.set(true))
     );
   }
 
