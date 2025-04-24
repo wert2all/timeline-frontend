@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Destination } from './navigation-builder.types';
 
 class Url implements Destination {
-  constructor(private readonly url: string) {}
+  constructor(private readonly url: string) { }
 
   append(url: string): Destination {
     return new Url([this.url, url].join('/'));
@@ -15,16 +15,13 @@ class User {
   home(): Destination {
     return new Url('');
   }
-  dashboard(): Destination {
-    return new Url('dashboard');
-  }
   login(): Destination {
     return new Url('user/login');
   }
 }
 
 class Timeline {
-  constructor(private readonly timelineId: number) {}
+  constructor(private readonly timelineId: number) { }
 
   show(): Destination {
     return new Url('timeline/' + this.timelineId);
@@ -32,10 +29,13 @@ class Timeline {
 }
 
 class Dashboard {
-  private index = new Url('dashboard');
+  private indexUrl = new Url('dashboard');
 
+  index(): Destination {
+    return this.indexUrl;
+  }
   addTimeline(): Destination {
-    return this.index.append('add-timeline');
+    return this.indexUrl.append('add-timeline');
   }
 }
 
