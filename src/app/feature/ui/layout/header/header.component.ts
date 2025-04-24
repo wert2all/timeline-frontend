@@ -56,12 +56,12 @@ export class HeaderComponent {
     const account = this.activeAccount();
     return account
       ? toAccountView({
-          ...account,
-          avatar:
-            account.avatar.full && account.avatar.small
-              ? { small: account.avatar.small, full: account.avatar.full }
-              : undefined,
-        })
+        ...account,
+        avatar:
+          account.avatar.full && account.avatar.small
+            ? { small: account.avatar.small, full: account.avatar.full }
+            : undefined,
+      })
       : null;
   });
 
@@ -131,7 +131,7 @@ export class HeaderComponent {
   goToDashboard() {
     this.store.dispatch(
       SharedActions.navigate({
-        destination: this.navigationBuilder.forUser().dashboard(),
+        destination: this.navigationBuilder.forDashboard().index(),
       })
     );
   }

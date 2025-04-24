@@ -30,7 +30,7 @@ export class IndexPageComponent {
     this.navigationBuilder.forUser().login().toString()
   );
   protected dashboardUrl = computed(() =>
-    this.navigationBuilder.forUser().dashboard().toString()
+    this.navigationBuilder.forDashboard().index().toString()
   );
   protected timelineUrl = computed(() => {
     return this.navigationBuilder.forTimeline(1).show().toString();
