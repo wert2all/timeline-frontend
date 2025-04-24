@@ -46,7 +46,12 @@ export class LoginRedirectPageComponent {
     effect(() => {
       const accounts = this.accounts();
       if (accounts) {
-        this.store.dispatch(SharedActions.successAuthenticated({ accounts }));
+        this.store.dispatch(
+          SharedActions.successAuthenticated({
+            accounts,
+            redirect: this.authService.redirectUrl(),
+          })
+        );
       }
     });
   }

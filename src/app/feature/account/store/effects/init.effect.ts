@@ -8,7 +8,7 @@ import {
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, map, of } from 'rxjs';
-import { StoreDispatchEffect } from '../../../../app.types';
+import { StoreDispatchEffect, Undefined } from '../../../../app.types';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { TokenProvider } from '../../../auth/shared/token.provider';
 import { ShortAccount } from '../../account.types';
@@ -39,16 +39,16 @@ const getCurentAccountId = (
 
 const getAccount = (
   currentAccountId: number | null,
-  accountsService: AccountsService
+  accountsService: AccountsService,
+  redirect: string | Undefined
 ) =>
   currentAccountId
-    ? accountsService
-        .getAccounts()
-        .pipe(
-          map(accounts =>
-            accounts.find(account => account?.id == currentAccountId)
-          )
-        )
+    ? accountsService.getAccounts().pipe(
+        map(accounts =>
+          accounts.find(account => account?.id == currentAccountId)
+        ),
+        map(account => ({ account, redirect }))
+      )
     : of(null);
 
 export const initStateEffects = {
@@ -67,11 +67,13 @@ export const initStateEffects = {
           getCurentAccountId(accounts, tokenProvider, currentAccountIdProvider)
         ),
         exhaustMap(currentAccountId =>
-          getAccount(currentAccountId, accountsService)
+          getAccount(currentAccountId, accountsService, null)
         ),
         map(account =>
-          account
-            ? AccountActions.setActiveAccountAfterInit({ account })
+          account?.account
+            ? AccountActions.setActiveAccountAfterInit({
+                account: account.account,
+              })
             : AccountActions.emptyActiveAccount()
         ),
         catchError(err => of(AccountActions.errorOnInitAuth({ error: err })))
@@ -89,15 +91,25 @@ export const initStateEffects = {
     ) => {
       return actions$.pipe(
         ofType(SharedActions.successAuthenticated),
-        map(({ accounts }) =>
-          getCurentAccountId(accounts, tokenProvider, currentAccountIdProvider)
-        ),
-        exhaustMap(currentAccountId =>
-          getAccount(currentAccountId, accountsService)
+        map(({ accounts, redirect }) => {
+          return {
+            currentAccountId: getCurentAccountId(
+              accounts,
+              tokenProvider,
+              currentAccountIdProvider
+            ),
+            redirect,
+          };
+        }),
+        exhaustMap(({ currentAccountId, redirect }) =>
+          getAccount(currentAccountId, accountsService, redirect)
         ),
         map(current =>
-          current
-            ? AccountActions.setActiveAccountAfterAuth({ account: current })
+          current?.account
+            ? AccountActions.setActiveAccountAfterAuth({
+                account: current.account,
+                redirect: current.redirect,
+              })
             : AccountActions.emptyCurrentAccount()
         ),
         catchError(err => {
