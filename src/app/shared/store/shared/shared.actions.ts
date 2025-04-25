@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
 import { Undefined } from '../../../app.types';
 import { ShortAccount } from '../../../feature/account/account.types';
-import { MessageType } from '../../../feature/ui/layout/store/notification/notifications.types';
+import { MessageType } from '../../handlers/error.types';
 import { Destination } from '../../services/navigation/navigation-builder.types';
 
 export const SharedActions = createActionGroup({

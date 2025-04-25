@@ -7,7 +7,8 @@ import {
   withState,
 } from '@ngrx/signals';
 import { v4 as uuid } from 'uuid';
-import { MessageType, NotificationsState } from './notifications.types';
+import { MessageType } from '../../../../../shared/handlers/error.types';
+import { NotificationsState } from './notifications.types';
 
 const initialState: NotificationsState = { messages: [] };
 export const NotificationStore = signalStore(
