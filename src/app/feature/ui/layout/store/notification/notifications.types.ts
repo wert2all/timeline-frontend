@@ -1,4 +1,4 @@
-export type MessageType = 'success' | 'error' | 'warning';
+import { MessageType } from '../../../../../shared/handlers/error.types';
 
 export interface NotificationMessage {
   uuid: string;

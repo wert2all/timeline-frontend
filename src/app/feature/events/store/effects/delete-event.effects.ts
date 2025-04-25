@@ -1,9 +1,13 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, exhaustMap, map, of } from 'rxjs';
+import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import { ApiClient, Status } from '../../../../api/internal/graphql';
-import { StoreDispatchEffect } from '../../../../app.types';
-import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import {
+  StoreDispatchEffect,
+  StoreUnDispatchEffect,
+} from '../../../../app.types';
+import { ErrorHandler } from '../../../../shared/handlers/error.handler';
+import { ErrorMessage } from '../../../../shared/handlers/error.types';
 import { DeleteEventActions } from '../actions/delete-event.actions';
 
 export const deleteEventEffects = {
@@ -31,15 +35,17 @@ export const deleteEventEffects = {
     StoreDispatchEffect
   ),
 
-  failedDeleteEvent: createEffect((action$ = inject(Actions)) => {
-    return action$.pipe(
-      ofType(DeleteEventActions.failedDeleteEvent),
-      map(() =>
-        SharedActions.sendNotification({
-          message: 'Could not delete event',
-          withType: 'error',
-        })
-      )
-    );
-  }, StoreDispatchEffect),
+  failedDeleteEvent: createEffect(
+    (action$ = inject(Actions), errorHandler = inject(ErrorHandler)) => {
+      return action$.pipe(
+        ofType(DeleteEventActions.failedDeleteEvent),
+        tap(() =>
+          errorHandler.handle(
+            new ErrorMessage('Could not delete event', true, true).error()
+          )
+        )
+      );
+    },
+    StoreUnDispatchEffect
+  ),
 };
