@@ -4,7 +4,6 @@ import { catchError, exhaustMap, map, of } from 'rxjs';
 import {
   ApiClient,
   TimelineEvent as GQLTimelineEvent,
-  Status,
   TimelineEventInput,
 } from '../../../../api/internal/graphql';
 import { StoreDispatchEffect } from '../../../../app.types';
@@ -76,41 +75,6 @@ export const fromApiEventToState = (
 });
 
 export const eventOperationsEffects = {
-  deleteEvent: createEffect(
-    (actions$ = inject(Actions), api = inject(ApiClient)) => {
-      return actions$.pipe(
-        ofType(EventOperationsActions.deleteEvent),
-        exhaustMap(({ eventId }) =>
-          api.deleteEvent({ eventId: eventId }).pipe(
-            map(result => result.data?.deleteEvent || null),
-            map(result =>
-              result === Status.success
-                ? EventOperationsActions.successDeleteEvent({
-                    eventId: eventId,
-                  })
-                : EventOperationsActions.failedDeleteEvent({ eventId: eventId })
-            ),
-            catchError(() =>
-              of(EventOperationsActions.failedDeleteEvent({ eventId: eventId }))
-            )
-          )
-        )
-      );
-    },
-    StoreDispatchEffect
-  ),
-  failedDeleteEvent: createEffect((action$ = inject(Actions)) => {
-    return action$.pipe(
-      ofType(EventOperationsActions.failedDeleteEvent),
-      map(() =>
-        SharedActions.sendNotification({
-          message: 'Could not delete event',
-          withType: 'error',
-        })
-      )
-    );
-  }, StoreDispatchEffect),
-
   pushNewEventToApi: createEffect(
     (actions$ = inject(Actions), api = inject(ApiClient)) => {
       return actions$.pipe(

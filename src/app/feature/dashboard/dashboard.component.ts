@@ -18,6 +18,7 @@ import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
+import { DeleteEventActions } from '../events/store/actions/delete-event.actions';
 import { EventOperationsActions } from '../events/store/actions/operations.actions';
 import { eventsFeature } from '../events/store/events.reducer';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
@@ -124,14 +125,14 @@ export class DashboardPageComponent {
   deleteEvent(event: Iterable) {
     this.shouldDeleteEventId.set(event.id);
     this.store.dispatch(
-      EventOperationsActions.confirmToDeleteEvent({ eventId: event.id })
+      DeleteEventActions.confirmToDeleteEvent({ eventId: event.id })
     );
   }
 
   confirmDelete() {
     if (this.shouldDeleteEventId() > 0) {
       this.store.dispatch(
-        EventOperationsActions.deleteEvent({
+        DeleteEventActions.deleteEvent({
           eventId: this.shouldDeleteEventId(),
           imageId: this.shouldDeleteImageId(),
         })
@@ -142,7 +143,7 @@ export class DashboardPageComponent {
 
   dismissDelete() {
     this.store.dispatch(
-      EventOperationsActions.dismissDeleteEvent({
+      DeleteEventActions.dismissDeleteEvent({
         eventId: this.shouldDeleteEventId(),
       })
     );

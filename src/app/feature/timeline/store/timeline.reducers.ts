@@ -2,6 +2,7 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
+import { DeleteEventActions } from '../../events/store/actions/delete-event.actions';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { AddTimelineActions } from './actions/add-timeline.actions';
@@ -64,7 +65,7 @@ export const timelineFeature = createFeature({
       })
     ),
 
-    on(EventOperationsActions.confirmToDeleteEvent, (state, { eventId }) => ({
+    on(DeleteEventActions.confirmToDeleteEvent, (state, { eventId }) => ({
       ...state,
       events: state.events.map(event => ({
         ...event,
@@ -73,9 +74,9 @@ export const timelineFeature = createFeature({
     })),
 
     on(
-      EventOperationsActions.dismissDeleteEvent,
-      EventOperationsActions.successDeleteEvent,
-      EventOperationsActions.failedDeleteEvent,
+      DeleteEventActions.dismissDeleteEvent,
+      DeleteEventActions.successDeleteEvent,
+      DeleteEventActions.failedDeleteEvent,
       (state, { eventId }) => ({
         ...state,
         events: state.events.map(event => ({
@@ -85,7 +86,7 @@ export const timelineFeature = createFeature({
       })
     ),
 
-    on(EventOperationsActions.successDeleteEvent, (state, { eventId }) => ({
+    on(DeleteEventActions.successDeleteEvent, (state, { eventId }) => ({
       ...state,
       events: state.events.filter(event => event.id !== eventId),
     })),
