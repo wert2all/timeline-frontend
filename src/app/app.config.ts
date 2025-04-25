@@ -15,6 +15,7 @@ import { accountEffects } from './feature/account/store/account.effects';
 import { accountFeature } from './feature/account/store/account.reducer';
 import { previewEffects } from './feature/dashboard/store/preview/preview.effects';
 import { previewFeature } from './feature/dashboard/store/preview/preview.reducers';
+import { deleteEventEffects } from './feature/events/store/effects/delete-event.effects';
 import { eventOperationsEffects } from './feature/events/store/effects/operations.effects';
 import { showEventEffects } from './feature/events/store/effects/show-event.effects';
 import { eventsFeature } from './feature/events/store/events.reducer';
@@ -68,6 +69,7 @@ export const appConfig: ApplicationConfig = {
       timelineEffects,
       addTimelineEffects,
       loadTimelinesEffects,
+      deleteEventEffects,
       eventOperationsEffects,
       showEventEffects,
       previewEffects,

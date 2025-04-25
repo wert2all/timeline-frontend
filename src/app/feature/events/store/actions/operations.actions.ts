@@ -3,7 +3,6 @@ import {
   ExistTimelineEventInput,
   TimelineEventInput,
 } from '../../../../api/internal/graphql';
-import { Undefined } from '../../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
@@ -23,12 +22,6 @@ export const EventOperationsActions = createActionGroup({
 
     'Update exist event on API': props<{ event: ExistTimelineEventInput }>(),
     'Success update event': props<{ event: ExistTimelineEvent }>(),
-
-    'Confirm to delete event': props<{ eventId: number }>(),
-    'Dismiss delete event': props<{ eventId: number }>(),
-    'Delete event': props<{ eventId: number; imageId: number | Undefined }>(),
-    'Success delete event': props<{ eventId: number }>(),
-    'Failed delete event': props<{ eventId: number }>(),
 
     'Empty event': emptyProps(),
     'Api Exception': props<{ exception: string }>(),
