@@ -4,7 +4,7 @@ import { EventContentConvertor } from '../../../shared/ui/event/content/content.
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { AddTimelineActions } from '../../dashboard/store/operations/actions/add-timeline.actions';
 import { DeleteEventActions } from '../../dashboard/store/operations/actions/delete-event.actions';
-import { EventOperationsActions } from '../../events/store/actions/operations.actions';
+import { EditEventActions } from '../../dashboard/store/operations/actions/edit-event.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
@@ -88,7 +88,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.saveEditableEvent,
+      EditEventActions.saveEditableEvent,
       (state, { event }): NewTimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>
@@ -100,8 +100,8 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.successUpdateEvent,
-      EventOperationsActions.successPushNewEvent,
+      EditEventActions.successUpdateEvent,
+      EditEventActions.successPushNewEvent,
       (state, { event }): NewTimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>
@@ -113,7 +113,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.successPushNewEvent,
+      EditEventActions.successPushNewEvent,
       (state, { event }): NewTimelineState => ({
         ...state,
         events: [event, ...state.events],
@@ -121,7 +121,7 @@ export const timelineFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.successUpdateEvent,
+      EditEventActions.successUpdateEvent,
       (state, { event }): NewTimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>

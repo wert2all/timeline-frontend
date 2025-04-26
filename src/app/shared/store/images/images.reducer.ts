@@ -1,7 +1,7 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { Iterable, Pending, Status, UniqueType } from '../../../app.types';
 import { DeleteEventActions } from '../../../feature/dashboard/store/operations/actions/delete-event.actions';
-import { EventOperationsActions } from '../../../feature/events/store/actions/operations.actions';
+import { EditEventActions } from '../../../feature/dashboard/store/operations/actions/edit-event.actions';
 import { ImagesActions, UploadActions } from './images.actions';
 import { ImagesState, UploadQuequeImage } from './images.types';
 
@@ -64,7 +64,7 @@ export const imagesFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.stopEditingEvent,
+      EditEventActions.stopEditingEvent,
       (state): ImagesState => ({ ...state, queue: {} })
     ),
 

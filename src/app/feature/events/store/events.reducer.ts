@@ -1,8 +1,8 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { EditEventActions } from '../../dashboard/store/operations/actions/edit-event.actions';
+import { fromApiEventToState } from '../../dashboard/store/operations/effects/edit-event.effects';
 import { createDefaultTimelineEvent } from '../share/editable-event-view.factory';
-import { EventOperationsActions } from './actions/operations.actions';
 import { ShowEventActions } from './actions/show.actions';
-import { fromApiEventToState } from './effects/operations.effects';
 import { EventsState } from './events.types';
 
 const initialState: EventsState = {
@@ -17,11 +17,11 @@ export const eventsFeature = createFeature({
     initialState,
 
     on(
-      EventOperationsActions.emptyEvent,
-      EventOperationsActions.apiException,
+      EditEventActions.emptyEvent,
+      EditEventActions.apiException,
       ShowEventActions.errorLoadEvent,
-      EventOperationsActions.successUpdateEvent,
-      EventOperationsActions.successPushNewEvent,
+      EditEventActions.successUpdateEvent,
+      EditEventActions.successPushNewEvent,
       ShowEventActions.successLoadEvent,
       (state): EventsState => ({
         ...state,
@@ -29,8 +29,8 @@ export const eventsFeature = createFeature({
       })
     ),
     on(
-      EventOperationsActions.pushNewEventToAPI,
-      EventOperationsActions.updateExistEventOnAPI,
+      EditEventActions.pushNewEventToAPI,
+      EditEventActions.updateExistEventOnAPI,
       ShowEventActions.loadEvent,
       (state): EventsState => ({
         ...state,
@@ -47,7 +47,7 @@ export const eventsFeature = createFeature({
       return { ...state, showEvent: fromApiEventToState(event) };
     }),
     on(
-      EventOperationsActions.dispatchAddNewEvent,
+      EditEventActions.dispatchAddNewEvent,
       (state, { timelineId }): EventsState => ({
         ...state,
         editedEvent: createDefaultTimelineEvent(timelineId),
@@ -55,9 +55,9 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.stopEditingEvent,
-      EventOperationsActions.successPushNewEvent,
-      EventOperationsActions.successUpdateEvent,
+      EditEventActions.stopEditingEvent,
+      EditEventActions.successPushNewEvent,
+      EditEventActions.successUpdateEvent,
       (state): EventsState => ({
         ...state,
         editedEvent: null,
@@ -65,7 +65,7 @@ export const eventsFeature = createFeature({
     ),
 
     on(
-      EventOperationsActions.dispatchEditEvent,
+      EditEventActions.successLoadEditableEvent,
       (state, { event }): EventsState => ({
         ...state,
         editedEvent: event,

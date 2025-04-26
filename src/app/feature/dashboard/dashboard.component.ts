@@ -18,16 +18,15 @@ import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
-import { EventOperationsActions } from '../events/store/actions/operations.actions';
 import { eventsFeature } from '../events/store/events.reducer';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
 import { timelineFeature } from '../timeline/store/timeline.reducers';
-import { ExistTimelineEvent } from '../timeline/store/timeline.types';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { DeleteEventActions } from './store/operations/actions/delete-event.actions';
+import { EditEventActions } from './store/operations/actions/edit-event.actions';
 import { dashboardOperationsFeature } from './store/operations/operations.reducers';
 
 @Component({
@@ -102,6 +101,9 @@ export class DashboardPageComponent {
         case 'add-event':
           this.showAddEventForm();
           break;
+        case 'edit-event':
+          this.tryEditEventAction();
+          break;
       }
     });
 
@@ -113,6 +115,12 @@ export class DashboardPageComponent {
         );
       }
     });
+  }
+  private tryEditEventAction() {
+    const actionId = this.actionId();
+    if (actionId) {
+      this.showEditEventForm({ id: actionId });
+    }
   }
 
   // ngAfterViewInit(): void {
@@ -151,18 +159,16 @@ export class DashboardPageComponent {
     this.shouldDeleteEventId.set(0);
   }
 
-  editEvent(event: ExistTimelineEvent) {
+  showEditEventForm(event: Iterable) {
     this.store.dispatch(
-      EventOperationsActions.dispatchEditEvent({ event: event })
+      EditEventActions.dispatchEditEvent({ event: event })
     );
   }
 
   showAddEventForm() {
     const timelineId = this.activeTimelineId();
     if (timelineId) {
-      this.store.dispatch(
-        EventOperationsActions.dispatchAddNewEvent({ timelineId })
-      );
+      this.store.dispatch(EditEventActions.dispatchAddNewEvent({ timelineId }));
     }
   }
 

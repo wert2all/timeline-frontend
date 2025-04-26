@@ -11,8 +11,9 @@ const createComponentAction = (
     action: new UrlSegment(action, {}),
   };
   if (id) {
-    posParams['id'] = new UrlSegment(id, {});
+    posParams['idParam'] = new UrlSegment(id, {});
   }
+  console.log(posParams);
   return { consumed, posParams };
 };
 
