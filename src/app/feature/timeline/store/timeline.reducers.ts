@@ -8,7 +8,6 @@ import { EventOperationsActions } from '../../events/store/actions/operations.ac
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
-import { SetActiveTimelineActions } from './actions/set-active.actions';
 import { NewTimelineState } from './timeline.types';
 
 const initialState: NewTimelineState = {
@@ -18,8 +17,6 @@ const initialState: NewTimelineState = {
   error: null,
   lastCursor: null,
   hasMore: false,
-  activeTimeline: null,
-  newTimelineAdded: false,
   activeAcccountTimelines: [],
 };
 
@@ -27,16 +24,6 @@ export const timelineFeature = createFeature({
   name: 'timeline',
   reducer: createReducer(
     initialState,
-
-    on(
-      SetActiveTimelineActions.setActiveTimeline,
-      (state): NewTimelineState => ({
-        ...state,
-        events: [],
-        hasMore: false,
-        lastCursor: null,
-      })
-    ),
 
     on(
       ListEventsActions.loadTimelineEvents,
@@ -167,25 +154,6 @@ export const timelineFeature = createFeature({
         };
         return { ...state, timelines };
       }
-    ),
-
-    on(
-      SetActiveTimelineActions.setActiveTimeline,
-      (state, { timeline }): NewTimelineState => ({
-        ...state,
-        activeTimeline: {
-          name: timeline.name || '',
-          id: timeline.id,
-        },
-      })
-    ),
-
-    on(
-      AddTimelineActions.successAddTimeline,
-      (state): NewTimelineState => ({
-        ...state,
-        newTimelineAdded: true,
-      })
     ),
 
     on(

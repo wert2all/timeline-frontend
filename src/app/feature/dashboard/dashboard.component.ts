@@ -28,6 +28,7 @@ import { ExistTimelineEvent } from '../timeline/store/timeline.types';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
+import { dashboardOperationsFeature } from './store/operations/operations.reducers';
 
 @Component({
   standalone: true,
@@ -58,7 +59,7 @@ export class DashboardPageComponent {
     eventsFeature.isEditingEvent
   );
   private readonly activeTimeline = this.store.selectSignal(
-    timelineFeature.selectActiveTimeline
+    dashboardOperationsFeature.selectCurrentTimeline
   );
   protected readonly activeTimelineId = computed(
     () => this.activeTimeline()?.id
@@ -71,7 +72,7 @@ export class DashboardPageComponent {
   protected readonly isLoading = computed(() => !this.activeAccountId());
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
-    timelineFeature.selectNewTimelineAdded
+    dashboardOperationsFeature.selectNewTimelineAdded
   );
   protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
 
