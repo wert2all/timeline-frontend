@@ -8,6 +8,7 @@ import {
   failedAddTimeline,
   redirectOnSuccessAddingTimeline,
 } from './effects/add-timeline.effects';
+import { deleteEvent, failedDeleteEvent } from './effects/delete-event.effects';
 import { setActiveTimeline } from './effects/set-active-timeline.effects';
 
 export const dashboardOperationsEffects = {
@@ -19,4 +20,7 @@ export const dashboardOperationsEffects = {
   failedAddTimeline: createEffect(failedAddTimeline, StoreUnDispatchEffect),
 
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
+
+  deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
+  failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
 };

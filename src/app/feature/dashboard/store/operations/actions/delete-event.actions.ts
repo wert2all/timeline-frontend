@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { Undefined } from '../../../../app.types';
+import { Undefined } from '../../../../../app.types';
 
 export const DeleteEventActions = createActionGroup({
   source: 'Delete event',

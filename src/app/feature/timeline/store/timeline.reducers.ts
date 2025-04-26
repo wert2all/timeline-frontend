@@ -3,7 +3,7 @@ import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
 import { AddTimelineActions } from '../../dashboard/store/operations/actions/add-timeline.actions';
-import { DeleteEventActions } from '../../events/store/actions/delete-event.actions';
+import { DeleteEventActions } from '../../dashboard/store/operations/actions/delete-event.actions';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
