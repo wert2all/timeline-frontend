@@ -16,6 +16,17 @@ export const dashboardOperationsFeature = createFeature({
     initState,
 
     on(
+      AddTimelineActions.addTimeline,
+      (state): DashboardOperationsState => ({ ...state, loading: true })
+    ),
+
+    on(
+      AddTimelineActions.successAddTimeline,
+      AddTimelineActions.failedAddTimeline,
+      (state): DashboardOperationsState => ({ ...state, loading: false })
+    ),
+
+    on(
       SetActiveTimelineActions.setActiveTimeline,
       (state, { timeline }): DashboardOperationsState => ({
         ...state,

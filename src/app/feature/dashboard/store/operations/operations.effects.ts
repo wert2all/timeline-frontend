@@ -6,13 +6,17 @@ import {
 import {
   addTimeline,
   failedAddTimeline,
-  redirectOnSuccess,
+  redirectOnSuccessAddingTimeline,
 } from './effects/add-timeline.effects';
 import { setActiveTimeline } from './effects/set-active-timeline.effects';
 
 export const dashboardOperationsEffects = {
   addTimeline: createEffect(addTimeline, StoreDispatchEffect),
-  redirectOnSuccess: createEffect(redirectOnSuccess, StoreDispatchEffect),
+  redirectOnSuccessAddingTimeline: createEffect(
+    redirectOnSuccessAddingTimeline,
+    StoreDispatchEffect
+  ),
   failedAddTimeline: createEffect(failedAddTimeline, StoreUnDispatchEffect),
+
   setActiveTimeline: createEffect(setActiveTimeline, StoreDispatchEffect),
 };

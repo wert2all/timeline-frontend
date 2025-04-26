@@ -68,7 +68,7 @@ export const failedAddTimeline = (
   );
 };
 
-export const redirectOnSuccess = (
+export const redirectOnSuccessAddingTimeline = (
   action$ = inject(Actions),
   navigationBuilder = inject(NavigationBuilder)
 ) => {
