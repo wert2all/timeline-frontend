@@ -18,7 +18,6 @@ import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
-import { EventOperationsActions } from '../events/store/actions/operations.actions';
 import { eventsFeature } from '../events/store/events.reducer';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
@@ -28,6 +27,7 @@ import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { DeleteEventActions } from './store/operations/actions/delete-event.actions';
+import { EditEventActions } from './store/operations/actions/edit-event.actions';
 import { dashboardOperationsFeature } from './store/operations/operations.reducers';
 
 @Component({
@@ -152,17 +152,13 @@ export class DashboardPageComponent {
   }
 
   editEvent(event: ExistTimelineEvent) {
-    this.store.dispatch(
-      EventOperationsActions.dispatchEditEvent({ event: event })
-    );
+    this.store.dispatch(EditEventActions.dispatchEditEvent({ event: event }));
   }
 
   showAddEventForm() {
     const timelineId = this.activeTimelineId();
     if (timelineId) {
-      this.store.dispatch(
-        EventOperationsActions.dispatchAddNewEvent({ timelineId })
-      );
+      this.store.dispatch(EditEventActions.dispatchAddNewEvent({ timelineId }));
     }
   }
 

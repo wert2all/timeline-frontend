@@ -2,13 +2,13 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
   ExistTimelineEventInput,
   TimelineEventInput,
-} from '../../../../api/internal/graphql';
+} from '../../../../../api/internal/graphql';
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../timeline/store/timeline.types';
+} from '../../../../timeline/store/timeline.types';
 
-export const EventOperationsActions = createActionGroup({
+export const EditEventActions = createActionGroup({
   source: 'Event Operations',
   events: {
     'Dispatch edit event': props<{ event: TimelineEvent }>(),

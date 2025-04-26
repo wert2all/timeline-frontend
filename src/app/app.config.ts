@@ -17,7 +17,6 @@ import { dashboardOperationsEffects } from './feature/dashboard/store/operations
 import { dashboardOperationsFeature } from './feature/dashboard/store/operations/operations.reducers';
 import { previewEffects } from './feature/dashboard/store/preview/preview.effects';
 import { previewFeature } from './feature/dashboard/store/preview/preview.reducers';
-import { eventOperationsEffects } from './feature/events/store/effects/operations.effects';
 import { showEventEffects } from './feature/events/store/effects/show-event.effects';
 import { eventsFeature } from './feature/events/store/events.reducer';
 import { TaskRunner } from './feature/task/runner';
@@ -70,7 +69,6 @@ export const appConfig: ApplicationConfig = {
       timelineEffects,
       dashboardOperationsEffects,
       loadTimelinesEffects,
-      eventOperationsEffects,
       showEventEffects,
       previewEffects,
     ]),
