@@ -2,8 +2,8 @@ import { inject } from '@angular/core';
 import { Actions, ofType } from '@ngrx/effects';
 import { map } from 'rxjs';
 import { LoadTimelinesActions } from '../../../../timeline/store/actions/load-timelines.actions';
-import { SetActiveTimelineActions } from '../../../../timeline/store/actions/set-active.actions';
 import { AddTimelineActions } from '../actions/add-timeline.actions';
+import { SetActiveTimelineActions } from '../actions/set-active-timeline.actions';
 
 export const setActiveTimeline = (action$ = inject(Actions)) =>
   action$.pipe(
