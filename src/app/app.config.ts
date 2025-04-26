@@ -13,6 +13,8 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { routes } from './app.routes';
 import { accountEffects } from './feature/account/store/account.effects';
 import { accountFeature } from './feature/account/store/account.reducer';
+import { dashboardOperationsEffects } from './feature/dashboard/store/operations/operations.effects';
+import { dashboardOperationsFeature } from './feature/dashboard/store/operations/operations.reducers';
 import { previewEffects } from './feature/dashboard/store/preview/preview.effects';
 import { previewFeature } from './feature/dashboard/store/preview/preview.reducers';
 import { deleteEventEffects } from './feature/events/store/effects/delete-event.effects';
@@ -21,7 +23,6 @@ import { showEventEffects } from './feature/events/store/effects/show-event.effe
 import { eventsFeature } from './feature/events/store/events.reducer';
 import { TaskRunner } from './feature/task/runner';
 import { taskRunnerFactory } from './feature/task/runner.factory';
-import { addTimelineEffects } from './feature/timeline/store/effects/add-timeline.effects';
 import { timelineEffects } from './feature/timeline/store/effects/list-timeline-events.effects';
 import { loadTimelinesEffects } from './feature/timeline/store/effects/load-timelines.effects';
 import { timelineFeature } from './feature/timeline/store/timeline.reducers';
@@ -57,6 +58,7 @@ export const appConfig: ApplicationConfig = {
         [timelineFeature.name]: timelineFeature.reducer,
         [eventsFeature.name]: eventsFeature.reducer,
         [previewFeature.name]: previewFeature.reducer,
+        [dashboardOperationsFeature.name]: dashboardOperationsFeature.reducer,
       },
       { metaReducers }
     ),
@@ -67,7 +69,7 @@ export const appConfig: ApplicationConfig = {
       accountEffects,
       taskEffects,
       timelineEffects,
-      addTimelineEffects,
+      dashboardOperationsEffects,
       loadTimelinesEffects,
       deleteEventEffects,
       eventOperationsEffects,

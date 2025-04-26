@@ -2,10 +2,10 @@ import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
 import { SharedActions } from '../../../shared/store/shared/shared.actions';
 import { EventContentConvertor } from '../../../shared/ui/event/content/content.convertor';
 import { ExistEventContent } from '../../../shared/ui/event/content/content.types';
+import { AddTimelineActions } from '../../dashboard/store/operations/actions/add-timeline.actions';
 import { DeleteEventActions } from '../../events/store/actions/delete-event.actions';
 import { EventOperationsActions } from '../../events/store/actions/operations.actions';
 import { ShowEventActions } from '../../events/store/actions/show.actions';
-import { AddTimelineActions } from './actions/add-timeline.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
 import { SetActiveTimelineActions } from './actions/set-active.actions';
@@ -50,8 +50,7 @@ export const timelineFeature = createFeature({
       LoadTimelinesActions.successLoadTimeline,
       AddTimelineActions.successAddTimeline,
       LoadTimelinesActions.successLoadAccountTimelines,
-      AddTimelineActions.emptyTimeline,
-      AddTimelineActions.apiException,
+      AddTimelineActions.failedAddTimeline,
       (state): NewTimelineState => ({ ...state, loading: false })
     ),
 
