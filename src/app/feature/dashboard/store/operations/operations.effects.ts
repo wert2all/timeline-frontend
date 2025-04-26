@@ -9,6 +9,13 @@ import {
   redirectOnSuccessAddingTimeline,
 } from './effects/add-timeline.effects';
 import { deleteEvent, failedDeleteEvent } from './effects/delete-event.effects';
+import {
+  apiException,
+  pushExistEventToApi,
+  pushNewEventToApi,
+  redirectOnCloseEditEvent,
+  saveEditableEvent,
+} from './effects/edit-event.effects';
 import { setActiveTimeline } from './effects/set-active-timeline.effects';
 
 export const dashboardOperationsEffects = {
@@ -23,4 +30,13 @@ export const dashboardOperationsEffects = {
 
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
   failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
+
+  saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
+  pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
+  pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
+  redirectOnCloseEditEvent: createEffect(
+    redirectOnCloseEditEvent,
+    StoreDispatchEffect
+  ),
+  apiException: createEffect(apiException, StoreUnDispatchEffect),
 };

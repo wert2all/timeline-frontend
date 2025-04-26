@@ -17,13 +17,13 @@ import {
   EventContent,
   EventContentIcon,
 } from '../../../../shared/ui/event/content/content.types';
+import { EditEventActions } from '../../../dashboard/store/operations/actions/edit-event.actions';
 import { PreviewActions } from '../../../dashboard/store/preview/preview.actions';
 import { previewFeature } from '../../../dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
 import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
-import { EventOperationsActions } from '../../store/actions/operations.actions';
 import { eventsFeature } from '../../store/events.reducer';
 import { EditEventFormChanges } from './edit-event.types';
 
@@ -90,7 +90,7 @@ export class EditEventComponent {
   protected readonly icon = new EventContentIcon(TimelineEventType.default);
 
   protected closeEditForm() {
-    this.store.dispatch(EventOperationsActions.stopEditingEvent());
+    this.store.dispatch(EditEventActions.stopEditingEvent());
   }
 
   protected updatePreviewEvent(value: EditEventFormChanges) {
@@ -117,7 +117,7 @@ export class EditEventComponent {
   protected saveEvent() {
     const event = this.updatedEvent();
     if (event) {
-      this.store.dispatch(EventOperationsActions.saveEditableEvent({ event }));
+      this.store.dispatch(EditEventActions.saveEditableEvent({ event }));
     }
   }
 

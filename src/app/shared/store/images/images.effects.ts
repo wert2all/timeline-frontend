@@ -10,7 +10,7 @@ import {
   TaskResultImages,
 } from '../../../feature/task/executors/images.factory';
 
-import { EventOperationsActions } from '../../../feature/events/store/actions/operations.actions';
+import { EditEventActions } from '../../../feature/dashboard/store/operations/actions/edit-event.actions';
 import { TaskActions } from '../../task/task.actions';
 import { TaskType } from '../../task/task.types';
 import { SharedActions } from '../shared/shared.actions';
@@ -84,7 +84,7 @@ const createTaskForLoadImages = (
 ) =>
   actions$.pipe(
     ofType(
-      EventOperationsActions.successUpdateEvent,
+      EditEventActions.successUpdateEvent,
       UploadActions.successUploadImage
     ),
     concatLatestFrom(() => store.select(imagesFeature.selectShouldUpdate)),
