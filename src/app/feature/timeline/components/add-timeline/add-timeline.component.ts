@@ -8,7 +8,7 @@ import {
 } from '@ng-icons/phosphor-icons/regular';
 import { Store } from '@ngrx/store';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
-import { AddTimelineActions } from '../../store/actions/add-timeline.actions';
+import { AddTimelineActions } from '../../../dashboard/store/operations/actions/add-timeline.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
 
 @Component({

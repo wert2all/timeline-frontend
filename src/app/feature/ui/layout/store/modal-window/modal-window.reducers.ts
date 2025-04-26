@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { AccountActions } from '../../../../account/store/account.actions';
-import { AddTimelineActions } from '../../../../timeline/store/actions/add-timeline.actions';
+import { AddTimelineActions } from '../../../../dashboard/store/operations/actions/add-timeline.actions';
 import { ModalWindowActions } from './modal-window.actions';
 import { ModalWindowState } from './modal-window.types';
 
