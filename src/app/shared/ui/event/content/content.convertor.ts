@@ -4,7 +4,7 @@ import { Status, Undefined } from '../../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../../feature/timeline/store/timeline.types';
+} from '../../../../feature/events/store/events.types';
 import { UploadedImage } from '../../../store/images/images.types';
 import {
   EventContent,

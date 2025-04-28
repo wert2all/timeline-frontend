@@ -19,9 +19,9 @@ import { NavigationBuilder } from '../../shared/services/navigation/navigation.b
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
 import { eventsFeature } from '../events/store/events.reducer';
+import { ExistTimelineEvent } from '../events/store/events.types';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
-import { ExistTimelineEvent } from '../timeline/store/timeline.types';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';

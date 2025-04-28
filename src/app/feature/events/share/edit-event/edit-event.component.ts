@@ -21,10 +21,10 @@ import { EditEventActions } from '../../../dashboard/store/operations/actions/ed
 import { PreviewActions } from '../../../dashboard/store/preview/preview.actions';
 import { previewFeature } from '../../../dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
-import { TimelineEventType } from '../../../timeline/store/timeline.types';
 import { EditEventFormComponent } from '../../edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from '../../edit-event-form/edit-event-form.types';
 import { eventsFeature } from '../../store/events.reducer';
+import { EventType } from '../../store/events.types';
 import { EditEventFormChanges } from './edit-event.types';
 
 @Component({
@@ -87,7 +87,7 @@ export class EditEventComponent {
     };
   });
 
-  protected readonly icon = new EventContentIcon(TimelineEventType.default);
+  protected readonly icon = new EventContentIcon(EventType.default);
 
   protected closeEditForm() {
     this.store.dispatch(EditEventActions.stopEditingEvent());
@@ -102,7 +102,7 @@ export class EditEventComponent {
         ? {
             ...e,
             date: (date.isValid ? date : DateTime.now()).toJSDate(),
-            type: TimelineEventType.default,
+            type: EventType.default,
             title: value.title || '',
             description: value.content || undefined,
             showTime: value.showTime || false,

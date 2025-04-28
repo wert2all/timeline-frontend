@@ -1,13 +1,10 @@
-import {
-  TimelineEvent,
-  TimelineEventType,
-} from '../../timeline/store/timeline.types';
+import { EventType, TimelineEvent } from '../store/events.types';
 
 export const createDefaultTimelineEvent = (
   timelineId: number
 ): TimelineEvent => ({
   date: new Date(),
-  type: TimelineEventType.default,
+  type: EventType.default,
   timelineId: timelineId,
   loading: false,
 });

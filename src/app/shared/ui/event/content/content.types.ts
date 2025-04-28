@@ -6,9 +6,9 @@ import {
 
 import { Iterable, Status, Undefined } from '../../../../app.types';
 import {
+  EventType,
   TimelineEvent,
-  TimelineEventType,
-} from '../../../../feature/timeline/store/timeline.types';
+} from '../../../../feature/events/store/events.types';
 
 export interface ViewDatetime {
   originalDate: Date;
@@ -45,10 +45,10 @@ export interface EventContentImage {
 export class EventContentIcon {
   readonly icon: IconType;
 
-  constructor(type: TimelineEventType) {
+  constructor(type: EventType) {
     // eslint-disable-next-line sonarjs/no-small-switch
     switch (type) {
-      case TimelineEventType.celebrate:
+      case EventType.celebrate:
         this.icon = phosphorCakeDuotone;
         break;
       default:

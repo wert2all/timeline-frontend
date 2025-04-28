@@ -11,34 +11,34 @@ import {
   extractApiData,
 } from '../../../../../libs/api.functions';
 import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import {
-  ExistTimelineEvent,
-  TimelineEvent,
-  TimelineEventType,
-} from '../../../../timeline/store/timeline.types';
 import { EditEventActions } from '../actions/edit-event.actions';
 
 import { TimelineType as GQLTimelineType } from '../../../../../api/internal/graphql';
 import { ErrorHandler } from '../../../../../shared/handlers/error.handler';
 import { ErrorMessage } from '../../../../../shared/handlers/error.types';
 import { NavigationBuilder } from '../../../../../shared/services/navigation/navigation.builder';
+import {
+  EventType,
+  ExistTimelineEvent,
+  TimelineEvent,
+} from '../../../../events/store/events.types';
 
-const fromApiTypeToState = (type: GQLTimelineType): TimelineEventType => {
+const fromApiTypeToState = (type: GQLTimelineType): EventType => {
   switch (type) {
     case GQLTimelineType.default:
-      return TimelineEventType.default;
+      return EventType.default;
     case GQLTimelineType.selebrate:
-      return TimelineEventType.celebrate;
+      return EventType.celebrate;
     default:
-      return TimelineEventType.default;
+      return EventType.default;
   }
 };
 const fromEventTypeStateToApiType = (
-  type: TimelineEventType
+  type: EventType
 ): GQLTimelineType | null => {
   // eslint-disable-next-line  sonarjs/no-small-switch
   switch (type) {
-    case TimelineEventType.celebrate:
+    case EventType.celebrate:
       return GQLTimelineType.selebrate;
     default:
       return null;

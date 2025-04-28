@@ -1,5 +1,5 @@
 import { createActionGroup, props } from '@ngrx/store';
-import { ExistTimelineEvent } from '../timeline.types';
+import { ExistTimelineEvent } from '../../../events/store/events.types';
 
 export const ListEventsActions = createActionGroup({
   source: 'List Events',

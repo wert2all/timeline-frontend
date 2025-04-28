@@ -27,10 +27,10 @@ import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
 import { EventUrlProvider } from '../../../events/share/event-url.provider';
+import { ExistTimelineEvent } from '../../../events/store/events.types';
 import { ListComponent } from '../../components/list/list.component';
 import { ListEventsActions } from '../../store/actions/list-timeline-events.actions';
 import { timelineFeature } from '../../store/timeline.reducers';
-import { ExistTimelineEvent } from '../../store/timeline.types';
 
 @Component({
   standalone: true,
