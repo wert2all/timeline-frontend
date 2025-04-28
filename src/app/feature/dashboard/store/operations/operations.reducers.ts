@@ -1,6 +1,8 @@
-import { createFeature, createReducer, on } from '@ngrx/store';
+import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { createDefaultTimelineEvent } from '../../../events/share/editable-event-view.factory';
 import { LoadTimelinesActions } from '../../../timeline/store/actions/load-timelines.actions';
 import { AddTimelineActions } from './actions/add-timeline.actions';
+import { EditEventActions } from './actions/edit-event.actions';
 import { SetActiveTimelineActions } from './actions/set-active-timeline.actions';
 import { DashboardOperationsState } from './operations.types';
 
@@ -10,6 +12,7 @@ const initState: DashboardOperationsState = {
   currentTimeline: null,
   newTimelineAdded: false,
   activeAcccountTimelines: [],
+  editedEvent: null,
 };
 
 export const dashboardOperationsFeature = createFeature({
@@ -70,6 +73,35 @@ export const dashboardOperationsFeature = createFeature({
           name: timeline.name || '',
         })),
       })
+    ),
+
+    on(
+      EditEventActions.dispatchAddNewEvent,
+      (state, { timelineId }): DashboardOperationsState => ({
+        ...state,
+        editedEvent: createDefaultTimelineEvent(timelineId),
+      })
+    ),
+
+    on(
+      EditEventActions.stopEditingEvent,
+      EditEventActions.successPushNewEvent,
+      EditEventActions.successUpdateEvent,
+      (state): DashboardOperationsState => ({
+        ...state,
+        editedEvent: null,
+      })
+    ),
+
+    on(
+      EditEventActions.dispatchEditEvent,
+      (state, { event }): DashboardOperationsState => ({
+        ...state,
+        editedEvent: event,
+      })
     )
   ),
+  extraSelectors: ({ selectEditedEvent }) => ({
+    isEditingEvent: createSelector(selectEditedEvent, event => !!event),
+  }),
 });
