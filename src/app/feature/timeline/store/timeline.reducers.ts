@@ -8,7 +8,7 @@ import { EditEventActions } from '../../dashboard/store/operations/actions/edit-
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
-import { TimelineState as TimelineState } from './timeline.types';
+import { TimelineState } from './timeline.types';
 
 const initialState: TimelineState = {
   loading: false,
@@ -17,7 +17,6 @@ const initialState: TimelineState = {
   error: null,
   lastCursor: null,
   hasMore: false,
-  activeAcccountTimelines: [],
 };
 
 export const timelineFeature = createFeature({
@@ -143,42 +142,17 @@ export const timelineFeature = createFeature({
         return { ...state, timelines: timelines };
       }
     ),
-    on(
-      ShowEventActions.successLoadEvent,
-      (state, { event }): TimelineState => {
-        const timelines = { ...state.timelines };
-        timelines[event.timelineId] = {
-          id: event.timeline.id,
-          name: event.timeline.name || '',
-          accountId: event.timeline.account.id,
-        };
-        return { ...state, timelines };
-      }
-    ),
+    on(ShowEventActions.successLoadEvent, (state, { event }): TimelineState => {
+      const timelines = { ...state.timelines };
+      timelines[event.timelineId] = {
+        id: event.timeline.id,
+        name: event.timeline.name || '',
+        accountId: event.timeline.account.id,
+      };
+      return { ...state, timelines };
+    }),
 
-    on(
-      AddTimelineActions.successAddTimeline,
-      (state, { timelines }): TimelineState => ({
-        ...state,
-        activeAcccountTimelines: [
-          ...timelines,
-          ...state.activeAcccountTimelines,
-        ],
-      })
-    ),
-
-    on(SharedActions.logout, (): TimelineState => initialState),
-
-    on(
-      LoadTimelinesActions.successLoadAccountTimelines,
-      (state, { timelines }): TimelineState => ({
-        ...state,
-        activeAcccountTimelines: timelines.map(timeline => ({
-          ...timeline,
-          name: timeline.name || '',
-        })),
-      })
-    )
+    on(SharedActions.logout, (): TimelineState => initialState)
   ),
   extraSelectors: ({ selectEvents }) => ({
     selectViewEvents: createSelector(

@@ -21,7 +21,6 @@ import { sharedFeature } from '../../shared/store/shared/shared.reducers';
 import { eventsFeature } from '../events/store/events.reducer';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
-import { timelineFeature } from '../timeline/store/timeline.reducers';
 import { ExistTimelineEvent } from '../timeline/store/timeline.types';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
@@ -85,7 +84,7 @@ export class DashboardPageComponent {
   );
 
   private listTimelines = this.store.selectSignal(
-    timelineFeature.selectActiveAcccountTimelines
+    dashboardOperationsFeature.selectActiveAcccountTimelines
   );
 
   protected shouldAddTimeline = computed(() => {
