@@ -6,7 +6,7 @@ import {
 import {
   ExistTimelineEvent,
   TimelineEvent,
-} from '../../../../timeline/store/timeline.types';
+} from '../../../../events/store/events.types';
 
 export const EditEventActions = createActionGroup({
   source: 'Event Operations',

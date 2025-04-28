@@ -32,8 +32,8 @@ import { FormControlsComponent } from '../../../shared/content/form-controls/con
 import { SharedTabsComponent } from '../../../shared/content/tabs/tabs.component';
 import { Tabs } from '../../../shared/content/tabs/tabs.types';
 import { EventContentTag } from '../../../shared/ui/event/content/content.types';
-import { TimelineEvent } from '../../timeline/store/timeline.types';
 import { EditEventFormChanges } from '../share/edit-event/edit-event.types';
+import { TimelineEvent } from '../store/events.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
 import {
   EditEventForm,

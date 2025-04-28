@@ -1,8 +1,6 @@
 import { Iterable, Loadable } from '../../../../app.types';
-import {
-  ExistTimelineEvent,
-  Timeline,
-} from '../../../timeline/store/timeline.types';
+import { ExistTimelineEvent } from '../../../events/store/events.types';
+import { Timeline } from '../../../timeline/store/timeline.types';
 
 export interface Operation {
   name: string;

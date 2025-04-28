@@ -12,17 +12,20 @@ import {
   extractApiData,
 } from '../../../../libs/api.functions';
 import { SharedActions } from '../../../../shared/store/shared/shared.actions';
+import {
+  EventType,
+  ExistTimelineEvent,
+} from '../../../events/store/events.types';
 import { ListEventsActions } from '../actions/list-timeline-events.actions';
-import { ExistTimelineEvent, TimelineEventType } from '../timeline.types';
 
-const fromApiTypeToEventType = (type: GQLTimelineType): TimelineEventType => {
+const fromApiTypeToEventType = (type: GQLTimelineType): EventType => {
   switch (type) {
     case GQLTimelineType.default:
-      return TimelineEventType.default;
+      return EventType.default;
     case GQLTimelineType.selebrate:
-      return TimelineEventType.celebrate;
+      return EventType.celebrate;
     default:
-      return TimelineEventType.default;
+      return EventType.default;
   }
 };
 const createEvents = (
