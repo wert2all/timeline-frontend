@@ -27,6 +27,7 @@ import { SharedActions } from '../../../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { EventContentImage } from '../../../../shared/ui/event/content/content.types';
 import { EventUrlProvider } from '../../../events/share/event-url.provider';
+import { eventsFeature } from '../../../events/store/events.reducer';
 import { ExistTimelineEvent } from '../../../events/store/events.types';
 import { ListComponent } from '../../components/list/list.component';
 import { ListEventsActions } from '../../store/actions/list-timeline-events.actions';
@@ -78,10 +79,10 @@ export class SharedTimelineComponent {
   });
 
   private readonly rawEvents = this.store.selectSignal(
-    timelineFeature.selectEvents
+    eventsFeature.selectEvents
   );
   private readonly filterEventsByTimelineSelector = computed(() =>
-    createSelector(timelineFeature.selectViewEvents, events =>
+    createSelector(eventsFeature.selectViewEvents, events =>
       events.filter(event => event.timelineId == this.timelineId())
     )
   );

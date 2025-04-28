@@ -1,5 +1,6 @@
 {
   "formatter": "language_server",
+  "format_on_save": "on",
   "auto_install_extension": {
     "html": true,
     "dockerfile": true,
