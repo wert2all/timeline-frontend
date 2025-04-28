@@ -21,10 +21,8 @@ export type TimelineEvent = TimelineRequired &
     imageId?: number;
   };
 export type ExistTimelineEvent = Iterable & Omit<TimelineEvent, 'id'>;
-export type EditableEvent = TimelineEvent & { timelineId: number };
 
 export type EventsState = StoreState & {
   events: ExistTimelineEvent[];
-  editedEvent: EditableEvent | null;
   showEvent: ExistTimelineEvent | null;
 };

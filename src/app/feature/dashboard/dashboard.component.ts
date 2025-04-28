@@ -18,7 +18,6 @@ import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
-import { eventsFeature } from '../events/store/events.reducer';
 import { ExistTimelineEvent } from '../events/store/events.types';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
@@ -55,7 +54,7 @@ export class DashboardPageComponent {
   });
 
   private readonly isEditingEvent = this.store.selectSignal(
-    eventsFeature.isEditingEvent
+    dashboardOperationsFeature.isEditingEvent
   );
   private readonly activeTimeline = this.store.selectSignal(
     dashboardOperationsFeature.selectCurrentTimeline

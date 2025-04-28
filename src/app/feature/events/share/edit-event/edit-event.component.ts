@@ -18,6 +18,7 @@ import {
   EventContentIcon,
 } from '../../../../shared/ui/event/content/content.types';
 import { EditEventActions } from '../../../dashboard/store/operations/actions/edit-event.actions';
+import { dashboardOperationsFeature } from '../../../dashboard/store/operations/operations.reducers';
 import { PreviewActions } from '../../../dashboard/store/preview/preview.actions';
 import { previewFeature } from '../../../dashboard/store/preview/preview.reducers';
 import { IconComponent } from '../../../timeline/components/event/icon/icon.component';
@@ -39,7 +40,7 @@ export class EditEventComponent {
   private readonly eventConvertor = inject(EventContentConvertor);
 
   protected readonly editedEvent = this.store.selectSignal(
-    eventsFeature.selectEditedEvent
+    dashboardOperationsFeature.selectEditedEvent
   );
   private readonly updatedEvent = linkedSignal({
     source: this.editedEvent,

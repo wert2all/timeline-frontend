@@ -5,7 +5,6 @@ import { DeleteEventActions } from '../../dashboard/store/operations/actions/del
 import { EditEventActions } from '../../dashboard/store/operations/actions/edit-event.actions';
 import { fromApiEventToState } from '../../dashboard/store/operations/effects/edit-event.effects';
 import { ListEventsActions } from '../../timeline/store/actions/list-timeline-events.actions';
-import { createDefaultTimelineEvent } from '../share/editable-event-view.factory';
 import { ShowEventActions } from './actions/show.actions';
 import { EventsState } from './events.types';
 
@@ -13,7 +12,6 @@ const initialState: EventsState = {
   loading: false,
   error: null,
   events: [],
-  editedEvent: null,
   showEvent: null,
 };
 export const eventsFeature = createFeature({
@@ -51,31 +49,6 @@ export const eventsFeature = createFeature({
     on(ShowEventActions.successLoadEvent, (state, { event }): EventsState => {
       return { ...state, showEvent: fromApiEventToState(event) };
     }),
-    on(
-      EditEventActions.dispatchAddNewEvent,
-      (state, { timelineId }): EventsState => ({
-        ...state,
-        editedEvent: createDefaultTimelineEvent(timelineId),
-      })
-    ),
-
-    on(
-      EditEventActions.stopEditingEvent,
-      EditEventActions.successPushNewEvent,
-      EditEventActions.successUpdateEvent,
-      (state): EventsState => ({
-        ...state,
-        editedEvent: null,
-      })
-    ),
-
-    on(
-      EditEventActions.dispatchEditEvent,
-      (state, { event }): EventsState => ({
-        ...state,
-        editedEvent: event,
-      })
-    ),
 
     on(
       ListEventsActions.successLoadTimelineEvents,
@@ -160,8 +133,7 @@ export const eventsFeature = createFeature({
       })
     )
   ),
-  extraSelectors: ({ selectEditedEvent, selectEvents }) => ({
-    isEditingEvent: createSelector(selectEditedEvent, event => !!event),
+  extraSelectors: ({ selectEvents }) => ({
     selectViewEvents: createSelector(
       selectEvents,
       (events): ExistEventContent[] => {
