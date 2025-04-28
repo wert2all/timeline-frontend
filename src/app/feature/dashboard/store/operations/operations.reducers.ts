@@ -1,4 +1,5 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
+import { LoadTimelinesActions } from '../../../timeline/store/actions/load-timelines.actions';
 import { AddTimelineActions } from './actions/add-timeline.actions';
 import { SetActiveTimelineActions } from './actions/set-active-timeline.actions';
 import { DashboardOperationsState } from './operations.types';
@@ -8,6 +9,7 @@ const initState: DashboardOperationsState = {
   operations: [],
   currentTimeline: null,
   newTimelineAdded: false,
+  activeAcccountTimelines: [],
 };
 
 export const dashboardOperationsFeature = createFeature({
@@ -45,6 +47,28 @@ export const dashboardOperationsFeature = createFeature({
       (state): DashboardOperationsState => ({
         ...state,
         newTimelineAdded: true,
+      })
+    ),
+
+    on(
+      AddTimelineActions.successAddTimeline,
+      (state, { timelines }): DashboardOperationsState => ({
+        ...state,
+        activeAcccountTimelines: [
+          ...timelines,
+          ...state.activeAcccountTimelines,
+        ],
+      })
+    ),
+
+    on(
+      LoadTimelinesActions.successLoadAccountTimelines,
+      (state, { timelines }): DashboardOperationsState => ({
+        ...state,
+        activeAcccountTimelines: timelines.map(timeline => ({
+          ...timeline,
+          name: timeline.name || '',
+        })),
       })
     )
   ),

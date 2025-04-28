@@ -1,5 +1,8 @@
 import { Iterable, Loadable } from '../../../../app.types';
-import { ExistTimelineEvent } from '../../../timeline/store/timeline.types';
+import {
+  ExistTimelineEvent,
+  Timeline,
+} from '../../../timeline/store/timeline.types';
 
 export interface Operation {
   name: string;
@@ -16,4 +19,5 @@ export type DashboardOperationsState = Loadable & {
   operations: Operation[];
   currentTimeline: CurrentTimeline | null;
   newTimelineAdded: boolean;
+  activeAcccountTimelines: Timeline[];
 };

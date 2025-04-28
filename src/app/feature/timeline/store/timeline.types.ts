@@ -29,5 +29,4 @@ export type TimelineState = StoreState & {
   timelines: Record<number, Timeline>;
   lastCursor: string | null;
   hasMore: boolean;
-  activeAcccountTimelines: Timeline[];
 };
