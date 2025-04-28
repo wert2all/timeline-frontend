@@ -8,9 +8,9 @@ import { EditEventActions } from '../../dashboard/store/operations/actions/edit-
 import { ShowEventActions } from '../../events/store/actions/show.actions';
 import { ListEventsActions } from './actions/list-timeline-events.actions';
 import { LoadTimelinesActions } from './actions/load-timelines.actions';
-import { NewTimelineState } from './timeline.types';
+import { TimelineState as TimelineState } from './timeline.types';
 
-const initialState: NewTimelineState = {
+const initialState: TimelineState = {
   loading: false,
   events: [],
   timelines: {},
@@ -30,7 +30,7 @@ export const timelineFeature = createFeature({
       LoadTimelinesActions.loadTimeline,
       AddTimelineActions.addTimeline,
       LoadTimelinesActions.loadAccountTimelines,
-      (state): NewTimelineState => ({ ...state, loading: true })
+      (state): TimelineState => ({ ...state, loading: true })
     ),
     on(
       ListEventsActions.successLoadTimelineEvents,
@@ -38,12 +38,12 @@ export const timelineFeature = createFeature({
       AddTimelineActions.successAddTimeline,
       LoadTimelinesActions.successLoadAccountTimelines,
       AddTimelineActions.failedAddTimeline,
-      (state): NewTimelineState => ({ ...state, loading: false })
+      (state): TimelineState => ({ ...state, loading: false })
     ),
 
     on(
       ListEventsActions.successLoadTimelineEvents,
-      (state, { events, lastCursor, hasMore }): NewTimelineState => ({
+      (state, { events, lastCursor, hasMore }): TimelineState => ({
         ...state,
         events: [...state.events, ...events],
         lastCursor,
@@ -80,7 +80,7 @@ export const timelineFeature = createFeature({
     on(
       ListEventsActions.errorLoadingTimelineEvents,
       LoadTimelinesActions.errorLoadTimeline,
-      (state, { error }): NewTimelineState => ({
+      (state, { error }): TimelineState => ({
         ...state,
         loading: false,
         error: error,
@@ -89,7 +89,7 @@ export const timelineFeature = createFeature({
 
     on(
       EditEventActions.saveEditableEvent,
-      (state, { event }): NewTimelineState => ({
+      (state, { event }): TimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>
           existingEvent.id === event.id
@@ -102,7 +102,7 @@ export const timelineFeature = createFeature({
     on(
       EditEventActions.successUpdateEvent,
       EditEventActions.successPushNewEvent,
-      (state, { event }): NewTimelineState => ({
+      (state, { event }): TimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>
           existingEvent.id === event.id
@@ -114,7 +114,7 @@ export const timelineFeature = createFeature({
 
     on(
       EditEventActions.successPushNewEvent,
-      (state, { event }): NewTimelineState => ({
+      (state, { event }): TimelineState => ({
         ...state,
         events: [event, ...state.events],
       })
@@ -122,7 +122,7 @@ export const timelineFeature = createFeature({
 
     on(
       EditEventActions.successUpdateEvent,
-      (state, { event }): NewTimelineState => ({
+      (state, { event }): TimelineState => ({
         ...state,
         events: state.events.map(existingEvent =>
           existingEvent.id === event.id ? event : existingEvent
@@ -132,7 +132,7 @@ export const timelineFeature = createFeature({
 
     on(
       LoadTimelinesActions.successLoadTimeline,
-      (state, { timeline }): NewTimelineState => {
+      (state, { timeline }): TimelineState => {
         const timelines = { ...state.timelines };
         timelines[timeline.id] = {
           id: timeline.id,
@@ -145,7 +145,7 @@ export const timelineFeature = createFeature({
     ),
     on(
       ShowEventActions.successLoadEvent,
-      (state, { event }): NewTimelineState => {
+      (state, { event }): TimelineState => {
         const timelines = { ...state.timelines };
         timelines[event.timelineId] = {
           id: event.timeline.id,
@@ -158,7 +158,7 @@ export const timelineFeature = createFeature({
 
     on(
       AddTimelineActions.successAddTimeline,
-      (state, { timelines }): NewTimelineState => ({
+      (state, { timelines }): TimelineState => ({
         ...state,
         activeAcccountTimelines: [
           ...timelines,
@@ -167,11 +167,11 @@ export const timelineFeature = createFeature({
       })
     ),
 
-    on(SharedActions.logout, (): NewTimelineState => initialState),
+    on(SharedActions.logout, (): TimelineState => initialState),
 
     on(
       LoadTimelinesActions.successLoadAccountTimelines,
-      (state, { timelines }): NewTimelineState => ({
+      (state, { timelines }): TimelineState => ({
         ...state,
         activeAcccountTimelines: timelines.map(timeline => ({
           ...timeline,
