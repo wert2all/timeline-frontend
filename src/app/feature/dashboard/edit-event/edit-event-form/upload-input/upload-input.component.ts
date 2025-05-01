@@ -1,7 +1,7 @@
 import { Component, computed, input, output, signal } from '@angular/core';
-import { Pending, Status, Undefined } from '../../../../app.types';
-import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
-import { UploadQuequeImage } from '../../../../shared/store/images/images.types';
+import { Pending, Status, Undefined } from '../../../../../app.types';
+import { SharedLoaderComponent } from '../../../../../shared/content/loader/loader.component';
+import { UploadQuequeImage } from '../../../../../shared/store/images/images.types';
 
 @Component({
   standalone: true,

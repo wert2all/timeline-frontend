@@ -27,13 +27,13 @@ import {
   phosphorTag,
   phosphorTextAa,
 } from '@ng-icons/phosphor-icons/regular';
-import { fromInputSignal } from '../../../libs/signal.functions';
-import { FormControlsComponent } from '../../../shared/content/form-controls/controls.component';
-import { SharedTabsComponent } from '../../../shared/content/tabs/tabs.component';
-import { Tabs } from '../../../shared/content/tabs/tabs.types';
-import { EventContentTag } from '../../../shared/ui/event/content/content.types';
-import { EditEventFormChanges } from '../share/edit-event/edit-event.types';
-import { TimelineEvent } from '../store/events.types';
+import { fromInputSignal } from '../../../../libs/signal.functions';
+import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';
+import { SharedTabsComponent } from '../../../../shared/content/tabs/tabs.component';
+import { Tabs } from '../../../../shared/content/tabs/tabs.types';
+import { EventContentTag } from '../../../../shared/ui/event/content/content.types';
+import { TimelineEvent } from '../../../events/store/events.types';
+import { EditEventFormChanges } from '../edit-event.types';
 import { EditFormDateTimeInputComponent } from './date-time-input/date-time-input.component';
 import {
   EditEventForm,

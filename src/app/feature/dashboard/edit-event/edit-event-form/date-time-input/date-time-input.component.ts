@@ -1,7 +1,7 @@
 import { Component, input } from '@angular/core';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DateTime } from 'luxon';
-import { SharedDatePickerComponent } from '../../../../shared/ui/date-picker/date-picker.component';
+import { SharedDatePickerComponent } from '../../../../../shared/ui/date-picker/date-picker.component';
 import { EditEventForm } from '../edit-event-form.types';
 
 @Component({

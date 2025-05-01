@@ -10,7 +10,6 @@ import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
 import { Iterable } from '../../app.types';
-import { EditEventComponent } from '../events/share/edit-event/edit-event.component';
 import { AddEventButtonComponent } from '../timeline/components/add-event-button/add-event-button.component';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
@@ -24,6 +23,7 @@ import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.a
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
+import { EditEventComponent } from './edit-event/edit-event.component';
 import { DeleteEventActions } from './store/operations/actions/delete-event.actions';
 import { EditEventActions } from './store/operations/actions/edit-event.actions';
 import { dashboardOperationsFeature } from './store/operations/operations.reducers';
