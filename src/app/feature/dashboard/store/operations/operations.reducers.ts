@@ -1,10 +1,17 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { createDefaultTimelineEvent } from '../../../events/share/editable-event-view.factory';
+import { EventType, TimelineEvent } from '../../../events/store/events.types';
 import { LoadTimelinesActions } from '../../../timeline/store/actions/load-timelines.actions';
 import { AddTimelineActions } from './actions/add-timeline.actions';
 import { EditEventActions } from './actions/edit-event.actions';
 import { SetActiveTimelineActions } from './actions/set-active-timeline.actions';
 import { DashboardOperationsState } from './operations.types';
+
+const createDefaultTimelineEvent = (timelineId: number): TimelineEvent => ({
+  date: new Date(),
+  type: EventType.default,
+  timelineId: timelineId,
+  loading: false,
+});
 
 const initState: DashboardOperationsState = {
   loading: false,
