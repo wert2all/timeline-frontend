@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';
+import { UploadActions } from '../../../shared/store/images/images.actions';
 import { imagesFeature } from '../../../shared/store/images/images.reducer';
 import { selectLoadedImage } from '../../../shared/store/shared/shared.functions';
 import { SharedEventContentComponent } from '../../../shared/ui/event/content/content.component';
@@ -20,12 +21,11 @@ import { EventType } from '../../events/store/events.types';
 import { IconComponent } from '../../timeline/components/event/icon/icon.component';
 import { EditEventActions } from '../store/operations/actions/edit-event.actions';
 import { dashboardOperationsFeature } from '../store/operations/operations.reducers';
+import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
 import { EditEventFormViewHelper } from './edit-event-form/edit-event-form.types';
 import { EditEventFormChanges } from './edit-event.types';
-import { PreviewActions } from '../store/preview/preview.actions';
-import { UploadActions } from '../../../shared/store/images/images.actions';
 
 @Component({
   selector: 'app-edit-event',
@@ -100,16 +100,16 @@ export class EditEventComponent {
     this.updatedEvent.update(e =>
       e
         ? {
-          ...e,
-          date: (date.isValid ? date : DateTime.now()).toJSDate(),
-          type: EventType.default,
-          title: value.title || '',
-          description: value.content || undefined,
-          showTime: value.showTime || false,
-          tags: value.tags || undefined,
-          url: value.link || undefined,
-          imageId: value.imageId || undefined,
-        }
+            ...e,
+            date: (date.isValid ? date : DateTime.now()).toJSDate(),
+            type: EventType.default,
+            title: value.title || '',
+            description: value.content || undefined,
+            showTime: value.showTime || false,
+            tags: value.tags || undefined,
+            url: value.link || undefined,
+            imageId: value.imageId || undefined,
+          }
         : null
     );
   }

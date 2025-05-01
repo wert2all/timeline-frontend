@@ -3,8 +3,8 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorBackspace } from '@ng-icons/phosphor-icons/regular';
 import { fromInputSignal } from '../../../../../libs/signal.functions';
-import { EditEventForm } from '../edit-event-form.types';
 import { EventContentTag } from '../../../../../shared/ui/event/content/content.types';
+import { EditEventForm } from '../edit-event-form.types';
 
 @Component({
   standalone: true,
