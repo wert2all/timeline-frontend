@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.46](https://github.com/wert2all/timeline-frontend/compare/v0.0.45...v0.0.46) (2025-05-01)
+
+### Features
+
+- **account:** update redirect logic in account effects ([82e5a04](https://github.com/wert2all/timeline-frontend/commit/82e5a0464e677a0a2fc66aca5e80e4a9f4d89500))
+- add edit event navigation ([a2a260f](https://github.com/wert2all/timeline-frontend/commit/a2a260f1468060b090e6665335dd273b153db497))
+- add navigation to add event form ([b3286d0](https://github.com/wert2all/timeline-frontend/commit/b3286d0df55dbd95b199a816a64c3e211b7563d4))
+- **dashboard:** add operations store for dashboard ([5e98cd5](https://github.com/wert2all/timeline-frontend/commit/5e98cd5e72312faf67c7006228dfc656018f3ff6))
+- **dashboard:** add route for adding timeline ([09cfbc2](https://github.com/wert2all/timeline-frontend/commit/09cfbc2dce341fd8507d6d6c292d2d6ada21d7b7))
+- **dashboard:** increase text input height ([642466b](https://github.com/wert2all/timeline-frontend/commit/642466b09ae7b1dd7d498d36c8d0b1f9e3944598))
+- **dashboard:** move edit event components to dashboard feature ([44e7a87](https://github.com/wert2all/timeline-frontend/commit/44e7a8748ac10c9eb680520108a7113167666b0a))
+- **dashboard:** refactor dashboard module and move to new path ([c136154](https://github.com/wert2all/timeline-frontend/commit/c136154397c3f13956121f80590c20a145bf3543))
+- **navigation:** add navigation builder service ([b3640a4](https://github.com/wert2all/timeline-frontend/commit/b3640a42dd1eb99e814e44dad64bafe56f240236))
+- **navigation:** refactor navigation logic to use builder pattern ([990a75b](https://github.com/wert2all/timeline-frontend/commit/990a75be3ad62cfc53d09660ac323ea1c6ca98d0))
+- **timeline:** refactor route configuration for timeline pages ([69eba89](https://github.com/wert2all/timeline-frontend/commit/69eba8956bf84984c2f6a552fdfbc5058f9fe67f))
+- **timeline:** remove accountId from addTimeline action ([90c1290](https://github.com/wert2all/timeline-frontend/commit/90c129045ec96da1c810fc27c5467891038a9761))
+- **timeline:** update add timeline mutation and effects ([413c933](https://github.com/wert2all/timeline-frontend/commit/413c93375fa8af77a90f64690af1700cbd5075f6))
+- **timeline:** update no events message and add link to addint event ([2b94fc3](https://github.com/wert2all/timeline-frontend/commit/2b94fc3da78e5719da873fb14a4b95ceb6e62fa0))
+- **ui:** implement centralized error handling ([96bda99](https://github.com/wert2all/timeline-frontend/commit/96bda99dafa47167adab86bb351116dfd69f658e))
+
+### Bug Fixes
+
+- change 404 error message ([14e42dc](https://github.com/wert2all/timeline-frontend/commit/14e42dc6639e6b741eece5908bcad454e37870b8))
+- disable link to adding event ([9442fd3](https://github.com/wert2all/timeline-frontend/commit/9442fd307f0813a6bfd0b6f70ad5425c228d702b))
+- fix link to scss ([9176213](https://github.com/wert2all/timeline-frontend/commit/917621355d7f16751cbc65fff5ebd6cfabb949f3))
+- fix redirects after login ([f39abe1](https://github.com/wert2all/timeline-frontend/commit/f39abe128fbf0b2451a4fe5fda3ce24218f1bdd7))
+- fix showing icon on authorize button ([0c13163](https://github.com/wert2all/timeline-frontend/commit/0c1316388c8d6be3295a53e6b6373a12267c256f))
+- fix static tests ([86a4b60](https://github.com/wert2all/timeline-frontend/commit/86a4b60373a7d4c4def83a60632e626f208100b3))
+- navigate to dashboard after close add event form ([9baf6a4](https://github.com/wert2all/timeline-frontend/commit/9baf6a4dd3374adc85da81a606aad0305bab94c9))
+- replace auth button to navigate to main page button on 404 page ([486b475](https://github.com/wert2all/timeline-frontend/commit/486b475c600eb9c4ce1d8bf73575d2cdec1467a2))
+- show error message if timeline wasnot found ([586046a](https://github.com/wert2all/timeline-frontend/commit/586046ac1ff55aff4c599bf430a702f739ed22ac))
+- **timeline:** update no events message ([0b99e34](https://github.com/wert2all/timeline-frontend/commit/0b99e34e2bf50adc4d070de9b962e17299b8e193))
+- update navigation for dashboard ([196ce43](https://github.com/wert2all/timeline-frontend/commit/196ce43a51b9ae0f7f45f7bad6e916df1258b8b7))
+- update styling for 404 page ([cac6270](https://github.com/wert2all/timeline-frontend/commit/cac62703f50f2065861777813c25160a1510744d))
+
 ## [0.0.45](https://github.com/wert2all/timeline-frontend/compare/v0.0.44...v0.0.45) (2025-04-18)
 
 ### Features
