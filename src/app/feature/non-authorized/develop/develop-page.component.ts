@@ -9,6 +9,7 @@ import { Store } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
+import { TopDashboardButtonComponent } from '../../dashboard/add-event-button/top-dashboard-button.component';
 import { MarkdownHelpComponent } from '../../static-content/share/markdown-help/markdown-help.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
 import { TableOfContentsActions } from '../../ui/table-of-contents/store/table-of-contents/table-of-contents.actions';
@@ -25,6 +26,7 @@ import { DevelopContentComponent } from './components/develop-content/develop-co
     MarkdownHelpComponent,
     SharedTimelineComponent,
     SharedAccountViewComponent,
+    TopDashboardButtonComponent,
   ],
   templateUrl: './develop-page.component.html',
 })
@@ -58,6 +60,11 @@ export class DevelopPageComponent implements OnInit {
         title: 'Account View',
         uuid: 'SharedAccountViewComponent',
         link: '/develop#AccountViewComponent',
+      },
+      {
+        title: 'Dashboard Top Button',
+        uuid: 'TopDashboardButtonComponent',
+        link: '/develop#TopDashboardButtonComponent',
       },
     ],
   });

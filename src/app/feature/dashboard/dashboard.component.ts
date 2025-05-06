@@ -12,8 +12,6 @@ import { LayoutComponent } from '../../shared/layout/layout.component';
 import { Iterable } from '../../app.types';
 import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-button.component';
 
-import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
@@ -31,14 +29,12 @@ import { dashboardOperationsFeature } from './store/operations/operations.reduce
 @Component({
   standalone: true,
   templateUrl: './dashboard.component.html',
-  viewProviders: [provideIcons({ phosphorTreeView })],
   imports: [
     LayoutComponent,
     EditEventComponent,
     TopDashboardButtonComponent,
     ModalConfirmComponent,
     SharedTimelineComponent,
-    NgIconComponent,
   ],
 })
 export class DashboardPageComponent {
@@ -53,9 +49,6 @@ export class DashboardPageComponent {
     return actionId && !isNaN(actionId) ? actionId : null;
   });
 
-  private readonly isEditingEvent = this.store.selectSignal(
-    dashboardOperationsFeature.isEditingEvent
-  );
   private readonly activeTimeline = this.store.selectSignal(
     dashboardOperationsFeature.selectCurrentTimeline
   );
@@ -72,7 +65,10 @@ export class DashboardPageComponent {
   protected readonly showTipForAddEvent = this.store.selectSignal(
     dashboardOperationsFeature.selectNewTimelineAdded
   );
-  protected readonly canAddNewEvent = computed(() => !this.isEditingEvent());
+
+  protected readonly isEditingEvent = this.store.selectSignal(
+    dashboardOperationsFeature.isEditingEvent
+  );
 
   protected readonly shouldDeleteEventId = signal<number>(0);
   private readonly shouldDeleteImageId = computed(() => {
@@ -81,14 +77,6 @@ export class DashboardPageComponent {
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEventId() > 0
   );
-
-  private listTimelines = this.store.selectSignal(
-    dashboardOperationsFeature.selectActiveAcccountTimelines
-  );
-
-  protected shouldAddTimeline = computed(() => {
-    return this.listTimelines().length === 0;
-  });
 
   constructor() {
     effect(() => {
@@ -190,5 +178,9 @@ export class DashboardPageComponent {
         destination: this.navigationBuilder.forDashboard().editEvent(eventId),
       })
     );
+  }
+
+  closeEditForm() {
+    this.store.dispatch(EditEventActions.stopEditingEvent());
   }
 }
