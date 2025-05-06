@@ -95,7 +95,7 @@ export class EditEventFormComponent {
     title: new FormControl('', { nonNullable: true }),
     content: new FormControl('', { nonNullable: true }),
     link: new FormControl(null, [Validators.pattern(URL_REGEXP)]),
-    isPrivate: new FormControl(false),
+    isPrivate: new FormControl(true),
     imageId: new FormControl<number | null>(null),
     tags: new FormControl<string[]>([]),
   });
