@@ -2,21 +2,21 @@
   @if (previewEvent(); as preview) {
     <ul
       class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact mt-4 mb-8">
-      <li class="timeline-item" [class.skeleton]="loading() === true">
-        <div class="timeline-middle" [class.opacity-20]="loading() === true">
+      <li class="timeline-item" [class.skeleton]="isLoading() === true">
+        <div class="timeline-middle" [class.opacity-20]="isLoading() === true">
           <app-timeline-event-icon [icon]="icon" [shouldAccentLine]="true" />
         </div>
 
         <div
           class="timeline-start bg-base-100 w-full rounded-xl p-2 text-end"
-          [class.opacity-20]="loading() === true">
+          [class.opacity-20]="isLoading() === true">
           <app-shared-timeline-event-content [event]="preview" />
         </div>
         <div class="timeline-end w-full lg:-mt-2">
           <app-edit-event-form
             [editEvent]="event"
             [viewHelper]="formViewHelper()"
-            [loading]="loading()"
+            [loading]="isLoading()"
             [isNew]="isNew()"
             (valuesChanged)="updatePreviewEvent($event)"
             (urlChanged)="dispatchUpdateUrlPreview($event)"
@@ -25,7 +25,7 @@
             (dismissAction)="closeEditForm()" />
         </div>
 
-        <hr class="bg-accent" [class.opacity-20]="loading() === true" />
+        <hr class="bg-accent" [class.opacity-20]="isLoading() === true" />
       </li>
     </ul>
   }

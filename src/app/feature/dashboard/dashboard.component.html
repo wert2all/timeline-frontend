@@ -15,7 +15,9 @@
         (dismissEdit)="closeEditForm()" />
 
       @if (activeTimelineId(); as timelineId) {
-        <app-edit-event />
+        <app-edit-event
+          [editedEvent]="editedEvent()"
+          [isLoading]="isEventLoading()" />
 
         <app-shared-timeline
           [timelineId]="timelineId"

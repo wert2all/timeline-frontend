@@ -3,6 +3,7 @@ import {
   Signal,
   computed,
   inject,
+  input,
   linkedSignal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -16,11 +17,10 @@ import {
   EventContent,
   EventContentIcon,
 } from '../../../shared/ui/event/content/content.types';
-import { eventsFeature } from '../../events/store/events.reducer';
 import { EventType } from '../../events/store/events.types';
 import { IconComponent } from '../../timeline/components/event/icon/icon.component';
 import { EditEventActions } from '../store/operations/actions/edit-event.actions';
-import { dashboardOperationsFeature } from '../store/operations/operations.reducers';
+import { EditableEvent } from '../store/operations/operations.types';
 import { PreviewActions } from '../store/preview/preview.actions';
 import { previewFeature } from '../store/preview/preview.reducers';
 import { EditEventFormComponent } from './edit-event-form/edit-event-form.component';
@@ -35,20 +35,16 @@ import { EditEventFormChanges } from './edit-event.types';
   styleUrls: ['./edit-event.component.scss'],
 })
 export class EditEventComponent {
+  editedEvent = input.required<EditableEvent | null>();
+  isLoading = input.required<boolean>();
+
   private readonly store = inject(Store);
   private readonly eventConvertor = inject(EventContentConvertor);
 
-  protected readonly editedEvent = this.store.selectSignal(
-    dashboardOperationsFeature.selectEditedEvent
-  );
   private readonly updatedEvent = linkedSignal({
     source: this.editedEvent,
     computation: event => event,
   });
-
-  protected readonly loading = this.store.selectSignal(
-    eventsFeature.selectLoading
-  );
 
   private readonly previewImage = computed(() => {
     const updatedEvent = this.updatedEvent();

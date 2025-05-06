@@ -15,6 +15,7 @@ import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-bu
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
+import { eventsFeature } from '../events/store/events.reducer';
 import { ExistTimelineEvent } from '../events/store/events.types';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
@@ -61,6 +62,9 @@ export class DashboardPageComponent {
   );
 
   protected readonly isLoading = computed(() => !this.activeAccountId());
+  protected readonly isEventLoading = this.store.selectSignal(
+    eventsFeature.selectLoading
+  );
 
   protected readonly showTipForAddEvent = this.store.selectSignal(
     dashboardOperationsFeature.selectNewTimelineAdded
@@ -76,6 +80,10 @@ export class DashboardPageComponent {
   });
   protected readonly showConfirmWindow = computed(
     () => this.shouldDeleteEventId() > 0
+  );
+
+  protected editedEvent = this.store.selectSignal(
+    dashboardOperationsFeature.selectEditedEvent
   );
 
   constructor() {
