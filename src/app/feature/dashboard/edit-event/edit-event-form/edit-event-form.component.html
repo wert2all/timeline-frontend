@@ -85,5 +85,6 @@
     [acceptButtonTitle]="submitButton().title"
     dismissButtonTitle="close"
     [acceptButtonIcon]="submitButton().icon"
+    [isLoading]="loading()"
     [isDisabled]="!editForm.valid || loading()" />
 </form>
