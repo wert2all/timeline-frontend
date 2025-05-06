@@ -14,7 +14,7 @@
         </button>
       } @else {
         @if (activeTimelineId(); as timelineId) {
-          <app-add-event-button
+          <app-top-dashboard-button
             (addEvent)="navigateToAddEvent()"
             [disabled]="canAddNewEvent() !== true"
             [withTooltip]="canAddNewEvent() === true"

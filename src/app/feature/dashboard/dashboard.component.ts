@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
 import { Iterable } from '../../app.types';
-import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
+import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-button.component';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
@@ -35,7 +35,7 @@ import { dashboardOperationsFeature } from './store/operations/operations.reduce
   imports: [
     LayoutComponent,
     EditEventComponent,
-    AddEventButtonComponent,
+    TopDashboardButtonComponent,
     ModalConfirmComponent,
     SharedTimelineComponent,
     NgIconComponent,

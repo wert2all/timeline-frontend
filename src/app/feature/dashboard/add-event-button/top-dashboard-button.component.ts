@@ -12,15 +12,15 @@ import {
 } from '@ng-icons/phosphor-icons/regular';
 
 @Component({
-  selector: 'app-add-event-button',
+  selector: 'app-top-dashboard-button',
   standalone: true,
   imports: [CommonModule, NgIconComponent],
-  templateUrl: './add-event-button.component.html',
-  styleUrls: ['./add-event-button.component.scss'],
+  templateUrl: './top-dashboard-button.component.html',
+  styleUrls: ['./top-dashboard-button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   viewProviders: [provideIcons({ phosphorPlus, phosphorPencilSimpleLine })],
 })
-export class AddEventButtonComponent {
+export class TopDashboardButtonComponent {
   disabled = input<boolean>(false);
   withTooltip = input<boolean>(false);
   showTooltip = input<boolean>(false);
