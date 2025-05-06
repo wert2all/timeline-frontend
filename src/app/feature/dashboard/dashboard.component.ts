@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
 import { Iterable } from '../../app.types';
-import { AddEventButtonComponent } from '../timeline/components/add-event-button/add-event-button.component';
+import { AddEventButtonComponent } from './add-event-button/add-event-button.component';
 
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorTreeView } from '@ng-icons/phosphor-icons/regular';
