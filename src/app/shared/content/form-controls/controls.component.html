@@ -10,7 +10,10 @@
     </app-shared-content-loading-button>
   </div>
   <div class="flex-none">
-    <button class="btn" (click)="dismissAction.emit()">
+    <button
+      class="btn"
+      [attr.disabled]="isLoading() ? true : null"
+      (click)="dismissAction.emit()">
       {{ dismissButtonTitle() }}
     </button>
   </div>
