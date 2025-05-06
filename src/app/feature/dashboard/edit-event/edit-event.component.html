@@ -12,7 +12,7 @@
           [class.opacity-20]="loading() === true">
           <app-shared-timeline-event-content [event]="preview" />
         </div>
-        <div class="timeline-end w-full">
+        <div class="timeline-end w-full lg:-mt-2">
           <app-edit-event-form
             [editEvent]="event"
             [viewHelper]="formViewHelper()"
@@ -24,13 +24,6 @@
             (saveAction)="saveEvent()"
             (dismissAction)="closeEditForm()" />
         </div>
-
-        <button
-          class="close btn btn-circle btn-error btn-sm absolute -top-4 -right-4 hidden lg:flex"
-          [attr.disabled]="loading() === true ? true : null"
-          (click)="closeEditForm()">
-          ✕
-        </button>
 
         <hr class="bg-accent" [class.opacity-20]="loading() === true" />
       </li>
