@@ -1,7 +1,7 @@
 @if (editedEvent(); as event) {
   @if (previewEvent(); as preview) {
     <ul
-      class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact mb-8">
+      class="timeline timeline-vertical timeline-snap-icon max-md:timeline-compact mt-4 mb-8">
       <li class="timeline-item" [class.skeleton]="loading() === true">
         <div class="timeline-middle" [class.opacity-20]="loading() === true">
           <app-timeline-event-icon [icon]="icon" [shouldAccentLine]="true" />
