@@ -9,7 +9,7 @@ import {
 import { Store } from '@ngrx/store';
 import { LayoutComponent } from '../../shared/layout/layout.component';
 
-import { Iterable } from '../../app.types';
+import { Iterable, Undefined } from '../../app.types';
 import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-button.component';
 
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
@@ -96,10 +96,7 @@ export class DashboardPageComponent {
           this.showAddEventForm();
           break;
         case 'edit-event':
-          const actionId = this.actionId();
-          if (actionId) {
-            this.editEvent(actionId);
-          }
+          this.editEvent(this.actionId());
           break;
       }
     });
@@ -150,8 +147,10 @@ export class DashboardPageComponent {
     this.shouldDeleteEventId.set(0);
   }
 
-  editEvent(eventId: number) {
-    this.store.dispatch(EditEventActions.dispatchEditEvent({ eventId }));
+  editEvent(eventId: number | Undefined) {
+    if (eventId) {
+      this.store.dispatch(EditEventActions.dispatchEditEvent({ eventId }));
+    }
   }
 
   showAddEventForm() {
