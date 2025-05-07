@@ -101,7 +101,7 @@ export const dashboardOperationsFeature = createFeature({
     ),
 
     on(
-      EditEventActions.dispatchEditEvent,
+      EditEventActions.successLoadEditEvent,
       (state, { event }): DashboardOperationsState => ({
         ...state,
         editedEvent: event,

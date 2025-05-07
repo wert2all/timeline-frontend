@@ -11,6 +11,7 @@ import {
 import { deleteEvent, failedDeleteEvent } from './effects/delete-event.effects';
 import {
   apiException,
+  loadEditEventData,
   pushExistEventToApi,
   pushNewEventToApi,
   redirectOnCloseEditEvent,
@@ -31,7 +32,9 @@ export const dashboardOperationsEffects = {
   deleteEvent: createEffect(deleteEvent, StoreDispatchEffect),
   failedDeleteEvent: createEffect(failedDeleteEvent, StoreUnDispatchEffect),
 
+  loadEditableEvent: createEffect(loadEditEventData, StoreDispatchEffect),
   saveEditableEvent: createEffect(saveEditableEvent, StoreDispatchEffect),
+
   pushNewEventToApi: createEffect(pushNewEventToApi, StoreDispatchEffect),
   pushExistEventToApi: createEffect(pushExistEventToApi, StoreDispatchEffect),
   redirectOnCloseEditEvent: createEffect(

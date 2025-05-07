@@ -148,6 +148,24 @@ export const redirectOnCloseEditEvent = (
     )
   );
 
+export const loadEditEventData = (
+  actions$ = inject(Actions),
+  api = inject(ApiClient)
+) =>
+  actions$.pipe(
+    ofType(EditEventActions.dispatchEditEvent),
+    exhaustMap(({ eventId }) =>
+      api.getEvent({ eventId }).pipe(
+        map(result =>
+          apiAssertNotNull(extractApiData(result)?.event, 'Empty event')
+        ),
+        map(event => fromApiEventToState(event))
+      )
+    ),
+    map(event => EditEventActions.successLoadEditEvent({ event })),
+    catchError(error => of(EditEventActions.apiException({ exception: error })))
+  );
+
 export const apiException = (
   action$ = inject(Actions),
   errorHandler = inject(ErrorHandler)

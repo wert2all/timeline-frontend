@@ -24,7 +24,7 @@
           [isEditable]="true"
           [isAuthorized]="true"
           (delete)="deleteEvent($event)"
-          (edit)="editEvent($event)" />
+          (edit)="navigateToEditEvent($event.id)" />
 
         <app-modal-confirm
           [show]="showConfirmWindow()"

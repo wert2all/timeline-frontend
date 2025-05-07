@@ -16,7 +16,6 @@ import { NavigationBuilder } from '../../shared/services/navigation/navigation.b
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
 import { eventsFeature } from '../events/store/events.reducer';
-import { ExistTimelineEvent } from '../events/store/events.types';
 import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.component';
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
@@ -96,6 +95,12 @@ export class DashboardPageComponent {
         case 'add-event':
           this.showAddEventForm();
           break;
+        case 'edit-event':
+          const actionId = this.actionId();
+          if (actionId) {
+            this.editEvent(actionId);
+          }
+          break;
       }
     });
 
@@ -145,8 +150,8 @@ export class DashboardPageComponent {
     this.shouldDeleteEventId.set(0);
   }
 
-  editEvent(event: ExistTimelineEvent) {
-    this.store.dispatch(EditEventActions.dispatchEditEvent({ event: event }));
+  editEvent(eventId: number) {
+    this.store.dispatch(EditEventActions.dispatchEditEvent({ eventId }));
   }
 
   showAddEventForm() {
