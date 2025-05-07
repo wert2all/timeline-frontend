@@ -149,7 +149,12 @@ export class DashboardPageComponent {
 
   editEvent(eventId: number | Undefined) {
     if (eventId) {
-      this.store.dispatch(EditEventActions.dispatchEditEvent({ eventId }));
+      this.store.dispatch(
+        EditEventActions.dispatchEditEvent({
+          eventId,
+          accountId: this.activeAccountId(),
+        })
+      );
     }
   }
 

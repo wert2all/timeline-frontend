@@ -154,8 +154,8 @@ export const loadEditEventData = (
 ) =>
   actions$.pipe(
     ofType(EditEventActions.dispatchEditEvent),
-    exhaustMap(({ eventId }) =>
-      api.getEvent({ eventId }).pipe(
+    exhaustMap(({ eventId, accountId }) =>
+      api.getEvent({ eventId, accountId }).pipe(
         map(result =>
           apiAssertNotNull(extractApiData(result)?.event, 'Empty event')
         ),

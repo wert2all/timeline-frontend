@@ -3,6 +3,7 @@ import {
   ExistTimelineEventInput,
   TimelineEventInput,
 } from '../../../../../api/internal/graphql';
+import { Undefined } from '../../../../../app.types';
 import {
   ExistTimelineEvent,
   TimelineEvent,
@@ -11,7 +12,10 @@ import {
 export const EditEventActions = createActionGroup({
   source: 'Event Operations',
   events: {
-    'Dispatch edit event': props<{ eventId: number }>(),
+    'Dispatch edit event': props<{
+      eventId: number;
+      accountId: number | Undefined;
+    }>(),
     'Success load edit event': props<{ event: TimelineEvent }>(),
     'Dispatch add new event': props<{ timelineId: number }>(),
     'Stop editing event': emptyProps(),
