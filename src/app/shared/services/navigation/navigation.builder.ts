@@ -1,16 +1,33 @@
 import { Injectable } from '@angular/core';
+import { Undefined } from '../../../app.types';
 import { Destination } from './navigation-builder.types';
 
 class Url implements Destination {
-  constructor(private readonly url: string) {}
+  constructor(
+    readonly url: string,
+    readonly anchor: string | Undefined = undefined
+  ) { }
 
-  append(url: string): Destination {
-    return new Url([this.url, url].join('/'));
+  getUrl(): string {
+    return this.url;
   }
-  toString() {
+
+  getAnchor(): string | Undefined {
+    return this.anchor;
+  }
+
+  append(url: string, anchor: string | Undefined): Destination {
+    return new Url([this.url, url].join('/'), anchor);
+  }
+
+  getFullUrlString(): string {
+    if (this.anchor) {
+      return `${this.url}#${this.anchor}`;
+    }
     return this.url;
   }
 }
+
 class User {
   home(): Destination {
     return new Url('');
@@ -21,7 +38,7 @@ class User {
 }
 
 class Timeline {
-  constructor(private readonly timelineId: number) {}
+  constructor(private readonly timelineId: number) { }
 
   show(): Destination {
     return new Url('timeline/' + this.timelineId);
@@ -35,13 +52,15 @@ class Dashboard {
     return this.indexUrl;
   }
   addTimeline(): Destination {
-    return this.indexUrl.append('add-timeline');
+    return this.indexUrl.append('add-timeline', undefined);
   }
   addEvent(): Destination {
-    return this.indexUrl.append('add-event');
+    return this.indexUrl.append('add-event', undefined);
   }
   editEvent(eventId: number): Destination {
-    return this.indexUrl.append('edit-event').append(eventId.toString());
+    return this.indexUrl
+      .append('edit-event', undefined)
+      .append(eventId.toString(), 'text');
   }
 }
 

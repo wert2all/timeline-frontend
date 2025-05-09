@@ -83,7 +83,12 @@ const navigate = (actions$ = inject(Actions), router = inject(Router)) =>
   actions$.pipe(
     ofType(SharedActions.navigate),
     tap(({ destination }) => {
-      router.navigate([destination.toString()]);
+      const anchor = destination.getAnchor();
+      if (anchor) {
+        router.navigate([destination.getUrl()], { fragment: anchor });
+      } else {
+        router.navigate([destination.getUrl()]);
+      }
     })
   );
 

@@ -27,12 +27,12 @@ export class IndexPageComponent {
   );
 
   protected loginUrl = computed((): string =>
-    this.navigationBuilder.forUser().login().toString()
+    this.navigationBuilder.forUser().login().getFullUrlString()
   );
   protected dashboardUrl = computed(() =>
-    this.navigationBuilder.forDashboard().index().toString()
+    this.navigationBuilder.forDashboard().index().getFullUrlString()
   );
   protected timelineUrl = computed(() => {
-    return this.navigationBuilder.forTimeline(1).show().toString();
+    return this.navigationBuilder.forTimeline(1).show().getFullUrlString();
   });
 }
