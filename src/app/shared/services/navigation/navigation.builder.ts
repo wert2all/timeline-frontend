@@ -6,7 +6,7 @@ class Url implements Destination {
   constructor(
     readonly url: string,
     readonly anchor: string | Undefined = undefined
-  ) { }
+  ) {}
 
   getUrl(): string {
     return this.url;
@@ -38,7 +38,7 @@ class User {
 }
 
 class Timeline {
-  constructor(private readonly timelineId: number) { }
+  constructor(private readonly timelineId: number) {}
 
   show(): Destination {
     return new Url('timeline/' + this.timelineId);
@@ -60,7 +60,7 @@ class Dashboard {
   editEvent(eventId: number): Destination {
     return this.indexUrl
       .append('edit-event', undefined)
-      .append(eventId.toString(), 'text');
+      .append(eventId.toString(), 'top');
   }
 }
 
