@@ -24,9 +24,9 @@ export class LoginRedirectPageComponent {
 
   private readonly isAuthenticated = signal(this.authService.hasValidToken());
   private readonly apiAuth = rxResource({
-    request: this.isAuthenticated,
-    loader: ({ request }) => {
-      if (request) {
+    params: this.isAuthenticated,
+    stream: ({ params }) => {
+      if (params) {
         return this.accountsProvider.getAccounts();
       }
       throw new Error('Not authenticated');

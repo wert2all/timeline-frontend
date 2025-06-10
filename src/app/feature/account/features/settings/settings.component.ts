@@ -66,10 +66,10 @@ export class SettingsComponent {
   );
 
   private readonly accountResource = rxResource({
-    request: this.activeAccountId,
-    loader: ({ request }) =>
+    params: this.activeAccountId,
+    stream: ({ params }) =>
       this.accountsService.getAccounts().pipe(
-        map(accounts => accounts.find(account => account.id == request)),
+        map(accounts => accounts.find(account => account.id == params)),
         tap(account => {
           if (account?.avatar.id) {
             this.store.dispatch(
