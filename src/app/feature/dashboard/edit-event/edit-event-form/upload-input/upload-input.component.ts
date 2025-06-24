@@ -20,11 +20,33 @@ export class EditEventFormUploadInputComponent {
       : null;
   });
 
+  isDraggedOver = signal(false);
+
   private readonly selectedFileUrl = signal<string | null>(null);
 
   handleFileSelect(event: Event) {
     const input = event.target as HTMLInputElement;
     this.selectFile.emit(input.files![0]);
     this.selectedFileUrl.set(URL.createObjectURL(input.files![0]));
+  }
+
+  handleDragOver(event: DragEvent) {
+    event.preventDefault();
+    this.isDraggedOver.set(true);
+  }
+
+  handleDragLeave(event: DragEvent) {
+    event.preventDefault();
+    this.isDraggedOver.set(false);
+  }
+
+  handleDrop(event: DragEvent) {
+    event.preventDefault();
+    this.isDraggedOver.set(false);
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.selectFile.emit(files[0]);
+      this.selectedFileUrl.set(URL.createObjectURL(files[0]));
+    }
   }
 }
