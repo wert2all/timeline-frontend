@@ -7,11 +7,8 @@ import {
   signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LayoutComponent } from '../../shared/layout/layout.component';
-
 import { Iterable, Undefined } from '../../app.types';
-import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-button.component';
-
+import { LayoutComponent } from '../../shared/layout/layout.component';
 import { NavigationBuilder } from '../../shared/services/navigation/navigation.builder';
 import { SharedActions } from '../../shared/store/shared/shared.actions';
 import { sharedFeature } from '../../shared/store/shared/shared.reducers';
@@ -20,6 +17,7 @@ import { SharedTimelineComponent } from '../timeline/share/timeline/timeline.com
 import { LoadTimelinesActions } from '../timeline/store/actions/load-timelines.actions';
 import { ModalWindowActions } from '../ui/layout/store/modal-window/modal-window.actions';
 import { ModalWindowType } from '../ui/layout/store/modal-window/modal-window.types';
+import { TopDashboardButtonComponent } from './add-event-button/top-dashboard-button.component';
 import { ModalConfirmComponent } from './confirm/modal-confirm.component';
 import { EditEventComponent } from './edit-event/edit-event.component';
 import { DeleteEventActions } from './store/operations/actions/delete-event.actions';

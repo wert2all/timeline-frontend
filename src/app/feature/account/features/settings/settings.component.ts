@@ -21,7 +21,7 @@ import {
   phosphorPencilSimpleLine,
   phosphorUserPlus,
 } from '@ng-icons/phosphor-icons/regular';
-import { Store, createSelector } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import { map, tap } from 'rxjs';
 import { Undefined } from '../../../../app.types';
 import { FormControlsComponent } from '../../../../shared/content/form-controls/controls.component';

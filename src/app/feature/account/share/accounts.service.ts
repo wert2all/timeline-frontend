@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { ApiClient } from '../../../api/internal/graphql';
 import { apiAssertNotNull, extractApiData } from '../../../libs/api.functions';
 import { Account } from '../account.types';

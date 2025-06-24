@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { Store, createSelector } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import { Undefined } from '../../../../app.types';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';

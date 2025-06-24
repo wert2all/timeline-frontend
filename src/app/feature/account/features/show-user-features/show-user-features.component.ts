@@ -17,6 +17,7 @@ import { sharedFeature } from '../../../../shared/store/shared/shared.reducers';
 import { AccountActions } from '../../store/account.actions';
 import { FeatureStageComponent } from '../feature-stage/feature-stage.component';
 import { UserFeature } from './show-user-features.types';
+
 type ViewFeature = UserFeature & { key: FeatureFlagName };
 @Component({
   selector: 'app-show-user-features',

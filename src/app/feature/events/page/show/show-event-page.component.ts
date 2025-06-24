@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, input } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { phosphorInfo } from '@ng-icons/phosphor-icons/regular';
-import { Store, createSelector } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../../shared/content/loader/loader.component';
 import { TitleComponent } from '../../../../shared/content/title/title.component';
 import { SharedTwoColumnsComponent } from '../../../../shared/content/two-columns/two-columns.component';

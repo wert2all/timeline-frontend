@@ -1,5 +1,5 @@
-import { Injectable, inject } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable } from 'rxjs';
 import { previewlyApiClient } from '../../api/external/previewly/graphql';
 import { DataWrapper, Status, Unique } from '../../app.types';
 import { apiAssertNotNull, extractApiData } from '../../libs/api.functions';

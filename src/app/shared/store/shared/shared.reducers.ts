@@ -1,12 +1,11 @@
 import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
-import { CookieCategory, SharedState } from './shared.types';
-
 import { toFeaturesSettings } from '../../../feature/account/account.functions';
 import { accountFeature } from '../../../feature/account/store/account.reducer';
 import { timelineFeature } from '../../../feature/timeline/store/timeline.reducers';
 import { AccountFeaturesSettings } from '../../services/features.service';
 import { imagesFeature } from '../images/images.reducer';
 import { SharedActions } from './shared.actions';
+import { CookieCategory, SharedState } from './shared.types';
 
 const initialState: SharedState = { cookie: [] };
 

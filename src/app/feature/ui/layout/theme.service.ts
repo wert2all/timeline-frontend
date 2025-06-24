@@ -1,4 +1,4 @@
-import { Injectable, computed, effect, inject, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { SharedLocalStorageService } from '../../../shared/services/local-storage.service';
 
 const THEME_STORAGE_KEY = 'theme';

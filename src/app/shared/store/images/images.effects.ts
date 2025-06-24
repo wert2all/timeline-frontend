@@ -5,12 +5,11 @@ import { Store } from '@ngrx/store';
 import { catchError, exhaustMap, filter, map, of } from 'rxjs';
 import { previewlyApiClient } from '../../../api/external/previewly/graphql';
 import { Status, StoreDispatchEffect } from '../../../app.types';
+import { EditEventActions } from '../../../feature/dashboard/store/operations/actions/edit-event.actions';
 import {
   ImagesTaskExecutorFactory,
   TaskResultImages,
 } from '../../../feature/task/executors/images.factory';
-
-import { EditEventActions } from '../../../feature/dashboard/store/operations/actions/edit-event.actions';
 import { TaskActions } from '../../task/task.actions';
 import { TaskType } from '../../task/task.types';
 import { SharedActions } from '../shared/shared.actions';

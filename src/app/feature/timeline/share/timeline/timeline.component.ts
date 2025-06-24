@@ -12,7 +12,7 @@ import {
   phosphorDotsThree,
   phosphorInfo,
 } from '@ng-icons/phosphor-icons/regular';
-import { Store, createSelector } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import {
   Iterable,
   Status,
