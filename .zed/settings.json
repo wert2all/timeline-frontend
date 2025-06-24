@@ -4,7 +4,6 @@
   "auto_install_extension": {
     "html": true,
     "dockerfile": true,
-    "scss": true,
-    "biome": true
+    "scss": true
   }
 }
