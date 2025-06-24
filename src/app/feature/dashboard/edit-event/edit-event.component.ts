@@ -1,10 +1,10 @@
 import {
   Component,
-  Signal,
   computed,
   inject,
   input,
   linkedSignal,
+  Signal,
 } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { DateTime } from 'luxon';

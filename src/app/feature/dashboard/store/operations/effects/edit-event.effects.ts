@@ -4,24 +4,23 @@ import { catchError, exhaustMap, map, of, tap } from 'rxjs';
 import {
   ApiClient,
   TimelineEvent as GQLTimelineEvent,
+  TimelineType as GQLTimelineType,
   TimelineEventInput,
 } from '../../../../../api/internal/graphql';
 import {
   apiAssertNotNull,
   extractApiData,
 } from '../../../../../libs/api.functions';
-import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
-import { EditEventActions } from '../actions/edit-event.actions';
-
-import { TimelineType as GQLTimelineType } from '../../../../../api/internal/graphql';
 import { ErrorHandler } from '../../../../../shared/handlers/error.handler';
 import { ErrorMessage } from '../../../../../shared/handlers/error.types';
 import { NavigationBuilder } from '../../../../../shared/services/navigation/navigation.builder';
+import { SharedActions } from '../../../../../shared/store/shared/shared.actions';
 import {
   EventType,
   ExistTimelineEvent,
   TimelineEvent,
 } from '../../../../events/store/events.types';
+import { EditEventActions } from '../actions/edit-event.actions';
 
 const fromApiTypeToState = (type: GQLTimelineType): EventType => {
   switch (type) {

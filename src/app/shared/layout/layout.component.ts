@@ -1,9 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { NotificationsContainerComponent } from '../../feature/ui/layout/components/notifications/notifications-container.component';
-
 import { Store } from '@ngrx/store';
 import { CookieValue } from 'vanilla-cookieconsent';
 import { CookieConsentComponent } from '../../feature/ui/layout/components/cookie-consent/cookie-consent.component';
+import { NotificationsContainerComponent } from '../../feature/ui/layout/components/notifications/notifications-container.component';
 import { FooterComponent } from '../../feature/ui/layout/footer/footer.component';
 import { HeaderComponent } from '../../feature/ui/layout/header/header.component';
 import { ModalFactoryComponent } from '../../feature/ui/layout/modal-factory/modal-factory.component';

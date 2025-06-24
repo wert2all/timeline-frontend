@@ -1,4 +1,4 @@
-import { Signal, WritableSignal, effect, signal } from '@angular/core';
+import { effect, Signal, signal, WritableSignal } from '@angular/core';
 
 export const mergeSignals = <T>(source: Signal<T>): WritableSignal<T> => {
   const sourceSignal = signal(source());

@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import {
   Actions,
-  ROOT_EFFECTS_INIT,
   createEffect,
   ofType,
+  ROOT_EFFECTS_INIT,
 } from '@ngrx/effects';
 import { concatLatestFrom } from '@ngrx/operators';
 import { Store } from '@ngrx/store';

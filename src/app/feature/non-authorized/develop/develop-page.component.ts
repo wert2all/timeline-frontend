@@ -1,17 +1,15 @@
-import { Component, OnInit, computed, inject, signal } from '@angular/core';
-import { TitleComponent } from '../../../shared/content/title/title.component';
-import { LayoutComponent } from '../../../shared/layout/layout.component';
-
-import { TableOfContentsContainerComponent } from '../../ui/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
-import { TableOfContents } from '../../ui/table-of-contents/components/table-of-contents/table-of-contents.types';
-
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { SharedLoaderComponent } from '../../../shared/content/loader/loader.component';
+import { TitleComponent } from '../../../shared/content/title/title.component';
+import { LayoutComponent } from '../../../shared/layout/layout.component';
 import { AccountView } from '../../account/account.types';
 import { SharedAccountViewComponent } from '../../account/share/view/account-view.component';
 import { TopDashboardButtonComponent } from '../../dashboard/add-event-button/top-dashboard-button.component';
 import { MarkdownHelpComponent } from '../../static-content/share/markdown-help/markdown-help.component';
 import { SharedTimelineComponent } from '../../timeline/share/timeline/timeline.component';
+import { TableOfContentsContainerComponent } from '../../ui/table-of-contents/components/table-of-contents-container/table-of-contents-container.component';
+import { TableOfContents } from '../../ui/table-of-contents/components/table-of-contents/table-of-contents.types';
 import { TableOfContentsActions } from '../../ui/table-of-contents/store/table-of-contents/table-of-contents.actions';
 import { DevelopContentComponent } from './components/develop-content/develop-content.component';
 

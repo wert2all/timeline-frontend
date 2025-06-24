@@ -1,4 +1,4 @@
-import { Store, createSelector } from '@ngrx/store';
+import { createSelector, Store } from '@ngrx/store';
 import { sharedFeature } from './shared.reducers';
 
 export const selectLoadedImage = (imageId: number, store: Store) =>
